@@ -19,6 +19,20 @@ const config: Config = {
       purple_lighter_additional: "#B8A4AA",
       purple_light_additional: "#9D92AB",
     },
+    fontSize: {
+      display_lg: "14.813rem",
+      head_1_lg: "4.5rem",
+      head_2_lg: "2.125rem",
+      body_ds: "1.375rem",
+      caption_ds: "1rem",
+      display_sm: "4.5rem",
+      head_menu_sm: "2.875rem",
+      head_1_sm: "2.125rem",
+      head_2_sm: "1.625rem",
+      head_3_sm: "1.188rem",
+      body_sm: "1rem",
+    },
+
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
