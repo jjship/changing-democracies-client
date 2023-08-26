@@ -7,7 +7,7 @@ import { TeamEntry, projectParagraphSm } from "./content";
 
 export default function Page() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-between">
+    <main className="min-h-screen max-w-[23.125rem] m-auto">
       <Section
         id="project"
         styling="text-black_bg bg-puprple_lightest_bg min-w-full"
@@ -26,6 +26,9 @@ export default function Page() {
           </div>
         </div>
       </Section>
+      <Section id="team" styling="bg-black_bg text-puprple_lightest_bg">
+        <Title text="Team" />
+      </Section>
     </main>
   );
 }
@@ -37,7 +40,7 @@ function Section(props: {
 }) {
   return (
     <section id={props.id}>
-      <div className={`${props.styling} max-w-[24em]`}>{props.children}</div>
+      <div className={`${props.styling}`}>{props.children}</div>
     </section>
   );
 }
@@ -50,5 +53,13 @@ function Paragraph(props: { text: string | JSX.Element }) {
   );
 }
 
-  )
+function Title(props: { text: string }) {
+  return (
+    <div className="w-full pl-[2.5em]  pt-[1.875em]">
+      <h1 className="text-[2.25rem] leading-9 tracking-[-0.064rem] py-[0.3em]">
+        {props.text}
+      </h1>
+    </div>
+  );
+}
 }
