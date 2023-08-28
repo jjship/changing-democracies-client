@@ -4,8 +4,9 @@ export {
   projectParagraphSm,
   teamParagraphSm,
   teamList,
-  upcomingEvents,
+  futureEvents,
   pastEvents,
+  allEvents,
 };
 
 const projectFirstParagraphBg =
@@ -138,7 +139,7 @@ const teamList: TeamEntry[] = [
   },
 ];
 
-type FutureEventEntry = {
+export type FutureEventEntry = {
   isPast: boolean;
   date: string;
   title: string;
@@ -147,13 +148,15 @@ type FutureEventEntry = {
   link: string;
 };
 
-type PastEventEntry = FutureEventEntry & {
+export type PastEventEntry = FutureEventEntry & {
   isPast: true;
   participants: number;
   wp3: string;
 };
 
-const upcomingEvents: FutureEventEntry[] = [
+export type EventEntry = FutureEventEntry | PastEventEntry;
+
+const allEvents: EventEntry[] = [
   {
     isPast: false,
     date: "10.12.23",
@@ -177,38 +180,43 @@ const upcomingEvents: FutureEventEntry[] = [
     kind: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
+  },
+  {
+    isPast: true,
+    date: "20 - 22.04.23",
+    title: "Are we lost?",
+    kind: "Workshop | online",
+    location: "Sejny, Poland",
+    link: "",
+    participants: 50,
+    wp3: "WP3",
+  },
+  {
+    isPast: true,
+    date: "20 - 22.04.23",
+    title: "Are we lost?",
+    kind: "Workshop | online",
+    location: "Sejny, Poland",
+    link: "",
+    participants: 50,
+    wp3: "WP3",
+  },
+  {
+    isPast: true,
+    date: "20 - 22.04.23",
+    title: "Are we lost?",
+    kind: "Workshop | online",
+    location: "Sejny, Poland",
+    link: "",
+    participants: 50,
+    wp3: "WP3",
   },
 ];
 
-const pastEvents: PastEventEntry[] = [
-  {
-    isPast: true,
-    date: "20 - 22.04.23",
-    title: "Are we lost?",
-    kind: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    wp3: "WP3",
-  },
-  {
-    isPast: true,
-    date: "20 - 22.04.23",
-    title: "Are we lost?",
-    kind: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    wp3: "WP3",
-  },
-  {
-    isPast: true,
-    date: "20 - 22.04.23",
-    title: "Are we lost?",
-    kind: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    wp3: "WP3",
-  },
-];
+const futureEvents: FutureEventEntry[] = allEvents.filter(
+  (event) => !event.isPast
+);
+
+const pastEvents: PastEventEntry[] = allEvents.filter(
+  (event): event is PastEventEntry => event.isPast
+);

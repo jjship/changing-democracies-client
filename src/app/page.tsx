@@ -8,17 +8,22 @@ import {
   projectParagraphSm,
   teamParagraphSm,
   teamList,
+  EventEntry,
+  FutureEventEntry,
+  PastEventEntry,
+  futureEvents,
+  pastEvents,
 } from "./content";
 
 export default function Page() {
   return (
-    <main className="min-h-screen max-w-[23.125rem] m-auto">
+    <main className="m-auto min-h-screen max-w-[23.125rem]">
       <Section
         id="project"
         styling="text-black_bg bg-puprple_lightest_bg min-w-full"
       >
         <h1 className="hidden">Project</h1>
-        <div className="flex flex-col items-center gap-[2.5em] pt-[0.375em] pb-[1.125em]">
+        <div className="flex flex-col items-center gap-[2.5em] pb-[1.125em] pt-[0.375em]">
           <div className="mx-[4.44em]  pb-[2.5em]">
             <Image src={earshapedArrows} alt="image with earshaped arrows" />
           </div>
@@ -33,7 +38,7 @@ export default function Page() {
       </Section>
       <Section
         id="team"
-        styling="bg-black_bg text-puprple_lightest_bg px-[1.25em] pb-[2.5em]"
+        styling="bg-black_bg text-puprple_lightest_bg px-5 pb-[2.5em]"
       >
         <Title text="Team" />
         <div className="flex flex-col items-center gap-[1.125em]">
@@ -41,9 +46,69 @@ export default function Page() {
           <TeamsList teams={teamList} />
         </div>
       </Section>
+      <Section id="events" styling="bg-puprple_lightest_bg text-black_bg pl-5">
+        <Title text="Events" />
+        <EventsList events={futureEvents} isFuture={true} />
+        <EventsList events={pastEvents} isFuture={false} />
+      </Section>
       <section id="events">events section</section>
       <section id="contact">contact section</section>
     </main>
+  );
+}
+
+function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
+  const { events, isFuture } = props;
+
+  const bgColor = isFuture ? "text-yellow_secondary" : "text-black_bg";
+
+  return (
+    <div className="pb-5">
+      <div className="mb-5">
+        <p className={`${bgColor} text-head_3_sm font-semibold leading-5`}>
+          {isFuture ? "upcoming" : "past"}
+        </p>
+      </div>
+      <div className="event-list flex gap-[.938em] overflow-x-auto">
+        {events.map((event) => {
+          return <EventEntryComponent event={event} isFuture={isFuture} />;
+        })}
+      </div>
+    </div>
+  );
+}
+
+function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
+  const { event, isFuture } = props;
+
+  const bgColor = isFuture
+    ? "bg-yellow_secondary"
+    : "bg-purple_lighter_additional";
+
+  return (
+    <div className={`relative min-w-[9rem]`}>
+      <div
+        className={`${bgColor} absolute left-0 top-0 z-10 h-[4.8rem] w-[5.5rem]`}
+      ></div>
+      <div className="relative z-20 ml-[.8rem] mt-[.3rem]">
+        <EventInfo event={event} />
+      </div>
+    </div>
+  );
+}
+
+function EventInfo(props: { event: EventEntry }) {
+  const { event } = props;
+  return (
+    <div className="leading-5">
+      <p className="h-[4.7rem] text-[1.625rem] font-light leading-[1.625rem]">
+        {event.title}
+      </p>
+      {Object.keys(event).map((key) => {
+        const style = key === "date" ? "font-bold" : "";
+        return <p className={style}>{event[key as keyof typeof event]}</p>;
+      })}
+    </div>
   );
 }
 
@@ -65,8 +130,8 @@ function Paragraph(props: { text: string | JSX.Element }) {
 
 function Title(props: { text: string }) {
   return (
-    <div className="w-full pl-[1.5em]  pt-[1.875em] pb-[1.25em]">
-      <h1 className="text-[2.25rem] font-semibold leading-9 tracking-[-0.064rem] py-[0.3em]">
+    <div className="w-full pb-5  pl-[1.5em] pt-[1.875em]">
+      <h1 className="py-[0.3em] text-[2.25rem] font-semibold leading-9 tracking-[-0.064rem]">
         {props.text}
       </h1>
     </div>
@@ -75,7 +140,7 @@ function Title(props: { text: string }) {
 
 function TeamsList(props: { teams: TeamEntry[] }) {
   return (
-    <div className="flex flex-col items-left gap-[.938em]">
+    <div className="items-left flex flex-col gap-[.938em]">
       {props.teams.map((team) => (
         <TeamEntryComponent key={team.organisation} {...team} />
       ))}
@@ -93,9 +158,9 @@ function TeamEntryComponent(props: TeamEntry) {
         {props.teamMembers.join(", ")}
       </p>
 
-      <p className="leading-[1.125em] px-[.313em] text-black_bg bg-red_mains max-w-fit">
+      <p className="max-w-fit bg-red_mains px-[.313em] leading-[1.125em] text-black_bg">
         <svg
-          className="inline-block align-[.125em] mr-[.313em] fill-black_bg"
+          className="mr-[.313em] inline-block fill-black_bg align-[.125em]"
           xmlns="http://www.w3.org/2000/svg"
           width="14"
           height="6"
@@ -117,7 +182,7 @@ function NavBar() {
 
 function Navigation() {
   return (
-    <nav className="flex flex-col items-left justify-between">
+    <nav className="items-left flex flex-col justify-between">
       <Link href="#project">Project</Link>
       <Link href="#team">Team</Link>
       <Link href="#events">Events</Link>
