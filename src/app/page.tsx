@@ -9,8 +9,6 @@ import {
   teamParagraphSm,
   teamList,
   EventEntry,
-  FutureEventEntry,
-  PastEventEntry,
   futureEvents,
   pastEvents,
 } from "./content";
@@ -106,6 +104,11 @@ function EventInfo(props: { event: EventEntry }) {
       </p>
       {Object.keys(event).map((key) => {
         const style = key === "date" ? "font-bold" : "";
+
+        if (key === "participants") {
+          return <p>participants: {event.participants}</p>;
+        }
+
         return <p className={style}>{event[key as keyof typeof event]}</p>;
       })}
     </div>

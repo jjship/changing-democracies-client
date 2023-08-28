@@ -139,22 +139,16 @@ const teamList: TeamEntry[] = [
   },
 ];
 
-export type FutureEventEntry = {
+export type EventEntry = {
   isPast: boolean;
   date: string;
   title: string;
   kind: string;
   location: string;
   link: string;
+  participants?: number;
+  wp3?: string;
 };
-
-export type PastEventEntry = FutureEventEntry & {
-  isPast: true;
-  participants: number;
-  wp3: string;
-};
-
-export type EventEntry = FutureEventEntry | PastEventEntry;
 
 const allEvents: EventEntry[] = [
   {
@@ -213,10 +207,6 @@ const allEvents: EventEntry[] = [
   },
 ];
 
-const futureEvents: FutureEventEntry[] = allEvents.filter(
-  (event) => !event.isPast
-);
+const futureEvents = allEvents.filter((event) => !event.isPast);
 
-const pastEvents: PastEventEntry[] = allEvents.filter(
-  (event): event is PastEventEntry => event.isPast
-);
+const pastEvents = allEvents.filter((event) => event.isPast);
