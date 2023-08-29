@@ -1,113 +1,259 @@
-import Image from 'next/image'
+import Link from "next/link";
+import Image from "next/image";
+import earshapedArrows from "../../public/arrows_ear_no_bg.svg";
+import logoLight from "../../public/logo_light_no_bg.svg";
+import fundedByEu from "../../public/EU_flag__funded_by.svg";
+import roundPhoto from "../../public/photo in circle.png";
+import {
+  TeamEntry,
+  projectParagraphSm,
+  teamParagraphSm,
+  teamList,
+  EventEntry,
+  futureEvents,
+  pastEvents,
+} from "./content";
 
-export default function Home() {
+export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="space-x-max m-auto min-h-screen max-w-[23.125rem]">
+      <section className="text-black_bgp sticky top-0 flex flex-row justify-between bg-puprple_lightest_bg p-5">
+        <h1 className="hidden">Navbar</h1>
+        <div>
+          <p className="font-bold">
+            Language
+            <svg
+              className="ml-[.313em] inline-block "
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="10"
+              viewBox="0 0 14 10"
+              fill="none"
+            >
+              <path
+                d="M12.1014 1.31863L11.9244 1.15067L11.7522 1.32362L7.01532 6.08154L2.2077 1.42934L2.02945 1.25686L1.85557 1.43374L0.821719 2.48542L0.644766 2.66542L0.826463 2.84063L6.88185 8.67996L7.05915 8.85094L7.23275 8.67619L13.1774 2.69192L13.3576 2.51043L13.1721 2.33436L12.1014 1.31863Z"
+                fill="#191818"
+                stroke="#191818"
+                stroke-width="0.5"
+              />
+            </svg>
+          </p>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="24"
+          viewBox="0 0 28 24"
+          fill="none"
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+          <line
+            y1="22.168"
+            x2="28"
+            y2="22.168"
+            stroke="#191818"
+            stroke-width="3"
+          />
+          <line y1="1.5" x2="28" y2="1.5" stroke="#191818" stroke-width="3" />
+          <line
+            y1="11.834"
+            x2="28"
+            y2="11.834"
+            stroke="#191818"
+            stroke-width="3"
+          />
+        </svg>
+      </section>
+      <section
+        id="project"
+        className="min-w-full bg-puprple_lightest_bg text-black_bg"
+      >
+        <h1 className="hidden">Project</h1>
+        <div className="flex flex-col items-center gap-[2.5em] pb-[1.125em] pt-[0.375em]">
+          <div className="mx-[4.44em]  pb-[2.5em]">
+            <Image src={earshapedArrows} alt="image with earshaped arrows" />
+          </div>
+          <div className="mx-[6.8em]">
+            <Image src={logoLight} alt="changing democracies logo" />
+          </div>
+          <p className="leading-5">{projectParagraphSm}</p>
+          <div className="mx-[6.8em]">
+            <Image src={fundedByEu} alt="funded by EU logo" />
+          </div>
+        </div>
+      </section>
+      <section
+        id="team"
+        className="bg-black_bg px-5 pb-[2.5em] text-puprple_lightest_bg"
+      >
+        <Title text="Team" />
+        <div className="flex flex-col items-center gap-[1.125em]">
+          <p className="leading-5">{teamParagraphSm}</p>
+          <TeamsList teams={teamList} />
+        </div>
+      </section>
+      <section
+        id="events"
+        className="bg-puprple_lightest_bg pl-5 text-black_bg"
+      >
+        <Title text="Events" />
+        <EventsList events={futureEvents} isFuture={true} />
+        <EventsList events={pastEvents} isFuture={false} />
+      </section>
+      <section
+        id="contact"
+        className="bg-black_bg px-5 text-puprple_lightest_bg"
+      >
+        <Title text="Contact" />
+        <div className="relative">
+          <div className="absolute z-10 mt-[1rem] w-[15.375rem]">
+            <Image
+              src={roundPhoto}
+              alt="retro photo of a boy with flowers and a man on a motorbike"
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+          <div className="relative z-20 text-display_sm font-bold leading-[4.5rem] tracking-[-.03em] text-red_mains  mix-blend-screen">
+            <p className="ml-[2.875rem]">Get in</p>
+            <div className="ml-[6.875rem] mt-5 underline mix-blend-overlay">
+              <Link href="mailto:touch@changingdemocracies.com">touch.</Link>
+            </div>
+          </div>
+          <div
+            className="relative z-20 ml-[3.6rem] min-w-min"
+            style={{ background: "rgba(107, 219, 198, 0.80)" }}
+          >
+            <p className=" mx-[.3rem] mt-10 font-semibold leading-6 text-black_bg">
+              touch@changing democracies.com
+            </p>
+          </div>
+        </div>
+        <div className="ml-6 mr-36 mt-[11.06rem] pb-10">
+          <Image src={logoLight} alt="changing democracies logo" />
+        </div>
+      </section>
     </main>
-  )
+  );
+}
+
+function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
+  const { events, isFuture } = props;
+
+  const bgColor = isFuture ? "text-yellow_secondary" : "text-black_bg";
+
+  return (
+    <div className="pb-5">
+      <div className="mb-5">
+        <p className={`${bgColor} text-head_3_sm font-semibold leading-5`}>
+          {isFuture ? "upcoming" : "past"}
+        </p>
+      </div>
+      <div className="event-list flex gap-[.938em] overflow-x-auto">
+        {events.map((event) => {
+          return <EventEntryComponent event={event} isFuture={isFuture} />;
+        })}
+      </div>
+    </div>
+  );
+}
+
+function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
+  const { event, isFuture } = props;
+
+  const bgColor = isFuture
+    ? "bg-yellow_secondary"
+    : "bg-purple_lighter_additional";
+
+  return (
+    <div className={`relative min-w-[9rem]`}>
+      <div
+        className={`${bgColor} absolute left-0 top-0 z-10 h-[4.8rem] w-[5.5rem]`}
+      ></div>
+      <div className="relative z-20 ml-[.8rem] mt-[.3rem]">
+        <EventInfo event={event} />
+      </div>
+    </div>
+  );
+}
+
+function EventInfo(props: { event: EventEntry }) {
+  const { event } = props;
+  return (
+    <div className="leading-5">
+      <p className="h-[4.7rem] text-[1.625rem] font-light leading-[1.625rem]">
+        {event.title}
+      </p>
+      {Object.keys(event).map((key) => {
+        const style = key === "date" ? "font-bold" : "";
+
+        if (key === "participants") {
+          return <p>participants: {event.participants}</p>;
+        }
+
+        return <p className={style}>{event[key as keyof typeof event]}</p>;
+      })}
+    </div>
+  );
+}
+
+function Title(props: { text: string }) {
+  return (
+    <div className="w-full pb-5  pl-[1.5em] pt-[1.875em]">
+      <h1 className="py-[0.3em] text-[2.25rem] font-semibold leading-9 tracking-[-0.064rem]">
+        {props.text}
+      </h1>
+    </div>
+  );
+}
+
+function TeamsList(props: { teams: TeamEntry[] }) {
+  return (
+    <div className="items-left flex flex-col gap-[.938em]">
+      {props.teams.map((team) => (
+        <TeamEntryComponent key={team.organisation} {...team} />
+      ))}
+    </div>
+  );
+}
+
+function TeamEntryComponent(props: TeamEntry) {
+  return (
+    <div>
+      <Link href={props.link}>
+        <p className="leading-5">{props.organisation}</p>
+      </Link>
+      <p className="text-[.875rem] leading-[1.125rem] text-yellow_secondary ">
+        {props.teamMembers.join(", ")}
+      </p>
+
+      <p className="max-w-fit bg-red_mains px-[.313em] leading-5 text-black_bg">
+        <svg
+          className="mr-[.313em] inline-block fill-black_bg align-[.125em]"
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="6"
+          viewBox="0 0 14 6"
+          fill="none"
+        >
+          <title>arrow</title>
+          <path d="M14 3L9 0.113249V5.88675L14 3ZM0 3.5H9.5V2.5H0V3.5Z" />
+        </svg>
+        {props.country}
+      </p>
+    </div>
+  );
+}
+
+function NavBar() {
+  return <div></div>;
+}
+
+function Navigation() {
+  return (
+    <nav className="items-left flex flex-col justify-between">
+      <Link href="#project">Project</Link>
+      <Link href="#team">Team</Link>
+      <Link href="#events">Events</Link>
+      <Link href="#contact">Contact</Link>
+    </nav>
+  );
 }
