@@ -3,6 +3,7 @@ import Image from "next/image";
 import earshapedArrows from "../../public/arrows_ear_no_bg.svg";
 import logoLight from "../../public/logo_light_no_bg.svg";
 import fundedByEu from "../../public/EU_flag__funded_by.svg";
+import roundPhoto from "../../public/photo in circle.png";
 import {
   TeamEntry,
   projectParagraphSm,
@@ -16,9 +17,9 @@ import {
 export default function Page() {
   return (
     <main className="m-auto min-h-screen max-w-[23.125rem]">
-      <Section
+      <section
         id="project"
-        styling="text-black_bg bg-puprple_lightest_bg min-w-full"
+        className="min-w-full bg-puprple_lightest_bg text-black_bg"
       >
         <h1 className="hidden">Project</h1>
         <div className="flex flex-col items-center gap-[2.5em] pb-[1.125em] pt-[0.375em]">
@@ -28,26 +29,30 @@ export default function Page() {
           <div className="mx-[6.8em]">
             <Image src={logoLight} alt="changing democracies logo" />
           </div>
-          <Paragraph text={projectParagraphSm} />
+          <p className="leading-5">{projectParagraphSm}</p>
           <div className="mx-[6.8em]">
             <Image src={fundedByEu} alt="funded by EU logo" />
           </div>
         </div>
-      </Section>
-      <Section
+      </section>
+      <section
         id="team"
-        styling="bg-black_bg text-puprple_lightest_bg px-5 pb-[2.5em]"
+        className="bg-black_bg px-5 pb-[2.5em] text-puprple_lightest_bg"
       >
         <Title text="Team" />
         <div className="flex flex-col items-center gap-[1.125em]">
-          <Paragraph text={teamParagraphSm} />
+          <p className="leading-5">{teamParagraphSm}</p>
           <TeamsList teams={teamList} />
         </div>
-      </Section>
-      <Section id="events" styling="bg-puprple_lightest_bg text-black_bg pl-5">
+      </section>
+      <section
+        id="events"
+        className="bg-puprple_lightest_bg pl-5 text-black_bg"
+      >
         <Title text="Events" />
         <EventsList events={futureEvents} isFuture={true} />
         <EventsList events={pastEvents} isFuture={false} />
+      </section>
       <section
         id="contact"
         className="bg-black_bg px-5 text-puprple_lightest_bg"
@@ -142,22 +147,6 @@ function EventInfo(props: { event: EventEntry }) {
       })}
     </div>
   );
-}
-
-function Section(props: {
-  id: string;
-  styling: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={props.id}>
-      <div className={`${props.styling}`}>{props.children}</div>
-    </section>
-  );
-}
-
-function Paragraph(props: { text: string | JSX.Element }) {
-  return <p className="leading-5 ">{props.text}</p>;
 }
 
 function Title(props: { text: string }) {
