@@ -48,9 +48,38 @@ export default function Page() {
         <Title text="Events" />
         <EventsList events={futureEvents} isFuture={true} />
         <EventsList events={pastEvents} isFuture={false} />
-      </Section>
-      <section id="events">events section</section>
-      <section id="contact">contact section</section>
+      <section
+        id="contact"
+        className="bg-black_bg px-5 text-puprple_lightest_bg"
+      >
+        <Title text="Contact" />
+        <div className="relative">
+          <div className="absolute z-10 mt-[1rem] w-[15.375rem]">
+            <Image
+              src={roundPhoto}
+              alt="retro photo of a boy with flowers and a man on a motorbike"
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+          <div className="relative z-20 text-display_sm font-bold leading-[4.5rem] tracking-[-.03em] text-red_mains  mix-blend-screen">
+            <p className="ml-[2.875rem]">Get in</p>
+            <div className="ml-[6.875rem] mt-5 underline mix-blend-overlay">
+              <Link href="mailto:touch@changingdemocracies.com">touch.</Link>
+            </div>
+          </div>
+          <div
+            className="relative z-20 ml-[3.6rem] min-w-min"
+            style={{ background: "rgba(107, 219, 198, 0.80)" }}
+          >
+            <p className=" mx-[.3rem] mt-10 font-semibold leading-6 text-black_bg">
+              touch@changing democracies.com
+            </p>
+          </div>
+        </div>
+        <div className="ml-6 mr-36 mt-[11.06rem] pb-10">
+          <Image src={logoLight} alt="changing democracies logo" />
+        </div>
+      </section>
     </main>
   );
 }
