@@ -154,14 +154,14 @@ function TeamsList(props: { teams: TeamEntry[] }) {
 function TeamEntryComponent(props: TeamEntry) {
   return (
     <div>
-      <Link className="leading-4" href={props.link}>
-        {props.organisation}
+      <Link href={props.link}>
+        <p className="leading-5">{props.organisation}</p>
       </Link>
-      <p className="text-[.875rem] leading-[.875rem] text-yellow_secondary ">
+      <p className="text-[.875rem] leading-[1.125rem] text-yellow_secondary ">
         {props.teamMembers.join(", ")}
       </p>
 
-      <p className="max-w-fit bg-red_mains px-[.313em] leading-[1.125em] text-black_bg">
+      <p className="max-w-fit bg-red_mains px-[.313em] leading-5 text-black_bg">
         <svg
           className="mr-[.313em] inline-block fill-black_bg align-[.125em]"
           xmlns="http://www.w3.org/2000/svg"
