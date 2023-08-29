@@ -148,8 +148,14 @@ function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
         </p>
       </div>
       <div className="event-list flex gap-[.938em] overflow-x-auto">
-        {events.map((event) => {
-          return <EventEntryComponent event={event} isFuture={isFuture} />;
+        {events.map((event, index) => {
+          return (
+            <EventEntryComponent
+              key={index}
+              event={event}
+              isFuture={isFuture}
+            />
+          );
         })}
       </div>
     </div>
@@ -186,10 +192,14 @@ function EventInfo(props: { event: EventEntry }) {
         const style = key === "date" ? "font-bold" : "";
 
         if (key === "participants") {
-          return <p>participants: {event.participants}</p>;
+          return <p key={key}>participants: {event.participants}</p>;
         }
 
-        return <p className={style}>{event[key as keyof typeof event]}</p>;
+        return (
+          <p key={key} className={style}>
+            {event[key as keyof typeof event]}
+          </p>
+        );
       })}
     </div>
   );
