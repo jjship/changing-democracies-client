@@ -16,10 +16,8 @@ export default function Events() {
   return (
     <>
       <Title text="Events" theme="light" />
-      <div className="mt-5">
-        <EventsList events={futureEvents} isFuture={true} />
-        <EventsList events={pastEvents} isFuture={false} />
-      </div>
+      <EventsList events={futureEvents} isFuture={true} />
+      <EventsList events={pastEvents} isFuture={false} />
     </>
   );
 }
@@ -30,7 +28,7 @@ function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
   const bgColor = isFuture ? "text-yellow_secondary" : "text-black_bg";
 
   return (
-    <div className="pb-5">
+    <div className="mt-5">
       <div className="mb-5">
         <p className={`${bgColor} text-head_3_sm font-semibold leading-5`}>
           {isFuture ? "upcoming" : "past"}

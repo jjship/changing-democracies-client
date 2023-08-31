@@ -8,7 +8,7 @@ export default function Project() {
   return (
     <>
       <h1 className="hidden">Project</h1>
-      <div className="flex flex-col items-center gap-[2.5em] pb-[1.125em] pt-[0.375em]">
+      <div className="flex flex-col items-center gap-[2.5em] pt-[0.375em]">
         <div className="mx-[4.44em]  pb-[2.5em]">
           <Image src={earshapedArrows} alt="image with earshaped arrows" />
         </div>
