@@ -9,7 +9,7 @@ export default function Section(props: {
     id,
     theme,
     xPadding = "px-5 dt:px-10",
-    yPadding = "py-5 dt:pb-20",
+    yPadding = "py-5 dt:py-20",
   } = props;
 
   const bgColor = theme === "light" ? "bg-puprple_lightest_bg" : "bg-black_bg";
