@@ -9,33 +9,37 @@ export {
   futureEvents,
   pastEvents,
   allEvents,
+  teamParagraphSm,
 };
 
 const projectFirstParagraphBg =
-  "What would life be like without democracy?<br/>Has democracy lived up to its promises?\nWhat does a healthy democracy need to\nfunction effectively? What is the role of\nitizens?";
+  "What would life be like without democracy?<br/>Has democracy lived up to its promises? What does a healthy democracy need to function effectively? What is the role of itizens?";
 
 const projectSecondParagraphBg =
-  "<b>Changing Democracies</b> aims to collect\nuntold stories from across Europe about\nrecent transitions to democracy and explore\nhow they can lead to critical reflection and\ndialogue about democracy today.";
+  "<b>Changing Democracies</b> aims to collect untold stories from across Europe about recent transitions to democracy and explore how they can lead to critical reflection and dialogue about democracy today.";
 
 const projectParagraphSm = (
   <>
-    What would life be like without democracy? Has
-    <br />
-    democracy lived up to its promises? What does
-    <br />a healthy democracy need to function
-    <br />
-    effectively? What is the role of citizens
+    What would life be like without democracy? Has democracy lived up to its
+    promises? What does a healthy democracy need to function effectively? What
+    is the role of citizens
     <br />
     <br />
-    <b>Changing Democracies</b> aims to collect untold
+    <b>Changing Democracies</b> aims to collect untold stories from across
+    Europe about recent transitions to democracy and explore how they can lead
+    to critical reflection and dialogue about democracy today.
+  </>
+);
+
+const teamParagraphSm = (
+  <>
+    <b>Changing Democracies</b> involves 13 partners
     <br />
-    stories from across Europe about recent
+    from 10 European countries and is made
     <br />
-    transitions to democracy and explore how they
+    possible thanks to the funding of the European
     <br />
-    can lead to critical reflection and dialogue about
-    <br />
-    democracy today.
+    Commission.
   </>
 );
 

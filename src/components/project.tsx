@@ -9,10 +9,10 @@ export default function Project() {
     <>
       <h1 className="hidden">Project</h1>
       <div className="flex flex-col items-center gap-[2.5em] pt-[0.375em]">
-        <div className="mx-[4.44em]  pb-[2.5em]">
+        <div className="mx-[3.125rem] pb-[1rem]">
           <Image src={earshapedArrows} alt="image with earshaped arrows" />
         </div>
-        <div className="mx-[6.8em]">
+        <div className="mx-[5.625rem]">
           <Image src={logoLight} alt="changing democracies logo" />
         </div>
         <p className="leading-5">{projectParagraphSm}</p>

@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <main className="m-auto max-w-[23.125rem]">
       <Navbar />
-      <Section id="project" theme="light">
+      <Section id="project" theme="light" xPadding="px-4" yPadding="pb-5">
         <Project />
       </Section>
       <Section id="team" theme="dark">
