@@ -44,13 +44,8 @@ const projectParagraphSm = (
 
 const teamParagraphSm = (
   <>
-    <b>Changing Democracies</b> involves 13 partners
-    <br />
-    from 10 European countries and is made
-    <br />
-    possible thanks to the funding of the European
-    <br />
-    Commission.
+    <b>Changing Democracies</b> involves 13 partners from 10 European countries
+    and is made possible thanks to the funding of the European Commission.
   </>
 );
 

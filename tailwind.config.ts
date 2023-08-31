@@ -35,7 +35,7 @@ const config: Config = {
         head_menu_sm: "2.875rem",
         head_1_sm: "2.125rem",
         head_2_sm: "1.625rem",
-        head_3_sm: "1.188rem",
+        head_3_sm: "1.188rem", //19px
         body_sm: "1rem",
       },
     },
