@@ -17,7 +17,7 @@ import {
 export default function Page() {
   return (
     <main className="space-x-max m-auto min-h-screen max-w-[23.125rem]">
-      <section className="sticky top-0 z-30 flex flex-row justify-between bg-puprple_lightest_bg p-5 text-black_bg">
+      <section className="sticky top-0 z-40 flex flex-row justify-between bg-puprple_lightest_bg p-5 text-black_bg">
         <h1 className="hidden">Navbar</h1>
         <div>
           <p className="font-bold">
@@ -80,28 +80,30 @@ export default function Page() {
       </section>
       <section
         id="team"
-        className="bg-black_bg px-5 pb-[2.5em] text-puprple_lightest_bg"
+        className="bg-black_bg px-5 py-[2.5em] text-puprple_lightest_bg"
       >
-        <Title text="Team" />
-        <div className="flex flex-col items-center gap-[1.125em]">
+        <Title text="Team" theme="dark" />
+        <div className="mt-6 flex flex-col items-center gap-[1.125em]">
           <p className="leading-5">{teamParagraphSm}</p>
           <TeamsList teams={teamList} />
         </div>
       </section>
       <section
         id="events"
-        className="bg-puprple_lightest_bg pl-5 text-black_bg"
+        className="bg-puprple_lightest_bg py-[2.5em] pl-5 text-black_bg"
       >
-        <Title text="Events" />
-        <EventsList events={futureEvents} isFuture={true} />
-        <EventsList events={pastEvents} isFuture={false} />
+        <Title text="Events" theme="light" />
+        <div className="mt-6">
+          <EventsList events={futureEvents} isFuture={true} />
+          <EventsList events={pastEvents} isFuture={false} />
+        </div>
       </section>
       <section
         id="contact"
-        className="bg-black_bg px-5 text-puprple_lightest_bg"
+        className="bg-black_bg px-5 py-[2.5em] text-puprple_lightest_bg"
       >
-        <Title text="Contact" />
-        <div className="relative">
+        <Title text="Contact" theme="dark" />
+        <div className="relative mt-5">
           <div className="absolute z-10 mr-[5.5rem] mt-[1rem]">
             <Image
               src={roundPhoto}
@@ -202,10 +204,13 @@ function EventInfo(props: { event: EventEntry }) {
   );
 }
 
-function Title(props: { text: string }) {
+function Title(props: { text: string; theme: "light" | "dark" }) {
+  const { theme } = props;
+  const bgColor = theme === "light" ? "bg-puprple_lightest_bg" : "bg-black_bg";
+
   return (
-    <div className="w-full pb-5  pl-[1.5em] pt-[1.875em]">
-      <h1 className="py-[0.3em] text-[2.25rem] font-semibold leading-9 tracking-[-0.064rem]">
+    <div className={`${bgColor} sticky top-16 z-30 `}>
+      <h1 className="py-[0.3em] pl-6 text-[2.25rem] font-semibold leading-9 tracking-[-0.064rem]">
         {props.text}
       </h1>
     </div>
