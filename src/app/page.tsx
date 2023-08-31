@@ -80,7 +80,7 @@ export default function Page() {
       </section>
       <section
         id="team"
-        className="bg-black_bg px-5 py-[2.5em] text-puprple_lightest_bg"
+        className="bg-black_bg px-5 py-[2em] text-puprple_lightest_bg"
       >
         <Title text="Team" theme="dark" />
         <div className="mt-6 flex flex-col items-center gap-[1.125em]">
@@ -103,7 +103,7 @@ export default function Page() {
         className="bg-black_bg px-5 py-[2.5em] text-puprple_lightest_bg"
       >
         <Title text="Contact" theme="dark" />
-        <div className="relative mt-5">
+        <div className="relative mt-6">
           <div className="absolute z-10 mr-[5.5rem] mt-[1rem]">
             <Image
               src={roundPhoto}
@@ -113,20 +113,22 @@ export default function Page() {
           </div>
           <div className="relative z-20 text-display_sm font-bold leading-[4.5rem] tracking-[-.03em] text-red_mains  mix-blend-screen">
             <p className="ml-[2.875rem]">Get in</p>
-            <div className="float-right mr-4 mt-5 underline mix-blend-overlay">
+            <div className="mr-4 mt-5 text-right underline mix-blend-overlay">
               <Link href="mailto:touch@changingdemocracies.com">touch.</Link>
             </div>
           </div>
-          <div
-            className="relative z-20 float-right mt-10 "
-            style={{ background: "rgba(107, 219, 198, 0.80)" }}
-          >
-            <p className=" mx-[.3rem] text-right font-semibold leading-6 text-black_bg">
-              touch@changing democracies.com
-            </p>
+          <div className="flex w-full flex-col items-end">
+            <div
+              className="relative z-20 mt-10 max-w-min"
+              style={{ background: "rgba(107, 219, 198, 0.80)" }}
+            >
+              <span className="mx-[.3rem] whitespace-nowrap text-right font-semibold leading-6 text-black_bg">
+                touch@changing democracies.com
+              </span>
+            </div>
           </div>
         </div>
-        <div className="ml-6 mr-36 mt-[11.06rem] pb-10">
+        <div className="ml-6 mr-36 mt-[11.06rem]">
           <Image src={logoLight} alt="changing democracies logo" />
         </div>
       </section>
