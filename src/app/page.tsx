@@ -105,7 +105,7 @@ export default function Page() {
       >
         <Title text="Contact" />
         <div className="relative">
-          <div className="absolute z-10 mt-[1rem] w-[15.375rem]">
+          <div className="absolute z-10 mr-[5.5rem] mt-[1rem]">
             <Image
               src={roundPhoto}
               alt="retro photo of a boy with flowers and a man on a motorbike"
