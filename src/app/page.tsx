@@ -63,10 +63,7 @@ export default function Page() {
           />
         </svg>
       </section>
-      <section
-        id="project"
-        className="min-w-full bg-puprple_lightest_bg text-black_bg"
-      >
+      <section id="project" className=" bg-puprple_lightest_bg text-black_bg">
         <h1 className="hidden">Project</h1>
         <div className="flex flex-col items-center gap-[2.5em] pb-[1.125em] pt-[0.375em]">
           <div className="mx-[4.44em]  pb-[2.5em]">
