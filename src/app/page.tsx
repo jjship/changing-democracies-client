@@ -20,7 +20,7 @@ export default function Page() {
       <Section id="team" theme="dark">
         <Team />
       </Section>
-      <Section id="events" theme="light" xPadding="pl-5">
+      <Section id="events" theme="light" xPadding="pl-5 dt:px-10">
         <Events />
       </Section>
       <Section id="contact" theme="dark">
