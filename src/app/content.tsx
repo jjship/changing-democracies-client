@@ -1,8 +1,10 @@
+import { EventEntry } from "../components/events";
+import { TeamEntry } from "../components/team";
+
 export {
   projectFirstParagraphBg,
   projectSecondParagraphBg,
   projectParagraphSm,
-  teamParagraphSm,
   teamList,
   futureEvents,
   pastEvents,
@@ -36,25 +38,6 @@ const projectParagraphSm = (
     democracy today.
   </>
 );
-
-const teamParagraphSm = (
-  <>
-    <b>Changing Democracies</b> involves 13 partners
-    <br />
-    from 10 European countries and is made
-    <br />
-    possible thanks to the funding of the European
-    <br />
-    Commission.
-  </>
-);
-
-export type TeamEntry = {
-  organisation: string;
-  link: string;
-  teamMembers: string[];
-  country: string;
-};
 
 const teamList: TeamEntry[] = [
   {
@@ -138,17 +121,6 @@ const teamList: TeamEntry[] = [
     country: "Croatia",
   },
 ];
-
-export type EventEntry = {
-  isPast: boolean;
-  date: string;
-  title: string;
-  kind: string;
-  location: string;
-  link: string;
-  participants?: number;
-  wp3?: string;
-};
 
 const allEvents: EventEntry[] = [
   {
