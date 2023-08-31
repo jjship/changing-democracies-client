@@ -1,6 +1,9 @@
 import Link from "next/link";
-import { teamList } from "../app/content";
+import Image from "next/image";
+import { teamList, teamParagraphSm } from "../app/content";
 import Title from "./title";
+import knotOfArrows from "../../public/arrows_knot_no_bg.svg";
+import logoLight from "../../public/logo_light_no_bg.svg";
 
 export type TeamEntry = {
   organisation: string;
@@ -13,7 +16,24 @@ export default function Team() {
   return (
     <>
       <Title text="Team" theme="dark" />
-      <div className="mt-5 flex flex-col items-center gap-[1.125em]">
+      <div className="dt:grid dt:grid-cols-2 dt:gap-10 hidden w-full justify-between text-[1.375rem]">
+        <div className="min-h-max">
+          <div className="sticky mt-20">
+            <Image src={knotOfArrows} alt="image of knotted arrows" />
+            <Image
+              src={logoLight}
+              alt="changing democracies logo"
+              className="mt-[10.3rem]"
+            />
+          </div>
+        </div>
+        <div className="">
+          <p className="mb-20 mr-14 leading-6">{teamParagraphSm}</p>
+          <TeamsList teams={teamList} />
+        </div>
+      </div>
+
+      <div className="dt:hidden mt-5 flex flex-col items-center gap-[1.125em]">
         <p className="leading-5">{teamParagraphSm}</p>
         <TeamsList teams={teamList} />
       </div>
@@ -33,15 +53,17 @@ function TeamsList(props: { teams: TeamEntry[] }) {
 
 function TeamEntryComponent(props: TeamEntry) {
   return (
-    <div>
+    <div className="">
       <Link href={props.link}>
-        <p className="leading-5">{props.organisation}</p>
+        <p className="dt:text-[1.375rem] dt:leading-[1.875rem] leading-5">
+          {props.organisation}
+        </p>
       </Link>
-      <p className="text-[.875rem] leading-[1.125rem] text-yellow_secondary ">
+      <p className="dt:text-[1.188rem] dt:leading-[1.563rem] text-[.875rem] leading-[1.125rem] text-yellow_secondary ">
         {props.teamMembers.join(", ")}
       </p>
 
-      <p className="max-w-fit bg-red_mains px-[.313em] leading-5 text-black_bg">
+      <p className="dt:text-[1.375rem] dt:leading-[1.875rem] dt:px-2 max-w-fit bg-red_mains px-[.313em] leading-5 text-black_bg">
         <svg
           className="mr-[.313em] inline-block fill-black_bg align-[.125em]"
           xmlns="http://www.w3.org/2000/svg"
@@ -58,15 +80,3 @@ function TeamEntryComponent(props: TeamEntry) {
     </div>
   );
 }
-
-const teamParagraphSm = (
-  <>
-    <b>Changing Democracies</b> involves 13 partners
-    <br />
-    from 10 European countries and is made
-    <br />
-    possible thanks to the funding of the European
-    <br />
-    Commission.
-  </>
-);
