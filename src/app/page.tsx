@@ -17,7 +17,7 @@ import {
 export default function Page() {
   return (
     <main className="space-x-max m-auto min-h-screen max-w-[23.125rem]">
-      <section className="text-black_bgp sticky top-0 flex flex-row justify-between bg-puprple_lightest_bg p-5">
+      <section className="sticky top-0 z-30 flex flex-row justify-between bg-puprple_lightest_bg p-5 text-black_bg">
         <h1 className="hidden">Navbar</h1>
         <div>
           <p className="font-bold">
