@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { teamList } from "../app/content";
+import { teamList, teamParagraphSm } from "../app/content";
 import Title from "./title";
 
 export type TeamEntry = {
@@ -58,15 +58,3 @@ function TeamEntryComponent(props: TeamEntry) {
     </div>
   );
 }
-
-const teamParagraphSm = (
-  <>
-    <b>Changing Democracies</b> involves 13 partners
-    <br />
-    from 10 European countries and is made
-    <br />
-    possible thanks to the funding of the European
-    <br />
-    Commission.
-  </>
-);
