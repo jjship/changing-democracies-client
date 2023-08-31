@@ -111,15 +111,15 @@ export default function Page() {
           </div>
           <div className="relative z-20 text-display_sm font-bold leading-[4.5rem] tracking-[-.03em] text-red_mains  mix-blend-screen">
             <p className="ml-[2.875rem]">Get in</p>
-            <div className="ml-[6.875rem] mt-5 underline mix-blend-overlay">
+            <div className="float-right mr-4 mt-5 underline mix-blend-overlay">
               <Link href="mailto:touch@changingdemocracies.com">touch.</Link>
             </div>
           </div>
           <div
-            className="relative z-20 ml-[3.6rem] min-w-min"
+            className="relative z-20 float-right mt-10 "
             style={{ background: "rgba(107, 219, 198, 0.80)" }}
           >
-            <p className=" mx-[.3rem] mt-10 font-semibold leading-6 text-black_bg">
+            <p className=" mx-[.3rem] text-right font-semibold leading-6 text-black_bg">
               touch@changing democracies.com
             </p>
           </div>
