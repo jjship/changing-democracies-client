@@ -16,7 +16,7 @@ export default function Project() {
           <Image src={logoLight} alt="changing democracies logo" />
         </div>
         <p className="leading-5">{projectParagraphSm}</p>
-        <div className="mx-[6.8em]">
+        <div className="mx-[5.625rem]">
           <Image src={fundedByEu} alt="funded by EU logo" />
         </div>
       </div>
