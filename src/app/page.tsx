@@ -17,6 +17,7 @@ export default function Page() {
           theme="light"
           xPadding="px-4 dt:px-10 "
           yPadding="pb-5 dt:pb-20"
+          scrollMargin="mt-24"
         >
           <Project />
         </Section>

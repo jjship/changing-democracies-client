@@ -3,6 +3,7 @@ export default function Section(props: {
   theme: "light" | "dark";
   xPadding?: string;
   yPadding?: string;
+  scrollMargin?: string;
   children: React.ReactNode;
 }) {
   const {
@@ -10,6 +11,7 @@ export default function Section(props: {
     theme,
     xPadding = "px-5 dt:px-10",
     yPadding = "py-5 dt:py-20",
+    scrollMargin = "mt-[3.9rem]",
   } = props;
 
   const bgColor = theme === "light" ? "bg-puprple_lightest_bg" : "bg-black_bg";
@@ -19,7 +21,7 @@ export default function Section(props: {
   return (
     <section
       id={id}
-      className={`${bgColor} ${textColor} ${xPadding} ${yPadding}`}
+      className={`${bgColor} ${textColor} ${xPadding} ${yPadding} scroll-${scrollMargin}`}
     >
       {props.children}
     </section>
