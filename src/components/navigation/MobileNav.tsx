@@ -4,17 +4,29 @@ import { NavContext } from "./Navigation";
 
 export default function MobileNav() {
   const { isNavOpen } = useContext(NavContext);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (isNavOpen) {
+      const visibleTimeout = setTimeout(() => {
+        setVisible(true);
+      }, 100);
+
+      return () => clearTimeout(visibleTimeout);
+    } else {
+      setVisible(false);
+    }
+  }, [isNavOpen]);
 
   return (
     <div
-      className={`ml-5 flex h-screen flex-col justify-center gap-8 pt-60 ${
-        isNavOpen ? "" : "hidden"
+      className={`ml-5 flex h-screen flex-col justify-center gap-8 bg-black_bg pt-60 ${
+        visible ? "" : "hidden"
       }`}
     >
-      <AnimatedLink text="project" />
-      <AnimatedLink text="team" timeout={500} />
-      <AnimatedLink text="events" timeout={1000} />
-      <AnimatedLink text="contact" timeout={1500} />
+      <AnimatedLink text="project" timeout={110} />
+      <AnimatedLink text="team" timeout={200} />
+      <AnimatedLink text="events" timeout={300} />
+      <AnimatedLink text="contact" timeout={400} />
     </div>
   );
 }

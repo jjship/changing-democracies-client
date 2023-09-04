@@ -29,7 +29,7 @@ body {
 html {
   /* font-size: 32px; */
   scroll-behavior: smooth;
-  transition: all 1s ease;
+  transition: all 0.2s ease;
 }
 
 /* @media (min-width: 375px) {
@@ -39,13 +39,13 @@ html {
 } */
 
 .hamburger {
-  transition: all 1s ease;
+  /* transition: all 0.5s ease; */
 }
 #top-line,
 #middle-line,
 #bottom-line {
-  transition: all 1s ease;
   stroke: #191818;
+  transition: all 0.5s ease;
 }
 .open#top-line,
 .open#middle-line,
@@ -71,7 +71,7 @@ html {
   background: black;
   opacity: 0;
   visibility: hidden;
-  transition: all 1s ease;
+  transition: all 0.2s ease;
 }
 .overlay.visible {
   opacity: 1;
