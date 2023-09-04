@@ -1,9 +1,11 @@
+"use client";
 import Project from "../components/project";
 import Team from "../components/team";
 import Events from "../components/events";
 import Contact from "../components/contact";
 import Section from "../components/section";
 import Navigation from "../components/navigation/Navigation";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   return (
