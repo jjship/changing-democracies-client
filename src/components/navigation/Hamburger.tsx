@@ -1,12 +1,14 @@
 "use client";
 import { useContext } from "react";
 import { NavContext } from "./Navigation";
+import Link from "next/link";
 
 export default function Hamburger() {
   const { isNavOpen, toggleNav } = useContext(NavContext);
 
   return (
-    <div
+    <Link
+      href="#"
       className={`hamburger z-50 p-5 dt:hidden ${isNavOpen ? "open" : ""}`}
       onClick={toggleNav}
     >
@@ -45,6 +47,6 @@ export default function Hamburger() {
           className={isNavOpen ? "open" : ""}
         />
       </svg>
-    </div>
+    </Link>
   );
 }
