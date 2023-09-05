@@ -21,7 +21,9 @@ export default function Section(props: {
       className={`relative ${bgColor} ${textColor} ${xPadding} ${yPadding}`}
     >
       <div id={id} className={`absolute -top-16`}></div>
-      {props.children}
+      <div className="m-auto max-w-[23.125rem] dt:max-w-[90rem]">
+        {props.children}
+      </div>
     </section>
   );
 }
