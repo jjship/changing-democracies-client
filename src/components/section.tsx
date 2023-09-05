@@ -11,18 +11,19 @@ export default function Section(props: {
     theme,
     xPadding = "px-5 dt:px-10",
     yPadding = "py-5 dt:py-20",
-    scrollMargin = "mt-[3.9rem]",
+    scrollMargin = "3.9rem",
   } = props;
 
+  const offset = `-top-[${scrollMargin}]`;
   const bgColor = theme === "light" ? "bg-puprple_lightest_bg" : "bg-black_bg";
   const textColor =
     theme === "light" ? "text-black_bg" : "text-puprple_lightest_bg";
 
   return (
     <section
-      id={id}
-      className={`${bgColor} ${textColor} ${xPadding} ${yPadding} scroll-${scrollMargin}`}
+      className={`relative ${bgColor} ${textColor} ${xPadding} ${yPadding}`}
     >
+      <div id={id} className={`absolute ${offset}`}></div>
       {props.children}
     </section>
   );
