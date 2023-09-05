@@ -22,7 +22,8 @@ export default function Navbar() {
         <Link href="#contact" className="hidden dt:block">
           Contact
         </Link>
-        <div>
+        {/* hidden until we get language versions */}
+        <div className="hidden">
           <p>
             Language
             <Image

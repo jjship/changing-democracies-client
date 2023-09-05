@@ -1,5 +1,5 @@
 import { futureEvents, pastEvents } from "../app/content";
-import Title from "./title";
+import Title from "./Title";
 
 export type EventEntry = {
   isPast: boolean;
@@ -28,15 +28,15 @@ function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
   const bgColor = isFuture ? "text-yellow_secondary" : "text-black_bg";
 
   return (
-    <div className="dt:mt-20 mt-5">
-      <div className="dt:mb-10 mb-5">
+    <div className="mt-5 dt:mt-20">
+      <div className="mb-5 dt:mb-10">
         <p
-          className={`${bgColor} dt:text-[1.375rem] dt:font-bold text-head_3_sm font-semibold leading-5`}
+          className={`${bgColor} text-head_3_sm font-semibold leading-5 dt:text-[1.375rem] dt:font-bold`}
         >
           {isFuture ? "upcoming" : "past"}
         </p>
       </div>
-      <div className="event-list dt:gap-x-40 dt:gap-y-20 dt:flex-wrap	flex gap-[.938em] overflow-x-auto">
+      <div className="event-list flex gap-[.938em] overflow-x-auto	dt:flex-wrap dt:gap-x-40 dt:gap-y-20">
         {events.map((event, index) => {
           return (
             <EventEntryComponent
@@ -59,11 +59,11 @@ function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
     : "bg-purple_lighter_additional";
 
   return (
-    <div className={`dt:w-[18rem] relative min-w-[9rem]`}>
+    <div className={`relative min-w-[9rem] dt:w-[18rem]`}>
       <div
-        className={`${bgColor} dt:w-[10.5rem] dt:h-[8.938rem] absolute left-0 top-0 z-10 h-[4.8rem] w-[5.5rem]`}
+        className={`${bgColor} absolute left-0 top-0 z-10 h-[4.8rem] w-[5.5rem] dt:h-[8.938rem] dt:w-[10.5rem]`}
       ></div>
-      <div className="dt:ml-[1.625rem] dt:mt-[1.2rem] relative z-20 ml-[.8rem] mt-[.3rem]">
+      <div className="relative z-20 ml-[.8rem] mt-[.3rem] dt:ml-[1.625rem] dt:mt-[1.2rem]">
         <EventInfo event={event} />
       </div>
     </div>
@@ -73,8 +73,8 @@ function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
 function EventInfo(props: { event: EventEntry }) {
   const { event } = props;
   return (
-    <div className="dt:text-[1.375rem] dt:leading-[1.5rem] leading-5">
-      <p className="dt:text-[3.375rem] dt:font-thin dt:leading-[3.3rem] dt:h-[8rem] h-[4.7rem] text-[1.625rem] font-light leading-[1.625rem]">
+    <div className="leading-5 dt:text-[1.375rem] dt:leading-[1.5rem]">
+      <p className="h-[4.7rem] text-[1.625rem] font-light leading-[1.625rem] dt:h-[8rem] dt:text-[3.375rem] dt:font-thin dt:leading-[3.3rem]">
         {event.title}
       </p>
       {Object.keys(event)
