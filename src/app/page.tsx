@@ -7,7 +7,7 @@ import Navigation from "../components/navigation/Navigation";
 
 export default function Page() {
   return (
-    <main className="m-auto max-w-[23.125rem] dt:max-w-[90rem]">
+    <main>
       <Navigation />
       <Section
         id="project"

@@ -1,15 +1,8 @@
 "use client";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useState } from "react";
 import Overlay from "./Overlay";
 import Navbar from "./Navbar";
 import Hamburger from "./Hamburger";
-import Link from "next/link";
 import MobileNav from "./MobileNav";
 
 export const NavContext = createContext({
@@ -28,12 +21,20 @@ export default function Navigation() {
     <NavContext.Provider value={{ isNavOpen, toggleNav }}>
       <Overlay />
       <div
-        className={`flex flex-row justify-between bg-puprple_lightest_bg dt:flex-col dt:items-end ${
+        className={`bg-puprple_lightest_bg ${
           isNavOpen ? "relative" : "sticky top-0 z-40"
         }`}
       >
-        <Navbar />
-        <Hamburger />
+        <div className="m-auto max-w-[23.125rem] dt:max-w-[90rem] ">
+          <div
+            className={`flex flex-row justify-between dt:flex-col dt:items-end ${
+              isNavOpen ? "relative" : "sticky top-0 z-40"
+            }`}
+          >
+            <Navbar />
+            <Hamburger />
+          </div>
+        </div>
       </div>
       <MobileNav />
     </NavContext.Provider>
