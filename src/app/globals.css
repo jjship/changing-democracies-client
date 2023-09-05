@@ -27,20 +27,10 @@ body {
 }
 
 html {
-  /* font-size: 32px; */
   scroll-behavior: smooth;
   transition: all 0.2s ease;
 }
 
-/* @media (min-width: 375px) {
-  html {
-    font-size: calc(100vw * calc(375 / 16));
-  }
-} */
-
-.hamburger {
-  /* transition: all 0.5s ease; */
-}
 #top-line,
 #middle-line,
 #bottom-line {
