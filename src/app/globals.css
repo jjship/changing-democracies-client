@@ -11,7 +11,8 @@
   }
 }
 
-@media screen and (min-width: 370px) {
+/* For screens between 370px and 1440px */
+@media screen and (min-width: 370px) and (max-width: 1024px) {
   html {
     font-size: calc(100vw * (16 / 370));
   }
