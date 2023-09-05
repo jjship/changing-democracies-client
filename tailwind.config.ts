@@ -23,6 +23,7 @@ const config: Config = {
 
     extend: {
       screens: {
+        mob: "370px",
         dt: "1440px",
       },
       fontSize: {

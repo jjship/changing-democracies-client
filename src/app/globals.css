@@ -11,6 +11,12 @@
   }
 }
 
+@media screen and (min-width: 370px) {
+  html {
+    font-size: calc(100vw * (16 / 370));
+  }
+}
+
 body {
   background: var(--background);
 }
