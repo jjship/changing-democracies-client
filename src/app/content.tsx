@@ -1,5 +1,5 @@
-import { EventEntry } from "../components/Events";
-import { TeamEntry } from "../components/Team";
+import { EventEntry } from "../components/events";
+import { TeamEntry } from "../components/team";
 
 export {
   projectFirstParagraphBg,

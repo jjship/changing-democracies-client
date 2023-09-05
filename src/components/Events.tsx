@@ -1,5 +1,5 @@
 import { futureEvents, pastEvents } from "../app/content";
-import Title from "./Title";
+import Title from "./title";
 
 export type EventEntry = {
   isPast: boolean;

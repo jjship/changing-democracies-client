@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { teamList, teamParagraphSm } from "../app/content";
-import Title from "./Title";
+import Title from "./title";
 import knotOfArrows from "../../public/arrows_knot_no_bg.svg";
 import logoLight from "../../public/logo_light_no_bg.svg";
 

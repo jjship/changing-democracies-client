@@ -3,7 +3,7 @@ import Image from "next/image";
 import logoLight from "../../public/logo_light_no_bg.svg";
 
 import roundPhoto from "../../public/photo in circle.png";
-import Title from "./Title";
+import Title from "./title";
 
 export default function Contact() {
   return (
