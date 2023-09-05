@@ -18,9 +18,9 @@ export default function Section(props: {
 
   return (
     <section
-      id={id}
-      className={`${bgColor} ${textColor} ${xPadding} ${yPadding}`}
+      className={`relative ${bgColor} ${textColor} ${xPadding} ${yPadding}`}
     >
+      <div id={id} className={`absolute -top-16`}></div>
       {props.children}
     </section>
   );

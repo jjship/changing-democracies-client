@@ -1,14 +1,14 @@
 import Project from "../components/project";
 import Team from "../components/team";
-import Navbar from "../components/navbar";
 import Events from "../components/events";
 import Contact from "../components/contact";
 import Section from "../components/section";
+import Navigation from "../components/navigation/Navigation";
 
 export default function Page() {
   return (
-    <main className="dt:max-w-[90rem] m-auto max-w-[23.125rem]">
-      <Navbar />
+    <main className="m-auto max-w-[23.125rem] dt:max-w-[90rem]">
+      <Navigation />
       <Section
         id="project"
         theme="light"
