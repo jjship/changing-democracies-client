@@ -33,7 +33,7 @@ export default function Project() {
 function MdProject() {
   return (
     <>
-      <div className="hidden md:block">
+      <div className="hidden md:block xl:hidden">
         <Image
           src={earshapedArrows}
           alt="image with earshaped arrows"
