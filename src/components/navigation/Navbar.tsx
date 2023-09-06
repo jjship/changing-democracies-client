@@ -8,18 +8,18 @@ export default function Navbar() {
     <section id="navbar">
       <h1 className="hidden">Navbar</h1>
       <div
-        className={`z-50 p-5 font-bold text-black_bg xl:flex xl:flex-row xl:items-end xl:gap-10 xl:px-10 xl:text-xl`}
+        className={`z-50 p-5 font-bold text-black_bg md:flex md:flex-row md:items-end md:gap-10 md:px-10 md:text-xl`}
       >
-        <Link href="#project" className="hidden xl:block">
+        <Link href="#project" className="hidden md:block">
           Project
         </Link>
-        <Link href="#team" className="hidden xl:block">
+        <Link href="#team" className="hidden md:block">
           Team
         </Link>
-        <Link href="#events" className="hidden xl:block">
+        <Link href="#events" className="hidden md:block">
           Events
         </Link>
-        <Link href="#contact" className="hidden xl:block">
+        <Link href="#contact" className="hidden md:block">
           Contact
         </Link>
         {/* hidden until we get language versions */}
