@@ -29,7 +29,7 @@ export default function Contact() {
             style={{ background: "rgba(107, 219, 198, 0.80)" }}
           >
             <span className="mx-[.3rem] whitespace-nowrap text-right font-semibold leading-6 text-black_bg xl:mx-5 xl:text-[2.125rem] xl:leading-10">
-              touch@changing democracies.com
+              touch@changingdemocracies.eu
             </span>
           </div>
         </div>
