@@ -12,7 +12,7 @@ export default function Project() {
   return (
     <>
       <h1 className="hidden">Project</h1>
-      <div className="dt:hidden flex flex-col items-center gap-[2.5em] pt-[0.375em]">
+      <div className="flex flex-col items-center gap-[2.5em] pt-[0.375em] xl:hidden">
         <div className="mx-[3.125rem] pb-[1rem]">
           <Image src={earshapedArrows} alt="image with earshaped arrows" />
         </div>
@@ -32,7 +32,7 @@ export default function Project() {
 function DtProject() {
   return (
     <>
-      <div className="dt:block hidden">
+      <div className="hidden xl:block">
         <Image
           src={earshapedArrows}
           alt="image with earshaped arrows"

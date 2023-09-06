@@ -23,8 +23,9 @@ const config: Config = {
 
     extend: {
       screens: {
-        mob: "370px",
-        dt: "1440px",
+        sm: "370px",
+        md: "1024",
+        xl: "1440px",
       },
       fontSize: {
         display_lg: "14.813rem",

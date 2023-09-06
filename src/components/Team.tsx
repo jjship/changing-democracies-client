@@ -16,7 +16,7 @@ export default function Team() {
   return (
     <>
       <Title text="Team" theme="dark" />
-      <div className="hidden w-full justify-between text-[1.375rem] dt:grid dt:grid-cols-2 dt:gap-10">
+      <div className="hidden w-full justify-between text-[1.375rem] xl:grid xl:grid-cols-2 xl:gap-10">
         <div className="min-h-max">
           <div className="sticky mt-20">
             <Image src={knotOfArrows} alt="image of knotted arrows" />
@@ -33,7 +33,7 @@ export default function Team() {
         </div>
       </div>
 
-      <div className="mt-5 flex flex-col items-center gap-[1.125em] dt:hidden">
+      <div className="mt-5 flex flex-col items-center gap-[1.125em] xl:hidden">
         <p className="leading-5">{teamParagraphSm}</p>
         <TeamsList teams={teamList} />
       </div>
@@ -55,15 +55,15 @@ function TeamEntryComponent(props: TeamEntry) {
   return (
     <div className="">
       <Link href={props.link}>
-        <p className="leading-5 dt:text-[1.375rem] dt:leading-[1.875rem]">
+        <p className="leading-5 xl:text-[1.375rem] xl:leading-[1.875rem]">
           {props.organisation}
         </p>
       </Link>
-      <p className="text-[.875rem] leading-[1.125rem] text-yellow_secondary dt:text-[1.188rem] dt:leading-[1.563rem] ">
+      <p className="text-[.875rem] leading-[1.125rem] text-yellow_secondary xl:text-[1.188rem] xl:leading-[1.563rem] ">
         {props.teamMembers.join(", ")}
       </p>
 
-      <p className="max-w-fit bg-red_mains px-[.313em] leading-5 text-black_bg dt:px-2 dt:text-[1.375rem] dt:leading-[1.875rem]">
+      <p className="max-w-fit bg-red_mains px-[.313em] leading-5 text-black_bg xl:px-2 xl:text-[1.375rem] xl:leading-[1.875rem]">
         <svg
           className="mr-[.313em] inline-block fill-black_bg align-[.125em]"
           xmlns="http://www.w3.org/2000/svg"

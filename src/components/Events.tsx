@@ -28,15 +28,15 @@ function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
   const bgColor = isFuture ? "text-yellow_secondary" : "text-black_bg";
 
   return (
-    <div className="mt-5 dt:mt-20">
-      <div className="mb-5 dt:mb-10">
+    <div className="mt-5 xl:mt-20">
+      <div className="mb-5 xl:mb-10">
         <p
-          className={`${bgColor} text-head_3_sm font-semibold leading-5 dt:text-[1.375rem] dt:font-bold`}
+          className={`${bgColor} text-head_3_sm font-semibold leading-5 xl:text-[1.375rem] xl:font-bold`}
         >
           {isFuture ? "upcoming" : "past"}
         </p>
       </div>
-      <div className="event-list flex gap-[.938em] overflow-x-auto	dt:flex-wrap dt:gap-x-40 dt:gap-y-20">
+      <div className="event-list flex gap-[.938em] overflow-x-auto	xl:flex-wrap xl:gap-x-40 xl:gap-y-20">
         {events.map((event, index) => {
           return (
             <EventEntryComponent
@@ -59,11 +59,11 @@ function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
     : "bg-purple_lighter_additional";
 
   return (
-    <div className={`relative min-w-[9rem] dt:w-[18rem]`}>
+    <div className={`relative min-w-[9rem] xl:w-[18rem]`}>
       <div
-        className={`${bgColor} absolute left-0 top-0 z-10 h-[4.8rem] w-[5.5rem] dt:h-[8.938rem] dt:w-[10.5rem]`}
+        className={`${bgColor} absolute left-0 top-0 z-10 h-[4.8rem] w-[5.5rem] xl:h-[8.938rem] xl:w-[10.5rem]`}
       ></div>
-      <div className="relative z-20 ml-[.8rem] mt-[.3rem] dt:ml-[1.625rem] dt:mt-[1.2rem]">
+      <div className="relative z-20 ml-[.8rem] mt-[.3rem] xl:ml-[1.625rem] xl:mt-[1.2rem]">
         <EventInfo event={event} />
       </div>
     </div>
@@ -73,8 +73,8 @@ function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
 function EventInfo(props: { event: EventEntry }) {
   const { event } = props;
   return (
-    <div className="leading-5 dt:text-[1.375rem] dt:leading-[1.5rem]">
-      <p className="h-[4.7rem] text-[1.625rem] font-light leading-[1.625rem] dt:h-[8rem] dt:text-[3.375rem] dt:font-thin dt:leading-[3.3rem]">
+    <div className="leading-5 xl:text-[1.375rem] xl:leading-[1.5rem]">
+      <p className="h-[4.7rem] text-[1.625rem] font-light leading-[1.625rem] xl:h-[8rem] xl:text-[3.375rem] xl:font-thin xl:leading-[3.3rem]">
         {event.title}
       </p>
       {Object.keys(event)

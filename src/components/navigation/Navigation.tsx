@@ -25,9 +25,9 @@ export default function Navigation() {
           isNavOpen ? "relative" : "sticky top-0 z-40"
         }`}
       >
-        <div className="m-auto max-w-[23.125rem] dt:max-w-[90rem] ">
+        <div className="m-auto max-w-[23.125rem] xl:max-w-[90rem] ">
           <div
-            className={`flex flex-row justify-between dt:flex-col dt:items-end ${
+            className={`flex flex-row justify-between xl:flex-col xl:items-end ${
               isNavOpen ? "relative" : "sticky top-0 z-40"
             }`}
           >

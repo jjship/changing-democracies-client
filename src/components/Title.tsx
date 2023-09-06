@@ -7,9 +7,9 @@ export default function Title(props: {
 
   return (
     <div
-      className={`${bgColor} sticky top-16 z-30 dt:relative dt:top-0 dt:z-20 `}
+      className={`${bgColor} sticky top-16 z-30 xl:relative xl:top-0 xl:z-20 `}
     >
-      <h1 className="py-[0.3em] pl-5 text-[2.25rem] font-semibold leading-9 tracking-[-0.064rem] dt:py-10 dt:pl-16 dt:text-[4.5rem] dt:font-bold dt:leading-8">
+      <h1 className="py-[0.3em] pl-5 text-[2.25rem] font-semibold leading-9 tracking-[-0.064rem] xl:py-10 xl:pl-16 xl:text-[4.5rem] xl:font-bold xl:leading-8">
         {props.text}
       </h1>
     </div>
