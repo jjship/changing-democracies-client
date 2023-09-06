@@ -23,8 +23,9 @@ const config: Config = {
 
     extend: {
       screens: {
-        mob: "370px",
-        dt: "1440px",
+        sm: "370px",
+        md: "1024px",
+        xl: "1440px",
       },
       fontSize: {
         display_lg: "14.813rem",
@@ -38,6 +39,9 @@ const config: Config = {
         head_2_sm: "1.625rem",
         head_3_sm: "1.188rem", //19px
         body_sm: "1rem",
+      },
+      gridTemplateColumns: {
+        custom: "minmax(0, 25rem) 1fr",
       },
     },
   },

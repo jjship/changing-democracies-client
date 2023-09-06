@@ -17,7 +17,7 @@ const projectFirstParagraphBg = (
     What would life be like without democracy?
     <br />
     Has democracy lived up to its promises? What does a healthy democracy need
-    to function effectively? What is the role of itizens?
+    to function effectively? What is the role of citizens?
   </p>
 );
 

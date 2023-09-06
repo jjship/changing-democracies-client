@@ -12,7 +12,7 @@ export default function Project() {
   return (
     <>
       <h1 className="hidden">Project</h1>
-      <div className="dt:hidden flex flex-col items-center gap-[2.5em] pt-[0.375em]">
+      <div className="flex flex-col items-center gap-[2.5em] pt-[0.375em] md:hidden">
         <div className="mx-[3.125rem] pb-[1rem]">
           <Image src={earshapedArrows} alt="image with earshaped arrows" />
         </div>
@@ -24,15 +24,44 @@ export default function Project() {
           <Image src={fundedByEu} alt="funded by EU logo" />
         </div>
       </div>
-      <DtProject />
+      <MdProject />
+      <XlProject />
     </>
   );
 }
 
-function DtProject() {
+function MdProject() {
   return (
     <>
-      <div className="dt:block hidden">
+      <div className="hidden md:block xl:hidden">
+        <Image
+          src={earshapedArrows}
+          alt="image with earshaped arrows"
+          className="mx-auto max-w-[24rem] pt-10"
+        />
+        <div className="mt-14 grid w-full grid-cols-2 gap-14 text-[1.375rem] leading-7">
+          <div>{projectFirstParagraphBg}</div>
+          <div>{projectSecondParagraphBg}</div>
+          <div>
+            <div className="mr-[10.4rem] flex w-1/2 gap-4">
+              <Image
+                src={logoLight}
+                alt="changing democracies logo"
+                className="mr-9"
+              />
+              <Image src={fundedByEu} alt="funded by EU logo" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function XlProject() {
+  return (
+    <>
+      <div className="hidden xl:block">
         <Image
           src={earshapedArrows}
           alt="image with earshaped arrows"

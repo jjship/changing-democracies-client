@@ -9,7 +9,7 @@ export default function Hamburger() {
   return (
     <Link
       href="#"
-      className={`hamburger z-50 p-5 dt:hidden ${isNavOpen ? "open" : ""}`}
+      className={`hamburger z-50 p-5 md:hidden ${isNavOpen ? "open" : ""}`}
       onClick={toggleNav}
     >
       <svg
