@@ -16,25 +16,25 @@ export default function Team() {
   return (
     <>
       <Title text="Team" theme="dark" />
-      <div className="hidden w-full justify-between text-[1.375rem] xl:grid xl:grid-cols-2 xl:gap-10">
-        <div className="min-h-max">
-          <div className="sticky mt-20">
+      <div className="md:grid-cols-custom hidden w-full text-[1.375rem] md:grid md:gap-10 xl:grid-cols-2">
+        <div className="relative min-h-max">
+          <div className="sticky top-28 mt-20">
             <Image src={knotOfArrows} alt="image of knotted arrows" />
             <Image
               src={logoLight}
               alt="changing democracies logo"
-              className="mt-[10.3rem]"
+              className="mt-[10.3rem] md:max-w-[12rem]"
             />
           </div>
         </div>
-        <div className="">
-          <p className="mb-20 mr-14 leading-6">{teamParagraphSm}</p>
+        <div className="md:w-full">
+          <p className="mb-20 mr-14 leading-6 md:mr-0">{teamParagraphSm}</p>
           <TeamsList teams={teamList} />
         </div>
       </div>
 
-      <div className="mt-5 flex flex-col items-center gap-[1.125em] xl:hidden">
-        <p className="leading-5">{teamParagraphSm}</p>
+      <div className="mt-5 flex flex-col items-center gap-[1.125em] md:hidden">
+        <p className="leading-5 md:text-2xl">{teamParagraphSm}</p>
         <TeamsList teams={teamList} />
       </div>
     </>
@@ -55,15 +55,15 @@ function TeamEntryComponent(props: TeamEntry) {
   return (
     <div className="">
       <Link href={props.link}>
-        <p className="leading-5 xl:text-[1.375rem] xl:leading-[1.875rem]">
+        <p className="leading-5 md:text-[1.375rem] md:leading-[1.875rem]">
           {props.organisation}
         </p>
       </Link>
-      <p className="text-[.875rem] leading-[1.125rem] text-yellow_secondary xl:text-[1.188rem] xl:leading-[1.563rem] ">
+      <p className="text-[.875rem] leading-[1.125rem] text-yellow_secondary md:text-[1.188rem] md:leading-[1.563rem] ">
         {props.teamMembers.join(", ")}
       </p>
 
-      <p className="max-w-fit bg-red_mains px-[.313em] leading-5 text-black_bg xl:px-2 xl:text-[1.375rem] xl:leading-[1.875rem]">
+      <p className="max-w-fit bg-red_mains px-[.313em] leading-5 text-black_bg md:px-2 md:text-[1.375rem] md:leading-[1.875rem]">
         <svg
           className="mr-[.313em] inline-block fill-black_bg align-[.125em]"
           xmlns="http://www.w3.org/2000/svg"

@@ -40,6 +40,9 @@ const config: Config = {
         head_3_sm: "1.188rem", //19px
         body_sm: "1rem",
       },
+      gridTemplateColumns: {
+        custom: "minmax(0, 25rem) 1fr",
+      },
     },
   },
   plugins: [],
