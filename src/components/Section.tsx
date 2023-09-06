@@ -17,11 +17,11 @@ export default function Section(props: {
     theme === "light" ? "text-black_bg" : "text-puprple_lightest_bg";
 
   return (
-    <section
-      className={`relative ${bgColor} ${textColor} ${xPadding} ${yPadding}`}
-    >
+    <section className={`relative ${bgColor} ${textColor}`}>
       <div id={id} className={`absolute -top-16`}></div>
-      <div className="m-auto max-w-[23.125rem] xl:max-w-[90rem]">
+      <div
+        className={`m-auto max-w-[23.125rem] xl:max-w-[90rem] ${xPadding} ${yPadding}`}
+      >
         {props.children}
       </div>
     </section>
