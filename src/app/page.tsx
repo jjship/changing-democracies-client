@@ -12,8 +12,8 @@ export default function Page() {
       <Section
         id="project"
         theme="light"
-        xPadding="px-4 xl:px-10 "
-        yPadding="pb-5 xl:pb-20"
+        xPadding="px-4 md:px-10 "
+        yPadding="pb-5 md:pb-14 xl:pb-20"
       >
         <Project />
       </Section>

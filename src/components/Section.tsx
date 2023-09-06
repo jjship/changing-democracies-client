@@ -8,8 +8,8 @@ export default function Section(props: {
   const {
     id,
     theme,
-    xPadding = "px-5 xl:px-10",
-    yPadding = "py-5 xl:py-20",
+    xPadding = "px-5 md:px-10",
+    yPadding = "py-5 md:py-14 xl:py-20",
   } = props;
 
   const bgColor = theme === "light" ? "bg-puprple_lightest_bg" : "bg-black_bg";
@@ -20,7 +20,7 @@ export default function Section(props: {
     <section className={`relative ${bgColor} ${textColor}`}>
       <div id={id} className={`absolute -top-16`}></div>
       <div
-        className={`m-auto max-w-[23.125rem] md:max-w-[28rem] xl:max-w-[90rem] ${xPadding} ${yPadding}`}
+        className={`m-auto max-w-[23.125rem] md:max-w-[64rem] xl:max-w-[90rem] ${xPadding} ${yPadding}`}
       >
         {props.children}
       </div>
