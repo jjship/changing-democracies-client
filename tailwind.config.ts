@@ -2,26 +2,29 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      red_mains: "#B85252",
-      purple_mains: "#8083AE",
-      yellow_secondary: "#CF9855",
-      gray_light_secondary: "#808881",
-      gray_dark_secondary: "#54534D",
-      green_accent: "#6BDBC6",
-      black_bg: "#191818",
-      purple_events: "#E7D8DD",
-      puprple_lightest_bg: "#E7D8DD",
-      purple_lighter_additional: "#B8A4AA",
-      purple_light_additional: "#9D92AB",
-    },
-
     extend: {
+      colors: {
+        red_mains: "#B85252",
+        purple_mains: "#8083AE",
+        yellow_secondary: "#CF9855",
+        gray_light_secondary: "#808881",
+        gray_dark_secondary: "#54534D",
+        green_accent: "#6BDBC6",
+        black_bg: "#191818",
+        purple_events: "#E7D8DD",
+        puprple_lightest_bg: "#E7D8DD",
+        purple_lighter_additional: "#B8A4AA",
+        purple_light_additional: "#9D92AB",
+        btn: {
+          background: "hsl(var(--btn-background))",
+          "background-hover": "hsl(var(--btn-background-hover))",
+        },
+      },
       screens: {
         sm: "370px",
         md: "1024px",
