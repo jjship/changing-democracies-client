@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { teamList, teamParagraphSm } from "../app/content";
 import Title from "./Title";
-import knotOfArrows from "../../public/arrows_knot_no_bg.svg";
-import logoLight from "../../public/logo_light_no_bg.svg";
+import knotOfArrows from "../public/arrows_knot_no_bg.svg";
+import logoLight from "../public/logo_light_no_bg.svg";
 
 export type TeamEntry = {
   organisation: string;
@@ -16,7 +16,7 @@ export default function Team() {
   return (
     <>
       <Title text="Team" theme="dark" />
-      <div className="md:grid-cols-custom hidden w-full text-[1.375rem] md:grid md:gap-10 xl:grid-cols-2">
+      <div className="hidden w-full text-[1.375rem] md:grid md:grid-cols-custom md:gap-10 xl:grid-cols-2">
         <div className="relative min-h-max">
           <div className="sticky top-28 mt-20">
             <Image src={knotOfArrows} alt="image of knotted arrows" />
