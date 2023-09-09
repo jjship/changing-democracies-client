@@ -51,7 +51,7 @@ export default function Login() {
             required
           />
           <button className="mb-2 rounded bg-green_accent px-4 py-2 text-white hover:text-black_bg">
-            Sign In
+            Log In
           </button>
           <Messages />
         </form>

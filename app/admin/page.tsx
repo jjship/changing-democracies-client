@@ -13,8 +13,8 @@ export default async function Admin() {
   } = await supabase.auth.getUser();
 
   return user ? (
-    <div className="flex  items-center gap-4">
-      Logged in as {user.email}!
+    <div className="flex min-h-screen flex-col  items-center gap-4">
+      logged in as {user.email}
       <form action="/auth/sign-out" method="post">
         <button className="mb-2 rounded bg-red-700 px-4 py-2 text-white">
           Log Out
