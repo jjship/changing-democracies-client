@@ -1,4 +1,4 @@
-import { EventEntry } from "../components/Events";
+import { DateTime } from "luxon";
 import { TeamEntry } from "../components/Team";
 
 export {
@@ -6,9 +6,7 @@ export {
   projectSecondParagraphBg,
   projectParagraphSm,
   teamList,
-  futureEvents,
-  pastEvents,
-  allEvents,
+  parsedEvents,
   teamParagraphSm,
 };
 
@@ -132,87 +130,143 @@ const teamList: TeamEntry[] = [
   },
 ];
 
-const allEvents: EventEntry[] = [
+const allEvents: DbEventEntry[] = [
   {
-    isPast: false,
-    date: "10.12.23",
+    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    title: "sev nch VERYLONGWORD SEVENCH notvisible",
+    kind: "howmanycharacterscanthisbe",
+    location: "Slavonia, Croatia",
+    link: "",
+  },
+  {
+    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    title: "lowercase and find out",
+    kind: "Meeting | online",
+    location: "Slavonia, Croatia",
+    link: "",
+  },
+  {
+    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
     kind: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
   {
-    isPast: false,
-    date: "10.12.23",
+    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
     kind: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
   {
-    isPast: false,
-    date: "10.12.23",
+    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
     kind: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
   {
-    isPast: false,
-    date: "10.12.23",
+    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
     kind: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
   {
-    isPast: false,
-    date: "10.12.23",
-    title: "Come and find out",
-    kind: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-  },
-  {
-    isPast: false,
-    date: "10.12.23",
-    title: "Come and find out",
-    kind: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-  },
-  {
-    isPast: true,
-    date: "20 - 22.04.23",
+    startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
+    endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
     kind: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
-    wp3: "WP3",
+    category: "WP3",
   },
   {
-    isPast: true,
-    date: "20 - 22.04.23",
+    startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
+    endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
     kind: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
-    wp3: "WP3",
+    category: "WP3",
   },
   {
-    isPast: true,
-    date: "20 - 22.04.23",
+    startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
+    endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
     kind: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
-    wp3: "WP3",
+    category: "WP3",
   },
 ];
 
-const futureEvents = allEvents.filter((event) => !event.isPast);
+type DbEventEntry = {
+  startDate: string;
+  endDate: string; //two dates dynamically generated string to show (dd - dd.mm)
+  title: string; //max 3 lines of max 7 characters
+  kind: string; //max 15 characters
+  location: string; //max 15 characters
+  participants?: number; //max 15 characters
+  category?: string; //max 15 characters
+  link?: string;
+};
 
-const pastEvents = allEvents.filter((event) => event.isPast);
+export type ParsedEventEntry = Omit<DbEventEntry, "startDate" | "endDate"> & {
+  date: string;
+  isPast: boolean;
+};
+
+type ParsedEvents = {
+  pastEvents: ParsedEventEntry[];
+  futureEvents: ParsedEventEntry[];
+};
+
+function parseEventEntries({
+  events,
+}: {
+  events: DbEventEntry[];
+}): ParsedEvents {
+  return events
+    .map((event) => {
+      const { startDate, endDate, ...otherInfo } = event;
+
+      const start = DateTime.fromISO(startDate);
+      const end = DateTime.fromISO(endDate);
+
+      const isPast = end < DateTime.utc();
+
+      const date =
+        `${start.day} ${start.month}` !== `${end.day} ${end.month}`
+          ? `${start.day} - ${end.day}.${end.month}.${end.year}`
+          : `${start.day}.${start.month}.${start.year}`;
+
+      return {
+        date,
+        isPast,
+        ...otherInfo,
+      };
+    })
+    .reduce(
+      (acc, event) => {
+        event.isPast
+          ? acc.pastEvents.push(event)
+          : acc.futureEvents.push(event);
+
+        return acc;
+      },
+      { pastEvents: [], futureEvents: [] } as ParsedEvents,
+    );
+}
+
+const parsedEvents = parseEventEntries({ events: allEvents });
