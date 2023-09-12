@@ -135,7 +135,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "sev nch VERYLONGWORD SEVENCH notvisible",
-    kind: "howmanycharacterscanthisbe",
+    type: "howmanycharacterscanthisbe",
     location: "Slavonia, Croatia",
     link: "",
   },
@@ -143,7 +143,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "lowercase and find out",
-    kind: "Meeting | online",
+    type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
@@ -151,7 +151,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
-    kind: "Meeting | online",
+    type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
@@ -159,7 +159,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
-    kind: "Meeting | online",
+    type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
@@ -167,7 +167,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
-    kind: "Meeting | online",
+    type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
@@ -175,7 +175,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
-    kind: "Meeting | online",
+    type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
   },
@@ -183,7 +183,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
     endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
-    kind: "Workshop | online",
+    type: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
@@ -193,7 +193,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
     endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
-    kind: "Workshop | online",
+    type: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
@@ -203,7 +203,7 @@ const allEvents: DbEventEntry[] = [
     startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
     endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
-    kind: "Workshop | online",
+    type: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
@@ -215,7 +215,7 @@ type DbEventEntry = {
   startDate: string;
   endDate: string; //two dates dynamically generated string to show (dd - dd.mm)
   title: string; //max 3 lines of max 7 characters
-  kind: string; //max 15 characters
+  type: string; //max 15 characters
   location: string; //max 15 characters
   participants?: number; //max 15 characters
   category?: string; //max 15 characters
