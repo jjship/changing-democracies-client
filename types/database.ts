@@ -67,4 +67,6 @@ export interface Database {
   };
 }
 
-export type Events = Database["public"]["Tables"]["events"]["Row"];
+export type EventDbEntry = Database["public"]["Tables"]["events"]["Row"];
+
+export type Events = Event[];

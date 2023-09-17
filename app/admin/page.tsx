@@ -1,38 +1,129 @@
-import Link from "next/link";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+"use client";
+import {
+  User,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
-import { Database } from "../../types/database";
-import { EventForm } from "../../components/EventForm";
+import { Database, EventDbEntry } from "../../types/database";
+import { EventsTable } from "../../components/EventsTable";
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import { EventsContext } from "../../components/EventsContext";
 
 export const dynamic = "force-dynamic";
 
-export default async function Admin() {
-  const supabase = createServerComponentClient<Database>({ cookies });
+export const revalidate = 0;
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+function parseEvents(events: EventDbEntry[]) {
+  return events.map((event) => {
+    const { start_date, end_date, ...otherInfo } = event;
+    const start = start_date
+      ? format(new Date(start_date), "dd-MM-yyyy")
+      : format(new Date(), "dd-MM-yyyy");
+    const end = end_date
+      ? format(new Date(end_date), "dd-MM-yyyy")
+      : format(new Date(), "dd-MM-yyyy");
 
-  if (user) {
-    const { data, error } = await supabase.from("events").select();
+    return {
+      start,
+      end,
+      ...otherInfo,
+    };
+  });
+}
+const supabase = createClientComponentClient<Database>();
+
+export default function Admin() {
+  const [user, setUser] = useState<User | null>(null);
+  const [noUser, setNoUser] = useState(false); // TODO refactor to use user
+  const [events, setEvents] = useState<EventDbEntry[] | null>(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+      if (error) {
+        console.log(error);
+      }
+      return user ? setUser(user) : setNoUser(true);
+    };
+
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    const getEvents = async () => {
+      const { data, error } = await supabase.from("events").select();
+
+      if (data) {
+        setEvents(data);
+      }
+    };
+
+    if (user) {
+      getEvents();
+    }
+  }, [user]);
+
+  if (noUser) {
+    // TODO refactor to use user
+    <p>redirecting...</p>;
+    redirect("/login");
   }
 
-  return user ? (
-    <>
-      <div className="flex flex-col  items-center gap-4">
-        logged in as {user.email}
-        <form action="/auth/sign-out" method="post">
-          <button className="mb-2 rounded bg-red-700 px-4 py-2 text-white">
-            Log Out
-          </button>
-        </form>
+  function handleDelete(eventId: number) {
+    // Find the event that was deleted
+    const eventToDelete = events?.find((event) => event.id === eventId) || null;
+
+    // Optimistically update the UI by filtering out the deleted event
+    setEvents(
+      (prevEvents) =>
+        prevEvents?.filter((event) => event.id !== eventId) || null,
+    );
+
+    // Send the delete request to the backend
+    supabase
+      .from("events")
+      .delete()
+      .eq("id", eventId)
+      .then(({ error }) => {
+        if (error) {
+          console.error("Failed to delete event:", error);
+
+          // Revert the UI update (add the event back)
+          // You might also want to notify the user about the failure
+          if (eventToDelete) {
+            setEvents((prevEvents) => [...(prevEvents || []), eventToDelete]);
+          }
+        }
+      });
+  }
+
+  if (events) {
+    const parsedEvents = events ? parseEvents(events) : [];
+
+    return (
+      <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
+        <div className="flex items-center justify-end gap-4 p-5">
+          {user && `logged in as ${user.email}`}
+          <form action="/auth/sign-out" method="post">
+            <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
+              Log Out
+            </button>
+          </form>
+        </div>
+        <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
+          <EventsContext.Provider value={{ onDelete: handleDelete }}>
+            {events ? (
+              <EventsTable parsedEvents={parsedEvents} />
+            ) : (
+              <p>loading...</p>
+            )}
+          </EventsContext.Provider>
+        </div>
       </div>
-      <div className="flex min-h-screen flex-col items-center bg-puprple_lightest_bg">
-        <EventForm />
-      </div>
-    </>
-  ) : (
-    redirect("/login")
-  );
+    );
+  }
 }

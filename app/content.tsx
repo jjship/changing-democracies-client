@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import { TeamEntry } from "../components/Team";
+import { EventDbEntry } from "../types/database";
 
 export {
   projectFirstParagraphBg,
@@ -130,99 +131,130 @@ const teamList: TeamEntry[] = [
   },
 ];
 
-const allEvents: DbEventEntry[] = [
+export const allEvents: EventDbEntry[] = [
   {
-    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    id: 1,
+    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "sev nch VERYLONGWORD SEVENCH notvisible",
     type: "howmanycharacterscanthisbe",
     location: "Slavonia, Croatia",
     link: "",
+    category: null,
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
+    participants: null,
   },
   {
-    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    id: 2,
+    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "lowercase and find out",
     type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
+    category: null,
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
+    participants: null,
   },
   {
-    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    id: 3,
+    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
     type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
+    category: null,
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
+    participants: null,
   },
   {
-    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    id: 4,
+    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
     type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
+    category: null,
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
+    participants: null,
   },
   {
-    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    id: 5,
+    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
     type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
+    category: null,
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
+    participants: null,
   },
   {
-    startDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    endDate: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    id: 6,
+    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
+    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
     title: "Come and find out",
     type: "Meeting | online",
     location: "Slavonia, Croatia",
     link: "",
+    category: null,
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
+    participants: null,
   },
   {
-    startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
-    endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
+    id: 7,
+    start_date: DateTime.utc(2023, 4, 20).toISO() ?? "",
+    end_date: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
     type: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
     category: "WP3",
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
   },
   {
-    startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
-    endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
+    id: 8,
+    start_date: DateTime.utc(2023, 4, 20).toISO() ?? "",
+    end_date: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
     type: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
     category: "WP3",
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
   },
   {
-    startDate: DateTime.utc(2023, 4, 20).toISO() ?? "",
-    endDate: DateTime.utc(2023, 4, 22).toISO() ?? "",
+    id: 9,
+    start_date: DateTime.utc(2023, 4, 20).toISO() ?? "",
+    end_date: DateTime.utc(2023, 4, 22).toISO() ?? "",
     title: "Are we lost?",
     type: "Workshop | online",
     location: "Sejny, Poland",
     link: "",
     participants: 50,
     category: "WP3",
+    created_at: DateTime.utc().toISO() ?? "",
+    created_by: null,
   },
 ];
 
-type DbEventEntry = {
-  startDate: string;
-  endDate: string; //two dates dynamically generated string to show (dd - dd.mm)
-  title: string; //max 3 lines of max 7 characters
-  type: string; //max 15 characters
-  location: string; //max 15 characters
-  participants?: number; //max 15 characters
-  category?: string; //max 15 characters
-  link?: string;
-};
-
-export type ParsedEventEntry = Omit<DbEventEntry, "startDate" | "endDate"> & {
+export type ParsedEventEntry = Omit<
+  EventDbEntry,
+  "start_date" | "end_date" | "created_at" | "created_by"
+> & {
   date: string;
   isPast: boolean;
 };
@@ -232,30 +264,38 @@ type ParsedEvents = {
   futureEvents: ParsedEventEntry[];
 };
 
+export function parseEventEntry({
+  event,
+}: {
+  event: EventDbEntry;
+}): ParsedEventEntry {
+  const { start_date, end_date, created_at, created_by, ...otherInfo } = event;
+
+  const startDate = start_date ? DateTime.fromISO(start_date) : DateTime.utc();
+  const endDate = end_date ? DateTime.fromISO(end_date) : DateTime.utc();
+
+  const isPast = endDate < DateTime.utc();
+
+  const date =
+    `${startDate.day} ${startDate.month}` !== `${endDate.day} ${endDate.month}`
+      ? `${startDate.day} - ${endDate.day}.${endDate.month}.${endDate.year}`
+      : `${startDate.day}.${startDate.month}.${startDate.year}`;
+
+  return {
+    date,
+    isPast,
+    ...otherInfo,
+  };
+}
+
 function parseEventEntries({
   events,
 }: {
-  events: DbEventEntry[];
+  events: EventDbEntry[];
 }): ParsedEvents {
   return events
     .map((event) => {
-      const { startDate, endDate, ...otherInfo } = event;
-
-      const start = DateTime.fromISO(startDate);
-      const end = DateTime.fromISO(endDate);
-
-      const isPast = end < DateTime.utc();
-
-      const date =
-        `${start.day} ${start.month}` !== `${end.day} ${end.month}`
-          ? `${start.day} - ${end.day}.${end.month}.${end.year}`
-          : `${start.day}.${start.month}.${start.year}`;
-
-      return {
-        date,
-        isPast,
-        ...otherInfo,
-      };
+      return parseEventEntry({ event });
     })
     .reduce(
       (acc, event) => {
