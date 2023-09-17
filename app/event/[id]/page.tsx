@@ -41,7 +41,7 @@ export default function Event({
     if (eventId) {
       getEvent(eventId);
     }
-  }, []);
+  }, [eventId, supabase]);
 
   return (
     <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">

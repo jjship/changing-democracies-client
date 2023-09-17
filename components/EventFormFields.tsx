@@ -232,7 +232,7 @@ export default function EventFormFields({
                     </PopoverContent>
                   </Popover>
                   <FormDescription>
-                    Enter Start Date if it's a single day event
+                    Enter Start Date if entering a single day event
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
