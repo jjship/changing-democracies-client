@@ -7,7 +7,6 @@ export {
   projectSecondParagraphBg,
   projectParagraphSm,
   teamList,
-  parsedEvents,
   teamParagraphSm,
 };
 
@@ -131,126 +130,6 @@ const teamList: TeamEntry[] = [
   },
 ];
 
-export const allEvents: EventDbEntry[] = [
-  {
-    id: 1,
-    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    title: "sev nch VERYLONGWORD SEVENCH notvisible",
-    type: "howmanycharacterscanthisbe",
-    location: "Slavonia, Croatia",
-    link: "",
-    category: null,
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-    participants: null,
-  },
-  {
-    id: 2,
-    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    title: "lowercase and find out",
-    type: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-    category: null,
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-    participants: null,
-  },
-  {
-    id: 3,
-    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    title: "Come and find out",
-    type: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-    category: null,
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-    participants: null,
-  },
-  {
-    id: 4,
-    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    title: "Come and find out",
-    type: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-    category: null,
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-    participants: null,
-  },
-  {
-    id: 5,
-    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    title: "Come and find out",
-    type: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-    category: null,
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-    participants: null,
-  },
-  {
-    id: 6,
-    start_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    end_date: DateTime.utc(2023, 12, 10).toISO() ?? "",
-    title: "Come and find out",
-    type: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-    category: null,
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-    participants: null,
-  },
-  {
-    id: 7,
-    start_date: DateTime.utc(2023, 4, 20).toISO() ?? "",
-    end_date: DateTime.utc(2023, 4, 22).toISO() ?? "",
-    title: "Are we lost?",
-    type: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    category: "WP3",
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-  },
-  {
-    id: 8,
-    start_date: DateTime.utc(2023, 4, 20).toISO() ?? "",
-    end_date: DateTime.utc(2023, 4, 22).toISO() ?? "",
-    title: "Are we lost?",
-    type: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    category: "WP3",
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-  },
-  {
-    id: 9,
-    start_date: DateTime.utc(2023, 4, 20).toISO() ?? "",
-    end_date: DateTime.utc(2023, 4, 22).toISO() ?? "",
-    title: "Are we lost?",
-    type: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    category: "WP3",
-    created_at: DateTime.utc().toISO() ?? "",
-    created_by: null,
-  },
-];
-
 export type ParsedEventEntry = Omit<
   EventDbEntry,
   "start_date" | "end_date" | "created_at" | "created_by"
@@ -288,11 +167,13 @@ export function parseEventEntry({
   };
 }
 
-function parseEventEntries({
+export function parseDbEventEntries({
   events,
 }: {
-  events: EventDbEntry[];
+  events: EventDbEntry[] | null;
 }): ParsedEvents {
+  if (!events) return { pastEvents: [], futureEvents: [] };
+
   return events
     .map((event) => {
       return parseEventEntry({ event });
@@ -308,5 +189,3 @@ function parseEventEntries({
       { pastEvents: [], futureEvents: [] } as ParsedEvents,
     );
 }
-
-const parsedEvents = parseEventEntries({ events: allEvents });
