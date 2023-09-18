@@ -6,15 +6,10 @@ import { useEffect, useState } from "react";
 import EventFormFields, {
   FormEvent,
 } from "../../../components/EventFormFields";
-import { DateTime } from "luxon";
-import { Button } from "../../../components/ui/button";
 
-export default function Event({
-  params: { id: eventId },
-}: {
-  params: { id: number };
-}) {
+export default function Event({ params: { id } }: { params: { id: string } }) {
   const [formEvent, setFormEvent] = useState<FormEvent | null>(null);
+  const eventId = +id;
 
   const supabase = createClientComponentClient<Database>();
 
@@ -23,14 +18,13 @@ export default function Event({
       const { data } = await supabase.from("events").select().eq("id", eventId);
 
       if (!data) {
-        return;
+        return; // TODO handle error
       }
 
       if (!data.length) {
         // add new event with the given id
-        // new Event
         setFormEvent(
-          parseDbEvent({ dbEvent: { ...emptyDbEvent, id: +eventId } }),
+          parseDbEvent({ dbEvent: { ...emptyDbEvent, id: eventId } }),
         );
         return;
       }
