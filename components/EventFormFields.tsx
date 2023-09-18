@@ -38,9 +38,9 @@ export type FormEvent = z.infer<typeof formSchema>;
 const formSchema = z
   .object({
     id: z.number(),
-    startDate: z.date(),
+    startDate: z.coerce.date(),
     endDate: z.date(),
-    title: z
+    title: z.coerce
       .string()
       .min(3, { message: "Title must be at least 3 characters long" })
       .max(21, { message: "Title must be at most 21 characters long" })
@@ -53,7 +53,10 @@ const formSchema = z
       .string()
       .max(18, { message: "Location must be at most 18 characters long" })
       .optional(),
-    participants: z.number().int().nonnegative(),
+    participants: z.coerce
+      .number()
+      .int({ message: "Please enter a number" })
+      .nonnegative({ message: "Please enter a number" }),
     category: z
       .string()
       .max(18, { message: "Category must be at most 18 characters long" })
@@ -77,7 +80,7 @@ function parseFormEvent({ formEvent }: { formEvent: FormEvent }): EventDbEntry {
     title: formEvent.title ?? null,
     type: formEvent.type ?? null,
     location: formEvent.location ?? null,
-    participants: formEvent.participants ?? null,
+    participants: formEvent.participants ?? 0,
     category: formEvent.category ?? null,
     link: formEvent.link ?? null,
     created_at: format(new Date(), "yyyy/MM/dd"),
@@ -111,6 +114,7 @@ export default function EventFormFields({
   const form = useForm<FormEvent>({
     resolver: zodResolver(formSchema),
     defaultValues,
+    mode: "onChange",
   });
 
   // TODO fix new event startDate
@@ -167,7 +171,7 @@ export default function EventFormFields({
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground",
                           )}
                         >
@@ -208,7 +212,7 @@ export default function EventFormFields({
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
+                            " pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground",
                           )}
                         >
@@ -327,7 +331,7 @@ export default function EventFormFields({
             />
 
             <Button
-              className="justify-self-center hover:bg-green_accent hover:text-black_bg"
+              className="mt-5 w-full hover:bg-green_accent hover:text-black_bg"
               type="submit"
             >
               Submit
