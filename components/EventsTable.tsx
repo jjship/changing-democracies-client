@@ -3,16 +3,17 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "./ui/button";
-import { useState, useEffect, use, useCallback, useContext } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/dist/client/link";
-import { EventsContext } from "./EventsContext";
+import { useEventsContext } from "./EventsContext";
+import { EventDbEntry } from "../types/database";
+import { format } from "date-fns";
 
 type ParsedEvent = {
   category: string | null;
@@ -33,7 +34,7 @@ type EventRowProps = {
 };
 
 function EventRow({ event }: EventRowProps) {
-  const { onDelete } = useContext(EventsContext);
+  const { onDelete } = useEventsContext();
 
   function handleDeleteClick() {
     if (onDelete) {
@@ -72,8 +73,14 @@ function EventRow({ event }: EventRowProps) {
   );
 }
 
-export function EventsTable({ parsedEvents }: { parsedEvents: ParsedEvent[] }) {
+export function EventsTable() {
   const [nextId, setNextId] = useState(0);
+  const { events } = useEventsContext();
+
+  const parsedEvents: ParsedEvent[] = useMemo(
+    () => parseEvents(events),
+    [events],
+  );
 
   useEffect(() => {
     setNextId(getNextId(parsedEvents));
@@ -123,3 +130,23 @@ const getNextId = (events: ParsedEvent[]) => {
     }, 0) + 1
   );
 };
+
+function parseEvents(events: EventDbEntry[] | null) {
+  if (!events) return [];
+
+  return events.map((event) => {
+    const { start_date, end_date, ...otherInfo } = event;
+    const start = start_date
+      ? format(new Date(start_date), "dd-MM-yyyy")
+      : format(new Date(), "dd-MM-yyyy");
+    const end = end_date
+      ? format(new Date(end_date), "dd-MM-yyyy")
+      : format(new Date(), "dd-MM-yyyy");
+
+    return {
+      start,
+      end,
+      ...otherInfo,
+    };
+  });
+}

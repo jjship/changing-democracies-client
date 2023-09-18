@@ -6,31 +6,11 @@ import {
 import { redirect } from "next/navigation";
 import { Database, EventDbEntry } from "../../types/database";
 import { EventsTable } from "../../components/EventsTable";
-import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { EventsContext } from "../../components/EventsContext";
 
 export const dynamic = "force-dynamic";
 
-export const revalidate = 0;
-
-function parseEvents(events: EventDbEntry[]) {
-  return events.map((event) => {
-    const { start_date, end_date, ...otherInfo } = event;
-    const start = start_date
-      ? format(new Date(start_date), "dd-MM-yyyy")
-      : format(new Date(), "dd-MM-yyyy");
-    const end = end_date
-      ? format(new Date(end_date), "dd-MM-yyyy")
-      : format(new Date(), "dd-MM-yyyy");
-
-    return {
-      start,
-      end,
-      ...otherInfo,
-    };
-  });
-}
 const supabase = createClientComponentClient<Database>();
 
 export default function Admin() {
@@ -93,7 +73,7 @@ export default function Admin() {
           console.error("Failed to delete event:", error);
 
           // Revert the UI update (add the event back)
-          // You might also want to notify the user about the failure
+          // TODO You might also want to notify the user about the failure
           if (eventToDelete) {
             setEvents((prevEvents) => [...(prevEvents || []), eventToDelete]);
           }
@@ -101,29 +81,23 @@ export default function Admin() {
       });
   }
 
-  if (events) {
-    const parsedEvents = events ? parseEvents(events) : [];
-
-    return (
-      <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
-        <div className="flex items-center justify-end gap-4 p-5">
-          {user && `logged in as ${user.email}`}
-          <form action="/auth/sign-out" method="post">
-            <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
-              Log Out
-            </button>
-          </form>
-        </div>
-        <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
-          <EventsContext.Provider value={{ onDelete: handleDelete }}>
-            {events ? (
-              <EventsTable parsedEvents={parsedEvents} />
-            ) : (
-              <p>loading...</p>
-            )}
-          </EventsContext.Provider>
-        </div>
+  return (
+    <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
+      <div className="flex items-center justify-end gap-4 p-5">
+        {user && `logged in as ${user.email}`}
+        <form action="/auth/sign-out" method="post">
+          <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
+            Log Out
+          </button>
+        </form>
       </div>
-    );
-  }
+      <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
+        <EventsContext.Provider
+          value={{ onDelete: handleDelete, events, setEvents }}
+        >
+          {events ? <EventsTable /> : <p>loading...</p>}
+        </EventsContext.Provider>
+      </div>
+    </div>
+  );
 }
