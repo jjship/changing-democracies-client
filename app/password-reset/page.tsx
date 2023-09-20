@@ -44,7 +44,7 @@ export default async function ResetPassword() {
             required
           />
           <button className="hiver:text-black_bg mb-2 rounded bg-green_accent px-4 py-2 text-black_bg  hover:bg-yellow_secondary">
-            Update Password & Log In` `
+            Update Password & Log In
           </button>
           <Messages />
         </form>
