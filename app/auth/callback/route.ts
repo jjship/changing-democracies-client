@@ -6,8 +6,6 @@ export const dynamic = "force-dynamic";
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-console.log({ redirect: `${baseURL}/password-reset` });
-
 export async function GET(request: Request) {
   // The `/auth/callback` route is required for the server-side auth flow implemented
   // by the Auth Helpers package. It exchanges an auth code for the user's session.
