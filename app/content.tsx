@@ -132,7 +132,13 @@ const teamList: TeamEntry[] = [
 
 export type ParsedEventEntry = Omit<
   EventDbEntry,
-  "start_date" | "end_date" | "created_at" | "created_by"
+  | "start_date"
+  | "end_date"
+  | "created_at"
+  | "created_by"
+  | "modified_at"
+  | "modified_by"
+  | "id"
 > & {
   date: string;
   isPast: boolean;
@@ -148,7 +154,16 @@ export function parseEventEntry({
 }: {
   event: EventDbEntry;
 }): ParsedEventEntry {
-  const { start_date, end_date, created_at, created_by, ...otherInfo } = event;
+  const {
+    start_date,
+    end_date,
+    created_at,
+    created_by,
+    id,
+    modified_at,
+    modified_by,
+    ...otherInfo
+  } = event;
 
   const startDate = start_date ? DateTime.fromISO(start_date) : DateTime.utc();
   const endDate = end_date ? DateTime.fromISO(end_date) : DateTime.utc();

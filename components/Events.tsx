@@ -90,7 +90,9 @@ function EventInfo(props: { event: ParsedEventEntry }) {
           const boldStyle = key === "date" ? "font-bold" : "";
 
           if (key === "participants") {
-            return <p key={key}>participants: {event.participants}</p>;
+            return event.participants ? (
+              <p key={key}>participants: {event.participants}</p>
+            ) : null;
           }
 
           return (
