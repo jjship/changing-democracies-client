@@ -15,8 +15,7 @@ import {
 } from "./ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
-
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+import { baseUrl } from "@/lib/constants";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Must be a valid email address" }),
@@ -41,7 +40,7 @@ export default function PasswordResetForm() {
     const { data, error } = await supabase.auth.resetPasswordForEmail(
       values.email,
       {
-        redirectTo: `${baseURL}/auth/callback?next=/password-reset`,
+        redirectTo: `${baseUrl}/auth/callback?next=/password-reset`,
       },
     );
 

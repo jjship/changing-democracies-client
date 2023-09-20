@@ -1,10 +1,9 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { baseUrl } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
-
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function GET(request: Request) {
   // The `/auth/callback` route is required for the server-side auth flow implemented
@@ -22,6 +21,6 @@ export async function GET(request: Request) {
 
   // URL to redirect to after sign in process completes
   return NextResponse.redirect(
-    `${baseURL}/password-reset` || "/password-reset",
+    `${baseUrl}/password-reset` || "/password-reset",
   );
 }
