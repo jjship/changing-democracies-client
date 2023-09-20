@@ -127,8 +127,6 @@ export default function EventFormFields({
     mode: "onChange",
   });
 
-  // TODO fix new event startDate
-
   async function onSubmit(values: FormEvent) {
     const {
       data: { user },
