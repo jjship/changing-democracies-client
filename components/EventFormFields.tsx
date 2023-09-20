@@ -31,7 +31,6 @@ import {
 import { Database, EventDbEntry } from "../types/database";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { on } from "events";
 
 export type FormEvent = z.infer<typeof formSchema>;
 
@@ -65,14 +64,23 @@ const formSchema = z
       .string()
       .url({ message: "Link must be a valid URL" })
       .or(z.literal("")),
+    created_at: z.date(),
+    created_by: z.string().nullable(),
+    modified_at: z.date().nullable(),
+    modified_by: z.string().nullable(),
   })
-  .refine((data) => data.startDate < data.endDate, {
+  .refine((data) => data.startDate <= data.endDate, {
     message: "Start date must be prior to end date",
     path: ["startDate"],
   });
 
-function parseFormEvent({ formEvent }: { formEvent: FormEvent }): EventDbEntry {
-  console.log("parseFormEvent");
+function parseFormEvent({
+  formEvent,
+  user,
+}: {
+  formEvent: FormEvent;
+  user: User;
+}): EventDbEntry {
   return {
     id: formEvent.id,
     start_date: format(formEvent.startDate, "yyyy/MM/dd"),
@@ -83,8 +91,10 @@ function parseFormEvent({ formEvent }: { formEvent: FormEvent }): EventDbEntry {
     participants: formEvent.participants ?? 0,
     category: formEvent.category ?? null,
     link: formEvent.link ?? null,
-    created_at: format(new Date(), "yyyy/MM/dd"),
-    created_by: null,
+    created_at: formEvent.created_at.toISOString() ?? new Date().toISOString(),
+    created_by: formEvent.created_by ?? user.id,
+    modified_at: new Date().toISOString(),
+    modified_by: user.id,
   };
 }
 
@@ -129,11 +139,9 @@ export default function EventFormFields({
       return;
     }
 
-    const event: EventDbEntry = parseFormEvent({ formEvent: values });
+    const event: EventDbEntry = parseFormEvent({ formEvent: values, user });
 
-    const { data, error } = await supabase.from("events").upsert(event);
-
-    console.log({ upserted: data });
+    const { error } = await supabase.from("events").upsert(event);
 
     if (error) {
       console.log(error);

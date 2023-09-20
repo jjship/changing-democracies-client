@@ -59,6 +59,10 @@ function parseDbEvent({ dbEvent }: { dbEvent: EventDbEntry }): FormEvent {
     participants: dbEvent.participants ?? 0,
     category: dbEvent.category ?? "",
     link: dbEvent.link ?? "",
+    created_at: new Date(dbEvent.created_at) ?? new Date(),
+    created_by: dbEvent.created_by ?? null,
+    modified_at: dbEvent.modified_at ? new Date(dbEvent.modified_at) : null,
+    modified_by: dbEvent.modified_by ?? null,
   };
 }
 
@@ -73,6 +77,7 @@ const emptyDbEvent: EventDbEntry = {
   category: null,
   link: null,
   created_at: new Date().toISOString() || "",
-  created_by: null, // TODO set current user id
+  created_by: null,
+  modified_at: null,
+  modified_by: null,
 };
-// TODO add modified_at and modified_by

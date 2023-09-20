@@ -18,6 +18,8 @@ export interface Database {
           id: number;
           link: string | null;
           location: string | null;
+          modified_at: string | null;
+          modified_by: string | null;
           participants: number | null;
           start_date: string | null;
           title: string | null;
@@ -31,6 +33,8 @@ export interface Database {
           id?: number;
           link?: string | null;
           location?: string | null;
+          modified_at?: string | null;
+          modified_by?: string | null;
           participants?: number | null;
           start_date?: string | null;
           title?: string | null;
@@ -44,6 +48,8 @@ export interface Database {
           id?: number;
           link?: string | null;
           location?: string | null;
+          modified_at?: string | null;
+          modified_by?: string | null;
           participants?: number | null;
           start_date?: string | null;
           title?: string | null;
@@ -66,7 +72,6 @@ export interface Database {
     };
   };
 }
-
 export type EventDbEntry = Database["public"]["Tables"]["events"]["Row"];
 
 export type Events = Event[];
