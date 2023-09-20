@@ -1,14 +1,12 @@
-import { EventEntry } from "../components/Events";
+import { DateTime } from "luxon";
 import { TeamEntry } from "../components/Team";
+import { EventDbEntry } from "../types/database";
 
 export {
   projectFirstParagraphBg,
   projectSecondParagraphBg,
   projectParagraphSm,
   teamList,
-  futureEvents,
-  pastEvents,
-  allEvents,
   teamParagraphSm,
 };
 
@@ -132,87 +130,77 @@ const teamList: TeamEntry[] = [
   },
 ];
 
-const allEvents: EventEntry[] = [
-  {
-    isPast: false,
-    date: "10.12.23",
-    title: "Come and find out",
-    kind: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-  },
-  {
-    isPast: false,
-    date: "10.12.23",
-    title: "Come and find out",
-    kind: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-  },
-  {
-    isPast: false,
-    date: "10.12.23",
-    title: "Come and find out",
-    kind: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-  },
-  {
-    isPast: false,
-    date: "10.12.23",
-    title: "Come and find out",
-    kind: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-  },
-  {
-    isPast: false,
-    date: "10.12.23",
-    title: "Come and find out",
-    kind: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-  },
-  {
-    isPast: false,
-    date: "10.12.23",
-    title: "Come and find out",
-    kind: "Meeting | online",
-    location: "Slavonia, Croatia",
-    link: "",
-  },
-  {
-    isPast: true,
-    date: "20 - 22.04.23",
-    title: "Are we lost?",
-    kind: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    wp3: "WP3",
-  },
-  {
-    isPast: true,
-    date: "20 - 22.04.23",
-    title: "Are we lost?",
-    kind: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    wp3: "WP3",
-  },
-  {
-    isPast: true,
-    date: "20 - 22.04.23",
-    title: "Are we lost?",
-    kind: "Workshop | online",
-    location: "Sejny, Poland",
-    link: "",
-    participants: 50,
-    wp3: "WP3",
-  },
-];
+export type ParsedEventEntry = Omit<
+  EventDbEntry,
+  | "start_date"
+  | "end_date"
+  | "created_at"
+  | "created_by"
+  | "modified_at"
+  | "modified_by"
+  | "id"
+> & {
+  date: string;
+  isPast: boolean;
+};
 
-const futureEvents = allEvents.filter((event) => !event.isPast);
+type ParsedEvents = {
+  pastEvents: ParsedEventEntry[];
+  futureEvents: ParsedEventEntry[];
+};
 
-const pastEvents = allEvents.filter((event) => event.isPast);
+export function parseEventEntry({
+  event,
+}: {
+  event: EventDbEntry;
+}): ParsedEventEntry {
+  const {
+    start_date,
+    end_date,
+    created_at,
+    created_by,
+    id,
+    modified_at,
+    modified_by,
+    ...otherInfo
+  } = event;
+
+  const startDate = start_date ? DateTime.fromISO(start_date) : DateTime.utc();
+  const endDate = end_date ? DateTime.fromISO(end_date) : DateTime.utc();
+
+  const isPast = endDate < DateTime.utc();
+
+  const date =
+    `${startDate.day} ${startDate.month}` !== `${endDate.day} ${endDate.month}`
+      ? `${startDate.day} - ${endDate.day}.${endDate.month}.${endDate.year}`
+      : `${startDate.day}.${startDate.month}.${startDate.year}`;
+
+  return {
+    date,
+    isPast,
+    ...otherInfo,
+  };
+}
+
+export function parseDbEventEntries({
+  events,
+}: {
+  events: EventDbEntry[] | null;
+}): ParsedEvents {
+  if (!events) return { pastEvents: [], futureEvents: [] };
+
+  return events
+    .map((event) => {
+      return parseEventEntry({ event });
+    })
+    .reduce(
+      (acc, event) => {
+        event.isPast
+          ? acc.pastEvents.push(event)
+          : acc.futureEvents.push(event);
+
+        return acc;
+      },
+      { pastEvents: [], futureEvents: [] } as ParsedEvents,
+    );
+}

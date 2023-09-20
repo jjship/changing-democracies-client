@@ -1,18 +1,16 @@
-import { futureEvents, pastEvents } from "../app/content";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { ParsedEventEntry, parseDbEventEntries } from "../app/content";
 import Title from "./Title";
+import { cookies } from "next/headers";
+import { Database } from "../types/database";
 
-export type EventEntry = {
-  isPast: boolean;
-  date: string;
-  title: string;
-  kind: string;
-  location: string;
-  link: string;
-  participants?: number;
-  wp3?: string;
-};
+export default async function Events() {
+  const supabase = createServerComponentClient<Database>({ cookies });
 
-export default function Events() {
+  const { data: events } = await supabase.from("events").select();
+
+  const { futureEvents, pastEvents } = parseDbEventEntries({ events });
+
   return (
     <>
       <Title text="Events" theme="light" />
@@ -22,7 +20,7 @@ export default function Events() {
   );
 }
 
-function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
+function EventsList(props: { isFuture: boolean; events: ParsedEventEntry[] }) {
   const { events, isFuture } = props;
 
   const bgColor = isFuture ? "text-yellow_secondary" : "text-black_bg";
@@ -36,7 +34,7 @@ function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
           {isFuture ? "upcoming" : "past"}
         </p>
       </div>
-      <div className="event-list flex gap-[.938em] overflow-x-auto	md:flex-wrap md:gap-x-10 md:gap-y-20 xl:gap-x-40">
+      <div className="event-list flex gap-[.938em] overflow-x-auto	md:flex-wrap md:gap-x-6 md:gap-y-20 xl:gap-x-40">
         {events.map((event, index) => {
           return (
             <EventEntryComponent
@@ -51,7 +49,10 @@ function EventsList(props: { isFuture: boolean; events: EventEntry[] }) {
   );
 }
 
-function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
+function EventEntryComponent(props: {
+  isFuture: boolean;
+  event: ParsedEventEntry;
+}) {
   const { event, isFuture } = props;
 
   const bgColor = isFuture
@@ -59,7 +60,7 @@ function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
     : "bg-purple_lighter_additional";
 
   return (
-    <div className={`relative min-w-[9rem] md:w-[18rem]`}>
+    <div className={`relative min-w-[9rem] md:w-[18.5rem]`}>
       <div
         className={`${bgColor} absolute left-0 top-0 z-10 h-[4.8rem] w-[5.5rem] md:h-[8.938rem] md:w-[10.5rem]`}
       ></div>
@@ -70,26 +71,35 @@ function EventEntryComponent(props: { isFuture: boolean; event: EventEntry }) {
   );
 }
 
-function EventInfo(props: { event: EventEntry }) {
+function EventInfo(props: { event: ParsedEventEntry }) {
   const { event } = props;
+  const textOverflowStyle = "overflow-hidden text-ellipsis ";
   return (
-    <div className="leading-5 md:text-[1.375rem] md:leading-[2rem]">
-      <p className="h-[4.7rem] text-[1.625rem] font-light leading-[1.625rem] md:h-[8rem] md:text-[3.375rem] md:font-thin md:leading-[3.3rem]">
+    <div className="overflow-clip leading-5 md:text-[1.375rem] md:leading-[2rem]">
+      <p
+        className={`h-[4.7rem] text-[1.625rem] font-light uppercase leading-[1.625rem] md:h-max md:max-h-40 md:min-h-[10rem] md:text-[3.375rem] md:font-thin md:leading-[3.3rem] ${textOverflowStyle}`}
+      >
         {event.title}
       </p>
+
       {Object.keys(event)
         .filter((key) => {
-          return key !== "title";
+          return key !== "title" && key !== "link";
         })
         .map((key) => {
-          const style = key === "date" ? "font-bold" : "";
+          const boldStyle = key === "date" ? "font-bold" : "";
 
           if (key === "participants") {
-            return <p key={key}>participants: {event.participants}</p>;
+            return event.participants ? (
+              <p key={key}>participants: {event.participants}</p>
+            ) : null;
           }
 
           return (
-            <p key={key} className={style}>
+            <p
+              key={key}
+              className={`${boldStyle} ${textOverflowStyle} whitespace-nowrap`}
+            >
               {event[key as keyof typeof event]}
             </p>
           );

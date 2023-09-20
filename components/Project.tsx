@@ -1,7 +1,7 @@
 import Image from "next/image";
-import earshapedArrows from "../../public/arrows_ear_no_bg.svg";
-import fundedByEu from "../../public/EU_flag__funded_by.svg";
-import logoLight from "../../public/logo_light_no_bg.svg";
+import earshapedArrows from "../public/arrows_ear_no_bg.svg";
+import fundedByEu from "../public/EU_flag__funded_by.svg";
+import logoLight from "../public/logo_light_no_bg.svg";
 import {
   projectFirstParagraphBg,
   projectParagraphSm,

@@ -5,6 +5,9 @@ import Contact from "../components/Contact";
 import Section from "../components/Section";
 import Navigation from "../components/navigation/Navigation";
 
+export const revalidate = 600; // TODO set to 3600
+export const dynamic = "force-dynamic";
+
 export default function Page() {
   return (
     <main>

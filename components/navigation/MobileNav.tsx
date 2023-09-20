@@ -5,6 +5,7 @@ import { NavContext } from "./Navigation";
 export default function MobileNav() {
   const { isNavOpen } = useContext(NavContext);
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     if (isNavOpen) {
       const visibleTimeout = setTimeout(() => {
@@ -15,6 +16,8 @@ export default function MobileNav() {
     } else {
       setVisible(false);
     }
+    //TODO inventigate this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNavOpen]);
 
   return (
@@ -46,7 +49,7 @@ const AnimatedLink = (props: { text: string; timeout?: number }) => {
     } else {
       setSlideIn(false);
     }
-  }, [isNavOpen]);
+  }, [isNavOpen, timeout]);
 
   return (
     <div
