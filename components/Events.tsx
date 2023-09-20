@@ -73,11 +73,11 @@ function EventEntryComponent(props: {
 
 function EventInfo(props: { event: ParsedEventEntry }) {
   const { event } = props;
-  const textOverflowStyle = "overflow-hidden text-ellipsis ";
+  const textOverflowStyle = "overflow-hidden break-words";
   return (
     <div className="overflow-clip leading-5 md:text-[1.375rem] md:leading-[2rem]">
       <p
-        className={`h-[4.7rem] text-[1.625rem] font-light uppercase leading-[1.625rem] md:h-max md:max-h-40 md:min-h-[10rem] md:text-[3.375rem] md:font-thin md:leading-[3.3rem] ${textOverflowStyle}`}
+        className={`h-[4.7rem] text-[1.625rem] font-light leading-[1.625rem] md:h-max md:max-h-40 md:min-h-[10rem] md:text-[3.375rem] md:font-thin md:leading-[3.3rem] ${textOverflowStyle}`}
       >
         {event.title}
       </p>
