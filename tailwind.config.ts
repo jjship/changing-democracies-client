@@ -30,7 +30,6 @@ const config: Config = {
         purple_light_additional: "#9D92AB",
         btn: {
           background: "hsl(var(--btn-background))",
-          "background-hover": "hsl(var(--btn-background-hover))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
