@@ -2,9 +2,11 @@ import Messages from "../login/messages";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const supabase = createServerComponentClient({ cookies });
+export const dynamic = "force-dynamic";
 
 export default async function ResetPassword() {
+  const supabase = createServerComponentClient({ cookies });
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
