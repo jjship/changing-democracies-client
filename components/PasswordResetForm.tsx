@@ -26,7 +26,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function PasswordResetForm() {
   const [email] = useState("");
-  const [submited, setSubmited] = useState<boolean>(true);
+  const [submited, setSubmited] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const supabase = createClientComponentClient<Database>();
@@ -38,13 +38,13 @@ export default function PasswordResetForm() {
   });
 
   async function onSubmit(values: FormValues) {
-    console.log({ values });
     const { data, error } = await supabase.auth.resetPasswordForEmail(
       values.email,
       {
         redirectTo: `${baseURL}/auth/callback?next=/password-reset`,
       },
     );
+
     if (error) {
       console.error(error);
     }
