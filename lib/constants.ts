@@ -5,7 +5,7 @@ function getBaseUrl() {
     case "production" || "preview":
       return `https://${process.env.VERCEL_URL}`;
     default:
-      return "http://localhost:3000";
+      return "https://www.changingdemocracies.eu/";
   }
 }
 
