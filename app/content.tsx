@@ -51,7 +51,7 @@ const teamList: TeamEntry[] = [
   {
     organisation: "Association for History Education in Greece",
     link: "https://www.aheg.gr/",
-    teamMembers: ["Marjolein Delvou", "Hanna Zielińska"],
+    teamMembers: ["Vassiliki Sakka"],
     country: "Greece",
   },
   {
@@ -92,14 +92,14 @@ const teamList: TeamEntry[] = [
     country: "Belgium",
   },
   {
-    organisation: "In Media Res",
-    link: "",
+    organisation: "In Medias Res",
+    link: "https://theimr.eu/",
     teamMembers: ["Stefano Di Pietro"],
     country: "The Netherlands",
   },
   {
     organisation: "Institute for the Study of Totalitarian Regimes",
-    link: "https://www.ustrcr.cz/en",
+    link: "https://www.ff.cuni.cz/home/",
     teamMembers: ["Bohumil Melichar", "Václav Sixta"],
     country: "Czechia",
   },
@@ -125,7 +125,7 @@ const teamList: TeamEntry[] = [
   {
     organisation: "National History Museum of Slavonia",
     link: "https://www.mso.hr/",
-    teamMembers: ["Denis Detling", "Jesenka Ricl", "Vasiliki Sakka"],
+    teamMembers: ["Denis Detling", "Jesenka Ricl"],
     country: "Croatia",
   },
 ];
