@@ -25,11 +25,14 @@ export default function Contact() {
         </div>
         <div className="flex w-full flex-col items-end">
           <div
-            className="relative z-20 mt-10 max-w-min md:mt-48"
+            className="relative z-20 mt-10 flex max-w-min flex-col md:mt-48"
             style={{ background: "rgba(107, 219, 198, 0.80)" }}
           >
-            <span className="mx-[.3rem] whitespace-nowrap text-right font-semibold leading-6 text-black_bg md:mx-2 md:text-2xl xl:mx-5 xl:text-[2.125rem] xl:leading-10">
-              touch@changingdemocracies.eu
+            <span className="mx-[.3rem] whitespace-nowrap text-center font-semibold leading-6 text-black_bg md:mx-2 md:text-2xl xl:mx-5 xl:text-[2.125rem] xl:leading-10">
+              hanna.zielinska@evensfoundation.be
+            </span>
+            <span className="mx-[.3rem] whitespace-nowrap text-center font-semibold leading-6 text-black_bg md:mx-2 md:text-2xl xl:mx-5 xl:text-[2.125rem] xl:leading-10">
+              marjolein.delvou@evensfoundation.be
             </span>
           </div>
         </div>
