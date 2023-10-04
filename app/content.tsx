@@ -42,8 +42,8 @@ const projectParagraphSm = (
 
 const teamParagraphSm = (
   <>
-    <b>Changing Democracies</b> involves 13 partners from 10 European countries
-    and is made possible thanks to the funding of the European Commission.
+    <b>Changing Democracies</b> involves 13 partners
+    <br /> from 10 European countries:
   </>
 );
 
@@ -51,7 +51,7 @@ const teamList: TeamEntry[] = [
   {
     organisation: "Association for History Education in Greece",
     link: "https://www.aheg.gr/",
-    teamMembers: ["Marjolein Delvou", "Hanna Zielińska"],
+    teamMembers: ["Vassiliki Sakka"],
     country: "Greece",
   },
   {
@@ -63,18 +63,11 @@ const teamList: TeamEntry[] = [
   {
     organisation: "Borderland Foundation",
     link: "https://www.pogranicze.sejny.pl/",
-    teamMembers: ["Weronika Czyżewska-Poncyliusz"],
+    teamMembers: ["Weronika Czyżewska-Poncyljusz"],
     country: "Poland",
   },
   {
-    organisation:
-      "Escola de Cultura de Pau, Autonomous University of Barcelona",
-    link: "https://escolapau.uab.cat/en/publications",
-    teamMembers: ["Cecile Barbeito-Thonon", "Marina Caireta-Sampere"],
-    country: "Spain",
-  },
-  {
-    organisation: "EuroClio - European Association of History Educators",
+    organisation: "EuroClio \u2013 European Association of History Educators",
     link: "https://www.euroclio.eu/",
     teamMembers: ["Eugenie Khatschatrian", "Steven Stegers"],
     country: "The Netherlands",
@@ -92,29 +85,23 @@ const teamList: TeamEntry[] = [
     country: "Belgium",
   },
   {
-    organisation: "In Media Res",
-    link: "",
+    organisation: "In Medias Res",
+    link: "https://theimr.eu/",
     teamMembers: ["Stefano Di Pietro"],
     country: "The Netherlands",
   },
   {
     organisation: "Institute for the Study of Totalitarian Regimes",
-    link: "https://www.ustrcr.cz/en",
+    link: "https://www.ff.cuni.cz/home/",
     teamMembers: ["Bohumil Melichar", "Václav Sixta"],
     country: "Czechia",
   },
   {
     organisation:
-      "Institute of Research in Art, Design and Society, University of Porto",
+      "Institute of Research in Arts, Design and Society, University of Porto",
     link: "https://i2ads.up.pt/en/intitute/",
-    teamMembers: ["Samuel Guimaraes", "Catarina Silva Martins"],
+    teamMembers: ["Samuel Guimarães", "Catarina (Cat) Martins"],
     country: "Portugal",
-  },
-  {
-    organisation: "Open Lithuania Foundation",
-    link: "https://olf.lt/en/",
-    teamMembers: ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-    country: "Lithuania",
   },
   {
     organisation: "Mediawise Society",
@@ -125,8 +112,21 @@ const teamList: TeamEntry[] = [
   {
     organisation: "National History Museum of Slavonia",
     link: "https://www.mso.hr/",
-    teamMembers: ["Denis Detling", "Jesenka Ricl", "Vasiliki Sakka"],
+    teamMembers: ["Denis Detling", "Jesenka Ricl"],
     country: "Croatia",
+  },
+  {
+    organisation: "Open Lithuania Foundation",
+    link: "https://olf.lt/en/",
+    teamMembers: ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
+    country: "Lithuania",
+  },
+  {
+    organisation:
+      "School for a Culture of Peace, Autonomous University of Barcelona",
+    link: "https://escolapau.uab.cat/en/publications",
+    teamMembers: ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
+    country: "Spain",
   },
 ];
 

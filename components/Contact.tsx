@@ -25,14 +25,33 @@ export default function Contact() {
         </div>
         <div className="flex w-full flex-col items-end">
           <div
-            className="relative z-20 mt-10 max-w-min md:mt-48"
+            className="relative z-20 mt-10 flex max-w-min flex-col md:mt-48"
             style={{ background: "rgba(107, 219, 198, 0.80)" }}
           >
-            <span className="mx-[.3rem] whitespace-nowrap text-right font-semibold leading-6 text-black_bg md:mx-2 md:text-2xl xl:mx-5 xl:text-[2.125rem] xl:leading-10">
-              touch@changingdemocracies.eu
-            </span>
+            <Link
+              href="mailto:hanna.zielinska@evensfoundation.be"
+              className="mx-[.3rem] whitespace-nowrap text-center font-semibold leading-6 text-black_bg md:mx-2 md:text-2xl xl:mx-5 xl:text-[2.125rem] xl:leading-10"
+            >
+              hanna.zielinska@evensfoundation.be
+            </Link>
+            <Link
+              href="mailto:marjolein.delvou@evensfoundation.be"
+              className="mx-[.3rem] whitespace-nowrap text-center font-semibold leading-6 text-black_bg md:mx-2 md:text-2xl xl:mx-5 xl:text-[2.125rem] xl:leading-10"
+            >
+              marjolein.delvou@evensfoundation.be
+            </Link>
           </div>
         </div>
+      </div>
+      <div className="relative z-20 mt-32 max-w-max border-solid border-white md:mx-auto md:mt-40 md:w-full">
+        <span className="leading-6 text-puprple_lightest_bg md:text-2xl xl:text-[2.125rem] xl:leading-10">
+          Download our Children and Young
+          <br className="md:hidden" /> People Protection Policy from&nbsp;
+          <Link href="/cypp_policy.pdf" className="text-green_accent underline">
+            here
+          </Link>
+          .
+        </span>
       </div>
       <div className="ml-6 mr-36 mt-[11.06rem] md:hidden">
         <Image src={logoLight} alt="changing democracies logo" />
