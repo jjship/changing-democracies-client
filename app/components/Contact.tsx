@@ -47,7 +47,11 @@ export default function Contact() {
         <span className="leading-6 text-puprple_lightest_bg md:text-2xl xl:text-[2.125rem] xl:leading-10">
           Download our Children and Young
           <br className="md:hidden" /> People Protection Policy from&nbsp;
-          <Link href="/cypp_policy.pdf" className="text-green_accent underline">
+          <Link
+            href="/cypp_policy.pdf"
+            className="text-green_accent underline"
+            prefetch={false}
+          >
             here
           </Link>
           .
