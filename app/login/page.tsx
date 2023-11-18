@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Messages from "./messages";
-import PasswordResetForm from "../../components/PasswordResetForm";
+import PasswordResetForm from "../components/PasswordResetForm";
 
 export default function Login() {
   return (

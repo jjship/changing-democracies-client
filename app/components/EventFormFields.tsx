@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import * as z from "zod";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,20 +15,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Calendar } from "@/components/ui/calendar";
+} from "@/app/components/ui/form";
+import { Input } from "@/app/components/ui/input";
+import { Calendar } from "@/app/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "../lib/utils";
+} from "@/app/components/ui/popover";
+import { cn } from "../../lib/utils";
 import {
   User,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
-import { Database, EventDbEntry } from "../types/database";
+import { Database, EventDbEntry } from "../../types/database";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 

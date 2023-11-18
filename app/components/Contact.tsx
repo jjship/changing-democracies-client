@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import logoLight from "../public/logo_light_no_bg.svg";
+import logoLight from "@/public/logo_light_no_bg.svg";
 
-import roundPhoto from "../public/photo in circle.png";
+import roundPhoto from "@/public/photo in circle.png";
 import Title from "./Title";
 
 export default function Contact() {

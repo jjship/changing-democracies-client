@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { EventDbEntry } from "../types/database";
+import { EventDbEntry } from "@/types/database";
 
 type DeleteCallback = (eventId: number) => void;
 
