@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../types/database";
+import { Database } from "@/types/database";
 import {
   Form,
   FormControl,
@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/app/components/ui/input";
 import { Button } from "./ui/button";
 import { baseUrl } from "@/lib/constants";
 

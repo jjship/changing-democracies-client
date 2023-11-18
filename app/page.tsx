@@ -1,9 +1,9 @@
-import Project from "../components/Project";
-import Team from "../components/Team";
-import Events from "../components/Events";
-import Contact from "../components/Contact";
-import Section from "../components/Section";
-import Navigation from "../components/navigation/Navigation";
+import Project from "./components/Project";
+import Team from "./components/Team";
+import Events from "./components/Events";
+import Contact from "./components/Contact";
+import Section from "./components/Section";
+import Navigation from "./components/navigation/Navigation";
 
 export const revalidate = 600; // TODO set to 3600
 export const dynamic = "force-dynamic";

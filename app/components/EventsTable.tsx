@@ -7,12 +7,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/app/components/ui/table";
 import { Button } from "./ui/button";
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/dist/client/link";
 import { useEventsContext } from "./EventsContext";
-import { EventDbEntry } from "../types/database";
+import { EventDbEntry } from "@/types/database";
 import { format } from "date-fns";
 
 type ParsedEvent = {

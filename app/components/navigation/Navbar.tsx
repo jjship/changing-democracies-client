@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import languageArrow from "../../public/language_arrow.svg";
+import languageArrow from "@/public/language_arrow.svg";
 
 export default function Navbar() {
   return (

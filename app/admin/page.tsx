@@ -5,9 +5,9 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { Database, EventDbEntry } from "../../types/database";
-import { EventsTable } from "../../components/EventsTable";
+import { EventsTable } from "../components/EventsTable";
 import { useEffect, useState } from "react";
-import { EventsContext } from "../../components/EventsContext";
+import { EventsContext } from "../components/EventsContext";
 
 export const dynamic = "force-dynamic";
 

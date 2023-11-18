@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import logoLight from "../public/logo_light_no_bg.svg";
+import logoLight from "@/public/logo_light_no_bg.svg";
 
-import roundPhoto from "../public/photo in circle.png";
+import roundPhoto from "@/public/photo in circle.png";
 import Title from "./Title";
 
 export default function Contact() {
@@ -47,7 +47,11 @@ export default function Contact() {
         <span className="leading-6 text-puprple_lightest_bg md:text-2xl xl:text-[2.125rem] xl:leading-10">
           Download our Children and Young
           <br className="md:hidden" /> People Protection Policy from&nbsp;
-          <Link href="/cypp_policy.pdf" className="text-green_accent underline">
+          <Link
+            href="/cypp_policy.pdf"
+            className="text-green_accent underline"
+            prefetch={false}
+          >
             here
           </Link>
           .

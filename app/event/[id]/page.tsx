@@ -3,9 +3,7 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database, EventDbEntry } from "../../../types/database";
 import { useEffect, useState } from "react";
-import EventFormFields, {
-  FormEvent,
-} from "../../../components/EventFormFields";
+import EventFormFields, { FormEvent } from "../../components/EventFormFields";
 
 export default function Event({ params: { id } }: { params: { id: string } }) {
   const [formEvent, setFormEvent] = useState<FormEvent | null>(null);
