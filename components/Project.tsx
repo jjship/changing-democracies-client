@@ -6,7 +6,7 @@ import {
   projectFirstParagraphBg,
   projectParagraphSm,
   projectSecondParagraphBg,
-} from "../app/content";
+} from "../app/content/project";
 
 export default function Project() {
   return (

@@ -1,5 +1,5 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { ParsedEventEntry, parseDbEventEntries } from "../app/content";
+import { ParsedEventEntry, parseDbEventEntries } from "../app/content/event";
 import Title from "./Title";
 import { cookies } from "next/headers";
 import { Database } from "../types/database";
