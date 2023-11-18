@@ -91,7 +91,7 @@ const teamList: TeamEntry[] = [
     country: "The Netherlands",
   },
   {
-    organisation: "Institute for the Study of Totalitarian Regimes",
+    organisation: "Faculty of Arts, Charles University",
     link: "https://www.ff.cuni.cz/home/",
     teamMembers: ["Bohumil Melichar", "Václav Sixta"],
     country: "Czechia",
