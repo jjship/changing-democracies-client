@@ -72,7 +72,7 @@ const teamList: TeamEntry[] = [
     country: "Romania",
   },
   {
-    organisation: "National History Museum of Slavonia",
+    organisation: "Museum of Slavonia",
     link: "https://www.mso.hr/",
     teamMembers: ["Denis Detling", "Jesenka Ricl"],
     country: "Croatia",
