@@ -2,13 +2,6 @@ import { TeamEntry } from "../components/Team";
 
 export { teamList, teamParagraphSm };
 
-const teamParagraphSm = (
-  <>
-    <b>Changing Democracies</b> involves 13 partners
-    <br /> from 10 European countries:
-  </>
-);
-
 const teamList: TeamEntry[] = [
   {
     organisation: "Association for History Education in Greece",
@@ -60,8 +53,8 @@ const teamList: TeamEntry[] = [
   },
   {
     organisation:
-      "Institute of Research in Arts, Design and Society, University of Porto",
-    link: "https://i2ads.up.pt/en/intitute/",
+      "Research Institute in Art, Design and Society, University of Porto",
+    link: "https://i2ads.up.pt/en",
     teamMembers: ["Samuel Guimarães", "Catarina (Cat) Martins"],
     country: "Portugal",
   },
@@ -91,3 +84,10 @@ const teamList: TeamEntry[] = [
     country: "Spain",
   },
 ];
+
+const teamParagraphSm = (
+  <>
+    <b>Changing Democracies</b> involves {teamList.length ?? 13} partners
+    <br /> from 10 European countries:
+  </>
+);
