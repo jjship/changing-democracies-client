@@ -1,13 +1,13 @@
 "use client";
+import { useEffect, useState } from "react";
 import {
   User,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { Database, EventDbEntry } from "../../types/database";
-import { EventsTable } from "../components/EventsTable";
-import { useEffect, useState } from "react";
-import { EventsContext } from "../components/EventsContext";
+import { EventsTable } from "../components/admin/events/EventsTable";
+import { EventsContext } from "../components/admin/events/EventsContext";
 
 export const dynamic = "force-dynamic";
 

@@ -23,12 +23,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/app/components/ui/popover";
-import { cn } from "../../lib/utils";
+import { cn } from "../../../../lib/utils";
 import {
   User,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
-import { Database, EventDbEntry } from "../../types/database";
+import { Database, EventDbEntry } from "../../../../types/database";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 

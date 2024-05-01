@@ -12,9 +12,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
+} from "../ui/form";
 import { Input } from "@/app/components/ui/input";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { baseUrl } from "@/lib/constants";
 
 const formSchema = z.object({
