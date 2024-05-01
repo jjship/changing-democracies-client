@@ -5,9 +5,9 @@ import {
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
-import { Database, EventDbEntry } from "../../types/database";
+import { Database } from "../../types/database";
 import { UserContext } from "../components/admin/UserContext";
-import { EventsContext } from "../components/admin/events/EventsContext";
+import EventsAdmin from "@/components/admin/events/EventsAdmin";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +16,6 @@ const supabase = createClientComponentClient<Database>();
 export default function Admin() {
   const [user, setUser] = useState<User | null>(null);
   const [noUser, setNoUser] = useState(false); // TODO refactor to use user
-  const [events, setEvents] = useState<EventDbEntry[] | null>(null);
 
   useEffect(() => {
     const getUser = async () => {
@@ -33,52 +32,10 @@ export default function Admin() {
     getUser();
   }, []);
 
-  useEffect(() => {
-    const getEvents = async () => {
-      const { data, error } = await supabase.from("events").select();
-
-      if (data) {
-        setEvents(data);
-      }
-    };
-
-    if (user) {
-      getEvents();
-    }
-  }, [user]);
-
   if (noUser) {
     // TODO refactor to use user
     <p>redirecting...</p>;
     redirect("/login");
-  }
-
-  function handleDelete(eventId: number) {
-    // Find the event that was deleted
-    const eventToDelete = events?.find((event) => event.id === eventId) || null;
-
-    // Optimistically update the UI by filtering out the deleted event
-    setEvents(
-      (prevEvents) =>
-        prevEvents?.filter((event) => event.id !== eventId) || null,
-    );
-
-    // Send the delete request to the backend
-    supabase
-      .from("events")
-      .delete()
-      .eq("id", eventId)
-      .then(({ error }) => {
-        if (error) {
-          console.error("Failed to delete event:", error);
-
-          // Revert the UI update (add the event back)
-          // TODO You might also want to notify the user about the failure
-          if (eventToDelete) {
-            setEvents((prevEvents) => [...(prevEvents || []), eventToDelete]);
-          }
-        }
-      });
   }
 
   return (
@@ -92,13 +49,9 @@ export default function Admin() {
         </form>
       </div>
       <UserContext.Provider value={{ user, setUser, noUser, setNoUser }}>
-      <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
-        <EventsContext.Provider
-          value={{ onDelete: handleDelete, events, setEvents }}
-        >
-          {events ? <EventsTable /> : <p>loading...</p>}
-        </EventsContext.Provider>
-      </div>
+        <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
+          <EventsAdmin />
+        </div>
       </UserContext.Provider>
     </div>
   );
