@@ -53,8 +53,8 @@ const teamList: TeamEntry[] = [
   },
   {
     organisation:
-      "Institute of Research in Arts, Design and Society, University of Porto",
-    link: "https://i2ads.up.pt/en/intitute/",
+      "Research Institute in Art, Design and Society, University of Porto",
+    link: "https://i2ads.up.pt/en",
     teamMembers: ["Samuel Guimarães", "Catarina (Cat) Martins"],
     country: "Portugal",
   },
