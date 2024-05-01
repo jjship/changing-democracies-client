@@ -6,7 +6,7 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { Database, EventDbEntry } from "../../types/database";
-import { EventsTable } from "../components/admin/events/EventsTable";
+import { UserContext } from "../components/admin/UserContext";
 import { EventsContext } from "../components/admin/events/EventsContext";
 
 export const dynamic = "force-dynamic";
@@ -91,6 +91,7 @@ export default function Admin() {
           </button>
         </form>
       </div>
+      <UserContext.Provider value={{ user, setUser, noUser, setNoUser }}>
       <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
         <EventsContext.Provider
           value={{ onDelete: handleDelete, events, setEvents }}
@@ -98,6 +99,7 @@ export default function Admin() {
           {events ? <EventsTable /> : <p>loading...</p>}
         </EventsContext.Provider>
       </div>
+      </UserContext.Provider>
     </div>
   );
 }
