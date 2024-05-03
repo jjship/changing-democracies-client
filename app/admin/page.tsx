@@ -36,20 +36,25 @@ export default function Admin() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
-      <div className="flex items-center justify-end gap-4 p-5">
-        {user && `logged in as ${user.email}`}
-        <form action="/auth/sign-out" method="post">
-          <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
-            Log Out
-          </button>
-        </form>
-      </div>
-      <UserContext.Provider value={{ user, setUser, noUser, setNoUser }}>
-        <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
-          <EventsAdmin />
+    <>
+      {user && (
+        <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
+          <div className="flex items-center justify-end gap-4 p-5">
+            logged in as {user.email}
+            <form action="/auth/sign-out" method="post">
+              <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
+                Log Out
+              </button>
+            </form>
+          </div>
+          <UserContext.Provider value={{ user, setUser, noUser, setNoUser }}>
+            <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
+              <EventsAdmin />
+            </div>
+          </UserContext.Provider>
         </div>
-      </UserContext.Provider>
-    </div>
+      )}
+      {noUser && <p>loading...</p>}
+    </>
   );
 }
