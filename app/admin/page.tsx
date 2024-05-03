@@ -5,6 +5,7 @@ import { User } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { UserContext } from "../components/admin/UserContext";
 import EventsAdmin from "@/components/admin/events/EventsAdmin";
+import VideosAdmin from "../components/admin/videos/VideosAdmin";
 
 export const dynamic = "force-dynamic";
 
@@ -50,6 +51,7 @@ export default function Admin() {
           <UserContext.Provider value={{ user, setUser, noUser, setNoUser }}>
             <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
               <EventsAdmin />
+              {/* <VideosAdmin /> */}
             </div>
           </UserContext.Provider>
         </div>
