@@ -3,8 +3,7 @@ import * as z from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "@/types/database";
+import { createClient } from "@/supabase/clients/client";
 import {
   Form,
   FormControl,
@@ -13,7 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { Input } from "@/app/components/ui/input";
+import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { baseUrl } from "@/lib/constants";
 
@@ -28,7 +27,7 @@ export default function PasswordResetForm() {
   const [submited, setSubmited] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const supabase = createClientComponentClient<Database>();
+  const supabase = createClient();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -37,12 +36,9 @@ export default function PasswordResetForm() {
   });
 
   async function onSubmit(values: FormValues) {
-    const { data, error } = await supabase.auth.resetPasswordForEmail(
-      values.email,
-      {
-        redirectTo: `${baseUrl}/auth/callback?next=/password-reset`,
-      },
-    );
+    const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
+      redirectTo: `${baseUrl}/auth/callback?next=/password-reset`,
+    });
 
     if (error) {
       console.error(error);

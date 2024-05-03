@@ -22,7 +22,9 @@
     "paths": {
       "@/*": ["./*", "./src/*"],
       "@/components/*": ["./app/components/*"],
-      "@/types/*": ["./types/*"]
+      "@/types/*": ["./types/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/supabase/*": ["./supabase/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

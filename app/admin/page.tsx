@@ -1,17 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import {
-  User,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/supabase/clients/client";
+import { User } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
-import { Database } from "../../types/database";
 import { UserContext } from "../components/admin/UserContext";
 import EventsAdmin from "@/components/admin/events/EventsAdmin";
 
 export const dynamic = "force-dynamic";
 
-const supabase = createClientComponentClient<Database>();
+const supabase = createClient();
 
 export default function Admin() {
   const [user, setUser] = useState<User | null>(null);

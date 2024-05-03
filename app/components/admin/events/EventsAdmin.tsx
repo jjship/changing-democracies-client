@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { Database, EventDbEntry } from "@/types/database";
 import { EventsContext } from "@/components/admin/events/EventsContext";
 import { EventsTable } from "@/components/admin/events/EventsTable";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/supabase/clients/client";
 import { useUserContext } from "@/components/admin/UserContext";
 import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
-const supabase = createClientComponentClient<Database>();
+const supabase = createClient();
 
 export default function EventsAdmin() {
   const { user } = useUserContext();
