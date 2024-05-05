@@ -1,20 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Database, EventDbEntry } from "@/types/database";
-import { EventsContext } from "@/components/admin/events/EventsContext";
-import { EventsTable } from "@/components/admin/events/EventsTable";
-import { createClient } from "@/supabase/clients/client";
-import { useUserContext } from "@/components/admin/UserContext";
+
+import { EventDbEntry } from "@/types/database";
 import { Button } from "@/components/ui/button";
+import { EventsContext } from "../events/EventsContext";
+import { EventsTable } from "../events/EventsTable";
+// import { useUserContext } from "@/components/admin/UserContext";
+import { deleteEvent, getEvents } from "../actions";
 
 export const dynamic = "force-dynamic";
 
-const supabase = createClient();
-
 export default function EventsAdmin() {
-  const { user } = useUserContext();
-
   const [events, setEvents] = useState<EventDbEntry[] | null>(null);
   const [openEvents, setOpenEvents] = useState<boolean>(false);
 
@@ -23,18 +20,16 @@ export default function EventsAdmin() {
   }
 
   useEffect(() => {
-    const getEvents = async () => {
-      const { data, error } = await supabase.from("events").select();
+    const updateEvents = async () => {
+      const data = await getEvents();
 
       if (data) {
         setEvents(data);
       }
     };
 
-    if (user) {
-      getEvents();
-    }
-  }, [user]);
+    updateEvents();
+  }, []);
 
   function handleDelete(eventId: number) {
     // Find the event that was deleted
@@ -47,21 +42,17 @@ export default function EventsAdmin() {
     );
 
     // Send the delete request to the backend
-    supabase
-      .from("events")
-      .delete()
-      .eq("id", eventId)
-      .then(({ error }) => {
-        if (error) {
-          console.error("Failed to delete event:", error);
+    deleteEvent(eventId).then((error) => {
+      if (error) {
+        console.error("Failed to delete event:", error);
 
-          // Revert the UI update (add the event back)
-          // TODO You might also want to notify the user about the failure
-          if (eventToDelete) {
-            setEvents((prevEvents) => [...(prevEvents || []), eventToDelete]);
-          }
+        // Revert the UI update (add the event back)
+        // TODO You might also want to notify the user about the failure
+        if (eventToDelete) {
+          setEvents((prevEvents) => [...(prevEvents || []), eventToDelete]);
         }
-      });
+      }
+    });
   }
 
   return (

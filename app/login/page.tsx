@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import PasswordResetForm from "../components/admin/PasswordResetForm";
-import { login } from "./actions";
+import { login } from "@/auth/actions";
 import { useState } from "react";
-import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -17,30 +16,19 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../components/ui/button";
-import { useFormState, useFormStatus } from "react-dom";
-
-const initialState = {
-  message: "",
-};
-
-const formSchema = z.object({
-  email: z.string().email({ message: "Must be a valid email address" }),
-  password: z
-    .string()
-    .min(6, { message: "Must be at least 6 characters long" })
-    .max(100, { message: "Must be less than 100 characters long" }),
-});
-
-export type LoginValues = z.infer<typeof formSchema>;
+import { useFormStatus } from "react-dom";
+import {
+  LoginValues,
+  LoginValuesSchema,
+} from "../components/admin/login/loginValues";
 
 export default function Login() {
-  const [state, formAction] = useFormState(login, initialState);
   const { pending } = useFormStatus();
   const [email] = useState("");
   const [password] = useState("");
 
   const form = useForm<LoginValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(LoginValuesSchema),
     defaultValues: { email, password },
     mode: "onChange",
   });
@@ -71,7 +59,7 @@ export default function Login() {
         <Form {...form}>
           <form
             className="flex w-full flex-1 flex-col justify-center gap-2 text-black_bg"
-            action={formAction}
+            action={login}
           >
             <FormField
               control={form.control}
@@ -99,7 +87,6 @@ export default function Login() {
                 </FormItem>
               )}
             />
-            <p aria-live="polite">{state?.message}</p>
             <Button
               type="submit"
               disabled={!form.formState.isValid || pending}
