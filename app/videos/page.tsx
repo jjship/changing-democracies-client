@@ -1,3 +1,14 @@
+// "use server";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui/card";
+import Image from "next/image";
+
 type Collection = {
   videoLibraryId: number;
   guid: string;
@@ -44,6 +55,50 @@ type Video = {
   transcodingMessages: any[]; // You might want to define a type for transcoding messages
 };
 
+export default async function VideosAdmin() {
+  const collection = await getCollection();
+
+  const videosIds = collection.previewVideoIds.split(",");
+
+  const videos = await Promise.all(
+    videosIds.map((videoId) => getVideo(videoId)),
+  );
+
+  const tags = videos.reduce(
+    (acc, video) => {
+      acc.push({ id: video.guid, tags: video.metaTags });
+      return acc;
+    },
+    [{}],
+  );
+
+  console.dir({ tags }, { depth: null });
+
+  return (
+    <div className="flex min-h-screen flex-col bg-puprple_lightest_bg">
+      <h1>{collection.name}</h1>
+      <div className="grid grid-cols-3 gap-2">
+        {videos.map((video) => (
+          <Card key={video.guid}>
+            <CardTitle>{video.title}</CardTitle>
+            <p>{video.dateUploaded}</p>
+            <p>{video.views} views</p>
+            <p>{video.length} seconds</p>
+            <p>category: {video.category}</p>
+            <ul>
+              {video.metaTags.map((tag, i) => (
+                <li key={i}>
+                  {tag.property}: {tag.value}
+                </li>
+              ))}
+            </ul>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 async function getCollection(): Promise<Collection> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
@@ -53,7 +108,7 @@ async function getCollection(): Promise<Collection> {
     throw new Error("Missing Bunny Stream environment variables");
   }
 
-  const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/collections/${process.env.BUNNY_STREAM_COLLECTION_ID}?includeThumbnails=false`;
+  const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/collections/${process.env.BUNNY_STREAM_COLLECTION_ID}?includeThumbnails=true`;
 
   const options = {
     method: "GET",
@@ -106,22 +161,8 @@ async function getVideo(videoId: string): Promise<Video> {
   return res.json();
 }
 
-export default async function VideosAdmin() {
-  const collection = await getCollection();
-  console.log({ collection });
-  const videosIds = collection.previewVideoIds.split(",");
-
-  const videos = await Promise.all(
-    videosIds.map((videoId) => getVideo(videoId)),
-  );
-
-  return videos.map((video) => (
-    <div key={video.guid}>
-      <h2>{video.title}</h2>
-      <p>{video.dateUploaded}</p>
-      <p>{video.views} views</p>
-      <p>{video.length} seconds</p>
-      <p>{video.category}</p>
-    </div>
-  ));
-}
+type VideoProps = Video & {
+  onDelete: (videoId: string) => void;
+  thumbnailUrl: string;
+  captionUrls: string[];
+};

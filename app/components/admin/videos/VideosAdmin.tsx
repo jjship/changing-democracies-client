@@ -1,39 +1,42 @@
-async function getVideos() {
-  console.log("-----------------------", { env: process.env });
-  if (
-    !process.env.BUNNY_STREAM_ACCESS_KEY ||
-    !process.env.BUNNY_STREAM_LIBRARY_ID ||
-    !process.env.BUNNY_STREAM_COLLECTION_ID
-  ) {
-    throw new Error("Missing Bunny Stream environment variables");
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { VideoDbEntry } from "@/types/videos";
+import { useEffect, useState } from "react";
+import { getVideos } from "../actions";
+import { VideosContext } from "./VideosContext";
+import { VideosTable } from "./VideosTable";
+
+export const dynamic = "force-dynamic";
+
+export default function VideosAdmin() {
+  const [videos, setVideos] = useState<VideoDbEntry[] | null>(null);
+  const [openVideos, setOpenVideos] = useState<boolean>(false);
+
+  function toggleVideos() {
+    setOpenVideos(!openVideos);
   }
 
-  const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/collections/${process.env.BUNNY_STREAM_COLLECTION_ID}?includeThumbnails=false`;
+  useEffect(() => {
+    const updateVideos = async () => {
+      const data = await getVideos();
 
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      AccessKey: process.env.BUNNY_STREAM_ACCESS_KEY,
-    },
-  };
+      if (data) {
+        setVideos(data);
+      }
+    };
 
-  const res = await fetch(url, options);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
+    updateVideos();
+  }, []);
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch videos data");
-  }
-
-  console.log({ res });
-
-  return res.json();
-}
-
-export default async function VideosAdmin() {
-  const data = await getVideos();
-
-  return <main></main>;
+  return (
+    <>
+      <Button onClick={toggleVideos} size="sm">
+        {openVideos ? "Close Videos table" : "Edit Videos"}
+      </Button>
+      <VideosContext.Provider value={{ videos, setVideos }}>
+        {openVideos ? videos ? <VideosTable /> : <p>loading...</p> : null}
+      </VideosContext.Provider>
+    </>
+  );
 }

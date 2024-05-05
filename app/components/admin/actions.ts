@@ -33,3 +33,19 @@ async function deleteEvent(eventId: number) {
     return error;
   }
 }
+
+async function getVideos(): Promise<VideoDbEntry[]> {
+  const supabase = createClient();
+
+  await authenticate(supabase);
+
+  const collection = await getCollection();
+
+  const videosIds = collection.previewVideoIds.split(",");
+
+  const videos = await Promise.all(
+    videosIds.map((videoId) => getVideo(videoId)),
+  );
+
+  return videos;
+}

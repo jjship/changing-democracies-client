@@ -1,0 +1,43 @@
+import { createContext, useContext, useState } from "react";
+import { VideoDbEntry } from "@/types/videos";
+
+type EditCallback = (videoId: number) => void;
+
+type VideosContextType = {
+  onEdit?: EditCallback;
+  videos: VideoDbEntry[] | null;
+  setVideos: (videos: VideoDbEntry[] | null) => void;
+};
+
+export const VideosContext = createContext<VideosContextType | null>(null);
+
+export function VideosContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [videos, setVideos] = useState<VideoDbEntry[] | null>(null);
+
+  return (
+    <VideosContext.Provider
+      value={{
+        videos,
+        setVideos,
+      }}
+    >
+      {children}
+    </VideosContext.Provider>
+  );
+}
+
+export function useVideosContext() {
+  const context = useContext(VideosContext);
+
+  if (!context) {
+    throw new Error(
+      "useVideosContext must be used within a VideosContextProvider",
+    );
+  }
+
+  return context;
+}
