@@ -11,9 +11,9 @@ import { deleteEvent, getEvents } from "../actions";
 
 export const dynamic = "force-dynamic";
 
-export default function EventsAdmin() {
+export default function EventsAdmin({ open }: { open: boolean }) {
   const [events, setEvents] = useState<EventDbEntry[] | null>(null);
-  const [openEvents, setOpenEvents] = useState<boolean>(false);
+  const [openEvents, setOpenEvents] = useState<boolean>(open);
 
   function toggleEvents() {
     setOpenEvents(!openEvents);

@@ -3,7 +3,7 @@
 import { Calendar as CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import * as z from "zod";
 
 import { Button } from "@/app/components/ui/button";
@@ -23,103 +23,24 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/app/components/ui/popover";
-import { cn } from "../../../../lib/utils";
-import {
-  User,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
-import { Database, EventDbEntry } from "../../../../types/database";
+import { cn } from "@/lib/utils";
+import { EventDbEntry } from "@/types/database";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { saveEvent } from "@/components/admin/actions";
 
 export type FormEvent = z.infer<typeof formSchema>;
 
-const formSchema = z
-  .object({
-    id: z.number(),
-    startDate: z.coerce.date(),
-    endDate: z.date(),
-    title: z.coerce
-      .string()
-      .min(3, { message: "Title must be at least 3 characters long" })
-      .max(21, { message: "Title must be at most 21 characters long" })
-      .optional(),
-    type: z
-      .string()
-      .max(18, { message: "Event type must be at most 18 characters long" })
-      .optional(),
-    location: z
-      .string()
-      .max(18, { message: "Location must be at most 18 characters long" })
-      .optional(),
-    participants: z.coerce
-      .number()
-      .int({ message: "Please enter a number" })
-      .nonnegative({ message: "Please enter a number" }),
-    category: z
-      .string()
-      .max(18, { message: "Category must be at most 18 characters long" })
-      .optional(),
-    link: z
-      .string()
-      .url({ message: "Link must be a valid URL" })
-      .or(z.literal("")),
-    created_at: z.date(),
-    created_by: z.string().nullable(),
-    modified_at: z.date().nullable(),
-    modified_by: z.string().nullable(),
-  })
-  .refine((data) => data.startDate <= data.endDate, {
-    message: "Start date must be prior to end date",
-    path: ["startDate"],
-  });
+export { EventFormFields, parseFormEvent };
 
-function parseFormEvent({
-  formEvent,
-  user,
-}: {
-  formEvent: FormEvent;
-  user: User;
-}): EventDbEntry {
-  return {
-    id: formEvent.id,
-    start_date: format(formEvent.startDate, "yyyy/MM/dd"),
-    end_date: format(formEvent.endDate, "yyyy/MM/dd"),
-    title: formEvent.title ?? null,
-    type: formEvent.type ?? null,
-    location: formEvent.location ?? null,
-    participants: formEvent.participants ?? 0,
-    category: formEvent.category ?? null,
-    link: formEvent.link ?? null,
-    created_at: formEvent.created_at.toISOString() ?? new Date().toISOString(),
-    created_by: formEvent.created_by ?? user.id,
-    modified_at: new Date().toISOString(),
-    modified_by: user.id,
-  };
-}
-
-export default function EventFormFields({
+function EventFormFields({
   defaultValues,
+  userId,
 }: {
   defaultValues: FormEvent;
+  userId: string;
 }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [submited, setSubmited] = useState<boolean | null>(null);
-
-  const supabase = createClientComponentClient<Database>();
-
-  useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user) {
-        setUser(user);
-      }
-    };
-
-    getUser();
-  }, [supabase]);
+  const [submited, setSubmited] = useState<boolean>(false);
 
   const form = useForm<FormEvent>({
     resolver: zodResolver(formSchema),
@@ -128,36 +49,19 @@ export default function EventFormFields({
   });
 
   async function onSubmit(values: FormEvent) {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const event: EventDbEntry = parseFormEvent({ formEvent: values, userId });
 
-    if (!user) {
-      setSubmited(true);
-      return;
-    }
-
-    const event: EventDbEntry = parseFormEvent({ formEvent: values, user });
-
-    const { error } = await supabase.from("events").upsert(event);
+    const error = await saveEvent({ event });
 
     if (error) {
-      console.log(error);
+      throw error;
     }
 
     setSubmited(true);
   }
-  //TODO move logged in up
+
   return !submited ? (
     <>
-      <div className="flex items-center justify-end gap-4 p-5">
-        {user && `logged in as ${user.email}`}
-        <form action="/auth/sign-out" method="post">
-          <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
-            Log Out
-          </button>
-        </form>
-      </div>
       <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
         <Form {...form}>
           <form
@@ -347,6 +251,70 @@ export default function EventFormFields({
       </div>
     </>
   ) : (
-    redirect("/admin")
+    redirect("/admin?events=true")
   );
 }
+
+function parseFormEvent({
+  formEvent,
+  userId,
+}: {
+  formEvent: FormEvent;
+  userId: string;
+}): EventDbEntry {
+  return {
+    id: formEvent.id,
+    start_date: format(formEvent.startDate, "yyyy/MM/dd"),
+    end_date: format(formEvent.endDate, "yyyy/MM/dd"),
+    title: formEvent.title ?? null,
+    type: formEvent.type ?? null,
+    location: formEvent.location ?? null,
+    participants: formEvent.participants ?? 0,
+    category: formEvent.category ?? null,
+    link: formEvent.link ?? null,
+    created_at: formEvent.created_at.toISOString() ?? new Date().toISOString(),
+    created_by: formEvent.created_by ?? userId,
+    modified_at: new Date().toISOString(),
+    modified_by: userId,
+  };
+}
+
+const formSchema = z
+  .object({
+    id: z.number(),
+    startDate: z.coerce.date(),
+    endDate: z.date(),
+    title: z.coerce
+      .string()
+      .min(3, { message: "Title must be at least 3 characters long" })
+      .max(21, { message: "Title must be at most 21 characters long" })
+      .optional(),
+    type: z
+      .string()
+      .max(18, { message: "Event type must be at most 18 characters long" })
+      .optional(),
+    location: z
+      .string()
+      .max(18, { message: "Location must be at most 18 characters long" })
+      .optional(),
+    participants: z.coerce
+      .number()
+      .int({ message: "Please enter a number" })
+      .nonnegative({ message: "Please enter a number" }),
+    category: z
+      .string()
+      .max(18, { message: "Category must be at most 18 characters long" })
+      .optional(),
+    link: z
+      .string()
+      .url({ message: "Link must be a valid URL" })
+      .or(z.literal("")),
+    created_at: z.date(),
+    created_by: z.string().nullable(),
+    modified_at: z.date().nullable(),
+    modified_by: z.string().nullable(),
+  })
+  .refine((data) => data.startDate <= data.endDate, {
+    message: "Start date must be prior to end date",
+    path: ["startDate"],
+  });

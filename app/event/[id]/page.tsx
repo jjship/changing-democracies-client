@@ -1,52 +1,78 @@
-"use client";
+"use server";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database, EventDbEntry } from "../../../types/database";
-import { useEffect, useState } from "react";
-import EventFormFields, {
+import { createClient } from "@/supabase/clients/server";
+import { authenticate, logout } from "@/auth/actions";
+import { EventDbEntry } from "@/types/database";
+import {
+  EventFormFields,
   FormEvent,
-} from "../../components/admin/events/EventFormFields";
+} from "@/components/admin/events/EventFormFields";
+import { getEvent } from "@/components/admin/actions";
 
-export default function Event({ params: { id } }: { params: { id: string } }) {
-  const [formEvent, setFormEvent] = useState<FormEvent | null>(null);
-  const eventId = +id;
+export default async function Event({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  const supabase = createClient();
 
-  const supabase = createClientComponentClient<Database>();
+  const user = await authenticate(supabase);
 
-  useEffect(() => {
-    const getEvent = async (eventId: EventDbEntry["id"]) => {
-      const { data } = await supabase.from("events").select().eq("id", eventId);
-
-      if (!data) {
-        return; // TODO handle error
-      }
-
-      if (!data.length) {
-        // add new event with the given id
-        setFormEvent(
-          parseDbEvent({ dbEvent: { ...emptyDbEvent, id: eventId } }),
-        );
-        return;
-      }
-
-      setFormEvent(parseDbEvent({ dbEvent: data[0] }));
-    };
-
-    if (eventId) {
-      getEvent(eventId);
-    }
-  }, [eventId, supabase]);
+  const formEvent = await getFormEvent({ eventId: +id });
 
   return (
-    <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
-      {!formEvent ? (
-        <p>Loading...</p>
-      ) : (
-        <EventFormFields defaultValues={formEvent} />
-      )}
-    </div>
+    <>
+      <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
+        <div className="flex items-center justify-end gap-4 p-5">
+          logged in as {user.email}
+          <form action={logout}>
+            <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
+              Log Out
+            </button>
+          </form>
+        </div>
+        <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
+          {formEvent ? (
+            <EventFormFields defaultValues={formEvent} userId={user.id} />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
+
+async function getFormEvent({
+  eventId,
+}: {
+  eventId: number;
+}): Promise<FormEvent> {
+  const dbEvent = await getEvent(eventId);
+
+  if (!dbEvent) {
+    // add new event with the given id
+    return parseDbEvent({ dbEvent: { ...emptyDbEvent, id: eventId } });
+  }
+
+  return parseDbEvent({ dbEvent });
+}
+
+const emptyDbEvent: EventDbEntry = {
+  id: 0,
+  start_date: new Date().toISOString() ?? null,
+  end_date: new Date().toISOString() ?? null,
+  title: null,
+  type: null,
+  location: null,
+  participants: null,
+  category: null,
+  link: null,
+  created_at: new Date().toISOString() || "",
+  created_by: null,
+  modified_at: null,
+  modified_by: null,
+};
 
 function parseDbEvent({ dbEvent }: { dbEvent: EventDbEntry }): FormEvent {
   return {
@@ -65,19 +91,3 @@ function parseDbEvent({ dbEvent }: { dbEvent: EventDbEntry }): FormEvent {
     modified_by: dbEvent.modified_by ?? null,
   };
 }
-
-const emptyDbEvent: EventDbEntry = {
-  id: 0,
-  start_date: new Date().toISOString() ?? null,
-  end_date: new Date().toISOString() ?? null,
-  title: null,
-  type: null,
-  location: null,
-  participants: null,
-  category: null,
-  link: null,
-  created_at: new Date().toISOString() || "",
-  created_by: null,
-  modified_at: null,
-  modified_by: null,
-};

@@ -7,8 +7,6 @@ type EventsContextType = {
   onDelete?: DeleteCallback;
   events: EventDbEntry[] | null;
   setEvents: (events: EventDbEntry[] | null) => void;
-  // currentEventId: number | null;
-  // setCurrentEventId: (eventId: number | null) => void;
 };
 
 export const EventsContext = createContext<EventsContextType | null>(null);
@@ -19,15 +17,12 @@ export function EventsContextProvider({
   children: React.ReactNode;
 }) {
   const [events, setEvents] = useState<EventDbEntry[] | null>(null);
-  // const [currentEventId, setCurrentEventId] = useState<number | null>(null);
 
   return (
     <EventsContext.Provider
       value={{
         events,
         setEvents,
-        // currentEventId,
-        // setCurrentEventId,
       }}
     >
       {children}

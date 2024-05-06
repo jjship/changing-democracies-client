@@ -42,8 +42,8 @@ async function authenticate(client: SupabaseClient) {
     error,
   } = await client.auth.getUser();
 
-  if (error) {
-    if (error.message === "Auth session missing!") {
+  if (error || !user) {
+    if (error?.message === "Auth session missing!") {
       redirect("/login");
     }
     throw new Error("Failed to fetch user data");

@@ -9,9 +9,9 @@ import { VideosTable } from "./VideosTable";
 
 export const dynamic = "force-dynamic";
 
-export default function VideosAdmin() {
+export default function VideosAdmin({ open }: { open: boolean }) {
   const [videos, setVideos] = useState<VideoDbEntry[] | null>(null);
-  const [openVideos, setOpenVideos] = useState<boolean>(false);
+  const [openVideos, setOpenVideos] = useState<boolean>(open);
 
   function toggleVideos() {
     setOpenVideos(!openVideos);

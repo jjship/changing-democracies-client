@@ -5,7 +5,15 @@ import EventsAdmin from "@/components/admin/events/EventsAdmin";
 import VideosAdmin from "@/components/admin/videos/VideosAdmin";
 import { authenticate, logout } from "@/auth/actions";
 
-export default async function Admin() {
+type AdminParams = { events?: string; videos?: string };
+
+export default async function Admin({
+  searchParams,
+}: {
+  searchParams: AdminParams;
+}) {
+  const { events, videos } = searchParams;
+
   const supabase = createClient();
 
   const user = await authenticate(supabase);
@@ -23,8 +31,8 @@ export default async function Admin() {
             </form>
           </div>
           <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5">
-            <EventsAdmin />
-            <VideosAdmin />
+            <EventsAdmin open={!!events} />
+            <VideosAdmin open={!!videos} />
           </div>
         </div>
       ) : (
