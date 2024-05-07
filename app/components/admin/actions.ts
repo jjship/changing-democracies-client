@@ -3,11 +3,26 @@
 import "server-only";
 import { createClient } from "@/supabase/clients/server";
 import { VideoDbEntry } from "@/types/videos";
-import { getCollection, getVideo } from "@/lib/bunnyMethods";
+import {
+  UpdateVideoModel,
+  fetchCaptions,
+  getVideosPerCollection,
+  updateVideo,
+  uploadCaptions,
+} from "@/lib/bunnyMethods";
 import { authenticate } from "@/auth/actions";
 import { EventDbEntry } from "@/types/database";
 
-export { getEvents, getEvent, deleteEvent, saveEvent, getVideos };
+export {
+  getEvents,
+  getEvent,
+  deleteEvent,
+  saveEvent,
+  getVideos,
+  saveCaptions,
+  saveVideo,
+  getSubtitles,
+};
 
 async function getEvents() {
   const supabase = createClient();
@@ -69,13 +84,53 @@ async function getVideos(): Promise<VideoDbEntry[]> {
 
   await authenticate(supabase);
 
-  const collection = await getCollection();
-
-  const videosIds = collection.previewVideoIds.split(",");
-
-  const videos = await Promise.all(
-    videosIds.map((videoId) => getVideo(videoId)),
-  );
+  const videos = await getVideosPerCollection();
 
   return videos;
+}
+
+async function saveVideo(videoData: UpdateVideoModel) {
+  const supabase = createClient();
+
+  await authenticate(supabase);
+
+  const res = await updateVideo({ videoData });
+
+  return res;
+}
+
+async function saveCaptions({
+  videoId,
+  srclang,
+  label,
+  captions,
+}: {
+  videoId: string;
+  srclang: string;
+  label: string;
+  captions: string;
+}) {
+  const supabase = createClient();
+
+  await authenticate(supabase);
+
+  const res = await uploadCaptions({ videoId, srclang, label, captions });
+
+  return res;
+}
+
+async function getSubtitles({
+  videoId,
+  srclang,
+}: {
+  videoId: string;
+  srclang: string;
+}) {
+  const supabase = createClient();
+
+  await authenticate(supabase);
+
+  const subs = await fetchCaptions({ videoId, srclang });
+
+  return subs;
 }

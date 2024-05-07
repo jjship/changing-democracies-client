@@ -44,9 +44,10 @@ export type VideoDbEntry = {
   transcodingMessages: any[]; // You might want to define a type for transcoding messages
 };
 
-export type ParsedVideo = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
-  captions: string[];
-  tags: string[]; // in metaTags
+export type FormVideo = Pick<
+  VideoDbEntry,
+  "guid" | "title" | "length" | "captions"
+> & {
+  tags: string; // in metaTags
   description: string; // in metaTags
-  thumbnailUrl: string; // in thumbnailFileName
 };
