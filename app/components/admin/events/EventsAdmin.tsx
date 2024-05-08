@@ -21,7 +21,7 @@ export default function EventsAdmin({ open }: { open: boolean }) {
 
   useEffect(() => {
     const updateEvents = async () => {
-      const data = await getEvents();
+      const { data } = await getEvents();
 
       if (data) {
         setEvents(data);

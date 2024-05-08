@@ -48,7 +48,7 @@ async function getFormEvent({
 }: {
   eventId: number;
 }): Promise<FormEvent> {
-  const dbEvent = await getEvent(eventId);
+  const { data: dbEvent } = await getEvent(eventId);
 
   if (!dbEvent) {
     // add new event with the given id

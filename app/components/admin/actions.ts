@@ -32,9 +32,9 @@ type EventsMethodReturn<T = undefined> = {
   error?: string;
 };
 
-const supabase = createClient();
-
 async function getEvents(): Promise<EventsMethodReturn<EventDbEntry[]>> {
+  const supabase = createClient();
+
   await authenticate(supabase);
 
   const { data, error } = await supabase.from("events").select();
@@ -49,6 +49,8 @@ async function getEvents(): Promise<EventsMethodReturn<EventDbEntry[]>> {
 async function getEvent(
   eventId: number,
 ): Promise<EventsMethodReturn<EventDbEntry>> {
+  const supabase = createClient();
+
   await authenticate(supabase);
 
   const { data, error } = await supabase
@@ -64,6 +66,8 @@ async function getEvent(
 }
 
 async function deleteEvent(eventId: number): Promise<EventsMethodReturn> {
+  const supabase = createClient();
+
   await authenticate(supabase);
 
   const { error } = await supabase.from("events").delete().eq("id", eventId);
@@ -80,6 +84,8 @@ async function saveEvent({
 }: {
   event: EventDbEntry;
 }): Promise<EventsMethodReturn> {
+  const supabase = createClient();
+
   await authenticate(supabase);
 
   const { error } = await supabase.from("events").upsert(event);
@@ -92,6 +98,8 @@ async function saveEvent({
 }
 
 async function getVideos(): Promise<EventsMethodReturn<VideoDbEntry[]>> {
+  const supabase = createClient();
+
   await authenticate(supabase);
 
   const { error, ...res } = await getVideosPerCollection();
@@ -106,6 +114,8 @@ async function getVideos(): Promise<EventsMethodReturn<VideoDbEntry[]>> {
 async function saveVideo(
   videoData: UpdateVideoModel,
 ): Promise<EventsMethodReturn> {
+  const supabase = createClient();
+
   await authenticate(supabase);
 
   const { error, ...res } = await updateVideo({ videoData });
@@ -128,6 +138,8 @@ async function saveCaptions({
   label: string;
   captions: string;
 }): Promise<EventsMethodReturn> {
+  const supabase = createClient();
+
   await authenticate(supabase);
 
   const { error: uploadError } = await uploadCaptions({

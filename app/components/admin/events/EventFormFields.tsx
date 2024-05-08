@@ -51,7 +51,7 @@ function EventFormFields({
   async function onSubmit(values: FormEvent) {
     const event: EventDbEntry = parseFormEvent({ formEvent: values, userId });
 
-    const error = await saveEvent({ event });
+    const { error } = await saveEvent({ event });
 
     if (error) {
       throw error;
@@ -264,8 +264,8 @@ function parseFormEvent({
 }): EventDbEntry {
   return {
     id: formEvent.id,
-    start_date: format(formEvent.startDate, "yyyy/MM/dd"),
-    end_date: format(formEvent.endDate, "yyyy/MM/dd"),
+    start_date: format(formEvent.startDate, "yyyy-MM-dd"),
+    end_date: format(formEvent.endDate, "yyyy-MM-dd"),
     title: formEvent.title ?? null,
     type: formEvent.type ?? null,
     location: formEvent.location ?? null,
