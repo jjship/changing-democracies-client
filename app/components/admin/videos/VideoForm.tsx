@@ -36,10 +36,7 @@ const formSchema = z.object({
     .min(3, { message: "Title must be at least 3 characters long" })
     .max(50, { message: "Title must be at most 50 characters long" })
     .optional(),
-  description: z
-    .string()
-    .max(100, { message: "Video type must be at most 100 characters long" })
-    .optional(),
+  description: z.string().optional(),
   tags: z.string().optional(),
   caption: z.object({
     srclang: z.string(),
