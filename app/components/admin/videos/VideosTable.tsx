@@ -34,7 +34,9 @@ function VideoRow({ video }: VideoRowProps) {
         <TableCell>{video.title}</TableCell>
         <TableCell>{video.length}</TableCell>
         <TableCell>{video.description}</TableCell>
-        <TableCell>{video.captions.map((cap) => `${cap} \n`)}</TableCell>
+        <TableCell>
+          {video.captions.map((cap) => `${cap.srclang} \n`)}
+        </TableCell>
         <TableCell>{video.tags}</TableCell>
       </TableRow>
     </>
@@ -54,6 +56,7 @@ export function VideosTable() {
       <Table className=" bg-white">
         <TableHeader>
           <TableRow>
+            <TableHead>Edit</TableHead>
             <TableHead>Title</TableHead>
             <TableHead>Length</TableHead>
             <TableHead>Description</TableHead>
