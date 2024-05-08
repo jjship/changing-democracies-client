@@ -1,11 +1,10 @@
+import { createClient } from "../../supabase/clients/server";
 import Messages from "../login/messages";
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export const dynamic = "force-dynamic";
 
 export default async function ResetPassword() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createClient();
 
   const {
     data: { user },

@@ -1,5 +1,5 @@
+import { User } from "@supabase/supabase-js";
 import { createContext, useContext, useState } from "react";
-import { User } from "@supabase/auth-helpers-nextjs";
 
 type UserContextType = {
   user: User | null;
