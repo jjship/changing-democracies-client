@@ -86,7 +86,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
       caption: { srclang },
     } = values;
 
-    if (srclang.split("-").length > 1) {
+    if (srclang && srclang.split("-").length > 1) {
       srclang = srclang.split("-")[0];
     }
     const { error: captionsError } = await saveCaptions({
