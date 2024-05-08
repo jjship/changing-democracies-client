@@ -67,8 +67,7 @@ function parseVideo(video: VideoDbEntry): FormVideo {
     title,
     length,
     captions,
-    tags:
-      metaTags.find((tag) => tag.property === "tags")?.value || "no tags yet",
+    tags: metaTags.find((tag) => tag.property === "tags")?.value || "",
     description:
       metaTags.find((tag) => tag.property === "description")?.value || "",
   };
