@@ -3,10 +3,10 @@
 import { createClient } from "@/supabase/clients/server";
 import { authenticate, logout } from "@/auth/actions";
 import { FormVideo, VideoDbEntry } from "@/types/videos";
-import { getVideo } from "../../../lib/bunnyMethods";
-import MetadataForm from "../../components/admin/videos/MetadataForm";
-import VideoPlayer from "../../components/admin/videos/VideoPlayer";
-import SubtitilesForm from "../../components/admin/videos/SubtitlesForm";
+import { getVideo } from "@/lib/bunnyMethods";
+import VideoPlayer from "@/components/admin/videos/VideoPlayer";
+import VideoForm from "@/components/admin/videos/VideoForm";
+import { Button } from "@/components/ui/button";
 
 export default async function Video({
   params: { id },
@@ -19,27 +19,22 @@ export default async function Video({
 
   const formVideo = await getFormVideo({ videoId: id });
 
-  // TODO handle submit errors
-
   return (
     <>
-      <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
-        <div className="flex items-center justify-end gap-4 p-5">
+      <div className="min-h-screen flex-col bg-puprple_lightest_bg ">
+        <div className="flex items-center justify-end gap-5 p-5">
           logged in as {user.email}
           <form action={logout}>
-            <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
+            <Button className="bg-red rounded bg-red_mains px-4 text-white">
               Log Out
-            </button>
+            </Button>
           </form>
         </div>
-        <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
+        <div className="flex min-h-screen w-full flex-col bg-puprple_lightest_bg">
           {formVideo ? (
             <>
               <VideoPlayer videoId={formVideo.guid} />
-              <div className="flex gap-5 p-5">
-                <MetadataForm defaultValues={formVideo} />
-                <SubtitilesForm defaultValues={formVideo} />
-              </div>
+              <VideoForm formVideo={formVideo} />
             </>
           ) : (
             <p>Loading...</p>
@@ -55,9 +50,13 @@ async function getFormVideo({
 }: {
   videoId: string;
 }): Promise<FormVideo> {
-  const dbVideo = await getVideo(videoId);
+  const { data, error } = await getVideo(videoId);
 
-  return parseVideo(dbVideo);
+  if (data) {
+    return parseVideo(data);
+  }
+
+  throw error ?? new Error("unable to get video");
 }
 
 function parseVideo(video: VideoDbEntry): FormVideo {

@@ -19,10 +19,12 @@ export default function VideosAdmin({ open }: { open: boolean }) {
 
   useEffect(() => {
     const updateVideos = async () => {
-      const data = await getVideos();
+      const { data, error } = await getVideos();
 
       if (data) {
         setVideos(data);
+      } else {
+        throw error;
       }
     };
 

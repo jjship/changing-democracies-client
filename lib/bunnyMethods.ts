@@ -6,8 +6,10 @@ export {
   getVideo,
   getVideosPerCollection,
   updateVideo,
+  deleteCaption,
   uploadCaptions,
   fetchCaptions,
+  purgeCaptionsCash,
 };
 
 export type UpdateVideoModel = {
@@ -19,7 +21,15 @@ export type UpdateVideoModel = {
   metaTags?: { property: string; value: string }[] | null;
 };
 
-async function getCollection(): Promise<Collection> {
+export type BunnyMethodReturn<T = undefined> = T extends undefined
+  ? { success: boolean; error?: Error }
+  : {
+      success: boolean;
+      data?: T;
+      error?: Error;
+    };
+
+async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -39,18 +49,23 @@ async function getCollection(): Promise<Collection> {
   };
 
   const res = await fetch(url, options);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch collection data");
+    return {
+      success: false,
+
+      error: new Error("Failed to fetch collection data"),
+    };
   }
 
-  return res.json();
+  const collection: Collection = await res.json();
+
+  return { data: collection, success: true };
 }
 
-async function getVideo(videoId: string): Promise<VideoDbEntry> {
+async function getVideo(
+  videoId: string,
+): Promise<BunnyMethodReturn<VideoDbEntry>> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -70,22 +85,21 @@ async function getVideo(videoId: string): Promise<VideoDbEntry> {
   };
 
   const res = await fetch(url, options);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch videos data");
+    return { success: false, error: new Error("Failed to fetch video data") };
   }
 
-  return res.json();
+  const video: VideoDbEntry = await res.json();
+
+  return { data: video, success: true };
 }
 
 async function updateVideo({
   videoData,
 }: {
   videoData: UpdateVideoModel;
-}): Promise<{ success: Boolean; error?: Error }> {
+}): Promise<BunnyMethodReturn> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -96,16 +110,6 @@ async function updateVideo({
 
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos/${videoData.guid}`;
 
-  const body = JSON.stringify({
-    title: videoData.title,
-    collectionId: process.env.BUNNY_STREAM_COLLECTION_ID,
-    chapters: null,
-    moments: null,
-    metaTags: videoData.metaTags,
-  } as UpdateVideoModel);
-
-  console.dir(body, { depth: null });
-
   const options = {
     method: "POST",
     headers: {
@@ -113,22 +117,27 @@ async function updateVideo({
       accept: "application/json",
       AccessKey: process.env.BUNNY_STREAM_API_KEY,
     },
-    body,
+    body: JSON.stringify({
+      title: videoData.title,
+      collectionId: process.env.BUNNY_STREAM_COLLECTION_ID,
+      chapters: null,
+      moments: null,
+      metaTags: videoData.metaTags,
+    } as UpdateVideoModel),
   };
 
   const res = await fetch(url, options);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     return { success: false, error: new Error("Failed to update video data") };
   }
 
   return { success: true };
 }
 
-async function getVideosPerCollection(): Promise<VideoDbEntry[]> {
+async function getVideosPerCollection(): Promise<
+  BunnyMethodReturn<VideoDbEntry[]>
+> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -148,17 +157,49 @@ async function getVideosPerCollection(): Promise<VideoDbEntry[]> {
   };
 
   const res = await fetch(url, options);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch videos data");
+    return { success: false, error: new Error("Failed to fetch videos data") };
   }
 
-  const { items } = await res.json();
+  const { items }: { items: VideoDbEntry[] } = await res.json();
 
-  return items;
+  return { data: items, success: true };
+}
+
+async function deleteCaption({
+  videoId,
+  srclang,
+}: {
+  videoId: string;
+  srclang: string;
+}): Promise<BunnyMethodReturn> {
+  if (
+    !process.env.BUNNY_STREAM_API_KEY ||
+    !process.env.BUNNY_STREAM_LIBRARY_ID ||
+    !process.env.BUNNY_STREAM_COLLECTION_ID
+  ) {
+    throw new Error("Missing Bunny Stream environment variables");
+  }
+
+  const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos/${videoId}/captions/${srclang}`;
+
+  const options = {
+    method: "DELETE",
+    headers: {
+      accept: "application/json",
+      AccessKey: process.env.BUNNY_STREAM_API_KEY,
+    },
+  };
+
+  const res = await fetch(url, options);
+
+  console.log("deleteCaptions", { status: res.status });
+  if (!res.ok) {
+    return { success: false, error: new Error("Failed to delete subtitles") };
+  }
+
+  return { success: true };
 }
 
 async function uploadCaptions({
@@ -171,7 +212,7 @@ async function uploadCaptions({
   srclang: string;
   label: string;
   captions: string;
-}): Promise<{ success: Boolean; error?: Error }> {
+}): Promise<BunnyMethodReturn> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -181,6 +222,7 @@ async function uploadCaptions({
   }
 
   const buffer = Buffer.from(captions);
+  const captionsFile = buffer.toString("base64");
 
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos/${videoId}/captions/${srclang}`;
   console.log(url);
@@ -192,18 +234,14 @@ async function uploadCaptions({
       AccessKey: process.env.BUNNY_STREAM_API_KEY,
     },
     body: JSON.stringify({
-      captionsFile: buffer.toString("base64"),
+      captionsFile,
       srclang,
       label,
     }),
   };
   const res = await fetch(url, options);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
-  console.log("uploadCaptions", { status: res.status });
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     return { success: false, error: new Error("Failed to update video data") };
   }
 
@@ -216,29 +254,51 @@ async function fetchCaptions({
 }: {
   videoId: string;
   srclang: string;
-}): Promise<string> {
+}): Promise<BunnyMethodReturn<string>> {
   const url = `https://${process.env.BUNNY_STREAM_PULL_ZONE}.b-cdn.net/${videoId}/captions/${srclang}.vtt`;
-  console.log(url);
+
   const options = {
     method: "GET",
     accept: "*/*",
-  };
+    cache: "no-cache",
+  } as const;
 
   const res = await fetch(url, options);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  // console.log(await res.blob());
 
   if (!res.ok) {
-    console.error(res.statusText);
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch captions");
+    return { success: false, error: new Error("Failed to fetch captions") };
   }
 
   const data = await res.text();
 
-  console.log("fetchCaptions", { data });
+  return { data, success: true };
+}
 
-  return data;
+async function purgeCaptionsCash({
+  videoId,
+}: {
+  videoId: string;
+}): Promise<BunnyMethodReturn> {
+  if (!process.env.BUNNY_STREAM_PULL_ZONE || !process.env.BUNNY_ADMIN_API_KEY) {
+    throw new Error("Missing Bunny Stream environment variables");
+  }
+
+  const url = `https://api.bunny.net/purge?url=https%3A%2F%2F${process.env.BUNNY_STREAM_PULL_ZONE}.b-cdn.net%2F${videoId}%2Fcaptions%2F%2A&async=false`;
+  const options = {
+    method: "POST",
+    headers: {
+      AccessKey: process.env.BUNNY_ADMIN_API_KEY,
+    },
+  };
+
+  const res = await fetch(url, options);
+
+  if (!res.ok) {
+    return {
+      success: false,
+      error: new Error("Failed to purge captions cache"),
+    };
+  }
+
+  return { success: true };
 }
