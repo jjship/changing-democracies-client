@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/app/components/ui/table";
-import { Button } from "./ui/button";
+import { Button } from "../../ui/button";
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/dist/client/link";
 import { useEventsContext } from "./EventsContext";

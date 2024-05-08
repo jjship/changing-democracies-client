@@ -1,8 +1,38 @@
+"use client";
+
 import Link from "next/link";
-import Messages from "./messages";
-import PasswordResetForm from "../components/PasswordResetForm";
+import PasswordResetForm from "../components/admin/PasswordResetForm";
+import { login } from "@/auth/actions";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "../components/ui/button";
+import { useFormStatus } from "react-dom";
+import {
+  LoginValues,
+  LoginValuesSchema,
+} from "../components/admin/login/loginValues";
 
 export default function Login() {
+  const { pending } = useFormStatus();
+  const [email] = useState("");
+  const [password] = useState("");
+
+  const form = useForm<LoginValues>({
+    resolver: zodResolver(LoginValuesSchema),
+    defaultValues: { email, password },
+    mode: "onChange",
+  });
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-5 bg-puprple_lightest_bg p-5">
       <Link
@@ -26,36 +56,46 @@ export default function Login() {
         Back
       </Link>
       <div>
-        <Messages />
-        <form
-          className="flex w-full flex-1 flex-col justify-center gap-2 text-black_bg"
-          action="/auth/sign-in"
-          method="post"
-        >
-          <label className="text-md" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="mb-6 rounded-md border bg-white px-4 py-2"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
-          <label className="text-md" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="mb-6 rounded-md border bg-white px-4 py-2"
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-          <button className="text-md mb-6 rounded bg-yellow_secondary px-4 py-2 text-black_bg hover:bg-green_accent">
-            Log In
-          </button>
-        </form>
-
+        <Form {...form}>
+          <form
+            className="flex w-full flex-1 flex-col justify-center gap-2 text-black_bg"
+            action={login}
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-md">Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-md">Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              disabled={!form.formState.isValid || pending}
+              className="text-md mb-6 rounded bg-yellow_secondary px-4 py-2 text-black_bg hover:bg-green_accent"
+            >
+              Log In
+            </Button>
+          </form>
+        </Form>
         <PasswordResetForm />
       </div>
     </div>

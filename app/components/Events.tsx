@@ -1,13 +1,19 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { ParsedEventEntry, parseDbEventEntries } from "../content/event";
 import Title from "./Title";
-import { cookies } from "next/headers";
-import { Database } from "@/types/database";
+import { createClient } from "@/supabase/clients/server";
+
+// refresh every 30 minutes
+export const revalidate = 1800;
 
 export default async function Events() {
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = createClient();
 
-  const { data: events } = await supabase.from("events").select();
+  const { data: events, error } = await supabase.from("events").select("*");
+
+  if (error) {
+    console.error(error);
+    throw error;
+  }
 
   const { futureEvents, pastEvents } = parseDbEventEntries({ events });
 
