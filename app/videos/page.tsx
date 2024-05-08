@@ -58,7 +58,7 @@ type Video = {
 export default async function VideosAdmin() {
   const collection = await getCollection();
 
-  const videosIds = collection.previewVideoIds.split(",");
+  const videosIds = collection.previewVideoIds?.split(",") ?? [];
 
   const videos = await Promise.all(
     videosIds.map((videoId) => getVideo(videoId)),
