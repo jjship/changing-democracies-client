@@ -26,6 +26,7 @@ import { Textarea } from "../../ui/textarea";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { redirect } from "next/navigation";
+import { is } from "date-fns/locale";
 
 type FormSchema = z.infer<typeof formSchema>;
 
@@ -51,7 +52,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
   >({ srclang: "", label: "" });
   const [subtitles, setSubtitles] = useState<string>("");
   const [selectedLabel, setSelectedLabel] = useState<string>("");
-  const [buttonText, setButtonText] = useState("Go back to videos list");
+  const [exitText, setExitText] = useState("Go back to videos list");
 
   const { guid: videoId, captions } = formVideo;
 
@@ -86,6 +87,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
     if (srclang && srclang.split("-").length > 1) {
       srclang = srclang.split("-")[0];
     }
+
     const { error: captionsError } = await saveCaptions({
       videoId,
       captions: subtitles,
@@ -97,7 +99,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
       throw metadataError || captionsError;
     }
 
-    window.location.href = "/admin?videos=true";
+    if (isSubmitSuccessful) window.location.reload();
   }
 
   const form = useForm<FormSchema>({
@@ -110,6 +112,8 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
     },
     mode: "onChange",
   });
+
+  const { isDirty, isSubmitting, isSubmitSuccessful } = form.formState;
 
   return (
     <Form {...form}>
@@ -228,21 +232,42 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
               />
             </div>
           </div>
+          {!isSubmitSuccessful && (
+            <p className="bg-destructive">
+              Something went wrong. Please try again and contact support at
+              devontheroof@gmail.com if this message is still visible.
+            </p>
+          )}
+          {isSubmitting ? (
+            <Button
+              className={`w-1/3 min-w-min bg-yellow_secondary text-black_bg`}
+              disabled
+            >
+              Saving....
+            </Button>
+          ) : (
+            <Button
+              className={`w-1/3 min-w-min hover:bg-green_accent hover:text-black_bg`}
+              type="submit"
+              disabled={!isDirty}
+            >
+              {isDirty ? "Save changes" : "No changes to save"}
+            </Button>
+          )}
+
           <Button
-            className="w-1/2 hover:bg-green_accent hover:text-black_bg"
-            type="submit"
-          >
-            Save changes
-          </Button>
-          <Button
-            className="px-10 hover:bg-red_mains hover:text-black_bg"
+            className={`w-1/4 min-w-min ${
+              isDirty
+                ? "hover:bg-red_mains hover:text-black_bg"
+                : "hover:bg-yellow_secondary hover:text-black_bg"
+            }`}
             onClick={() => redirect("/admin?videos=true")}
-            onMouseEnter={() =>
-              setButtonText("Any unsaved changes will be lost!")
-            }
-            onMouseLeave={() => setButtonText("Go back to videos list")}
+            onMouseEnter={() => {
+              if (isDirty) setExitText("Any unsaved changes will be lost!");
+            }}
+            onMouseLeave={() => setExitText("Go back to videos list")}
           >
-            {buttonText}
+            {exitText}
           </Button>
         </div>
       </form>
