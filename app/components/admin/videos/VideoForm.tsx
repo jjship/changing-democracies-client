@@ -25,7 +25,6 @@ import {
 import { Textarea } from "../../ui/textarea";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
-import { redirect } from "next/navigation";
 
 type FormSchema = z.infer<typeof formSchema>;
 
@@ -68,6 +67,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
   const [subtitles, setSubtitles] = useState<string>("");
   const [selectedLabel, setSelectedLabel] = useState<string>("");
   const [exitText, setExitText] = useState("Go back to videos list");
+  const [error, setError] = useState<string>("");
 
   const { guid: videoId, captions } = formVideo;
 
@@ -111,10 +111,15 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
     });
 
     if (metadataError || captionsError) {
+      setError(
+        `${metadataError ?? ""}${captionsError ? " " + captionsError : ""}`,
+      );
       throw metadataError || captionsError;
+    } else {
+      setError("");
     }
 
-    if (isSubmitSuccessful) window.location.reload();
+    if (!metadataError && !captionsError) window.location.reload();
   }
 
   const form = useForm<FormSchema>({
@@ -252,13 +257,13 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
               />
             </div>
           </div>
-          {isSubmitted && !isSubmitSuccessful && (
-            <p className="bg-destructive">
-              Something went wrong. Please try again and contact support at
-              devontheroof@gmail.com if this message is still visible.
-            </p>
+          {!!error && (
+            <div className="bg-destructive">
+              <p>Something went wrong. Please try again.</p>
+              <p>{`Error message: "${error}"`}</p>
+            </div>
           )}
-          {isSubmitting ? (
+          {isSubmitting && !error ? (
             <Button
               className={`w-1/3 min-w-min bg-yellow_secondary text-black_bg`}
               disabled
@@ -281,7 +286,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
                 ? "hover:bg-red_mains hover:text-black_bg"
                 : "hover:bg-yellow_secondary hover:text-black_bg"
             }`}
-            onClick={() => redirect("/admin?videos=true")}
+            onClick={() => window.location.replace("/admin?videos=true")}
             onMouseEnter={() => {
               if (isDirty) setExitText("Any unsaved changes will be lost!");
             }}
