@@ -29,21 +29,37 @@ import { redirect } from "next/navigation";
 
 type FormSchema = z.infer<typeof formSchema>;
 
-const formSchema = z.object({
-  videoId: z.string(),
-  title: z
-    .string()
-    .min(3, { message: "Title must be at least 3 characters long" })
-    .max(50, { message: "Title must be at most 50 characters long" })
-    .optional(),
-  description: z.string().optional(),
-  tags: z.string().optional(),
-  caption: z.object({
-    srclang: z.string(),
-    label: z.string(),
-  }),
-  subtitles: z.string(),
-});
+const formSchema = z
+  .object({
+    videoId: z.string(),
+    title: z
+      .string()
+      .min(3, { message: "Title must be at least 3 characters long" })
+      .max(50, { message: "Title must be at most 50 characters long" })
+      .optional(),
+    description: z.string().optional(),
+    tags: z.string().optional(),
+    caption: z.object({
+      srclang: z.string(),
+      label: z.string(),
+    }),
+    subtitles: z.string(),
+  })
+  .refine(
+    (data) => {
+      const { tags } = data;
+      if (!tags) return true;
+      const tagsArray = tags.split(",");
+      return (
+        tagsArray.every((tag) => tag.length <= 20) &&
+        tagsArray.every((tag) => tag.trim().split(" ").length === 1)
+      );
+    },
+    {
+      message: "Tags must be comma separated and have no spaces in them.",
+      path: ["tags"],
+    },
+  );
 
 export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
   const [selectedLanguage, setSelectedLanguage] = useState<

@@ -9,7 +9,6 @@ import {
   purgeCaptionsCash,
   updateVideo,
   uploadCaptions,
-  BunnyMethodReturn,
 } from "@/lib/bunnyMethods";
 import { authenticate } from "@/auth/actions";
 import { EventDbEntry } from "@/types/database";
