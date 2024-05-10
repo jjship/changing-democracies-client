@@ -142,6 +142,10 @@ async function saveCaptions({
 
   await authenticate(supabase);
 
+  if (!srclang) {
+    return { success: true };
+  }
+
   const { error: uploadError } = await uploadCaptions({
     videoId,
     srclang,

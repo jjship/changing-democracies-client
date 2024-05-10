@@ -26,7 +26,6 @@ import { Textarea } from "../../ui/textarea";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { redirect } from "next/navigation";
-import { is } from "date-fns/locale";
 
 type FormSchema = z.infer<typeof formSchema>;
 
@@ -160,36 +159,40 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="caption.label"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Subtitles Label</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        value={selectedLabel}
-                        onChange={(e) => setSelectedLabel(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="subtitles"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Subtitles</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!!subtitles && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="caption.label"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Subtitles Label</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            value={selectedLabel}
+                            onChange={(e) => setSelectedLabel(e.target.value)}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="subtitles"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Subtitles</FormLabel>
+                        <FormControl>
+                          <Textarea {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
             </div>
             <div className="flex-grow space-y-5">
               <FormField
