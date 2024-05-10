@@ -113,7 +113,8 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
     mode: "onChange",
   });
 
-  const { isDirty, isSubmitting, isSubmitSuccessful } = form.formState;
+  const { isSubmitted, isDirty, isSubmitting, isSubmitSuccessful } =
+    form.formState;
 
   return (
     <Form {...form}>
@@ -232,7 +233,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
               />
             </div>
           </div>
-          {!isSubmitSuccessful && (
+          {isSubmitted && !isSubmitSuccessful && (
             <p className="bg-destructive">
               Something went wrong. Please try again and contact support at
               devontheroof@gmail.com if this message is still visible.
