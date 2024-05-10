@@ -9,7 +9,6 @@ import {
   purgeCaptionsCash,
   updateVideo,
   uploadCaptions,
-  BunnyMethodReturn,
 } from "@/lib/bunnyMethods";
 import { authenticate } from "@/auth/actions";
 import { EventDbEntry } from "@/types/database";
@@ -141,6 +140,10 @@ async function saveCaptions({
   const supabase = createClient();
 
   await authenticate(supabase);
+
+  if (!srclang) {
+    return { success: true };
+  }
 
   const { error: uploadError } = await uploadCaptions({
     videoId,

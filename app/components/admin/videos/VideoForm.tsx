@@ -26,25 +26,40 @@ import { Textarea } from "../../ui/textarea";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { redirect } from "next/navigation";
-import { is } from "date-fns/locale";
 
 type FormSchema = z.infer<typeof formSchema>;
 
-const formSchema = z.object({
-  videoId: z.string(),
-  title: z
-    .string()
-    .min(3, { message: "Title must be at least 3 characters long" })
-    .max(50, { message: "Title must be at most 50 characters long" })
-    .optional(),
-  description: z.string().optional(),
-  tags: z.string().optional(),
-  caption: z.object({
-    srclang: z.string(),
-    label: z.string(),
-  }),
-  subtitles: z.string(),
-});
+const formSchema = z
+  .object({
+    videoId: z.string(),
+    title: z
+      .string()
+      .min(3, { message: "Title must be at least 3 characters long" })
+      .max(50, { message: "Title must be at most 50 characters long" })
+      .optional(),
+    description: z.string().optional(),
+    tags: z.string().optional(),
+    caption: z.object({
+      srclang: z.string(),
+      label: z.string(),
+    }),
+    subtitles: z.string(),
+  })
+  .refine(
+    (data) => {
+      const { tags } = data;
+      if (!tags) return true;
+      const tagsArray = tags.split(",");
+      return (
+        tagsArray.every((tag) => tag.length <= 20) &&
+        tagsArray.every((tag) => tag.trim().split(" ").length === 1)
+      );
+    },
+    {
+      message: "Tags must be comma separated and have no spaces in them.",
+      path: ["tags"],
+    },
+  );
 
 export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
   const [selectedLanguage, setSelectedLanguage] = useState<
@@ -160,36 +175,40 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="caption.label"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Subtitles Label</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        value={selectedLabel}
-                        onChange={(e) => setSelectedLabel(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="subtitles"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Subtitles</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!!subtitles && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="caption.label"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Subtitles Label</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            value={selectedLabel}
+                            onChange={(e) => setSelectedLabel(e.target.value)}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="subtitles"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Subtitles</FormLabel>
+                        <FormControl>
+                          <Textarea {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
             </div>
             <div className="flex-grow space-y-5">
               <FormField
