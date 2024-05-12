@@ -65,7 +65,7 @@ function parseVideo(video: VideoDbEntry): FormVideo {
   return {
     guid,
     title,
-    length,
+    length: `${Math.floor(length / 60)}:${length % 60}`,
     captions,
     tags: metaTags.find((tag) => tag.property === "tags")?.value || "",
     description:
