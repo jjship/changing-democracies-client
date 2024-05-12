@@ -64,16 +64,6 @@ export default async function VideosAdmin() {
     videosIds.map((videoId) => getVideo(videoId)),
   );
 
-  const tags = videos.reduce(
-    (acc, video) => {
-      acc.push({ id: video.guid, tags: video.metaTags });
-      return acc;
-    },
-    [{}],
-  );
-
-  console.dir({ tags }, { depth: null });
-
   return (
     <div className="flex min-h-screen flex-col bg-puprple_lightest_bg">
       <h1>{collection.name}</h1>

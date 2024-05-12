@@ -87,7 +87,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
       }
     }
     fetchSubtitles();
-  }, [selectedLanguage]);
+  }, [selectedLanguage, videoId]);
 
   async function onSubmit(values: FormSchema) {
     const metadata = parseVideoMetadata({ formMetadata: values });
