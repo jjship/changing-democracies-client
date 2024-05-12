@@ -38,7 +38,11 @@ function VideoRow({ video }: VideoRowProps) {
             ? `${video.description.slice(0, 20)}...`
             : video.description}
         </TableCell>
-        <TableCell>{video.captions.map((cap) => `${cap.srclang} ,`)}</TableCell>
+        <TableCell>
+          {video.captions
+            .filter((cap) => (cap.srclang.endsWith("auto") ? false : true))
+            .map((cap) => `${cap.srclang} `)}
+        </TableCell>
         <TableCell>{video.tags}</TableCell>
       </TableRow>
     </>
@@ -62,7 +66,7 @@ export function VideosTable() {
             <TableHead>Title</TableHead>
             <TableHead>Length</TableHead>
             <TableHead>Description</TableHead>
-            <TableHead>Available Captions</TableHead>
+            <TableHead>Verified Captions</TableHead>
             <TableHead>Tags</TableHead>
           </TableRow>
         </TableHeader>
@@ -91,7 +95,11 @@ function parseVideo(video: VideoDbEntry): FormVideo {
     title,
     length,
     captions,
-    tags: metaTags.find((tag) => tag.property === "tags")?.value || "",
+    tags:
+      metaTags
+        .find((tag) => tag.property === "tags")
+        ?.value?.split(",")
+        .join(" ") || "",
     description:
       metaTags.find((tag) => tag.property === "description")?.value || "",
   };
