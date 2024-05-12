@@ -9,6 +9,7 @@ import {
   purgeCaptionsCash,
   updateVideo,
   uploadCaptions,
+  uploadImage,
 } from "@/lib/bunnyMethods";
 import { authenticate } from "@/auth/actions";
 import { EventDbEntry } from "@/types/database";
@@ -23,6 +24,7 @@ export {
   saveCaptions,
   saveVideo,
   getSubtitles,
+  saveImage,
 };
 
 type EventsMethodReturn<T = undefined> = {
@@ -30,6 +32,23 @@ type EventsMethodReturn<T = undefined> = {
   data?: T;
   error?: string;
 };
+
+async function saveImage(formData: FormData) {
+  const supabase = createClient();
+
+  await authenticate(supabase);
+
+  const { error } = await uploadImage({
+    blob: formData.get("blob") as Blob,
+    fileName: formData.get("fileName") as string,
+  });
+
+  if (error) {
+    return handleError({ ...error, name: "Unable to upload image" });
+  }
+
+  return { success: true };
+}
 
 async function getEvents(): Promise<EventsMethodReturn<EventDbEntry[]>> {
   const supabase = createClient();

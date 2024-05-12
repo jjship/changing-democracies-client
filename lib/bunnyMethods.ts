@@ -10,6 +10,7 @@ export {
   uploadCaptions,
   fetchCaptions,
   purgeCaptionsCash,
+  uploadImage,
 };
 
 export type UpdateVideoModel = {
@@ -28,6 +29,46 @@ export type BunnyMethodReturn<T = undefined> = T extends undefined
       data?: T;
       error?: Error;
     };
+
+async function uploadImage({
+  blob,
+  fileName,
+}: {
+  blob: Blob;
+  fileName: string;
+}) {
+  if (!process.env.BUNNY_STORAGE_API_KEY) {
+    throw new Error("Missing Bunny Stream environment variables");
+  }
+
+  const readStream = blob.stream();
+
+  const storageName = "cd-dev-storage";
+  const host = "https://storage.bunnycdn.com";
+  const path = `/${storageName}/${fileName}`;
+
+  const options = {
+    method: "PUT",
+    headers: {
+      AccessKey: process.env.BUNNY_STORAGE_API_KEY,
+      "Content-Type": "application/octet-stream",
+    },
+    body: readStream,
+    duplex: "half",
+  };
+
+  const res = await fetch(host + path, options);
+
+  if (!res.ok) {
+    return {
+      success: false,
+
+      error: new Error("Failed to upload image"),
+    };
+  }
+
+  return { success: true };
+}
 
 async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
   if (

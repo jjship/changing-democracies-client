@@ -40,7 +40,12 @@ export class DavButton {
     p: P,
     stage: number,
     currentLayout: Language,
-  ) {
+    // setStage: (stage: number) => void,
+    // setCurrLang: (lang: Language) => void,
+  ): { pressed: boolean; newStage: number; newLang: Language } {
+    let pressed = false;
+    let newStage = stage;
+    let newLang = currentLayout;
     let d = this.y - this.yb;
     this.yb += d * this.easing;
     p.push();
@@ -52,10 +57,13 @@ export class DavButton {
     ) {
       p.fill(pink);
       if (mPressed) {
+        pressed = true;
         if (this.nextStage !== null) {
-          stage = this.nextStage;
+          // setStage(this.nextStage);
+          newStage = this.nextStage;
+          console.log({ newStage });
         } else {
-          stage++;
+          newStage = stage + 1;
         }
         this.reset();
       }
@@ -78,6 +86,7 @@ export class DavButton {
       this.yb - this.h + this.h / 4 - gr,
     );
     p.pop();
+    return { pressed, newStage, newLang };
   }
   reset() {
     this.y = this.y2;

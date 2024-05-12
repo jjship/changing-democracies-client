@@ -1,3 +1,5 @@
+"use client";
+
 import p5 from "p5";
 import { Language, LanguageAbbreviations, P } from "./const";
 
@@ -29,14 +31,20 @@ export class BtnLang {
     stage: number,
     languageAbbreviations: LanguageAbbreviations,
     archivoBold: p5.Font,
-  ) {
+    // setCurrLang: (lang: Language) => void,
+    // setStage: (stage: number) => void,
+  ): { pressed: boolean; newStage: number; newLang: Language } {
+    let pressed = false;
+    let newStage = stage;
+    let newLang = currentLayout;
     let d = this.y - this.yb;
     this.yb += d * this.easing;
-    if (mPressed) {
-      // mPressed powinno być zdefiniowane globalnie
-      currentLayout = this.txt;
-      stage = 0;
-    }
+    // if (mPressed) {
+    // console.log("pressed", { txt: this.txt, stage });
+    // mPressed powinno być zdefiniowane globalnie
+    // setCurrLang(this.txt);
+    // setStage(0);
+    // }
     if (
       p.mouseX >= this.x &&
       p.mouseX <= this.x + this.w &&
@@ -45,8 +53,12 @@ export class BtnLang {
     ) {
       p.fill(pink); // Color of the button when hovered
       if (mPressed) {
-        currentLayout = this.txt;
-        stage = 0;
+        pressed = true;
+        // setCurrLang(this.txt);
+        newLang = this.txt;
+        // setStage(0);
+        newStage = 0;
+        console.log({ pressed, newLang, newStage });
       }
     } else {
       p.fill(darkRed); // Default color of the button
@@ -61,5 +73,6 @@ export class BtnLang {
     let abbreviation = languageAbbreviations[this.txt ?? "N/A"];
     p.text(abbreviation, this.x + this.w / 2, this.yb - this.h + this.h / 4);
     p.pop();
+    return { pressed, newStage, newLang };
   }
 }
