@@ -270,8 +270,6 @@ const Photobooth = () => {
               p,
               stage,
               currentLayout,
-              // setStage,
-              // setCurrLang,
             );
             if (pressed) {
               console.log({ pressed, newLang, newStage });
@@ -315,8 +313,6 @@ const Photobooth = () => {
               p,
               stage,
               currentLayout,
-              // setStage,
-              // setCurrLang,
             );
 
             if (pressed) {
@@ -444,8 +440,6 @@ const Photobooth = () => {
               p,
               stage,
               currentLayout,
-              // setStage,
-              // setCurrLang,
             );
 
             if (pressed) {
@@ -525,8 +519,6 @@ const Photobooth = () => {
               p,
               stage,
               currentLayout,
-              // setStage,
-              // setCurrLang,
             );
             if (pressed) {
               stage = newStage;
@@ -543,8 +535,6 @@ const Photobooth = () => {
               p,
               stage,
               currentLayout,
-              // setStage,
-              // setCurrLang,
             );
             if (pr) {
               stage = st;
@@ -618,30 +608,8 @@ const Photobooth = () => {
               p,
               stage,
               currentLayout,
-              // setStage,
-              // setCurrLang,
             );
             if (pressed && newStage) {
-              // TODO schowaj najpierw finishButton
-              // let cnv = document.querySelector("canvas");
-              // if (cnv) {
-              //   let data = cnv.toBlob((blob) => {
-              //     if (blob) {
-              //       const name =
-              //         "poster_" + posterIndex + "_" + currentLayout + ".png";
-              //       const formData = new FormData();
-              //       formData.append("blob", blob);
-              //       formData.append("fileName", name);
-
-              //       saveImage(formData).then(({ success }) =>
-              //         console.log("SAVED", { success }),
-              //       );
-              //     }
-              //   }, undefined, "image/png");
-
-              //   posterIndex++;
-              // }
-
               stage = newStage;
             }
           } else if (stage == 10) {
@@ -967,10 +935,6 @@ const Photobooth = () => {
           p.pop();
           return { pressed, newStage };
         }
-
-        // p.windowResized(() => {
-        //   p
-        // });
 
         function windowResized() {
           p.resizeCanvas(p.windowWidth - 5, p.windowHeight - 5);
