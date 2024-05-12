@@ -33,10 +33,12 @@ function VideoRow({ video }: VideoRowProps) {
         </TableCell>
         <TableCell>{video.title}</TableCell>
         <TableCell>{video.length}</TableCell>
-        <TableCell>{video.description}</TableCell>
         <TableCell>
-          {video.captions.map((cap) => `${cap.srclang} \n`)}
+          {video.description.length > 20
+            ? `${video.description.slice(0, 20)}...`
+            : video.description}
         </TableCell>
+        <TableCell>{video.captions.map((cap) => `${cap.srclang} ,`)}</TableCell>
         <TableCell>{video.tags}</TableCell>
       </TableRow>
     </>
