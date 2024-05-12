@@ -688,7 +688,7 @@ const Photobooth = () => {
                   p.noLoop();
                   if (blob) {
                     const name =
-                      "poster_" + posterIndex + "_" + currentLayout + ".png";
+                      "poster_" + posterIndex + "_" + currentLayout + ".jpg";
                     const formData = new FormData();
                     formData.append("blob", blob);
                     formData.append("fileName", name);
@@ -699,7 +699,7 @@ const Photobooth = () => {
 
                     saveImage(formData).then(({ success }) => {
                       p.loop();
-                      stage = 0;
+                      stage = -1;
 
                       p.textSize(70);
                       p.fill(darkRed);
@@ -707,8 +707,8 @@ const Photobooth = () => {
                     });
                   }
                 },
-                undefined,
-                "image/png",
+                "image/jpg",
+                0.2,
               );
 
               posterIndex++;
