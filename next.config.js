@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cd-dev-pull.b-cdn.net",
+        port: "",
+        pathname: "/posters/**",
+      },
+    ],
+  },
+};
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")();
 

@@ -10,6 +10,8 @@ export {
   uploadCaptions,
   fetchCaptions,
   purgeCaptionsCash,
+  uploadImage,
+  getPosters,
 };
 
 export type UpdateVideoModel = {
@@ -21,6 +23,24 @@ export type UpdateVideoModel = {
   metaTags?: { property: string; value: string }[] | null;
 };
 
+export type DbPoster = {
+  Guid: string;
+  StorageZoneName: string;
+  Path: string;
+  ObjectName: string;
+  Length: number;
+  LastChanged: string;
+  ServerId: number;
+  ArrayNumber: number;
+  IsDirectory: boolean;
+  UserId: string;
+  ContentType: string;
+  DateCreated: string;
+  StorageZoneId: number;
+  Checksum: string;
+  ReplicatedZones: string;
+};
+
 export type BunnyMethodReturn<T = undefined> = T extends undefined
   ? { success: boolean; error?: Error }
   : {
@@ -28,6 +48,76 @@ export type BunnyMethodReturn<T = undefined> = T extends undefined
       data?: T;
       error?: Error;
     };
+
+async function uploadImage({
+  blob,
+  fileName,
+}: {
+  blob: Blob;
+  fileName: string;
+}) {
+  if (!process.env.BUNNY_STORAGE_API_KEY) {
+    throw new Error("Missing Bunny Stream environment variables");
+  }
+
+  const readStream = blob.stream();
+
+  const storageName = "cd-dev-storage";
+  const host = "https://storage.bunnycdn.com";
+  const path = `/${storageName}/posters/${fileName}`;
+
+  const options = {
+    method: "PUT",
+    headers: {
+      AccessKey: process.env.BUNNY_STORAGE_API_KEY,
+      "Content-Type": "application/octet-stream",
+    },
+    body: readStream,
+    duplex: "half",
+  };
+
+  const res = await fetch(host + path, options);
+
+  if (!res.ok) {
+    return {
+      success: false,
+
+      error: new Error("Failed to upload image"),
+    };
+  }
+
+  return { success: true };
+}
+
+async function getPosters(): Promise<BunnyMethodReturn<DbPoster[]>> {
+  if (!process.env.BUNNY_STORAGE_API_KEY) {
+    throw new Error("Missing Bunny Stream environment variables");
+  }
+
+  const url = "https://storage.bunnycdn.com/cd-dev-storage/posters/";
+
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      AccessKey: process.env.BUNNY_STORAGE_API_KEY,
+    },
+  };
+
+  const res = await fetch(url, options);
+
+  if (!res.ok) {
+    return {
+      success: false,
+
+      error: new Error("Failed to fetch posters data"),
+    };
+  }
+
+  const posters: DbPoster[] = (await res.json()) as DbPoster[];
+
+  return { success: true, data: posters };
+}
 
 async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
   if (
