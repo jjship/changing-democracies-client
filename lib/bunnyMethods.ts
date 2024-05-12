@@ -164,9 +164,10 @@ async function getVideosPerCollection(): Promise<
 
   const { items }: { items: VideoDbEntry[] } = await res.json();
 
-  items.sort((a, b) => a.title.localeCompare(b.title));
-
-  return { data: items, success: true };
+  return {
+    data: items.sort((a, b) => a.title.localeCompare(b.title)),
+    success: true,
+  };
 }
 
 async function deleteCaption({
