@@ -249,7 +249,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
                   <FormItem>
                     <FormLabel>Comma separated list of tags</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Textarea {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
