@@ -22,7 +22,11 @@ import {
   LoginValuesSchema,
 } from "../components/admin/login/loginValues";
 
-export default function Login() {
+export default function Login({
+  searchParams: { next },
+}: {
+  searchParams: { next?: string };
+}) {
   const { pending } = useFormStatus();
   const [email] = useState("");
   const [password] = useState("");
@@ -59,7 +63,9 @@ export default function Login() {
         <Form {...form}>
           <form
             className="flex w-full flex-1 flex-col justify-center gap-2 text-black_bg"
-            action={login}
+            onSubmit={form.handleSubmit((data) => {
+              login(data, next);
+            })}
           >
             <FormField
               control={form.control}

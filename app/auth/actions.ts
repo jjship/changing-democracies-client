@@ -9,15 +9,18 @@ import { SupabaseClient } from "@supabase/supabase-js";
 
 export { authenticate, login, logout };
 
-async function login(formdata: FormData) {
-  const { email, password } = LoginValuesSchema.parse({
-    email: formdata.get("email"),
-    password: formdata.get("password"),
-  });
+async function login(data: { email: string; password: string }, next?: string) {
+  // const { email, password } = LoginValuesSchema.parse({
+  //   email: formdata.get("email"),
+  //   password: formdata.get("password"),
+  // });
 
   const supabase = createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  });
 
   if (error) {
     if (Object.keys(error).includes("__isAuthError")) {
@@ -26,7 +29,7 @@ async function login(formdata: FormData) {
     throw error;
   }
 
-  redirect("/admin");
+  redirect(next ?? "/admin");
 }
 
 async function logout() {
@@ -35,7 +38,7 @@ async function logout() {
   redirect("/");
 }
 
-async function authenticate(client: SupabaseClient) {
+async function authenticate(client: SupabaseClient, next?: string) {
   const {
     data: { user },
     error,
@@ -43,7 +46,7 @@ async function authenticate(client: SupabaseClient) {
 
   if (error || !user) {
     if (error?.message === "Auth session missing!") {
-      redirect("/login");
+      redirect(`/login${next ? `?next=${next}` : ""}`);
     }
     throw new Error("Failed to fetch user data");
   }
