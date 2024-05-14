@@ -27,32 +27,36 @@ export default function PhotoboothPage() {
   };
 
   return !submitted ? (
-    <div className="w-1/2 flex-col items-center justify-center gap-5 p-5">
-      <p>Set event location</p>
-      <Form {...form}>
-        <div className="flex w-full items-center justify-center gap-5">
-          {" "}
-          <div className="w-full">
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <Button type="submit">Submit</Button>
-          {/* <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Input type="text" name="location" />
-
-        </form> */}
-        </div>
-      </Form>
+    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-puprple_lightest_bg ">
+      <div className="w-1/2 flex-col items-center justify-center gap-5 p-5">
+        <p>Set event location</p>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(() => {
+              onSubmit(form.getValues());
+            })}
+          >
+            <div className="flex w-full items-center justify-center gap-5">
+              {" "}
+              <div className="w-full">
+                <FormField
+                  control={form.control}
+                  name="location"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <Button type="submit">Submit</Button>
+            </div>
+          </form>
+        </Form>
+      </div>
     </div>
   ) : (
     <Photobooth location={location} />
