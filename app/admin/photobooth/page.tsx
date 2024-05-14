@@ -3,7 +3,7 @@
 import { createClient } from "@/supabase/clients/server";
 
 import { authenticate } from "@/auth/actions";
-import Photobooth from "@/components/admin/photobooth/Photobooth";
+import LocationForm from "../../components/admin/photobooth/LocationForm";
 
 export default async function PhotoboothPage() {
   const supabase = createClient();
@@ -14,7 +14,7 @@ export default async function PhotoboothPage() {
     <>
       {user ? (
         <>
-          <Photobooth />
+          <LocationForm />
         </>
       ) : (
         <p>loading...</p>

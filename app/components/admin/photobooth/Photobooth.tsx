@@ -44,13 +44,14 @@ type UnderlineData = {
   y: number;
 };
 
-const Photobooth = () => {
+const Photobooth = ({ location }: { location: string }) => {
   // const [currLang, setCurrLang] = useState<Language>("english");
   // const [stage, setStage] = useState<number>(-1);
 
   const processingRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const p5 = require("p5");
+    let locationInSetup = location;
     // let newp5;
     if (processingRef.current) {
       new p5((p: P) => {
@@ -119,6 +120,7 @@ const Photobooth = () => {
         };
 
         p.setup = () => {
+          const location = locationInSetup;
           p.createCanvas(p.windowWidth - 5, p.windowHeight - 5);
 
           let cnv = document.querySelector("canvas");
@@ -673,48 +675,35 @@ const Photobooth = () => {
             p.fill(darkRed);
             p.text(userName, 40, yPos, p.width - 80, p.height / 4);
             p.pop();
-            // upload image to storage
-            let saving = true;
 
+            // upload image to storage
             let cnv = document.querySelector("canvas");
 
             if (cnv) {
               cnv.getContext("2d", {
                 willReadFrequently: true,
               });
-              // how to let p5 know to stop redrawing
               cnv.toBlob(
                 (blob) => {
-                  p.noLoop();
                   if (blob) {
                     const name =
-                      "poster_" + posterIndex + "_" + currentLayout + ".jpg";
+                      "poster_" + posterIndex + "_" + location + ".jpeg";
                     const formData = new FormData();
                     formData.append("blob", blob);
                     formData.append("fileName", name);
 
-                    p.textSize(70);
-                    p.fill(darkRed);
-                    p.text("Saving poster...", p.width / 2, p.height / 2);
-
-                    saveImage(formData).then(({ success }) => {
-                      p.loop();
-                      stage = -1;
-
-                      p.textSize(70);
-                      p.fill(darkRed);
-                      p.text(`Success: ${success}`, p.width / 2, p.height / 2);
-                    });
+                    saveImage(formData);
                   }
                 },
-                "image/jpg",
-                0.2,
+                "image/jpeg",
+                0.9,
               );
 
               posterIndex++;
             }
 
             //go back to start
+            stage = -1;
           }
 
           if (stage > 1 && stage != 7 && stage < 10) {
