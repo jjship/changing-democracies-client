@@ -107,7 +107,8 @@ export const translations: Record<Language, Record<string, string>> = {
   },
   dutch: {
     "Make your own poster": "Maak je eigen poster",
-    "Express your feelings about Democracy": "Uit je gevoelens over democratie",
+    "Express your feelings about Democracy":
+      "Voeg jouw inzicht over democratie toe",
     "What is your name?": "Hoe heet je?",
     "Write your statement": "Schrijf je verklaring",
     Next: "Volgende",
