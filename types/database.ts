@@ -57,6 +57,36 @@ export interface Database {
         };
         Relationships: [];
       };
+      posters: {
+        Row: {
+          created_at: string;
+          created_by: string | null;
+          // id: number;
+          url: string;
+          location: string | null;
+          published: boolean;
+          bunny_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          created_by?: string | null;
+          // id?: number;
+          url: string;
+          location: string;
+          published: boolean;
+          bunny_id: string;
+        };
+        Update: {
+          created_at?: string;
+          created_by?: string | null;
+          // id?: number;
+          url?: string | null;
+          location?: string | null;
+          published?: boolean | null;
+          bunny_id?: string | null;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -75,3 +105,11 @@ export interface Database {
 export type EventDbEntry = Database["public"]["Tables"]["events"]["Row"];
 
 export type Events = Event[];
+
+export type PosterDbEntry = Database["public"]["Tables"]["posters"]["Row"];
+
+export type PosterUpdateModel =
+  Database["public"]["Tables"]["posters"]["Update"];
+
+export type PosterInsertModel =
+  Database["public"]["Tables"]["posters"]["Insert"];

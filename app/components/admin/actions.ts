@@ -27,28 +27,11 @@ export {
   saveImage,
 };
 
-type EventsMethodReturn<T = undefined> = {
+export type EventsMethodReturn<T = undefined> = {
   success: boolean;
   data?: T;
   error?: string;
 };
-
-async function saveImage(formData: FormData) {
-  const supabase = createClient();
-
-  await authenticate(supabase);
-
-  const { error } = await uploadImage({
-    blob: formData.get("blob") as Blob,
-    fileName: formData.get("fileName") as string,
-  });
-
-  if (error) {
-    return handleError({ ...error, name: "Unable to upload image" });
-  }
-
-  return { success: true };
-}
 
 async function getEvents(): Promise<EventsMethodReturn<EventDbEntry[]>> {
   const supabase = createClient();
@@ -202,6 +185,23 @@ async function getSubtitles({
   }
 
   return res;
+}
+
+async function saveImage(formData: FormData) {
+  const supabase = createClient();
+
+  await authenticate(supabase);
+
+  const { error } = await uploadImage({
+    blob: formData.get("blob") as Blob,
+    fileName: formData.get("fileName") as string,
+  });
+
+  if (error) {
+    return handleError({ ...error, name: "Unable to upload image" });
+  }
+
+  return { success: true };
 }
 
 const handleError = (error: Error) => {

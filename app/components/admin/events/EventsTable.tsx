@@ -73,7 +73,7 @@ function EventRow({ event }: EventRowProps) {
   );
 }
 
-export function EventsTable() {
+export default function EventsTable() {
   const [nextId, setNextId] = useState(0);
   const { events } = useEventsContext();
 
