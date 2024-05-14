@@ -127,13 +127,13 @@ async function getPosters(): Promise<{
 async function deleteBunnyPoster({
   poster,
 }: {
-  poster: Pick<BunnyPoster, "Path" | "StorageZoneName">;
+  poster: Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">;
 }): Promise<BunnyMethodReturn> {
   if (!process.env.BUNNY_STORAGE_API_KEY) {
     throw new Error("Missing Bunny Stream environment variables");
   }
 
-  const url = `https://storage.bunnycdn.com/${poster.StorageZoneName}/${poster.Path}`;
+  const url = `https://storage.bunnycdn.com/${poster.StorageZoneName}/${poster.Path}/${poster.ObjectName}`;
   const options = {
     method: "DELETE",
     headers: {
