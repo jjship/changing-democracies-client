@@ -24,7 +24,7 @@ export default function Posters({ posters }: { posters: DbPoster[] }) {
 
   return (
     posters && (
-      <>
+      <div className=" p-5 ">
         <div className="flex items-center justify-center gap-5 p-5">
           {Array.from(locations).map((location) => (
             <Button
@@ -48,15 +48,15 @@ export default function Posters({ posters }: { posters: DbPoster[] }) {
                   src={`https://cd-dev-pull.b-cdn.net/posters/${poster.ObjectName}`}
                   alt={poster.ObjectName}
                   className="w-full"
-                  width={200}
-                  height={200}
+                  width={800}
+                  height={800}
                   loading="lazy" // Add lazy loading attribute
                 />
               </div>
             ))}
           </div>
         </div>
-      </>
+      </div>
     )
   );
 }

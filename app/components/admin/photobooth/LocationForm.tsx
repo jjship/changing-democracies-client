@@ -12,6 +12,8 @@ import {
   FormMessage,
 } from "../../ui/form";
 import { Input } from "../../ui/input";
+import { Button } from "../../ui/button";
+import { FormInputIcon } from "lucide-react";
 
 export default function PhotoboothPage() {
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -25,26 +27,31 @@ export default function PhotoboothPage() {
   };
 
   return !submitted ? (
-    <div>
-      <h1>Photobooth</h1>
+    <div className="w-1/2 flex-col items-center justify-center gap-5 p-5">
+      <p>Set event location</p>
       <Form {...form}>
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Event location</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <input type="text" name="location" />
-          <button type="submit">Submit</button>
-        </form>
+        <div className="flex w-full items-center justify-center gap-5">
+          {" "}
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button type="submit">Submit</Button>
+          {/* <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Input type="text" name="location" />
+
+        </form> */}
+        </div>
       </Form>
     </div>
   ) : (
