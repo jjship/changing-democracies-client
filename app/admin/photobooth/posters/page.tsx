@@ -15,11 +15,12 @@ export default async function PostersPage() {
   const postersRes = await getPosters();
 
   if (!postersRes.success) {
+    //TODO show error message
     console.error(postersRes.error);
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-puprple_lightest_bg">
       {user && postersRes.data ? (
         <>
           <Posters posters={postersRes.data} />
@@ -27,6 +28,6 @@ export default async function PostersPage() {
       ) : (
         <p>loading...</p>
       )}
-    </>
+    </div>
   );
 }

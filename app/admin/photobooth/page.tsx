@@ -2,7 +2,7 @@
 
 import { createClient } from "@/supabase/clients/server";
 
-import { authenticate } from "@/auth/actions";
+import { authenticate, logout } from "@/auth/actions";
 import LocationForm from "../../components/admin/photobooth/LocationForm";
 
 export default async function PhotoboothPage() {
@@ -10,15 +10,5 @@ export default async function PhotoboothPage() {
 
   const user = await authenticate(supabase, "/admin/photobooth");
 
-  return (
-    <>
-      {user ? (
-        <>
-          <LocationForm />
-        </>
-      ) : (
-        <p>loading...</p>
-      )}
-    </>
-  );
+  return <>{user ? <LocationForm /> : <p>loading...</p>}</>;
 }
