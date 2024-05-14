@@ -933,7 +933,7 @@ const Photobooth = ({ location }: { location: string }) => {
       }, processingRef.current);
       // newp5 = new p5(Sketch(), processingRef.current);
     }
-  }, []);
+  });
   return (
     <>
       <div className="l-h-animation" ref={processingRef}>
