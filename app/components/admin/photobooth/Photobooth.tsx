@@ -44,13 +44,14 @@ type UnderlineData = {
   y: number;
 };
 
-const Photobooth = () => {
+const Photobooth = ({ location }: { location: string }) => {
   // const [currLang, setCurrLang] = useState<Language>("english");
   // const [stage, setStage] = useState<number>(-1);
 
   const processingRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const p5 = require("p5");
+    let locationInSetup = location;
     // let newp5;
     if (processingRef.current) {
       new p5((p: P) => {
@@ -119,6 +120,7 @@ const Photobooth = () => {
         };
 
         p.setup = () => {
+          const location = locationInSetup;
           p.createCanvas(p.windowWidth - 5, p.windowHeight - 5);
 
           let cnv = document.querySelector("canvas");
@@ -675,11 +677,6 @@ const Photobooth = () => {
             p.pop();
 
             // upload image to storage
-            p.push();
-            p.textSize(70);
-            p.fill(darkRed);
-            p.text("Saving poster...", p.width / 2, p.height / 2);
-
             let cnv = document.querySelector("canvas");
 
             if (cnv) {
@@ -690,7 +687,7 @@ const Photobooth = () => {
                 (blob) => {
                   if (blob) {
                     const name =
-                      "poster_" + posterIndex + "_" + currentLayout + ".jpeg";
+                      "poster_" + posterIndex + "_" + location + ".jpeg";
                     const formData = new FormData();
                     formData.append("blob", blob);
                     formData.append("fileName", name);
