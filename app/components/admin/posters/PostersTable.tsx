@@ -18,7 +18,6 @@ type PosterRowProps = {
 };
 
 function PosterRow({ poster }: PosterRowProps) {
-  const [publish, setPublish] = useState<boolean>(!poster.published);
   const [hover, setHover] = useState(false);
 
   const { onDelete, onUpdate } = usePostersContext();
@@ -36,12 +35,14 @@ function PosterRow({ poster }: PosterRowProps) {
   }
 
   const handleDownload = async () => {
-    const response = await fetch(poster.url, { mode: "no-cors" });
+    const response = await fetch(getPosterUrl(poster.ObjectName), {
+      mode: "no-cors",
+    });
     const blob = await response.blob();
     saveAs(blob, poster.ObjectName);
   };
 
-  const { published, bunny_id, url } = poster;
+  const { published, bunny_id } = poster;
 
   return (
     <TableRow key={bunny_id} className="h-min-[20rem] ">
@@ -64,7 +65,7 @@ function PosterRow({ poster }: PosterRowProps) {
       <TableCell>
         <div onClick={handleDownload} style={{ cursor: "pointer" }}>
           <Image
-            src={url}
+            src={getPosterUrl(poster.ObjectName)}
             alt="user created poster"
             width={500}
             height={500}
