@@ -696,7 +696,7 @@ const Photobooth = ({ location }: { location: string }) => {
                   }
                 },
                 "image/jpeg",
-                0.2,
+                0.9,
               );
 
               posterIndex++;
