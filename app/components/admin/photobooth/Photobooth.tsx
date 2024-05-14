@@ -673,8 +673,12 @@ const Photobooth = () => {
             p.fill(darkRed);
             p.text(userName, 40, yPos, p.width - 80, p.height / 4);
             p.pop();
+
             // upload image to storage
-            let saving = true;
+            p.push();
+            p.textSize(70);
+            p.fill(darkRed);
+            p.text("Saving poster...", p.width / 2, p.height / 2);
 
             let cnv = document.querySelector("canvas");
 
@@ -682,32 +686,19 @@ const Photobooth = () => {
               cnv.getContext("2d", {
                 willReadFrequently: true,
               });
-              // how to let p5 know to stop redrawing
               cnv.toBlob(
                 (blob) => {
-                  p.noLoop();
                   if (blob) {
                     const name =
-                      "poster_" + posterIndex + "_" + currentLayout + ".jpg";
+                      "poster_" + posterIndex + "_" + currentLayout + ".jpeg";
                     const formData = new FormData();
                     formData.append("blob", blob);
                     formData.append("fileName", name);
 
-                    p.textSize(70);
-                    p.fill(darkRed);
-                    p.text("Saving poster...", p.width / 2, p.height / 2);
-
-                    saveImage(formData).then(({ success }) => {
-                      p.loop();
-                      stage = -1;
-
-                      p.textSize(70);
-                      p.fill(darkRed);
-                      p.text(`Success: ${success}`, p.width / 2, p.height / 2);
-                    });
+                    saveImage(formData);
                   }
                 },
-                "image/jpg",
+                "image/jpeg",
                 0.2,
               );
 
@@ -715,6 +706,7 @@ const Photobooth = () => {
             }
 
             //go back to start
+            stage = -1;
           }
 
           if (stage > 1 && stage != 7 && stage < 10) {
