@@ -13,7 +13,7 @@ import {
 } from "@/lib/bunnyMethods";
 import { authenticate } from "@/auth/actions";
 import { EventDbEntry } from "@/types/database";
-import { VideoDbEntry } from "../../../types/videos";
+import { VideoDbEntry } from "@/types/videos";
 
 export {
   getEvents,
@@ -27,21 +27,46 @@ export {
   saveImage,
 };
 
-export type EventsMethodReturn<T = undefined> = {
+export type NoDataMethodReturn = {
   success: boolean;
-  data?: T;
   error?: string;
 };
 
-async function getEvents(): Promise<EventsMethodReturn<EventDbEntry[]>> {
+export type EventsMethodReturn<T> = {
+  success: boolean;
+  data?: T[];
+  error?: string;
+};
+
+export type FilmsMethodReturn<T> = {
+  success: boolean;
+  data: T[];
+  error?: { message: string };
+};
+
+async function getVideos(): Promise<FilmsMethodReturn<VideoDbEntry>> {
   const supabase = createClient();
 
   await authenticate(supabase);
 
-  const { data, error } = await supabase.from("events").select();
+  const { error, ...res } = await getVideosPerCollection();
 
   if (error) {
-    return handleError({ name: "Unable to get events list", ...error });
+    return { success: false, data: [], error };
+  }
+
+  return res;
+}
+
+async function getEvents(): Promise<FilmsMethodReturn<EventDbEntry>> {
+  const supabase = createClient();
+
+  await authenticate(supabase);
+
+  const { error, data } = await supabase.from("events").select();
+
+  if (error) {
+    return { success: false, data: [], error };
   }
 
   return { success: true, data };
@@ -60,13 +85,13 @@ async function getEvent(
     .eq("id", eventId);
 
   if (error) {
-    return handleError({ name: "Unable to get events list", ...error });
+    return handleError({ message: "Unable to get events list" });
   }
 
-  return { success: true, data: data[0] };
+  return { success: true, data };
 }
 
-async function deleteEvent(eventId: number): Promise<EventsMethodReturn> {
+async function deleteEvent(eventId: number): Promise<NoDataMethodReturn> {
   const supabase = createClient();
 
   await authenticate(supabase);
@@ -74,7 +99,7 @@ async function deleteEvent(eventId: number): Promise<EventsMethodReturn> {
   const { error } = await supabase.from("events").delete().eq("id", eventId);
 
   if (error) {
-    return handleError({ name: "Unable to delete event", ...error });
+    return handleError({ message: "Unable to delete event" });
   }
 
   return { success: true };
@@ -84,7 +109,7 @@ async function saveEvent({
   event,
 }: {
   event: EventDbEntry;
-}): Promise<EventsMethodReturn> {
+}): Promise<NoDataMethodReturn> {
   const supabase = createClient();
 
   await authenticate(supabase);
@@ -92,29 +117,15 @@ async function saveEvent({
   const { error } = await supabase.from("events").upsert(event);
 
   if (error) {
-    return handleError({ name: "Unable to save event", ...error });
+    return handleError({ message: "Unable to save event" });
   }
 
   return { success: true };
 }
 
-async function getVideos(): Promise<EventsMethodReturn<VideoDbEntry[]>> {
-  const supabase = createClient();
-
-  await authenticate(supabase);
-
-  const { error, ...res } = await getVideosPerCollection();
-
-  if (error) {
-    return handleError(error);
-  }
-
-  return res;
-}
-
 async function saveVideo(
   videoData: UpdateVideoModel,
-): Promise<EventsMethodReturn> {
+): Promise<NoDataMethodReturn> {
   const supabase = createClient();
 
   await authenticate(supabase);
@@ -138,7 +149,7 @@ async function saveCaptions({
   srclang: string;
   label: string;
   captions: string;
-}): Promise<EventsMethodReturn> {
+}): Promise<NoDataMethodReturn> {
   const supabase = createClient();
 
   await authenticate(supabase);
@@ -198,13 +209,13 @@ async function saveImage(formData: FormData) {
   });
 
   if (error) {
-    return handleError({ ...error, name: "Unable to upload image" });
+    return handleError({ message: "Unable to upload image" });
   }
 
   return { success: true };
 }
 
-const handleError = (error: Error) => {
+const handleError = (error: { message: string }) => {
   console.error(error);
 
   return {

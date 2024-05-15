@@ -1,4 +1,5 @@
-// app/api/films/[id]/route.ts
+"use server";
+
 import { NextResponse } from "next/server";
 
 const films = [

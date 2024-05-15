@@ -53,7 +53,7 @@ async function getFormVideo({
   const { data, error } = await getVideo(videoId);
 
   if (data) {
-    return parseVideo(data);
+    return parseVideo(data[0]);
   }
 
   throw error ?? new Error("unable to get video");

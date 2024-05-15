@@ -4,6 +4,7 @@ import Events from "./components/Events";
 import Contact from "./components/Contact";
 import Section from "./components/Section";
 import Navigation from "./components/navigation/Navigation";
+import FreeBrowsing from "./components/FreeBrowsing";
 
 export default function Page() {
   return (
@@ -16,6 +17,9 @@ export default function Page() {
         yPadding="pb-5 md:pb-14 xl:pb-20"
       >
         <Project />
+      </Section>
+      <Section id="free_browsing" theme="dark">
+        <FreeBrowsing />
       </Section>
       <Section id="team" theme="dark">
         <Team />

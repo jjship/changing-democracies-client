@@ -1,18 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import FilmList from "./freeBrowsing/FilmList";
-import Filters from "./freeBrowsing/FilmFilters";
-
-interface Film {
-  id: string;
-  title: string;
-  country: string;
-  tags: string[];
-}
+import FilmList from "./FilmList";
+import Filters from "./FilmFilters";
+import { VideoDbEntry } from "../../types/videos";
+import { FilmCollection } from "../films/route";
 
 const HomePage = () => {
-  const [films, setFilms] = useState<Film[]>([]);
+  const [films, setFilms] = useState<VideoDbEntry[] | null>(null);
 
   useEffect(() => {
     fetch("/api/films")
@@ -20,11 +15,13 @@ const HomePage = () => {
       .then((data) => setFilms(data));
   }, []);
 
+  console.log({ films });
+
   return (
     <div className="p-8">
       <h1 className="mb-6 text-4xl font-bold">Free browsing</h1>
-      <Filters />
-      <FilmList films={films} />
+      <Filters films={films?.length ? films : []} />
+      <FilmList films={films?.length ? films : []} />
     </div>
   );
 };
