@@ -133,7 +133,8 @@ async function deleteBunnyPoster({
     throw new Error("Missing Bunny Stream environment variables");
   }
 
-  const url = `https://storage.bunnycdn.com/${poster.StorageZoneName}/${poster.Path}/${poster.ObjectName}`;
+  const url = `https://storage.bunnycdn.com${poster.Path}${poster.ObjectName}`;
+
   const options = {
     method: "DELETE",
     headers: {
@@ -142,12 +143,14 @@ async function deleteBunnyPoster({
   };
 
   const res = await fetch(url, options);
+
   if (!res.ok) {
     return {
       success: false,
       error: new Error("Failed to delete poster"),
     };
   }
+
   return { success: true };
 }
 
@@ -319,7 +322,6 @@ async function deleteCaption({
 
   const res = await fetch(url, options);
 
-  console.log("deleteCaptions", { status: res.status });
   if (!res.ok) {
     return { success: false, error: new Error("Failed to delete subtitles") };
   }
@@ -350,7 +352,7 @@ async function uploadCaptions({
   const captionsFile = buffer.toString("base64");
 
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos/${videoId}/captions/${srclang}`;
-  console.log(url);
+
   const options = {
     method: "POST",
     headers: {

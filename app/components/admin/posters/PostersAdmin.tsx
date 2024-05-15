@@ -44,10 +44,8 @@ export default function PostersAdmin({ open }: { open: boolean }) {
     );
 
     // Send the update request to the backend
-    updatePoster(poster).then((error) => {
+    updatePoster(poster).then(({ error }) => {
       if (error) {
-        console.error("Failed to update poster:", error);
-
         // Revert the UI update (add the poster back)
         // TODO You might also want to notify the user about the failure
         if (posterToUpdate) {
@@ -56,24 +54,20 @@ export default function PostersAdmin({ open }: { open: boolean }) {
       }
     });
   }
-
   function handleDelete(poster: Poster) {
     // Find the poster that was deleted
     const posterToDelete =
-      posters?.find((poster) => poster.bunny_id === poster.bunny_id) || null;
+      posters?.find((p) => p.bunny_id === poster.bunny_id) || null;
 
     // Optimistically update the UI by filtering out the deleted poster
     setPosters(
       (prevPosters) =>
-        prevPosters?.filter((poster) => poster.bunny_id !== poster.bunny_id) ||
-        null,
+        prevPosters?.filter((p) => p.bunny_id !== poster.bunny_id) || null,
     );
 
     // Send the delete request to the backend
-    deletePoster(poster).then((error) => {
+    deletePoster(poster).then(({ error }) => {
       if (error) {
-        console.error("Failed to delete poster:", error);
-
         // Revert the UI update (add the poster back)
         // TODO You might also want to notify the user about the failure
         if (posterToDelete) {
