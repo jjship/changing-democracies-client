@@ -65,4 +65,20 @@ export class BtnLang {
     p.pop();
     return { pressed, newStage, newLang };
   }
+
+  isClicked(px: number, py: number): boolean {
+    return (
+      px >= this.x &&
+      px <= this.x + this.w &&
+      py >= this.yb - this.h &&
+      py <= this.yb
+    );
+  }
+
+  handleClick(currentLayout: Language): {
+    newLang: Language;
+    newStage: number;
+  } {
+    return { newLang: this?.txt ?? currentLayout, newStage: 0 };
+  }
 }

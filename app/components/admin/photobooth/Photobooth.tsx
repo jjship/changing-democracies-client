@@ -28,6 +28,7 @@ import { BtnLang } from "@/lib/photobooth/BtnLang";
 import { DavButton } from "@/lib/photobooth/Button";
 import { Key } from "@/lib/photobooth/Key";
 import { saveImage } from "@/components/admin/actions";
+import { BackButton } from "../../../../lib/photobooth/BackButton";
 
 type TextData = {
   textLinesData: {
@@ -106,13 +107,19 @@ const Photobooth = ({ location }: { location: string }) => {
 
         let stage = -1;
 
+        let backButton: BackButton;
+
         let nextButton: DavButton;
         let repeatButton: DavButton;
         let pictureButton: DavButton;
         let startButton: DavButton;
         let finishButton: DavButton;
 
+        let allButtons: DavButton[] = [];
+
         let VIDEO: TYPE;
+
+        let currentLang: Language;
 
         p.preload = () => {
           archivoBold = p.loadFont("/fonts/Archivo-Bold.ttf");
@@ -179,6 +186,16 @@ const Photobooth = ({ location }: { location: string }) => {
             null,
             p,
           );
+
+          allButtons.push(
+            nextButton,
+            finishButton,
+            repeatButton,
+            pictureButton,
+            startButton,
+          );
+
+          backButton = new BackButton(p);
 
           const buttonWidth = 120;
           const buttonHeight = 50;
@@ -702,10 +719,14 @@ const Photobooth = ({ location }: { location: string }) => {
           }
 
           if (stage > 1 && stage != 7 && stage < 10) {
-            const { pressed, newStage } = backButton();
-            if (pressed) {
-              stage = newStage ?? stage;
-            }
+            stage = backButton.display(
+              p,
+              darkRed,
+              violet,
+              pink,
+              yellowBrown,
+              stage,
+            );
           }
         };
 
@@ -756,17 +777,39 @@ const Photobooth = ({ location }: { location: string }) => {
         }
 
         p.mousePressed = () => {
+          let res = { newLang: currentLang, newStage: stage };
           // p.fullscreen(true);
           if (wait == 0) {
-            mPressed = true;
-            keys.forEach((key) => {
-              if (key.isClicked(p.mouseX, p.mouseY)) {
-                handleKey(key.value);
+            if (stage == -1) {
+              languageButtons.forEach((button) => {
+                if (button.isClicked(p.mouseX, p.mouseY)) {
+                  res = button.handleClick(currentLayout);
+                }
+              });
+            }
+
+            if (backButton.isClicked(p.mouseX, p.mouseY)) {
+              backButton.handleClick();
+            }
+
+            allButtons.forEach((button) => {
+              if (button.isClicked(p.mouseX, p.mouseY)) {
+                stage = button.handleClick(stage);
               }
             });
+            if (wait == 0) {
+              mPressed = true;
+              keys.forEach((key) => {
+                if (key.isClicked(p.mouseX, p.mouseY)) {
+                  handleKey(key.value);
+                }
+              });
+            }
+            wait = 3;
+            lastActivityTime = p.millis();
+
+            return res;
           }
-          wait = 2;
-          lastActivityTime = p.millis();
         };
 
         p.mouseReleased = () => {
@@ -864,68 +907,14 @@ const Photobooth = ({ location }: { location: string }) => {
         function checkUserActivity(): number | null {
           if (p.millis() - lastActivityTime > INACTIVITY_THRESHOLD) {
             return 0;
-
-            // setStage(0);
           }
           return null;
         }
 
-        function backButton() {
-          let pressed = false;
-          let newStage: number | undefined;
-          let wb = 100;
-          let hb = 50;
-          let marginB = 30;
-          let sW = 30;
-
-          p.push();
-
-          if (
-            p.mouseX >= marginB &&
-            p.mouseX <= marginB * 2 + sW / 2 + wb &&
-            p.mouseY >= marginB &&
-            p.mouseY <= marginB + hb
-          ) {
-            p.fill(violet);
-            p.stroke(pink);
-            if (mPressed) {
-              pressed = true;
-              newStage = 0;
-              // stage = 0;
-
-              // setStage(0);
-            }
-          } else {
-            p.fill(darkRed);
-            p.stroke(yellowBrown);
-          }
-          p.strokeWeight(sW);
-          p.line(
-            marginB * 2 + sW / 2,
-            marginB * 2,
-            marginB * 2 + wb,
-            marginB * 2,
-          );
-          p.noStroke();
-          p.triangle(
-            marginB * 2 + (p.cos(a1) * hb) / 2,
-            marginB * 2 + (p.sin(a1) * hb) / 2,
-            marginB * 2 + (p.cos(a2) * hb) / 2,
-            marginB * 2 + (p.sin(a2) * hb) / 2,
-            marginB * 2 + (p.cos(a3) * hb) / 2,
-            marginB * 2 + (p.sin(a3) * hb) / 2,
-          );
-          p.pop();
-          return { pressed, newStage };
-        }
-
-        function windowResized() {
+        p.windowResized = () => {
           p.resizeCanvas(p.windowWidth - 5, p.windowHeight - 5);
-        }
-
-        // });
+        };
       }, processingRef.current);
-      // newp5 = new p5(Sketch(), processingRef.current);
     }
   });
   return (

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../../ui/button";
-import { BunnyPoster } from "../../../../lib/bunnyMethods";
+import { BunnyPoster } from "@/lib/bunnyMethods";
 
 export default function Posters({ posters }: { posters: BunnyPoster[] }) {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);

@@ -17,7 +17,6 @@ export const languages: Language[] = [
   "english",
   "polish",
   "greek",
-  "flemish",
   "dutch",
   "french",
   "czech",
@@ -36,7 +35,6 @@ export const languageAbbreviations = {
   english: "ENG",
   polish: "PL",
   greek: "GR",
-  flemish: "FL",
   dutch: "NL",
   french: "FR",
   czech: "CZ",
@@ -61,7 +59,7 @@ export const translations: Record<Language, Record<string, string>> = {
   english: {
     "Make your own poster": "Make your own poster",
     "Express your feelings about Democracy":
-      "Express your feelings about Democracy",
+      "Add your statement about democracy",
     "What is your name?": "What is your name?",
     "Write your statement": "Write your statement",
     Next: "Next",
@@ -92,18 +90,6 @@ export const translations: Record<Language, Record<string, string>> = {
     "Repeat picture": "Επανάληψη φωτογραφίας",
     "Take a picture": "Βγάλτε μια φωτογραφία",
     Start: "Έναρξη",
-  },
-  flemish: {
-    "Make your own poster": "Maak je eigen poster",
-    "Express your feelings about Democracy":
-      "Druk je gevoelens over democratie uit",
-    "What is your name?": "Hoe heet je?",
-    "Write your statement": "Schrijf je verklaring",
-    Next: "Volgende",
-    Finish: "Voltooien",
-    "Repeat picture": "Herhaal afbeelding",
-    "Take a picture": "Maak een foto",
-    Start: "Start",
   },
   dutch: {
     "Make your own poster": "Maak je eigen poster",
@@ -260,13 +246,6 @@ export const altLayouts: AltLayouts = {
     ο: "ό",
     υ: "ύ",
     ω: "ώ",
-  },
-  flemish: {
-    a: "ä",
-    e: "ë",
-    i: "ï",
-    o: "ö",
-    u: "ü",
   },
   dutch: {
     a: "ä",
