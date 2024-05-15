@@ -29,8 +29,6 @@ async function fetchPosters(): Promise<{
     .from("posters")
     .select();
 
-  console.log({ dbPosters });
-
   const { data: bunnyPosters, error: bunnyError } = await getPosters();
 
   if (dbError || bunnyError) {
@@ -82,7 +80,6 @@ async function updatePoster(poster: Poster): Promise<{
   };
 
   const { data, error } = await supabase.from("posters").upsert(posterData);
-  console.log("publish", { published: poster.published, data });
 
   if (error) {
     return { success: false, error: "could not publish poster" };
@@ -102,9 +99,11 @@ async function deletePoster(poster: Poster): Promise<{
     .from("posters")
     .delete()
     .eq("bunny_id", poster.bunny_id);
+
   if (dbError) {
     return { success: false, error: "could not delete poster" };
   }
+
   const { error: bunnyError } = await deleteBunnyPoster({ poster });
 
   if (bunnyError) {
