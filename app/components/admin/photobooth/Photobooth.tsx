@@ -23,6 +23,7 @@ import {
   grey,
   darkGrey,
   P,
+  Params,
 } from "@/lib/photobooth/const";
 import { BtnLang } from "@/lib/photobooth/BtnLang";
 import { DavButton } from "@/lib/photobooth/Button";
@@ -58,13 +59,13 @@ const Photobooth = ({ location }: { location: string }) => {
       new p5((p: P) => {
         let capture: any;
 
-        let mPressed = false;
+        // let mPressed = false;
 
         let languageButtons: BtnLang[] = [];
 
         let keys: Key[] = [];
-        let currentLayout: Language;
-        // let currentLayout: Language = currLang;
+        // let params.currentLang: Language;
+        // let params.currentLang: Language = currLang;
         let currentText = "";
         let capsLock = false;
         let displayText = "";
@@ -105,7 +106,7 @@ const Photobooth = ({ location }: { location: string }) => {
         let posY;
         let posX;
 
-        let stage = -1;
+        // let stage = -1;
 
         let backButton: BackButton;
 
@@ -119,7 +120,12 @@ const Photobooth = ({ location }: { location: string }) => {
 
         let VIDEO: TYPE;
 
-        let currentLang: Language;
+        // let currentLang: Language;
+
+        const params: Params = {
+          currentLang: "",
+          stage: -1,
+        };
 
         p.preload = () => {
           archivoBold = p.loadFont("/fonts/Archivo-Bold.ttf");
@@ -127,7 +133,7 @@ const Photobooth = ({ location }: { location: string }) => {
         };
 
         p.setup = () => {
-          const location = locationInSetup;
+          // const location = locationInSetup;
           p.createCanvas(p.windowWidth - 5, p.windowHeight - 5);
 
           let cnv = document.querySelector("canvas");
@@ -223,30 +229,27 @@ const Photobooth = ({ location }: { location: string }) => {
           }
           const change = checkUserActivity();
           if (change) {
-            stage = change;
+            params.stage = change;
           }
           p.background(turquoise);
 
-          if (stage == -1) {
+          if (params.stage == -1) {
             languageButtons.forEach((button) => {
-              const { pressed, newStage, newLang } = button.display(
+              button.display(
                 pink,
                 darkRed,
-                mPressed,
+                // mPressed,
                 p,
-                currentLayout,
-                stage,
+                // params,
                 languageAbbreviations,
                 archivoBold,
-                // setCurrLang,
-                // setStage,
               );
-              if (pressed) {
-                stage = newStage;
-                currentLayout = newLang;
-              }
+              // if (pressed) {
+              //   stage = newStage;
+              //   params.currentLang = newLang;
+              // }
             });
-          } else if (stage == 0) {
+          } else if (params.stage == 0) {
             userName = ""; // Clear userName
             displayText = "";
             currentText = "";
@@ -261,7 +264,7 @@ const Photobooth = ({ location }: { location: string }) => {
             p.textAlign(p.CENTER, p.CENTER);
             p.text(
               getTranslation(
-                currentLayout,
+                params.currentLang,
                 "Make your own poster",
                 translations,
               ),
@@ -273,7 +276,7 @@ const Photobooth = ({ location }: { location: string }) => {
             p.textSize(32);
             p.text(
               getTranslation(
-                currentLayout,
+                params.currentLang,
                 "Express your feelings about Democracy",
                 translations,
               ),
@@ -281,25 +284,25 @@ const Photobooth = ({ location }: { location: string }) => {
               p.height / 2,
             );
             p.pop();
-            const { pressed, newStage, newLang } = startButton.display(
+            startButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
-              stage,
-              currentLayout,
+              params,
             );
-            if (pressed) {
-              stage = newStage;
-              currentLayout = newLang;
-            }
-          } else if (stage == 1) {
+            // if (pressed) {
+            //   console.log({ pressed, stage, newStage });
+            //   stage = newStage;
+            //   params.currentLang = newLang;
+            // }
+          } else if (params.stage == 1) {
             t = 2;
-            stage = 2;
+            params.stage = 2;
             // setStage(2);
 
-            updateKeys(currentLayout);
-          } else if (stage == 2) {
+            updateKeys(params.currentLang as Language);
+          } else if (params.stage == 2) {
             if (displayLangText) {
               displayLang();
             }
@@ -314,7 +317,11 @@ const Photobooth = ({ location }: { location: string }) => {
             p.textSize(24);
             p.textAlign(p.CENTER, p.CENTER);
             p.text(
-              getTranslation(currentLayout, "What is your name?", translations),
+              getTranslation(
+                params.currentLang,
+                "What is your name?",
+                translations,
+              ),
               p.width / 2,
               p.height / 8,
             );
@@ -323,19 +330,14 @@ const Photobooth = ({ location }: { location: string }) => {
             p.textAlign(p.CENTER, p.TOP);
             p.text(displayText, p.width / 2, p.height / 4);
             p.pop();
-            const { pressed, newStage, newLang } = nextButton.display(
+            nextButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
-              stage,
-              currentLayout,
+              // stage,
+              params,
             );
-
-            if (pressed) {
-              stage = newStage;
-              currentLayout = newLang;
-            }
 
             keys.forEach((key) => {
               key.display(
@@ -346,17 +348,17 @@ const Photobooth = ({ location }: { location: string }) => {
                 archivoBold,
                 altPressed,
                 capsLock,
-                currentLayout,
+                params,
                 p,
               );
             });
-          } else if (stage == 3) {
+          } else if (params.stage == 3) {
             userName = displayText;
             displayText = "";
             currentText = "";
-            stage = 4;
+            params.stage = 4;
             // setStage(4);
-          } else if (stage == 4) {
+          } else if (params.stage == 4) {
             if (displayLangText) {
               displayLang();
             }
@@ -441,7 +443,7 @@ const Photobooth = ({ location }: { location: string }) => {
             p.textAlign(p.CENTER, p.CENTER);
             p.text(
               getTranslation(
-                currentLayout,
+                params.currentLang,
                 "Write your statement",
                 translations,
               ),
@@ -449,19 +451,13 @@ const Photobooth = ({ location }: { location: string }) => {
               p.height / 4,
             );
 
-            const { pressed, newStage, newLang } = nextButton.display(
+            nextButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
-              stage,
-              currentLayout,
+              params,
             );
-
-            if (pressed) {
-              stage = newStage;
-              currentLayout = newLang;
-            }
 
             keys.forEach((key) => {
               key.display(
@@ -472,21 +468,21 @@ const Photobooth = ({ location }: { location: string }) => {
                 archivoBold,
                 altPressed,
                 capsLock,
-                currentLayout,
+                params,
                 p,
               );
             });
 
             // ...
-          } else if (stage == 5) {
+          } else if (params.stage == 5) {
             capture = p.createCapture(VIDEO) as any;
             // statment = displayText;
             capture.size(640, 480);
             capture.hide();
-            stage = 6;
+            params.stage = 6;
             // setStage(6);
             nextButton.yb = p.height;
-          } else if (stage == 6 || stage == 7) {
+          } else if (params.stage == 6 || params.stage == 7) {
             capture.loadPixels();
             applyTintEffect(capture);
             capture.updatePixels();
@@ -505,56 +501,36 @@ const Photobooth = ({ location }: { location: string }) => {
             p.image(capture, -capture.width / 2, -capture.height / 2);
             p.pop();
 
-            if (stage == 6) {
-              const { pressed, newStage, newLang } = pictureButton.display(
+            if (params.stage == 6) {
+              pictureButton.display(
                 pink,
                 darkRed,
-                mPressed,
+                // mPressed,
                 p,
-                stage,
-                currentLayout,
+                params,
                 // setStage,
                 // setCurrLang,
               );
-              if (pressed) {
-                stage = newStage;
-                currentLayout = newLang;
-              }
+              // if (pressed) {
+              //   stage = newStage;
+              //   params.currentLang = newLang;
+              // }
               countDownTxt = 3;
             } else {
               countDown();
             }
-          } else if (stage == 8) {
+          } else if (params.stage == 8) {
             p.image(capturedImage, 0, 0);
-            let { pressed, newStage, newLang } = nextButton.display(
+            nextButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
-              stage,
-              currentLayout,
+              params,
             );
-            if (pressed) {
-              stage = newStage;
-              currentLayout = newLang;
-            }
-            let {
-              pressed: pr,
-              newStage: st,
-              newLang: lg,
-            } = repeatButton.display(
-              pink,
-              darkRed,
-              mPressed,
-              p,
-              stage,
-              currentLayout,
-            );
-            if (pr) {
-              stage = st;
-              currentLayout = lg;
-            }
-          } else if (stage == 9) {
+
+            repeatButton.display(pink, darkRed, p, params);
+          } else if (params.stage == 9) {
             p.image(capturedImage, 0, 0);
             p.push(); // Start a new drawing state
             p.stroke(darkRed);
@@ -564,9 +540,7 @@ const Photobooth = ({ location }: { location: string }) => {
             let spacing = 80; // Custom spacing between lines
 
             // Handling multiple lines based on 'enter' character in displayText
-            let textLines = displayText.split("\n");
             let yPos = 80;
-            let underlineData = [];
 
             // Draw all underlines from saved data
             textData.textLinesData.forEach((textLineData) => {
@@ -615,18 +589,14 @@ const Photobooth = ({ location }: { location: string }) => {
             p.fill(darkRed);
             p.text(userName, 40, yPos, p.width - 80, p.height / 4);
             p.pop();
-            const { pressed, newStage } = finishButton.display(
+            finishButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
-              stage,
-              currentLayout,
+              params,
             );
-            if (pressed && newStage) {
-              stage = newStage;
-            }
-          } else if (stage == 10) {
+          } else if (params.stage == 10) {
             p.image(capturedImage, 0, 0);
             p.push(); // Start a new drawing state
             p.stroke(darkRed);
@@ -715,19 +685,46 @@ const Photobooth = ({ location }: { location: string }) => {
             }
 
             //go back to start
-            stage = -1;
+            params.stage = -1;
           }
 
-          if (stage > 1 && stage != 7 && stage < 10) {
-            stage = backButton.display(
-              p,
-              darkRed,
-              violet,
-              pink,
-              yellowBrown,
-              stage,
-            );
+          if (params.stage > 1 && params.stage != 7 && params.stage < 10) {
+            backButton.display(p, darkRed, violet, pink, yellowBrown, params);
           }
+
+          // p.mousePressed = () => {
+          //   // p.fullscreen(true);
+          //   if (wait == 0) {
+          //     if (stage == -1) {
+          //       languageButtons.forEach((button) => {
+          //         if (button.isClicked(p.mouseX, p.mouseY)) {
+          //           button.handleClick(params.currentLang, stage);
+          //         }
+          //         console.log("post lang", { stage, currentLang });
+          //       });
+          //     }
+
+          //     if (backButton.isClicked(p.mouseX, p.mouseY)) {
+          //       backButton.handleClick();
+          //     }
+
+          //     allButtons.forEach((button) => {
+          //       if (button.isClicked(p.mouseX, p.mouseY)) {
+          //         button.handleClick(stage);
+          //       }
+          //     });
+          //     if (wait == 0) {
+          //       // mPressed = true;
+          //       keys.forEach((key) => {
+          //         if (key.isClicked(p.mouseX, p.mouseY)) {
+          //           handleKey(key.value);
+          //         }
+          //       });
+          //     }
+          //     wait = 3;
+          //     lastActivityTime = p.millis();
+          //   }
+          // };
         };
 
         function countDown() {
@@ -736,7 +733,7 @@ const Photobooth = ({ location }: { location: string }) => {
             capture.stop();
             applyTintEffect(capturedImage);
             // stage++;
-            stage = stage + 1;
+            params.stage = params.stage + 1;
           } else {
             p.push();
             p.noStroke();
@@ -777,28 +774,28 @@ const Photobooth = ({ location }: { location: string }) => {
         }
 
         p.mousePressed = () => {
-          let res = { newLang: currentLang, newStage: stage };
           // p.fullscreen(true);
           if (wait == 0) {
-            if (stage == -1) {
+            if (params.stage == -1) {
               languageButtons.forEach((button) => {
                 if (button.isClicked(p.mouseX, p.mouseY)) {
-                  res = button.handleClick(currentLayout);
+                  button.handleClick(params);
                 }
+                console.log("post lang", params);
               });
             }
 
             if (backButton.isClicked(p.mouseX, p.mouseY)) {
-              backButton.handleClick();
+              backButton.handleClick(params);
             }
 
             allButtons.forEach((button) => {
               if (button.isClicked(p.mouseX, p.mouseY)) {
-                stage = button.handleClick(stage);
+                button.handleClick(params);
               }
             });
             if (wait == 0) {
-              mPressed = true;
+              // mPressed = true;
               keys.forEach((key) => {
                 if (key.isClicked(p.mouseX, p.mouseY)) {
                   handleKey(key.value);
@@ -807,14 +804,12 @@ const Photobooth = ({ location }: { location: string }) => {
             }
             wait = 3;
             lastActivityTime = p.millis();
-
-            return res;
           }
         };
 
-        p.mouseReleased = () => {
-          mPressed = false;
-        };
+        // p.mouseReleased = () => {
+        //   mPressed = false;
+        // };
 
         function handleKey(value: string) {
           if (value === "bksp") {
@@ -824,13 +819,13 @@ const Photobooth = ({ location }: { location: string }) => {
             if (lang == languages.length) {
               lang = 0;
             }
-            currentLayout = languages[lang];
-            updateKeys(currentLayout);
+            params.currentLang = languages[lang];
+            updateKeys(params.currentLang);
             t = 0;
             displayLangText = true;
           } else if (value === "shift") {
             capsLock = !capsLock;
-          } else if (value === "enter" && stage != 1) {
+          } else if (value === "enter" && params.stage != 1) {
             currentText += "\n";
           } else if (value === "space") {
             currentText += " ";
@@ -839,10 +834,10 @@ const Photobooth = ({ location }: { location: string }) => {
           } else {
             if (
               altPressed &&
-              altLayouts[currentLayout] &&
-              altLayouts[currentLayout][value]
+              altLayouts[params.currentLang as Language] &&
+              altLayouts[params.currentLang as Language][value]
             ) {
-              currentText += altLayouts[currentLayout][value];
+              currentText += altLayouts[params.currentLang as Language][value];
             } else {
               currentText += capsLock
                 ? value.toUpperCase()
@@ -861,7 +856,7 @@ const Photobooth = ({ location }: { location: string }) => {
             keyboard = "other";
           }
 
-          if (currentLayout == "greek") {
+          if (params.currentLang == "greek") {
             p.textFont(openBold);
           } else {
             p.textFont(archivoBold);

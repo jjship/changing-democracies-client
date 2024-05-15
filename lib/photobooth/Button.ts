@@ -1,4 +1,4 @@
-import { Language, P, getTranslation, translations } from "./const";
+import { Language, P, Params, getTranslation, translations } from "./const";
 import { Element } from "p5";
 
 export class DavButton {
@@ -36,23 +36,38 @@ export class DavButton {
   display(
     pink: string,
     darkRed: string,
-    mPressed: boolean,
+    // mPressed: boolean,
     p: P,
-    stage: number,
-    currentLayout: Language,
-  ): { pressed: boolean; newStage: number; newLang: Language } {
+    params: Params,
+    // stage: number,
+    // currentLayout: Language,
+  ) {
     let pressed: boolean = false;
-    let newStage = stage;
-    let newLang = currentLayout;
+    // let newStage = stage;
+    // let newLang = currentLayout;
+
     let d = this.y - this.yb;
+
     this.yb += d * this.easing;
+
     p.push();
 
-    if (mPressed && this.isClicked(p.mouseX, p.mouseY)) {
-      pressed = true;
+    if (
+      p.mouseX >= this.x &&
+      p.mouseX <= this.x + this.w &&
+      p.mouseY >= this.yb - this.h &&
+      p.mouseY <= this.yb
+    ) {
+      p.fill(pink); // Color of the button when hovered
+      // if (mPressed) {
+      // pressed = true;
+      // newStage = stage + 1;
+      // }
+      // p.loop();
+    } else {
+      p.fill(darkRed); // Default color of the button
+      p.loop();
     }
-
-    p.fill(this.isClicked(p.mouseX, p.mouseY) ? pink : darkRed);
 
     p.noStroke();
     p.rect(this.x, this.yb - this.h, this.w, this.h, 15);
@@ -60,19 +75,18 @@ export class DavButton {
     p.textSize(24);
     p.textAlign(p.CENTER, p.TOP);
     let gr = 0;
-    if (currentLayout == "greek") {
+    if (params.currentLang == "greek") {
       gr = 5;
     }
     p.text(
-      getTranslation(currentLayout, this.txt, translations),
+      getTranslation(params.currentLang, this.txt, translations),
       this.x + this.w / 2,
       this.yb - this.h + this.h / 4 - gr,
     );
     p.pop();
-    return { pressed, newStage, newLang };
   }
 
-  isClicked(px: number, py: number) {
+  isClicked(px: number, py: number): boolean {
     return (
       px >= this.x &&
       px <= this.x + this.w &&
@@ -81,15 +95,10 @@ export class DavButton {
     );
   }
 
-  handleClick(stage: number): number {
-    let newStage: number;
-    if (this.nextStage !== null) {
-      newStage = this.nextStage;
-    } else {
-      newStage = stage++;
-    }
+  handleClick(params: Params) {
+    params.stage = this.nextStage ? this.nextStage : params.stage + 1;
+
     this.reset();
-    return newStage;
   }
 
   reset() {

@@ -1,4 +1,4 @@
-import { Language, P, altLayouts } from "./const";
+import { Language, P, Params, altLayouts } from "./const";
 import p5 from "p5";
 
 export class Key {
@@ -24,12 +24,13 @@ export class Key {
     archivoBold: p5.Font,
     altPressed: boolean,
     capsLock: boolean,
-    currentLayout: Language,
+    params: Params,
     p: P,
   ) {
+    const currentLang = params.currentLang as Language;
     p.push();
 
-    if (currentLayout == "greek") {
+    if (currentLang == "greek") {
       p.textFont(openBold);
     } else {
       p.textFont(archivoBold);
@@ -51,10 +52,10 @@ export class Key {
     let displayValue = this.value;
     if (
       altPressed &&
-      altLayouts[currentLayout] &&
-      altLayouts[currentLayout][this.value]
+      altLayouts[currentLang] &&
+      altLayouts[currentLang][this.value]
     ) {
-      displayValue = altLayouts[currentLayout][this.value];
+      displayValue = altLayouts[currentLang][this.value];
     }
     if (capsLock) {
       displayValue = displayValue.toUpperCase();
