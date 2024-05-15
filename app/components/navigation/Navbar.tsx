@@ -13,6 +13,9 @@ export default function Navbar() {
         <Link href="#project" className="hidden md:block">
           Project
         </Link>
+        <Link href="#free_browsing" className="hidden md:block">
+          Free Browsing
+        </Link>
         <Link href="#team" className="hidden md:block">
           Team
         </Link>

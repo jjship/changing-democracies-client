@@ -15,6 +15,12 @@ const nextConfig = {
         port: "",
         pathname: "*/**",
       },
+      {
+        protocol: "https",
+        hostname: "vz-cac74041-8b3.b-cdn.net",
+        port: "",
+        pathname: "*/**",
+      },
     ],
   },
 };
