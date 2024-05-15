@@ -805,7 +805,7 @@ const Photobooth = ({ location }: { location: string }) => {
                 }
               });
             }
-            wait = 2;
+            wait = 3;
             lastActivityTime = p.millis();
 
             return res;
