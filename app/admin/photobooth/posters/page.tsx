@@ -10,7 +10,7 @@ import { getPosters } from "../../../../lib/bunnyMethods";
 export default async function PostersPage() {
   const supabase = createClient();
 
-  const user = await authenticate(supabase, "/admin/photobooth");
+  const user = await authenticate(supabase, "/admin/photobooth/posters");
 
   const postersRes = await getPosters();
 
