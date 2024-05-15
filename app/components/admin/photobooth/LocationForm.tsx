@@ -3,17 +3,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Photobooth from "./Photobooth";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../../ui/form";
+import { Form, FormField, FormItem } from "../../ui/form";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
-import { FormInputIcon } from "lucide-react";
 
 export default function PhotoboothPage() {
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -21,7 +13,7 @@ export default function PhotoboothPage() {
 
   const form = useForm<{ location: string }>({
     defaultValues: {
-      location: location, // set default value
+      location: location,
     },
   });
 
@@ -48,10 +40,7 @@ export default function PhotoboothPage() {
                   name="location"
                   render={({ field }) => (
                     <FormItem>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
+                      <Input {...field} />
                     </FormItem>
                   )}
                 />
