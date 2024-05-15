@@ -50,10 +50,7 @@ export type FormVideo = Pick<VideoDbEntry, "guid" | "title" | "captions"> & {
   description: string; // in metaTags
 };
 
-type FilmDbEntry = Pick<
-  VideoDbEntry,
-  "guid" | "title" | "length" | "captions" | "metaTags"
->;
+export type FilmCollection = { films: VideoDbEntry[]; tags: string[] };
 
 const { BUNNY_STREAM_PULL_ZONE } = process.env;
 
@@ -70,13 +67,13 @@ function parseTags(
     property: string;
     value: string;
   }[],
-) {
-  return (
-    metaTags
-      .find((tag) => tag.property === "tags")
-      ?.value?.split(",")
-      .join(" ") || ""
-  );
+): string[] {
+  if (!metaTags) return [];
+  const tags: string[] | undefined = metaTags
+    .find((tag) => tag.property === "tags")
+    ?.value?.split(",");
+  console.log(tags);
+  return tags ?? [];
 }
 
 export type FilmCollectionPreview = {
