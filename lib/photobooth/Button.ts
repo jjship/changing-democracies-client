@@ -40,15 +40,17 @@ export class DavButton {
     p: P,
     stage: number,
     currentLayout: Language,
-    // setStage: (stage: number) => void,
-    // setCurrLang: (lang: Language) => void,
   ): { pressed: boolean; newStage: number; newLang: Language } {
-    let pressed = false;
+    let pressed: boolean = false;
     let newStage = stage;
     let newLang = currentLayout;
     let d = this.y - this.yb;
     this.yb += d * this.easing;
     p.push();
+
+    if (mPressed && this.isClicked(p.mouseX, p.mouseY)) {
+      pressed = true;
+    }
 
     p.fill(this.isClicked(p.mouseX, p.mouseY) ? pink : darkRed);
 
