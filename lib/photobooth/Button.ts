@@ -59,9 +59,7 @@ export class DavButton {
       if (mPressed) {
         pressed = true;
         if (this.nextStage !== null) {
-          // setStage(this.nextStage);
           newStage = this.nextStage;
-          console.log({ newStage });
         } else {
           newStage = stage + 1;
         }

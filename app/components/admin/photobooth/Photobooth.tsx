@@ -201,7 +201,6 @@ const Photobooth = ({ location }: { location: string }) => {
         };
 
         p.draw = () => {
-          // console.log({ stage });
           if (wait > 0) {
             wait--;
           }
@@ -274,7 +273,6 @@ const Photobooth = ({ location }: { location: string }) => {
               currentLayout,
             );
             if (pressed) {
-              console.log({ pressed, newLang, newStage });
               stage = newStage;
               currentLayout = newLang;
             }
@@ -318,7 +316,6 @@ const Photobooth = ({ location }: { location: string }) => {
             );
 
             if (pressed) {
-              console.log({ pressed, newLang, newStage });
               stage = newStage;
               currentLayout = newLang;
             }
@@ -445,7 +442,6 @@ const Photobooth = ({ location }: { location: string }) => {
             );
 
             if (pressed) {
-              console.log({ pressed, newLang, newStage });
               stage = newStage;
               currentLayout = newLang;
             }
@@ -504,7 +500,6 @@ const Photobooth = ({ location }: { location: string }) => {
                 // setCurrLang,
               );
               if (pressed) {
-                console.log({ pressed, newLang, newStage });
                 stage = newStage;
                 currentLayout = newLang;
               }
@@ -770,7 +765,6 @@ const Photobooth = ({ location }: { location: string }) => {
               }
             });
           }
-          // console.log("POST", { currLang, stage });
           wait = 2;
           lastActivityTime = p.millis();
         };

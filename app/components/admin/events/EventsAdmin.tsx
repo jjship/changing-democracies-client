@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 
 import { EventDbEntry } from "@/types/database";
 import { Button } from "@/components/ui/button";
-import { EventsContext } from "../events/EventsContext";
-import { EventsTable } from "../events/EventsTable";
-// import { useUserContext } from "@/components/admin/UserContext";
+import { EventsContext } from "./EventsContext";
+import EventsTable from "./EventsTable";
 import { deleteEvent, getEvents } from "../actions";
 
 export const dynamic = "force-dynamic";

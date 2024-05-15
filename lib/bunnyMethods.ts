@@ -12,6 +12,7 @@ export {
   purgeCaptionsCash,
   uploadImage,
   getPosters,
+  deleteBunnyPoster,
 };
 
 export type UpdateVideoModel = {
@@ -23,7 +24,7 @@ export type UpdateVideoModel = {
   metaTags?: { property: string; value: string }[] | null;
 };
 
-export type DbPoster = {
+export type BunnyPoster = {
   Guid: string;
   StorageZoneName: string;
   Path: string;
@@ -89,7 +90,11 @@ async function uploadImage({
   return { success: true };
 }
 
-async function getPosters(): Promise<BunnyMethodReturn<DbPoster[]>> {
+async function getPosters(): Promise<{
+  success: boolean;
+  data: BunnyPoster[];
+  error?: Error;
+}> {
   if (!process.env.BUNNY_STORAGE_API_KEY) {
     throw new Error("Missing Bunny Stream environment variables");
   }
@@ -109,14 +114,44 @@ async function getPosters(): Promise<BunnyMethodReturn<DbPoster[]>> {
   if (!res.ok) {
     return {
       success: false,
-
+      data: [],
       error: new Error("Failed to fetch posters data"),
     };
   }
 
-  const posters: DbPoster[] = (await res.json()) as DbPoster[];
+  const posters: BunnyPoster[] = (await res.json()) as BunnyPoster[];
 
   return { success: true, data: posters };
+}
+
+async function deleteBunnyPoster({
+  poster,
+}: {
+  poster: Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">;
+}): Promise<BunnyMethodReturn> {
+  if (!process.env.BUNNY_STORAGE_API_KEY) {
+    throw new Error("Missing Bunny Stream environment variables");
+  }
+
+  const url = `https://storage.bunnycdn.com${poster.Path}${poster.ObjectName}`;
+
+  const options = {
+    method: "DELETE",
+    headers: {
+      AccessKey: process.env.BUNNY_STORAGE_API_KEY,
+    },
+  };
+
+  const res = await fetch(url, options);
+
+  if (!res.ok) {
+    return {
+      success: false,
+      error: new Error("Failed to delete poster"),
+    };
+  }
+
+  return { success: true };
 }
 
 async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
@@ -287,7 +322,6 @@ async function deleteCaption({
 
   const res = await fetch(url, options);
 
-  console.log("deleteCaptions", { status: res.status });
   if (!res.ok) {
     return { success: false, error: new Error("Failed to delete subtitles") };
   }
@@ -318,7 +352,7 @@ async function uploadCaptions({
   const captionsFile = buffer.toString("base64");
 
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos/${videoId}/captions/${srclang}`;
-  console.log(url);
+
   const options = {
     method: "POST",
     headers: {
