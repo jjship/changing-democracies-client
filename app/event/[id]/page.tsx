@@ -55,7 +55,7 @@ async function getFormEvent({
     return parseDbEvent({ dbEvent: { ...emptyDbEvent, id: eventId } });
   }
 
-  return parseDbEvent({ dbEvent });
+  return parseDbEvent({ dbEvent: dbEvent[0] });
 }
 
 const emptyDbEvent: EventDbEntry = {

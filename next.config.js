@@ -9,6 +9,12 @@ const nextConfig = {
         port: "",
         pathname: "/posters/**",
       },
+      {
+        protocol: "https",
+        hostname: "vz-eb5d6b10-75c.b-cdn.net",
+        port: "",
+        pathname: "*/**",
+      },
     ],
   },
 };

@@ -1,7 +1,15 @@
 "use client";
 
-export default function VideoPlayer({ videoId }: { videoId: string }) {
-  const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${videoId}?autoplay=false`;
+export default function VideoPlayer({
+  videoId,
+  auto,
+}: {
+  videoId: string;
+  auto?: boolean;
+}) {
+  const src = `https://iframe.mediadelivery.net/embed/${
+    process.env.NEXT_PUBLIC_LIBRARY_ID
+  }/${videoId}?autoplay=${auto ?? "false"}`;
   return (
     <div className="relative h-0" style={{ paddingTop: "56.25%" }}>
       <iframe

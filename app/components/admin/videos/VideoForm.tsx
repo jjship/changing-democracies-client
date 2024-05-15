@@ -80,7 +80,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
         });
 
         if (data) {
-          setSubtitles(data);
+          setSubtitles(data[0]);
         } else {
           throw error;
         }
