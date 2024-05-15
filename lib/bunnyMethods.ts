@@ -42,13 +42,11 @@ export type BunnyPoster = {
   ReplicatedZones: string;
 };
 
-export type BunnyMethodReturn<T = undefined> = T extends undefined
-  ? { success: boolean; error?: Error }
-  : {
-      success: boolean;
-      data?: T;
-      error?: Error;
-    };
+export type BunnyMethodReturn<T> = {
+  success: boolean;
+  data: T[];
+  error?: { message: string; status: number };
+};
 
 async function uploadImage({
   blob,
@@ -82,8 +80,7 @@ async function uploadImage({
   if (!res.ok) {
     return {
       success: false,
-
-      error: new Error("Failed to upload image"),
+      error: { message: "Failed to upload image", status: res.status },
     };
   }
 
@@ -93,7 +90,7 @@ async function uploadImage({
 async function getPosters(): Promise<{
   success: boolean;
   data: BunnyPoster[];
-  error?: Error;
+  error?: { message: string; status: number };
 }> {
   if (!process.env.BUNNY_STORAGE_API_KEY) {
     throw new Error("Missing Bunny Stream environment variables");
@@ -115,7 +112,7 @@ async function getPosters(): Promise<{
     return {
       success: false,
       data: [],
-      error: new Error("Failed to fetch posters data"),
+      error: { message: "Failed to fetch posters data", status: res.status },
     };
   }
 
@@ -128,7 +125,11 @@ async function deleteBunnyPoster({
   poster,
 }: {
   poster: Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">;
-}): Promise<BunnyMethodReturn> {
+}): Promise<
+  BunnyMethodReturn<
+    Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">
+  >
+> {
   if (!process.env.BUNNY_STORAGE_API_KEY) {
     throw new Error("Missing Bunny Stream environment variables");
   }
@@ -147,11 +148,12 @@ async function deleteBunnyPoster({
   if (!res.ok) {
     return {
       success: false,
-      error: new Error("Failed to delete poster"),
+      data: [],
+      error: { message: "Failed to delete poster", status: res.status },
     };
   }
 
-  return { success: true };
+  return { success: true, data: [] };
 }
 
 async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
@@ -178,14 +180,17 @@ async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
   if (!res.ok) {
     return {
       success: false,
-
-      error: new Error("Failed to fetch collection data"),
+      data: [],
+      error: {
+        message: "Failed to fetch video collection data",
+        status: res.status,
+      },
     };
   }
 
   const collection: Collection = await res.json();
 
-  return { data: collection, success: true };
+  return { data: [collection], success: true };
 }
 
 async function getVideo(
@@ -212,19 +217,23 @@ async function getVideo(
   const res = await fetch(url, options);
 
   if (!res.ok) {
-    return { success: false, error: new Error("Failed to fetch video data") };
+    return {
+      success: false,
+      data: [],
+      error: { message: "Failed to fetch video data", status: res.status },
+    };
   }
 
   const video: VideoDbEntry = await res.json();
 
-  return { data: video, success: true };
+  return { data: [video], success: true };
 }
 
 async function updateVideo({
   videoData,
 }: {
   videoData: UpdateVideoModel;
-}): Promise<BunnyMethodReturn> {
+}): Promise<BunnyMethodReturn<[]>> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -254,14 +263,18 @@ async function updateVideo({
   const res = await fetch(url, options);
 
   if (!res.ok) {
-    return { success: false, error: new Error("Failed to update video data") };
+    return {
+      success: false,
+      data: [],
+      error: { message: "Failed to update video data", status: res.status },
+    };
   }
 
-  return { success: true };
+  return { success: true, data: [] };
 }
 
 async function getVideosPerCollection(): Promise<
-  BunnyMethodReturn<VideoDbEntry[]>
+  BunnyMethodReturn<VideoDbEntry>
 > {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
@@ -284,7 +297,11 @@ async function getVideosPerCollection(): Promise<
   const res = await fetch(url, options);
 
   if (!res.ok) {
-    return { success: false, error: new Error("Failed to fetch videos data") };
+    return {
+      success: false,
+      data: [],
+      error: { message: "Failed to fetch videos data", status: res.status },
+    };
   }
 
   const { items }: { items: VideoDbEntry[] } = await res.json();
@@ -301,7 +318,7 @@ async function deleteCaption({
 }: {
   videoId: string;
   srclang: string;
-}): Promise<BunnyMethodReturn> {
+}): Promise<BunnyMethodReturn<[]>> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -323,10 +340,14 @@ async function deleteCaption({
   const res = await fetch(url, options);
 
   if (!res.ok) {
-    return { success: false, error: new Error("Failed to delete subtitles") };
+    return {
+      success: false,
+      data: [],
+      error: { message: "Failed to delete subtitles", status: res.status },
+    };
   }
 
-  return { success: true };
+  return { success: true, data: [] };
 }
 
 async function uploadCaptions({
@@ -339,7 +360,7 @@ async function uploadCaptions({
   srclang: string;
   label: string;
   captions: string;
-}): Promise<BunnyMethodReturn> {
+}): Promise<BunnyMethodReturn<[]>> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -369,10 +390,14 @@ async function uploadCaptions({
   const res = await fetch(url, options);
 
   if (!res.ok) {
-    return { success: false, error: new Error("Failed to update video data") };
+    return {
+      success: false,
+      data: [],
+      error: { message: "Failed to save captions", status: res.status },
+    };
   }
 
-  return { success: true };
+  return { success: true, data: [] };
 }
 
 async function fetchCaptions({
@@ -393,19 +418,23 @@ async function fetchCaptions({
   const res = await fetch(url, options);
 
   if (!res.ok) {
-    return { success: false, error: new Error("Failed to fetch captions") };
+    return {
+      success: false,
+      data: [],
+      error: { message: "Failed to fetch captions", status: res.status },
+    };
   }
 
-  const data = await res.text();
+  const caps = await res.text();
 
-  return { data, success: true };
+  return { data: [caps], success: true };
 }
 
 async function purgeCaptionsCash({
   videoId,
 }: {
   videoId: string;
-}): Promise<BunnyMethodReturn> {
+}): Promise<BunnyMethodReturn<[]>> {
   if (!process.env.BUNNY_STREAM_PULL_ZONE || !process.env.BUNNY_ADMIN_API_KEY) {
     throw new Error("Missing Bunny Stream environment variables");
   }
@@ -423,9 +452,10 @@ async function purgeCaptionsCash({
   if (!res.ok) {
     return {
       success: false,
-      error: new Error("Failed to purge captions cache"),
+      data: [],
+      error: { message: "Failed to purge captions cache", status: res.status },
     };
   }
 
-  return { success: true };
+  return { success: true, data: [] };
 }
