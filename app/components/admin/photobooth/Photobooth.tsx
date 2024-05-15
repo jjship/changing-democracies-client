@@ -58,7 +58,7 @@ const Photobooth = ({ location }: { location: string }) => {
       new p5((p: P) => {
         let capture: any;
 
-        let mPressed = false;
+        // let mPressed = false;
 
         let languageButtons: BtnLang[] = [];
 
@@ -127,7 +127,7 @@ const Photobooth = ({ location }: { location: string }) => {
         };
 
         p.setup = () => {
-          const location = locationInSetup;
+          // const location = locationInSetup;
           p.createCanvas(p.windowWidth - 5, p.windowHeight - 5);
 
           let cnv = document.querySelector("canvas");
@@ -229,22 +229,20 @@ const Photobooth = ({ location }: { location: string }) => {
 
           if (stage == -1) {
             languageButtons.forEach((button) => {
-              const { pressed, newStage, newLang } = button.display(
+              button.display(
                 pink,
                 darkRed,
-                mPressed,
+                // mPressed,
                 p,
                 currentLayout,
                 stage,
                 languageAbbreviations,
                 archivoBold,
-                // setCurrLang,
-                // setStage,
               );
-              if (pressed) {
-                stage = newStage;
-                currentLayout = newLang;
-              }
+              // if (pressed) {
+              //   stage = newStage;
+              //   currentLayout = newLang;
+              // }
             });
           } else if (stage == 0) {
             userName = ""; // Clear userName
@@ -281,18 +279,19 @@ const Photobooth = ({ location }: { location: string }) => {
               p.height / 2,
             );
             p.pop();
-            const { pressed, newStage, newLang } = startButton.display(
+            startButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
               stage,
               currentLayout,
             );
-            if (pressed) {
-              stage = newStage;
-              currentLayout = newLang;
-            }
+            // if (pressed) {
+            //   console.log({ pressed, stage, newStage });
+            //   stage = newStage;
+            //   currentLayout = newLang;
+            // }
           } else if (stage == 1) {
             t = 2;
             stage = 2;
@@ -323,19 +322,14 @@ const Photobooth = ({ location }: { location: string }) => {
             p.textAlign(p.CENTER, p.TOP);
             p.text(displayText, p.width / 2, p.height / 4);
             p.pop();
-            const { pressed, newStage, newLang } = nextButton.display(
+            nextButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
               stage,
               currentLayout,
             );
-
-            if (pressed) {
-              stage = newStage;
-              currentLayout = newLang;
-            }
 
             keys.forEach((key) => {
               key.display(
@@ -449,19 +443,14 @@ const Photobooth = ({ location }: { location: string }) => {
               p.height / 4,
             );
 
-            const { pressed, newStage, newLang } = nextButton.display(
+            nextButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
               stage,
               currentLayout,
             );
-
-            if (pressed) {
-              stage = newStage;
-              currentLayout = newLang;
-            }
 
             keys.forEach((key) => {
               key.display(
@@ -506,54 +495,36 @@ const Photobooth = ({ location }: { location: string }) => {
             p.pop();
 
             if (stage == 6) {
-              const { pressed, newStage, newLang } = pictureButton.display(
+              pictureButton.display(
                 pink,
                 darkRed,
-                mPressed,
+                // mPressed,
                 p,
                 stage,
                 currentLayout,
                 // setStage,
                 // setCurrLang,
               );
-              if (pressed) {
-                stage = newStage;
-                currentLayout = newLang;
-              }
+              // if (pressed) {
+              //   stage = newStage;
+              //   currentLayout = newLang;
+              // }
               countDownTxt = 3;
             } else {
               countDown();
             }
           } else if (stage == 8) {
             p.image(capturedImage, 0, 0);
-            let { pressed, newStage, newLang } = nextButton.display(
+            nextButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
               stage,
               currentLayout,
             );
-            if (pressed) {
-              stage = newStage;
-              currentLayout = newLang;
-            }
-            let {
-              pressed: pr,
-              newStage: st,
-              newLang: lg,
-            } = repeatButton.display(
-              pink,
-              darkRed,
-              mPressed,
-              p,
-              stage,
-              currentLayout,
-            );
-            if (pr) {
-              stage = st;
-              currentLayout = lg;
-            }
+
+            repeatButton.display(pink, darkRed, p, stage, currentLayout);
           } else if (stage == 9) {
             p.image(capturedImage, 0, 0);
             p.push(); // Start a new drawing state
@@ -564,9 +535,7 @@ const Photobooth = ({ location }: { location: string }) => {
             let spacing = 80; // Custom spacing between lines
 
             // Handling multiple lines based on 'enter' character in displayText
-            let textLines = displayText.split("\n");
             let yPos = 80;
-            let underlineData = [];
 
             // Draw all underlines from saved data
             textData.textLinesData.forEach((textLineData) => {
@@ -615,17 +584,14 @@ const Photobooth = ({ location }: { location: string }) => {
             p.fill(darkRed);
             p.text(userName, 40, yPos, p.width - 80, p.height / 4);
             p.pop();
-            const { pressed, newStage } = finishButton.display(
+            finishButton.display(
               pink,
               darkRed,
-              mPressed,
+              // mPressed,
               p,
               stage,
               currentLayout,
             );
-            if (pressed && newStage) {
-              stage = newStage;
-            }
           } else if (stage == 10) {
             p.image(capturedImage, 0, 0);
             p.push(); // Start a new drawing state
@@ -719,14 +685,7 @@ const Photobooth = ({ location }: { location: string }) => {
           }
 
           if (stage > 1 && stage != 7 && stage < 10) {
-            stage = backButton.display(
-              p,
-              darkRed,
-              violet,
-              pink,
-              yellowBrown,
-              stage,
-            );
+            backButton.display(p, darkRed, violet, pink, yellowBrown, stage);
           }
         };
 
@@ -798,7 +757,7 @@ const Photobooth = ({ location }: { location: string }) => {
               }
             });
             if (wait == 0) {
-              mPressed = true;
+              // mPressed = true;
               keys.forEach((key) => {
                 if (key.isClicked(p.mouseX, p.mouseY)) {
                   handleKey(key.value);
@@ -812,9 +771,9 @@ const Photobooth = ({ location }: { location: string }) => {
           }
         };
 
-        p.mouseReleased = () => {
-          mPressed = false;
-        };
+        // p.mouseReleased = () => {
+        //   mPressed = false;
+        // };
 
         function handleKey(value: string) {
           if (value === "bksp") {

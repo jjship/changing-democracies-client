@@ -25,7 +25,7 @@ export class BtnLang {
   display(
     pink: string,
     darkRed: string,
-    mPressed: boolean,
+    // mPressed: boolean,
     p: P,
     currentLayout: Language,
     stage: number,
@@ -45,11 +45,11 @@ export class BtnLang {
       p.mouseY <= this.yb
     ) {
       p.fill(pink); // Color of the button when hovered
-      if (mPressed) {
-        pressed = true;
-        newLang = this.txt;
-        newStage = 0;
-      }
+      // if (mPressed) {
+      pressed = true;
+      newLang = this.txt;
+      newStage = 0;
+      // }
     } else {
       p.fill(darkRed); // Default color of the button
     }

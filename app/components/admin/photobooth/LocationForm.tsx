@@ -19,7 +19,11 @@ export default function PhotoboothPage() {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [location, setLocation] = useState<string>("");
 
-  const form = useForm<{ location: string }>();
+  const form = useForm<{ location: string }>({
+    defaultValues: {
+      location: location, // set default value
+    },
+  });
 
   const onSubmit = (values: { location: string }) => {
     setLocation(values.location.toUpperCase());
