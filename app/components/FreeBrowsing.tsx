@@ -1,28 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import FilmList from "./FilmList";
-import Filters from "./FilmFilters";
-import { FilmCollection } from "../../types/videos";
+import FilmList from "./films/FilmList";
+import Filters from "./films/FilmFilters";
+import { Film, FilmsCollection } from "../../types/videos";
+import { FilmsContext } from "./films/FilmsContext";
+import Title from "./Title";
 
-const HomePage = () => {
-  const [collection, setCollection] = useState<FilmCollection | null>(null);
+const FreeBrowsing = () => {
+  const [collection, setCollection] = useState<FilmsCollection | null>(null);
+  const [films, setFilms] = useState<Film[] | null>(null);
 
   useEffect(() => {
     fetch("/api/films")
       .then((response) => response.json())
-      .then((data) => setCollection(data));
+      .then((data: FilmsCollection) => {
+        setCollection(data);
+      });
   }, []);
 
   return (
-    collection && (
-      <div className="p-8">
-        <h1 className="mb-6 text-4xl font-bold">Free browsing</h1>
-        <Filters filmCollection={collection} />
-        <FilmList filmCollection={collection} />
-      </div>
-    )
+    <>
+      <Title text="Free browsing" theme="dark" color="yellow_secondary" />
+      <>
+        <FilmsContext.Provider
+          value={{ films, setFilms, collection, setCollection }}
+        >
+          <Filters />
+          <FilmList />
+        </FilmsContext.Provider>
+      </>
+    </>
   );
 };
 
-export default HomePage;
+export default FreeBrowsing;

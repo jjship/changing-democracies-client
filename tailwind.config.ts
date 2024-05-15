@@ -69,6 +69,7 @@ const config: Config = {
         sm: "370px",
         md: "1024px",
         xl: "1440px",
+        lg: "1440px",
       },
       fontSize: {
         display_lg: "14.813rem",

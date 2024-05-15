@@ -217,6 +217,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
             </div>
             <div className="flex-grow space-y-5">
               <FormField
+                disabled={true}
                 control={form.control}
                 name="title"
                 render={({ field }) => (

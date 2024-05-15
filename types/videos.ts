@@ -50,11 +50,22 @@ export type FormVideo = Pick<VideoDbEntry, "guid" | "title" | "captions"> & {
   description: string; // in metaTags
 };
 
-export type FilmCollection = { films: VideoDbEntry[]; tags: string[] };
+export type Film = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
+  tags: string[]; // in metaTags
+  person: string; // in title
+  country: string; // in title
+};
+
+export type FilmsCollection = {
+  films: Film[];
+  tags: string[];
+  countries: string[];
+  people: string[];
+};
 
 const { BUNNY_STREAM_PULL_ZONE } = process.env;
 
-export { getThumbnail, parseTags, collectionPreview, getFilmUrl };
+export { getThumbnail, parseTags, getFilmUrl };
 
 const getThumbnail = (filmId: string) =>
   `https://${BUNNY_STREAM_PULL_ZONE}.b-cdn.net/${filmId}/thumbnail.jpg`;
@@ -75,28 +86,3 @@ function parseTags(
   console.log(tags);
   return tags ?? [];
 }
-
-export type FilmCollectionPreview = {
-  videoLibraryId: number;
-  guid: string;
-  name: string;
-  videoCount: number;
-  totalSize: number;
-  previewVideoIds: string;
-  previewImageUrls: string[];
-};
-
-const collectionPreview: FilmCollectionPreview = {
-  videoLibraryId: 226154,
-  guid: "959010de-bf80-4559-a116-c2a1804f2dc8",
-  name: "transcribed",
-  videoCount: 5,
-  totalSize: 344240609,
-  previewVideoIds:
-    "a3f7eba6-aa4b-4701-a1af-19d6d53f1e46,7a03907e-d2be-4b5f-9203-bbc5336c7899,87e38755-5b15-47df-9f81-c9efa8657857",
-  previewImageUrls: [
-    "https://vz-eb5d6b10-75c.b-cdn.net/a3f7eba6-aa4b-4701-a1af-19d6d53f1e46/thumbnail.jpg",
-    "https://vz-eb5d6b10-75c.b-cdn.net/87e38755-5b15-47df-9f81-c9efa8657857/thumbnail.jpg",
-    "https://vz-eb5d6b10-75c.b-cdn.net/7a03907e-d2be-4b5f-9203-bbc5336c7899/thumbnail.jpg",
-  ],
-};

@@ -45,13 +45,10 @@ export type FilmsMethodReturn<T> = {
 };
 
 async function getVideos(): Promise<FilmsMethodReturn<VideoDbEntry>> {
-  const supabase = createClient();
-
-  await authenticate(supabase);
-
   const { error, ...res } = await getVideosPerCollection();
 
   if (error) {
+    console.error(error);
     return { success: false, data: [], error };
   }
 
