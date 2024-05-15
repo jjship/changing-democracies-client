@@ -3,26 +3,25 @@
 import { useEffect, useState } from "react";
 import FilmList from "./FilmList";
 import Filters from "./FilmFilters";
-import { VideoDbEntry } from "../../types/videos";
-import { FilmCollection } from "../films/route";
+import { FilmCollection } from "../../types/videos";
 
 const HomePage = () => {
-  const [films, setFilms] = useState<VideoDbEntry[] | null>(null);
+  const [collection, setCollection] = useState<FilmCollection | null>(null);
 
   useEffect(() => {
     fetch("/api/films")
       .then((response) => response.json())
-      .then((data) => setFilms(data));
+      .then((data) => setCollection(data));
   }, []);
 
-  console.log({ films });
-
   return (
-    <div className="p-8">
-      <h1 className="mb-6 text-4xl font-bold">Free browsing</h1>
-      <Filters films={films?.length ? films : []} />
-      <FilmList films={films?.length ? films : []} />
-    </div>
+    collection && (
+      <div className="p-8">
+        <h1 className="mb-6 text-4xl font-bold">Free browsing</h1>
+        <Filters filmCollection={collection} />
+        <FilmList filmCollection={collection} />
+      </div>
+    )
   );
 };
 
