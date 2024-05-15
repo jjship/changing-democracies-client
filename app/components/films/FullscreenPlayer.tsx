@@ -1,6 +1,6 @@
 // app/components/FullscreenPlayer.tsx
 import React from "react";
-import { VideoDbEntry } from "../../types/videos";
+import { VideoDbEntry } from "../../../types/videos";
 
 interface FullscreenPlayerProps {
   film: VideoDbEntry;
@@ -15,7 +15,6 @@ const FullscreenPlayer: React.FC<FullscreenPlayerProps> = ({
     <div className="fixed left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black text-white">
       <iframe
         src={`https://bunny.net/stream/cdn-player/${film.guid}`}
-        frameBorder="0"
         allowFullScreen
         className="h-4/5 w-4/5"
       ></iframe>
