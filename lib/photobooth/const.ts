@@ -13,6 +13,11 @@ export const yellowBrown = "#cf9855";
 
 export const INACTIVITY_THRESHOLD = 180000; // 3 minutes in milliseconds
 
+export type Params = {
+  currentLang: Language | "";
+  stage: number;
+};
+
 export const languages: Language[] = [
   "english",
   "polish",
@@ -48,11 +53,13 @@ export const languageAbbreviations = {
 export type Translations = typeof translations;
 
 export function getTranslation(
-  language: Language,
+  language: Language | "",
   text: string,
   translations: Translations,
 ) {
-  return translations[language][text];
+  return language
+    ? translations[language][text]
+    : translations["english"][text];
 }
 
 export const translations: Record<Language, Record<string, string>> = {
@@ -314,4 +321,4 @@ export const altLayouts: AltLayouts = {
     t: "ț",
     u: "u̯",
   },
-} as const;
+};

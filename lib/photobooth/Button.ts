@@ -1,4 +1,4 @@
-import { Language, P, getTranslation, translations } from "./const";
+import { Language, P, Params, getTranslation, translations } from "./const";
 import { Element } from "p5";
 
 export class DavButton {
@@ -38,12 +38,14 @@ export class DavButton {
     darkRed: string,
     // mPressed: boolean,
     p: P,
-    stage: number,
-    currentLayout: Language,
-  ): { pressed: boolean; newStage: number; newLang: Language } {
+    params: Params,
+    // stage: number,
+    // currentLayout: Language,
+  ) {
     let pressed: boolean = false;
-    let newStage = stage;
-    let newLang = currentLayout;
+    // let newStage = stage;
+    // let newLang = currentLayout;
+
     let d = this.y - this.yb;
 
     this.yb += d * this.easing;
@@ -73,17 +75,15 @@ export class DavButton {
     p.textSize(24);
     p.textAlign(p.CENTER, p.TOP);
     let gr = 0;
-    if (currentLayout == "greek") {
+    if (params.currentLang == "greek") {
       gr = 5;
     }
     p.text(
-      getTranslation(currentLayout, this.txt, translations),
+      getTranslation(params.currentLang, this.txt, translations),
       this.x + this.w / 2,
       this.yb - this.h + this.h / 4 - gr,
     );
     p.pop();
-
-    return { pressed, newStage, newLang };
   }
 
   isClicked(px: number, py: number): boolean {
@@ -95,12 +95,10 @@ export class DavButton {
     );
   }
 
-  handleClick(stage: number): number {
-    const newStage = this.nextStage ? this.nextStage : stage + 1;
+  handleClick(params: Params) {
+    params.stage = this.nextStage ? this.nextStage : params.stage + 1;
 
     this.reset();
-
-    return newStage;
   }
 
   reset() {

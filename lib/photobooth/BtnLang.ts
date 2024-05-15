@@ -1,7 +1,7 @@
 "use client";
 
 import p5 from "p5";
-import { Language, LanguageAbbreviations, P } from "./const";
+import { Language, LanguageAbbreviations, P, Params } from "./const";
 
 export class BtnLang {
   txt: Language;
@@ -27,14 +27,14 @@ export class BtnLang {
     darkRed: string,
     // mPressed: boolean,
     p: P,
-    currentLayout: Language,
-    stage: number,
+    // currentLayout: Language,
+    // stage: number,
     languageAbbreviations: LanguageAbbreviations,
     archivoBold: p5.Font,
-  ): { pressed: boolean; newStage: number; newLang: Language } {
+  ) {
     let pressed = false;
-    let newStage = stage;
-    let newLang = currentLayout;
+    // let newStage = stage;
+    // let newLang = currentLayout;
     let d = this.y - this.yb;
     this.yb += d * this.easing;
 
@@ -47,8 +47,8 @@ export class BtnLang {
       p.fill(pink); // Color of the button when hovered
       // if (mPressed) {
       pressed = true;
-      newLang = this.txt;
-      newStage = 0;
+      // newLang = this.txt;
+      // newStage = 0;
       // }
     } else {
       p.fill(darkRed); // Default color of the button
@@ -63,7 +63,6 @@ export class BtnLang {
     let abbreviation = languageAbbreviations[this.txt ?? "N/A"];
     p.text(abbreviation, this.x + this.w / 2, this.yb - this.h + this.h / 4);
     p.pop();
-    return { pressed, newStage, newLang };
   }
 
   isClicked(px: number, py: number): boolean {
@@ -75,10 +74,10 @@ export class BtnLang {
     );
   }
 
-  handleClick(currentLayout: Language): {
-    newLang: Language;
-    newStage: number;
-  } {
-    return { newLang: this?.txt ?? currentLayout, newStage: 0 };
+  handleClick(params: Params) {
+    console.log("handle lang");
+    params.currentLang = this?.txt ?? params.currentLang;
+    params.stage = 0;
+    // return { currentLayout, stage };
   }
 }

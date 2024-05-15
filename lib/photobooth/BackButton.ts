@@ -1,6 +1,6 @@
 "use client";
 
-import { P } from "./const";
+import { P, Language, Params } from "./const";
 
 export class BackButton {
   wb: number;
@@ -27,13 +27,13 @@ export class BackButton {
     violet: string,
     pink: string,
     yellowBrown: string,
-    stage: number,
+    params: Params,
   ) {
-    let newStage = stage;
+    // let newStage = params.stage: { currentLang: Language | ""; stage: number } ;
     p.push();
 
     if (this.isClicked(p.mouseX, p.mouseY)) {
-      newStage = 0;
+      params.stage = 0;
       p.fill(violet);
       p.stroke(pink);
     } else {
@@ -58,7 +58,7 @@ export class BackButton {
       this.marginB * 2 + (p.sin(this.a3) * this.hb) / 2,
     );
     p.pop();
-    return newStage;
+    // return newStage;
   }
 
   isClicked(x: number, y: number): boolean {
@@ -70,7 +70,7 @@ export class BackButton {
     );
   }
 
-  handleClick(): number {
-    return 0;
+  handleClick(params: { currentLang: Language | ""; stage: number }) {
+    params.stage = 0;
   }
 }
