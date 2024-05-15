@@ -49,25 +49,8 @@ export class DavButton {
     let d = this.y - this.yb;
     this.yb += d * this.easing;
     p.push();
-    if (
-      p.mouseX >= this.x &&
-      p.mouseX <= this.x + this.w &&
-      p.mouseY >= this.yb - this.h &&
-      p.mouseY <= this.yb
-    ) {
-      p.fill(pink);
-      if (mPressed) {
-        pressed = true;
-        if (this.nextStage !== null) {
-          newStage = this.nextStage;
-        } else {
-          newStage = stage + 1;
-        }
-        this.reset();
-      }
-    } else {
-      p.fill(darkRed);
-    }
+
+    p.fill(this.isClicked(p.mouseX, p.mouseY) ? pink : darkRed);
 
     p.noStroke();
     p.rect(this.x, this.yb - this.h, this.w, this.h, 15);
@@ -86,6 +69,27 @@ export class DavButton {
     p.pop();
     return { pressed, newStage, newLang };
   }
+
+  isClicked(px: number, py: number) {
+    return (
+      px >= this.x &&
+      px <= this.x + this.w &&
+      py >= this.yb - this.h &&
+      py <= this.yb
+    );
+  }
+
+  handleClick(stage: number): number {
+    let newStage: number;
+    if (this.nextStage !== null) {
+      newStage = this.nextStage;
+    } else {
+      newStage = stage++;
+    }
+    this.reset();
+    return newStage;
+  }
+
   reset() {
     this.y = this.y2;
     this.yb = this.yb2;
