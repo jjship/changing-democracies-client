@@ -17,12 +17,12 @@ const Filters: React.FC = () => {
   );
   const [selectedPeople, setSelectedPeople] = React.useState<string[]>([]);
 
-  useEffect(() => {
-    if (collection) {
-      setSelectedCountries(collection.countries);
-      setSelectedPeople(collection.people);
-    }
-  }, [collection]);
+  // useEffect(() => {
+  //   if (collection) {
+  //     setSelectedCountries(collection.countries);
+  //     setSelectedPeople(collection.people);
+  //   }
+  // }, [collection]);
 
   useEffect(() => {
     if (collection) {
@@ -38,7 +38,12 @@ const Filters: React.FC = () => {
 
   return collection ? (
     <>
-      <div className={`pb-10 pt-20 ${filterGrid}`}>
+      <div className="md:w-full">
+        <p className=" mr-14 pt-20 leading-6 text-yellow_secondary md:mr-0">
+          Select from the countries or persons below to acces the videos
+        </p>
+      </div>
+      <div className={`py-10  ${filterGrid}`}>
         {collection.countries.map((tag, i) => (
           <Button
             key={i}
