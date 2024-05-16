@@ -26,8 +26,14 @@ const FreeBrowsing = () => {
         <FilmsContext.Provider
           value={{ films, setFilms, collection, setCollection }}
         >
-          <Filters />
-          <FilmList />
+          {collection ? (
+            <>
+              <Filters />
+              <FilmList />
+            </>
+          ) : (
+            <div className="h-full, bg-black_bg"></div>
+          )}
         </FilmsContext.Provider>
       </>
     </>

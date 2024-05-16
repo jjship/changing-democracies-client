@@ -10,19 +10,19 @@ export default function Navbar() {
       <div
         className={`z-50 p-5 font-bold text-black_bg md:flex md:flex-row md:items-end md:gap-10 md:px-10 md:text-xl`}
       >
-        <Link href="#project" className="hidden md:block">
+        <Link href="/#project" className="hidden md:block">
           Project
         </Link>
-        <Link href="#free_browsing" className="hidden md:block">
+        <Link href="/free-browsing" className="hidden md:block">
           Free Browsing
         </Link>
-        <Link href="#team" className="hidden md:block">
+        <Link href="/#team" className="hidden md:block">
           Team
         </Link>
-        <Link href="#events" className="hidden md:block">
+        <Link href="/#events" className="hidden md:block">
           Events
         </Link>
-        <Link href="#contact" className="hidden md:block">
+        <Link href="/#contact" className="hidden md:block">
           Contact
         </Link>
         {/* hidden until we get language versions */}

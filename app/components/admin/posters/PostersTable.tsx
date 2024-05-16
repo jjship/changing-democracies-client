@@ -38,6 +38,8 @@ function PosterRow({ poster }: PosterRowProps) {
     const response = await fetch(getPosterUrl(poster.ObjectName), {
       mode: "no-cors",
     });
+
+    console.log(response);
     const blob = await response.blob();
     saveAs(blob, poster.ObjectName);
   };
