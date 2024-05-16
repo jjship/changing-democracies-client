@@ -40,9 +40,9 @@ export async function GET(): Promise<
 
   return NextResponse.json({
     films,
-    tags: Array.from(allTags),
-    countries: Array.from(countries),
-    people: Array.from(people),
+    tags: Array.from(allTags).sort((a, b) => a.localeCompare(b)),
+    countries: Array.from(countries).sort((a, b) => a.localeCompare(b)),
+    people: Array.from(people).sort((a, b) => a.localeCompare(b)),
   });
 }
 

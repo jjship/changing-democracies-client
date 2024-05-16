@@ -17,12 +17,12 @@ const Filters: React.FC = () => {
   );
   const [selectedPeople, setSelectedPeople] = React.useState<string[]>([]);
 
-  // useEffect(() => {
-  //   if (collection) {
-  //     setSelectedCountries(collection.countries);
-  //     setSelectedPeople(collection.people);
-  //   }
-  // }, [collection]);
+  useEffect(() => {
+    if (collection) {
+      setSelectedCountries(collection.countries);
+      setSelectedPeople(collection.people);
+    }
+  }, [collection]);
 
   useEffect(() => {
     if (collection) {
@@ -36,53 +36,53 @@ const Filters: React.FC = () => {
     }
   }, [selectedCountries, selectedPeople]);
 
-  return (
-    collection && (
-      <>
-        <div className={`pb-10 pt-20 ${filterGrid}`}>
-          {collection.countries.map((tag, i) => (
-            <Button
-              key={i}
-              value={tag}
-              className={`${
-                selectedCountries.includes(tag)
-                  ? "bg-green_accent"
-                  : "bg-gray_light_secondary"
-              } ${filterButtons}`}
-              onClick={() => {
-                selectedCountries.includes(tag)
-                  ? setSelectedCountries(
-                      selectedCountries.filter((t) => t !== tag),
-                    )
-                  : setSelectedCountries([...selectedCountries, tag]);
-              }}
-            >
-              {tag}
-            </Button>
-          ))}
-        </div>
-        <div className={`py-10 ${filterGrid}`}>
-          {collection.people.map((tag, i) => (
-            <Button
-              key={i}
-              value={tag}
-              className={`${
-                selectedPeople.includes(tag)
-                  ? "bg-red_mains"
-                  : "bg-gray_light_secondary"
-              } ${filterButtons}`}
-              onClick={() => {
-                selectedPeople.includes(tag)
-                  ? setSelectedPeople(selectedPeople.filter((t) => t !== tag))
-                  : setSelectedPeople([...selectedPeople, tag]);
-              }}
-            >
-              {tag}
-            </Button>
-          ))}
-        </div>
-      </>
-    )
+  return collection ? (
+    <>
+      <div className={`pb-10 pt-20 ${filterGrid}`}>
+        {collection.countries.map((tag, i) => (
+          <Button
+            key={i}
+            value={tag}
+            className={`${
+              selectedCountries.includes(tag)
+                ? "bg-green_accent"
+                : "bg-gray_light_secondary"
+            } ${filterButtons}`}
+            onClick={() => {
+              selectedCountries.includes(tag)
+                ? setSelectedCountries(
+                    selectedCountries.filter((t) => t !== tag),
+                  )
+                : setSelectedCountries([...selectedCountries, tag]);
+            }}
+          >
+            {tag}
+          </Button>
+        ))}
+      </div>
+      <div className={` ${filterGrid}`}>
+        {collection.people.map((tag, i) => (
+          <Button
+            key={i}
+            value={tag}
+            className={`${
+              selectedPeople.includes(tag)
+                ? "bg-red_mains"
+                : "bg-gray_light_secondary"
+            } ${filterButtons}`}
+            onClick={() => {
+              selectedPeople.includes(tag)
+                ? setSelectedPeople(selectedPeople.filter((t) => t !== tag))
+                : setSelectedPeople([...selectedPeople, tag]);
+            }}
+          >
+            {tag}
+          </Button>
+        ))}
+      </div>
+    </>
+  ) : (
+    <div className="h-full, bg-black_bg"></div>
   );
 };
 

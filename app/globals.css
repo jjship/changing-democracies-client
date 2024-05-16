@@ -78,7 +78,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+  }
+  html {
+    @apply bg-black_bg;
   }
 }
 

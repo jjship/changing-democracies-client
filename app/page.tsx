@@ -18,9 +18,6 @@ export default function Page() {
       >
         <Project />
       </Section>
-      <Section id="free_browsing" theme="dark">
-        <FreeBrowsing />
-      </Section>
       <Section id="team" theme="dark">
         <Team />
       </Section>
