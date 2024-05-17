@@ -26,7 +26,9 @@ const PostersPage: React.FC<PostersPageProps> = ({ initialPosters }) => {
   useEffect(() => {
     async function fetchPosters() {
       try {
-        const response = await fetch("../api/posters");
+        const response = await fetch("../api/posters", {
+          next: { revalidate: 55 },
+        });
         if (!response.ok) {
           return;
         }
