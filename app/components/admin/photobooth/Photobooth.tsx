@@ -238,6 +238,11 @@ const Photobooth: React.FC<PhotoboothProps> = ({
               );
             });
           } else if (params.stage == 0) {
+            if (params.currentLang == "greek") {
+              p.textFont(openBold);
+            } else {
+              p.textFont(archivoBold);
+            }
             userName = ""; // Clear userName
             displayText = "";
             currentText = "";
