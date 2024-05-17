@@ -12,6 +12,7 @@ export class DavButton {
   nextStage: number | null;
   y2: number;
   yb2: number;
+  dis: boolean;
 
   constructor(
     txt: string,
@@ -30,21 +31,12 @@ export class DavButton {
     this.easing = 0.09;
     this.yb = p.height;
     this.y2 = y;
-    this.yb2 = p.height;
+    this.yb2 = p.height * 2;
+    this.dis = false;
   }
 
-  display(
-    pink: string,
-    darkRed: string,
-    // mPressed: boolean,
-    p: P,
-    params: Params,
-    // stage: number,
-    // currentLayout: Language,
-  ) {
-    let pressed: boolean = false;
-    // let newStage = stage;
-    // let newLang = currentLayout;
+  display(pink: string, darkRed: string, p: P, params: Params) {
+    this.dis = true;
 
     let d = this.y - this.yb;
 
@@ -59,11 +51,6 @@ export class DavButton {
       p.mouseY <= this.yb
     ) {
       p.fill(pink); // Color of the button when hovered
-      // if (mPressed) {
-      // pressed = true;
-      // newStage = stage + 1;
-      // }
-      // p.loop();
     } else {
       p.fill(darkRed); // Default color of the button
       p.loop();
@@ -88,6 +75,7 @@ export class DavButton {
 
   isClicked(px: number, py: number): boolean {
     return (
+      this.dis &&
       px >= this.x &&
       px <= this.x + this.w &&
       py >= this.yb - this.h &&
@@ -104,6 +92,7 @@ export class DavButton {
   reset() {
     this.y = this.y2;
     this.yb = this.yb2;
+    this.dis = false;
   }
 }
 
