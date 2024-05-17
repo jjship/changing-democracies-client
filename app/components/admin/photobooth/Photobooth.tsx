@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { Font, Image, TYPE } from "p5";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   languageAbbreviations,
@@ -73,8 +74,6 @@ const Photobooth: React.FC<PhotoboothProps> = ({
         let altPressed = false;
 
         let lastActivityTime: number;
-
-        let posterIndex = 0;
 
         let userName = "";
 
@@ -605,7 +604,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
                 (blob) => {
                   if (blob) {
                     const name =
-                      "poster_" + posterIndex + "_" + location + ".jpeg";
+                      "poster_" + uuidv4() + "_" + location + ".jpeg";
                     const formData = new FormData();
                     formData.append("blob", blob);
                     formData.append("fileName", name);
@@ -616,8 +615,6 @@ const Photobooth: React.FC<PhotoboothProps> = ({
                 "image/jpeg",
                 1,
               );
-
-              posterIndex++;
             }
 
             //go back to start
