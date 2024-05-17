@@ -35,13 +35,13 @@ function PosterRow({ poster }: PosterRowProps) {
   }
 
   const handleDownload = async () => {
-    const response = await fetch(getPosterUrl(poster.ObjectName), {
+    const response = await fetch(getPosterUrl(poster.fileName), {
       mode: "no-cors",
     });
 
     console.log(response);
     const blob = await response.blob();
-    saveAs(blob, poster.ObjectName);
+    saveAs(blob, poster.fileName);
   };
 
   const { published, bunny_id } = poster;
@@ -67,7 +67,7 @@ function PosterRow({ poster }: PosterRowProps) {
       <TableCell>
         <div onClick={handleDownload} style={{ cursor: "pointer" }}>
           <Image
-            src={getPosterUrl(poster.ObjectName)}
+            src={getPosterUrl(poster.fileName)}
             alt="user created poster"
             width={500}
             height={500}
@@ -110,6 +110,6 @@ function setPulishClass(published: boolean) {
   } text-black_bg`;
 }
 
-function getPosterUrl(fileName: Poster["ObjectName"]) {
+function getPosterUrl(fileName: Poster["fileName"]) {
   return `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/posters/${fileName}`;
 }

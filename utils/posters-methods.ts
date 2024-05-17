@@ -1,5 +1,6 @@
 import "server-only";
 import { BunnyMethodReturn } from "@/types/bunny";
+import { Poster } from "../app/components/admin/posters/actions";
 
 export { deleteBunnyPoster, getPostersMetadata };
 
@@ -36,7 +37,7 @@ async function getPostersMetadata(): Promise<
   ) {
     throw new Error("Missing Bunny Stream environment variables");
   }
-  const url = `https://storage.bunnycdn.com/cd-dev-storage/posters/`;
+  const url = `https://storage.bunnycdn.com/${process.env.BUNNY_STORAGE_NAME}/posters/`;
   const options = {
     method: "GET",
     headers: {
@@ -67,7 +68,7 @@ async function getPostersMetadata(): Promise<
 async function deleteBunnyPoster({
   poster,
 }: {
-  poster: Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">;
+  poster: Poster;
 }): Promise<
   BunnyMethodReturn<
     Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">
@@ -77,7 +78,7 @@ async function deleteBunnyPoster({
     throw new Error("Missing Bunny Stream environment variables");
   }
 
-  const url = `https://storage.bunnycdn.com${poster.Path}${poster.ObjectName}`;
+  const url = `https://storage.bunnycdn.com/${process.env.BUNNY_STORAGE_NAME}/posters/${poster.fileName}`;
 
   const options = {
     method: "DELETE",
