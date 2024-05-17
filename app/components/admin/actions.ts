@@ -10,7 +10,7 @@ import {
   updateVideo,
   uploadCaptions,
   uploadImage,
-} from "@/lib/bunnyMethods";
+} from "@/utils/admin/bunny-methods";
 import { authenticate } from "@/auth/actions";
 import { EventDbEntry } from "@/types/database";
 import { VideoDbEntry } from "@/types/videos";

@@ -2,11 +2,14 @@
 
 import "server-only";
 
-import { BunnyPoster, deleteBunnyPoster, getPosters } from "@/lib/bunnyMethods";
 import { PosterDbEntry, PosterInsertModel } from "@/types/database";
 import { createClient } from "@/supabase/clients/server";
 import { authenticate } from "@/auth/actions";
-import saveAs from "file-saver";
+import {
+  PosterMetadata,
+  deleteBunnyPoster,
+  getPostersMetadata,
+} from "@/utils/posters-methods";
 
 export { fetchPosters, updatePoster, deletePoster };
 
@@ -14,7 +17,7 @@ export type Poster = Pick<
   PosterDbEntry,
   "url" | "location" | "published" | "bunny_id"
 > &
-  Pick<BunnyPoster, "StorageZoneName" | "Path" | "ObjectName">;
+  Pick<PosterMetadata, "fileName">;
 
 async function fetchPosters(): Promise<{
   success: boolean;
@@ -29,7 +32,7 @@ async function fetchPosters(): Promise<{
     .from("posters")
     .select();
 
-  const { data: bunnyPosters, error: bunnyError } = await getPosters();
+  const { data: bunnyPosters, error: bunnyError } = await getPostersMetadata();
 
   if (dbError || bunnyError) {
     return {
@@ -43,17 +46,15 @@ async function fetchPosters(): Promise<{
 
   const posters: Poster[] = bunnyPosters.map((bunnyPoster) => {
     const dbPoster = dbPosters.find(
-      (dbPoster) => dbPoster.bunny_id === bunnyPoster.Guid,
+      (dbPoster) => dbPoster.bunny_id === bunnyPoster.id,
     );
 
     return {
-      url: dbPoster?.url ?? getPosterUrl(bunnyPoster.ObjectName),
+      url: dbPoster?.url ?? getPosterUrl(bunnyPoster.fileName),
       location: dbPoster?.location ?? "",
       published: dbPoster?.published ?? false,
-      bunny_id: bunnyPoster.Guid,
-      StorageZoneName: bunnyPoster.StorageZoneName,
-      Path: bunnyPoster.Path,
-      ObjectName: bunnyPoster.ObjectName,
+      bunny_id: bunnyPoster.id,
+      fileName: bunnyPoster.fileName,
     };
   });
 
@@ -68,9 +69,9 @@ async function updatePoster(poster: Poster): Promise<{
 
   await authenticate(supabase);
 
-  const location = poster.ObjectName.split(".")[0].split("_").pop() ?? "";
+  const location = poster.fileName.split(".")[0].split("_").pop() ?? "";
 
-  const url = getPosterUrl(poster.ObjectName);
+  const url = getPosterUrl(poster.fileName);
 
   const posterData: PosterInsertModel = {
     url,
@@ -112,6 +113,6 @@ async function deletePoster(poster: Poster): Promise<{
   return { success: true };
 }
 
-function getPosterUrl(fileName: Poster["ObjectName"]) {
+function getPosterUrl(fileName: Poster["fileName"]) {
   return `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/posters/${fileName}`;
 }

@@ -1,5 +1,7 @@
 import "server-only";
+
 import { Collection, VideoDbEntry } from "@/types/videos";
+import { BunnyMethodReturn } from "@/types/bunny";
 
 export {
   getCollection,
@@ -11,8 +13,6 @@ export {
   fetchCaptions,
   purgeCaptionsCash,
   uploadImage,
-  getPosters,
-  deleteBunnyPoster,
 };
 
 export type UpdateVideoModel = {
@@ -22,30 +22,6 @@ export type UpdateVideoModel = {
   chapters?: Record<string, any> | null;
   moments?: Record<string, any> | null;
   metaTags?: { property: string; value: string }[] | null;
-};
-
-export type BunnyPoster = {
-  Guid: string;
-  StorageZoneName: string;
-  Path: string;
-  ObjectName: string;
-  Length: number;
-  LastChanged: string;
-  ServerId: number;
-  ArrayNumber: number;
-  IsDirectory: boolean;
-  UserId: string;
-  ContentType: string;
-  DateCreated: string;
-  StorageZoneId: number;
-  Checksum: string;
-  ReplicatedZones: string;
-};
-
-export type BunnyMethodReturn<T> = {
-  success: boolean;
-  data: T[];
-  error?: { message: string; status: number };
 };
 
 async function uploadImage({
@@ -77,7 +53,10 @@ async function uploadImage({
 
   const res = await fetch(host + path, options);
 
+  console.dir({ res }, { depth: 10 });
+
   if (!res.ok) {
+    console.error("Failed to upload image", res.status);
     return {
       success: false,
       error: { message: "Failed to upload image", status: res.status },
@@ -85,75 +64,6 @@ async function uploadImage({
   }
 
   return { success: true };
-}
-
-async function getPosters(): Promise<{
-  success: boolean;
-  data: BunnyPoster[];
-  error?: { message: string; status: number };
-}> {
-  if (!process.env.BUNNY_STORAGE_API_KEY) {
-    throw new Error("Missing Bunny Stream environment variables");
-  }
-
-  const url = "https://storage.bunnycdn.com/cd-dev-storage/posters/";
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      AccessKey: process.env.BUNNY_STORAGE_API_KEY,
-    },
-  };
-
-  const res = await fetch(url, options);
-
-  if (!res.ok) {
-    return {
-      success: false,
-      data: [],
-      error: { message: "Failed to fetch posters data", status: res.status },
-    };
-  }
-
-  const posters: BunnyPoster[] = (await res.json()) as BunnyPoster[];
-
-  return { success: true, data: posters };
-}
-
-async function deleteBunnyPoster({
-  poster,
-}: {
-  poster: Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">;
-}): Promise<
-  BunnyMethodReturn<
-    Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">
-  >
-> {
-  if (!process.env.BUNNY_STORAGE_API_KEY) {
-    throw new Error("Missing Bunny Stream environment variables");
-  }
-
-  const url = `https://storage.bunnycdn.com${poster.Path}${poster.ObjectName}`;
-
-  const options = {
-    method: "DELETE",
-    headers: {
-      AccessKey: process.env.BUNNY_STORAGE_API_KEY,
-    },
-  };
-
-  const res = await fetch(url, options);
-
-  if (!res.ok) {
-    return {
-      success: false,
-      data: [],
-      error: { message: "Failed to delete poster", status: res.status },
-    };
-  }
-
-  return { success: true, data: [] };
 }
 
 async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
