@@ -3,7 +3,7 @@
 import { createClient } from "@/supabase/clients/server";
 import { authenticate, logout } from "@/auth/actions";
 import { FormVideo, VideoDbEntry } from "@/types/videos";
-import { getVideo } from "@/lib/bunnyMethods";
+import { getVideo } from "@/utils/admin/bunny-methods";
 import VideoPlayer from "@/components/admin/videos/VideoPlayer";
 import VideoForm from "@/components/admin/videos/VideoForm";
 import { Button } from "@/components/ui/button";

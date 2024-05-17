@@ -2,7 +2,11 @@
 
 import "server-only";
 
-import { BunnyPoster, deleteBunnyPoster, getPosters } from "@/lib/bunnyMethods";
+import {
+  BunnyPoster,
+  deleteBunnyPoster,
+  getPosters,
+} from "@/utils/admin/bunny-methods";
 import { PosterDbEntry, PosterInsertModel } from "@/types/database";
 import { createClient } from "@/supabase/clients/server";
 import { authenticate } from "@/auth/actions";

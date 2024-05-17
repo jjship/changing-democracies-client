@@ -25,7 +25,8 @@
       "@/types/*": ["./types/*"],
       "@/lib/*": ["./lib/*"],
       "@/supabase/*": ["./supabase/*"],
-      "@/auth/*": ["./app/auth/*"]
+      "@/auth/*": ["./app/auth/*"],
+      "@/utils/*": ["./utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

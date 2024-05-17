@@ -75,7 +75,6 @@ export class BtnLang {
   }
 
   handleClick(params: Params) {
-    console.log("handle lang");
     params.currentLang = this?.txt ?? params.currentLang;
     params.stage = 0;
     // return { currentLayout, stage };

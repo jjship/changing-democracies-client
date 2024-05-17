@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getSubtitles, saveCaptions, saveVideo } from "../actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { UpdateVideoModel } from "@/lib/bunnyMethods";
+import { UpdateVideoModel } from "@/utils/admin/bunny-methods";
 import {
   Form,
   FormControl,
