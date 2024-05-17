@@ -44,6 +44,7 @@ async function getPostersMetadata(): Promise<
       accept: "application/json",
       AccessKey: process.env.BUNNY_STORAGE_API_KEY,
     },
+    next: { revalidate: 55 },
   };
   const res = await fetch(url, options);
 
@@ -78,7 +79,11 @@ async function deleteBunnyPoster({
     throw new Error("Missing Bunny Stream environment variables");
   }
 
-  const url = `https://storage.bunnycdn.com/${process.env.BUNNY_STORAGE_NAME}/posters/${poster.fileName}`;
+  const { fileName } = poster;
+
+  const url = `https://storage.bunnycdn.com/${process.env.BUNNY_STORAGE_NAME}/posters/${fileName}`;
+
+  await purgePostersCash({ fileName });
 
   const options = {
     method: "DELETE",
@@ -94,6 +99,39 @@ async function deleteBunnyPoster({
       success: false,
       data: [],
       error: { message: "Failed to delete poster", status: res.status },
+    };
+  }
+
+  return { success: true, data: [] };
+}
+
+async function purgePostersCash({
+  fileName,
+}: {
+  fileName: string;
+}): Promise<BunnyMethodReturn<[]>> {
+  if (
+    !process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE ||
+    !process.env.BUNNY_ADMIN_API_KEY
+  ) {
+    throw new Error("Missing Bunny Stream environment variables");
+  }
+
+  const url = `https://api.bunny.net/purge?url=https%3A%2F%2F${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net%2Fposters%2F${fileName}&async=false`;
+  const options = {
+    method: "POST",
+    headers: {
+      AccessKey: process.env.BUNNY_ADMIN_API_KEY,
+    },
+  };
+
+  const res = await fetch(url, options);
+
+  if (!res.ok) {
+    return {
+      success: false,
+      data: [],
+      error: { message: "Failed to purge captions cache", status: res.status },
     };
   }
 
