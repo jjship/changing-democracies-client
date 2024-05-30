@@ -1,10 +1,8 @@
-"use server";
-
 import { createClient } from "@/supabase/clients/server";
 import EventsAdmin from "@/components/admin/events/EventsAdmin";
 import VideosAdmin from "@/components/admin/videos/VideosAdmin";
 import { authenticate, logout } from "@/auth/actions";
-import PostersAdmin from "../components/admin/posters/PostersAdmin";
+import PostersAdmin from "@/components/admin/posters/PostersAdmin";
 
 type AdminParams = { events?: string; videos?: string; posters?: string };
 
