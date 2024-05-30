@@ -31,13 +31,13 @@ async function uploadImage({
   blob: Blob;
   fileName: string;
 }) {
-  if (!process.env.BUNNY_STORAGE_API_KEY) {
+  if (!process.env.BUNNY_STORAGE_API_KEY || !process.env.BUNNY_STORAGE_NAME) {
     throw new Error("Missing Bunny Stream environment variables");
   }
 
   const readStream = blob.stream();
 
-  const storageName = "cd-dev-storage";
+  const storageName = process.env.BUNNY_STORAGE_NAME;
   const host = "https://storage.bunnycdn.com";
   const path = `/${storageName}/posters/${fileName}`;
 
@@ -53,10 +53,11 @@ async function uploadImage({
 
   const res = await fetch(host + path, options);
 
-  console.dir({ res }, { depth: 10 });
-
   if (!res.ok) {
-    console.error("Failed to upload image", res.status);
+    console.error("Failed to upload image", {
+      status: res.status,
+      message: res.statusText,
+    });
     return {
       success: false,
       error: { message: "Failed to upload image", status: res.status },

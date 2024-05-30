@@ -80,12 +80,12 @@ const PostersPage: React.FC<PostersPageProps> = ({ initialPosters }) => {
               {filteredPosters.map((poster) => (
                 <div key={poster.id} className="w-full">
                   <Image
-                    src={`https://cd-dev-pull.b-cdn.net/posters/${poster.fileName}`}
+                    src={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/posters/${poster.fileName}`}
                     alt={poster.fileName}
                     className="w-full"
                     width={800}
                     height={800}
-                    loading="lazy" // Add lazy loading attribute
+                    loading="lazy"
                   />
                 </div>
               ))}
