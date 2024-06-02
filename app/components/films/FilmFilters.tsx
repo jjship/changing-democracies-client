@@ -17,13 +17,6 @@ const Filters: React.FC = () => {
   );
   const [selectedPeople, setSelectedPeople] = React.useState<string[]>([]);
 
-  // useEffect(() => {
-  //   if (collection) {
-  //     setSelectedCountries(collection.countries);
-  //     setSelectedPeople(collection.people);
-  //   }
-  // }, [collection]);
-
   useEffect(() => {
     if (collection) {
       setFilms(
@@ -34,7 +27,7 @@ const Filters: React.FC = () => {
         ),
       );
     }
-  }, [selectedCountries, selectedPeople]);
+  }, [selectedCountries, selectedPeople, collection, setFilms]);
 
   return collection ? (
     <>

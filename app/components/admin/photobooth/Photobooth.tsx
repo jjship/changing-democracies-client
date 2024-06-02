@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Font, Image, TYPE } from "p5";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 import {
   languageAbbreviations,
@@ -55,8 +56,13 @@ const Photobooth: React.FC<PhotoboothProps> = ({
 }: {
   location: string;
 }) => {
+  const router = useRouter();
   const processingRef = useRef<HTMLDivElement | null>(null);
   const p5InstanceRef = useRef<P | null>(null);
+
+  const [isCapturing, setIsCapturing] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [isRerouting, setIsRerouting] = useState(false);
 
   useEffect(() => {
     const p5 = require("p5");
@@ -96,7 +102,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
         let wait = 0;
         let langT = 0;
         let countDownTxt = 0;
-        let capturedImage: Image;
+        let capturedImage: Image | null = null;
         let yb = 0;
         let ybc = 0;
         let easing = 0.09;
@@ -128,6 +134,8 @@ const Photobooth: React.FC<PhotoboothProps> = ({
         };
 
         p.setup = () => {
+          if (capture) capture.remove();
+          capturedImage = null;
           p.createCanvas(p.windowWidth - 5, p.windowHeight - 5);
 
           let cnv = document.querySelector("canvas");
@@ -442,11 +450,14 @@ const Photobooth: React.FC<PhotoboothProps> = ({
 
             // ...
           } else if (params.stage == 5) {
-            capture = p.createCapture(VIDEO) as any;
-            capture.size(640, 480);
-            capture.hide();
-            params.stage = 6;
-            nextButton.yb = p.height;
+            if (!isCapturing) {
+              setIsCapturing(true);
+              capture = p.createCapture(VIDEO) as any;
+              capture.size(640, 480);
+              capture.hide();
+              params.stage = 6;
+              nextButton.yb = p.height;
+            }
           } else if (params.stage == 6 || params.stage == 7) {
             capture.loadPixels();
             applyTintEffect(capture);
@@ -472,158 +483,163 @@ const Photobooth: React.FC<PhotoboothProps> = ({
               countDown();
             }
           } else if (params.stage == 8) {
-            p.image(capturedImage, 0, 0);
+            capture.remove();
+            if (capturedImage) p.image(capturedImage, 0, 0);
+            p.push(); // Start a new drawing state
+            p.stroke(darkRed);
+            p.strokeWeight(90);
+
+            let lineHeight = p.textAscent() + p.textDescent();
+            let spacing = 80; // Custom spacing between lines
+
+            // Handling multiple lines based on 'enter' character in displayText
+            let yPos = 80;
+
+            // Draw all underlines from saved data
+            textData.textLinesData.forEach((textLineData) => {
+              let startX = p.width;
+              let endX = p.width - 100 - textLineData.width;
+              p.stroke(darkRed);
+              p.strokeWeight(90);
+              p.line(
+                startX,
+                textLineData.y + lineHeight - 16,
+                endX,
+                textLineData.y + lineHeight - 16,
+              ); // Adjust y position for underline
+              p.noStroke();
+              p.fill(yellowBrown);
+              p.triangle(
+                endX - r / 2 + p.cos(a1) * r,
+                textLineData.y + lineHeight - 16 + p.sin(a1) * r,
+                endX - r / 2 + p.cos(a2) * r,
+                textLineData.y + lineHeight - 16 + p.sin(a2) * r,
+                endX - r / 2 + p.cos(a3) * r,
+                textLineData.y + lineHeight - 16 + p.sin(a3) * r,
+              );
+            });
+
+            // Draw all text lines from saved data
+            p.fill(pink);
+            p.textSize(36);
+            p.textAlign(p.RIGHT, p.TOP);
+            p.noStroke();
+
+            textData.textLinesData.forEach((textLineData) => {
+              p.text(
+                textLineData.text,
+                40,
+                textLineData.y - 8,
+                p.width - 80,
+                p.height / 8,
+              );
+
+              // Increment yPos for the next line
+              yPos = textLineData.y + lineHeight + spacing; // Keep track of the last y position
+            });
+
+            p.textSize(70);
+            p.fill(darkRed);
+            p.text(userName, 40, yPos, p.width - 80, p.height / 4);
+            p.pop();
             nextButton.display(pink, darkRed, p, params);
 
             repeatButton.display(pink, darkRed, p, params);
           } else if (params.stage == 9) {
-            p.image(capturedImage, 0, 0);
-            p.push(); // Start a new drawing state
-            p.stroke(darkRed);
-            p.strokeWeight(90);
-
-            let lineHeight = p.textAscent() + p.textDescent();
-            let spacing = 80; // Custom spacing between lines
-
-            // Handling multiple lines based on 'enter' character in displayText
-            let yPos = 80;
-
-            // Draw all underlines from saved data
-            textData.textLinesData.forEach((textLineData) => {
-              let startX = p.width;
-              let endX = p.width - 100 - textLineData.width;
+            if (!isSending && !isRerouting) {
+              setIsSending(true);
+              if (capturedImage) p.image(capturedImage, 0, 0);
+              p.push(); // Start a new drawing state
               p.stroke(darkRed);
               p.strokeWeight(90);
-              p.line(
-                startX,
-                textLineData.y + lineHeight - 16,
-                endX,
-                textLineData.y + lineHeight - 16,
-              ); // Adjust y position for underline
-              p.noStroke();
-              p.fill(yellowBrown);
-              p.triangle(
-                endX - r / 2 + p.cos(a1) * r,
-                textLineData.y + lineHeight - 16 + p.sin(a1) * r,
-                endX - r / 2 + p.cos(a2) * r,
-                textLineData.y + lineHeight - 16 + p.sin(a2) * r,
-                endX - r / 2 + p.cos(a3) * r,
-                textLineData.y + lineHeight - 16 + p.sin(a3) * r,
-              );
-            });
 
-            // Draw all text lines from saved data
-            p.fill(pink);
-            p.textSize(36);
-            p.textAlign(p.RIGHT, p.TOP);
-            p.noStroke();
+              let lineHeight = p.textAscent() + p.textDescent();
+              let spacing = 80; // Custom spacing between lines
 
-            textData.textLinesData.forEach((textLineData) => {
-              p.text(
-                textLineData.text,
-                40,
-                textLineData.y - 8,
-                p.width - 80,
-                p.height / 8,
-              );
+              // Handling multiple lines based on 'enter' character in displayText
+              let textLines = displayText.split("\n");
+              let yPos = 80;
+              let underlineData = [];
 
-              // Increment yPos for the next line
-              yPos = textLineData.y + lineHeight + spacing; // Keep track of the last y position
-            });
-
-            p.textSize(70);
-            p.fill(darkRed);
-            p.text(userName, 40, yPos, p.width - 80, p.height / 4);
-            p.pop();
-            finishButton.display(pink, darkRed, p, params);
-          } else if (params.stage == 10) {
-            p.image(capturedImage, 0, 0);
-            p.push(); // Start a new drawing state
-            p.stroke(darkRed);
-            p.strokeWeight(90);
-
-            let lineHeight = p.textAscent() + p.textDescent();
-            let spacing = 80; // Custom spacing between lines
-
-            // Handling multiple lines based on 'enter' character in displayText
-            let textLines = displayText.split("\n");
-            let yPos = 80;
-            let underlineData = [];
-
-            // Draw all underlines from saved data
-            textData.textLinesData.forEach((textLineData) => {
-              let startX = p.width;
-              let endX = p.width - 100 - textLineData.width;
-              p.stroke(darkRed);
-              p.strokeWeight(90);
-              p.line(
-                startX,
-                textLineData.y + lineHeight - 16,
-                endX,
-                textLineData.y + lineHeight - 16,
-              ); // Adjust y position for underline
-              p.noStroke();
-              p.fill(yellowBrown);
-              p.triangle(
-                endX - r / 2 + p.cos(a1) * r,
-                textLineData.y + lineHeight - 16 + p.sin(a1) * r,
-                endX - r / 2 + p.cos(a2) * r,
-                textLineData.y + lineHeight - 16 + p.sin(a2) * r,
-                endX - r / 2 + p.cos(a3) * r,
-                textLineData.y + lineHeight - 16 + p.sin(a3) * r,
-              );
-            });
-
-            // Draw all text lines from saved data
-            p.fill(pink);
-            p.textSize(36);
-            p.textAlign(p.RIGHT, p.TOP);
-            p.noStroke();
-
-            textData.textLinesData.forEach((textLineData) => {
-              p.text(
-                textLineData.text,
-                40,
-                textLineData.y - 8,
-                p.width - 80,
-                p.height / 8,
-              );
-
-              // Increment yPos for the next line
-              yPos = textLineData.y + lineHeight + spacing; // Keep track of the last y position
-            });
-
-            p.textSize(70);
-            p.fill(darkRed);
-            p.text(userName, 40, yPos, p.width - 80, p.height / 4);
-            p.pop();
-
-            // upload image to storage
-            let cnv = document.querySelector("canvas");
-
-            if (cnv) {
-              cnv.getContext("2d", {
-                willReadFrequently: true,
+              // Draw all underlines from saved data
+              textData.textLinesData.forEach((textLineData) => {
+                let startX = p.width;
+                let endX = p.width - 100 - textLineData.width;
+                p.stroke(darkRed);
+                p.strokeWeight(90);
+                p.line(
+                  startX,
+                  textLineData.y + lineHeight - 16,
+                  endX,
+                  textLineData.y + lineHeight - 16,
+                ); // Adjust y position for underline
+                p.noStroke();
+                p.fill(yellowBrown);
+                p.triangle(
+                  endX - r / 2 + p.cos(a1) * r,
+                  textLineData.y + lineHeight - 16 + p.sin(a1) * r,
+                  endX - r / 2 + p.cos(a2) * r,
+                  textLineData.y + lineHeight - 16 + p.sin(a2) * r,
+                  endX - r / 2 + p.cos(a3) * r,
+                  textLineData.y + lineHeight - 16 + p.sin(a3) * r,
+                );
               });
-              cnv.toBlob(
-                (blob) => {
-                  if (blob) {
-                    const name =
-                      "poster_" + uuidv4() + "_" + location + ".jpeg";
-                    const formData = new FormData();
-                    formData.append("blob", blob);
-                    formData.append("fileName", name);
 
-                    saveImage(formData);
-                  }
-                },
-                "image/jpeg",
-                1,
-              );
+              // Draw all text lines from saved data
+              p.fill(pink);
+              p.textSize(36);
+              p.textAlign(p.RIGHT, p.TOP);
+              p.noStroke();
+
+              textData.textLinesData.forEach((textLineData) => {
+                p.text(
+                  textLineData.text,
+                  40,
+                  textLineData.y - 8,
+                  p.width - 80,
+                  p.height / 8,
+                );
+
+                // Increment yPos for the next line
+                yPos = textLineData.y + lineHeight + spacing; // Keep track of the last y position
+              });
+
+              p.textSize(70);
+              p.fill(darkRed);
+              p.text(userName, 40, yPos, p.width - 80, p.height / 4);
+              p.pop();
+
+              // upload image to storage
+              let cnv = document.querySelector("canvas");
+
+              if (cnv) {
+                cnv.getContext("2d", {
+                  willReadFrequently: true,
+                });
+                const name = "poster_" + uuidv4() + "_" + location + ".jpeg";
+                cnv.toBlob(
+                  (blob) => {
+                    if (blob) {
+                      const formData = new FormData();
+                      formData.append("blob", blob);
+                      formData.append("fileName", name);
+                      saveImage(formData);
+
+                      // Remove captured image from memory
+                      capturedImage = null;
+                      setIsRerouting(true);
+                      router.push(
+                        `/admin/photobooth/poster/${name}/${location}`,
+                      );
+                    }
+                  },
+                  "image/jpeg",
+                  1,
+                );
+                params.stage = 10;
+              }
             }
-
-            //go back to start
-            params.stage = -1;
+          } else if (params.stage == 10) {
           }
 
           if (params.stage > 1 && params.stage != 7 && params.stage < 10) {
@@ -632,6 +648,9 @@ const Photobooth: React.FC<PhotoboothProps> = ({
         };
 
         function countDown() {
+          if (countDownTxt == 2) {
+            capturedImage = null;
+          }
           if (countDownTxt == 0) {
             capturedImage = p.get();
             capture.stop();
@@ -686,7 +705,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
               });
             }
 
-            if (backButton.isClicked(p.mouseX, p.mouseY)) {
+            if (backButton && backButton.isClicked(p.mouseX, p.mouseY)) {
               backButton.handleClick(params);
             }
 
@@ -814,7 +833,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
         p5InstanceRef.current = null;
       }
     };
-  }, [location]);
+  }, [location, router, isCapturing, isSending, isRerouting]);
   return (
     <>
       <div className="l-h-animation" ref={processingRef}></div>

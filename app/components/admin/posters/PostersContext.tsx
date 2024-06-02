@@ -7,7 +7,6 @@ type PostersContextType = {
   posters: Poster[] | null;
   setPosters: (posters: Poster[] | null) => void;
   onDelete?: PosterCallback;
-  onUpdate?: PosterCallback;
 };
 
 export const PostersContext = createContext<PostersContextType | null>(null);

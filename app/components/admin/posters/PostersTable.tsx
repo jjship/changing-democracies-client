@@ -1,6 +1,5 @@
 "use client";
 
-import { saveAs } from "file-saver";
 import {
   Table,
   TableBody,
@@ -9,18 +8,17 @@ import {
 } from "@/app/components/ui/table";
 import Image from "next/image";
 import { Button } from "../../ui/button";
-import { useState } from "react";
 import { usePostersContext } from "./PostersContext";
 import { Poster } from "./actions";
+import DownloadButton from "./DownloadButton";
+import SendButton from "./SendButton";
 
 type PosterRowProps = {
   poster: Poster;
 };
 
 function PosterRow({ poster }: PosterRowProps) {
-  const [hover, setHover] = useState(false);
-
-  const { onDelete, onUpdate } = usePostersContext();
+  const { onDelete } = usePostersContext();
 
   function handleDeleteClick() {
     if (onDelete) {
@@ -28,52 +26,26 @@ function PosterRow({ poster }: PosterRowProps) {
     }
   }
 
-  function handleUpdateClick() {
-    if (onUpdate) {
-      onUpdate({ ...poster, published: !poster.published });
-    }
-  }
-
-  const handleDownload = async () => {
-    const response = await fetch(getPosterUrl(poster.fileName), {
-      mode: "no-cors",
-    });
-
-    console.log(response);
-    const blob = await response.blob();
-    saveAs(blob, poster.fileName);
-  };
-
-  const { published, bunny_id } = poster;
+  const { bunny_id } = poster;
 
   return (
     <TableRow key={bunny_id} className="h-min-[20rem] ">
       <TableCell>
-        <Button
-          onClick={handleUpdateClick}
-          className={`${setPulishClass(published)} w-36`}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          {hover
-            ? published
-              ? "unpublish"
-              : "publish"
-            : published
-            ? "published"
-            : "unpublished"}
-        </Button>
+        <DownloadButton imageUrl={poster.url} fileName={poster.fileName} />
+        <SendButton
+          imageUrl={poster.url}
+          fileName={poster.fileName}
+          email="devontheroof@gmail.com"
+        />
       </TableCell>
       <TableCell>
-        <div onClick={handleDownload} style={{ cursor: "pointer" }}>
-          <Image
-            src={getPosterUrl(poster.fileName)}
-            alt="user created poster"
-            width={500}
-            height={500}
-            loading="lazy"
-          />
-        </div>
+        <Image
+          src={poster.url}
+          alt="user created poster"
+          width={500}
+          height={500}
+          loading="lazy"
+        />
       </TableCell>
       <TableCell>
         <Button
@@ -100,16 +72,4 @@ export default function PostersTable() {
       </TableBody>
     </Table>
   );
-}
-
-function setPulishClass(published: boolean) {
-  return `${
-    published
-      ? "bg-green_accent hover:bg-yellow_secondary"
-      : "bg-yellow_secondary hover:bg-green_accent"
-  } text-black_bg`;
-}
-
-function getPosterUrl(fileName: Poster["fileName"]) {
-  return `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/posters/${fileName}`;
 }

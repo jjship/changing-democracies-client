@@ -30,30 +30,6 @@ export default function PostersAdmin({ open }: { open: boolean }) {
     updatePosters();
   }, []);
 
-  function handleUpdate(poster: Poster) {
-    // Find the poster that was updated
-    const posterToUpdate =
-      posters?.find((p) => p.bunny_id === poster.bunny_id) || null;
-
-    // Optimistically update the UI by updating the poster
-    setPosters(
-      (prevPosters) =>
-        prevPosters?.map((p) =>
-          p.bunny_id === poster.bunny_id ? poster : p,
-        ) || null,
-    );
-
-    // Send the update request to the backend
-    updatePoster(poster).then(({ error }) => {
-      if (error) {
-        // Revert the UI update (add the poster back)
-        // TODO You might also want to notify the user about the failure
-        if (posterToUpdate) {
-          setPosters((prevPosters) => [...(prevPosters || []), posterToUpdate]);
-        }
-      }
-    });
-  }
   function handleDelete(poster: Poster) {
     // Find the poster that was deleted
     const posterToDelete =
@@ -66,7 +42,7 @@ export default function PostersAdmin({ open }: { open: boolean }) {
     );
 
     // Send the delete request to the backend
-    deletePoster(poster).then(({ error }) => {
+    deletePoster(poster.fileName).then(({ error }) => {
       if (error) {
         // Revert the UI update (add the poster back)
         // TODO You might also want to notify the user about the failure
@@ -85,7 +61,6 @@ export default function PostersAdmin({ open }: { open: boolean }) {
       <PostersContext.Provider
         value={{
           onDelete: handleDelete,
-          onUpdate: handleUpdate,
           posters,
           setPosters,
         }}

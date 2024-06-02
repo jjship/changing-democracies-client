@@ -1,3 +1,5 @@
+"use server";
+
 import "server-only";
 import { BunnyMethodReturn } from "@/types/bunny";
 import { Poster } from "../app/components/admin/posters/actions";
@@ -67,9 +69,9 @@ async function getPostersMetadata(): Promise<
 }
 
 async function deleteBunnyPoster({
-  poster,
+  fileName,
 }: {
-  poster: Poster;
+  fileName: string;
 }): Promise<
   BunnyMethodReturn<
     Pick<BunnyPoster, "Path" | "StorageZoneName" | "ObjectName">
@@ -78,8 +80,6 @@ async function deleteBunnyPoster({
   if (!process.env.BUNNY_STORAGE_API_KEY) {
     throw new Error("Missing Bunny Stream environment variables");
   }
-
-  const { fileName } = poster;
 
   const url = `https://storage.bunnycdn.com/${process.env.BUNNY_STORAGE_NAME}/posters/${fileName}`;
 
