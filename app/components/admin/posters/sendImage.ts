@@ -7,7 +7,7 @@ const sendImage = async ({ imageUrl, fileName, email }: SendButtonProps) => {
       body: { imageUrl, fileName, email },
     });
   } catch (error) {
-    console.error("Error downloading the image", error);
+    console.error("Error sending the image", error);
   }
 };
 

@@ -76,7 +76,7 @@ const PostersPage: React.FC<PostersPageProps> = ({ initialPosters }) => {
             ))}
           </div>
           <div className="flex h-full items-center justify-center">
-            <div className="grid w-full grid-cols-2 gap-5">
+            <div className="grid w-full grid-cols-3 gap-5">
               {filteredPosters.map((poster) => (
                 <div key={poster.id} className="w-full">
                   <Image

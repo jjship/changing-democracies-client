@@ -10,7 +10,6 @@ import {
   deleteBunnyPoster,
   getPostersMetadata,
 } from "@/utils/posters-methods";
-import { Resend } from "resend";
 
 export { fetchPosters, updatePoster, deletePoster };
 
@@ -90,23 +89,13 @@ async function updatePoster(poster: Poster): Promise<{
   return { success: true };
 }
 
-async function deletePoster(poster: Poster): Promise<{
+async function deletePoster(fileName: string): Promise<{
   success: boolean;
   error?: string;
 }> {
-  const supabase = createClient();
-  await authenticate(supabase);
-
-  const { error: dbError } = await supabase
-    .from("posters")
-    .delete()
-    .eq("bunny_id", poster.bunny_id);
-
-  if (dbError) {
-    return { success: false, error: "could not delete poster" };
-  }
-
-  const { error: bunnyError } = await deleteBunnyPoster({ poster });
+  const { error: bunnyError } = await deleteBunnyPoster({
+    fileName: fileName,
+  });
 
   if (bunnyError) {
     return { success: false, error: "could not delete poster from Bunny" };

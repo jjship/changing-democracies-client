@@ -18,7 +18,7 @@ const SendButton: React.FC<SendButtonProps> = ({
       onClick={() => sendImage({ imageUrl, fileName, email })}
       className="w-36 bg-green_accent text-black_bg hover:bg-yellow_secondary"
     >
-      send
+      send e-mail
     </Button>
   );
 };

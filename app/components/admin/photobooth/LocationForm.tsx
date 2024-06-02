@@ -7,7 +7,7 @@ import { Form, FormField, FormItem } from "../../ui/form";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 
-export default function PhotoboothPage() {
+export default function LocationForm() {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [location, setLocation] = useState<string>("");
 

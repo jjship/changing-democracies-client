@@ -42,7 +42,7 @@ export default function PostersAdmin({ open }: { open: boolean }) {
     );
 
     // Send the delete request to the backend
-    deletePoster(poster).then(({ error }) => {
+    deletePoster(poster.fileName).then(({ error }) => {
       if (error) {
         // Revert the UI update (add the poster back)
         // TODO You might also want to notify the user about the failure

@@ -3,6 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import { Font, Image, TYPE } from "p5";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 import {
   languageAbbreviations,
@@ -55,6 +56,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
 }: {
   location: string;
 }) => {
+  const router = useRouter();
   const processingRef = useRef<HTMLDivElement | null>(null);
   const p5InstanceRef = useRef<P | null>(null);
 
@@ -537,6 +539,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
             p.pop();
             finishButton.display(pink, darkRed, p, params);
           } else if (params.stage == 10) {
+            capture.remove();
             p.image(capturedImage, 0, 0);
             p.push(); // Start a new drawing state
             p.stroke(darkRed);
@@ -605,11 +608,10 @@ const Photobooth: React.FC<PhotoboothProps> = ({
               cnv.getContext("2d", {
                 willReadFrequently: true,
               });
+              const name = "poster_" + uuidv4() + "_" + location + ".jpeg";
               cnv.toBlob(
                 (blob) => {
                   if (blob) {
-                    const name =
-                      "poster_" + uuidv4() + "_" + location + ".jpeg";
                     const formData = new FormData();
                     formData.append("blob", blob);
                     formData.append("fileName", name);
@@ -620,6 +622,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
                 "image/jpeg",
                 1,
               );
+              router.push(`/admin/photobooth/poster/${name}/${location}`);
             }
 
             //go back to start
@@ -814,7 +817,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
         p5InstanceRef.current = null;
       }
     };
-  }, [location]);
+  }, [location, router]);
   return (
     <>
       <div className="l-h-animation" ref={processingRef}></div>
