@@ -10,6 +10,7 @@ import {
   deleteBunnyPoster,
   getPostersMetadata,
 } from "@/utils/posters-methods";
+import { Resend } from "resend";
 
 export { fetchPosters, updatePoster, deletePoster };
 

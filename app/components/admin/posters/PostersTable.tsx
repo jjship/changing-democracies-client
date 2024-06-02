@@ -11,6 +11,7 @@ import { Button } from "../../ui/button";
 import { usePostersContext } from "./PostersContext";
 import { Poster } from "./actions";
 import DownloadButton from "./DownloadButton";
+import SendButton from "./SendButton";
 
 type PosterRowProps = {
   poster: Poster;
@@ -31,6 +32,11 @@ function PosterRow({ poster }: PosterRowProps) {
     <TableRow key={bunny_id} className="h-min-[20rem] ">
       <TableCell>
         <DownloadButton imageUrl={poster.url} fileName={poster.fileName} />
+        <SendButton
+          imageUrl={poster.url}
+          fileName={poster.fileName}
+          email="devontheroof@gmail.com"
+        />
       </TableCell>
       <TableCell>
         <Image
