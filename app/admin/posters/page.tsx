@@ -1,7 +1,5 @@
-"use server";
-import { Suspense } from "react";
+import PostersClient from "@/components/admin/posters/PostersClient";
 import { getPostersMetadata } from "@/utils/posters-methods";
-import PostersPage from "@/components/admin/posters/PostersPage";
 
 export default async function Page() {
   const postersRes = await getPostersMetadata();
@@ -11,9 +9,9 @@ export default async function Page() {
     return <p>Error loading posters</p>;
   }
 
-  return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <PostersPage initialPosters={postersRes.data} />
-    </Suspense>
-  );
+  const sortedPosters = postersRes.data.sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+
+  return <PostersClient initialPosters={sortedPosters} />;
 }
