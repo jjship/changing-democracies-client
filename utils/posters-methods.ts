@@ -1,3 +1,5 @@
+"use server";
+
 import "server-only";
 import { BunnyMethodReturn } from "@/types/bunny";
 import { Poster } from "../app/components/admin/posters/actions";
