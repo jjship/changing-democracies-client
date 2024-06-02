@@ -6,7 +6,6 @@ interface DownloadButtonProps {
 }
 
 const downloadImage = async ({ imageUrl, fileName }: DownloadButtonProps) => {
-  console.log({ imageUrl, fileName });
   try {
     const response = await axios.get(
       `/api/downloadImage?url=${encodeURIComponent(imageUrl)}`,
