@@ -26,7 +26,11 @@ const PostersPage: React.FC<PostersPageProps> = ({
     if (posterLocation) locations.add(posterLocation);
   });
   const handleLocationFilter = (posterLocation: string) => {
-    setSelectedLocation(posterLocation);
+    if (selectedLocation === posterLocation) {
+      setSelectedLocation(null); // If the same location is clicked again, remove the filter
+    } else {
+      setSelectedLocation(posterLocation); // Otherwise, set the selected location
+    }
   };
 
   useEffect(() => {
@@ -69,16 +73,16 @@ const PostersPage: React.FC<PostersPageProps> = ({
   return (
     filteredPosters && (
       <>
-        <div className=" p-5 ">
-          <div className="flex items-center justify-center gap-5 p-5">
+        <div className="px-20">
+          <div className="my-10 flex items-start justify-start gap-5">
             {Array.from(locations).map((posterLocation) => (
               <Button
                 key={posterLocation}
                 className={`${
-                  selectedLocation === posterLocation
-                    ? "bg-yellow_secondary text-black"
-                    : "bg-green_accent"
-                } m-5 text-black hover:bg-yellow_secondary hover:text-black`}
+                  selectedLocation === posterLocation || !selectedLocation
+                    ? "bg-green_accent"
+                    : "bg-gray_light_secondary"
+                } w-32  text-black hover:bg-yellow_secondary hover:text-black`}
                 onClick={() => handleLocationFilter(posterLocation)}
               >
                 {posterLocation}
@@ -86,7 +90,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
             ))}
           </div>
           <div className="flex h-full items-center justify-center">
-            <div className="grid w-full grid-cols-3 gap-5">
+            <div className="grid w-full grid-cols-3 gap-x-16 gap-y-24">
               {filteredPosters.map((poster) => (
                 <div key={poster.id} className="w-full">
                   <Image
