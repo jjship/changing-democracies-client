@@ -27,6 +27,7 @@ export type BunnyPoster = {
 export type PosterMetadata = {
   id: string;
   fileName: string;
+  createdAt: string;
 };
 
 async function getPostersMetadata(): Promise<
@@ -59,11 +60,11 @@ async function getPostersMetadata(): Promise<
   }
 
   const posters: BunnyPoster[] = (await res.json()) as BunnyPoster[];
-  console.log({ getPostersMetadata: posters.length });
 
   const list = posters.map((poster) => ({
     id: poster.Guid,
     fileName: poster.ObjectName,
+    createdAt: poster.DateCreated,
   }));
   return { success: true, data: list };
 }

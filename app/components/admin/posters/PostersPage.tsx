@@ -18,13 +18,9 @@ const PostersPage: React.FC<PostersPageProps> = ({
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [posters, setPosters] = useState<PosterMetadata[]>(initialPosters);
   const [filteredPosters, setFilteredPosters] = useState<PosterMetadata[]>([]);
+  const [locations, setLocations] = useState<string[]>([]);
   const router = useRouter();
 
-  const locations = new Set<string>();
-  posters.forEach((poster) => {
-    const posterLocation = poster.fileName.split(".")[0].split("_").pop();
-    if (posterLocation) locations.add(posterLocation);
-  });
   const handleLocationFilter = (posterLocation: string) => {
     if (selectedLocation === posterLocation) {
       setSelectedLocation(null); // If the same location is clicked again, remove the filter
@@ -34,33 +30,25 @@ const PostersPage: React.FC<PostersPageProps> = ({
   };
 
   useEffect(() => {
-    async function fetchPosters() {
-      try {
-        const response = await fetch("../api/posters", {
-          next: { revalidate: 55 },
-        });
-        if (!response.ok) {
-          return;
-        }
-        const postersData = await response.json();
-        setPosters(postersData);
-      } catch (error) {
-        return;
-      }
-    }
-    fetchPosters();
-    const intervalId = setInterval(fetchPosters, 60000);
-    return () => clearInterval(intervalId);
-  }, [initialPosters]);
+    const newLocations = new Set<string>();
+    posters.forEach((poster) => {
+      const posterLocation = poster.fileName.split(".")[0].split("_").pop();
+      if (posterLocation) newLocations.add(posterLocation);
+    });
+    setLocations(Array.from(newLocations));
+  }, [initialPosters, posters]);
 
   useEffect(() => {
     const filteredPosters = selectedLocation
-      ? posters.filter((poster) => poster.fileName.includes(selectedLocation))
-      : posters;
+      ? initialPosters.filter((poster) =>
+          poster.fileName.includes(selectedLocation),
+        )
+      : initialPosters;
     setFilteredPosters(filteredPosters);
-  }, [selectedLocation, posters]);
+    setPosters(filteredPosters);
+  }, [selectedLocation, initialPosters, posters]);
 
-  if (!posters) {
+  if (!initialPosters) {
     return <p>Loading...</p>;
   }
 
