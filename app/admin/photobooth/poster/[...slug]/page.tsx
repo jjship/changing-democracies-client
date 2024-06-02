@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "../../../../components/ui/button";
-import { deletePoster } from "../../../../components/admin/posters/actions";
+
+import { Button } from "@/components/ui/button";
+import { deletePoster } from "@/components/admin/posters/actions";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-import EmailForm from "../../../../components/admin/photobooth/EmailForm";
-import useImageLoader from "../../../../components/admin/posters/useImageLoader";
+import EmailForm from "@/components/admin/photobooth/EmailForm";
+import useImageLoader from "@/components/admin/posters/useImageLoader";
 
 interface PosterPageProps {
   params: {

@@ -7,6 +7,8 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import sendImage from "../posters/sendImage";
 import { useRouter } from "next/navigation";
+import Keyboard from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
 
 export type EmailFormProps = {
   imageUrl: string;
@@ -45,21 +47,25 @@ export default function EmailForm({
     setSubmitted(true);
   };
 
+  const handleChange = (input: string) => {
+    setAddress(input);
+    form.setValue("address", input);
+  };
+
   return !submitted ? (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-puprple_lightest_bg ">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-puprple_lightest_bg">
       <div className="w-1/2 flex-col items-center justify-center gap-5 p-5">
-        <p>enter e-mail address</p>
+        <p>Enter e-mail address</p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex w-full items-center justify-center gap-5">
-              {" "}
               <div className="w-full">
                 <FormField
                   control={form.control}
                   name="address"
                   render={({ field }) => (
                     <FormItem>
-                      <Input {...field} />
+                      <Input {...field} value={address} />
                     </FormItem>
                   )}
                 />
@@ -68,6 +74,11 @@ export default function EmailForm({
             </div>
           </form>
         </Form>
+        <Keyboard
+          onChange={handleChange}
+          inputName="address"
+          layoutName="default"
+        />
       </div>
     </div>
   ) : (
