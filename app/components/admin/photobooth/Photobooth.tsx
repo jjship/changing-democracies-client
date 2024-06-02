@@ -705,7 +705,7 @@ const Photobooth: React.FC<PhotoboothProps> = ({
               });
             }
 
-            if (backButton.isClicked(p.mouseX, p.mouseY)) {
+            if (backButton && backButton.isClicked(p.mouseX, p.mouseY)) {
               backButton.handleClick(params);
             }
 

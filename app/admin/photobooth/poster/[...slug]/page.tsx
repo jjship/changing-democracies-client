@@ -39,19 +39,18 @@ export default function PosterPage({
   const handleDelete = useCallback(
     async (fileName: string) => {
       await deletePoster(fileName);
-      router.push(
-        location ? `/admin/photobooth/${location}` : `/admin/photobooth`,
-      );
+      router.push(location ? `/admin/posters/${location}` : `/admin/posters`);
     },
     [router, location],
   );
 
   const handleSend = () => setIsSending((isSending) => !isSending);
 
-  const handlePublish = () =>
-    router.push(
-      location ? `/admin/photobooth/${location}` : `/admin/photobooth`,
-    );
+  const handlePublish = useCallback(
+    () =>
+      router.push(location ? `/admin/posters/${location}` : `/admin/posters`),
+    [router, location],
+  );
 
   const buttonStyles =
     "bg-green_accent hover:bg-yellow_secondary text-black_bg p-5 m-5";

@@ -4,23 +4,29 @@ import { useEffect, useState } from "react";
 import { BunnyPoster, PosterMetadata } from "@/utils/posters-methods";
 import { Button } from "../../ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface PostersPageProps {
   initialPosters: PosterMetadata[];
+  location?: string;
 }
 
-const PostersPage: React.FC<PostersPageProps> = ({ initialPosters }) => {
+const PostersPage: React.FC<PostersPageProps> = ({
+  initialPosters,
+  location,
+}) => {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [posters, setPosters] = useState<PosterMetadata[]>(initialPosters);
-
   const [filteredPosters, setFilteredPosters] = useState<PosterMetadata[]>([]);
+  const router = useRouter();
+
   const locations = new Set<string>();
   posters.forEach((poster) => {
-    const location = poster.fileName.split(".")[0].split("_").pop();
-    if (location) locations.add(location);
+    const posterLocation = poster.fileName.split(".")[0].split("_").pop();
+    if (posterLocation) locations.add(posterLocation);
   });
-  const handleLocationFilter = (location: string) => {
-    setSelectedLocation(location);
+  const handleLocationFilter = (posterLocation: string) => {
+    setSelectedLocation(posterLocation);
   };
 
   useEffect(() => {
@@ -38,9 +44,7 @@ const PostersPage: React.FC<PostersPageProps> = ({ initialPosters }) => {
         return;
       }
     }
-    //initial on page load
     fetchPosters();
-    // Poll every minute
     const intervalId = setInterval(fetchPosters, 60000);
     return () => clearInterval(intervalId);
   }, [initialPosters]);
@@ -56,22 +60,28 @@ const PostersPage: React.FC<PostersPageProps> = ({ initialPosters }) => {
     return <p>Loading...</p>;
   }
 
+  const handlePosterMakerClick = () => {
+    router.push(
+      location ? `/admin/photobooth/${location}` : "/admin/photobooth",
+    );
+  };
+
   return (
     filteredPosters && (
       <>
         <div className=" p-5 ">
           <div className="flex items-center justify-center gap-5 p-5">
-            {Array.from(locations).map((location) => (
+            {Array.from(locations).map((posterLocation) => (
               <Button
-                key={location}
+                key={posterLocation}
                 className={`${
-                  selectedLocation === location
+                  selectedLocation === posterLocation
                     ? "bg-yellow_secondary text-black"
                     : "bg-green_accent"
                 } m-5 text-black hover:bg-yellow_secondary hover:text-black`}
-                onClick={() => handleLocationFilter(location)}
+                onClick={() => handleLocationFilter(posterLocation)}
               >
-                {location}
+                {posterLocation}
               </Button>
             ))}
           </div>
@@ -92,6 +102,12 @@ const PostersPage: React.FC<PostersPageProps> = ({ initialPosters }) => {
             </div>
           </div>
         </div>
+        <Button
+          className="fixed bottom-20 right-10 z-50 flex h-44 w-44 items-center justify-center rounded-full bg-red_mains pt-3 text-3xl/7 font-black text-black shadow-lg hover:bg-red-700"
+          onClick={handlePosterMakerClick}
+        >
+          POSTER MAKER
+        </Button>
       </>
     )
   );

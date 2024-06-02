@@ -51,7 +51,7 @@ export default function EmailForm({
     async (email: string) => {
       sendImage({ imageUrl, fileName, email });
       setSubmitted(true);
-      router.push(`/admin/photobooth/${location}`);
+      router.push(`/admin/posters/${location}`);
     },
     [imageUrl, fileName, location, router],
   );
