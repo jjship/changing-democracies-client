@@ -53,31 +53,46 @@ export default function PosterPage({
       location ? `/admin/photobooth/${location}` : `/admin/photobooth`,
     );
 
+  const buttonStyles =
+    "bg-green_accent hover:bg-yellow_secondary text-black_bg p-5 m-5";
+
   return (
     <>
-      <div className="w-1/4">
-        {loading && <p>Loading image...</p>}
-        <Image
-          src={imageSrc}
-          alt={filename}
-          className="w-full"
-          width={800}
-          height={800}
-          loading="lazy"
-          onLoad={handleLoad}
-          onError={handleError}
-        />
-        {error && retryCount > 4 && (
-          <div>
-            <p>Failed to load image. Please try again later.</p>
-            <Button onClick={reloadImage}>Retry</Button>
-          </div>
-        )}
+      <div className="flex w-full flex-col items-center justify-center bg-black_bg">
+        <div className="w-1/3 pt-20">
+          {loading && <p>Loading image...</p>}
+          <Image
+            src={imageSrc}
+            alt={filename}
+            className="w-full"
+            width={800}
+            height={800}
+            loading="lazy"
+            onLoad={handleLoad}
+            onError={handleError}
+          />
+          {error && retryCount > 4 && (
+            <div>
+              <p>Failed to load image. Please try again later.</p>
+              <Button onClick={reloadImage}>Retry</Button>
+            </div>
+          )}
+        </div>
+        <div>
+          <Button
+            className={buttonStyles}
+            onClick={() => handleDelete(filename)}
+          >
+            delete & start again
+          </Button>
+          <Button className={buttonStyles} onClick={handlePublish}>
+            publish
+          </Button>
+          <Button className={buttonStyles} onClick={() => handleSend()}>
+            publish & send by e-mail
+          </Button>
+        </div>
       </div>
-      <Button onClick={() => handleDelete(filename)}>
-        delete & start again
-      </Button>
-      <Button onClick={() => handleSend()}>publish & send by e-mail</Button>
       <div hidden={!isSending}>
         <EmailForm
           fileName={filename}
@@ -85,7 +100,6 @@ export default function PosterPage({
           imageUrl={getImageUrl(filename)}
         />
       </div>
-      <Button onClick={handlePublish}>publish</Button>
     </>
   );
 }

@@ -2,19 +2,33 @@
 
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form, FormField, FormItem } from "../../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "../../ui/form";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import sendImage from "../posters/sendImage";
 import { useRouter } from "next/navigation";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export type EmailFormProps = {
   imageUrl: string;
   fileName: string;
   location: string;
 };
+
+type FormAddress = z.infer<typeof formSchema>;
+
+const formSchema = z.object({
+  address: z.string().email({ message: "Must be a valid e-mail address" }),
+});
 
 export default function EmailForm({
   imageUrl,
@@ -25,10 +39,12 @@ export default function EmailForm({
   const [submitted, setSubmitted] = useState(false);
   const [address, setAddress] = useState<string>("");
 
-  const form = useForm<{ address: string }>({
+  const form = useForm<FormAddress>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       address: address,
     },
+    mode: "onSubmit",
   });
 
   const sendEmail = useCallback(
@@ -40,7 +56,7 @@ export default function EmailForm({
     [imageUrl, fileName, location, router],
   );
 
-  const onSubmit = (values: { address: string }) => {
+  const onSubmit = (values: FormAddress) => {
     const email = values.address.toLowerCase().trim();
     setAddress(email);
     sendEmail(email);
@@ -52,33 +68,49 @@ export default function EmailForm({
     form.setValue("address", input);
   };
 
+  const buttonStyles =
+    "bg-green_accent hover:bg-yellow_secondary text-black_bg px-10";
+
   return !submitted ? (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-puprple_lightest_bg">
-      <div className="w-1/2 flex-col items-center justify-center gap-5 p-5">
-        <p>Enter e-mail address</p>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="flex w-full items-center justify-center gap-5">
-              <div className="w-full">
+    <div className="flex w-full flex-col items-center justify-center text-white">
+      <div className="w-1/2 gap-5 p-5">
+        <>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex w-full items-end gap-5 "
+            >
+              <div className="flex-grow text-white">
                 <FormField
                   control={form.control}
                   name="address"
                   render={({ field }) => (
                     <FormItem>
-                      <Input {...field} value={address} />
+                      <FormLabel>Enter e-mail address</FormLabel>
+                      <FormControl>
+                        <Input
+                          className=" text-black"
+                          {...field}
+                          // value={address}
+                        />
+                      </FormControl>
                     </FormItem>
                   )}
                 />
               </div>
-              <Button type="submit">Send</Button>
-            </div>
-          </form>
-        </Form>
-        <Keyboard
-          onChange={handleChange}
-          inputName="address"
-          layoutName="default"
-        />
+              <Button className={`${buttonStyles}`} type="submit">
+                Send
+              </Button>
+            </form>
+          </Form>
+        </>
+        <div className="pt-10 text-black">
+          <Keyboard
+            onChange={handleChange}
+            inputName="address"
+            layoutName="default"
+          />
+        </div>
       </div>
     </div>
   ) : (
