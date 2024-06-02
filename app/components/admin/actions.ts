@@ -196,10 +196,6 @@ async function getSubtitles({
 }
 
 async function saveImage(formData: FormData) {
-  const supabase = createClient();
-
-  await authenticate(supabase);
-
   const { error } = await uploadImage({
     blob: formData.get("blob") as Blob,
     fileName: formData.get("fileName") as string,

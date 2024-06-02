@@ -27,7 +27,10 @@ export default function LocationForm() {
   });
 
   const onSubmit = (values: { location: string }) => {
-    const locationInput = values.location.toUpperCase();
+    const locationInput = values.location
+      .normalize("NFD") // Normalize to decomposed form (NFD)
+      .replace(/[\u0300-\u036f]/g, "") // Remove diacritical marks
+      .toUpperCase(); // Convert to uppercase;
     setLocation(locationInput);
     router.push(
       locationInput ? `/admin/posters/${locationInput}` : `/admin/photobooth`,
@@ -74,7 +77,7 @@ export default function LocationForm() {
         <div className="pt-10 text-black">
           <Keyboard
             onChange={handleChange}
-            inputName="address"
+            inputName="location"
             layoutName="default"
           />
         </div>
