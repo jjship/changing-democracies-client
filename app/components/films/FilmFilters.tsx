@@ -34,7 +34,7 @@ const Filters: React.FC = () => {
   return collection ? (
     <>
       <div className="md:w-full">
-        <p className=" mr-14 pb-4 leading-6 text-yellow_secondary md:mr-0">
+        <p className=" mr-14 py-4 leading-6 text-yellow_secondary md:mr-0">
           Select from the countries or persons below to acces the videos
         </p>
       </div>

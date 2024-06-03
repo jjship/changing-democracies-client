@@ -19,9 +19,7 @@ const ShowAllOrFilters: React.FC = () => {
     <>
       <div className={filterGrid}>
         <Button
-          className={`${
-            showAll ? "bg-gray_light_secondary" : "bg-green_accent"
-          } ${filterButtons} my-4`}
+          className={`bg-gray_light_secondary ${filterButtons} my-4`}
           onClick={() => toggleShowAll((prev) => !prev)}
         >
           {showAll ? "Filter stories" : "Show all"}
