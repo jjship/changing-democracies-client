@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import FilmList from "./films/FilmList";
-import Filters from "./films/FilmFilters";
-import { Film, FilmsCollection } from "../../types/videos";
-import { FilmsContext } from "./films/FilmsContext";
-import Title from "./Title";
-import { getFilms } from "./films/actions";
-import ShowAllOrFilters from "./films/ShowAllOrFilters";
+import { Film, FilmsCollection } from "@/types/videos";
+import Section from "@/components/Section";
+import FilmList from "@/components/films/FilmList";
+import { FilmsContext } from "@/components/films/FilmsContext";
+import ShowAllOrFilters from "../../components/films/ShowAllOrFilters";
+import { getFilms } from "../../components/films/actions";
 
-const FreeBrowsing = () => {
+export default function Stories() {
   const [collection, setCollection] = useState<FilmsCollection | null>(null);
   const [films, setFilms] = useState<Film[] | null>(null);
 
@@ -24,24 +23,21 @@ const FreeBrowsing = () => {
   }, []);
 
   return (
-    <>
-      <Title text="Free browsing" theme="dark" color="yellow_secondary" />
-      <>
+    <main>
+      <Section id="stories" theme="dark">
         <FilmsContext.Provider
           value={{ films, setFilms, collection, setCollection }}
         >
           {collection ? (
-            <>
+            <div>
               <ShowAllOrFilters />
               <FilmList />
-            </>
+            </div>
           ) : (
             <div className="h-full, bg-black_bg"></div>
           )}
         </FilmsContext.Provider>
-      </>
-    </>
+      </Section>
+    </main>
   );
-};
-
-export default FreeBrowsing;
+}
