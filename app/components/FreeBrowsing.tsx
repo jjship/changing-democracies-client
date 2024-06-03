@@ -6,17 +6,21 @@ import Filters from "./films/FilmFilters";
 import { Film, FilmsCollection } from "../../types/videos";
 import { FilmsContext } from "./films/FilmsContext";
 import Title from "./Title";
+import { getFilms } from "./films/actions";
+import ShowAllOrFilters from "./films/ShowAllOrFilters";
 
 const FreeBrowsing = () => {
   const [collection, setCollection] = useState<FilmsCollection | null>(null);
   const [films, setFilms] = useState<Film[] | null>(null);
 
   useEffect(() => {
-    fetch("/api/films")
-      .then((response) => response.json())
-      .then((data: FilmsCollection) => {
-        setCollection(data);
-      });
+    const updateFilms = async () => {
+      const filmsCollection = await getFilms();
+
+      setCollection(filmsCollection);
+    };
+
+    updateFilms();
   }, []);
 
   return (
@@ -28,7 +32,7 @@ const FreeBrowsing = () => {
         >
           {collection ? (
             <>
-              <Filters />
+              <ShowAllOrFilters />
               <FilmList />
             </>
           ) : (
