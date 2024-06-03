@@ -1,20 +1,18 @@
-import { NextResponse } from "next/server";
+"use server";
+
+import "server-only";
 import { getVideos } from "@/components/admin/actions";
 import { Film, VideoDbEntry, FilmsCollection } from "@/types/videos";
+import { cache } from "react";
 
-export type RouteError = {
-  message: string;
-  code?: number;
-};
+export { getFilms };
 
-export async function GET(): Promise<
-  NextResponse<FilmsCollection | RouteError>
-> {
+const getFilms = cache(async (): Promise<FilmsCollection> => {
   const { data, error } = await getVideos();
 
   if (error) {
     console.log({ error });
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    throw error;
   }
 
   const allTags = data.reduce((prev: Set<string>, film: VideoDbEntry) => {
@@ -32,19 +30,21 @@ export async function GET(): Promise<
   }));
 
   const countries = new Set<string>();
+
   const people = new Set<string>();
+
   for (const f of films) {
     countries.add(f.country);
     people.add(f.person);
   }
 
-  return NextResponse.json({
+  return {
     films,
     tags: Array.from(allTags).sort((a, b) => a.localeCompare(b)),
     countries: Array.from(countries).sort((a, b) => a.localeCompare(b)),
     people: Array.from(people).sort((a, b) => a.localeCompare(b)),
-  });
-}
+  };
+});
 
 function parseTags(
   metaTags: {
