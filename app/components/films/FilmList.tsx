@@ -9,7 +9,7 @@ const FilmList: React.FC = () => {
   const { films } = useFilmsContext();
 
   return films ? (
-    <div className="grid grid-cols-1 gap-10 pt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-10 pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {films.map((film) => (
         <Link key={film.guid} href={`/film/${film.guid}`}>
           <div className="cursor-pointer text-yellow_secondary transition-colors hover:bg-yellow_secondary hover:text-black_bg">

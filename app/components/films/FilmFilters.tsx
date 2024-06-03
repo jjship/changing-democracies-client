@@ -4,8 +4,10 @@ import React, { useEffect } from "react";
 import { Button } from "../ui/button";
 import { useFilmsContext } from "./FilmsContext";
 
+export { filterButtons, filterGrid };
+
 const filterGrid =
-  "w-max-full mb-4 grid grid-flow-row grid-cols-4 gap-5 md:grid-cols-7 lg:grid-cols-8 ";
+  "w-max-ful grid grid-flow-row grid-cols-4 gap-5 md:grid-cols-7 lg:grid-cols-8";
 
 const filterButtons =
   "text-[0.4rem] font-semibold text-black transition-colors hover:bg-yellow_secondary md:text-[0.65rem] lg:text-xs md:font-bold";
@@ -32,11 +34,11 @@ const Filters: React.FC = () => {
   return collection ? (
     <>
       <div className="md:w-full">
-        <p className=" mr-14 pt-20 leading-6 text-yellow_secondary md:mr-0">
+        <p className=" mr-14 pb-4 leading-6 text-yellow_secondary md:mr-0">
           Select from the countries or persons below to acces the videos
         </p>
       </div>
-      <div className={`py-10  ${filterGrid}`}>
+      <div className={`${filterGrid}  pb-10`}>
         {collection.countries.map((tag, i) => (
           <Button
             key={i}
