@@ -3,7 +3,7 @@
 import CloseButton from "../../components/films/CloseButton";
 
 const FilmPlayer = ({ params }: { params: { id: string } }) => {
-  const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${params.id}?autoplay=false`;
+  const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${params.id}?autoplay=true&captions=EN`;
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center bg-black">
       {/* Close button */}
