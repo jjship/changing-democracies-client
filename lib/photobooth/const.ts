@@ -103,7 +103,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "Express your feelings about Democracy":
       "Voeg jouw inzicht over democratie toe",
     "What is your name?": "Hoe heet je?",
-    "Write your statement": "Schrijf je verklaring",
+    "Write your statement": "Schrijf jouw boodschap",
     Next: "Volgende",
     Finish: "Afronden",
     "Repeat picture": "Foto herhalen",
