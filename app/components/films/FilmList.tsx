@@ -16,8 +16,8 @@ const FilmList: React.FC = () => {
             <Image
               src={getThumbnail(film.guid)}
               alt={film.title}
-              width={300}
-              height={200}
+              width={250}
+              height={1}
               className="h-auto w-full"
             />
             {/* <div
