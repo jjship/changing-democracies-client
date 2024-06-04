@@ -3,7 +3,7 @@ import EventsAdmin from "@/components/admin/events/EventsAdmin";
 import VideosAdmin from "@/components/admin/videos/VideosAdmin";
 import { authenticate, logout } from "@/auth/actions";
 import PostersAdmin from "@/components/admin/posters/PostersAdmin";
-import { destructiveButton } from "../components/admin/classNames";
+import { destructiveButton } from "@/components/admin/classNames";
 
 type AdminParams = { events?: string; videos?: string; posters?: string };
 
@@ -25,9 +25,7 @@ export default async function Admin({
           <div className="flex items-center justify-end gap-4 p-5 font-black">
             logged in as {user.email}
             <form action={logout}>
-              <button
-                className={`${destructiveButton} mb-2 rounded px-4 py-2 `}
-              >
+              <button className={`${destructiveButton} mb-2 rounded px-4 py-2`}>
                 Log Out
               </button>
             </form>
