@@ -49,7 +49,7 @@ function PosterRow({ poster }: PosterRowProps) {
           className={destructiveButton}
           size="lg"
         >
-          delete
+          Delete
         </Button>
       </TableCell>
     </TableRow>

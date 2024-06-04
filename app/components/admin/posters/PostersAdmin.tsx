@@ -57,7 +57,7 @@ export default function PostersAdmin({ open }: { open: boolean }) {
   return (
     <>
       <Button onClick={togglePosters} className={navButton} size="lg">
-        {openPosters ? "Close posters table" : "Edit posters"}
+        {openPosters ? "Close Posters Table" : "Edit Posters"}
       </Button>
       <PostersContext.Provider
         value={{

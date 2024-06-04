@@ -279,7 +279,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
               disabled={!isDirty}
               size="lg"
             >
-              {isDirty ? "save changes" : "no changes to save"}
+              {isDirty ? "Save Changes" : "No Changes To Save"}
             </Button>
           )}
 
@@ -289,7 +289,7 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
             onMouseEnter={() => {
               if (isDirty) setExitText("any unsaved changes will be lost!");
             }}
-            onMouseLeave={() => setExitText("go back to videos list")}
+            onMouseLeave={() => setExitText("Go Back")}
             size="lg"
           >
             {exitText}

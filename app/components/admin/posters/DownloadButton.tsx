@@ -18,7 +18,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
       className={navButton}
       size="lg"
     >
-      download
+      Download
     </Button>
   );
 };

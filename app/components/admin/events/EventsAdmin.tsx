@@ -58,7 +58,7 @@ export default function EventsAdmin({ open }: { open: boolean }) {
   return (
     <>
       <Button onClick={toggleEvents} className={navButton} size="lg">
-        {openEvents ? "Close events table" : "Edit events"}
+        {openEvents ? "Close Events Table" : "Edit Events"}
       </Button>
       <EventsContext.Provider
         value={{ onDelete: handleDelete, events, setEvents }}

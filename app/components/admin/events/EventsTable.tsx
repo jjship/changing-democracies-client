@@ -49,7 +49,7 @@ function EventRow({ event }: EventRowProps) {
         <TableCell>
           <Link href={`/event/${event.id}`}>
             <Button className={editButton} size="sm">
-              edit
+              Edit
             </Button>
           </Link>
         </TableCell>
@@ -67,7 +67,7 @@ function EventRow({ event }: EventRowProps) {
             className={destructiveButton}
             size="sm"
           >
-            delete
+            Delete
           </Button>
         </TableCell>
       </TableRow>
