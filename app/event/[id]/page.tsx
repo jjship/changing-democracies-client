@@ -8,6 +8,7 @@ import {
   FormEvent,
 } from "@/components/admin/events/EventFormFields";
 import { getEvent } from "@/components/admin/actions";
+import { destructiveButton } from "@/components/admin/classNames";
 
 export default async function Event({
   params: { id },
@@ -26,7 +27,7 @@ export default async function Event({
         <div className="flex items-center justify-end gap-4 p-5">
           logged in as {user.email}
           <form action={logout}>
-            <button className="bg-red mb-2 rounded bg-red_mains px-4 py-2 text-white">
+            <button className={`${destructiveButton} mb-2 rounded px-4 py-2`}>
               Log Out
             </button>
           </form>

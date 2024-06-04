@@ -7,6 +7,7 @@ import { PostersContext } from "./PostersContext";
 import PostersTable from "./PostersTable";
 import { deletePoster, updatePoster } from "./actions";
 import { Poster, fetchPosters } from "./actions";
+import { navButton } from "../classNames";
 
 export const dynamic = "force-dynamic";
 
@@ -55,7 +56,7 @@ export default function PostersAdmin({ open }: { open: boolean }) {
 
   return (
     <>
-      <Button onClick={togglePosters} size="sm">
+      <Button onClick={togglePosters} className={navButton} size="lg">
         {openPosters ? "Close posters table" : "Edit posters"}
       </Button>
       <PostersContext.Provider

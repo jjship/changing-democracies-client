@@ -7,6 +7,7 @@ import { getVideo } from "@/utils/admin/bunny-methods";
 import VideoPlayer from "@/components/admin/videos/VideoPlayer";
 import VideoForm from "@/components/admin/videos/VideoForm";
 import { Button } from "@/components/ui/button";
+import { destructiveButton } from "@/components/admin/classNames";
 
 export default async function Video({
   params: { id },
@@ -25,7 +26,7 @@ export default async function Video({
         <div className="flex items-center justify-end gap-5 p-5">
           logged in as {user.email}
           <form action={logout}>
-            <Button className="bg-red rounded bg-red_mains px-4 text-white">
+            <Button className={`${destructiveButton} mb-2 rounded px-4 py-2`}>
               Log Out
             </Button>
           </form>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getVideos } from "../actions";
 import { VideosContext } from "./VideosContext";
 import { VideosTable } from "./VideosTable";
+import { navButton } from "../classNames";
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +34,7 @@ export default function VideosAdmin({ open }: { open: boolean }) {
 
   return (
     <>
-      <Button onClick={toggleVideos} size="sm">
+      <Button onClick={toggleVideos} className={navButton} size="lg">
         {openVideos ? "Close Videos table" : "Edit Videos"}
       </Button>
       <VideosContext.Provider value={{ videos, setVideos }}>

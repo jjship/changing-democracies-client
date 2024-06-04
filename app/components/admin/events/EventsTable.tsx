@@ -14,6 +14,7 @@ import Link from "next/dist/client/link";
 import { useEventsContext } from "./EventsContext";
 import { EventDbEntry } from "@/types/database";
 import { format } from "date-fns";
+import { destructiveButton, editButton } from "../classNames";
 
 type ParsedEvent = {
   category: string | null;
@@ -47,7 +48,7 @@ function EventRow({ event }: EventRowProps) {
       <TableRow key={event.id}>
         <TableCell>
           <Link href={`/event/${event.id}`}>
-            <Button className="bg-yellow_secondary text-black_bg hover:bg-green_accent">
+            <Button className={editButton} size="sm">
               edit
             </Button>
           </Link>
@@ -63,7 +64,8 @@ function EventRow({ event }: EventRowProps) {
         <TableCell>
           <Button
             onClick={handleDeleteClick}
-            className="bg-black_bg text-destructive hover:bg-destructive hover:text-black_bg"
+            className={destructiveButton}
+            size="sm"
           >
             delete
           </Button>
@@ -89,7 +91,7 @@ export default function EventsTable() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-5">
       <Link href={`/event/${nextId}`}>
-        <Button className="bg-red mb-2 rounded bg-green_accent px-4 py-2 text-black hover:bg-yellow_secondary">
+        <Button className={editButton} size="lg">
           Add Event
         </Button>
       </Link>
