@@ -12,6 +12,7 @@ import { usePostersContext } from "./PostersContext";
 import { Poster } from "./actions";
 import DownloadButton from "./DownloadButton";
 import SendButton from "./SendButton";
+import { destructiveButton } from "../classNames";
 
 type PosterRowProps = {
   poster: Poster;
@@ -32,11 +33,6 @@ function PosterRow({ poster }: PosterRowProps) {
     <TableRow key={bunny_id} className="h-min-[20rem] ">
       <TableCell>
         <DownloadButton imageUrl={poster.url} fileName={poster.fileName} />
-        <SendButton
-          imageUrl={poster.url}
-          fileName={poster.fileName}
-          email="devontheroof@gmail.com"
-        />
       </TableCell>
       <TableCell>
         <Image
@@ -50,9 +46,10 @@ function PosterRow({ poster }: PosterRowProps) {
       <TableCell>
         <Button
           onClick={handleDeleteClick}
-          className="w-36 bg-black_bg text-destructive hover:bg-destructive  hover:text-black_bg"
+          className={destructiveButton}
+          size="lg"
         >
-          delete
+          Delete
         </Button>
       </TableCell>
     </TableRow>

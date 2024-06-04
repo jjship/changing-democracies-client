@@ -72,7 +72,9 @@ export default function PosterPage({
           />
           {error && retryCount > 4 && (
             <div>
-              <p>Failed to load image. Please try again later.</p>
+              <p className="text-white">
+                Failed to load image. Please try again.
+              </p>
               <Button onClick={reloadImage}>Retry</Button>
             </div>
           )}

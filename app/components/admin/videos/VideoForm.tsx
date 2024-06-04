@@ -25,6 +25,7 @@ import {
 import { Textarea } from "../../ui/textarea";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
+import { destructiveButton, editButton, navButton } from "../classNames";
 
 type FormSchema = z.infer<typeof formSchema>;
 
@@ -273,25 +274,23 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
             </Button>
           ) : (
             <Button
-              className={`w-1/3 min-w-min hover:bg-green_accent hover:text-black_bg`}
+              className={editButton}
               type="submit"
               disabled={!isDirty}
+              size="lg"
             >
-              {isDirty ? "Save changes" : "No changes to save"}
+              {isDirty ? "Save Changes" : "No Changes To Save"}
             </Button>
           )}
 
           <Button
-            className={`w-1/4 min-w-min ${
-              isDirty
-                ? "hover:bg-red_mains hover:text-black_bg"
-                : "hover:bg-yellow_secondary hover:text-black_bg"
-            }`}
+            className={isDirty ? destructiveButton : navButton}
             onClick={() => window.location.replace("/admin?videos=true")}
             onMouseEnter={() => {
-              if (isDirty) setExitText("Any unsaved changes will be lost!");
+              if (isDirty) setExitText("any unsaved changes will be lost!");
             }}
-            onMouseLeave={() => setExitText("Go back to videos list")}
+            onMouseLeave={() => setExitText("Go Back")}
+            size="lg"
           >
             {exitText}
           </Button>

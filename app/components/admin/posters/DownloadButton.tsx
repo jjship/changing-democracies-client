@@ -1,6 +1,7 @@
 import React from "react";
 import downloadImage from "./downloadImage";
 import { Button } from "../../ui/button";
+import { navButton } from "../classNames";
 
 interface DownloadButtonProps {
   imageUrl: string;
@@ -14,9 +15,10 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
   return (
     <Button
       onClick={() => downloadImage({ imageUrl, fileName })}
-      className="w-36 bg-green_accent text-black_bg hover:bg-yellow_secondary"
+      className={navButton}
+      size="lg"
     >
-      download
+      Download
     </Button>
   );
 };

@@ -1,4 +1,5 @@
 import { createClient } from "../../supabase/clients/server";
+import { navButton } from "../components/admin/classNames";
 import Messages from "../login/messages";
 
 export const dynamic = "force-dynamic";
@@ -42,8 +43,8 @@ export default async function ResetPassword() {
             placeholder="••••••••"
             required
           />
-          <button className="hiver:text-black_bg mb-2 rounded bg-green_accent px-4 py-2 text-black_bg  hover:bg-yellow_secondary">
-            Update Password & Log In
+          <button className={`mb-2 rounded px-4 py-2 ${navButton}`}>
+            Update Password
           </button>
           <Messages />
         </form>

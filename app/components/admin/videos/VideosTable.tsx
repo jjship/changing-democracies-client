@@ -13,6 +13,7 @@ import { useMemo } from "react";
 import Link from "next/dist/client/link";
 import { useVideosContext } from "./VideosContext";
 import { FormVideo, VideoDbEntry } from "@/types/videos";
+import { editButton } from "../classNames";
 
 export { parseVideo };
 
@@ -25,8 +26,8 @@ function VideoRow({ video }: VideoRowProps) {
     <>
       <TableRow key={video.guid}>
         <TableCell>
-          <Link href={`/video/${video.guid}`}>
-            <Button className="bg-yellow_secondary text-black_bg hover:bg-green_accent">
+          <Link href={`admin/video/${video.guid}`}>
+            <Button className={editButton} size="sm">
               edit
             </Button>
           </Link>

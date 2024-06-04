@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { baseUrl } from "@/lib/constants";
+import { editButton } from "./classNames";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Must be a valid email address" }),
@@ -48,10 +49,7 @@ export default function PasswordResetForm() {
 
   if (!isOpen) {
     return (
-      <Button
-        className="text-md w-full bg-yellow_secondary  text-black_bg hover:bg-green_accent"
-        onClick={() => setIsOpen(true)}
-      >
+      <Button className={editButton} size="lg" onClick={() => setIsOpen(true)}>
         Reset Password
       </Button>
     );
@@ -77,11 +75,8 @@ export default function PasswordResetForm() {
               </FormItem>
             )}
           />
-          <Button
-            className="text-md justify-self-center bg-yellow_secondary py-2 text-black_bg hover:bg-green_accent"
-            type="submit"
-          >
-            Send password reset email
+          <Button className={`${editButton} my-5`} size="lg" type="submit">
+            Send Reset Email
           </Button>
         </form>
       </Form>
