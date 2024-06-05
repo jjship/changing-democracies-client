@@ -95,7 +95,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
           </div>
         </div>
         <Button
-          className="fixed bottom-20 right-10 z-50 flex h-44 w-44 items-center justify-center rounded-full bg-red_mains pt-3 text-3xl/7 font-black text-black shadow-lg hover:bg-red-700"
+          className="fixed bottom-20 right-10 z-50 flex h-44 w-44 items-center justify-center rounded-full bg-red_mains pt-3 text-3xl/7 font-bold text-black shadow-lg hover:bg-red-700"
           onClick={handlePosterMakerClick}
         >
           POSTER MAKER
