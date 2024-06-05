@@ -42,7 +42,7 @@ export default function Login({
     <div className="flex min-h-screen flex-col items-center justify-center gap-5 bg-puprple_lightest_bg p-5">
       <Link
         href="/"
-        className="group absolute left-8 top-8 flex items-center rounded-md bg-yellow_secondary px-4 py-2 text-sm font-black text-foreground no-underline hover:bg-red_mains"
+        className="group absolute left-8 top-8 flex items-center rounded-md bg-yellow_secondary px-4 py-2 text-sm font-bold text-foreground no-underline hover:bg-red_mains"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +73,7 @@ export default function Login({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-md font-black">Email</FormLabel>
+                  <FormLabel className="text-md font-bold">Email</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -86,7 +86,7 @@ export default function Login({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-md font-black">Password</FormLabel>
+                  <FormLabel className="text-md font-bold">Password</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
