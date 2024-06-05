@@ -308,6 +308,11 @@ async function uploadCaptions({
     };
   }
 
+  await deleteCaption({
+    videoId,
+    srclang: `${srclang}-auto`,
+  });
+
   return { success: true, data: [] };
 }
 
