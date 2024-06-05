@@ -24,7 +24,7 @@ export default async function Event({
   return (
     <>
       <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
-        <div className="flex items-center justify-end gap-4 p-5">
+        <div className="font bold flex items-center justify-end gap-4 p-5">
           logged in as {user.email}
           <form action={logout}>
             <button className={`${destructiveButton} mb-2 rounded px-4 py-2`}>

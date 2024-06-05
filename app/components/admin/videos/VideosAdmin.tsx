@@ -35,7 +35,7 @@ export default function VideosAdmin({ open }: { open: boolean }) {
   return (
     <>
       <Button onClick={toggleVideos} className={navButton} size="lg">
-        {openVideos ? "Close Videos table" : "Edit Videos"}
+        {openVideos ? "Close Videos Table" : "Edit Videos"}
       </Button>
       <VideosContext.Provider value={{ videos, setVideos }}>
         {openVideos ? videos ? <VideosTable /> : <p>loading...</p> : null}
