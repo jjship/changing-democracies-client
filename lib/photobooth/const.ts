@@ -14,7 +14,6 @@ export const yellowBrown = "#cf9855";
 export const INACTIVITY_THRESHOLD = 180000; // 3 minutes in milliseconds
 
 export type Params = {
-  currentLang: Language | "";
   stage: number;
 };
 

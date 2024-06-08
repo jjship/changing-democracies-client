@@ -28,6 +28,9 @@ const config: Config = {
         puprple_lightest_bg: "#E7D8DD",
         purple_lighter_additional: "#B8A4AA",
         purple_light_additional: "#9D92AB",
+        turquoise: "#6bdbd6",
+        darkRed: "#b85252",
+        pink: "#e7d8dd",
         btn: {
           background: "hsl(var(--btn-background))",
         },
@@ -83,6 +86,9 @@ const config: Config = {
         head_2_sm: "1.625rem",
         head_3_sm: "1.188rem", //19px
         body_sm: "1rem",
+      },
+      fontFamily: {
+        openBold: ["Open Bold", "sans-serif"],
       },
       gridTemplateColumns: {
         custom: "minmax(0, 25rem) 1fr",

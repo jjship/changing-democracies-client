@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Photobooth from "./Photobooth";
 import {
   Form,
   FormControl,

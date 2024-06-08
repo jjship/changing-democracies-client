@@ -12,11 +12,11 @@ import {
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import sendImage from "../posters/sendImage";
-import { useRouter } from "next/navigation";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useBoothContext } from "./BoothContext";
 
 export type EmailFormProps = {
   imageUrl: string;
@@ -35,9 +35,9 @@ export default function EmailForm({
   fileName,
   location,
 }: EmailFormProps) {
-  const router = useRouter();
   const [submitted, setSubmitted] = useState(false);
   const [address, setAddress] = useState<string>("");
+  const { setStage } = useBoothContext();
 
   const form = useForm<FormAddress>({
     resolver: zodResolver(formSchema),
@@ -51,9 +51,9 @@ export default function EmailForm({
     async (email: string) => {
       sendImage({ imageUrl, fileName, email });
       setSubmitted(true);
-      router.push(`/admin/posters/${location}`);
+      setStage(-2);
     },
-    [imageUrl, fileName, location, router],
+    [imageUrl, fileName, location],
   );
 
   const onSubmit = (values: FormAddress) => {

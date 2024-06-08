@@ -1,5 +1,14 @@
-import LocationForm from "../../components/admin/photobooth/LocationForm";
+"use client";
 
-export default async function PhotoboothPage() {
-  return <LocationForm />;
+import { BoothContextProvider } from "@/components/admin/photobooth/BoothContext";
+import ReactBooth from "@/components/admin/photobooth/ReactBooth";
+
+export default function PhotoboothPage() {
+  return (
+    <main>
+      <BoothContextProvider>
+        <ReactBooth />;
+      </BoothContextProvider>
+    </main>
+  );
 }

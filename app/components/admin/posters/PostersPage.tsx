@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BunnyPoster, PosterMetadata } from "@/utils/posters-methods";
 import { Button } from "../../ui/button";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useBoothContext } from "../photobooth/BoothContext";
 
 interface PostersPageProps {
   initialPosters: PosterMetadata[];
@@ -19,7 +19,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
   const [posters, setPosters] = useState<PosterMetadata[]>(initialPosters);
   const [filteredPosters, setFilteredPosters] = useState<PosterMetadata[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
-  const router = useRouter();
+  const { setStage } = useBoothContext();
 
   const handleLocationFilter = (posterLocation: string) => {
     if (selectedLocation === posterLocation) {
@@ -53,9 +53,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
   }
 
   const handlePosterMakerClick = () => {
-    router.push(
-      location ? `/admin/photobooth/${location}` : "/admin/photobooth",
-    );
+    setStage(-1);
   };
 
   return (
