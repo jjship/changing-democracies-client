@@ -32,7 +32,7 @@ const VideoWithFilters = () => {
     frameRate: 20,
   };
 
-  const applyFilter = (
+  const applyTintEffect = (
     context: CanvasRenderingContext2D | null,
     width: number,
     height: number,
@@ -40,6 +40,8 @@ const VideoWithFilters = () => {
     if (!context) return;
     const imageData = context.getImageData(0, 0, width, height);
     const data = imageData.data;
+    const startColor = { r: 0, g: 0, b: 0 }; // Black
+    const endColor = { r: 64, g: 224, b: 208 }; // Turquoise
 
     for (let i = 0; i < data.length; i += 4) {
       const r = data[i];
@@ -49,9 +51,9 @@ const VideoWithFilters = () => {
 
       const t = brightnessValue / 255;
       const interColor = {
-        r: 64 * (1 - t) + 224 * t,
-        g: 224 * (1 - t) + 208 * t,
-        b: 208 * (1 - t) + 208 * t,
+        r: startColor.r * (1 - t) + endColor.r * t,
+        g: startColor.g * (1 - t) + endColor.g * t,
+        b: startColor.b * (1 - t) + endColor.b * t,
       };
 
       data[i] = interColor.r;
@@ -82,8 +84,7 @@ const VideoWithFilters = () => {
             windowHeight * 0.9,
           );
 
-          // Apply the filter before capturing the image
-          applyFilter(targetContext, windowWidth, windowHeight * 0.9);
+          applyTintEffect(targetContext, windowWidth, windowHeight * 0.9);
 
           targetCanvas.toBlob(async (blob) => {
             const filename = "poster_" + uuidv4() + "_" + location + ".jpeg";
