@@ -32,37 +32,40 @@ const VideoWithFilters = () => {
     frameRate: 20,
   };
 
-  const applyTintEffect = (
-    context: CanvasRenderingContext2D | null,
-    width: number,
-    height: number,
-  ) => {
-    if (!context) return;
-    const imageData = context.getImageData(0, 0, width, height);
-    const data = imageData.data;
-    const startColor = { r: 0, g: 0, b: 0 }; // Black
-    const endColor = { r: 64, g: 224, b: 208 }; // Turquoise
+  const applyTintEffect = useCallback(
+    (
+      context: CanvasRenderingContext2D | null,
+      width: number,
+      height: number,
+    ) => {
+      if (!context) return;
+      const imageData = context.getImageData(0, 0, width, height);
+      const data = imageData.data;
+      const startColor = { r: 0, g: 0, b: 0 }; // Black
+      const endColor = { r: 64, g: 224, b: 208 }; // Turquoise
 
-    for (let i = 0; i < data.length; i += 4) {
-      const r = data[i];
-      const g = data[i + 1];
-      const b = data[i + 2];
-      const brightnessValue = (r + g + b) / 3;
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const brightnessValue = (r + g + b) / 3;
 
-      const t = brightnessValue / 255;
-      const interColor = {
-        r: startColor.r * (1 - t) + endColor.r * t,
-        g: startColor.g * (1 - t) + endColor.g * t,
-        b: startColor.b * (1 - t) + endColor.b * t,
-      };
+        const t = brightnessValue / 255;
+        const interColor = {
+          r: startColor.r * (1 - t) + endColor.r * t,
+          g: startColor.g * (1 - t) + endColor.g * t,
+          b: startColor.b * (1 - t) + endColor.b * t,
+        };
 
-      data[i] = interColor.r;
-      data[i + 1] = interColor.g;
-      data[i + 2] = interColor.b;
-    }
+        data[i] = interColor.r;
+        data[i + 1] = interColor.g;
+        data[i + 2] = interColor.b;
+      }
 
-    context.putImageData(imageData, 0, 0);
-  };
+      context.putImageData(imageData, 0, 0);
+    },
+    [canvasRef, isStreamReady, windowWidth, windowHeight],
+  );
 
   const getScreenshot = useCallback(() => {
     if (canvasRef.current) {
