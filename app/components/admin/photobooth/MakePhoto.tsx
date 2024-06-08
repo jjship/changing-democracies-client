@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback, useState, FC } from "react";
 import Webcam from "react-webcam";
 import { v4 as uuidv4 } from "uuid";
 import { useBoothContext } from "./BoothContext";
@@ -7,8 +7,10 @@ import { saveImage } from "../actions";
 import { Button } from "../../ui/button";
 import { editButton } from "../classNames";
 
-const VideoWithFilters = () => {
+const VideoWithFilters: FC = () => {
   const [isStreamReady, setIsStreaming] = useState(false);
+  const [canvasWidth, setCanvasWidth] = useState<number>(0);
+  const [canvasHeight, setCanvasHeight] = useState<number>(0);
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const {
@@ -25,12 +27,11 @@ const VideoWithFilters = () => {
     setFilename,
   } = useBoothContext();
 
-  const videoConstraints = {
-    width: windowWidth,
-    height: windowHeight * 0.9,
-    facingMode: "user",
-    frameRate: 20,
-  };
+  useEffect(() => {
+    setCanvasWidth(windowWidth);
+    setCanvasHeight(windowHeight * 0.9);
+    console.log({ windowWidth, windowHeight });
+  }, [windowWidth, windowHeight]);
 
   const applyTintEffect = useCallback(
     (
@@ -64,7 +65,52 @@ const VideoWithFilters = () => {
 
       context.putImageData(imageData, 0, 0);
     },
-    [canvasRef, isStreamReady, windowWidth, windowHeight],
+    [canvasRef, isStreamReady, canvasWidth, windowHeight],
+  );
+
+  const drawText = useCallback(
+    (
+      context: CanvasRenderingContext2D | null,
+      width: number,
+      height: number,
+    ) => {
+      if (!context || !userName || !statement) return;
+      const text1 = userName;
+      const text2 = statement;
+      const fontSize = 20;
+      const padding = 10;
+
+      context.font = `${fontSize}px Arial`;
+      context.textBaseline = "top";
+
+      const text1Width = context.measureText(text1).width;
+      const text2Width = context.measureText(text2).width;
+      const maxTextWidth = Math.max(text1Width, text2Width);
+      const textHeight = fontSize * 1.2;
+
+      // Calculate positions
+      const rectX = (width - maxTextWidth) / 2 - padding;
+      const rectY = (height - textHeight * 2) / 2 - padding;
+      const text1X = (width - text1Width) / 2;
+      const text1Y = rectY + padding;
+      const text2X = (width - text2Width) / 2;
+      const text2Y = text1Y + textHeight;
+
+      // Draw background rectangle
+      context.fillStyle = "rgba(0, 0, 0, 0.7)"; // Background color with transparency
+      context.fillRect(
+        rectX,
+        rectY,
+        maxTextWidth + padding * 2,
+        textHeight * 2 + padding * 2,
+      );
+
+      // Draw text
+      context.fillStyle = "white"; // Text color
+      context.fillText(text1, text1X, text1Y);
+      context.fillText(text2, text2X, text2Y);
+    },
+    [userName, statement],
   );
 
   const getScreenshot = useCallback(() => {
@@ -76,18 +122,20 @@ const VideoWithFilters = () => {
         const sourceCanvas = webcamRef.current.getCanvas();
 
         if (sourceCanvas) {
-          targetCanvas.width = windowWidth;
-          targetCanvas.height = windowHeight * 0.9;
+          targetCanvas.width = canvasWidth;
+          targetCanvas.height = canvasHeight;
 
           targetContext?.drawImage(
             sourceCanvas,
             0,
             0,
-            windowWidth,
-            windowHeight * 0.9,
+            canvasWidth,
+            canvasHeight,
           );
 
-          applyTintEffect(targetContext, windowWidth, windowHeight * 0.9);
+          applyTintEffect(targetContext, canvasWidth, canvasHeight);
+
+          drawText(targetContext, canvasWidth, canvasHeight);
 
           targetCanvas.toBlob(async (blob) => {
             const filename = "poster_" + uuidv4() + "_" + location + ".jpeg";
@@ -110,7 +158,7 @@ const VideoWithFilters = () => {
         }
       }
     }
-  }, [canvasRef, location, setStage, windowWidth, windowHeight]);
+  }, [canvasRef, location, setStage, canvasWidth, canvasHeight]);
 
   const capture = useCallback(() => {
     const webcam = webcamRef.current;
@@ -121,21 +169,15 @@ const VideoWithFilters = () => {
         const targetCanvas = canvasRef.current;
         const targetContext = targetCanvas?.getContext("2d");
 
-        targetCanvas!.width = windowWidth;
-        targetCanvas!.height = windowHeight * 0.9;
+        targetCanvas!.width = canvasWidth;
+        targetCanvas!.height = canvasHeight;
 
-        targetContext?.drawImage(
-          sourceCanvas,
-          0,
-          0,
-          windowWidth,
-          windowHeight * 0.9,
-        );
+        targetContext?.drawImage(sourceCanvas, 0, 0, canvasWidth, canvasHeight);
 
         requestAnimationFrame(capture);
       }
     }
-  }, [isStreamReady, windowWidth, windowHeight]);
+  }, [isStreamReady, canvasWidth, canvasHeight]);
 
   useEffect(() => {
     capture();
@@ -149,7 +191,12 @@ const VideoWithFilters = () => {
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        videoConstraints={videoConstraints}
+        videoConstraints={{
+          width: canvasWidth,
+          height: canvasHeight,
+          facingMode: "user",
+          frameRate: 20,
+        }}
         style={{ position: "absolute" }}
         onLoadedMetadata={() => {
           setIsStreaming(true);
@@ -158,8 +205,8 @@ const VideoWithFilters = () => {
       <canvas
         ref={canvasRef}
         style={{
-          width: videoConstraints.width,
-          height: videoConstraints.height,
+          width: canvasWidth,
+          height: canvasHeight,
           filter: `hue-rotate(140deg) saturate(1) brightness(0.8)`,
         }}
       ></canvas>
