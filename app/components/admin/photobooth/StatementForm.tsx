@@ -1,13 +1,23 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  SubmitHandler,
+  Control,
+} from "react-hook-form";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { Form, FormControl, FormField, FormItem } from "../../ui/form";
-import Keyboard from "react-simple-keyboard";
+import Keyboard, { KeyboardReact } from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import { useBoothContext } from "./BoothContext";
 import { getTranslation, translations } from "./boothConstats";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
+
+type StatementFormValues = {
+  statements: { id: string; text: string }[];
+};
 
 export default function StatementForm() {
   const {
@@ -19,57 +29,126 @@ export default function StatementForm() {
     windowHeight,
   } = useBoothContext();
 
-  const form = useForm<{ statement: string }>({
+  const [focusedIdx, setFocusedIdx] = useState<number>(0);
+  const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
+  const keyboardRef = useRef<any | null>(null);
+
+  const form = useForm<StatementFormValues>({
     defaultValues: {
-      statement: statement ?? "",
+      statements: statement?.map((text, index) => ({
+        id: `id-${index}`,
+        text,
+      })) ?? [{ id: "id-0", text: "" }],
     },
   });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control as Control<StatementFormValues>,
+    name: "statements",
+  });
+
   const nextStage = 3;
-  const onSubmit = (values: { statement: string }) => {
-    const userNameInput = values.statement;
-    setStatement(userNameInput);
+
+  const onSubmit: SubmitHandler<StatementFormValues> = (values) => {
+    setStatement(values.statements.map((statement) => statement.text));
     setStage(nextStage);
-    console.log({ nextStage });
   };
 
-  const handleChange = (input: string) => {
-    setStatement(input);
-    form.setValue("statement", input);
+  const handleKeyPress = (
+    event: KeyboardEvent<HTMLInputElement> | { key: string },
+    index: number,
+  ) => {
+    const isPhysicalEvent = "preventDefault" in event;
+    const key = event.key;
+    console.log({ key, event });
+    const isEnter = (key: string) => key === "Enter" || key === "{enter}";
+    const isBskp = (key: string) => key === "Backspace" || key === "{bskp}";
+
+    if (isEnter(key)) {
+      if (isPhysicalEvent) event.preventDefault();
+      append({ id: `id-${fields.length}`, text: "" });
+      setFocusedIdx(fields.length);
+      if (keyboardRef.current) {
+        keyboardRef.current.clearInput();
+      }
+    }
+    if (isBskp(key) && !form.getValues(`statements.${index}.text`)) {
+      if (isPhysicalEvent) event.preventDefault();
+      if (fields.length > 1) {
+        remove(index);
+        setFocusedIdx(index === 0 ? 0 : index - 1);
+      }
+    }
   };
+
+  const handleVirtualKeyPress = (key: string) => {
+    const event = { key };
+    handleKeyPress(event, focusedIdx);
+  };
+
+  const handleChange = (input: string, index: number) => {
+    const currentValues = form.getValues("statements");
+    if (currentValues && input) {
+      const updatedValues = [...currentValues];
+      updatedValues[index] = { ...updatedValues[index], text: input };
+      form.setValue("statements", updatedValues);
+      setStatement(updatedValues.map((statement) => statement.text));
+    }
+  };
+
+  const handleVirtualChange = (input: string) => {
+    handleChange(input, focusedIdx);
+  };
+
+  useEffect(() => {
+    if (inputRefs.current[focusedIdx]) {
+      inputRefs.current[focusedIdx]?.focus();
+    }
+  }, [focusedIdx, fields.length]);
 
   if (stage !== 2) return null;
 
   const txt = "Next";
-  const btnY = windowHeight / 6;
-  const width = 200;
+  const btnY = windowHeight / 6; //TODO fix animation
 
   return (
-    <div className="items-strech flex h-screen w-4/5 flex-col content-center  justify-between ">
+    <div className="flex h-screen w-4/5 flex-col content-center items-stretch justify-between">
       <p className="mt-24 text-center text-[24px]">
         {getTranslation(currentLang, "Write your statement", translations)}
       </p>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex w-full flex-col items-center ">
-            <FormField
-              control={form.control}
-              name="statement"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormControl>
-                    <Textarea
-                      className="bg-darkRed w-full border-0 px-10 py-6 text-3xl text-black"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+          <div className="flex w-full flex-col items-center">
+            {fields.map((field, index) => (
+              <FormField
+                key={field.id}
+                control={form.control}
+                name={`statements.${index}.text`}
+                render={({ field: { onChange, onBlur, value, name, ref } }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <Input
+                        ref={(el) => {
+                          inputRefs.current[index] = el;
+                          ref(el);
+                        }}
+                        className="w-full border-0 bg-darkRed px-10 py-6 text-3xl text-black"
+                        onKeyDown={(e) => handleKeyPress(e, index)}
+                        onChange={(e) => onChange(e.target.value)}
+                        onBlur={onBlur}
+                        value={value}
+                        name={name}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            ))}
             <Button
               type="submit"
-              className={`bg-darkRed hover:bg-pink text-[24px]`}
-              style={{ width: `${width}px`, height: `50px` }}
+              className="bg-darkRed text-[24px] hover:bg-pink"
+              style={{ width: `200px`, height: `50px` }}
             >
               {txt}
             </Button>
@@ -77,12 +156,14 @@ export default function StatementForm() {
         </form>
       </Form>
 
-      <div className="w-full  pt-10 text-black">
+      <div className="w-full pt-10 text-black">
         <Keyboard
-          onChange={handleChange}
+          keyboardRef={(r) => (keyboardRef.current = r)}
+          onChange={handleVirtualChange}
+          onKeyPress={handleVirtualKeyPress}
           inputName="statement"
           layoutName="default"
-          theme={"hg-theme-default myTheme1"}
+          theme="hg-theme-default myTheme1"
         />
       </div>
     </div>
