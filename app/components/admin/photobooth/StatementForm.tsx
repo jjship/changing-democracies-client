@@ -65,8 +65,13 @@ export default function StatementForm() {
     console.log({ key, isBskp: isBskp(key) });
 
     if (isEnter(key)) {
+      console.log({ focusIndex: fields.length + 1 });
       if (isPhysicalEvent) event.preventDefault();
-      append({ id: `id-${fields.length}`, text: "" });
+      append(
+        { id: `id-${fields.length}`, text: "" },
+        { shouldFocus: true, focusIndex: fields.length + 1 },
+      );
+      setFocusedIdx((prev) => prev + 1);
       // inputRefs.current[fields.length + 1]?.focus();
       if (keyboardRef.current) {
         setTimeout(() => {
@@ -79,7 +84,16 @@ export default function StatementForm() {
       if (fields.length > 1) {
         remove(index);
         const indexToFocus = index === 0 ? 0 : index - 1;
-        inputRefs.current[indexToFocus]?.focus();
+        setFocusedIdx(indexToFocus);
+        console.log({
+          len: fields.length,
+          indexToFocus,
+          txt: fields[indexToFocus].text,
+        });
+        setTimeout(() => {
+          keyboardRef.current.setInput(fields[indexToFocus].text);
+          inputRefs.current[indexToFocus]?.focus();
+        }, 0);
       }
     }
   };
@@ -102,6 +116,20 @@ export default function StatementForm() {
   const handleVirtualChange = (input: string) => {
     handleChange(input, focusedIdx);
   };
+
+  // useEffect(() => {
+  //   if (inputRefs.current[focusedIdx]) {
+  //     inputRefs.current[focusedIdx]?.focus();
+  //   }
+  // }, [focusedIdx, fields]);
+
+  // useEffect(() => {
+  //   if (inputRefs.current[focusedIdx]) {
+  //     setTimeout(() => {
+  //       inputRefs.current[focusedIdx]?.focus();
+  //     }, 0);
+  //   }
+  // }, [fields]);
 
   if (stage !== 2) return null;
 
@@ -126,6 +154,7 @@ export default function StatementForm() {
                   <FormItem className="w-full">
                     <FormControl>
                       <Input
+                        {...form.register}
                         ref={(el) => {
                           inputRefs.current[index] = el;
                           ref(el);
