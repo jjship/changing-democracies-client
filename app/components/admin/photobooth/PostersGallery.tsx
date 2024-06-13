@@ -6,16 +6,21 @@ import PostersPage from "../posters/PostersPage";
 const PostersGallery: FC = () => {
   const { location, stage } = useBoothContext();
 
-  const { data, error } = useSWR("/admin/posters/api", (...args) =>
+  const { data, error, isLoading } = useSWR("/admin/posters/api", (...args) =>
     fetch(...args).then((res) => res.json()),
   );
 
   if (stage !== -2) return null;
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) throw new Error(error);
 
-  return <PostersPage initialPosters={data} location={location} />;
+  return (
+    <PostersPage
+      initialPosters={data}
+      location={location}
+      isLoading={isLoading}
+    />
+  );
 };
 
 export default PostersGallery;

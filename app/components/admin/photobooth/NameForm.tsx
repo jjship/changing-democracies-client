@@ -22,6 +22,7 @@ export default function NameForm() {
   const nextStage = stage + 1;
   const onSubmit = (values: { userName: string }) => {
     const userNameInput = values.userName;
+    values.userName = "";
 
     setUserName(userNameInput);
     setStage(nextStage);
@@ -54,7 +55,7 @@ export default function NameForm() {
                 <FormItem>
                   <FormControl>
                     <Input
-                      className="bg-darkRed border-0 px-10 py-6 text-3xl text-black"
+                      className="border-0 bg-darkRed px-10 py-6 text-3xl text-black"
                       {...field}
                     />
                   </FormControl>
@@ -73,7 +74,7 @@ export default function NameForm() {
             >
               <Button
                 type="submit"
-                className={`bg-darkRed hover:bg-pink text-[24px]`}
+                className={`bg-darkRed text-[24px] hover:bg-pink`}
                 style={{ width: `${width}px`, height: `50px` }}
               >
                 {txt}
