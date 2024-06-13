@@ -60,23 +60,26 @@ export default function StatementForm() {
   ) => {
     const isPhysicalEvent = "preventDefault" in event;
     const key = event.key;
-    console.log({ key, event });
     const isEnter = (key: string) => key === "Enter" || key === "{enter}";
-    const isBskp = (key: string) => key === "Backspace" || key === "{bskp}";
+    const isBskp = (key: string) => key === "Backspace" || key === "{bksp}";
+    console.log({ key, isBskp: isBskp(key) });
 
     if (isEnter(key)) {
       if (isPhysicalEvent) event.preventDefault();
       append({ id: `id-${fields.length}`, text: "" });
-      setFocusedIdx(fields.length);
+      // inputRefs.current[fields.length + 1]?.focus();
       if (keyboardRef.current) {
-        keyboardRef.current.clearInput();
+        setTimeout(() => {
+          keyboardRef.current?.setInput("");
+        }, 0);
       }
     }
     if (isBskp(key) && !form.getValues(`statements.${index}.text`)) {
       if (isPhysicalEvent) event.preventDefault();
       if (fields.length > 1) {
         remove(index);
-        setFocusedIdx(index === 0 ? 0 : index - 1);
+        const indexToFocus = index === 0 ? 0 : index - 1;
+        inputRefs.current[indexToFocus]?.focus();
       }
     }
   };
@@ -88,7 +91,7 @@ export default function StatementForm() {
 
   const handleChange = (input: string, index: number) => {
     const currentValues = form.getValues("statements");
-    if (currentValues && input) {
+    if (currentValues) {
       const updatedValues = [...currentValues];
       updatedValues[index] = { ...updatedValues[index], text: input };
       form.setValue("statements", updatedValues);
@@ -99,12 +102,6 @@ export default function StatementForm() {
   const handleVirtualChange = (input: string) => {
     handleChange(input, focusedIdx);
   };
-
-  useEffect(() => {
-    if (inputRefs.current[focusedIdx]) {
-      inputRefs.current[focusedIdx]?.focus();
-    }
-  }, [focusedIdx, fields.length]);
 
   if (stage !== 2) return null;
 
