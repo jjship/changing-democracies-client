@@ -8,14 +8,14 @@ import { Button } from "../../ui/button";
 import { editButton } from "../classNames";
 
 const VideoWithFilters: FC = () => {
-  const [isStreamReady, setIsStreaming] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [canvasWidth, setCanvasWidth] = useState<number>(0);
   const [canvasHeight, setCanvasHeight] = useState<number>(0);
+  const [saving, setSaving] = useState(false);
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const {
-    statement,
-    setStatement,
+    statements,
     stage,
     setStage,
     currentLang,
@@ -25,22 +25,130 @@ const VideoWithFilters: FC = () => {
     location,
     filename,
     setFilename,
+    font,
   } = useBoothContext();
 
   useEffect(() => {
     setCanvasWidth(windowWidth);
     setCanvasHeight(windowHeight * 0.9);
-    console.log({ windowWidth, windowHeight });
   }, [windowWidth, windowHeight]);
 
-  const applyTintEffect = useCallback(
+  const drawStatements = useCallback(
     (
-      context: CanvasRenderingContext2D | null,
-      width: number,
-      height: number,
+      ctx: CanvasRenderingContext2D,
+      statements: string[] | null,
+      fontSize: number,
     ) => {
-      if (!context) return;
-      const imageData = context.getImageData(0, 0, width, height);
+      statements?.forEach((statement, idx) => {
+        if (!statement) return;
+
+        const padding = 16;
+        ctx.font = `${fontSize}px ${font.fontFamily}`;
+        ctx.textBaseline = "top";
+
+        const statementWidth = ctx.measureText(statement).width;
+
+        const textHeight = fontSize * 1.2;
+
+        const offset = (idx + 1) * (textHeight + 60);
+
+        // Calculate positions
+        // const rectX = canvasWidth - (padding + statementWidth);
+        const rectX = canvasWidth - statementWidth - 2 * padding;
+        const rectY = offset - padding;
+        const text1X = canvasWidth - statementWidth - padding;
+        const text1Y = rectY + padding;
+
+        // Draw background rectangle
+        ctx.fillStyle = "rgba(184, 82, 82, 1)"; // Background color with transparency
+        ctx.fillRect(
+          rectX,
+          rectY,
+          statementWidth + padding * 2,
+          textHeight + padding * 2,
+        );
+
+        ctx.fillStyle = "rgba(207, 152, 85, 1)";
+        ctx.fill;
+
+        drawTriangle({
+          ctx,
+          endX: rectX,
+          startY: rectY + (textHeight + padding * 2) / 2,
+        });
+
+        // Draw text
+        ctx.fillStyle = "white"; // Text color
+        ctx.fillText(statement, text1X, text1Y + 5);
+      });
+    },
+    [statements],
+  );
+
+  const drawUserName = useCallback(
+    (
+      ctx: CanvasRenderingContext2D,
+      userName: string | null,
+      fontSize: number,
+      offsetMultiplier: number,
+    ) => {
+      if (!userName) return;
+
+      ctx.font = `${fontSize}px ${font.fontFamily}`;
+      ctx.textBaseline = "top";
+
+      const textWidth = userName ? ctx.measureText(userName).width : 0;
+
+      const textY = (offsetMultiplier + 1) * 105;
+      const padding = 16;
+      const textX = canvasWidth - textWidth - padding;
+
+      // Draw text
+      ctx.fillStyle = "rgba(184, 82, 82, 1)"; // Text color
+      if (userName) ctx.fillText(userName, textX, textY);
+    },
+    [userName],
+  );
+
+  const drawTriangle = useCallback(
+    ({
+      ctx,
+      endX,
+      startY,
+    }: {
+      ctx: CanvasRenderingContext2D;
+      endX: number;
+      startY: number;
+    }) => {
+      const yellowBrown = "#cf9855"; // Color value for yellowBrown
+      const r = 70; // Radius value
+      const a1 = Math.PI; // Angle in radians
+      const a2 = a1 + (Math.PI * 2) / 3; // Angle in radians
+      const a3 = a2 + (Math.PI * 2) / 3; // Angle in radians
+
+      ctx.fillStyle = yellowBrown;
+
+      const x1 = endX - r / 2 + Math.cos(a1) * r;
+      const y1 = startY + Math.sin(a1) * r;
+      const x2 = endX - r / 2 + Math.cos(a2) * r;
+      const y2 = startY + Math.sin(a2) * r;
+      const x3 = endX - r / 2 + Math.cos(a3) * r;
+      const y3 = startY + Math.sin(a3) * r;
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineTo(x3, y3);
+      ctx.closePath();
+      ctx.fill();
+    },
+    [],
+  );
+
+  const applyTintEffect = useCallback(
+    (ctx: CanvasRenderingContext2D | null, width: number, height: number) => {
+      if (!ctx) return;
+      const imageData = ctx.getImageData(0, 0, width, height);
       const data = imageData.data;
       const startColor = { r: 0, g: 0, b: 0 }; // Black
       const endColor = { r: 64, g: 224, b: 208 }; // Turquoise
@@ -63,156 +171,95 @@ const VideoWithFilters: FC = () => {
         data[i + 2] = interColor.b;
       }
 
-      context.putImageData(imageData, 0, 0);
+      ctx.putImageData(imageData, 0, 0);
     },
-    [canvasRef, isStreamReady, canvasWidth, windowHeight],
+    [],
   );
 
-  const drawText = useCallback(
-    (
-      context: CanvasRenderingContext2D | null,
-      width: number,
-      height: number,
-    ) => {
-      if (!context || !userName || !statement) return;
-      const text1 = userName;
-      const text2 = statement;
-      const fontSize = 20;
-      const padding = 10;
+  const makePhoto = () => {
+    if (!canvasRef.current || !webcamRef.current) return;
+    setSaving(true);
+    const targetCanvas = canvasRef.current;
+    const targetCtx = targetCanvas.getContext("2d");
+    const sourceCanvas = webcamRef.current.getCanvas();
+    const statementFontSize = 36;
+    const userFontSize = 70;
 
-      context.font = `${fontSize}px Arial`;
-      context.textBaseline = "top";
+    if (sourceCanvas && targetCtx) {
+      targetCanvas.width = canvasWidth;
+      targetCanvas.height = canvasHeight;
 
-      const text1Width = context.measureText(text1).width;
-      const text2Width = context.measureText(text2).width;
-      const maxTextWidth = Math.max(text1Width, text2Width);
-      const textHeight = fontSize * 1.2;
+      targetCtx?.drawImage(sourceCanvas, 0, 0, canvasWidth, canvasHeight);
 
-      // Calculate positions
-      const rectX = (width - maxTextWidth) / 2 - padding;
-      const rectY = (height - textHeight * 2) / 2 - padding;
-      const text1X = (width - text1Width) / 2;
-      const text1Y = rectY + padding;
-      const text2X = (width - text2Width) / 2;
-      const text2Y = text1Y + textHeight;
+      applyTintEffect(targetCtx, canvasWidth, canvasHeight);
 
-      // Draw background rectangle
-      context.fillStyle = "rgba(0, 0, 0, 0.7)"; // Background color with transparency
-      context.fillRect(
-        rectX,
-        rectY,
-        maxTextWidth + padding * 2,
-        textHeight * 2 + padding * 2,
-      );
+      drawUserName(targetCtx, userName, userFontSize, statements?.length ?? 0);
+      drawStatements(targetCtx, statements, statementFontSize);
 
-      // Draw text
-      context.fillStyle = "white"; // Text color
-      context.fillText(text1, text1X, text1Y);
-      context.fillText(text2, text2X, text2Y);
-    },
-    [userName, statement],
-  );
+      targetCanvas.toBlob(async (blob) => {
+        const filename = "poster_" + uuidv4() + "_" + location + ".jpeg";
+        setFilename(filename);
+        if (blob) {
+          const formData = new FormData();
+          formData.append("blob", blob);
+          formData.append("fileName", filename);
 
-  const getScreenshot = useCallback(() => {
-    if (canvasRef.current) {
-      const targetCanvas = canvasRef.current;
-      const targetContext = targetCanvas.getContext("2d");
-
-      if (webcamRef.current) {
-        const sourceCanvas = webcamRef.current.getCanvas();
-
-        if (sourceCanvas) {
-          targetCanvas.width = canvasWidth;
-          targetCanvas.height = canvasHeight;
-
-          targetContext?.drawImage(
-            sourceCanvas,
-            0,
-            0,
-            canvasWidth,
-            canvasHeight,
-          );
-
-          applyTintEffect(targetContext, canvasWidth, canvasHeight);
-
-          drawText(targetContext, canvasWidth, canvasHeight);
-
-          targetCanvas.toBlob(async (blob) => {
-            const filename = "poster_" + uuidv4() + "_" + location + ".jpeg";
-            setFilename(filename);
-            if (blob) {
-              const formData = new FormData();
-              formData.append("blob", blob);
-              formData.append("fileName", filename);
-
-              const result = await saveImage(formData);
-              if (result.success) {
-                console.log("Image uploaded successfully");
-              } else {
-                console.error("Failed to upload image");
-              }
-            }
-          }, "image/jpeg");
-
+          const result = await saveImage(formData);
+          setSaving(false);
+          if (result.error) {
+            throw new Error("Failed to save image");
+          }
           setStage(4);
         }
-      }
+      }, "image/jpeg");
     }
-  }, [canvasRef, location, setStage, canvasWidth, canvasHeight]);
+  };
+  //TODO add take another picture step (without loosing statement etc)
 
-  const capture = useCallback(() => {
-    const webcam = webcamRef.current;
-    if (webcam && isStreamReady) {
-      const sourceCanvas = webcam.getCanvas();
-      if (sourceCanvas) {
-        const context = sourceCanvas.getContext("2d");
-        const targetCanvas = canvasRef.current;
-        const targetContext = targetCanvas?.getContext("2d");
-
-        targetCanvas!.width = canvasWidth;
-        targetCanvas!.height = canvasHeight;
-
-        targetContext?.drawImage(sourceCanvas, 0, 0, canvasWidth, canvasHeight);
-
-        requestAnimationFrame(capture);
-      }
-    }
-  }, [isStreamReady, canvasWidth, canvasHeight]);
-
-  useEffect(() => {
-    capture();
-  }, [capture]);
-
-  if (stage !== 3) return null;
+  if (stage !== 3) {
+    canvasRef.current?.remove();
+    return null;
+  }
 
   return (
-    <div className="relative flex flex-col items-center">
-      <Webcam
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        videoConstraints={{
-          width: canvasWidth,
-          height: canvasHeight,
-          facingMode: "user",
-          frameRate: 20,
-        }}
-        style={{ position: "absolute" }}
-        onLoadedMetadata={() => {
-          setIsStreaming(true);
-        }}
-      />
+    <div className="relative flex h-screen w-screen flex-col items-center bg-black_bg">
+      {!canvasHeight || !canvasWidth ? (
+        <p>Loading....</p>
+      ) : (
+        <>
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={{
+              width: canvasWidth,
+              height: canvasHeight,
+              facingMode: "user",
+              frameRate: 20,
+            }}
+            style={{
+              width: canvasWidth,
+              height: canvasHeight,
+              // filter: `hue-rotate(140deg) saturate(.7) brightness(0.8)`,
+            }}
+            onUserMedia={() => setIsStreaming(true)}
+          />
+          <Button className={`${editButton} my-5`} onClick={makePhoto}>
+            Take Picture
+          </Button>
+        </>
+      )}
       <canvas
         ref={canvasRef}
         style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
           width: canvasWidth,
           height: canvasHeight,
-          filter: `hue-rotate(140deg) saturate(1) brightness(0.8)`,
+          zIndex: -1,
         }}
       ></canvas>
-      <Button className={`${editButton} mt-10`} onClick={getScreenshot}>
-        Capture photo
-      </Button>
     </div>
   );
 };

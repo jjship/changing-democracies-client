@@ -5,6 +5,8 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Open_Sans } from "next/font/google";
+
 import { Language } from "./boothConstats";
 
 type BoothContextType = {
@@ -17,22 +19,36 @@ type BoothContextType = {
   windowHeight: number;
   windowWidth: number;
   userName: string | null;
-  setUserName: (name: string) => void;
-  statement: string | null;
-  setStatement: (statement: string) => void;
+  setUserName: (name: string | null) => void;
+  statements: string[] | null;
+  setStatements: (statements: string[] | null) => void;
   filename: string | null;
   setFilename: (filename: string) => void;
+  font: { className: string; fontFamily: string };
+  setFont: ({
+    className,
+    fontFamily,
+  }: {
+    className: string;
+    fontFamily: string;
+  }) => void;
 };
 
 export const BoothContext = createContext<BoothContextType | null>(null);
 
+const openSans = Open_Sans({ subsets: ["greek"], weight: "700" });
+
 export function BoothContextProvider({ children }: { children: ReactNode }) {
   const [location, setLocation] = useState<string>("");
-  const [stage, setStage] = useState<number>(-2);
+  const [stage, setStage] = useState<number>(1);
   const [currentLang, setCurrentLang] = useState<Language>("english");
   const [userName, setUserName] = useState<string | null>(null);
-  const [statement, setStatement] = useState<string | null>(null);
+  const [statements, setStatements] = useState<string[] | null>(null);
   const [filename, setFilename] = useState<string | null>(null);
+  const [font, setFont] = useState<{ className: string; fontFamily: string }>({
+    className: openSans.className,
+    fontFamily: openSans.style.fontFamily,
+  });
   const [windowSize, setWindowSize] = useState<{
     width: number;
     height: number;
@@ -67,10 +83,12 @@ export function BoothContextProvider({ children }: { children: ReactNode }) {
         windowWidth: windowSize.width,
         userName,
         setUserName,
-        statement,
-        setStatement,
+        statements,
+        setStatements,
         filename,
         setFilename,
+        font,
+        setFont,
       }}
     >
       {children}

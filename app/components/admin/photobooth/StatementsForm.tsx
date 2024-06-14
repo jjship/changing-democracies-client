@@ -15,14 +15,14 @@ import { getTranslation, translations } from "./boothConstats";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 
-type StatementFormValues = {
-  statements: { id: string; text: string }[];
+type StatementsFormValues = {
+  inputStatements: { id: string; text: string }[];
 };
 
-export default function StatementForm() {
+export default function StatementsForm() {
   const {
-    statement,
-    setStatement,
+    statements,
+    setStatements,
     stage,
     setStage,
     currentLang,
@@ -33,9 +33,9 @@ export default function StatementForm() {
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const keyboardRef = useRef<KeyboardReactInterface | null>(null);
 
-  const form = useForm<StatementFormValues>({
+  const form = useForm<StatementsFormValues>({
     defaultValues: {
-      statements: statement?.map((text, index) => ({
+      inputStatements: statements?.map((text, index) => ({
         id: `id-${index}`,
         text,
       })) ?? [{ id: "id-0", text: "" }],
@@ -43,14 +43,14 @@ export default function StatementForm() {
   });
 
   const { fields, append, remove } = useFieldArray({
-    control: form.control as Control<StatementFormValues>,
-    name: "statements",
+    control: form.control as Control<StatementsFormValues>,
+    name: "inputStatements",
   });
 
   const nextStage = 3;
 
-  const onSubmit: SubmitHandler<StatementFormValues> = (values) => {
-    setStatement(values.statements.map((statement) => statement.text));
+  const onSubmit: SubmitHandler<StatementsFormValues> = (values) => {
+    setStatements(values.inputStatements.map((statement) => statement.text));
     setStage(nextStage);
   };
 
@@ -76,7 +76,7 @@ export default function StatementForm() {
         keyboardRef.current?.setInput("");
       }, 0);
     }
-    if (isBskp(key) && !form.getValues(`statements.${index}.text`)) {
+    if (isBskp(key) && !form.getValues(`inputStatements.${index}.text`)) {
       if (isPhysicalEvent) event.preventDefault();
       if (fields.length > 1) {
         remove(index);
@@ -97,12 +97,12 @@ export default function StatementForm() {
   };
 
   const handleChange = (input: string, index: number) => {
-    const currentValues = form.getValues("statements");
+    const currentValues = form.getValues("inputStatements");
     if (currentValues) {
       const updatedValues = [...currentValues];
       updatedValues[index] = { ...updatedValues[index], text: input };
-      form.setValue("statements", updatedValues);
-      setStatement(updatedValues.map((statement) => statement.text));
+      form.setValue("inputStatements", updatedValues);
+      setStatements(updatedValues.map((statements) => statements.text));
     }
   };
 
@@ -118,7 +118,7 @@ export default function StatementForm() {
   return (
     <div className="flex h-screen w-4/5 flex-col content-center items-stretch justify-between">
       <p className="mt-24 text-center text-[24px]">
-        {getTranslation(currentLang, "Write your statement", translations)}
+        {getTranslation(currentLang, "Write your statements", translations)}
       </p>
 
       <Form {...form}>
@@ -128,7 +128,7 @@ export default function StatementForm() {
               <FormField
                 key={field.id}
                 control={form.control}
-                name={`statements.${index}.text`}
+                name={`inputStatements.${index}.text`}
                 render={({ field: { onChange, onBlur, value, name, ref } }) => (
                   <FormItem className="w-full">
                     <FormControl>
@@ -166,7 +166,7 @@ export default function StatementForm() {
           keyboardRef={(r) => (keyboardRef.current = r)}
           onChange={handleVirtualChange}
           onKeyPress={handleVirtualKeyPress}
-          inputName="statement"
+          inputName="statements"
           layoutName="default"
           theme="hg-theme-default myTheme1"
         />
