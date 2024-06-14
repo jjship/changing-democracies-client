@@ -195,7 +195,7 @@ async function getSubtitles({
   return res;
 }
 
-async function saveImage(formData: FormData) {
+async function saveImage(formData: FormData): Promise<NoDataMethodReturn> {
   const { error } = await uploadImage({
     blob: formData.get("blob") as Blob,
     fileName: formData.get("fileName") as string,
