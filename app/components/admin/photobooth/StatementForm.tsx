@@ -6,9 +6,9 @@ import {
   SubmitHandler,
   Control,
 } from "react-hook-form";
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, useRef, useState } from "react";
 import { Form, FormControl, FormField, FormItem } from "../../ui/form";
-import Keyboard, { KeyboardReact } from "react-simple-keyboard";
+import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import { useBoothContext } from "./BoothContext";
 import { getTranslation, translations } from "./boothConstats";
@@ -31,7 +31,7 @@ export default function StatementForm() {
 
   const [focusedIdx, setFocusedIdx] = useState<number>(0);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
-  const keyboardRef = useRef<any | null>(null);
+  const keyboardRef = useRef<KeyboardReactInterface | null>(null);
 
   const form = useForm<StatementFormValues>({
     defaultValues: {
@@ -62,7 +62,6 @@ export default function StatementForm() {
     const key = event.key;
     const isEnter = (key: string) => key === "Enter" || key === "{enter}";
     const isBskp = (key: string) => key === "Backspace" || key === "{bksp}";
-    console.log({ key, isBskp: isBskp(key) });
 
     if (isEnter(key)) {
       console.log({ focusIndex: fields.length + 1 });
@@ -72,12 +71,10 @@ export default function StatementForm() {
         { shouldFocus: true, focusIndex: fields.length + 1 },
       );
       setFocusedIdx((prev) => prev + 1);
-      // inputRefs.current[fields.length + 1]?.focus();
-      if (keyboardRef.current) {
-        setTimeout(() => {
-          keyboardRef.current?.setInput("");
-        }, 0);
-      }
+
+      setTimeout(() => {
+        keyboardRef.current?.setInput("");
+      }, 0);
     }
     if (isBskp(key) && !form.getValues(`statements.${index}.text`)) {
       if (isPhysicalEvent) event.preventDefault();
@@ -85,13 +82,9 @@ export default function StatementForm() {
         remove(index);
         const indexToFocus = index === 0 ? 0 : index - 1;
         setFocusedIdx(indexToFocus);
-        console.log({
-          len: fields.length,
-          indexToFocus,
-          txt: fields[indexToFocus].text,
-        });
+
         setTimeout(() => {
-          keyboardRef.current.setInput(fields[indexToFocus].text);
+          keyboardRef.current?.setInput(fields[indexToFocus].text);
           inputRefs.current[indexToFocus]?.focus();
         }, 0);
       }
@@ -116,20 +109,6 @@ export default function StatementForm() {
   const handleVirtualChange = (input: string) => {
     handleChange(input, focusedIdx);
   };
-
-  // useEffect(() => {
-  //   if (inputRefs.current[focusedIdx]) {
-  //     inputRefs.current[focusedIdx]?.focus();
-  //   }
-  // }, [focusedIdx, fields]);
-
-  // useEffect(() => {
-  //   if (inputRefs.current[focusedIdx]) {
-  //     setTimeout(() => {
-  //       inputRefs.current[focusedIdx]?.focus();
-  //     }, 0);
-  //   }
-  // }, [fields]);
 
   if (stage !== 2) return null;
 
@@ -159,7 +138,7 @@ export default function StatementForm() {
                           inputRefs.current[index] = el;
                           ref(el);
                         }}
-                        className="w-full border-0 bg-darkRed px-10 py-6 text-3xl text-black"
+                        className="mb-5 w-full bg-darkRed px-10 py-6 text-3xl text-black"
                         onKeyDown={(e) => handleKeyPress(e, index)}
                         onChange={(e) => onChange(e.target.value)}
                         onBlur={onBlur}
