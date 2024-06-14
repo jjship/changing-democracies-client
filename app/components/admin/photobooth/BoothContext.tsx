@@ -40,7 +40,7 @@ const openSans = Open_Sans({ subsets: ["greek"], weight: "700" });
 
 export function BoothContextProvider({ children }: { children: ReactNode }) {
   const [location, setLocation] = useState<string>("");
-  const [stage, setStage] = useState<number>(1);
+  const [stage, setStage] = useState<number>(-2);
   const [currentLang, setCurrentLang] = useState<Language>("english");
   const [userName, setUserName] = useState<string | null>(null);
   const [statements, setStatements] = useState<string[] | null>(null);

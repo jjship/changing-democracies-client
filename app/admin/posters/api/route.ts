@@ -16,7 +16,7 @@ export async function GET() {
       accept: "application/json",
       AccessKey: process.env.BUNNY_STORAGE_API_KEY,
     },
-    next: { revalidate: 55 },
+    next: { revalidate: 15 },
   };
   const res = await fetch(url, options);
 

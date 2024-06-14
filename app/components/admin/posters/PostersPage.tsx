@@ -65,7 +65,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
   };
 
   return isLoading || !filteredPosters ? (
-    <div className="my-10 flex h-screen w-full flex-col items-center px-20">
+    <div className="my-10 flex h-screen w-full flex-col items-center bg-black_bg px-20">
       <Skeleton className="h-10 w-full" />
       <div className="grid h-full w-full grid-cols-3 gap-x-16 gap-y-24 py-20">
         {Array(9)
@@ -78,7 +78,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
       </div>
     </div>
   ) : (
-    <>
+    <div className="bg-black_bg">
       <div className="w-full px-20">
         {locations ? (
           <div className="my-10 flex items-start justify-start gap-5">
@@ -123,7 +123,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
       >
         POSTER MAKER
       </Button>
-    </>
+    </div>
   );
 };
 
