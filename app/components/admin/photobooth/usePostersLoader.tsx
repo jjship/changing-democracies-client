@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import { PosterMetadata } from "../../../../utils/posters-methods";
 
 class FetchError extends Error {
   status: number;
@@ -25,10 +26,11 @@ export const usePostersLoader = (src: string) => {
     mutate,
   } = useSWR(src, fetchPosters, {
     revalidateOnFocus: false,
-    refreshInterval: 30000,
+    refreshInterval: 5000,
   });
 
-  const [currentPosters, setCurrentPosters] = useState(posters);
+  const [currentPosters, setCurrentPosters] =
+    useState<PosterMetadata[]>(posters);
 
   useEffect(() => {
     if (

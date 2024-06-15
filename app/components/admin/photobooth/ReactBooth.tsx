@@ -13,7 +13,6 @@ import StatementsForm from "./StatementsForm";
 import SaveAndSend from "./SaveAndSend";
 import PostersGallery from "./PostersGallery";
 import MakePhoto from "./MakePhoto";
-import ApprovePoster from "./ApprovePoster";
 
 const openSans = Open_Sans({ subsets: ["greek"], weight: "700" });
 const archivo = Archivo({ subsets: ["latin"], weight: "700" });
@@ -55,7 +54,6 @@ const ReactBooth: FC = () => {
       <NameForm />
       <StatementsForm />
       <MakePhoto />
-      {/* <ApprovePoster /> */}
       <SaveAndSend />
     </div>
   );

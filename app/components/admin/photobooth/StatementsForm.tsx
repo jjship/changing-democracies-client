@@ -64,7 +64,6 @@ export default function StatementsForm() {
     const isBskp = (key: string) => key === "Backspace" || key === "{bksp}";
 
     if (isEnter(key)) {
-      console.log({ focusIndex: fields.length + 1 });
       if (isPhysicalEvent) event.preventDefault();
       append(
         { id: `id-${fields.length}`, text: "" },
@@ -100,7 +99,10 @@ export default function StatementsForm() {
     const currentValues = form.getValues("inputStatements");
     if (currentValues) {
       const updatedValues = [...currentValues];
-      updatedValues[index] = { ...updatedValues[index], text: input };
+      updatedValues[index] = {
+        ...updatedValues[index],
+        text: input.toUpperCase(),
+      };
       form.setValue("inputStatements", updatedValues);
       setStatements(updatedValues.map((statements) => statements.text));
     }

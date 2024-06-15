@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { BunnyPoster } from "@/utils/posters-methods";
+import { BunnyPoster, PosterMetadata } from "@/utils/posters-methods";
 
 export async function GET() {
   if (
@@ -16,7 +16,7 @@ export async function GET() {
       accept: "application/json",
       AccessKey: process.env.BUNNY_STORAGE_API_KEY,
     },
-    next: { revalidate: 15 },
+    next: { revalidate: 4 },
   };
   const res = await fetch(url, options);
 
@@ -26,10 +26,11 @@ export async function GET() {
 
   const posters: BunnyPoster[] = (await res.json()) as BunnyPoster[];
 
-  const list = posters.map((poster) => ({
+  const list: PosterMetadata[] = posters.map((poster) => ({
     id: poster.Guid,
     fileName: poster.ObjectName,
     createdAt: poster.DateCreated,
+    imageUrl: `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/posters/${poster.ObjectName}`,
   }));
 
   const sortedPosters = list.sort((a, b) => {

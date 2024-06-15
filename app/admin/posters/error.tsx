@@ -1,6 +1,7 @@
 "use client"; // Error components must be Client Components
 
 import { useEffect } from "react";
+import { editButton } from "../../components/admin/classNames";
 
 export default function Error({
   error,
@@ -18,6 +19,7 @@ export default function Error({
     <div>
       <h2>Something went wrong!</h2>
       <button
+        className={editButton}
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()

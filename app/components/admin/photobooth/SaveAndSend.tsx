@@ -27,7 +27,6 @@ const SaveAndSend: FC = () => {
     setImageUrl(
       `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/posters/${filename}`,
     );
-    console.log(imageUrl);
   }, [filename]);
 
   const {
@@ -48,7 +47,7 @@ const SaveAndSend: FC = () => {
       setFilename("");
       setStage(-1);
     },
-    [filename],
+    [filename, setFilename, setStage, setStatements, setUserName],
   );
 
   const handleSend = () => setIsSending((isSending) => !isSending);
@@ -72,7 +71,7 @@ const SaveAndSend: FC = () => {
               <p>Error: {error.message}</p>
             </div>
           )}
-          {!loading && (
+          {!loading && !error && (
             <img
               src={imageSrc}
               alt="User made poster"
@@ -100,7 +99,7 @@ const SaveAndSend: FC = () => {
           <Button className={buttonStyles} onClick={handlePublish}>
             publish
           </Button>
-          <Button className={buttonStyles} onClick={() => handleSend()}>
+          <Button className={buttonStyles} onClick={handleSend}>
             publish & send by e-mail
           </Button>
         </div>

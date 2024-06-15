@@ -1,5 +1,5 @@
-import useSWR from "swr";
 import { useState, useCallback, useEffect } from "react";
+import useSWR from "swr";
 
 const fetchImage = async (src: string) => {
   const res = await fetch(src);
@@ -12,16 +12,13 @@ const fetchImage = async (src: string) => {
 };
 
 const useImageLoader = (src: string | null) => {
+  const { data, error, mutate } = useSWR(src, fetchImage, {
+    revalidateOnFocus: false,
+    refreshInterval: 30000,
+  });
+
   const [retryCount, setRetryCount] = useState(0);
   const [localError, setLocalError] = useState<Error | null>(null);
-
-  const {
-    data: imageSrc,
-    error: swrError,
-    mutate,
-  } = useSWR<string, Error>(src, fetchImage, {
-    shouldRetryOnError: false,
-  });
 
   const reloadImage = useCallback(() => {
     setRetryCount((prev) => prev + 1);
@@ -36,27 +33,32 @@ const useImageLoader = (src: string | null) => {
   }, [mutate]);
 
   useEffect(() => {
-    if (swrError && retryCount < 5) {
+    if (error && retryCount < 5) {
       const retryDelay = Math.min(500 * Math.pow(2, retryCount), 2000);
       const timer = setTimeout(() => {
         reloadImage();
       }, retryDelay);
 
       return () => clearTimeout(timer);
-    } else if (swrError && retryCount >= 5) {
-      setLocalError(swrError);
+    } else if (error && retryCount >= 5) {
+      setLocalError(error);
     }
-  }, [swrError, retryCount, reloadImage]);
+  }, [error, retryCount, reloadImage]);
+
+  useEffect(() => {
+    if (src) {
+      reloadImage();
+    }
+  }, [src, reloadImage]);
 
   return {
-    imageSrc,
+    imageSrc: data,
     handleError: () => setLocalError(new Error("Error loading image")),
     handleLoad: () => mutate(),
-    reloadImage,
-    manualRetry,
     error: localError,
-    loading: !imageSrc && !localError,
+    loading: !data && !localError,
     retryCount,
+    manualRetry,
   };
 };
 

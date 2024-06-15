@@ -29,8 +29,8 @@ export default function NameForm() {
   };
 
   const handleChange = (input: string) => {
-    setUserName(input);
-    form.setValue("userName", input);
+    setUserName(input.toUpperCase());
+    form.setValue("userName", input.toUpperCase());
   };
 
   if (stage !== 1) return null;

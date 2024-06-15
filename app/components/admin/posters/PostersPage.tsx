@@ -1,17 +1,23 @@
 "use client";
 
 import { MouseEventHandler, useEffect, useState } from "react";
-import { BunnyPoster, PosterMetadata } from "@/utils/posters-methods";
-import { Button } from "../../ui/button";
 import Image from "next/image";
+import { PosterMetadata } from "@/utils/posters-methods";
+import { Button } from "../../ui/button";
 import { useBoothContext } from "../photobooth/BoothContext";
 import { Skeleton } from "../../ui/skeleton";
+import useImageLoader from "../posters/useImageLoader";
 
 interface PostersPageProps {
   initialPosters: PosterMetadata[];
   location?: string;
   isLoading: boolean;
 }
+
+type PostersStatesMap = Record<
+  number,
+  { loading: boolean; imageSrc: string | null; hasError: boolean }
+>;
 
 const PostersPage: React.FC<PostersPageProps> = ({
   initialPosters,
@@ -20,6 +26,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [filteredPosters, setFilteredPosters] = useState<PosterMetadata[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
+
   const { setStage } = useBoothContext();
 
   useEffect(() => {
@@ -33,6 +40,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
     };
 
     if (initialPosters) {
+      console.log({ initial: initialPosters[0] });
       setFilteredPosters(initialPosters);
       getLocations();
     }
@@ -43,8 +51,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
       const filteredPosters = initialPosters.filter((poster) =>
         poster.fileName.includes(chosenLocation),
       );
-
-      setFilteredPosters(filteredPosters);
+      return filteredPosters;
     };
     const clickedLocation = (e.target as HTMLButtonElement).value;
 
@@ -54,7 +61,9 @@ const PostersPage: React.FC<PostersPageProps> = ({
     if (locationToSet === null) {
       setFilteredPosters(initialPosters); // remove filter if same button clicked
     } else {
-      filterPosters(locationToSet);
+      const filtered = filterPosters(locationToSet);
+
+      setFilteredPosters(filtered);
     }
 
     setSelectedLocation(locationToSet);
@@ -65,9 +74,9 @@ const PostersPage: React.FC<PostersPageProps> = ({
   };
 
   return isLoading || !filteredPosters ? (
-    <div className="my-10 flex h-screen w-full flex-col items-center bg-black_bg px-20">
-      <Skeleton className="h-10 w-full" />
-      <div className="grid h-full w-full grid-cols-3 gap-x-16 gap-y-24 py-20">
+    <div className="flex min-h-screen w-screen flex-col items-center bg-black_bg px-20">
+      <Skeleton className="my-10 h-10 w-full" />
+      <div className="grid min-h-screen w-full grid-cols-3 gap-x-16 gap-y-24 py-20">
         {Array(9)
           .fill(1, 0, 9)
           .map((_el, i) => {
@@ -78,10 +87,10 @@ const PostersPage: React.FC<PostersPageProps> = ({
       </div>
     </div>
   ) : (
-    <div className="bg-black_bg">
-      <div className="w-full px-20">
-        {locations ? (
-          <div className="my-10 flex items-start justify-start gap-5">
+    <>
+      <div className=" w-screen bg-black_bg px-20">
+        {locations && (
+          <div className="my-10 flex min-h-max items-start justify-start gap-5">
             {Array.from(locations).map((posterLocation) => (
               <Button
                 key={posterLocation}
@@ -97,23 +106,24 @@ const PostersPage: React.FC<PostersPageProps> = ({
               </Button>
             ))}
           </div>
-        ) : (
-          <></>
         )}
         <div className="flex h-full items-center justify-center">
-          <div className="grid w-full grid-cols-3 gap-x-16 gap-y-24">
-            {filteredPosters.map((poster) => (
-              <div key={poster.id} className="w-full">
-                <Image
-                  src={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/posters/${poster.fileName}`}
-                  alt={poster.fileName}
-                  className="w-full"
-                  width={800}
-                  height={800}
-                  loading="lazy"
-                />
-              </div>
-            ))}
+          <div className="grid min-h-screen w-full grid-cols-3 gap-x-16 gap-y-24">
+            {filteredPosters.map(
+              (poster) =>
+                poster.imageUrl && (
+                  <div key={poster.id} className="w-full">
+                    <Image
+                      src={poster.imageUrl}
+                      alt={poster.fileName}
+                      className="w-full"
+                      width={800}
+                      height={800}
+                      loading="lazy"
+                    />
+                  </div>
+                ),
+            )}
           </div>
         </div>
       </div>
@@ -123,7 +133,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
       >
         POSTER MAKER
       </Button>
-    </div>
+    </>
   );
 };
 
