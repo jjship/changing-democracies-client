@@ -30,6 +30,7 @@ const MakePhoto: FC = () => {
     setFilename,
     font,
   } = useBoothContext();
+  const thisStage = 6;
 
   useEffect(() => {
     setCanvasWidth(windowWidth);
@@ -220,7 +221,7 @@ const MakePhoto: FC = () => {
             throw new Error("Failed to save image");
           }
           setCountdownCompleted(false);
-          setStage(4);
+          setStage(thisStage + 1);
         }
       }, "image/jpeg");
     }
@@ -235,7 +236,7 @@ const MakePhoto: FC = () => {
     setFilename,
   ]);
 
-  if (stage !== 3) {
+  if (stage !== thisStage) {
     canvasRef.current?.remove();
     return null;
   }

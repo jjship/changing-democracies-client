@@ -7,7 +7,7 @@ import { getTranslation, translations } from "./boothConstats";
 import DavButton from "./DavButton";
 import BackBtn from "./BackBtn";
 
-const StageZero: FC = () => {
+const MakerStart: FC = () => {
   const { windowHeight, stage, currentLang } = useBoothContext();
   const [texts, setTexts] = useState<[string, string]>([
     "Make your own poster",
@@ -25,7 +25,7 @@ const StageZero: FC = () => {
     ]);
   }, [currentLang]);
 
-  if (stage !== 0) return null;
+  if (stage !== 3) return null;
 
   const props = {
     txt: "Start",
@@ -49,4 +49,4 @@ const StageZero: FC = () => {
   );
 };
 
-export default StageZero;
+export default MakerStart;

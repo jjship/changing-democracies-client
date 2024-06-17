@@ -25,6 +25,7 @@ export default function NameForm() {
   const [layoutType, setLayoutType] = useState<LayoutType>("default");
   const { userName, setUserName, stage, setStage, currentLang, windowHeight } =
     useBoothContext();
+  const thisStage = 4;
 
   useEffect(() => {
     setLayout(keyboardLayouts[languageAbbreviations[currentLang]]);
@@ -36,14 +37,12 @@ export default function NameForm() {
     },
   });
 
-  const nextStage = stage + 1;
-
   const onSubmit = (values: { userName: string }) => {
     const userNameInput = values.userName;
     values.userName = "";
 
     setUserName(userNameInput);
-    setStage(nextStage);
+    setStage(thisStage + 1);
 
     setLayoutType("default");
     form.reset({ userName: "" });
@@ -62,7 +61,7 @@ export default function NameForm() {
     if (button === "{shift}" || button === "{lock}") handleShift();
   };
 
-  if (stage !== 1) return null;
+  if (stage !== thisStage) return null;
 
   const txt = "Next";
   const btnY = windowHeight / 6;

@@ -22,6 +22,7 @@ const SaveAndSend: FC = () => {
     setUserName,
     setStatements,
   } = useBoothContext();
+  const thisStage = 7;
 
   useEffect(() => {
     if (!filename) return;
@@ -47,16 +48,16 @@ const SaveAndSend: FC = () => {
       setStatements(null);
       await deletePoster(filename);
       setFilename("");
-      setStage(-1);
+      setStage(0);
     },
     [filename, setFilename, setStage, setStatements, setUserName],
   );
 
   const handleSend = () => setIsSending((isSending) => !isSending);
 
-  const handlePublish = () => setStage(-2);
+  const handlePublish = () => setStage(0);
 
-  if (stage !== 4 || !imageUrl || !filename) return null;
+  if (stage !== thisStage || !imageUrl || !filename) return null;
 
   const buttonStyles =
     "bg-green_accent hover:bg-yellow_secondary text-black_bg p-5 m-5";

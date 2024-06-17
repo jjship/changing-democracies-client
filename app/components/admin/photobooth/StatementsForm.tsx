@@ -45,7 +45,7 @@ export default function StatementsForm() {
   const [focusedIdx, setFocusedIdx] = useState<number>(0);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const keyboardRef = useRef<KeyboardReactInterface | null>(null);
-  const nextStage = 3;
+  const thisStage = 5;
 
   useEffect(() => {
     setLayout(keyboardLayouts[languageAbbreviations[currentLang]]);
@@ -67,7 +67,7 @@ export default function StatementsForm() {
 
   const onSubmit: SubmitHandler<StatementsFormValues> = (values) => {
     setStatements(values.inputStatements.map((statement) => statement.text));
-    setStage(nextStage);
+    setStage(thisStage + 1);
 
     setLayoutType("default");
     form.reset({ inputStatements: [{ id: "id-0", text: "" }] });
@@ -140,7 +140,7 @@ export default function StatementsForm() {
     handleChange(input, focusedIdx);
   };
 
-  if (stage !== 2) return null;
+  if (stage !== thisStage) return null;
 
   const txt = "Next";
   const btnY = windowHeight / 6; //TODO fix animation

@@ -5,12 +5,13 @@ import { FC } from "react";
 import PostersPage from "../posters/PostersPage";
 
 const PostersGallery: FC = () => {
+  const thisStage = 0;
   const { location, stage } = useBoothContext();
 
   const { posters, error, reloadPosters } =
     usePostersLoader("/admin/posters/api");
 
-  if (stage !== -2) return null;
+  if (stage !== thisStage) return null;
 
   if (error) reloadPosters();
 

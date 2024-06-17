@@ -2,10 +2,18 @@ import { FC } from "react";
 import { Button } from "@/ui/button";
 import { useBoothContext } from "./BoothContext";
 
-const BackBtn: FC = () => {
+type BackProps = {
+  nextStage?: number;
+};
+
+const BackBtn: FC<BackProps> = ({ nextStage }) => {
   const { setStage, stage } = useBoothContext();
 
   const handleClick = () => {
+    if (nextStage !== undefined) {
+      setStage(nextStage);
+      return;
+    }
     setStage((prev) => prev - 1);
   };
 

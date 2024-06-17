@@ -13,6 +13,7 @@ type BtnLangProps = {
   height: number;
   btnY: number;
   windowHeight: number;
+  thisStage: number;
 };
 
 const BtnLang: FC<BtnLangProps> = ({
@@ -21,12 +22,13 @@ const BtnLang: FC<BtnLangProps> = ({
   height,
   btnY,
   windowHeight,
+  thisStage,
 }: BtnLangProps) => {
   const { setStage, setCurrentLang } = useBoothContext();
 
   const handleClick = () => {
     setCurrentLang(language);
-    setStage(0);
+    setStage(thisStage + 1);
   };
 
   return (

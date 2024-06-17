@@ -7,7 +7,8 @@ import BtnLang from "./BtnLang";
 import BackBtn from "./BackBtn";
 
 const LanguageButtons: FC = () => {
-  const { windowHeight, stage } = useBoothContext();
+  const { windowHeight, stage, location } = useBoothContext();
+  const thisStage = 2;
   const width = 120;
   const height = 50;
   const buttonSpacing = 30;
@@ -16,11 +17,11 @@ const LanguageButtons: FC = () => {
       (height * languages.length + buttonSpacing * (languages.length - 1))) /
     4;
 
-  if (stage !== -1) return null;
+  if (stage !== thisStage) return null;
 
   return (
     <>
-      <BackBtn />
+      <BackBtn nextStage={0} />
 
       <p className="mt-24 pb-0 text-3xl">Choose your language</p>
 
@@ -32,6 +33,7 @@ const LanguageButtons: FC = () => {
           height,
           btnY,
           windowHeight,
+          thisStage,
         };
         return <BtnLang key={i} {...props} />;
       })}

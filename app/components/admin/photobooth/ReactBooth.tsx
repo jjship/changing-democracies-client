@@ -3,16 +3,18 @@
 import { FC, useEffect } from "react";
 import { Open_Sans } from "next/font/google";
 import { Archivo } from "next/font/google";
+import { useIdleTimer } from "react-idle-timer";
 
 import { useBoothContext } from "./BoothContext";
 import LanguageButtons from "./LanguageButtons";
 
 import NameForm from "./NameForm";
-import StageZero from "./StageZero";
 import StatementsForm from "./StatementsForm";
 import SaveAndSend from "./SaveAndSend";
 import PostersGallery from "./PostersGallery";
 import MakePhoto from "./MakePhoto";
+import LocationForm from "./LocationForm";
+import MakerStart from "./MakerStart";
 
 const openSans = Open_Sans({ subsets: ["greek"], weight: "700" });
 const archivo = Archivo({ subsets: ["latin"], weight: "700" });
@@ -44,10 +46,6 @@ const ReactBooth: FC = () => {
     });
   }, [stage, currentLang]);
 
-  useEffect(() => {
-    console.log(stage);
-  }, [stage]);
-
   if (!windowHeight || !windowWidth) {
     return null;
   }
@@ -57,8 +55,9 @@ const ReactBooth: FC = () => {
       className={`flex h-full w-screen flex-col items-center ${font.className}`}
     >
       <PostersGallery />
+      <LocationForm />
       <LanguageButtons />
-      <StageZero />
+      <MakerStart />
       <NameForm />
       <StatementsForm />
       <MakePhoto />

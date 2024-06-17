@@ -25,8 +25,10 @@ const PostersPage: React.FC<PostersPageProps> = ({
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [filteredPosters, setFilteredPosters] = useState<PosterMetadata[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
+  const { setPrevLocations } = useBoothContext();
 
   const { setStage } = useBoothContext();
+  const thisStage = 0;
 
   useEffect(() => {
     const getLocations = () => {
@@ -35,6 +37,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
         const posterLocation = poster.fileName.split(".")[0].split("_").pop();
         if (posterLocation) newLocations.add(posterLocation);
       });
+      setPrevLocations(Array.from(newLocations));
       setLocations(Array.from(newLocations));
     };
 
@@ -68,7 +71,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
   };
 
   const handlePosterMakerClick = () => {
-    setStage(-1);
+    setStage(thisStage + 1);
   };
 
   return isLoading || !filteredPosters ? (
