@@ -45,6 +45,7 @@ export default function NameForm() {
     setUserName(userNameInput);
     setStage(nextStage);
 
+    setLayoutType("default");
     form.reset({ userName: "" });
   };
 

@@ -69,6 +69,7 @@ export default function StatementsForm() {
     setStatements(values.inputStatements.map((statement) => statement.text));
     setStage(nextStage);
 
+    setLayoutType("default");
     form.reset({ inputStatements: [{ id: "id-0", text: "" }] });
   };
 
