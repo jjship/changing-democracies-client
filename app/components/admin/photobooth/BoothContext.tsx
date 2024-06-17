@@ -1,5 +1,7 @@
 import {
+  Dispatch,
   ReactNode,
+  SetStateAction,
   createContext,
   useContext,
   useEffect,
@@ -11,27 +13,21 @@ import { Language } from "./boothConstats";
 
 type BoothContextType = {
   stage: number;
-  setStage: (nextStage: number) => void;
+  setStage: Dispatch<SetStateAction<number>>;
   currentLang: Language;
-  setCurrentLang: (nextLanguage: Language) => void;
+  setCurrentLang: Dispatch<SetStateAction<Language>>;
   location: string;
-  setLocation: (nextLocation: string) => void;
+  setLocation: Dispatch<SetStateAction<string>>;
   windowHeight: number;
   windowWidth: number;
   userName: string | null;
-  setUserName: (name: string | null) => void;
+  setUserName: Dispatch<SetStateAction<string | null>>;
   statements: string[] | null;
-  setStatements: (statements: string[] | null) => void;
+  setStatements: Dispatch<SetStateAction<string[] | null>>;
   filename: string | null;
-  setFilename: (filename: string) => void;
+  setFilename: Dispatch<SetStateAction<string | null>>;
   font: { className: string; fontFamily: string };
-  setFont: ({
-    className,
-    fontFamily,
-  }: {
-    className: string;
-    fontFamily: string;
-  }) => void;
+  setFont: Dispatch<SetStateAction<{ className: string; fontFamily: string }>>;
 };
 
 export const BoothContext = createContext<BoothContextType | null>(null);
