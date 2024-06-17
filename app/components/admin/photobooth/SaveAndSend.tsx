@@ -31,6 +31,12 @@ const SaveAndSend: FC = () => {
     );
   }, [filename]);
 
+  useEffect(() => {
+    if (stage === thisStage) {
+      setIsSending(false);
+    }
+  }, [stage, setStage]);
+
   const {
     imageSrc,
     handleError,
@@ -59,13 +65,12 @@ const SaveAndSend: FC = () => {
 
   if (stage !== thisStage || !imageUrl || !filename) return null;
 
-  const buttonStyles =
-    "bg-green_accent hover:bg-yellow_secondary text-black_bg p-5 m-5";
+  const buttonStyles = "bg-darkRed text-2xl hover:bg-pink mx-10 mt-5";
 
   return (
     <>
-      <div className="flex h-screen w-full flex-col items-center justify-center bg-black_bg">
-        <div className="h-2/3 w-4/5">
+      <div className="flex min-h-screen w-full flex-col items-center justify-center bg-black_bg">
+        <div className="w-4/5">
           {loading && (
             <Skeleton className="h-full w-full bg-slate-100 dark:bg-black" />
           )}
@@ -80,7 +85,7 @@ const SaveAndSend: FC = () => {
               alt="User made poster"
               onLoad={handleLoad}
               onError={handleError}
-              className="mx-auto max-h-full max-w-full"
+              className="mx-auto"
             />
           )}
           {error && retryCount === maxRetry && (
@@ -108,12 +113,11 @@ const SaveAndSend: FC = () => {
             publish & send by e-mail
           </Button>
         </div>
-      </div>
-      <div hidden={!isSending}>
         <EmailForm
           fileName={filename}
           location={location}
           imageUrl={imageUrl}
+          isSending={isSending}
         />
       </div>
     </>
