@@ -83,6 +83,5 @@ function parseTags(
   const tags: string[] | undefined = metaTags
     .find((tag) => tag.property === "tags")
     ?.value?.split(",");
-  console.log(tags);
   return tags ?? [];
 }

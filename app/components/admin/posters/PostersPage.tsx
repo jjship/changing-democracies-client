@@ -6,7 +6,6 @@ import { PosterMetadata } from "@/utils/posters-methods";
 import { Button } from "../../ui/button";
 import { useBoothContext } from "../photobooth/BoothContext";
 import { Skeleton } from "../../ui/skeleton";
-import useImageLoader from "../posters/useImageLoader";
 
 interface PostersPageProps {
   initialPosters: PosterMetadata[];
@@ -40,7 +39,6 @@ const PostersPage: React.FC<PostersPageProps> = ({
     };
 
     if (initialPosters) {
-      console.log({ initial: initialPosters[0] });
       setFilteredPosters(initialPosters);
       getLocations();
     }

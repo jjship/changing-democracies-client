@@ -11,13 +11,11 @@ export default function ClickToLogin({
   searchParams: ClickParams;
 }) {
   const { token_hash, type, next } = searchParams;
-  console.log({ next });
 
   const router = useRouter();
 
   const goLogin = () => {
     if (type === "invite" || type === "recovery") {
-      console.log("invite");
       router.push(
         `/auth/confirm?token_hash=${token_hash}&type=${type}&next=${next}`,
       );

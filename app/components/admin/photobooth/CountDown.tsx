@@ -8,7 +8,6 @@ const CountDown: FC<CountDownProps> = ({ start }) => {
   const [num, setNum] = useState<number>(3);
 
   useEffect(() => {
-    console.log({ start });
     if (start) {
       const interval = setInterval(() => {
         setNum((prev) => {
