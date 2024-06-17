@@ -44,6 +44,8 @@ export default function NameForm() {
 
     setUserName(userNameInput);
     setStage(nextStage);
+
+    form.reset({ userName: "" });
   };
 
   const handleChange = (input: string) => {

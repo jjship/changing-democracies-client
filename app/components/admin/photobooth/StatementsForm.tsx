@@ -68,6 +68,8 @@ export default function StatementsForm() {
   const onSubmit: SubmitHandler<StatementsFormValues> = (values) => {
     setStatements(values.inputStatements.map((statement) => statement.text));
     setStage(nextStage);
+
+    form.reset({ inputStatements: [{ id: "id-0", text: "" }] });
   };
 
   const handleKeyPress = (
