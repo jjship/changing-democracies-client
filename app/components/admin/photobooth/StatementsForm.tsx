@@ -6,15 +6,23 @@ import {
   SubmitHandler,
   Control,
 } from "react-hook-form";
-import { KeyboardEvent, useRef, useState } from "react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { Form, FormControl, FormField, FormItem } from "../../ui/form";
-import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
+import Keyboard, {
+  KeyboardLayoutObject,
+  KeyboardReactInterface,
+} from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import { useBoothContext } from "./BoothContext";
-import { getTranslation, translations } from "./boothConstats";
+import {
+  getTranslation,
+  languageAbbreviations,
+  translations,
+} from "./boothConstats";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import BackBtn from "./BackBtn";
+import keyboardLayouts, { LayoutType } from "./keyboardLayouts";
 
 type StatementsFormValues = {
   inputStatements: { id: string; text: string }[];
@@ -30,9 +38,18 @@ export default function StatementsForm() {
     windowHeight,
   } = useBoothContext();
 
+  const [layout, setLayout] = useState<KeyboardLayoutObject>(
+    keyboardLayouts["EN"],
+  );
+  const [layoutType, setLayoutType] = useState<LayoutType>("default");
   const [focusedIdx, setFocusedIdx] = useState<number>(0);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const keyboardRef = useRef<KeyboardReactInterface | null>(null);
+  const nextStage = 3;
+
+  useEffect(() => {
+    setLayout(keyboardLayouts[languageAbbreviations[currentLang]]);
+  }, [currentLang]);
 
   const form = useForm<StatementsFormValues>({
     defaultValues: {
@@ -48,8 +65,6 @@ export default function StatementsForm() {
     name: "inputStatements",
   });
 
-  const nextStage = 3;
-
   const onSubmit: SubmitHandler<StatementsFormValues> = (values) => {
     setStatements(values.inputStatements.map((statement) => statement.text));
     setStage(nextStage);
@@ -63,6 +78,8 @@ export default function StatementsForm() {
     const key = event.key;
     const isEnter = (key: string) => key === "Enter" || key === "{enter}";
     const isBskp = (key: string) => key === "Backspace" || key === "{bksp}";
+    const isShift = (key: string) =>
+      key === "{shift}" || key === "{lock}" || key === "Shift";
 
     if (isEnter(key)) {
       if (isPhysicalEvent) event.preventDefault();
@@ -75,6 +92,7 @@ export default function StatementsForm() {
       setTimeout(() => {
         keyboardRef.current?.setInput("");
       }, 0);
+      return;
     }
     if (isBskp(key) && !form.getValues(`inputStatements.${index}.text`)) {
       if (isPhysicalEvent) event.preventDefault();
@@ -88,6 +106,12 @@ export default function StatementsForm() {
           inputRefs.current[indexToFocus]?.focus();
         }, 0);
       }
+      return;
+    }
+    if (isShift(key)) {
+      if (isPhysicalEvent) event.preventDefault();
+      setLayoutType((prev) => (prev === "default" ? "shift" : "default"));
+      return;
     }
   };
 
@@ -102,7 +126,7 @@ export default function StatementsForm() {
       const updatedValues = [...currentValues];
       updatedValues[index] = {
         ...updatedValues[index],
-        text: input.toUpperCase(),
+        text: input,
       };
       form.setValue("inputStatements", updatedValues);
       setStatements(updatedValues.map((statements) => statements.text));
@@ -170,7 +194,8 @@ export default function StatementsForm() {
           onChange={handleVirtualChange}
           onKeyPress={handleVirtualKeyPress}
           inputName="statements"
-          layoutName="default"
+          layout={layout}
+          layoutName={layoutType}
           theme="hg-theme-default myTheme1"
         />
       </div>

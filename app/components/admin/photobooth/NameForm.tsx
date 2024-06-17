@@ -3,24 +3,41 @@
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem } from "../../ui/form";
 import { Input } from "../../ui/input";
-import Keyboard from "react-simple-keyboard";
+import Keyboard, { KeyboardLayoutObject } from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import { useBoothContext } from "./BoothContext";
-import { getTranslation, translations } from "./boothConstats";
+import {
+  getTranslation,
+  languageAbbreviations,
+  translations,
+} from "./boothConstats";
 import { Animate } from "react-simple-animate";
 import { Button } from "../../ui/button";
 import BackBtn from "./BackBtn";
 
+import { useCallback, useEffect, useState } from "react";
+import keyboardLayouts, { LayoutType } from "./keyboardLayouts";
+
 export default function NameForm() {
+  const [layout, setLayout] = useState<KeyboardLayoutObject>(
+    keyboardLayouts["EN"],
+  );
+  const [layoutType, setLayoutType] = useState<LayoutType>("default");
   const { userName, setUserName, stage, setStage, currentLang, windowHeight } =
     useBoothContext();
+
+  useEffect(() => {
+    setLayout(keyboardLayouts[languageAbbreviations[currentLang]]);
+  }, [currentLang]);
 
   const form = useForm<{ userName: string }>({
     defaultValues: {
       userName: userName ?? "",
     },
   });
+
   const nextStage = stage + 1;
+
   const onSubmit = (values: { userName: string }) => {
     const userNameInput = values.userName;
     values.userName = "";
@@ -30,8 +47,16 @@ export default function NameForm() {
   };
 
   const handleChange = (input: string) => {
-    setUserName(input.toUpperCase());
-    form.setValue("userName", input.toUpperCase());
+    setUserName(input);
+    form.setValue("userName", input);
+  };
+
+  const handleShift = useCallback(() => {
+    setLayoutType((prev) => (prev === "default" ? "shift" : "default"));
+  }, [setLayoutType]);
+
+  const handleVirtualKeyPress = (button: string) => {
+    if (button === "{shift}" || button === "{lock}") handleShift();
   };
 
   if (stage !== 1) return null;
@@ -89,8 +114,10 @@ export default function NameForm() {
         <Keyboard
           onChange={handleChange}
           inputName="userName"
-          layoutName="default"
+          layout={layout}
+          layoutName={layoutType}
           theme={"hg-theme-default myTheme1"}
+          onKeyPress={handleVirtualKeyPress}
         />
       </div>
       <BackBtn />
