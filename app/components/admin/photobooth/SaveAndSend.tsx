@@ -8,6 +8,7 @@ import { Button } from "../../ui/button";
 import EmailForm from "./EmailForm";
 import { useBoothContext } from "./BoothContext";
 import { Skeleton } from "../../ui/skeleton";
+import { editButton } from "../classNames";
 
 const SaveAndSend: FC = () => {
   const [isSending, setIsSending] = useState(false);
@@ -37,6 +38,7 @@ const SaveAndSend: FC = () => {
     loading,
     retryCount,
     manualRetry,
+    maxRetry,
   } = useImageLoader(imageUrl);
 
   const handleDelete = useCallback(
@@ -80,12 +82,14 @@ const SaveAndSend: FC = () => {
               className="mx-auto max-h-full max-w-full"
             />
           )}
-          {error && retryCount > 4 && (
+          {error && retryCount === maxRetry && (
             <div>
               <p className="text-white">
                 Failed to load image. Please try again.
               </p>
-              <Button onClick={manualRetry}>Retry</Button>
+              <Button className={editButton} onClick={manualRetry}>
+                Retry
+              </Button>
             </div>
           )}
         </div>

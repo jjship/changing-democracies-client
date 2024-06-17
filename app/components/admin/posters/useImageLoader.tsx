@@ -12,6 +12,7 @@ const fetchImage = async (src: string) => {
 };
 
 const useImageLoader = (src: string | null) => {
+  const maxRetry = 5;
   const { data, error, mutate } = useSWR(src, fetchImage, {
     revalidateOnFocus: false,
     refreshInterval: 30000,
@@ -33,14 +34,14 @@ const useImageLoader = (src: string | null) => {
   }, [mutate]);
 
   useEffect(() => {
-    if (error && retryCount < 5) {
+    if (error && retryCount < maxRetry) {
       const retryDelay = Math.min(500 * Math.pow(2, retryCount), 2000);
       const timer = setTimeout(() => {
         reloadImage();
       }, retryDelay);
 
       return () => clearTimeout(timer);
-    } else if (error && retryCount >= 5) {
+    } else if (error && retryCount >= maxRetry) {
       setLocalError(error);
     }
   }, [error, retryCount, reloadImage]);
@@ -59,6 +60,7 @@ const useImageLoader = (src: string | null) => {
     loading: !data && !localError,
     retryCount,
     manualRetry,
+    maxRetry,
   };
 };
 
