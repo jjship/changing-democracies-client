@@ -78,8 +78,10 @@ export default function LocationForm() {
                     onValueChange={(e) => onSubmit({ location: e })}
                     defaultValue={field.value}
                   >
-                    <FormControl>
-                      <SelectTrigger className={navButton}>
+                    <FormControl className="mb-40">
+                      <SelectTrigger
+                        className={`rounded bg-darkRed px-10 py-2 text-white hover:bg-pink`}
+                      >
                         <SelectValue placeholder="Select Previous Location" />
                       </SelectTrigger>
                     </FormControl>
