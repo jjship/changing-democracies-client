@@ -7,12 +7,14 @@ import { saveImage } from "../actions";
 import { Button } from "../../ui/button";
 import { editButton } from "../classNames";
 import BackBtn from "./BackBtn";
+import CountDown from "./CountDown";
 
-const VideoWithFilters: FC = () => {
+const MakePhoto: FC = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [canvasWidth, setCanvasWidth] = useState<number>(0);
   const [canvasHeight, setCanvasHeight] = useState<number>(0);
-  const [saving, setSaving] = useState(false);
+  const [start, setStart] = useState(false);
+  const [countdownCompleted, setCountdownCompleted] = useState(false);
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const {
@@ -178,8 +180,16 @@ const VideoWithFilters: FC = () => {
   );
 
   const makePhoto = () => {
-    if (!canvasRef.current || !webcamRef.current) return;
-    setSaving(true);
+    setStart(true);
+    setTimeout(() => {
+      setCountdownCompleted(true);
+      setStart(false);
+    }, 3050);
+  };
+
+  useEffect(() => {
+    if (!countdownCompleted || !canvasRef.current || !webcamRef.current) return;
+
     const targetCanvas = canvasRef.current;
     const targetCtx = targetCanvas.getContext("2d");
     const sourceCanvas = webcamRef.current.getCanvas();
@@ -190,7 +200,7 @@ const VideoWithFilters: FC = () => {
       targetCanvas.width = canvasWidth;
       targetCanvas.height = canvasHeight;
 
-      targetCtx?.drawImage(sourceCanvas, 0, 0, canvasWidth, canvasHeight);
+      targetCtx.drawImage(sourceCanvas, 0, 0, canvasWidth, canvasHeight);
 
       applyTintEffect(targetCtx, canvasWidth, canvasHeight);
 
@@ -206,15 +216,24 @@ const VideoWithFilters: FC = () => {
           formData.append("fileName", filename);
 
           const result = await saveImage(formData);
-          setSaving(false);
           if (result.error) {
             throw new Error("Failed to save image");
           }
+          setCountdownCompleted(false);
           setStage(4);
         }
       }, "image/jpeg");
     }
-  };
+  }, [
+    countdownCompleted,
+    canvasWidth,
+    canvasHeight,
+    statements,
+    userName,
+    location,
+    setStage,
+    setFilename,
+  ]);
 
   if (stage !== 3) {
     canvasRef.current?.remove();
@@ -232,6 +251,7 @@ const VideoWithFilters: FC = () => {
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
+              mirrored={true}
               videoConstraints={{
                 width: canvasWidth,
                 height: canvasHeight,
@@ -261,10 +281,10 @@ const VideoWithFilters: FC = () => {
           }}
         ></canvas>
       </div>
-
+      {start && <CountDown start={start} />}
       <BackBtn />
     </>
   );
 };
 
-export default VideoWithFilters;
+export default MakePhoto;
