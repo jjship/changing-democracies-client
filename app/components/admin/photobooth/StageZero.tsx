@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from "react";
 import { useBoothContext } from "./BoothContext";
 import { getTranslation, translations } from "./boothConstats";
 import DavButton from "./DavButton";
+import BackBtn from "./BackBtn";
 
 const StageZero: FC = () => {
   const { windowHeight, stage, currentLang } = useBoothContext();
@@ -43,6 +44,7 @@ const StageZero: FC = () => {
         <p className="mt-72 text-[32px] text-darkRed">{texts[1]}</p>
       </div>
       <DavButton {...props} />
+      <BackBtn />
     </>
   );
 };

@@ -6,6 +6,7 @@ import { useBoothContext } from "./BoothContext";
 import { saveImage } from "../actions";
 import { Button } from "../../ui/button";
 import { editButton } from "../classNames";
+import BackBtn from "./BackBtn";
 
 const VideoWithFilters: FC = () => {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -214,7 +215,6 @@ const VideoWithFilters: FC = () => {
       }, "image/jpeg");
     }
   };
-  //TODO add take another picture step (without loosing statement etc)
 
   if (stage !== 3) {
     canvasRef.current?.remove();
@@ -222,45 +222,48 @@ const VideoWithFilters: FC = () => {
   }
 
   return (
-    <div className="relative flex h-screen w-screen flex-col items-center bg-black_bg">
-      {!canvasHeight || !canvasWidth ? (
-        <p>Loading....</p>
-      ) : (
-        <>
-          <Webcam
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            videoConstraints={{
-              width: canvasWidth,
-              height: canvasHeight,
-              facingMode: "user",
-              frameRate: 20,
-            }}
-            style={{
-              width: canvasWidth,
-              height: canvasHeight,
-              // filter: `hue-rotate(140deg) saturate(.7) brightness(0.8)`,
-            }}
-            onUserMedia={() => setIsStreaming(true)}
-          />
-          <Button className={`${editButton} my-5`} onClick={makePhoto}>
-            Take Picture
-          </Button>
-        </>
-      )}
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: canvasWidth,
-          height: canvasHeight,
-          zIndex: -1,
-        }}
-      ></canvas>
-    </div>
+    <>
+      <div className="relative flex h-screen w-screen flex-col items-center bg-black_bg">
+        {!canvasHeight || !canvasWidth ? (
+          <p>Loading....</p>
+        ) : (
+          <>
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              videoConstraints={{
+                width: canvasWidth,
+                height: canvasHeight,
+                facingMode: "user",
+                frameRate: 20,
+              }}
+              style={{
+                width: canvasWidth,
+                height: canvasHeight,
+              }}
+              onUserMedia={() => setIsStreaming(true)}
+            />
+            <Button className={`${editButton} my-5`} onClick={makePhoto}>
+              Take Picture
+            </Button>
+          </>
+        )}
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: canvasWidth,
+            height: canvasHeight,
+            zIndex: -1,
+          }}
+        ></canvas>
+      </div>
+
+      <BackBtn />
+    </>
   );
 };
 

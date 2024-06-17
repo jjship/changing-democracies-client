@@ -9,6 +9,7 @@ import { useBoothContext } from "./BoothContext";
 import { getTranslation, translations } from "./boothConstats";
 import { Animate } from "react-simple-animate";
 import { Button } from "../../ui/button";
+import BackBtn from "./BackBtn";
 
 export default function NameForm() {
   const { userName, setUserName, stage, setStage, currentLang, windowHeight } =
@@ -92,6 +93,7 @@ export default function NameForm() {
           theme={"hg-theme-default myTheme1"}
         />
       </div>
+      <BackBtn />
     </div>
   );
 }

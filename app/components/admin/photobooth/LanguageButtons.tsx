@@ -4,6 +4,7 @@ import { FC } from "react";
 import { useBoothContext } from "./BoothContext";
 import { languages } from "./boothConstats";
 import BtnLang from "./BtnLang";
+import BackBtn from "./BackBtn";
 
 const LanguageButtons: FC = () => {
   const { windowHeight, stage } = useBoothContext();
@@ -20,6 +21,7 @@ const LanguageButtons: FC = () => {
 
   return (
     <>
+      <BackBtn />
       {languages.map((lang, i) => {
         const btnY = startY + i * buttonSpacing;
         const props = {

@@ -14,6 +14,7 @@ import { useBoothContext } from "./BoothContext";
 import { getTranslation, translations } from "./boothConstats";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
+import BackBtn from "./BackBtn";
 
 type StatementsFormValues = {
   inputStatements: { id: string; text: string }[];
@@ -173,6 +174,8 @@ export default function StatementsForm() {
           theme="hg-theme-default myTheme1"
         />
       </div>
+
+      <BackBtn />
     </div>
   );
 }
