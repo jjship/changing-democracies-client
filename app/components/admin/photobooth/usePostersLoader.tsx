@@ -26,18 +26,21 @@ export const usePostersLoader = (src: string) => {
     mutate,
   } = useSWR(src, fetchPosters, {
     revalidateOnFocus: false,
-    refreshInterval: 5000,
+    refreshInterval: 10000,
   });
 
   const [currentPosters, setCurrentPosters] =
     useState<PosterMetadata[]>(posters);
 
   useEffect(() => {
-    if (
-      posters &&
-      (!currentPosters || posters.length !== currentPosters.length)
-    )
-      setCurrentPosters(posters);
+    const postersTimeout = setTimeout(() => {
+      if (
+        posters &&
+        (!currentPosters || posters.length !== currentPosters.length)
+      )
+        setCurrentPosters(posters);
+    }, 1000);
+    return () => clearTimeout(postersTimeout);
   }, [posters, currentPosters]);
 
   return {
