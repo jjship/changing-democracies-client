@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Button } from "@/ui/button";
 import { useBoothContext } from "./BoothContext";
+import backArrow from "@/public/back_arrow.svg";
+import Image from "next/image";
 
 type BackProps = {
   nextStage?: number;
@@ -19,10 +21,14 @@ const BackBtn: FC<BackProps> = ({ nextStage }) => {
 
   return (
     <Button
-      className={`absolute left-5 top-5 bg-darkRed p-6 text-2xl hover:bg-pink`}
+      className={`absolute left-5 top-10 bg-transparent hover:bg-transparent`}
       onClick={handleClick}
     >
-      Go Back
+      <Image
+        src={backArrow}
+        alt="image with earshaped arrows"
+        // className="mx-auto max-w-[24rem] pt-10"
+      />
     </Button>
   );
 };
