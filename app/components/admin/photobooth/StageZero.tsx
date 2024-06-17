@@ -29,7 +29,7 @@ const StageZero: FC = () => {
 
   const props = {
     txt: "Start",
-    btnY: 70,
+    btnY: 300,
     width: 200,
     windowHeight,
   };
@@ -38,10 +38,10 @@ const StageZero: FC = () => {
     <>
       {" "}
       <div>
-        <p className="mt-24 text-[24px]">{texts[0]}</p>
+        <p className="mt-24 text-4xl">{texts[0]}</p>
       </div>
       <div>
-        <p className="mt-72 text-[32px] text-darkRed">{texts[1]}</p>
+        <p className="mt-72 text-5xl text-darkRed">{texts[1]}</p>
       </div>
       <DavButton {...props} />
       <BackBtn />

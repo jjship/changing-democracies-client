@@ -37,7 +37,7 @@ const DavButton: FC<DavButtonProps> = ({
       easeType="ease-in-out"
     >
       <Button
-        className={`bg-darkRed hover:bg-pink text-[24px]`}
+        className={`bg-darkRed text-2xl hover:bg-pink`}
         style={{ width: `${width}px`, height: `50px` }}
         onClick={handleClick}
       >

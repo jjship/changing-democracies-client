@@ -11,7 +11,7 @@ const BackBtn: FC = () => {
 
   return (
     <Button
-      className={`absolute left-5 top-5 bg-darkRed p-6 text-[24px] hover:bg-pink`}
+      className={`absolute left-5 top-5 bg-darkRed p-6 text-2xl hover:bg-pink`}
       onClick={handleClick}
     >
       Go Back

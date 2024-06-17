@@ -147,7 +147,7 @@ export default function StatementsForm() {
 
   return (
     <div className="flex h-screen w-4/5 flex-col content-center items-stretch justify-between">
-      <p className="mt-24 text-center text-[24px]">
+      <p className="mt-24 text-center text-4xl">
         {getTranslation(currentLang, "Write your statements", translations)}
       </p>
 
@@ -168,7 +168,7 @@ export default function StatementsForm() {
                           inputRefs.current[index] = el;
                           ref(el);
                         }}
-                        className="mb-5 w-full bg-darkRed px-10 py-6 text-3xl text-black"
+                        className="mb-5 w-full bg-darkRed px-10 py-6 text-3xl text-black_bg"
                         onKeyDown={(e) => handleKeyPress(e, index)}
                         onChange={(e) => onChange(e.target.value)}
                         onBlur={onBlur}
@@ -182,7 +182,7 @@ export default function StatementsForm() {
             ))}
             <Button
               type="submit"
-              className="bg-darkRed text-[24px] hover:bg-pink"
+              className="bg-darkRed text-2xl hover:bg-pink"
               style={{ width: `200px`, height: `50px` }}
             >
               {txt}
@@ -191,7 +191,7 @@ export default function StatementsForm() {
         </form>
       </Form>
 
-      <div className="w-full pt-10 text-black">
+      <div className="w-full pt-10 text-black_bg">
         <Keyboard
           keyboardRef={(r) => (keyboardRef.current = r)}
           onChange={handleVirtualChange}

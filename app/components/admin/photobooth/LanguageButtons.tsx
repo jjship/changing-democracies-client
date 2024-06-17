@@ -14,7 +14,7 @@ const LanguageButtons: FC = () => {
   const startY =
     (windowHeight -
       (height * languages.length + buttonSpacing * (languages.length - 1))) /
-    3;
+    4;
 
   if (stage !== -1) return null;
 
@@ -22,7 +22,7 @@ const LanguageButtons: FC = () => {
     <>
       <BackBtn />
 
-      <p className="mt-12 pb-0 text-[24px]">Choose your language</p>
+      <p className="mt-24 pb-0 text-3xl">Choose your language</p>
 
       {languages.map((lang, i) => {
         const btnY = startY + i * buttonSpacing;

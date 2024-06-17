@@ -69,8 +69,8 @@ export default function NameForm() {
   const width = 200;
 
   return (
-    <div className="flex h-screen w-4/5 flex-col content-center items-center  justify-between ">
-      <p className="mt-24 text-[24px]">
+    <div className="flex h-screen w-2/3 flex-col content-center items-stretch  justify-between ">
+      <p className="mt-24 text-center text-4xl">
         {getTranslation(currentLang, "What is your name?", translations)}
       </p>
 
@@ -81,10 +81,10 @@ export default function NameForm() {
               control={form.control}
               name="userName"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormControl>
                     <Input
-                      className="border-0 bg-darkRed px-10 py-6 text-3xl text-black"
+                      className=" w-full border-0 bg-darkRed px-10 py-6 text-3xl text-black_bg"
                       {...field}
                     />
                   </FormControl>
@@ -103,7 +103,7 @@ export default function NameForm() {
             >
               <Button
                 type="submit"
-                className={`bg-darkRed text-[24px] hover:bg-pink`}
+                className={`bg-darkRed text-2xl hover:bg-pink`}
                 style={{ width: `${width}px`, height: `50px` }}
               >
                 {txt}
@@ -113,7 +113,7 @@ export default function NameForm() {
         </form>
       </Form>
 
-      <div className="w-full  pt-10 text-black">
+      <div className="w-full  pt-10 text-black_bg">
         <Keyboard
           onChange={handleChange}
           inputName="userName"
