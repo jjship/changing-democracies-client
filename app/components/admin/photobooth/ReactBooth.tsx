@@ -19,7 +19,7 @@ const archivo = Archivo({ subsets: ["latin"], weight: "700" });
 
 const ReactBooth: FC = () => {
   const {
-    location,
+    setStage,
     stage,
     currentLang,
     windowHeight,
@@ -27,6 +27,14 @@ const ReactBooth: FC = () => {
     font,
     setFont,
   } = useBoothContext();
+
+  const onIdle = () => setStage(0);
+
+  useIdleTimer({
+    onIdle,
+    timeout: 180_000,
+    throttle: 500,
+  });
 
   useEffect(() => {
     const currFont = stage > -1 && currentLang === "greek" ? openSans : archivo;
