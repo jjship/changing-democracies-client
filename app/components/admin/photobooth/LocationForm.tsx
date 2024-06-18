@@ -1,31 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "../../ui/form";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
-import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-import { useRouter } from "next/navigation";
-import { useBoothContext } from "./BoothContext";
+import Keyboard from "react-simple-keyboard";
+import { FC, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/ui/form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
 import {
   Select,
   SelectItem,
-  SelectGroup,
+  SelectTrigger,
+  SelectValue,
   SelectContent,
-} from "../../ui/select";
-import { SelectTrigger, SelectValue } from "@radix-ui/react-select";
-import { editButton, navButton } from "../classNames";
+} from "@/ui/select";
 import BackBtn from "./BackBtn";
 
-export default function LocationForm() {
+import { useBoothContext } from "./BoothContext";
+
+const LocationForm: FC = () => {
   const [isSet, setIsSet] = useState(false);
   const thisStage = 1;
   const { location, setLocation, prevLocations, stage, setStage } =
@@ -51,8 +45,7 @@ export default function LocationForm() {
     const locationInput = values.location
       .normalize("NFD") // Normalize to decomposed form (NFD)
       .replace(/[\u0300-\u036f]/g, "") // Remove diacritical marks
-      .toUpperCase(); // Convert to uppercase;
-    setLocation(locationInput);
+      .toUpperCase();
     setStage(thisStage + 1);
   };
 
@@ -85,22 +78,16 @@ export default function LocationForm() {
                         <SelectValue placeholder="Select Previous Location" />
                       </SelectTrigger>
                     </FormControl>
-                    {/* <SelectGroup> */}
                     <SelectContent>
                       {prevLocations.map(
                         (loc, i) =>
                           loc && (
-                            <SelectItem
-                              // className="w-full border-0 bg-darkRed px-10 py-6 text-3xl text-black_bg"
-                              key={`${i}-key`}
-                              value={loc}
-                            >
+                            <SelectItem key={`${i}-key`} value={loc}>
                               {loc}
                             </SelectItem>
                           ),
                       )}
                     </SelectContent>
-                    {/* </SelectGroup> */}
                   </Select>
                 </FormItem>
               )}
@@ -141,4 +128,6 @@ export default function LocationForm() {
       <BackBtn />
     </div>
   );
-}
+};
+
+export default LocationForm;

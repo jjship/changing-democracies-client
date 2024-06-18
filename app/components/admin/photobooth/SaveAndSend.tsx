@@ -1,14 +1,14 @@
 "use client";
 
 import { FC, useCallback, useEffect, useState } from "react";
+
 import useImageLoader from "../posters/useImageLoader";
 import { deletePoster } from "../posters/actions";
-import Image from "next/image";
-import { Button } from "../../ui/button";
+import { Button } from "@/ui/button";
+import { Skeleton } from "@/ui/skeleton";
 import EmailForm from "./EmailForm";
-import { useBoothContext } from "./BoothContext";
-import { Skeleton } from "../../ui/skeleton";
 import { editButton } from "../classNames";
+import { useBoothContext } from "./BoothContext";
 
 const SaveAndSend: FC = () => {
   const [isSending, setIsSending] = useState(false);
@@ -90,10 +90,10 @@ const SaveAndSend: FC = () => {
           )}
           {error && retryCount === maxRetry && (
             <div>
-              <p className="text-white">
+              <p className="mx-auto text-white">
                 Failed to load image. Please try again.
               </p>
-              <Button className={editButton} onClick={manualRetry}>
+              <Button className={`${editButton} mx-auto`} onClick={manualRetry}>
                 Retry
               </Button>
             </div>
@@ -104,13 +104,13 @@ const SaveAndSend: FC = () => {
             className={buttonStyles}
             onClick={() => handleDelete(filename)}
           >
-            delete & start again
+            Delete & Start Again
           </Button>
           <Button className={buttonStyles} onClick={handlePublish}>
-            publish
+            Publish
           </Button>
           <Button className={buttonStyles} onClick={handleSend}>
-            publish & send by e-mail
+            Publish & Send by Email
           </Button>
         </div>
         <EmailForm

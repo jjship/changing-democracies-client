@@ -1,21 +1,17 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "../../ui/form";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
-import sendImage from "../posters/sendImage";
-import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FC, useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
+import Keyboard from "react-simple-keyboard";
+
+import { Form, FormControl, FormField, FormItem } from "@/ui/form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import sendImage from "../posters/sendImage";
+
 import { useBoothContext } from "./BoothContext";
 
 export type EmailFormProps = {
@@ -31,12 +27,12 @@ const formSchema = z.object({
   address: z.string().email({ message: "Must be a valid e-mail address" }),
 });
 
-export default function EmailForm({
+const EmailForm: FC<EmailFormProps> = ({
   imageUrl,
   fileName,
   location,
   isSending,
-}: EmailFormProps) {
+}: EmailFormProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [address, setAddress] = useState<string>("");
   const { setStage } = useBoothContext();
@@ -71,9 +67,6 @@ export default function EmailForm({
     form.setValue("address", input);
   };
 
-  const buttonStyles =
-    "bg-green_accent hover:bg-yellow_secondary text-black_bg px-10";
-
   return isSending && !submitted ? (
     <div className="flex min-h-min w-3/4 flex-col content-center items-stretch justify-between bg-black_bg">
       <p className="mb-5 mt-10 text-center text-4xl text-red_mains">
@@ -88,11 +81,7 @@ export default function EmailForm({
               render={({ field }) => (
                 <FormItem className="mr-2.5 flex-grow">
                   <FormControl>
-                    <Input
-                      className="min-w-full text-black"
-                      {...field}
-                      // value={address}
-                    />
+                    <Input className="min-w-full text-black" {...field} />
                   </FormControl>
                 </FormItem>
               )}
@@ -116,4 +105,6 @@ export default function EmailForm({
   ) : (
     <></>
   );
-}
+};
+
+export default EmailForm;
