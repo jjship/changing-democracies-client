@@ -52,7 +52,7 @@ const EmailForm: FC<EmailFormProps> = ({
       setSubmitted(true);
       setStage(0);
     },
-    [imageUrl, fileName, location],
+    [imageUrl, fileName, setStage],
   );
 
   const onSubmit = (values: FormAddress) => {

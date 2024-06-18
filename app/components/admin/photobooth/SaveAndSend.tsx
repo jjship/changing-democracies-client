@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 
 import useImageLoader from "../posters/useImageLoader";
 import { deletePoster } from "../posters/actions";
@@ -56,7 +57,7 @@ const SaveAndSend: FC = () => {
       setFilename("");
       setStage(0);
     },
-    [filename, setFilename, setStage, setStatements, setUserName],
+    [setFilename, setStage, setStatements, setUserName],
   );
 
   const handleSend = () => setIsSending((isSending) => !isSending);
@@ -79,8 +80,8 @@ const SaveAndSend: FC = () => {
               <p>Error: {error.message}</p>
             </div>
           )}
-          {!loading && !error && (
-            <img
+          {!loading && !error && imageSrc && (
+            <Image
               src={imageSrc}
               alt="User made poster"
               onLoad={handleLoad}

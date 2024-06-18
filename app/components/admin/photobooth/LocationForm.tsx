@@ -35,7 +35,7 @@ const LocationForm: FC = () => {
   useEffect(() => {
     form.reset({ location: location, prevLocations: prevLocations });
     if (!!location) setIsSet(true);
-  }, [location, prevLocations, stage]);
+  }, [location, prevLocations, stage, form]);
 
   useEffect(() => {
     if (stage === thisStage && isSet) setStage(stage + 1);

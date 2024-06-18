@@ -45,7 +45,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
       setFilteredPosters(initialPosters);
       getLocations();
     }
-  }, [initialPosters]);
+  }, [initialPosters, setPrevLocations]);
 
   const handleFilterClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     const filterPosters = (chosenLocation: string) => {

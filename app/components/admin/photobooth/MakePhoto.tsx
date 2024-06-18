@@ -37,6 +37,41 @@ const MakePhoto: FC = () => {
     setCanvasHeight(windowHeight * 0.9);
   }, [windowWidth, windowHeight]);
 
+  const drawTriangle = useCallback(
+    ({
+      ctx,
+      endX,
+      startY,
+    }: {
+      ctx: CanvasRenderingContext2D;
+      endX: number;
+      startY: number;
+    }) => {
+      const yellowBrown = "#cf9855"; // Color value for yellowBrown
+      const r = 70; // Radius value
+      const a1 = Math.PI; // Angle in radians
+      const a2 = a1 + (Math.PI * 2) / 3; // Angle in radians
+      const a3 = a2 + (Math.PI * 2) / 3; // Angle in radians
+
+      ctx.fillStyle = yellowBrown;
+
+      const x1 = endX - r / 2 + Math.cos(a1) * r;
+      const y1 = startY + Math.sin(a1) * r;
+      const x2 = endX - r / 2 + Math.cos(a2) * r;
+      const y2 = startY + Math.sin(a2) * r;
+      const x3 = endX - r / 2 + Math.cos(a3) * r;
+      const y3 = startY + Math.sin(a3) * r;
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineTo(x3, y3);
+      ctx.closePath();
+      ctx.fill();
+    },
+    [],
+  );
+
   const drawStatements = useCallback(
     (
       ctx: CanvasRenderingContext2D,
@@ -86,7 +121,7 @@ const MakePhoto: FC = () => {
         ctx.fillText(statement, text1X, text1Y + 5);
       });
     },
-    [statements],
+    [canvasWidth, drawTriangle, font.fontFamily],
   );
 
   const drawUserName = useCallback(
@@ -111,42 +146,7 @@ const MakePhoto: FC = () => {
       ctx.fillStyle = "rgba(184, 82, 82, 1)"; // Text color
       if (userName) ctx.fillText(userName, textX, textY);
     },
-    [userName],
-  );
-
-  const drawTriangle = useCallback(
-    ({
-      ctx,
-      endX,
-      startY,
-    }: {
-      ctx: CanvasRenderingContext2D;
-      endX: number;
-      startY: number;
-    }) => {
-      const yellowBrown = "#cf9855"; // Color value for yellowBrown
-      const r = 70; // Radius value
-      const a1 = Math.PI; // Angle in radians
-      const a2 = a1 + (Math.PI * 2) / 3; // Angle in radians
-      const a3 = a2 + (Math.PI * 2) / 3; // Angle in radians
-
-      ctx.fillStyle = yellowBrown;
-
-      const x1 = endX - r / 2 + Math.cos(a1) * r;
-      const y1 = startY + Math.sin(a1) * r;
-      const x2 = endX - r / 2 + Math.cos(a2) * r;
-      const y2 = startY + Math.sin(a2) * r;
-      const x3 = endX - r / 2 + Math.cos(a3) * r;
-      const y3 = startY + Math.sin(a3) * r;
-
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.lineTo(x3, y3);
-      ctx.closePath();
-      ctx.fill();
-    },
-    [],
+    [canvasWidth, font.fontFamily],
   );
 
   const applyTintEffect = useCallback(
@@ -226,6 +226,9 @@ const MakePhoto: FC = () => {
       }, "image/jpeg");
     }
   }, [
+    applyTintEffect,
+    drawStatements,
+    drawUserName,
     countdownCompleted,
     canvasWidth,
     canvasHeight,

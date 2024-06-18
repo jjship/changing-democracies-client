@@ -44,7 +44,7 @@ const ReactBooth: FC = () => {
       className: currFont.className,
       fontFamily: currFont.style.fontFamily,
     });
-  }, [stage, currentLang]);
+  }, [stage, currentLang, setFont]);
 
   if (!windowHeight || !windowWidth) {
     return null;
