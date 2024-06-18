@@ -3,13 +3,16 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 
-import useImageLoader from "../posters/useImageLoader";
-import { deletePoster } from "../posters/actions";
 import { Button } from "@/ui/button";
 import { Skeleton } from "@/ui/skeleton";
+import useImageLoader from "../posters/useImageLoader";
+import { deletePoster } from "../posters/actions";
 import EmailForm from "./EmailForm";
 import { editButton } from "../classNames";
+
 import { useBoothContext } from "./BoothContext";
+
+const thisStage = 7;
 
 const SaveAndSend: FC = () => {
   const [isSending, setIsSending] = useState(false);
@@ -23,7 +26,6 @@ const SaveAndSend: FC = () => {
     setUserName,
     setStatements,
   } = useBoothContext();
-  const thisStage = 7;
 
   useEffect(() => {
     if (!filename) return;
@@ -39,7 +41,6 @@ const SaveAndSend: FC = () => {
   }, [stage, setStage]);
 
   const {
-    imageSrc,
     handleError,
     handleLoad,
     error,
@@ -51,9 +52,9 @@ const SaveAndSend: FC = () => {
 
   const handleDelete = useCallback(
     async (filename: string) => {
+      await deletePoster(filename);
       setUserName(null);
       setStatements(null);
-      await deletePoster(filename);
       setFilename("");
       setStage(0);
     },
@@ -80,10 +81,12 @@ const SaveAndSend: FC = () => {
               <p>Error: {error.message}</p>
             </div>
           )}
-          {!loading && !error && imageSrc && (
+          {!loading && !error && (
             <Image
-              src={imageSrc}
+              src={imageUrl}
               alt="User made poster"
+              width={800}
+              height={800}
               onLoad={handleLoad}
               onError={handleError}
               className="mx-auto"

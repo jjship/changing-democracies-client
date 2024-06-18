@@ -1,35 +1,29 @@
 "use client";
 
+import { FC, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "../../ui/form";
-import { Input } from "../../ui/input";
-import Keyboard, { KeyboardLayoutObject } from "react-simple-keyboard";
-import "react-simple-keyboard/build/css/index.css";
-import { useBoothContext } from "./BoothContext";
-import {
-  getTranslation,
-  languageAbbreviations,
-  translations,
-} from "./boothConstats";
+import Keyboard from "react-simple-keyboard";
 import { Animate } from "react-simple-animate";
-import { Button } from "../../ui/button";
+import "react-simple-keyboard/build/css/index.css";
+
+import { Form, FormControl, FormField, FormItem } from "@/ui/form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
 import BackBtn from "./BackBtn";
+import { LayoutType } from "./keyboardLayouts";
 
-import { useCallback, useEffect, useState } from "react";
-import keyboardLayouts, { LayoutType } from "./keyboardLayouts";
+import { useBoothContext } from "./BoothContext";
+import { useLayout } from "./useLayout";
+import { useTranslations } from "./useTranslations";
 
-export default function NameForm() {
-  const [layout, setLayout] = useState<KeyboardLayoutObject>(
-    keyboardLayouts["EN"],
-  );
+const thisStage = 4;
+
+const NameForm: FC = () => {
   const [layoutType, setLayoutType] = useState<LayoutType>("default");
-  const { userName, setUserName, stage, setStage, currentLang, windowHeight } =
+  const { userName, setUserName, stage, setStage, windowHeight } =
     useBoothContext();
-  const thisStage = 4;
-
-  useEffect(() => {
-    setLayout(keyboardLayouts[languageAbbreviations[currentLang]]);
-  }, [currentLang]);
+  const layout = useLayout();
+  const { next, whatName } = useTranslations();
 
   const form = useForm<{ userName: string }>({
     defaultValues: {
@@ -63,15 +57,12 @@ export default function NameForm() {
 
   if (stage !== thisStage) return null;
 
-  const txt = "Next";
   const btnY = windowHeight / 6;
   const width = 200;
 
   return (
     <div className="flex h-screen w-2/3 flex-col content-center items-stretch  justify-between ">
-      <p className="mt-24 text-center text-4xl">
-        {getTranslation(currentLang, "What is your name?", translations)}
-      </p>
+      <p className="mt-24 text-center text-4xl">{whatName}</p>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -105,7 +96,7 @@ export default function NameForm() {
                 className={`bg-darkRed text-2xl hover:bg-pink`}
                 style={{ width: `${width}px`, height: `50px` }}
               >
-                {txt}
+                {next}
               </Button>
             </Animate>
           </div>
@@ -125,4 +116,6 @@ export default function NameForm() {
       <BackBtn />
     </div>
   );
-}
+};
+
+export default NameForm;

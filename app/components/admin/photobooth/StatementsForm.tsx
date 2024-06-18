@@ -6,50 +6,35 @@ import {
   SubmitHandler,
   Control,
 } from "react-hook-form";
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
-import { Form, FormControl, FormField, FormItem } from "../../ui/form";
-import Keyboard, {
-  KeyboardLayoutObject,
-  KeyboardReactInterface,
-} from "react-simple-keyboard";
+import { FC, KeyboardEvent, useRef, useState } from "react";
+import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
+
+import { Form, FormControl, FormField, FormItem } from "@/ui/form";
+import { Button } from "@/ui/button";
+import { Input } from "@/ui/input";
 import { useBoothContext } from "./BoothContext";
-import {
-  getTranslation,
-  languageAbbreviations,
-  translations,
-} from "./boothConstats";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
 import BackBtn from "./BackBtn";
-import keyboardLayouts, { LayoutType } from "./keyboardLayouts";
+
+import { useLayout } from "./useLayout";
+import { LayoutType } from "./keyboardLayouts";
+import { useTranslations } from "./useTranslations";
 
 type StatementsFormValues = {
   inputStatements: { id: string; text: string }[];
 };
 
-export default function StatementsForm() {
-  const {
-    statements,
-    setStatements,
-    stage,
-    setStage,
-    currentLang,
-    windowHeight,
-  } = useBoothContext();
+const thisStage = 5;
 
-  const [layout, setLayout] = useState<KeyboardLayoutObject>(
-    keyboardLayouts["EN"],
-  );
+const StatementsForm: FC = () => {
   const [layoutType, setLayoutType] = useState<LayoutType>("default");
   const [focusedIdx, setFocusedIdx] = useState<number>(0);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const keyboardRef = useRef<KeyboardReactInterface | null>(null);
-  const thisStage = 5;
-
-  useEffect(() => {
-    setLayout(keyboardLayouts[languageAbbreviations[currentLang]]);
-  }, [currentLang]);
+  const layout = useLayout();
+  const { writeStatement, next } = useTranslations();
+  const { statements, setStatements, stage, setStage, windowHeight } =
+    useBoothContext();
 
   const form = useForm<StatementsFormValues>({
     defaultValues: {
@@ -142,14 +127,11 @@ export default function StatementsForm() {
 
   if (stage !== thisStage) return null;
 
-  const txt = "Next";
   const btnY = windowHeight / 6; //TODO fix animation
 
   return (
     <div className="flex h-screen w-4/5 flex-col content-center items-stretch justify-between">
-      <p className="mt-24 text-center text-4xl">
-        {getTranslation(currentLang, "Write your statements", translations)}
-      </p>
+      <p className="mt-24 text-center text-4xl">{writeStatement}</p>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -185,7 +167,7 @@ export default function StatementsForm() {
               className="bg-darkRed text-2xl hover:bg-pink"
               style={{ width: `200px`, height: `50px` }}
             >
-              {txt}
+              {next}
             </Button>
           </div>
         </form>
@@ -206,4 +188,6 @@ export default function StatementsForm() {
       <BackBtn />
     </div>
   );
-}
+};
+
+export default StatementsForm;

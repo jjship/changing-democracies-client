@@ -1,34 +1,21 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { useBoothContext } from "./BoothContext";
-import { getTranslation, translations } from "./boothConstats";
 import DavButton from "./DavButton";
 import BackBtn from "./BackBtn";
+import { useTranslations } from "./useTranslations";
 
 const MakerStart: FC = () => {
-  const { windowHeight, stage, currentLang } = useBoothContext();
-  const [texts, setTexts] = useState<[string, string]>([
-    "Make your own poster",
-    "Express your feelings about Democracy",
-  ]);
+  const { windowHeight, stage } = useBoothContext();
 
-  useEffect(() => {
-    setTexts([
-      getTranslation(currentLang, "Make your own poster", translations),
-      getTranslation(
-        currentLang,
-        "Express your feelings about Democracy",
-        translations,
-      ),
-    ]);
-  }, [currentLang]);
+  const { start, make, express } = useTranslations();
 
   if (stage !== 3) return null;
 
   const props = {
-    txt: "Start",
+    txt: start,
     btnY: 300,
     width: 200,
     windowHeight,
@@ -38,10 +25,10 @@ const MakerStart: FC = () => {
     <>
       {" "}
       <div>
-        <p className="mt-24 text-4xl">{texts[0]}</p>
+        <p className="mt-24 text-4xl">{make}</p>
       </div>
       <div>
-        <p className="mt-72 text-5xl text-darkRed">{texts[1]}</p>
+        <p className="mt-72 text-5xl text-darkRed">{express}</p>
       </div>
       <DavButton {...props} />
       <BackBtn />

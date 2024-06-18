@@ -30,7 +30,6 @@ const formSchema = z.object({
 const EmailForm: FC<EmailFormProps> = ({
   imageUrl,
   fileName,
-  location,
   isSending,
 }: EmailFormProps) => {
   const [submitted, setSubmitted] = useState(false);

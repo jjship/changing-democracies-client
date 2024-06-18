@@ -1,40 +1,44 @@
 "use client";
+
 import React, { useRef, useEffect, useCallback, useState, FC } from "react";
 import Webcam from "react-webcam";
 import { v4 as uuidv4 } from "uuid";
-import { useBoothContext } from "./BoothContext";
+
 import { saveImage } from "../actions";
-import { Button } from "../../ui/button";
+import { Button } from "@/ui/button";
 import { editButton } from "../classNames";
 import BackBtn from "./BackBtn";
 import CountDown from "./CountDown";
+
+import { useBoothContext } from "./BoothContext";
+import { useTranslations } from "./useTranslations";
+
+const thisStage = 6;
 
 const MakePhoto: FC = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [canvasWidth, setCanvasWidth] = useState<number>(0);
   const [canvasHeight, setCanvasHeight] = useState<number>(0);
-  const [start, setStart] = useState(false);
+  const [countdown, setStart] = useState(false);
   const [countdownCompleted, setCountdownCompleted] = useState(false);
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { take } = useTranslations();
   const {
     statements,
     stage,
     setStage,
-    currentLang,
     windowHeight,
     windowWidth,
     userName,
     location,
-    filename,
     setFilename,
     font,
   } = useBoothContext();
-  const thisStage = 6;
 
   useEffect(() => {
     setCanvasWidth(windowWidth);
-    setCanvasHeight(windowHeight * 0.9);
+    setCanvasHeight(windowHeight);
   }, [windowWidth, windowHeight]);
 
   const drawTriangle = useCallback(
@@ -92,7 +96,6 @@ const MakePhoto: FC = () => {
         const offset = (idx + 1) * (textHeight + 60);
 
         // Calculate positions
-        // const rectX = canvasWidth - (padding + statementWidth);
         const rectX = canvasWidth - statementWidth - 2 * padding;
         const rectY = offset - padding;
         const text1X = canvasWidth - statementWidth - padding;
@@ -268,9 +271,14 @@ const MakePhoto: FC = () => {
               }}
               onUserMedia={() => setIsStreaming(true)}
             />
-            <Button className={`${editButton} my-5`} onClick={makePhoto}>
-              Take Picture
-            </Button>
+            {!countdown && (
+              <Button
+                className="absolute bottom-0 left-0 right-0 top-0 m-auto max-w-max bg-darkRed px-10 py-5 text-2xl hover:bg-pink"
+                onClick={makePhoto}
+              >
+                {take}
+              </Button>
+            )}
           </>
         )}
         <canvas
@@ -285,7 +293,7 @@ const MakePhoto: FC = () => {
           }}
         ></canvas>
       </div>
-      {start && <CountDown start={start} />}
+      <CountDown start={countdown} />
       <BackBtn />
     </>
   );
