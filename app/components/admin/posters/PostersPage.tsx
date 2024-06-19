@@ -2,10 +2,13 @@
 
 import { MouseEventHandler, useEffect, useState } from "react";
 import Image from "next/image";
+
+import simple_arrow from "@/public/simple_arrow.svg";
 import { PosterMetadata } from "@/utils/posters-methods";
-import { Button } from "../../ui/button";
+import { Button } from "@/ui/button";
+import { Skeleton } from "@/ui/skeleton";
 import { useBoothContext } from "../photobooth/BoothContext";
-import { Skeleton } from "../../ui/skeleton";
+import { useTranslations } from "../photobooth/useTranslations";
 
 interface PostersPageProps {
   initialPosters: PosterMetadata[];
@@ -13,10 +16,7 @@ interface PostersPageProps {
   isLoading: boolean;
 }
 
-type PostersStatesMap = Record<
-  number,
-  { loading: boolean; imageSrc: string | null; hasError: boolean }
->;
+const thisStage = 0;
 
 const PostersPage: React.FC<PostersPageProps> = ({
   initialPosters,
@@ -25,10 +25,8 @@ const PostersPage: React.FC<PostersPageProps> = ({
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [filteredPosters, setFilteredPosters] = useState<PosterMetadata[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
-  const { setPrevLocations } = useBoothContext();
-
-  const { setStage } = useBoothContext();
-  const thisStage = 0;
+  const { setPrevLocations, setStage } = useBoothContext();
+  const { make } = useTranslations();
 
   useEffect(() => {
     const getLocations = () => {
@@ -89,7 +87,24 @@ const PostersPage: React.FC<PostersPageProps> = ({
     </div>
   ) : (
     <>
-      <div className=" w-screen bg-black_bg px-20">
+      <div className="grid min-h-screen w-screen grid-cols-3 gap-x-16 gap-y-24 bg-black_bg p-20">
+        {filteredPosters.map(
+          (poster) =>
+            poster.imageUrl && (
+              <div key={poster.id} className="w-full">
+                <Image
+                  src={poster.imageUrl}
+                  alt={poster.fileName}
+                  className="w-full"
+                  width={800}
+                  height={800}
+                  loading="lazy"
+                />
+              </div>
+            ),
+        )}
+      </div>
+      <div className="fixed bottom-0 max-h-min w-screen flex-col bg-black_bg px-20 pb-10">
         {locations && (
           <div className="my-10 flex min-h-max items-start justify-start gap-5">
             {Array.from(locations).map((posterLocation) => (
@@ -100,7 +115,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
                   selectedLocation === posterLocation || !selectedLocation
                     ? "bg-green_accent"
                     : "bg-gray_light_secondary"
-                } w-32  text-black hover:bg-yellow_secondary hover:text-black`}
+                } w-32  text-black hover:bg-yellow_secondary`}
                 onClick={handleFilterClick}
               >
                 {posterLocation}
@@ -108,32 +123,17 @@ const PostersPage: React.FC<PostersPageProps> = ({
             ))}
           </div>
         )}
-        <div className="flex h-full items-center justify-center">
-          <div className="grid min-h-screen w-full grid-cols-3 gap-x-16 gap-y-24">
-            {filteredPosters.map(
-              (poster) =>
-                poster.imageUrl && (
-                  <div key={poster.id} className="w-full">
-                    <Image
-                      src={poster.imageUrl}
-                      alt={poster.fileName}
-                      className="w-full"
-                      width={800}
-                      height={800}
-                      loading="lazy"
-                    />
-                  </div>
-                ),
-            )}
-          </div>
+        <div className="flex w-full justify-between ">
+          <p className="text-5xl text-white">{make.toUpperCase()}</p>
+          <Image src={simple_arrow} alt="arrow" />
+          <Button
+            className="font-black_bg bg-darkRed text-black_bg hover:bg-pink"
+            onClick={handlePosterMakerClick}
+          >
+            CREATE NOW
+          </Button>
         </div>
       </div>
-      <Button
-        className="fixed bottom-20 right-10 z-50 flex h-44 w-44 items-center justify-center rounded-full bg-red_mains pt-3 text-3xl/7 font-bold text-black shadow-lg hover:bg-red-700"
-        onClick={handlePosterMakerClick}
-      >
-        POSTER MAKER
-      </Button>
     </>
   );
 };
