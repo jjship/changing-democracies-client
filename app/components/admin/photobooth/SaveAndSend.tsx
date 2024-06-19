@@ -25,6 +25,8 @@ const SaveAndSend: FC = () => {
     stage,
     setUserName,
     setStatements,
+    windowHeight,
+    windowWidth,
   } = useBoothContext();
 
   useEffect(() => {
@@ -85,8 +87,8 @@ const SaveAndSend: FC = () => {
             <Image
               src={imageUrl}
               alt="User made poster"
-              width={800}
-              height={800}
+              width={windowWidth / 2}
+              height={windowHeight / 2}
               onLoad={handleLoad}
               onError={handleError}
               className="mx-auto"
