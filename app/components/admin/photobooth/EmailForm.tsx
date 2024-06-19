@@ -13,6 +13,7 @@ import { Button } from "@/ui/button";
 import sendImage from "../posters/sendImage";
 
 import { useBoothContext } from "./BoothContext";
+import { boothBtn } from "./boothConstats";
 
 export type EmailFormProps = {
   imageUrl: string;
@@ -85,7 +86,7 @@ const EmailForm: FC<EmailFormProps> = ({
                 </FormItem>
               )}
             />
-            <Button className="bg-darkRed text-2xl hover:bg-pink" type="submit">
+            <Button className={`${boothBtn}`} type="submit">
               Send
             </Button>
           </div>

@@ -15,6 +15,7 @@ import { LayoutType } from "./keyboardLayouts";
 import { useBoothContext } from "./BoothContext";
 import { useLayout } from "./useLayout";
 import { useTranslations } from "./useTranslations";
+import { boothBtn } from "./boothConstats";
 
 const thisStage = 4;
 
@@ -93,7 +94,7 @@ const NameForm: FC = () => {
             >
               <Button
                 type="submit"
-                className={`bg-darkRed text-2xl hover:bg-pink`}
+                className={`${boothBtn}`}
                 style={{ width: `${width}px`, height: `50px` }}
               >
                 {next}

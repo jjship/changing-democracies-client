@@ -11,6 +11,8 @@ export default function BoothLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className={`bg-turquoise h-screen antialiased`}>{children}</main>
+    <main className={`h-screen bg-turquoise font-black antialiased`}>
+      {children}
+    </main>
   );
 }

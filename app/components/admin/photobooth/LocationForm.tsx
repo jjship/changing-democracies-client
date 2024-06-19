@@ -18,6 +18,7 @@ import {
 import BackBtn from "./BackBtn";
 
 import { useBoothContext } from "./BoothContext";
+import { boothBtn } from "./boothConstats";
 
 const LocationForm: FC = () => {
   const [isSet, setIsSet] = useState(false);
@@ -108,10 +109,7 @@ const LocationForm: FC = () => {
                 </FormItem>
               )}
             />
-            <Button
-              className={`mt-10 bg-darkRed text-2xl hover:bg-pink`}
-              type="submit"
-            >
+            <Button className={`${boothBtn} mt-10`} type="submit">
               Submit
             </Button>
           </div>

@@ -20,6 +20,7 @@ import { useLayout } from "./useLayout";
 import { LayoutType } from "./keyboardLayouts";
 import { useTranslations } from "./useTranslations";
 import { Animate } from "react-simple-animate";
+import { boothBtn } from "./boothConstats";
 
 type StatementsFormValues = {
   inputStatements: { id: string; text: string }[];
@@ -175,7 +176,7 @@ const StatementsForm: FC = () => {
             >
               <Button
                 type="submit"
-                className={`bg-darkRed text-2xl hover:bg-pink`}
+                className={`${boothBtn}`}
                 style={{ width: `200px`, height: `50px` }}
               >
                 {next}

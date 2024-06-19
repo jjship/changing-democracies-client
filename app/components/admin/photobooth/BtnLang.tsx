@@ -3,7 +3,7 @@
 import { FC } from "react";
 import { Animate } from "react-simple-animate";
 
-import { languageAbbreviations, Language } from "./boothConstats";
+import { languageAbbreviations, Language, boothBtn } from "./boothConstats";
 import { Button } from "../../ui/button";
 import { useBoothContext } from "./BoothContext";
 
@@ -40,7 +40,7 @@ const BtnLang: FC<BtnLangProps> = ({
       easeType="ease-out"
     >
       <Button
-        className={`bg-darkRed text-2xl hover:bg-pink`}
+        className={`${boothBtn}`}
         style={{ width: `${width}px`, height: `${height}px` }}
         onClick={handleClick}
       >

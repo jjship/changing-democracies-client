@@ -12,6 +12,7 @@ import CountDown from "./CountDown";
 
 import { useBoothContext } from "./BoothContext";
 import { useTranslations } from "./useTranslations";
+import { boothBtn } from "./boothConstats";
 
 const thisStage = 6;
 
@@ -271,9 +272,9 @@ const MakePhoto: FC = () => {
               }}
               onUserMedia={() => setIsStreaming(true)}
             />
-            {!countdown && (
+            {!countdown && !countdownCompleted && (
               <Button
-                className="absolute bottom-0 left-0 right-0 top-0 m-auto max-w-max bg-darkRed px-10 py-5 text-2xl hover:bg-pink"
+                className={`${boothBtn} absolute bottom-0 left-0 right-0 top-0 m-auto max-w-max bg-darkRed px-10 py-5 text-2xl hover:bg-pink`}
                 onClick={makePhoto}
               >
                 {take}

@@ -5,6 +5,7 @@ import { Animate } from "react-simple-animate";
 
 import { Button } from "../../ui/button";
 import { useBoothContext } from "./BoothContext";
+import { boothBtn } from "./boothConstats";
 
 type DavButtonProps = {
   txt: string;
@@ -37,7 +38,7 @@ const DavButton: FC<DavButtonProps> = ({
       easeType="ease-in-out"
     >
       <Button
-        className={`bg-darkRed text-2xl hover:bg-pink`}
+        className={`${boothBtn}`}
         style={{ width: `${width}px`, height: `50px` }}
         onClick={handleClick}
       >

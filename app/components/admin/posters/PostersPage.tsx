@@ -9,6 +9,7 @@ import { Button } from "@/ui/button";
 import { Skeleton } from "@/ui/skeleton";
 import { useBoothContext } from "../photobooth/BoothContext";
 import { useTranslations } from "../photobooth/useTranslations";
+import { boothBtn } from "../photobooth/boothConstats";
 
 interface PostersPageProps {
   initialPosters: PosterMetadata[];
@@ -104,7 +105,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
             ),
         )}
       </div>
-      <div className="fixed bottom-0 max-h-min w-screen flex-col bg-black_bg px-20 pb-10">
+      <div className="fixed bottom-0 max-h-min w-screen flex-col bg-black_bg px-20 pb-10 font-black">
         {locations && (
           <div className="my-10 flex min-h-max items-start justify-start gap-5">
             {Array.from(locations).map((posterLocation) => (
@@ -115,7 +116,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
                   selectedLocation === posterLocation || !selectedLocation
                     ? "bg-green_accent"
                     : "bg-gray_light_secondary"
-                } w-32  text-black hover:bg-yellow_secondary`}
+                } w-32 font-black  text-black hover:bg-yellow_secondary`}
                 onClick={handleFilterClick}
               >
                 {posterLocation}
@@ -127,7 +128,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
           <p className="text-5xl text-white">{make.toUpperCase()}</p>
           <Image src={simple_arrow} alt="arrow" />
           <Button
-            className="font-black_bg bg-darkRed text-black_bg hover:bg-pink"
+            className={`${boothBtn} my-auto text-black_bg`}
             onClick={handlePosterMakerClick}
           >
             CREATE NOW

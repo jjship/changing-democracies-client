@@ -11,6 +11,7 @@ import EmailForm from "./EmailForm";
 import { editButton } from "../classNames";
 
 import { useBoothContext } from "./BoothContext";
+import { boothBtn } from "./boothConstats";
 
 const thisStage = 7;
 
@@ -69,7 +70,7 @@ const SaveAndSend: FC = () => {
 
   if (stage !== thisStage || !imageUrl || !filename) return null;
 
-  const buttonStyles = "bg-darkRed text-2xl hover:bg-pink mx-10 mt-5";
+  const buttonStyles = `${boothBtn} mx-10 mt-5`;
 
   return (
     <>

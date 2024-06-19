@@ -16,8 +16,8 @@ import MakePhoto from "./MakePhoto";
 import LocationForm from "./LocationForm";
 import MakerStart from "./MakerStart";
 
-const openSans = Open_Sans({ subsets: ["greek"], weight: "700" });
-const archivo = Archivo({ subsets: ["latin"], weight: "700" });
+const openSans = Open_Sans({ subsets: ["greek"] });
+const archivo = Archivo({ subsets: ["latin"] });
 
 const ReactBooth: FC = () => {
   const {
