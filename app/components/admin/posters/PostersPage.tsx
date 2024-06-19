@@ -86,8 +86,8 @@ const PostersPage: React.FC<PostersPageProps> = ({
       </div>
     </div>
   ) : (
-    <>
-      <div className="grid min-h-screen w-screen grid-cols-3 gap-x-16 gap-y-24 bg-black_bg p-20">
+    <div className="bg-black_bg">
+      <div className="grid min-h-screen w-screen grid-cols-3 gap-x-16 gap-y-24  p-20">
         {filteredPosters.map(
           (poster) =>
             poster.imageUrl && (
@@ -134,7 +134,7 @@ const PostersPage: React.FC<PostersPageProps> = ({
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
