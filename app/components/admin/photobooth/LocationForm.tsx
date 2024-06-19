@@ -46,6 +46,7 @@ const LocationForm: FC = () => {
       .normalize("NFD") // Normalize to decomposed form (NFD)
       .replace(/[\u0300-\u036f]/g, "") // Remove diacritical marks
       .toUpperCase();
+    setLocation(locationInput);
     setStage(thisStage + 1);
   };
 
