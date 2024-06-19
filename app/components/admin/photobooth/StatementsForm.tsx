@@ -19,6 +19,7 @@ import BackBtn from "./BackBtn";
 import { useLayout } from "./useLayout";
 import { LayoutType } from "./keyboardLayouts";
 import { useTranslations } from "./useTranslations";
+import { Animate } from "react-simple-animate";
 
 type StatementsFormValues = {
   inputStatements: { id: string; text: string }[];
@@ -127,7 +128,7 @@ const StatementsForm: FC = () => {
 
   if (stage !== thisStage) return null;
 
-  const btnY = windowHeight / 6; //TODO fix animation
+  const btnY = windowHeight / 6;
 
   return (
     <div className="flex h-screen w-4/5 flex-col content-center items-stretch justify-between">
@@ -162,13 +163,24 @@ const StatementsForm: FC = () => {
                 )}
               />
             ))}
-            <Button
-              type="submit"
-              className="bg-darkRed text-2xl hover:bg-pink"
-              style={{ width: `200px`, height: `50px` }}
+            <Animate
+              play={true}
+              start={{
+                opacity: 1,
+                transform: `translateY(${btnY + windowHeight}px)`,
+              }}
+              end={{ opacity: 1, transform: `translateY(${btnY}px)` }}
+              duration={0.9}
+              easeType="ease-in-out"
             >
-              {next}
-            </Button>
+              <Button
+                type="submit"
+                className={`bg-darkRed text-2xl hover:bg-pink`}
+                style={{ width: `200px`, height: `50px` }}
+              >
+                {next}
+              </Button>
+            </Animate>
           </div>
         </form>
       </Form>
