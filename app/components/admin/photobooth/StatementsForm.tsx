@@ -131,7 +131,7 @@ const StatementsForm: FC = () => {
   const btnY = windowHeight / 6;
 
   return (
-    <div className="flex h-screen w-4/5 flex-col content-center items-stretch justify-between">
+    <div className="flex h-screen w-2/3 flex-col content-center items-stretch justify-between">
       <p className="mt-24 text-center text-4xl">{writeStatement}</p>
 
       <Form {...form}>

@@ -61,7 +61,7 @@ const NameForm: FC = () => {
   const width = 200;
 
   return (
-    <div className="flex h-screen w-2/3 flex-col content-center items-stretch  justify-between ">
+    <div className="flex h-screen w-2/3 flex-col content-center items-stretch justify-between">
       <p className="mt-24 text-center text-4xl">{whatName}</p>
 
       <Form {...form}>
