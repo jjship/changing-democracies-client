@@ -12,7 +12,7 @@ import BackBtn from "./BackBtn";
 import { LayoutType } from "./keyboardLayouts";
 
 import { useBoothContext } from "./BoothContext";
-import { useLayout } from "./useLayout";
+import { useLayout, LayoutKey } from "./useLayout";
 import { useTranslations } from "./useTranslations";
 import { CSSPropertiesWithVars, boothBtn } from "./boothConstats";
 
@@ -22,7 +22,7 @@ const NameForm: FC = () => {
   const [layoutType, setLayoutType] = useState<LayoutType>("default");
   const { userName, setUserName, stage, setStage, windowHeight } =
     useBoothContext();
-  const layout = useLayout();
+  const { layout, handleLayoutTypeChange } = useLayout();
   const { next, whatName } = useTranslations();
 
   const form = useForm<{ userName: string }>({
@@ -47,12 +47,13 @@ const NameForm: FC = () => {
     form.setValue("userName", input);
   };
 
-  const handleShift = useCallback(() => {
-    setLayoutType((prev) => (prev === "default" ? "shift" : "default"));
-  }, [setLayoutType]);
+  // const handleShift = useCallback(() => {
+  //   setLayoutType((prev) => (prev === "default" ? "shift" : "default"));
+  // }, [setLayoutType]);
 
-  const handleVirtualKeyPress = (button: string) => {
-    if (button === "{shift}" || button === "{lock}") handleShift();
+  const handleVirtualKeyPress = (key: string) => {
+    if (key in ["{shift}", "{lock}", "{alt}"])
+      handleLayoutTypeChange(key, setLayoutType);
   };
 
   if (stage !== thisStage) return null;
