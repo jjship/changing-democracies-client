@@ -5,7 +5,7 @@ export type Params = {
   stage: number;
 };
 
-export const boothBtn = "bg-darkRed hover:bg-pink font-black";
+export const boothBtn = "bg-darkRed text-2xl hover:bg-pink font-black";
 
 export const languages: Language[] = [
   "english",

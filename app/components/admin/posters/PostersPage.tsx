@@ -74,17 +74,14 @@ const PostersPage: React.FC<PostersPageProps> = ({
   };
 
   return isLoading || !filteredPosters ? (
-    <div className="flex min-h-screen w-screen flex-col items-center bg-black_bg px-20">
-      <Skeleton className="my-10 h-10 w-full" />
-      <div className="grid min-h-screen w-full grid-cols-3 gap-x-16 gap-y-24 py-20">
-        {Array(9)
-          .fill(1, 0, 9)
-          .map((_el, i) => {
-            return (
-              <Skeleton key={i} className="h-10, border-s-violet-5 w-full" />
-            );
-          })}
-      </div>
+    <div className="grid h-screen w-full grid-cols-3 gap-x-16 gap-y-24 bg-black_bg p-20">
+      {Array(9)
+        .fill(1, 0, 9)
+        .map((_el, i) => {
+          return (
+            <Skeleton key={i} className="h-10, border-s-violet-5 w-full" />
+          );
+        })}
     </div>
   ) : (
     <div className="bg-black_bg">
