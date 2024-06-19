@@ -6,8 +6,9 @@ import {
   SubmitHandler,
   Control,
 } from "react-hook-form";
-import { FC, KeyboardEvent, useRef, useState } from "react";
+import { FC, KeyboardEvent, useMemo, useRef, useState } from "react";
 import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
+import { Animate } from "react-simple-animate";
 import "react-simple-keyboard/build/css/index.css";
 
 import { Form, FormControl, FormField, FormItem } from "@/ui/form";
@@ -19,7 +20,6 @@ import BackBtn from "./BackBtn";
 import { useLayout } from "./useLayout";
 import { LayoutType } from "./keyboardLayouts";
 import { useTranslations } from "./useTranslations";
-import { Animate } from "react-simple-animate";
 import { boothBtn } from "./boothConstats";
 
 type StatementsFormValues = {
@@ -127,9 +127,33 @@ const StatementsForm: FC = () => {
     handleChange(input, focusedIdx);
   };
 
-  if (stage !== thisStage) return null;
-
   const btnY = windowHeight / 6;
+
+  const AnimatedButton = useMemo(
+    () => (
+      <Animate
+        play={true}
+        start={{
+          opacity: 1,
+          transform: `translateY(${btnY + windowHeight}px)`,
+        }}
+        end={{ opacity: 1, transform: `translateY(${btnY}px)` }}
+        duration={0.9}
+        easeType="ease-in-out"
+      >
+        <Button
+          type="submit"
+          className={`${boothBtn}`}
+          style={{ width: `200px`, height: `50px` }}
+        >
+          {next}
+        </Button>
+      </Animate>
+    ),
+    [btnY, windowHeight, next],
+  );
+
+  if (stage !== thisStage) return null;
 
   return (
     <div className="flex h-screen w-2/3 flex-col content-center items-stretch justify-between">
@@ -164,24 +188,7 @@ const StatementsForm: FC = () => {
                 )}
               />
             ))}
-            <Animate
-              play={true}
-              start={{
-                opacity: 1,
-                transform: `translateY(${btnY + windowHeight}px)`,
-              }}
-              end={{ opacity: 1, transform: `translateY(${btnY}px)` }}
-              duration={0.9}
-              easeType="ease-in-out"
-            >
-              <Button
-                type="submit"
-                className={`${boothBtn}`}
-                style={{ width: `200px`, height: `50px` }}
-              >
-                {next}
-              </Button>
-            </Animate>
+            {AnimatedButton}
           </div>
         </form>
       </Form>
