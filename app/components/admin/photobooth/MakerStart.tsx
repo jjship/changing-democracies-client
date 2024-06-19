@@ -16,7 +16,7 @@ const MakerStart: FC = () => {
 
   const props = {
     txt: start,
-    btnY: 300,
+    btnY: windowHeight / 4,
     width: 200,
     windowHeight,
   };
