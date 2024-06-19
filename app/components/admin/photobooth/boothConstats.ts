@@ -1,9 +1,16 @@
+import { CSSProperties } from "react";
+
 export const INACTIVITY_THRESHOLD = 180000; // 3 minutes in milliseconds
 
 export type Params = {
   currentLang: Language | "";
   stage: number;
 };
+
+export interface CSSPropertiesWithVars extends CSSProperties {
+  "--start-y"?: string;
+  "--end-y"?: string;
+}
 
 export const boothBtn = "bg-darkRed text-2xl hover:bg-pink font-black";
 

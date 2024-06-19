@@ -99,6 +99,13 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        slideUp: {
+          from: {
+            transform: "translateY(var(--start-y, 100vh))",
+            opacity: "1",
+          },
+          to: { transform: "translateY(var(--end-y))", opacity: "1" },
+        },
         "accordion-down": {
           from: { height: "0px" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -109,6 +116,7 @@ const config: Config = {
         },
       },
       animation: {
+        slideUp: "slideUp 0.9s ease-in-out forwards",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

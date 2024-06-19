@@ -20,7 +20,7 @@ import BackBtn from "./BackBtn";
 import { useLayout } from "./useLayout";
 import { LayoutType } from "./keyboardLayouts";
 import { useTranslations } from "./useTranslations";
-import { boothBtn } from "./boothConstats";
+import { CSSPropertiesWithVars, boothBtn } from "./boothConstats";
 
 type StatementsFormValues = {
   inputStatements: { id: string; text: string }[];
@@ -127,33 +127,15 @@ const StatementsForm: FC = () => {
     handleChange(input, focusedIdx);
   };
 
-  const btnY = windowHeight / 6;
-
-  const AnimatedButton = useMemo(
-    () => (
-      <Animate
-        play={true}
-        start={{
-          opacity: 1,
-          transform: `translateY(${btnY + windowHeight}px)`,
-        }}
-        end={{ opacity: 1, transform: `translateY(${btnY}px)` }}
-        duration={0.9}
-        easeType="ease-in-out"
-      >
-        <Button
-          type="submit"
-          className={`${boothBtn}`}
-          style={{ width: `200px`, height: `50px` }}
-        >
-          {next}
-        </Button>
-      </Animate>
-    ),
-    [btnY, windowHeight, next],
-  );
-
   if (stage !== thisStage) return null;
+
+  const btnY = windowHeight / 6;
+  const buttonStyle: CSSPropertiesWithVars = {
+    width: "200px",
+    height: "50px",
+    "--start-y": "100vh",
+    "--end-y": `${btnY}px`,
+  };
 
   return (
     <div className="flex h-screen w-2/3 flex-col content-center items-stretch justify-between">
@@ -188,7 +170,13 @@ const StatementsForm: FC = () => {
                 )}
               />
             ))}
-            {AnimatedButton}
+            <Button
+              type="submit"
+              className={`${boothBtn} animate-slideUp`}
+              style={buttonStyle}
+            >
+              {next}
+            </Button>
           </div>
         </form>
       </Form>

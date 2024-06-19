@@ -3,7 +3,6 @@
 import { FC, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import Keyboard from "react-simple-keyboard";
-import { Animate } from "react-simple-animate";
 import "react-simple-keyboard/build/css/index.css";
 
 import { Form, FormControl, FormField, FormItem } from "@/ui/form";
@@ -15,7 +14,7 @@ import { LayoutType } from "./keyboardLayouts";
 import { useBoothContext } from "./BoothContext";
 import { useLayout } from "./useLayout";
 import { useTranslations } from "./useTranslations";
-import { boothBtn } from "./boothConstats";
+import { CSSPropertiesWithVars, boothBtn } from "./boothConstats";
 
 const thisStage = 4;
 
@@ -59,7 +58,12 @@ const NameForm: FC = () => {
   if (stage !== thisStage) return null;
 
   const btnY = windowHeight / 6;
-  const width = 200;
+  const buttonStyle: CSSPropertiesWithVars = {
+    width: "200px",
+    height: "50px",
+    "--start-y": "100vh",
+    "--end-y": `${btnY}px`,
+  };
 
   return (
     <div className="flex h-screen w-2/3 flex-col content-center items-stretch justify-between">
@@ -82,24 +86,13 @@ const NameForm: FC = () => {
                 </FormItem>
               )}
             />
-            <Animate
-              play={true}
-              start={{
-                opacity: 1,
-                transform: `translateY(${btnY + windowHeight}px)`,
-              }}
-              end={{ opacity: 1, transform: `translateY(${btnY}px)` }}
-              duration={0.9}
-              easeType="ease-in-out"
+            <Button
+              type="submit"
+              className={`${boothBtn} animate-slideUp`}
+              style={buttonStyle}
             >
-              <Button
-                type="submit"
-                className={`${boothBtn}`}
-                style={{ width: `${width}px`, height: `50px` }}
-              >
-                {next}
-              </Button>
-            </Animate>
+              {next}
+            </Button>
           </div>
         </form>
       </Form>
