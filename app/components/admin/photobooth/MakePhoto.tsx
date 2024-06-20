@@ -21,7 +21,6 @@ const photoHeight = 1920;
 export const canvasRatio = photoWidth / photoHeight;
 
 const MakePhoto: FC = () => {
-  const [isStreaming, setIsStreaming] = useState(false);
   const [canvasWidth, setCanvasWidth] = useState<number>(0);
   const [canvasHeight, setCanvasHeight] = useState<number>(0);
   const [countdown, setStart] = useState(false);
@@ -68,7 +67,7 @@ const MakePhoto: FC = () => {
       endX: number;
       startY: number;
     }) => {
-      const yellowBrown = "#cf9855"; // Color value for yellowBrown
+      const yellowBrown = "#cf9855";
       const r = 70; // Radius value
       const a1 = Math.PI; // Angle in radians
       const a2 = a1 + (Math.PI * 2) / 3; // Angle in radians
@@ -201,6 +200,7 @@ const MakePhoto: FC = () => {
   );
 
   const makePhoto = () => {
+    if (!canvasRef.current || !webcamRef.current) return;
     setStart(true);
     setTimeout(() => {
       setCountdownCompleted(true);
@@ -289,7 +289,6 @@ const MakePhoto: FC = () => {
                 width: canvasWidth,
                 height: canvasHeight,
               }}
-              onUserMedia={() => setIsStreaming(true)}
               className="mx-auto"
             />
             {!countdown && !countdownCompleted && (
