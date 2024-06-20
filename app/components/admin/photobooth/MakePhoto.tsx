@@ -103,7 +103,7 @@ const MakePhoto: FC = () => {
         if (!statement) return;
 
         const padding = 16;
-        ctx.font = `${fontSize}px ${font.fontFamily}`;
+        ctx.font = `bold ${fontSize}px ${font.fontFamily}`;
         ctx.textBaseline = "top";
 
         const statementWidth = ctx.measureText(statement).width;
@@ -153,7 +153,7 @@ const MakePhoto: FC = () => {
     ) => {
       if (!userName) return;
 
-      ctx.font = `${fontSize}px ${font.fontFamily}`;
+      ctx.font = `bold ${fontSize}px ${font.fontFamily}`;
       ctx.textBaseline = "top";
 
       const textWidth = userName ? ctx.measureText(userName).width : 0;
