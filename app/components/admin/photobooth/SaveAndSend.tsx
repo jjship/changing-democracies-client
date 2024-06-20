@@ -12,6 +12,7 @@ import { editButton } from "../classNames";
 
 import { useBoothContext } from "./BoothContext";
 import { boothBtn } from "./boothConstats";
+import { canvasRatio } from "./MakePhoto";
 
 const thisStage = 7;
 
@@ -88,7 +89,7 @@ const SaveAndSend: FC = () => {
             <Image
               src={imageUrl}
               alt="User made poster"
-              width={windowWidth / 2}
+              width={(windowHeight * canvasRatio) / 2}
               height={windowHeight / 2}
               onLoad={handleLoad}
               onError={handleError}

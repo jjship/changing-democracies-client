@@ -18,7 +18,7 @@ const thisStage = 6;
 
 const photoWidth = 1080;
 const photoHeight = 1920;
-const canvasRatio = photoWidth / photoHeight;
+export const canvasRatio = photoWidth / photoHeight;
 
 const MakePhoto: FC = () => {
   const [isStreaming, setIsStreaming] = useState(false);
