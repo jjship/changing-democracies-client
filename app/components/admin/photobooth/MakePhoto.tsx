@@ -16,6 +16,10 @@ import { boothBtn } from "./boothConstats";
 
 const thisStage = 6;
 
+const photoWidth = 1080;
+const photoHeight = 1920;
+const canvasRatio = photoWidth / photoHeight;
+
 const MakePhoto: FC = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [canvasWidth, setCanvasWidth] = useState<number>(0);
@@ -38,9 +42,21 @@ const MakePhoto: FC = () => {
   } = useBoothContext();
 
   useEffect(() => {
-    setCanvasWidth(windowWidth);
-    setCanvasHeight(windowHeight);
-  }, [windowWidth, windowHeight]);
+    function updateCanvasSize() {
+      let ratioWidth = windowHeight * canvasRatio;
+      let ratioHeight = windowHeight;
+
+      if (windowWidth < ratioWidth) {
+        ratioWidth = windowWidth;
+        ratioHeight = windowWidth / canvasRatio;
+      }
+
+      setCanvasWidth(ratioWidth);
+      setCanvasHeight(ratioHeight);
+    }
+
+    updateCanvasSize();
+  }, [windowHeight, windowWidth]);
 
   const drawTriangle = useCallback(
     ({
@@ -274,6 +290,7 @@ const MakePhoto: FC = () => {
                 height: canvasHeight,
               }}
               onUserMedia={() => setIsStreaming(true)}
+              className="mx-auto"
             />
             {!countdown && !countdownCompleted && (
               <Button
