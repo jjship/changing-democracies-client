@@ -12,35 +12,48 @@ import { languageAbbreviations } from "./boothConstats";
 
 export type LayoutKey = "{shift}" | "{lock}" | "{alt}";
 
-export const useLayout = (setType: Dispatch<SetStateAction<LayoutType>>) => {
+const SHIFT = "shift";
+const ALT = "alt";
+const DEFAULT = "default";
+
+const isShiftType = (type: LayoutType) => type.startsWith(SHIFT);
+const isAltType = (type: LayoutType) => type.endsWith(ALT);
+const isShiftKey = (key: LayoutKey) => key === "{lock}" || key === "{shift}";
+const isAltKey = (key: LayoutKey) => key === "{alt}";
+
+const getNextType = (key: LayoutKey, prevType: LayoutType): LayoutType => {
+  const isPrevShift = isShiftType(prevType);
+  const isPrevAlt = isAltType(prevType);
+
+  if (isShiftKey(key)) {
+    if (isPrevShift) return prevType.split("-")[1] as LayoutType;
+    return isPrevAlt ? `${SHIFT}-${ALT}` : `${SHIFT}-${DEFAULT}`;
+  }
+
+  if (isAltKey(key)) {
+    if (isPrevAlt) return isPrevShift ? `${SHIFT}-${DEFAULT}` : DEFAULT;
+    return isPrevShift ? `${SHIFT}-${ALT}` : ALT;
+  }
+
+  return prevType;
+};
+
+const useLayout = (setType: Dispatch<SetStateAction<LayoutType>>) => {
+  const { currentLang } = useBoothContext();
   const [layout, setLayout] = useState<KeyboardLayoutObject>(
     keyboardLayouts["EN"],
   );
-  const { currentLang } = useBoothContext();
 
   useEffect(() => {
-    if (currentLang)
-      setLayout(keyboardLayouts[languageAbbreviations[currentLang]]);
+    if (currentLang) {
+      const newLayout = keyboardLayouts[languageAbbreviations[currentLang]];
+      if (newLayout) setLayout(newLayout);
+    }
   }, [currentLang]);
 
   const handleLayoutTypeChange = useCallback(
     (key: LayoutKey) => {
-      if (isShiftKey(key))
-        setType((prevType) => {
-          if (isShiftType(prevType))
-            return prevType.split("-")[1] as "default" | "alt";
-          if (isAltType(prevType)) return "shift-alt";
-          return "shift-default";
-        });
-      if (isAltKey(key)) {
-        setType((prevType) => {
-          if (isAltType(prevType) && isShiftType(prevType))
-            return "shift-default";
-          if (isAltType(prevType)) return "default";
-          if (isShiftType(prevType)) return "shift-alt";
-          return "alt";
-        });
-      }
+      setType((prevType) => getNextType(key, prevType));
     },
     [setType],
   );
@@ -53,18 +66,4 @@ export const useLayout = (setType: Dispatch<SetStateAction<LayoutType>>) => {
   return { layout, handleLayoutTypeChange, isLayoutKey };
 };
 
-const isShiftKey = (key: LayoutKey) => {
-  return key === "{lock}" || key === "{shift}";
-};
-const isAltKey = (key: LayoutKey) => {
-  return key === "{alt}";
-};
-const isShiftType = (
-  type: LayoutType,
-): type is "shift-default" | "shift-alt" => {
-  return type.split("-")[0] === "shift";
-};
-const isAltType = (type: LayoutType) => {
-  const splitted = type.split("-");
-  return splitted[splitted.length - 1] === "alt";
-};
+export { useLayout };

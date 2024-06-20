@@ -1,30 +1,32 @@
 "use client";
 
-import { FC, useCallback, useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
+
+import { useBoothContext } from "./BoothContext";
+import { useLayout, LayoutKey } from "./useLayout";
+import { useTranslations } from "./useTranslations";
 
 import { Form, FormControl, FormField, FormItem } from "@/ui/form";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import BackBtn from "./BackBtn";
 import { LayoutType } from "./keyboardLayouts";
-
-import { useBoothContext } from "./BoothContext";
-import { useLayout, LayoutKey } from "./useLayout";
-import { useTranslations } from "./useTranslations";
 import { CSSPropertiesWithVars, boothBtn } from "./boothConstats";
 
 const thisStage = 4;
 
 const NameForm: FC = () => {
-  const [layoutType, setLayoutType] = useState<LayoutType>("default");
   const { userName, setUserName, stage, setStage, windowHeight } =
     useBoothContext();
+  const { next, whatName } = useTranslations();
+
+  const [layoutType, setLayoutType] = useState<LayoutType>("default");
+
   const { layout, handleLayoutTypeChange, isLayoutKey } =
     useLayout(setLayoutType);
-  const { next, whatName } = useTranslations();
 
   const form = useForm<{ userName: string }>({
     defaultValues: {

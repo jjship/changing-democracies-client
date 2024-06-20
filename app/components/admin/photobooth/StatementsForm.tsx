@@ -10,15 +10,15 @@ import { FC, KeyboardEvent, useRef, useState } from "react";
 import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 
+import { useBoothContext } from "./BoothContext";
+import { useLayout } from "./useLayout";
+import { useTranslations } from "./useTranslations";
+
 import { Form, FormControl, FormField, FormItem } from "@/ui/form";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
-import { useBoothContext } from "./BoothContext";
 import BackBtn from "./BackBtn";
-
-import { useLayout } from "./useLayout";
 import { LayoutType } from "./keyboardLayouts";
-import { useTranslations } from "./useTranslations";
 import { CSSPropertiesWithVars, boothBtn } from "./boothConstats";
 
 type StatementsFormValues = {
@@ -28,15 +28,18 @@ type StatementsFormValues = {
 const thisStage = 5;
 
 const StatementsForm: FC = () => {
-  const [layoutType, setLayoutType] = useState<LayoutType>("default");
-  const [focusedIdx, setFocusedIdx] = useState<number>(0);
-  const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
-  const keyboardRef = useRef<KeyboardReactInterface | null>(null);
-  const { layout, handleLayoutTypeChange, isLayoutKey } =
-    useLayout(setLayoutType);
-  const { writeStatement, next } = useTranslations();
   const { statements, setStatements, stage, setStage, windowHeight } =
     useBoothContext();
+  const { writeStatement, next } = useTranslations();
+
+  const [layoutType, setLayoutType] = useState<LayoutType>("default");
+  const [focusedIdx, setFocusedIdx] = useState<number>(0);
+
+  const { layout, handleLayoutTypeChange, isLayoutKey } =
+    useLayout(setLayoutType);
+
+  const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
+  const keyboardRef = useRef<KeyboardReactInterface | null>(null);
 
   const form = useForm<StatementsFormValues>({
     defaultValues: {
