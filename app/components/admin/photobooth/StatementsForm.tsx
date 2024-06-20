@@ -6,9 +6,8 @@ import {
   SubmitHandler,
   Control,
 } from "react-hook-form";
-import { FC, KeyboardEvent, useMemo, useRef, useState } from "react";
+import { FC, KeyboardEvent, useRef, useState } from "react";
 import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
-import { Animate } from "react-simple-animate";
 import "react-simple-keyboard/build/css/index.css";
 
 import { Form, FormControl, FormField, FormItem } from "@/ui/form";
@@ -33,7 +32,8 @@ const StatementsForm: FC = () => {
   const [focusedIdx, setFocusedIdx] = useState<number>(0);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const keyboardRef = useRef<KeyboardReactInterface | null>(null);
-  const layout = useLayout();
+  const { layout, handleLayoutTypeChange, isLayoutKey } =
+    useLayout(setLayoutType);
   const { writeStatement, next } = useTranslations();
   const { statements, setStatements, stage, setStage, windowHeight } =
     useBoothContext();
@@ -65,7 +65,7 @@ const StatementsForm: FC = () => {
     index: number,
   ) => {
     const isPhysicalEvent = "preventDefault" in event;
-    const key = event.key;
+    const { key } = event;
     const isEnter = (key: string) => key === "Enter" || key === "{enter}";
     const isBskp = (key: string) => key === "Backspace" || key === "{bksp}";
     const isShift = (key: string) =>
@@ -98,9 +98,8 @@ const StatementsForm: FC = () => {
       }
       return;
     }
-    if (isShift(key)) {
-      if (isPhysicalEvent) event.preventDefault();
-      setLayoutType((prev) => (prev === "default" ? "shift" : "default"));
+    if (isLayoutKey(key)) {
+      handleLayoutTypeChange(key);
       return;
     }
   };

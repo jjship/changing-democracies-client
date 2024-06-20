@@ -45,7 +45,12 @@ export const useLayout = (setType: Dispatch<SetStateAction<LayoutType>>) => {
     [setType],
   );
 
-  return { layout, handleLayoutTypeChange };
+  const isLayoutKey = useCallback((key: any): key is LayoutKey => {
+    const layoutKeys: LayoutKey[] = ["{shift}", "{lock}", "{alt}"];
+    return layoutKeys.includes(key);
+  }, []);
+
+  return { layout, handleLayoutTypeChange, isLayoutKey };
 };
 
 const isShiftKey = (key: LayoutKey) => {

@@ -22,7 +22,8 @@ const NameForm: FC = () => {
   const [layoutType, setLayoutType] = useState<LayoutType>("default");
   const { userName, setUserName, stage, setStage, windowHeight } =
     useBoothContext();
-  const { layout, handleLayoutTypeChange } = useLayout();
+  const { layout, handleLayoutTypeChange, isLayoutKey } =
+    useLayout(setLayoutType);
   const { next, whatName } = useTranslations();
 
   const form = useForm<{ userName: string }>({
@@ -47,13 +48,8 @@ const NameForm: FC = () => {
     form.setValue("userName", input);
   };
 
-  // const handleShift = useCallback(() => {
-  //   setLayoutType((prev) => (prev === "default" ? "shift" : "default"));
-  // }, [setLayoutType]);
-
   const handleVirtualKeyPress = (key: string) => {
-    if (key in ["{shift}", "{lock}", "{alt}"])
-      handleLayoutTypeChange(key, setLayoutType);
+    if (isLayoutKey(key)) handleLayoutTypeChange(key as LayoutKey);
   };
 
   if (stage !== thisStage) return null;
