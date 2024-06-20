@@ -157,3 +157,7 @@ html {
   background: #1c4995;
   color: white;
 }
+
+.simple-keyboard.myTheme1 .hg-button-alt {
+  max-width: 80px;
+}
