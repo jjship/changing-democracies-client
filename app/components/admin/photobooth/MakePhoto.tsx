@@ -205,9 +205,11 @@ const MakePhoto: FC = () => {
       targetCanvas.width = canvasWidth;
       targetCanvas.height = canvasHeight;
 
-      targetCtx.drawImage(sourceCanvas, 0, 0, canvasWidth, canvasHeight);
+      const videoAspectRatio = sourceCanvas.width / sourceCanvas.height;
+      const drawHeight = canvasWidth / videoAspectRatio;
+      targetCtx.drawImage(sourceCanvas, 0, 0, canvasWidth, drawHeight);
 
-      applyTintEffect(targetCtx, canvasWidth, canvasHeight);
+      applyTintEffect(targetCtx, canvasWidth, drawHeight);
 
       drawUserName(targetCtx, userName, userFontSize, statements?.length ?? 0);
       drawStatements(targetCtx, statements, statementFontSize);
@@ -263,6 +265,7 @@ const MakePhoto: FC = () => {
               videoConstraints={{
                 width: canvasWidth,
                 height: canvasHeight,
+                aspectRatio: canvasWidth / canvasHeight,
                 facingMode: "user",
                 frameRate: 20,
               }}
