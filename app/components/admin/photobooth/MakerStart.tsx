@@ -23,12 +23,11 @@ const MakerStart: FC = () => {
 
   return (
     <>
-      {" "}
       <div>
-        <p className="mt-24 text-4xl">{make}</p>
+        <p className="mt-24 text-center text-4xl">{make}</p>
       </div>
       <div>
-        <p className="mt-72 text-5xl text-darkRed">{express}</p>
+        <p className="mt-72 text-center text-5xl text-darkRed">{express}</p>
       </div>
       <DavButton {...props} />
       <BackBtn />
