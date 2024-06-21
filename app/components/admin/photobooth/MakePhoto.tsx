@@ -162,7 +162,7 @@ const MakePhoto: FC = () => {
       const textX = canvasWidth - textWidth - padding;
 
       // Draw text
-      ctx.fillStyle = "rgba(184, 82, 82, 1)"; // Text color
+      ctx.fillStyle = "rgb(255, 255, 255)";
       if (userName) ctx.fillText(userName, textX, textY);
     },
     [canvasWidth, font.fontFamily],
