@@ -16,46 +16,18 @@ import { boothBtn } from "./boothConstats";
 
 const thisStage = 6;
 
-const photoWidth = 1080;
-const photoHeight = 1920;
-export const canvasRatio = photoWidth / photoHeight;
+const canvasWidth = 1080;
+const canvasHeight = 1920;
+export const canvasRatio = canvasWidth / canvasHeight;
 
 const MakePhoto: FC = () => {
-  const [canvasWidth, setCanvasWidth] = useState<number>(0);
-  const [canvasHeight, setCanvasHeight] = useState<number>(0);
   const [countdown, setStart] = useState(false);
   const [countdownCompleted, setCountdownCompleted] = useState(false);
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { take } = useTranslations();
-  const {
-    statements,
-    stage,
-    setStage,
-    windowHeight,
-    windowWidth,
-    userName,
-    location,
-    setFilename,
-    font,
-  } = useBoothContext();
-
-  useEffect(() => {
-    function updateCanvasSize() {
-      let ratioWidth = windowHeight * canvasRatio;
-      let ratioHeight = windowHeight;
-
-      if (windowWidth < ratioWidth) {
-        ratioWidth = windowWidth;
-        ratioHeight = windowWidth / canvasRatio;
-      }
-
-      setCanvasWidth(ratioWidth);
-      setCanvasHeight(ratioHeight);
-    }
-
-    updateCanvasSize();
-  }, [windowHeight, windowWidth]);
+  const { statements, stage, setStage, userName, location, setFilename, font } =
+    useBoothContext();
 
   const drawTriangle = useCallback(
     ({
