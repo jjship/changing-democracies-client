@@ -21,7 +21,7 @@ const BackBtn: FC<BackProps> = ({ nextStage }) => {
 
   return (
     <Button
-      className={`absolute left-5 top-10 bg-transparent hover:bg-transparent`}
+      className={`absolute left-0 top-20 bg-transparent hover:bg-transparent`}
       onClick={handleClick}
     >
       <Image

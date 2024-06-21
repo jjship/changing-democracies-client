@@ -60,7 +60,7 @@ const LocationForm: FC = () => {
 
   return (
     <div className="flex h-screen w-2/3 flex-col content-center items-stretch  justify-between ">
-      <p className="mt-24 text-center text-4xl">Enter Location</p>
+      <p className="mt-40 text-center text-4xl">Enter Location</p>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -117,7 +117,7 @@ const LocationForm: FC = () => {
         </form>
       </Form>
 
-      <div className="w-full pt-10 text-black_bg">
+      <div className="mb-20 w-full pt-10 text-black_bg">
         <Keyboard
           onChange={handleChange}
           inputName="location"
