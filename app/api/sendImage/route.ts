@@ -6,7 +6,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   const json = await request.json();
-  console.log({ json });
   const { imageUrl, fileName, email } = json.body;
 
   if (!imageUrl || !email) {
@@ -25,8 +24,6 @@ export async function POST(request: NextRequest) {
       text: "Find your poster attached",
       attachments: [{ filename: fileName, content: response.data }],
     });
-
-    console.log({ resendRes });
 
     return new NextResponse("ok");
   } catch (error) {

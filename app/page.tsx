@@ -8,7 +8,7 @@ import FreeBrowsing from "./components/FreeBrowsing";
 
 export default function Page() {
   return (
-    <main>
+    <>
       <Navigation />
       <Section
         id="project"
@@ -27,6 +27,6 @@ export default function Page() {
       <Section id="contact" theme="dark">
         <Contact />
       </Section>
-    </main>
+    </>
   );
 }

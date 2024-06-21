@@ -9,13 +9,12 @@ import {
 import Image from "next/image";
 import { Button } from "../../ui/button";
 import { usePostersContext } from "./PostersContext";
-import { Poster } from "./actions";
 import DownloadButton from "./DownloadButton";
-import SendButton from "./SendButton";
 import { destructiveButton } from "../classNames";
+import { PosterMetadata } from "@/utils/posters-methods";
 
 type PosterRowProps = {
-  poster: Poster;
+  poster: PosterMetadata;
 };
 
 function PosterRow({ poster }: PosterRowProps) {
@@ -27,16 +26,19 @@ function PosterRow({ poster }: PosterRowProps) {
     }
   }
 
-  const { bunny_id } = poster;
+  const { id } = poster;
 
   return (
-    <TableRow key={bunny_id} className="h-min-[20rem] ">
+    <TableRow key={id} className="h-min-[20rem] ">
       <TableCell>
-        <DownloadButton imageUrl={poster.url} fileName={poster.fileName} />
+        <DownloadButton
+          imageUrl={poster.imageUrl ?? ""}
+          fileName={poster.fileName}
+        />
       </TableCell>
       <TableCell>
         <Image
-          src={poster.url}
+          src={poster.imageUrl ?? ""}
           alt="user created poster"
           width={500}
           height={500}
@@ -64,7 +66,7 @@ export default function PostersTable() {
       <TableBody>
         {posters &&
           posters.map((poster) => (
-            <PosterRow key={poster.bunny_id} poster={poster} />
+            <PosterRow key={poster.id} poster={poster} />
           ))}
       </TableBody>
     </Table>

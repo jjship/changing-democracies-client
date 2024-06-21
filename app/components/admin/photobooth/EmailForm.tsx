@@ -1,27 +1,26 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "../../ui/form";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
-import sendImage from "../posters/sendImage";
-import { useRouter } from "next/navigation";
-import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FC, useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
+import Keyboard from "react-simple-keyboard";
+
+import { Form, FormControl, FormField, FormItem } from "@/ui/form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import sendImage from "../posters/sendImage";
+
+import { useBoothContext } from "./BoothContext";
+import { boothBtn } from "./boothConstats";
+import keyboardLayouts from "./keyboardLayouts";
 
 export type EmailFormProps = {
   imageUrl: string;
   fileName: string;
   location: string;
+  isSending: boolean;
 };
 
 type FormAddress = z.infer<typeof formSchema>;
@@ -30,14 +29,15 @@ const formSchema = z.object({
   address: z.string().email({ message: "Must be a valid e-mail address" }),
 });
 
-export default function EmailForm({
+const EmailForm: FC<EmailFormProps> = ({
   imageUrl,
   fileName,
-  location,
-}: EmailFormProps) {
-  const router = useRouter();
+  isSending,
+}: EmailFormProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [address, setAddress] = useState<string>("");
+  const { setStage } = useBoothContext();
+  const thisStage = 7;
 
   const form = useForm<FormAddress>({
     resolver: zodResolver(formSchema),
@@ -51,9 +51,9 @@ export default function EmailForm({
     async (email: string) => {
       sendImage({ imageUrl, fileName, email });
       setSubmitted(true);
-      router.push(`/admin/posters/${location}`);
+      setStage(0);
     },
-    [imageUrl, fileName, location, router],
+    [imageUrl, fileName, setStage],
   );
 
   const onSubmit = (values: FormAddress) => {
@@ -68,52 +68,45 @@ export default function EmailForm({
     form.setValue("address", input);
   };
 
-  const buttonStyles =
-    "bg-green_accent hover:bg-yellow_secondary text-black_bg px-10";
+  return isSending && !submitted ? (
+    <div className="flex min-h-min w-3/4 flex-col content-center items-stretch justify-between bg-black_bg">
+      <p className="mb-5 mt-10 text-center text-4xl text-red_mains">
+        Enter email address
+      </p>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="flex w-full flex-row content-stretch justify-between ">
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem className="mr-2.5 flex-grow">
+                  <FormControl>
+                    <Input className="min-w-full text-black" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <Button className={`${boothBtn}`} type="submit">
+              Send
+            </Button>
+          </div>
+        </form>
+      </Form>
 
-  return !submitted ? (
-    <div className="flex w-full flex-col items-center justify-center text-white">
-      <div className="w-1/2 gap-5 p-5">
-        <>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex w-full items-end gap-5 "
-            >
-              <div className="flex-grow text-white">
-                <FormField
-                  control={form.control}
-                  name="address"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Enter e-mail address</FormLabel>
-                      <FormControl>
-                        <Input
-                          className=" text-black"
-                          {...field}
-                          // value={address}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <Button className={`${buttonStyles}`} type="submit">
-                Send
-              </Button>
-            </form>
-          </Form>
-        </>
-        <div className="pt-10 text-black">
-          <Keyboard
-            onChange={handleChange}
-            inputName="address"
-            layoutName="default"
-          />
-        </div>
+      <div className="mt-10 w-full bg-turquoise text-black_bg">
+        <Keyboard
+          onChange={handleChange}
+          inputName="address"
+          layout={keyboardLayouts["EN"]}
+          layoutName="default"
+          theme={"hg-theme-default myTheme1"}
+        />
       </div>
     </div>
   ) : (
     <></>
   );
-}
+};
+
+export default EmailForm;

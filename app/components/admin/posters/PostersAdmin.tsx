@@ -3,43 +3,38 @@
 import { useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
+import { PosterMetadata } from "@/utils/posters-methods";
+
 import { PostersContext } from "./PostersContext";
 import PostersTable from "./PostersTable";
-import { deletePoster, updatePoster } from "./actions";
-import { Poster, fetchPosters } from "./actions";
+import { deletePoster } from "./actions";
 import { navButton } from "../classNames";
+import { usePostersLoader } from "../photobooth/usePostersLoader";
 
 export const dynamic = "force-dynamic";
 
 export default function PostersAdmin({ open }: { open: boolean }) {
-  const [posters, setPosters] = useState<Poster[] | null>(null);
+  const [adminPosters, setPosters] = useState<PosterMetadata[] | null>(null);
   const [openPosters, setOpenPosters] = useState<boolean>(open);
 
   function togglePosters() {
     setOpenPosters(!openPosters);
   }
 
+  const { posters } = usePostersLoader("/admin/posters/api");
+
   useEffect(() => {
-    const updatePosters = async () => {
-      const { data } = await fetchPosters();
+    if (posters) setPosters(posters);
+  }, [posters]);
 
-      if (data) {
-        setPosters(data);
-      }
-    };
-
-    updatePosters();
-  }, []);
-
-  function handleDelete(poster: Poster) {
+  function handleDelete(poster: PosterMetadata) {
     // Find the poster that was deleted
     const posterToDelete =
-      posters?.find((p) => p.bunny_id === poster.bunny_id) || null;
+      adminPosters?.find((p) => p.id === poster.id) || null;
 
     // Optimistically update the UI by filtering out the deleted poster
     setPosters(
-      (prevPosters) =>
-        prevPosters?.filter((p) => p.bunny_id !== poster.bunny_id) || null,
+      (prevPosters) => prevPosters?.filter((p) => p.id !== poster.id) || null,
     );
 
     // Send the delete request to the backend
@@ -62,11 +57,17 @@ export default function PostersAdmin({ open }: { open: boolean }) {
       <PostersContext.Provider
         value={{
           onDelete: handleDelete,
-          posters,
+          posters: adminPosters,
           setPosters,
         }}
       >
-        {openPosters ? posters ? <PostersTable /> : <p>loading...</p> : null}
+        {openPosters ? (
+          adminPosters ? (
+            <PostersTable />
+          ) : (
+            <p>loading...</p>
+          )
+        ) : null}
       </PostersContext.Provider>
     </>
   );
