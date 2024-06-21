@@ -3,13 +3,11 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import Image from "next/image";
 
-import simple_arrow from "@/public/simple_arrow.svg";
 import { PosterMetadata } from "@/utils/posters-methods";
-import { Button } from "@/ui/button";
 import { Skeleton } from "@/ui/skeleton";
 import { useBoothContext } from "../photobooth/BoothContext";
 import { useTranslations } from "../photobooth/useTranslations";
-import { boothBtn } from "../photobooth/boothConstats";
+import PostersNavFooter from "../photobooth/PostersNavFooter";
 
 interface PostersPageProps {
   initialPosters: PosterMetadata[];
@@ -27,7 +25,6 @@ const PostersPage: React.FC<PostersPageProps> = ({
   const [filteredPosters, setFilteredPosters] = useState<PosterMetadata[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
   const { setPrevLocations, setStage } = useBoothContext();
-  const { make } = useTranslations();
 
   useEffect(() => {
     const getLocations = () => {
@@ -102,36 +99,12 @@ const PostersPage: React.FC<PostersPageProps> = ({
             ),
         )}
       </div>
-      <div className="fixed bottom-0 max-h-min w-screen flex-col bg-black_bg px-20 pb-10 font-black">
-        {locations && (
-          <div className="my-10 flex min-h-max items-start justify-start gap-5">
-            {Array.from(locations).map((posterLocation) => (
-              <Button
-                key={posterLocation}
-                value={posterLocation}
-                className={`${
-                  selectedLocation === posterLocation || !selectedLocation
-                    ? "bg-green_accent"
-                    : "bg-gray_light_secondary"
-                } w-32 font-black  text-black hover:bg-yellow_secondary`}
-                onClick={handleFilterClick}
-              >
-                {posterLocation}
-              </Button>
-            ))}
-          </div>
-        )}
-        <div className="flex w-full justify-between ">
-          <p className="text-5xl text-white">{make.toUpperCase()}</p>
-          <Image src={simple_arrow} alt="arrow" />
-          <Button
-            className={`${boothBtn} my-auto text-black_bg`}
-            onClick={handlePosterMakerClick}
-          >
-            CREATE NOW
-          </Button>
-        </div>
-      </div>
+      <PostersNavFooter
+        locations={locations}
+        selectedLocation={selectedLocation}
+        handleFilterClick={handleFilterClick}
+        handleNavClick={handlePosterMakerClick}
+      />
     </div>
   );
 };
