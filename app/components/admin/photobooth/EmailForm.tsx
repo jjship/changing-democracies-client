@@ -14,6 +14,7 @@ import sendImage from "../posters/sendImage";
 
 import { useBoothContext } from "./BoothContext";
 import { boothBtn } from "./boothConstats";
+import keyboardLayouts from "./keyboardLayouts";
 
 export type EmailFormProps = {
   imageUrl: string;
@@ -93,10 +94,11 @@ const EmailForm: FC<EmailFormProps> = ({
         </form>
       </Form>
 
-      <div className="w-full bg-black_bg  pt-10 text-black_bg">
+      <div className="mt-10 w-full bg-turquoise text-black_bg">
         <Keyboard
           onChange={handleChange}
           inputName="address"
+          layout={keyboardLayouts["EN"]}
           layoutName="default"
           theme={"hg-theme-default myTheme1"}
         />

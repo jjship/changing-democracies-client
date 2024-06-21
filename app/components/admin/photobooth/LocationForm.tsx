@@ -19,6 +19,7 @@ import BackBtn from "./BackBtn";
 
 import { useBoothContext } from "./BoothContext";
 import { boothBtn } from "./boothConstats";
+import keyboardLayouts from "./keyboardLayouts";
 
 const LocationForm: FC = () => {
   const [isSet, setIsSet] = useState(false);
@@ -116,10 +117,11 @@ const LocationForm: FC = () => {
         </form>
       </Form>
 
-      <div className="w-full  pt-10 text-black_bg">
+      <div className="w-full pt-10 text-black_bg">
         <Keyboard
           onChange={handleChange}
           inputName="location"
+          layout={keyboardLayouts["EN"]}
           layoutName="default"
           theme={"hg-theme-default myTheme1"}
         />
