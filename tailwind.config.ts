@@ -31,6 +31,7 @@ const config: Config = {
         turquoise: "#6bdbd6",
         darkRed: "#b85252",
         pink: "#e7d8dd",
+        purple: "#8083AE",
         btn: {
           background: "hsl(var(--btn-background))",
         },
@@ -92,6 +93,8 @@ const config: Config = {
       },
       gridTemplateColumns: {
         custom: "minmax(0, 25rem) 1fr",
+        "6-cols": "repeat(6, minmax(0, 1fr))",
+        "7-cols": "repeat(7, minmax(0, 1fr))",
       },
       borderRadius: {
         lg: "var(--radius)",
