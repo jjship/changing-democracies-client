@@ -1,11 +1,11 @@
 import { createContext, useContext, useState } from "react";
-import { Poster } from "./actions";
+import { PosterMetadata } from "@/utils/posters-methods";
 
-type PosterCallback = (poster: Poster) => void;
+type PosterCallback = (poster: PosterMetadata) => void;
 
 type PostersContextType = {
-  posters: Poster[] | null;
-  setPosters: (posters: Poster[] | null) => void;
+  posters: PosterMetadata[] | null;
+  setPosters: (posters: PosterMetadata[]) => void;
   onDelete?: PosterCallback;
 };
 
@@ -16,7 +16,7 @@ export function PostersContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [posters, setPosters] = useState<Poster[] | null>(null);
+  const [posters, setPosters] = useState<PosterMetadata[] | null>(null);
 
   return (
     <PostersContext.Provider

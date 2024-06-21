@@ -1,4 +1,3 @@
-import useSWR from "swr";
 import { useBoothContext } from "./BoothContext";
 import { usePostersLoader } from "./usePostersLoader";
 import { FC } from "react";
