@@ -12,17 +12,18 @@ export default async function Events() {
 
   if (error) {
     console.error(error);
-    throw error;
   }
 
   const { futureEvents, pastEvents } = parseDbEventEntries({ events });
 
-  return (
+  return events ? (
     <>
       <Title text="Events" theme="light" />
       <EventsList events={futureEvents} isFuture={true} />
       <EventsList events={pastEvents} isFuture={false} />
     </>
+  ) : (
+    "Could not fetch events"
   );
 }
 
