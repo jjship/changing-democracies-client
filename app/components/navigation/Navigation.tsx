@@ -1,11 +1,10 @@
 "use client";
-import { FC, createContext, useContext, useState } from "react";
-import Overlay from "./Overlay";
+import { FC, useState } from "react";
 
-import MobileNav from "./MobileNav";
-import { DesktopNav } from "./DesktopNav";
+import { NavDrawer } from "./NavDrawer";
+import { Hamburger } from "./Hamburger";
 
-export { Navigation, NavContext };
+export { Navigation };
 
 export type NavColor = "purple_lightest_bg" | "black_bg" | "yellow_secondary";
 
@@ -14,40 +13,27 @@ export type NavigationProps = {
   fontColor?: NavColor;
 };
 
-export type NavContextType = {
-  isNavOpen: boolean;
-  toggleNav: () => void;
-  bgColor: NavColor;
-  fontColor: NavColor;
-};
-
-const NavContext = createContext<NavContextType | null>(null);
-
 const Navigation: FC<NavigationProps> = ({
   bgColor = "purple_lightest_bg",
   fontColor = "black_bg",
 }: NavigationProps) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
-  };
-
+  const toggleNav = () => setIsNavOpen((prev) => !prev);
   return (
-    <NavContext.Provider value={{ isNavOpen, toggleNav, bgColor, fontColor }}>
-      <Overlay />
-      <DesktopNav />
-      <MobileNav />
-    </NavContext.Provider>
+    <div
+      className={`bg-${
+        isNavOpen ? "black_bg" : bgColor
+      } sticky top-0 z-40 transition-all duration-1000`}
+    >
+      <div className="flex min-h-[5vh] justify-end">
+        <Hamburger
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
+          fontColor={fontColor}
+        />
+      </div>
+      <NavDrawer isNavOpen={isNavOpen} toggleNav={toggleNav} />
+    </div>
   );
 };
-
-export function useNavContext() {
-  const context = useContext(NavContext);
-
-  if (!context) {
-    throw new Error("useNavContext must be used within a NavContextProvider");
-  }
-
-  return context;
-}
