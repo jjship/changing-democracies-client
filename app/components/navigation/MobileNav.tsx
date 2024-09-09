@@ -1,62 +1,77 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { NavColor, useNavContext } from "./Navigation";
+import { useState, useEffect, FC } from "react";
+import { NavColor } from "./Navigation";
+import { useRouter } from "next/navigation";
 
-export default function MobileNav() {
-  const { isNavOpen } = useNavContext();
+export const MobileNav: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
+  isNavOpen,
+  toggleNav,
+}) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     if (isNavOpen) {
-      const visibleTimeout = setTimeout(() => {
-        setVisible(true);
-      }, 100);
-
-      return () => clearTimeout(visibleTimeout);
+      setVisible(true);
     } else {
       setVisible(false);
     }
-    //TODO inventigate this
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNavOpen]);
 
   return (
     <div
-      className={`ml-5 flex min-h-[90vh] flex-col justify-between bg-black_bg pt-10 ${
-        visible ? "" : "hidden"
-      }`}
+      id="mobileContainer"
+      className={`flex h-screen transform flex-col justify-between bg-black_bg transition-all duration-1000 ease-in-out ${
+        visible
+          ? "max-h-screen scale-100 opacity-100"
+          : "max-h-0  overflow-hidden opacity-0"
+      } `}
     >
       <div className="flex-grow "></div>
-      <div className="flex flex-col justify-center gap-8">
+      <div className="ml-5 flex flex-col justify-center gap-8">
         <AnimatedLink
           href="/free-browsing"
           text="free browsing"
           timeout={110}
           color="yellow"
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
         />
         <AnimatedLink
           href="/#project"
           text="project"
           timeout={200}
           color="pink"
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
         />
-        <AnimatedLink href="/#team" text="team" timeout={300} color="pink" />
+        <AnimatedLink
+          href="/#team"
+          text="team"
+          timeout={300}
+          color="pink"
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
+        />
         <AnimatedLink
           href="/#events"
           text="events"
           timeout={400}
           color="pink"
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
         />
         <AnimatedLink
           href="/#contact"
           text="contact"
           timeout={500}
           color="pink"
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
         />
       </div>
     </div>
   );
-}
+};
 
 type LinkColor = "yellow" | "pink";
 
@@ -72,17 +87,18 @@ const getFontColor = (color: LinkColor): NavColor => {
   }
 };
 
-const AnimatedLink = (props: {
+const AnimatedLink: FC<{
   href: string;
   text: string;
   timeout?: number;
   color: LinkColor;
-}) => {
-  const { isNavOpen, toggleNav } = useNavContext();
+  isNavOpen: boolean;
+  toggleNav: () => void;
+}> = ({ href, text, timeout, color, isNavOpen, toggleNav }) => {
   const [slideIn, setSlideIn] = useState(false);
-  const { text, timeout = 0 } = props;
+  const router = useRouter();
 
-  const linkClasses = `text-${getFontColor(props.color)} text-5xl capitalize`;
+  const linkClasses = `text-${getFontColor(color)} text-5xl capitalize`;
 
   useEffect(() => {
     if (isNavOpen) {
@@ -96,21 +112,24 @@ const AnimatedLink = (props: {
     }
   }, [isNavOpen, timeout]);
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toggleNav();
+
+    setTimeout(() => {
+      router.push(href);
+    }, 1000);
+  };
+
   return (
     <div
-      style={{
-        zIndex: 100,
-        transform: slideIn ? "translateY(0)" : "translateY(100vh)",
-        transition: "all 1s ease-in-out",
-      }}
+      className={`z-[100] transition-all duration-1000 ease-in-out ${
+        slideIn ? "translate-y-0" : "translate-y-[100vh]"
+      }`}
     >
-      <Link
-        href={props.href}
-        onClick={() => toggleNav()}
-        className={linkClasses}
-      >
+      <a href={href} onClick={handleClick} className={linkClasses}>
         {text}
-      </Link>
+      </a>
     </div>
   );
 };
