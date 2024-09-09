@@ -22,11 +22,11 @@ export default function MobileNav() {
 
   return (
     <div
-      className={`ml-5 flex min-h-screen flex-col justify-between bg-black_bg pt-10 ${
+      className={`ml-5 flex min-h-[90vh] flex-col justify-between bg-black_bg pt-10 ${
         visible ? "" : "hidden"
       }`}
     >
-      <div className="flex-grow"></div>
+      <div className="flex-grow "></div>
       <div className="flex flex-col justify-center gap-8">
         <AnimatedLink
           href="/free-browsing"
