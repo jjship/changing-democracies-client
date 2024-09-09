@@ -2,19 +2,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import languageArrow from "@/public/language_arrow.svg";
+import { useNavContext } from "./Navigation";
 
 export default function Navbar() {
+  const { fontColor } = useNavContext();
+
   return (
     <section id="navbar">
       <h1 className="hidden">Navbar</h1>
       <div
-        className={`z-50 p-5 font-bold text-black_bg md:flex md:flex-row md:items-end md:gap-10 md:px-10 md:text-xl`}
+        className={`z-50 p-5 font-bold text-${fontColor} md:flex md:flex-row md:items-end md:gap-10 md:px-10 md:text-xl`}
       >
-        <Link href="/#project" className="hidden md:block">
-          Project
-        </Link>
         <Link href="/free-browsing" className="hidden md:block">
           Free Browsing
+        </Link>
+        <Link href="/#project" className="hidden md:block">
+          Project
         </Link>
         <Link href="/#team" className="hidden md:block">
           Team

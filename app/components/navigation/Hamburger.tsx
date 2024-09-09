@@ -1,10 +1,11 @@
 "use client";
-import { useContext } from "react";
-import { NavContext } from "./Navigation";
+import { useNavContext } from "./Navigation";
 import Link from "next/link";
 
 export default function Hamburger() {
-  const { isNavOpen, toggleNav } = useContext(NavContext);
+  const { isNavOpen, toggleNav, fontColor } = useNavContext();
+
+  const currentStroke = fontColor === "black_bg" ? "#191818" : "#CF9855";
 
   return (
     <Link
@@ -24,7 +25,7 @@ export default function Hamburger() {
           y1="1.5"
           x2="28"
           y2="1.5"
-          stroke="#191818"
+          stroke={currentStroke}
           strokeWidth="3"
           className={isNavOpen ? "open" : ""}
         />
@@ -33,7 +34,7 @@ export default function Hamburger() {
           y1="11.834"
           x2="28"
           y2="11.834"
-          stroke="#191818"
+          stroke={currentStroke}
           strokeWidth="3"
           className={isNavOpen ? "open" : ""}
         />
@@ -42,7 +43,7 @@ export default function Hamburger() {
           y1="22.168"
           x2="28"
           y2="22.168"
-          stroke="#191818"
+          stroke={currentStroke}
           strokeWidth="3"
           className={isNavOpen ? "open" : ""}
         />

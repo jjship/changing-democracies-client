@@ -39,7 +39,7 @@ export default function Login({
   });
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-5 bg-puprple_lightest_bg p-5">
+    <div className="bg-purple_lightest_bg flex min-h-screen flex-col items-center justify-center gap-5 p-5">
       <Link
         href="/"
         className="group absolute left-8 top-8 flex items-center rounded-md bg-yellow_secondary px-4 py-2 text-sm font-bold text-foreground no-underline hover:bg-red_mains"

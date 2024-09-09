@@ -4,7 +4,7 @@ export default function Title(props: {
   color?: string;
 }) {
   const { theme, color } = props;
-  const bgColor = theme === "light" ? "bg-puprple_lightest_bg" : "bg-black_bg";
+  const bgColor = theme === "light" ? "bg-purple_lightest_bg" : "bg-black_bg";
 
   return (
     <div

@@ -44,7 +44,7 @@ export default function Contact() {
         </div>
       </div>
       <div className="relative z-20 mt-32 max-w-max border-solid border-white md:mx-auto md:mt-40 md:w-full">
-        <span className="leading-6 text-puprple_lightest_bg md:text-2xl xl:text-[2.125rem] xl:leading-10">
+        <span className="text-purple_lightest_bg leading-6 md:text-2xl xl:text-[2.125rem] xl:leading-10">
           Download our Children and Young
           <br className="md:hidden" /> People Protection Policy from&nbsp;
           <Link

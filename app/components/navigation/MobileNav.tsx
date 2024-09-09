@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ReactNode, useContext, useState, useEffect } from "react";
-import { NavContext } from "./Navigation";
+import { useState, useEffect } from "react";
+import { NavColor, useNavContext } from "./Navigation";
 
 export default function MobileNav() {
-  const { isNavOpen } = useContext(NavContext);
+  const { isNavOpen } = useNavContext();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -22,22 +22,67 @@ export default function MobileNav() {
 
   return (
     <div
-      className={`ml-5 flex h-screen flex-col justify-center gap-8 bg-black_bg pt-60 ${
+      className={`ml-5 flex min-h-screen flex-col justify-between bg-black_bg pt-10 ${
         visible ? "" : "hidden"
       }`}
     >
-      <AnimatedLink text="project" timeout={110} />
-      <AnimatedLink text="team" timeout={200} />
-      <AnimatedLink text="events" timeout={300} />
-      <AnimatedLink text="contact" timeout={400} />
+      <div className="flex-grow"></div>
+      <div className="flex flex-col justify-center gap-8">
+        <AnimatedLink
+          href="/free-browsing"
+          text="free browsing"
+          timeout={110}
+          color="yellow"
+        />
+        <AnimatedLink
+          href="/#project"
+          text="project"
+          timeout={200}
+          color="pink"
+        />
+        <AnimatedLink href="/#team" text="team" timeout={300} color="pink" />
+        <AnimatedLink
+          href="/#events"
+          text="events"
+          timeout={400}
+          color="pink"
+        />
+        <AnimatedLink
+          href="/#contact"
+          text="contact"
+          timeout={500}
+          color="pink"
+        />
+      </div>
     </div>
   );
 }
 
-const AnimatedLink = (props: { text: string; timeout?: number }) => {
-  const { isNavOpen, toggleNav } = useContext(NavContext);
+type LinkColor = "yellow" | "pink";
+
+const getFontColor = (color: LinkColor): NavColor => {
+  switch (color) {
+    case "pink":
+      return "purple_lightest_bg";
+    case "yellow":
+      return "yellow_secondary";
+    default:
+      console.error("Unknown animated link color");
+      return "purple_lightest_bg";
+  }
+};
+
+const AnimatedLink = (props: {
+  href: string;
+  text: string;
+  timeout?: number;
+  color: LinkColor;
+}) => {
+  const { isNavOpen, toggleNav } = useNavContext();
   const [slideIn, setSlideIn] = useState(false);
   const { text, timeout = 0 } = props;
+
+  const linkClasses = `text-${getFontColor(props.color)} text-5xl capitalize`;
 
   useEffect(() => {
     if (isNavOpen) {
@@ -57,13 +102,12 @@ const AnimatedLink = (props: { text: string; timeout?: number }) => {
         zIndex: 100,
         transform: slideIn ? "translateY(0)" : "translateY(100vh)",
         transition: "all 1s ease-in-out",
-        color: "white",
       }}
     >
       <Link
-        href={`#${text}`}
+        href={props.href}
         onClick={() => toggleNav()}
-        className="text-5xl capitalize text-puprple_lightest_bg"
+        className={linkClasses}
       >
         {text}
       </Link>

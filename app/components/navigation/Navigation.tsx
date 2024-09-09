@@ -1,16 +1,32 @@
 "use client";
-import { createContext, useState } from "react";
+import { FC, createContext, useContext, useState } from "react";
 import Overlay from "./Overlay";
-import Navbar from "./Navbar";
-import Hamburger from "./Hamburger";
+
 import MobileNav from "./MobileNav";
+import { DesktopNav } from "./DesktopNav";
 
-export const NavContext = createContext({
-  isNavOpen: false,
-  toggleNav: () => {},
-});
+export { Navigation, NavContext };
 
-export default function Navigation() {
+export type NavColor = "purple_lightest_bg" | "black_bg" | "yellow_secondary";
+
+export type NavigationProps = {
+  bgColor?: NavColor;
+  fontColor?: NavColor;
+};
+
+export type NavContextType = {
+  isNavOpen: boolean;
+  toggleNav: () => void;
+  bgColor: NavColor;
+  fontColor: NavColor;
+};
+
+const NavContext = createContext<NavContextType | null>(null);
+
+const Navigation: FC<NavigationProps> = ({
+  bgColor = "purple_lightest_bg",
+  fontColor = "black_bg",
+}: NavigationProps) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
@@ -18,25 +34,20 @@ export default function Navigation() {
   };
 
   return (
-    <NavContext.Provider value={{ isNavOpen, toggleNav }}>
+    <NavContext.Provider value={{ isNavOpen, toggleNav, bgColor, fontColor }}>
       <Overlay />
-      <div
-        className={`bg-puprple_lightest_bg ${
-          isNavOpen ? "relative" : "sticky top-0 z-40"
-        }`}
-      >
-        <div className="m-auto max-w-[23.125rem] md:max-w-[64rem] xl:max-w-[90rem] ">
-          <div
-            className={`flex flex-row justify-between md:flex-col md:items-end ${
-              isNavOpen ? "relative" : "sticky top-0 z-40"
-            }`}
-          >
-            <Navbar />
-            <Hamburger />
-          </div>
-        </div>
-      </div>
+      <DesktopNav />
       <MobileNav />
     </NavContext.Provider>
   );
+};
+
+export function useNavContext() {
+  const context = useContext(NavContext);
+
+  if (!context) {
+    throw new Error("useNavContext must be used within a NavContextProvider");
+  }
+
+  return context;
 }

@@ -25,7 +25,7 @@ const config: Config = {
         green_accent: "#6BDBC6",
         black_bg: "#191818",
         purple_events: "#E7D8DD",
-        puprple_lightest_bg: "#E7D8DD",
+        purple_lightest_bg: "#E7D8DD",
         purple_lighter_additional: "#B8A4AA",
         purple_light_additional: "#9D92AB",
         btn: {

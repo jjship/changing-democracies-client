@@ -12,9 +12,9 @@ export default function Section(props: {
     yPadding = "py-5 md:py-14 xl:py-20",
   } = props;
 
-  const bgColor = theme === "light" ? "bg-puprple_lightest_bg" : "bg-black_bg";
+  const bgColor = theme === "light" ? "bg-purple_lightest_bg" : "bg-black_bg";
   const textColor =
-    theme === "light" ? "text-black_bg" : "text-puprple_lightest_bg";
+    theme === "light" ? "text-black_bg" : "text-purple_lightest_bg";
 
   return (
     <section className={`relative ${bgColor} ${textColor}`}>

@@ -22,7 +22,7 @@ export default async function Video({
 
   return (
     <>
-      <div className="min-h-screen flex-col bg-puprple_lightest_bg ">
+      <div className="bg-purple_lightest_bg min-h-screen flex-col ">
         <div className="flex items-center justify-end gap-5 p-5 font-bold">
           logged in as {user.email}
           <form action={logout}>
@@ -31,7 +31,7 @@ export default async function Video({
             </Button>
           </form>
         </div>
-        <div className="flex min-h-screen w-full flex-col bg-puprple_lightest_bg">
+        <div className="bg-purple_lightest_bg flex min-h-screen w-full flex-col">
           {formVideo ? (
             <>
               <VideoPlayer videoId={formVideo.guid} />

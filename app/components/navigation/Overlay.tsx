@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { NavContext } from "./Navigation";
+import { useNavContext } from "./Navigation";
 
 export default function Overlay() {
-  const { isNavOpen } = useContext(NavContext);
+  const { isNavOpen } = useNavContext();
   return (
     <div
       className={`overlay z-40 m-auto w-[23.125rem] xl:hidden ${
