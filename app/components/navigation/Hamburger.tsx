@@ -1,15 +1,19 @@
-"use client";
-import { useContext } from "react";
-import { NavContext } from "./Navigation";
+import { FC } from "react";
 import Link from "next/link";
 
-export default function Hamburger() {
-  const { isNavOpen, toggleNav } = useContext(NavContext);
+export const Hamburger: FC<{
+  isNavOpen: boolean;
+  toggleNav: () => void;
+  fontColor: string;
+}> = ({ isNavOpen, toggleNav, fontColor }) => {
+  const currentStroke = fontColor === "black_bg" ? "#191818" : "#CF9855";
 
   return (
     <Link
       href="#"
-      className={`hamburger z-50 p-5 md:hidden ${isNavOpen ? "open" : ""}`}
+      className={`hamburger z-50 my-3 px-5 md:my-auto  ${
+        isNavOpen ? "open" : ""
+      }`}
       onClick={toggleNav}
     >
       <svg
@@ -24,7 +28,7 @@ export default function Hamburger() {
           y1="1.5"
           x2="28"
           y2="1.5"
-          stroke="#191818"
+          stroke={currentStroke}
           strokeWidth="3"
           className={isNavOpen ? "open" : ""}
         />
@@ -33,7 +37,7 @@ export default function Hamburger() {
           y1="11.834"
           x2="28"
           y2="11.834"
-          stroke="#191818"
+          stroke={currentStroke}
           strokeWidth="3"
           className={isNavOpen ? "open" : ""}
         />
@@ -42,11 +46,11 @@ export default function Hamburger() {
           y1="22.168"
           x2="28"
           y2="22.168"
-          stroke="#191818"
+          stroke={currentStroke}
           strokeWidth="3"
           className={isNavOpen ? "open" : ""}
         />
       </svg>
     </Link>
   );
-}
+};

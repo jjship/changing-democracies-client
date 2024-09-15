@@ -23,7 +23,7 @@ export default async function Event({
 
   return (
     <>
-      <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
+      <div className="bg-purple_lightest_bg flex min-h-screen flex-col ">
         <div className="font bold flex items-center justify-end gap-4 p-5">
           logged in as {user.email}
           <form action={logout}>
@@ -32,7 +32,7 @@ export default async function Event({
             </button>
           </form>
         </div>
-        <div className="flex min-h-screen flex-col bg-puprple_lightest_bg ">
+        <div className="bg-purple_lightest_bg flex min-h-screen flex-col ">
           {formEvent ? (
             <EventFormFields defaultValues={formEvent} userId={user.id} />
           ) : (

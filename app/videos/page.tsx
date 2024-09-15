@@ -65,7 +65,7 @@ export default async function VideosAdmin() {
   );
 
   return (
-    <div className="flex min-h-screen flex-col bg-puprple_lightest_bg">
+    <div className="bg-purple_lightest_bg flex min-h-screen flex-col">
       <h1>{collection.name}</h1>
       <div className="grid grid-cols-3 gap-2">
         {videos.map((video) => (

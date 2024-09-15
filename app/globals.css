@@ -104,7 +104,7 @@ html {
 #top-line,
 #middle-line,
 #bottom-line {
-  stroke: #191818;
+  /* stroke: #191818; */
   transition: all 0.5s ease;
 }
 .open#top-line,
@@ -112,6 +112,7 @@ html {
 .open#bottom-line {
   stroke: #e7d8dd;
 }
+
 .open#top-line {
   transform-origin: top left;
   transform: translate(8%, 5%) rotate(47deg);
@@ -122,18 +123,4 @@ html {
 .open#bottom-line {
   transform-origin: bottom left;
   transform: translate(9%, 0%) rotate(-50deg);
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  height: 100%;
-  background: black;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease;
-}
-.overlay.visible {
-  opacity: 1;
-  visibility: visible;
 }
