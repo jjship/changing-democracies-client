@@ -1,13 +1,12 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { Film, FilmsCollection } from "@/types/videos";
+import { FilmData, FilmsCollection } from "@/types/videosAndFilms";
 
 type FilmsContextType = {
-  films: Film[] | null;
-  setFilms: (films: Film[] | null) => void;
+  films: FilmData[] | null;
+  setFilms: (films: FilmData[] | null) => void;
   collection: FilmsCollection | null;
-  setCollection: (collection: FilmsCollection | null) => void;
 };
 
 export const FilmsContext = createContext<FilmsContextType | null>(null);
@@ -17,7 +16,7 @@ export function FilmsContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [films, setFilms] = useState<Film[] | null>(null);
+  const [films, setFilms] = useState<FilmData[] | null>(null);
   const [collection, setCollection] = useState<FilmsCollection | null>(null);
 
   return (
@@ -26,7 +25,6 @@ export function FilmsContextProvider({
         films,
         setFilms,
         collection,
-        setCollection,
       }}
     >
       {children}

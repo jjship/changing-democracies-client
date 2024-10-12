@@ -1,6 +1,6 @@
 // app/components/FullscreenPlayer.tsx
 import React from "react";
-import { VideoDbEntry } from "../../../types/videos";
+import { VideoDbEntry } from "../../../types/videosAndFilms";
 
 interface FullscreenPlayerProps {
   film: VideoDbEntry;

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { VideoDbEntry } from "@/types/videos";
+import { VideoDbEntry } from "@/types/videosAndFilms";
 
 type EditCallback = (videoId: number) => void;
 

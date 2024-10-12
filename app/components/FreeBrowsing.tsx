@@ -1,35 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { FC, useState } from "react";
 import FilmList from "./films/FilmList";
-import Filters from "./films/FilmFilters";
-import { Film, FilmsCollection } from "../../types/videos";
+import { FilmData, FilmsCollection } from "../../types/videosAndFilms";
 import { FilmsContext } from "./films/FilmsContext";
 import Title from "./Title";
-import { getFilms } from "./films/actions";
 import ShowAllOrFilters from "./films/ShowAllOrFilters";
 
-const FreeBrowsing = () => {
-  const [collection, setCollection] = useState<FilmsCollection | null>(null);
-  const [films, setFilms] = useState<Film[] | null>(null);
+export { FreeBrowsing };
 
-  useEffect(() => {
-    const updateFilms = async () => {
-      const filmsCollection = await getFilms();
-
-      setCollection(filmsCollection);
-    };
-
-    updateFilms();
-  }, []);
+const FreeBrowsing: FC<{
+  filmsCollection: FilmsCollection;
+}> = ({ filmsCollection }) => {
+  const [collection] = useState<FilmsCollection>(filmsCollection);
+  const [films, setFilms] = useState<FilmData[] | null>(null);
 
   return (
     <>
       <Title text="Free browsing" theme="dark" color="yellow_secondary" />
       <>
-        <FilmsContext.Provider
-          value={{ films, setFilms, collection, setCollection }}
-        >
+        <FilmsContext.Provider value={{ films, setFilms, collection }}>
           {collection ? (
             <>
               <ShowAllOrFilters />
@@ -43,5 +33,3 @@ const FreeBrowsing = () => {
     </>
   );
 };
-
-export default FreeBrowsing;

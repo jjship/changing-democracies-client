@@ -1,7 +1,7 @@
 "use client";
 import * as z from "zod";
 
-import { FormVideo } from "@/types/videos";
+import { FormVideo } from "@/types/videosAndFilms";
 import { useEffect, useState } from "react";
 import { getSubtitles, saveCaptions, saveVideo } from "../actions";
 import { zodResolver } from "@hookform/resolvers/zod";

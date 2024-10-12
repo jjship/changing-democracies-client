@@ -35,8 +35,8 @@ export type VideoDbEntry = {
   averageWatchTime: number;
   totalWatchTime: number;
   category: string;
-  chapters: any[]; // You might want to define a type for chapters
-  moments: any[]; // You might want to define a type for moments
+  chapters: any[];
+  moments: any[];
   metaTags: {
     property: string;
     value: string;
@@ -50,39 +50,15 @@ export type FormVideo = Pick<VideoDbEntry, "guid" | "title" | "captions"> & {
   description: string; // in metaTags
 };
 
-export type Film = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
+export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
   tags: string[]; // in metaTags
   person: string; // in title
   country: string; // in title
 };
 
 export type FilmsCollection = {
-  films: Film[];
+  films: FilmData[];
   tags: string[];
   countries: string[];
   people: string[];
 };
-
-const { BUNNY_STREAM_PULL_ZONE } = process.env;
-
-export { getThumbnail, parseTags, getFilmUrl };
-
-const getThumbnail = (filmId: string) =>
-  `https://${BUNNY_STREAM_PULL_ZONE}.b-cdn.net/${filmId}/thumbnail.jpg`;
-
-const getFilmUrl = (filmId: string) =>
-  `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${filmId}?autoplay=false`;
-
-function parseTags(
-  metaTags: {
-    property: string;
-    value: string;
-  }[],
-): string[] {
-  if (!metaTags) return [];
-  const tags: string[] | undefined = metaTags
-    .find((tag) => tag.property === "tags")
-    ?.value?.split(",");
-  console.log(tags);
-  return tags ?? [];
-}

@@ -1,26 +1,22 @@
-"use server";
+import {
+  VideoDbEntry,
+  FilmsCollection,
+  FilmData,
+} from "../types/videosAndFilms";
 
-import "server-only";
-import { getVideos } from "@/components/admin/actions";
-import { Film, VideoDbEntry, FilmsCollection } from "@/types/videos";
-import { cache } from "react";
+export { getThumbnail, parseTags, getFilmUrl, serializeFilmsCollection };
 
-export { getFilms };
-
-const getFilms = cache(async (): Promise<FilmsCollection> => {
-  const { data, error } = await getVideos();
-
-  if (error) {
-    console.log({ error });
-    throw error;
-  }
-
-  const allTags = data.reduce((prev: Set<string>, film: VideoDbEntry) => {
+function serializeFilmsCollection({
+  videos,
+}: {
+  videos: VideoDbEntry[];
+}): FilmsCollection {
+  const allTags = videos.reduce((prev: Set<string>, film: VideoDbEntry) => {
     parseTags(film.metaTags).forEach((tag) => prev.add(tag));
     return prev;
   }, new Set<string>());
 
-  const films: Film[] = data.map((film) => ({
+  const films: FilmData[] = videos.map((film) => ({
     guid: film.guid,
     title: film.title,
     length: film.length,
@@ -44,7 +40,7 @@ const getFilms = cache(async (): Promise<FilmsCollection> => {
     countries: Array.from(countries).sort((a, b) => a.localeCompare(b)),
     people: Array.from(people).sort((a, b) => a.localeCompare(b)),
   };
-});
+}
 
 function parseTags(
   metaTags: {
@@ -59,3 +55,9 @@ function parseTags(
 
   return tags ?? [];
 }
+
+const getThumbnail = (filmId: string) =>
+  `https://${process.env.BUNNY_STREAM_PULL_ZONE}.b-cdn.net/${filmId}/thumbnail.jpg`;
+
+const getFilmUrl = (filmId: string) =>
+  `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${filmId}?autoplay=false`;
