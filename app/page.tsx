@@ -2,7 +2,7 @@ import Project from "./components/Project";
 import Team from "./components/Team";
 import Events from "./components/Events";
 import Contact from "./components/Contact";
-import Section from "./components/Section";
+import { Section } from "./components/Section";
 import { Navigation } from "./components/navigation/Navigation";
 
 export default function Page() {

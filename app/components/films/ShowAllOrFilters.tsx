@@ -1,19 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useFilmsContext } from "./FilmsContext";
-import Filters, { filterButtons, filterGrid } from "./FilmFilters";
+import { Filters, filterButtons, filterGrid } from "./FilmFilters";
 
-const ShowAllOrFilters: React.FC = () => {
-  const { setFilms, collection } = useFilmsContext();
+const ShowAllOrFilters: FC = () => {
+  const { setFilms, filmsCollection } = useFilmsContext();
   const [showAll, toggleShowAll] = useState(true);
 
   useEffect(() => {
-    if (collection && showAll) {
-      setFilms(collection.films);
+    if (filmsCollection && showAll) {
+      setFilms(filmsCollection.films);
     }
-  }, [collection, setFilms, showAll]);
+  }, [filmsCollection, setFilms, showAll]);
 
   return (
     <>

@@ -57,7 +57,7 @@ function parseTags(
 }
 
 const getThumbnail = (filmId: string) =>
-  `https://${process.env.BUNNY_STREAM_PULL_ZONE}.b-cdn.net/${filmId}/thumbnail.jpg`;
+  `https://${process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE}.b-cdn.net/${filmId}/thumbnail.jpg`;
 
 const getFilmUrl = (filmId: string) =>
   `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${filmId}?autoplay=false`;

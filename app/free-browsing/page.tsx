@@ -1,8 +1,8 @@
-import Section from "@/components/Section";
 import { Navigation } from "@/components/navigation/Navigation";
 import { FreeBrowsing } from "@/components/FreeBrowsing";
 import { getVideosPerCollection } from "../../utils/admin/bunny-methods";
 import { serializeFilmsCollection } from "../../utils/films-methods";
+import { sectionPadding } from "../components/Section";
 
 export default async function FreeBrowsingPage() {
   const filmsData = await getVideosPerCollection({
@@ -14,10 +14,11 @@ export default async function FreeBrowsingPage() {
   return (
     <main>
       <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
-      <Section id="free_browsing" theme="dark">
-        <div className="h-m"></div>
+      <div
+        className={`m-auto max-w-[23.125rem] md:max-w-[64rem] xl:max-w-[90rem] ${sectionPadding.x} ${sectionPadding.y}`}
+      >
         <FreeBrowsing filmsCollection={filmsCollection} />
-      </Section>
+      </div>
     </main>
   );
 }
