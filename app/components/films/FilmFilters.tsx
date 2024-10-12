@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useFilmsContext } from "./FilmsContext";
 
-export { filterButtons, filterGrid };
+export { Filters, filterButtons, filterGrid };
 
 const filterGrid =
   "w-max-ful grid grid-flow-row grid-cols-4 gap-5 md:grid-cols-7 lg:grid-cols-8";
@@ -12,26 +12,40 @@ const filterGrid =
 const filterButtons =
   "text-[0.4rem] font-semibold text-black transition-colors hover:bg-yellow_secondary md:text-[0.65rem] lg:text-xs md:font-bold";
 
-const Filters: React.FC = () => {
-  const { setFilms, collection } = useFilmsContext();
-  const [selectedCountries, setSelectedCountries] = React.useState<string[]>(
-    [],
-  );
-  const [selectedPeople, setSelectedPeople] = React.useState<string[]>([]);
+const Filters: FC = () => {
+  const { setFilms, filmsCollection } = useFilmsContext();
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [selectedPeople, setSelectedPeople] = useState<string[]>([]);
 
   useEffect(() => {
-    if (collection) {
+    if (typeof window !== "undefined") {
+      const storedCountries = localStorage.getItem("countries");
+      const storedPeople = localStorage.getItem("people");
+
+      if (storedCountries) setSelectedCountries(JSON.parse(storedCountries));
+
+      if (storedPeople) setSelectedPeople(JSON.parse(storedPeople));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (filmsCollection) {
       setFilms(
-        collection.films.filter(
+        filmsCollection.films.filter(
           (film) =>
             selectedCountries.includes(film.country) ||
             selectedPeople.includes(film.person),
         ),
       );
     }
-  }, [selectedCountries, selectedPeople, collection, setFilms]);
 
-  return collection ? (
+    if (typeof window !== "undefined") {
+      localStorage.setItem("countries", JSON.stringify(selectedCountries));
+      localStorage.setItem("people", JSON.stringify(selectedPeople));
+    }
+  }, [selectedCountries, selectedPeople, filmsCollection, setFilms]);
+
+  return filmsCollection ? (
     <>
       <div className="md:w-full">
         <p className=" mr-14 py-4 leading-6 text-yellow_secondary md:mr-0">
@@ -39,7 +53,7 @@ const Filters: React.FC = () => {
         </p>
       </div>
       <div className={`${filterGrid}  pb-10`}>
-        {collection.countries.map((tag, i) => (
+        {filmsCollection.countries.map((tag, i) => (
           <Button
             key={i}
             value={tag}
@@ -61,7 +75,7 @@ const Filters: React.FC = () => {
         ))}
       </div>
       <div className={` ${filterGrid}`}>
-        {collection.people.map((tag, i) => (
+        {filmsCollection.people.map((tag, i) => (
           <Button
             key={i}
             value={tag}
@@ -85,5 +99,3 @@ const Filters: React.FC = () => {
     <div className="h-full, bg-black_bg"></div>
   );
 };
-
-export default Filters;

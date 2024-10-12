@@ -32,7 +32,11 @@ export default function PostersClient({
         if (posters.length !== sortedPosters.length) setPosters(sortedPosters);
         setError(undefined);
       } else {
-        setError(postersRes.error);
+        setError(
+          postersRes.error
+            ? { message: postersRes.error.message, status: 500 }
+            : undefined,
+        );
       }
     };
 

@@ -20,6 +20,7 @@ const Navigation: FC<NavigationProps> = ({
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => setIsNavOpen((prev) => !prev);
+
   return (
     <div
       className={`bg-${

@@ -2,7 +2,6 @@
 
 import "server-only";
 import { BunnyMethodReturn } from "@/types/bunny";
-import { Poster } from "../app/components/admin/posters/actions";
 
 export { deleteBunnyPoster, getPostersMetadata };
 
@@ -55,7 +54,7 @@ async function getPostersMetadata(): Promise<
     return {
       success: false,
       data: [],
-      error: { message: "Failed to fetch posters data", status: res.status },
+      error: { message: "Failed to fetch posters data" },
     };
   }
 
@@ -99,7 +98,7 @@ async function deleteBunnyPoster({
     return {
       success: false,
       data: [],
-      error: { message: "Failed to delete poster", status: res.status },
+      error: { message: "Failed to delete poster" },
     };
   }
 
@@ -132,7 +131,7 @@ async function purgePostersCash({
     return {
       success: false,
       data: [],
-      error: { message: "Failed to purge captions cache", status: res.status },
+      error: { message: "Failed to purge captions cache" },
     };
   }
 
