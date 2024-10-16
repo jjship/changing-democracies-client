@@ -11,7 +11,7 @@ export const Hamburger: FC<{
   return (
     <Link
       href="#"
-      className={`hamburger z-50 my-3 px-5 md:my-auto  ${
+      className={`hamburger z-50 my-3 px-5 md:my-auto md:px-10  ${
         isNavOpen ? "open" : ""
       }`}
       onClick={toggleNav}
@@ -29,7 +29,7 @@ export const Hamburger: FC<{
           x2="28"
           y2="1.5"
           stroke={currentStroke}
-          strokeWidth="3"
+          strokeWidth="4"
           className={isNavOpen ? "open" : ""}
         />
         <line
@@ -38,7 +38,7 @@ export const Hamburger: FC<{
           x2="28"
           y2="11.834"
           stroke={currentStroke}
-          strokeWidth="3"
+          strokeWidth="4"
           className={isNavOpen ? "open" : ""}
         />
         <line
@@ -47,7 +47,7 @@ export const Hamburger: FC<{
           x2="28"
           y2="22.168"
           stroke={currentStroke}
-          strokeWidth="3"
+          strokeWidth="4"
           className={isNavOpen ? "open" : ""}
         />
       </svg>
