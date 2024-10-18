@@ -21,14 +21,6 @@ const FilmList: React.FC = () => {
               height={1}
               className="h-auto w-full"
             />
-            {/* <div
-                className="absolute inset-0 flex flex-col justify-between bg-yellow_secondary bg-opacity-90 p-4 opacity-0 transition-opacity duration-300 hover:opacity-100"
-                style={{
-                  transform: "translate(15%, -10%)",
-                  width: "100%",
-                  height: "100%",
-                }}
-              ></div> */}
             <h3 className="mt-2 text-xl font-semibold text-inherit">
               {person}
             </h3>

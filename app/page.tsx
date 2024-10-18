@@ -7,7 +7,7 @@ import { Navigation } from "./components/navigation/Navigation";
 
 export default function Page() {
   return (
-    <main>
+    <>
       <Navigation bgColor="purple_lightest_bg" fontColor="black_bg" />
       <Section
         id="project"
@@ -26,6 +26,6 @@ export default function Page() {
       <Section id="contact" theme="dark">
         <Contact />
       </Section>
-    </main>
+    </>
   );
 }

@@ -80,9 +80,6 @@
   body {
     @apply text-foreground;
   }
-  html {
-    @apply bg-black_bg;
-  }
 }
 
 body {
@@ -123,4 +120,45 @@ html {
 .open#bottom-line {
   transform-origin: bottom left;
   transform: translate(9%, 0%) rotate(-50deg);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+.overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Theme: myTheme1 */
+
+.simple-keyboard.myTheme1 {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.simple-keyboard.myTheme1 .hg-button {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+}
+
+.simple-keyboard.myTheme1 .hg-button:active {
+  background: rgba(184, 82, 82, 1);
+  color: white;
+}
+
+.simple-keyboard.myTheme1 .hg-button-alt {
+  max-width: 80px;
 }

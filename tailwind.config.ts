@@ -28,6 +28,10 @@ const config: Config = {
         purple_lightest_bg: "#E7D8DD",
         purple_lighter_additional: "#B8A4AA",
         purple_light_additional: "#9D92AB",
+        turquoise: "#6bdbd6",
+        darkRed: "#b85252",
+        pink: "#e7d8dd",
+        purple: "#8083AE",
         btn: {
           background: "hsl(var(--btn-background))",
         },
@@ -84,8 +88,13 @@ const config: Config = {
         head_3_sm: "1.188rem", //19px
         body_sm: "1rem",
       },
+      fontFamily: {
+        openBold: ["Open Bold", "sans-serif"],
+      },
       gridTemplateColumns: {
         custom: "minmax(0, 25rem) 1fr",
+        "6-cols": "repeat(6, minmax(0, 1fr))",
+        "7-cols": "repeat(7, minmax(0, 1fr))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -93,6 +102,13 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        slideUp: {
+          from: {
+            transform: "translateY(var(--start-y, 100vh))",
+            opacity: "1",
+          },
+          to: { transform: "translateY(var(--end-y))", opacity: "1" },
+        },
         "accordion-down": {
           from: { height: "0px" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -103,6 +119,7 @@ const config: Config = {
         },
       },
       animation: {
+        slideUp: "slideUp 0.9s ease-in-out forwards",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

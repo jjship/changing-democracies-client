@@ -12,14 +12,16 @@ export { FreeBrowsing };
 
 const FreeBrowsing: FC<{
   filmsCollection: FilmsCollection;
-}> = ({ filmsCollection }) => {
+  title?: boolean;
+}> = ({ filmsCollection, title = true }) => {
   const [films, setFilms] = useState<FilmData[] | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
 
   return (
     <>
-      <Title text="Free browsing" theme="dark" color="yellow_secondary" />
-
+      {title && (
+        <Title text="Free browsing" theme="dark" color="yellow_secondary" />
+      )}
       <FilmsContext.Provider
         value={{
           films,

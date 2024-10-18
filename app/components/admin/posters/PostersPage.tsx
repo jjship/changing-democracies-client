@@ -1,107 +1,111 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { BunnyPoster, PosterMetadata } from "@/utils/posters-methods";
-import { Button } from "../../ui/button";
+import { MouseEventHandler, useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+
+import { PosterMetadata } from "@/utils/posters-methods";
+import { Skeleton } from "@/ui/skeleton";
+import { useBoothContext } from "../photobooth/BoothContext";
+import { useTranslations } from "../photobooth/useTranslations";
+import PostersNavFooter from "../photobooth/PostersNavFooter";
 
 interface PostersPageProps {
   initialPosters: PosterMetadata[];
   location?: string;
+  isLoading: boolean;
 }
+
+const thisStage = 0;
 
 const PostersPage: React.FC<PostersPageProps> = ({
   initialPosters,
-  location,
+  isLoading,
 }) => {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
-  const [posters, setPosters] = useState<PosterMetadata[]>(initialPosters);
   const [filteredPosters, setFilteredPosters] = useState<PosterMetadata[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
-  const router = useRouter();
+  const { setPrevLocations, setStage } = useBoothContext();
 
-  const handleLocationFilter = (posterLocation: string) => {
-    if (selectedLocation === posterLocation) {
-      setSelectedLocation(null); // If the same location is clicked again, remove the filter
-    } else {
-      setSelectedLocation(posterLocation); // Otherwise, set the selected location
+  useEffect(() => {
+    const getLocations = () => {
+      const newLocations = new Set<string>();
+      initialPosters.forEach((poster) => {
+        const posterLocation = poster.fileName.split(".")[0].split("_").pop();
+        if (posterLocation) newLocations.add(posterLocation);
+      });
+      setPrevLocations(Array.from(newLocations));
+      setLocations(Array.from(newLocations));
+    };
+
+    if (initialPosters) {
+      setFilteredPosters(initialPosters);
+      getLocations();
     }
+  }, [initialPosters, setPrevLocations]);
+
+  const handleFilterClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const filterPosters = (chosenLocation: string) => {
+      const filteredPosters = initialPosters.filter((poster) =>
+        poster.fileName.includes(chosenLocation),
+      );
+      return filteredPosters;
+    };
+    const clickedLocation = (e.target as HTMLButtonElement).value;
+
+    const locationToSet =
+      selectedLocation === clickedLocation ? null : clickedLocation;
+
+    if (locationToSet === null) {
+      setFilteredPosters(initialPosters); // remove filter if same button clicked
+    } else {
+      const filtered = filterPosters(locationToSet);
+
+      setFilteredPosters(filtered);
+    }
+
+    setSelectedLocation(locationToSet);
   };
-
-  useEffect(() => {
-    const newLocations = new Set<string>();
-    posters.forEach((poster) => {
-      const posterLocation = poster.fileName.split(".")[0].split("_").pop();
-      if (posterLocation) newLocations.add(posterLocation);
-    });
-    setLocations(Array.from(newLocations));
-  }, [initialPosters, posters]);
-
-  useEffect(() => {
-    const filteredPosters = selectedLocation
-      ? initialPosters.filter((poster) =>
-          poster.fileName.includes(selectedLocation),
-        )
-      : initialPosters;
-    setFilteredPosters(filteredPosters);
-    setPosters(filteredPosters);
-  }, [selectedLocation, initialPosters, posters]);
-
-  if (!initialPosters) {
-    return <p>Loading...</p>;
-  }
 
   const handlePosterMakerClick = () => {
-    router.push(
-      location ? `/admin/photobooth/${location}` : "/admin/photobooth",
-    );
+    setStage(thisStage + 1);
   };
 
-  return (
-    filteredPosters && (
-      <>
-        <div className="px-20">
-          <div className="my-10 flex items-start justify-start gap-5">
-            {Array.from(locations).map((posterLocation) => (
-              <Button
-                key={posterLocation}
-                className={`${
-                  selectedLocation === posterLocation || !selectedLocation
-                    ? "bg-green_accent"
-                    : "bg-gray_light_secondary"
-                } w-32  text-black hover:bg-yellow_secondary hover:text-black`}
-                onClick={() => handleLocationFilter(posterLocation)}
-              >
-                {posterLocation}
-              </Button>
-            ))}
-          </div>
-          <div className="flex h-full items-center justify-center">
-            <div className="grid w-full grid-cols-3 gap-x-16 gap-y-24">
-              {filteredPosters.map((poster) => (
-                <div key={poster.id} className="w-full">
-                  <Image
-                    src={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/posters/${poster.fileName}`}
-                    alt={poster.fileName}
-                    className="w-full"
-                    width={800}
-                    height={800}
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <Button
-          className="fixed bottom-20 right-10 z-50 flex h-44 w-44 items-center justify-center rounded-full bg-red_mains pt-3 text-3xl/7 font-bold text-black shadow-lg hover:bg-red-700"
-          onClick={handlePosterMakerClick}
-        >
-          POSTER MAKER
-        </Button>
-      </>
-    )
+  return isLoading || !filteredPosters ? (
+    <div className="grid h-screen w-full grid-cols-3 gap-x-16 gap-y-24 bg-black_bg p-20">
+      {Array(9)
+        .fill(1, 0, 9)
+        .map((_el, i) => {
+          return (
+            <Skeleton key={i} className="h-10, border-s-violet-5 w-full" />
+          );
+        })}
+    </div>
+  ) : (
+    <div className="bg-black_bg">
+      <div className="grid min-h-screen w-screen grid-cols-3 gap-x-16 gap-y-24  p-20">
+        {filteredPosters.map(
+          (poster) =>
+            poster.imageUrl && (
+              <div key={poster.id} className="w-full">
+                <Image
+                  src={poster.imageUrl}
+                  alt={poster.fileName}
+                  className="w-full"
+                  width={800}
+                  height={800}
+                  loading="lazy"
+                />
+              </div>
+            ),
+        )}
+      </div>
+      <PostersNavFooter
+        locations={locations}
+        selectedLocation={selectedLocation}
+        handleFilterClick={handleFilterClick}
+        handleNavClick={handlePosterMakerClick}
+      />
+    </div>
   );
 };
 

@@ -27,6 +27,7 @@ export type PosterMetadata = {
   id: string;
   fileName: string;
   createdAt: string;
+  imageUrl?: string;
 };
 
 async function getPostersMetadata(): Promise<
