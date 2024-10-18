@@ -16,8 +16,8 @@ import { boothBtn } from "./boothConstats";
 
 const thisStage = 6;
 
-const canvasWidth = 1080;
-const canvasHeight = 1920;
+const canvasWidth = 607; //607 1080
+const canvasHeight = 1080; //1080 1920
 export const canvasRatio = canvasWidth / canvasHeight;
 
 const MakePhoto: FC = () => {
@@ -251,9 +251,9 @@ const MakePhoto: FC = () => {
               screenshotFormat="image/jpeg"
               mirrored={true}
               videoConstraints={{
+                aspectRatio: canvasWidth / canvasHeight,
                 width: canvasWidth,
                 height: canvasHeight,
-                aspectRatio: canvasWidth / canvasHeight,
                 facingMode: "user",
                 frameRate: 20,
               }}
@@ -261,7 +261,7 @@ const MakePhoto: FC = () => {
                 width: canvasWidth,
                 height: canvasHeight,
               }}
-              className="mx-auto"
+              className="m-auto"
             />
             {!countdown && !countdownCompleted && (
               <Button
