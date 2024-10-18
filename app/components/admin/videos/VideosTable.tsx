@@ -12,7 +12,7 @@ import { Button } from "../../ui/button";
 import { useMemo } from "react";
 import Link from "next/dist/client/link";
 import { useVideosContext } from "./VideosContext";
-import { FormVideo, VideoDbEntry } from "@/types/videos";
+import { FormVideo, VideoDbEntry } from "@/types/videosAndFilms";
 import { editButton } from "../classNames";
 
 export { parseVideo };

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { VideoDbEntry } from "@/types/videos";
+import { VideoDbEntry } from "@/types/videosAndFilms";
 import { useEffect, useState } from "react";
 import { getVideos } from "../actions";
 import { VideosContext } from "./VideosContext";

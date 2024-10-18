@@ -12,7 +12,7 @@ export default async function ResetPassword() {
   } = await supabase.auth.getUser();
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-puprple_lightest_bg">
+    <div className="bg-purple_lightest_bg flex min-h-screen flex-col items-center">
       <div className="flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md">
         <form
           className="flex w-full flex-1 flex-col justify-center gap-2 text-black_bg"

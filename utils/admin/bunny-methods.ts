@@ -1,7 +1,8 @@
 import "server-only";
 
-import { Collection, VideoDbEntry } from "@/types/videos";
+import { Collection, VideoDbEntry } from "@/types/videosAndFilms";
 import { BunnyMethodReturn } from "@/types/bunny";
+import fetchWithRetry from "../fetch-retry";
 
 export {
   getCollection,
@@ -38,8 +39,7 @@ async function uploadImage({
   const readStream = blob.stream();
 
   const storageName = process.env.BUNNY_STORAGE_NAME;
-  const host = "https://storage.bunnycdn.com";
-  const path = `/${storageName}/posters/${fileName}`;
+  const url = `https://storage.bunnycdn.com/${storageName}/posters/${fileName}`;
 
   const options = {
     method: "PUT",
@@ -51,20 +51,16 @@ async function uploadImage({
     duplex: "half",
   };
 
-  const res = await fetch(host + path, options);
+  try {
+    await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
-    console.error("Failed to upload image", {
-      status: res.status,
-      message: res.statusText,
-    });
+    return { success: true };
+  } catch (err) {
     return {
       success: false,
-      error: { message: "Failed to upload image", status: res.status },
+      error: { message: "Failed to upload image" },
     };
   }
-
-  return { success: true };
 }
 
 async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
@@ -86,22 +82,23 @@ async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
     },
   };
 
-  const res = await fetch(url, options);
+  try {
+    const res = await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
+    if (!res) throw new Error("Failed to fetch video collection data");
+
+    const collection: Collection = await res.json();
+
+    return { data: [collection], success: true };
+  } catch (err) {
     return {
       success: false,
       data: [],
       error: {
         message: "Failed to fetch video collection data",
-        status: res.status,
       },
     };
   }
-
-  const collection: Collection = await res.json();
-
-  return { data: [collection], success: true };
 }
 
 async function getVideo(
@@ -125,26 +122,28 @@ async function getVideo(
     },
   };
 
-  const res = await fetch(url, options);
+  try {
+    const res = await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
+    if (!res) throw new Error("Failed to fetch video data");
+
+    const video: VideoDbEntry = await res.json();
+
+    return { data: [video], success: true };
+  } catch (err) {
     return {
       success: false,
       data: [],
-      error: { message: "Failed to fetch video data", status: res.status },
+      error: { message: "Failed to fetch video data" },
     };
   }
-
-  const video: VideoDbEntry = await res.json();
-
-  return { data: [video], success: true };
 }
 
 async function updateVideo({
   videoData,
 }: {
   videoData: UpdateVideoModel;
-}): Promise<BunnyMethodReturn<[]>> {
+}): Promise<BunnyMethodReturn<VideoDbEntry>> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -171,22 +170,26 @@ async function updateVideo({
     } as UpdateVideoModel),
   };
 
-  const res = await fetch(url, options);
+  try {
+    const res = await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
+    if (!res) throw new Error("Failed to fetch video data");
+
+    const video: VideoDbEntry = await res.json();
+
+    return { success: true, data: [video] };
+  } catch (err) {
     return {
       success: false,
       data: [],
-      error: { message: "Failed to update video data", status: res.status },
+      error: { message: "Failed to update video data" },
     };
   }
-
-  return { success: true, data: [] };
 }
 
-async function getVideosPerCollection(): Promise<
-  BunnyMethodReturn<VideoDbEntry>
-> {
+async function getVideosPerCollection(
+  cacheOptions?: Record<string, unknown>,
+): Promise<BunnyMethodReturn<VideoDbEntry>> {
   if (
     !process.env.BUNNY_STREAM_API_KEY ||
     !process.env.BUNNY_STREAM_LIBRARY_ID ||
@@ -198,6 +201,7 @@ async function getVideosPerCollection(): Promise<
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos?collectionId=${process.env.BUNNY_STREAM_COLLECTION_ID}`;
 
   const options = {
+    ...cacheOptions,
     method: "GET",
     headers: {
       accept: "application/json",
@@ -205,22 +209,24 @@ async function getVideosPerCollection(): Promise<
     },
   };
 
-  const res = await fetch(url, options);
+  try {
+    const res = await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
+    if (!res) throw new Error("Failed to fetch video data");
+
+    const { items }: { items: VideoDbEntry[] } = await res.json();
+
+    return {
+      data: items.sort((a, b) => a.title.localeCompare(b.title)),
+      success: true,
+    };
+  } catch (err) {
     return {
       success: false,
       data: [],
-      error: { message: "Failed to fetch videos data", status: res.status },
+      error: { message: "Failed to fetch videos data" },
     };
   }
-
-  const { items }: { items: VideoDbEntry[] } = await res.json();
-
-  return {
-    data: items.sort((a, b) => a.title.localeCompare(b.title)),
-    success: true,
-  };
 }
 
 async function deleteCaption({
@@ -248,17 +254,17 @@ async function deleteCaption({
     },
   };
 
-  const res = await fetch(url, options);
+  try {
+    await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
+    return { success: true, data: [] };
+  } catch (err) {
     return {
       success: false,
       data: [],
-      error: { message: "Failed to delete subtitles", status: res.status },
+      error: { message: "Failed to delete subtitles" },
     };
   }
-
-  return { success: true, data: [] };
 }
 
 async function uploadCaptions({
@@ -298,22 +304,22 @@ async function uploadCaptions({
       label,
     }),
   };
-  const res = await fetch(url, options);
+  try {
+    await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
+    await deleteCaption({
+      videoId,
+      srclang: `${srclang}-auto`,
+    });
+
+    return { success: true, data: [] };
+  } catch (err) {
     return {
       success: false,
       data: [],
-      error: { message: "Failed to save captions", status: res.status },
+      error: { message: "Failed to save captions" },
     };
   }
-
-  await deleteCaption({
-    videoId,
-    srclang: `${srclang}-auto`,
-  });
-
-  return { success: true, data: [] };
 }
 
 async function fetchCaptions({
@@ -331,19 +337,21 @@ async function fetchCaptions({
     cache: "no-cache",
   } as const;
 
-  const res = await fetch(url, options);
+  try {
+    const res = await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
+    if (!res) throw new Error("Failed to fetch video data");
+
+    const caps = await res.text();
+
+    return { data: [caps], success: true };
+  } catch (err) {
     return {
       success: false,
       data: [],
-      error: { message: "Failed to fetch captions", status: res.status },
+      error: { message: "Failed to fetch captions" },
     };
   }
-
-  const caps = await res.text();
-
-  return { data: [caps], success: true };
 }
 
 async function purgeCaptionsCash({
@@ -363,15 +371,15 @@ async function purgeCaptionsCash({
     },
   };
 
-  const res = await fetch(url, options);
+  try {
+    await fetchWithRetry({ url, options });
 
-  if (!res.ok) {
+    return { success: true, data: [] };
+  } catch (err) {
     return {
       success: false,
       data: [],
-      error: { message: "Failed to purge captions cache", status: res.status },
+      error: { message: "Failed to purge captions cache" },
     };
   }
-
-  return { success: true, data: [] };
 }

@@ -1,42 +1,40 @@
 "use client";
-import { createContext, useState } from "react";
-import Overlay from "./Overlay";
-import Navbar from "./Navbar";
-import Hamburger from "./Hamburger";
-import MobileNav from "./MobileNav";
+import { FC, useState } from "react";
 
-export const NavContext = createContext({
-  isNavOpen: false,
-  toggleNav: () => {},
-});
+import { NavDrawer } from "./NavDrawer";
+import { Hamburger } from "./Hamburger";
 
-export default function Navigation() {
+export { Navigation };
+
+export type NavColor = "purple_lightest_bg" | "black_bg" | "yellow_secondary";
+
+export type NavigationProps = {
+  bgColor?: NavColor;
+  fontColor?: NavColor;
+};
+
+const Navigation: FC<NavigationProps> = ({
+  bgColor = "purple_lightest_bg",
+  fontColor = "black_bg",
+}: NavigationProps) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
-  };
+  const toggleNav = () => setIsNavOpen((prev) => !prev);
 
   return (
-    <NavContext.Provider value={{ isNavOpen, toggleNav }}>
-      <Overlay />
-      <div
-        className={`bg-puprple_lightest_bg ${
-          isNavOpen ? "relative" : "sticky top-0 z-40"
-        }`}
-      >
-        <div className="m-auto max-w-[23.125rem] md:max-w-[64rem] xl:max-w-[90rem] ">
-          <div
-            className={`flex flex-row justify-between md:flex-col md:items-end ${
-              isNavOpen ? "relative" : "sticky top-0 z-40"
-            }`}
-          >
-            <Navbar />
-            <Hamburger />
-          </div>
-        </div>
+    <div
+      className={`bg-${
+        isNavOpen ? "black_bg" : bgColor
+      } sticky top-0 z-40 transition-all duration-1000`}
+    >
+      <div className="flex min-h-[5vh] justify-end">
+        <Hamburger
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
+          fontColor={fontColor}
+        />
       </div>
-      <MobileNav />
-    </NavContext.Provider>
+      <NavDrawer isNavOpen={isNavOpen} toggleNav={toggleNav} />
+    </div>
   );
-}
+};

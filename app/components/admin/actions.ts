@@ -13,7 +13,7 @@ import {
 } from "@/utils/admin/bunny-methods";
 import { authenticate } from "@/auth/actions";
 import { EventDbEntry } from "@/types/database";
-import { VideoDbEntry } from "@/types/videos";
+import { VideoDbEntry } from "@/types/videosAndFilms";
 
 export {
   getEvents,

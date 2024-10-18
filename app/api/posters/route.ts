@@ -5,10 +5,7 @@ import { getPostersMetadata } from "@/utils/posters-methods";
 export async function GET() {
   const postersRes = await getPostersMetadata();
   if (!postersRes.success) {
-    return NextResponse.json(
-      { error: postersRes.error?.message },
-      { status: postersRes.error?.status || 500 },
-    );
+    return NextResponse.json({ error: postersRes.error?.message });
   }
 
   return NextResponse.json(postersRes.data, { status: 200 });

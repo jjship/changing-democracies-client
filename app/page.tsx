@@ -2,14 +2,13 @@ import Project from "./components/Project";
 import Team from "./components/Team";
 import Events from "./components/Events";
 import Contact from "./components/Contact";
-import Section from "./components/Section";
-import Navigation from "./components/navigation/Navigation";
-import FreeBrowsing from "./components/FreeBrowsing";
+import { Section } from "./components/Section";
+import { Navigation } from "./components/navigation/Navigation";
 
 export default function Page() {
   return (
     <>
-      <Navigation />
+      <Navigation bgColor="purple_lightest_bg" fontColor="black_bg" />
       <Section
         id="project"
         theme="light"
