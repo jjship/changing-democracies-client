@@ -13,15 +13,12 @@ export const FilmPlayer: FC = () => {
         id="player-container"
         className="absolute left-0 top-0 z-50 h-full w-full bg-black_bg"
       >
-        {/* <div className="absolute flex min-h-screen w-full flex-col items-center bg-black"> */}
-        <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-          <CloseButton />
-          <iframe
-            src={src}
-            className="absolute left-0 top-0 h-full w-full"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-          ></iframe>
-        </div>
+        <CloseButton />
+        <iframe
+          src={src}
+          className="absolute left-0 top-0 h-full w-full"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+        ></iframe>
       </div>
     )
   );
