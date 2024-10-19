@@ -40,7 +40,7 @@ const MakePhoto: FC = () => {
       startY: number;
     }) => {
       const yellowBrown = "#cf9855";
-      const r = 70; // Radius value
+      const r = 35; // Radius value
       const a1 = Math.PI; // Angle in radians
       const a2 = a1 + (Math.PI * 2) / 3; // Angle in radians
       const a3 = a2 + (Math.PI * 2) / 3; // Angle in radians
@@ -73,7 +73,7 @@ const MakePhoto: FC = () => {
       statements?.forEach((statement, idx) => {
         if (!statement) return;
 
-        const padding = 16;
+        const padding = 8;
         ctx.font = `bold ${fontSize}px ${font.fontFamily}`;
         ctx.textBaseline = "top";
 
@@ -81,7 +81,7 @@ const MakePhoto: FC = () => {
 
         const textHeight = fontSize * 1.2;
 
-        const offset = (idx + 1) * (textHeight + 60);
+        const offset = (idx + 1) * (textHeight + 30);
 
         // Calculate positions
         const rectX = canvasWidth - statementWidth - 2 * padding;
@@ -186,8 +186,8 @@ const MakePhoto: FC = () => {
     const targetCanvas = canvasRef.current;
     const targetCtx = targetCanvas.getContext("2d");
     const sourceCanvas = webcamRef.current.getCanvas();
-    const statementFontSize = 36;
-    const userFontSize = 70;
+    const statementFontSize = 18;
+    const userFontSize = 35;
 
     if (sourceCanvas && targetCtx) {
       targetCanvas.width = canvasWidth;
