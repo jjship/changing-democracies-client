@@ -6,8 +6,9 @@ import {
   SubmitHandler,
   Control,
 } from "react-hook-form";
-import { FC, KeyboardEvent, useRef, useState } from "react";
+import { FC, KeyboardEvent, useEffect, useRef, useState } from "react";
 import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
+import { v4 as uuidv4 } from "uuid";
 import "react-simple-keyboard/build/css/index.css";
 
 import { useBoothContext } from "./BoothContext";
@@ -43,12 +44,20 @@ const StatementsForm: FC = () => {
 
   const form = useForm<StatementsFormValues>({
     defaultValues: {
-      inputStatements: statements?.map((text, index) => ({
-        id: `id-${index}`,
+      inputStatements: statements?.map((text) => ({
+        id: uuidv4(),
         text,
-      })) ?? [{ id: "id-0", text: "" }],
+      })) ?? [{ id: uuidv4(), text: "" }],
     },
   });
+
+  useEffect(() => {
+    if (stage !== thisStage) {
+      form.reset({
+        inputStatements: [{ id: uuidv4(), text: "" }],
+      });
+    }
+  }, [stage, form]);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control as Control<StatementsFormValues>,
@@ -58,9 +67,9 @@ const StatementsForm: FC = () => {
   const onSubmit: SubmitHandler<StatementsFormValues> = (values) => {
     setStatements(values.inputStatements.map((statement) => statement.text));
     setStage(thisStage + 1);
-
+    setFocusedIdx(0);
     setLayoutType("default");
-    form.reset({ inputStatements: [{ id: "id-0", text: "" }] });
+    form.reset({ inputStatements: [{ id: uuidv4(), text: "" }] });
   };
 
   const handleKeyPress = (
@@ -114,7 +123,7 @@ const StatementsForm: FC = () => {
 
   const handleChange = (input: string, index: number) => {
     const currentValues = form.getValues("inputStatements");
-    if (currentValues) {
+    if (currentValues.length) {
       const updatedValues = [...currentValues];
       updatedValues[index] = {
         ...updatedValues[index],
