@@ -64,3 +64,18 @@ export type FilmsCollection = {
   countries: string[];
   people: string[];
 };
+
+export type Fragment = FilmData & {
+  sequence: number;
+  otherPaths: Pick<Path, "id" | "title">[];
+  description?: string;
+};
+
+export type Path = {
+  id: string;
+  title: string;
+  description?: string;
+  total_length: number; // total length of all fragments in the path
+  fragments: Fragment[];
+  metadata?: Record<string, any>;
+};
