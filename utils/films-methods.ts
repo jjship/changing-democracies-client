@@ -4,7 +4,7 @@ import {
   FilmData,
 } from "../types/videosAndFilms";
 
-export { getThumbnail, parseTags, getFilmUrl, serializeFilmsCollection };
+export { parseTags, serializeFilmsCollection };
 
 function serializeFilmsCollection({
   videos,
@@ -23,6 +23,8 @@ function serializeFilmsCollection({
     tags: parseTags(film.metaTags),
     person: film.title.split("_")[2],
     country: film.title.split("_")[1],
+    playerUrl: getFilmUrl(film.guid),
+    thumbnailUrl: getThumbnail(film.guid),
   }));
 
   const countries = new Set<string>();

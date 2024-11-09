@@ -54,6 +54,8 @@ export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
   tags: string[]; // in metaTags
   person: string; // in title
   country: string; // in title
+  playerUrl: string;
+  thumbnailUrl: string;
 };
 
 export type FilmsCollection = {
