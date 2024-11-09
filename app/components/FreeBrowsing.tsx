@@ -20,7 +20,12 @@ const FreeBrowsing: FC<{
   return (
     <>
       {title && (
-        <Title text="Free browsing" theme="dark" color="yellow_secondary" />
+        <Title
+          text="Free browsing"
+          theme="dark"
+          color="yellow_secondary"
+          alt={true}
+        />
       )}
       <FilmsContext.Provider
         value={{

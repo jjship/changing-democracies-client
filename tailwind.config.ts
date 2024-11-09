@@ -72,8 +72,8 @@ const config: Config = {
       screens: {
         sm: "370px",
         md: "1024px",
-        xl: "1440px",
-        lg: "1440px",
+        xl: "1450px",
+        lg: "1500px",
       },
       fontSize: {
         display_lg: "14.813rem",

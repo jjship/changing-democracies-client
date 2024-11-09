@@ -1,6 +1,7 @@
 "use client";
 import { FC, useState } from "react";
-
+import Image from "next/image";
+import logoDark from "@/public/logo_dark_no_bg.svg";
 import { NavDrawer } from "./NavDrawer";
 import { Hamburger } from "./Hamburger";
 
@@ -27,7 +28,12 @@ const Navigation: FC<NavigationProps> = ({
         isNavOpen ? "black_bg" : bgColor
       } sticky top-0 z-40 transition-all duration-1000`}
     >
-      <div className="flex min-h-[5vh] justify-end">
+      <div className="flex min-h-[5vh] justify-between">
+        <Image
+          src={logoDark}
+          alt="changing democracies logo"
+          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%]"
+        />
         <Hamburger
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
