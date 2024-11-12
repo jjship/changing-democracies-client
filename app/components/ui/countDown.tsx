@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-const Counter: React.FC = () => {
+interface CounterProps {
+  isCounting: (counting: boolean) => void; // Prop type for the callback
+}
+
+const Counter: React.FC<CounterProps> = ({ isCounting }) => {
   const [count, setCount] = useState<number>(3);
   const radius = 40; // Radius of the circle
   const circumference = 2 * Math.PI * radius;
@@ -12,7 +16,7 @@ const Counter: React.FC = () => {
     const timer = setInterval(() => {
       setCount((prevCount) => {
         if (prevCount <= 1) {
-          clearInterval(timer); // Clear interval when count reaches 0
+          clearInterval(timer);
           return 0; // Set count to 0
         }
         return prevCount - 1;
@@ -22,20 +26,32 @@ const Counter: React.FC = () => {
     return () => clearInterval(timer); // Cleanup on unmount
   }, []);
 
+  useEffect(() => {
+    if (count === 0) {
+      isCounting(true); // Notify parent that counting has finished
+    }
+  }, [count, isCounting]); // Add isCounting to dependencies
+
   return (
-    <div className="z-5 flex h-screen items-center justify-center">
-      <svg width="100" height="100">
+    <div className="relative flex h-screen items-center justify-center">
+      <svg
+        width="50%"
+        height="50%"
+        viewBox="0 0 100 100"
+        className="max-h-xs max-w-xs"
+      >
+        {/* Background Circle */}
         <circle
-          stroke="rgba(187, 132, 132, 0.2)"
-          // Light background color
+          stroke="rgba(255, 0, 0, 0.2)" // Light background color
           fill="transparent"
           strokeWidth="8"
           r={radius}
           cx="50"
           cy="50"
         />
+        {/* Countdown Circle (Solid) */}
         <circle
-          stroke="#b85252"
+          stroke="red"
           fill="transparent"
           strokeWidth="8"
           r={radius}
@@ -45,19 +61,20 @@ const Counter: React.FC = () => {
           strokeDashoffset={offset}
           className="transition-all duration-1000 ease-in-out"
         />
+        {/* Dashed Segment */}
         <circle
-          stroke="#b85252"
+          stroke="red"
           fill="transparent"
           strokeWidth="8"
           r={radius}
           cx="50"
           cy="50"
-          strokeDasharray="5, 5"
+          strokeDasharray="5, 5" // Creates the dashed effect
           strokeDashoffset={offset}
           className="transition-all duration-1000 ease-in-out"
         />
       </svg>
-      <span className="absolute text-4xl text-[#b85252]">{count}</span>
+      <span className="absolute text-4xl text-red-500">{count}</span>
     </div>
   );
 };
