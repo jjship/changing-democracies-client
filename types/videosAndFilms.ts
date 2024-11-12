@@ -65,17 +65,17 @@ export type FilmsCollection = {
   people: string[];
 };
 
-export type Fragment = FilmData & {
+export type NarrationFragment = FilmData & {
   sequence: number;
-  otherPaths: Pick<Path, "id" | "title">[];
+  otherPaths: Pick<NarrationPath, "id" | "title">[];
   description?: string;
 };
 
-export type Path = {
+export type NarrationPath = {
   id: string;
   title: string;
   description?: string;
   total_length: number; // total length of all fragments in the path
-  fragments: Fragment[];
+  fragments: NarrationFragment[];
   metadata?: Record<string, any>;
 };
