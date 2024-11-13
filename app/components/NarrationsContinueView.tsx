@@ -1,31 +1,46 @@
 "use client";
 
-import { Fragment, Path } from "@/types/videosAndFilms";
+import { Path } from "@/types/videosAndFilms";
 import "@radix-ui/themes/styles.css";
 import { Flex, Text } from "@radix-ui/themes";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import Countdown from "@/ui/countDown";
 import { useEffect, useState } from "react";
-import VideoPlayer from "@/components/admin/videos/VideoPlayer";
+import { FilmPlayer } from "@/components/films/FilmPlayer";
+import { FilmsContext } from "@/components/films/FilmsContext";
 
-export default function NarrationsContinueView(props: {
-  path: Path;
-  fragment: Fragment;
-}) {
-  const { path, fragment } = props;
+export default function NarrationsContinueView(props: { path: Path }) {
+  const { path } = props;
   const [isCounting, setIsCounting] = useState(false);
-  const [nowPlaying, setNowPlaying] = useState<string>("");
+  const [nowPlaying, setNowPlaying] = useState<string | null>(null);
+
+  const [currentFragmentIndex, setCurrentFragmentIndex] = useState(0);
+
+  const sortedFragments = [...path.fragments].sort(
+    (a, b) => a.sequence - b.sequence,
+  );
+
+  const currentFragment = sortedFragments[currentFragmentIndex];
 
   useEffect(() => {
-    if (fragment) {
-      setNowPlaying(fragment.guid);
+    if (currentFragment) {
+      setNowPlaying(currentFragment.guid);
     }
-  }, [fragment]);
+  }, [currentFragment]);
 
-  console.log(fragment.thumbnailUrl);
+  const handleNextFragment = () => {
+    if (currentFragmentIndex < sortedFragments.length - 1) {
+      setCurrentFragmentIndex((prevIndex) => prevIndex + 1);
+      setIsCounting(false);
+    }
+  };
+
+  const handleCountdownFinish = () => {
+    handleNextFragment();
+  };
   return (
     <>
-      {path && (
+      {path && currentFragment && (
         <Flex
           height={"100%"}
           align={"center"}
@@ -58,7 +73,7 @@ export default function NarrationsContinueView(props: {
             style={{
               zIndex: 100,
               overflow: "hidden",
-              backgroundImage: `url(${fragment.thumbnailUrl})`,
+              backgroundImage: `url(${currentFragment.thumbnailUrl})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100%",
@@ -67,9 +82,37 @@ export default function NarrationsContinueView(props: {
               justifyContent: "center",
             }}
           >
-            <NarrationsContinueButton />
-            <Countdown isCounting={setIsCounting}></Countdown>
-            {isCounting && <VideoPlayer videoId={nowPlaying}></VideoPlayer>}
+            <NarrationsContinueButton></NarrationsContinueButton>
+            <FilmsContext.Provider
+              value={{
+                films: sortedFragments,
+                setFilms: () => {},
+                filmsCollection: {
+                  films: sortedFragments,
+                  tags: [],
+                  countries: [],
+                  people: [],
+                },
+                nowPlaying,
+                setNowPlaying,
+              }}
+            >
+              <FilmPlayer />
+            </FilmsContext.Provider>
+
+            {/*{isCounting && (*/}
+            {/*  <Countdown*/}
+            {/*    isCounting={setIsCounting}*/}
+            {/*    onFinish={handleNextFragment}*/}
+            {/*  />*/}
+            {/*)}*/}
+
+            {isCounting && (
+              <Countdown
+                isCounting={setIsCounting}
+                onFinish={handleCountdownFinish}
+              />
+            )}
           </Flex>
         </Flex>
       )}

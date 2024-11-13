@@ -4,6 +4,7 @@ export default function NarrationsContinueButton() {
   return (
     <Box>
       <button
+        // onClick={() => ()}
         style={{ borderRadius: "100px 70px 70px 100px" }}
         className="relative flex h-[7vw] w-[25vw] items-center space-x-2 overflow-visible rounded-l-full bg-[#b85252] px-10 py-2 text-white opacity-90 shadow-lg"
       >
