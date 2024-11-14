@@ -47,17 +47,14 @@ function serializeFilmsCollectionFromNarration({
 
   const countries = new Set<string>();
 
-  const people = new Set<string>();
-
   for (const f of films) {
     countries.add(f.country);
-    people.add(f.person);
   }
 
   return {
     films,
     tags: allSequenceNumbers,
     countries: Array.from(countries).sort((a, b) => a.localeCompare(b)),
-    people: Array.from(people).sort((a, b) => a.localeCompare(b)),
+    people: films.map((film) => film.person),
   };
 }
