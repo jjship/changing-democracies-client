@@ -5,11 +5,21 @@ import { Flex } from "@radix-ui/themes";
 interface SequenceProgressBarProps {
   totalFragments: number;
   currentFragmentIndex: number;
+  setCurrentFragmentIndex: (idx: number) => void;
+  setIsVideoEnded: (is: boolean) => void;
+  setShowControls: (is: boolean) => void;
+  // setIsCounting: (is: boolean) => void;
+  setIsChangedByUser: (is: boolean) => void;
 }
 
 const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
   totalFragments,
   currentFragmentIndex,
+  setCurrentFragmentIndex,
+  setIsVideoEnded,
+  setShowControls,
+  // setIsCounting,
+  setIsChangedByUser,
 }) => {
   console.log("SequenceProgressBar props:", {
     totalFragments,
@@ -18,17 +28,19 @@ const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
 
   return (
     <Flex
-      justify="center"
+      justify="between"
       align="center"
       style={{
         position: "absolute",
-        top: "20px",
+        bottom: "30px",
         left: "0",
         right: "0",
-        zIndex: 300,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        // zIndex: 300,
+        width: "60%",
+        backgroundColor: "#808881",
         padding: "10px",
-        borderRadius: "20px",
+        borderRadius: "5px",
+        margin: "auto",
       }}
     >
       {Array.from({ length: totalFragments }).map((_, index) => (
@@ -39,12 +51,20 @@ const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
               height: "12px",
               borderRadius: "50%",
               backgroundColor:
-                index <= currentFragmentIndex ? "#FF4136" : "#0074D9",
+                index <= currentFragmentIndex ? "#B85252" : "#54534D",
               margin: "0 5px",
               transition: "background-color 0.3s ease",
+              cursor: "pointer", // Add cursor pointer to indicate clickable
             }}
+            onClick={() => {
+              setIsChangedByUser(true);
+              setCurrentFragmentIndex(index);
+              setIsVideoEnded(true);
+              setShowControls(true);
+              // setIsCounting(true);
+            }} // Add onClick handler
           />
-          {index < totalFragments - 1 && index < currentFragmentIndex && (
+          {/* {index < totalFragments - 1 && index < currentFragmentIndex && (
             <div
               style={{
                 width: "20px",
@@ -54,7 +74,7 @@ const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
                 transition: "opacity 0.3s ease",
               }}
             />
-          )}
+          )} */}
         </React.Fragment>
       ))}
     </Flex>

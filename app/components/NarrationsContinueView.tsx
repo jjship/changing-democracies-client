@@ -14,12 +14,19 @@ export default function NarrationsContinueView(props: {
   narrationPath: NarrationPath;
 }) {
   const { narrationPath } = props; // lets remember to make sure the path has sorted path.fragments - sorting is slow
-  const [isCounting, setIsCounting] = useState(false); // we have to start with a user interaction so chrome allows for unmuted playback
+  // const [isCounting, setIsCounting] = useState(false); // we have to start with a user interaction so chrome allows for unmuted playback
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
   const [currentFragmentIndex, setCurrentFragmentIndex] = useState(0);
   const [isFirstInteraction, setIsFirstInteraction] = useState(true);
   const [showControls, setShowControls] = useState(true);
   const [isVideoEnded, setIsVideoEnded] = useState(false);
+  const [isChangedByUser, setIsChangedByUser] = useState(false);
+
+  // if (isChangedByUser) {
+  //   setIsVideoEnded(true);
+  //   setShowControls(true);
+  //   setIsCounting(true);
+  // }
 
   useEffect(() => {
     if (
@@ -46,23 +53,28 @@ export default function NarrationsContinueView(props: {
   const nextFragment = narrationPath.fragments[currentFragmentIndex + 1];
 
   const handleNextFragment = () => {
+    console.log("HANDLE");
     if (isFirstInteraction) {
       setNowPlaying(currentFragment.guid);
       setShowControls(false);
       setIsVideoEnded(false);
       setIsFirstInteraction(false);
     } else if (currentFragmentIndex < narrationPath.fragments.length - 1) {
-      setCurrentFragmentIndex((prevIndex) => prevIndex + 1);
-      setIsCounting(true); // Reset counting for next fragment
+      console.log("ELSEIF");
+      if (!isChangedByUser)
+        setCurrentFragmentIndex((prevIndex) => prevIndex + 1);
+      // setIsCounting(true); // Reset counting for next fragment
       setShowControls(false);
       setIsVideoEnded(false);
+      if (isChangedByUser) setIsChangedByUser(false);
     } else {
       console.log("All fragments completed");
+      window.location.reload();
     }
   };
 
   const handleCountdownFinish = () => {
-    setIsCounting(false);
+    // setIsCounting(false);
     handleNextFragment();
   };
 
@@ -73,7 +85,7 @@ export default function NarrationsContinueView(props: {
   const handleVideoEnd = () => {
     setIsVideoEnded(true);
     setShowControls(true);
-    setIsCounting(true);
+    // setIsCounting(true);
   };
 
   return (
@@ -134,10 +146,6 @@ export default function NarrationsContinueView(props: {
             position: "relative",
           }}
         >
-          {/* <SequenceProgressBar
-          currentFragmentIndex={currentFragmentIndex}
-          totalFragments={narrationPath.fragments.length}
-        /> */}
           {/* {isCounting && (
           <Flex
             align="center"
@@ -173,15 +181,28 @@ export default function NarrationsContinueView(props: {
                     text={isFirstInteraction ? "start" : "continue"}
                     onClick={handleContinueClick}
                   />
-                  <Countdown
+                  {/* <Countdown
                     isCounting={setIsCounting}
                     onFinish={handleCountdownFinish}
-                  />
+                  /> */}
                 </>
               )}
         </Flex>
-        {!isCounting && !isVideoEnded && !!nowPlaying && (
+        {/* {!isCounting && !isVideoEnded && !!nowPlaying && ( */}
+        {!isVideoEnded && !!nowPlaying && (
           <NarrationsFilmPlayer onEnded={handleVideoEnd} />
+        )}
+        {/* {(!nowPlaying || isCounting) && ( */}
+        {(!nowPlaying || isVideoEnded) && (
+          <SequenceProgressBar
+            currentFragmentIndex={currentFragmentIndex}
+            totalFragments={narrationPath.fragments.length}
+            setCurrentFragmentIndex={setCurrentFragmentIndex}
+            setIsVideoEnded={setIsVideoEnded}
+            setShowControls={setShowControls}
+            // setIsCounting={setIsCounting}
+            setIsChangedByUser={setIsChangedByUser}
+          />
         )}
       </Flex>
     </FilmsContext.Provider>
