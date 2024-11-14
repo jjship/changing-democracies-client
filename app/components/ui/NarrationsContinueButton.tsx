@@ -1,9 +1,19 @@
+import { Path } from "@/types/videosAndFilms";
 import { Box, Text } from "@radix-ui/themes";
 
-export default function NarrationsContinueButton() {
+interface NarrationsContinueButtonProps {
+  path: Path;
+  onClick?: () => void;
+}
+
+const NarrationsContinueButton: React.FC<NarrationsContinueButtonProps> = ({
+  path,
+  onClick,
+}) => {
   return (
     <Box>
       <button
+        onClick={onClick}
         style={{ borderRadius: "100px 70px 70px 100px" }}
         className="relative flex h-[7vw] w-[25vw] items-center space-x-2 overflow-visible rounded-l-full bg-[#b85252] px-10 py-2 text-white opacity-90 shadow-lg"
       >
@@ -17,4 +27,5 @@ export default function NarrationsContinueButton() {
       </button>
     </Box>
   );
-}
+};
+export default NarrationsContinueButton;

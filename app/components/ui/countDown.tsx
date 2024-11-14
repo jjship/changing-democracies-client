@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-interface CounterProps {
-  isCounting: (counting: boolean) => void; // Prop type for the callback
+interface CountdownProps {
+  isCounting: React.Dispatch<React.SetStateAction<boolean>>;
+  onFinish: () => void;
 }
 
-const Counter: React.FC<CounterProps> = ({ isCounting }) => {
+export default function Countdown({ isCounting, onFinish }: CountdownProps) {
   const [count, setCount] = useState<number>(3);
-  const radius = 40; // Radius of the circle
+  const radius = 40;
   const circumference = 2 * Math.PI * radius;
 
-  // Calculate the offset for the stroke dash
   const offset = circumference - (count / 3) * circumference;
 
   useEffect(() => {
@@ -17,20 +17,21 @@ const Counter: React.FC<CounterProps> = ({ isCounting }) => {
       setCount((prevCount) => {
         if (prevCount <= 1) {
           clearInterval(timer);
-          return 0; // Set count to 0
+          onFinish();
+          return 0;
         }
         return prevCount - 1;
       });
     }, 1000);
 
-    return () => clearInterval(timer); // Cleanup on unmount
-  }, []);
+    return () => clearInterval(timer);
+  }, [onFinish]);
 
   useEffect(() => {
     if (count === 0) {
-      isCounting(true); // Notify parent that counting has finished
+      isCounting(false);
     }
-  }, [count, isCounting]); // Add isCounting to dependencies
+  }, [count, isCounting]);
 
   return (
     <div className="relative flex h-screen items-center justify-center">
@@ -40,16 +41,14 @@ const Counter: React.FC<CounterProps> = ({ isCounting }) => {
         viewBox="0 0 100 100"
         className="max-h-xs max-w-xs"
       >
-        {/* Background Circle */}
         <circle
-          stroke="rgba(255, 0, 0, 0.2)" // Light background color
+          stroke="rgba(255, 0, 0, 0.2)"
           fill="transparent"
           strokeWidth="8"
           r={radius}
           cx="50"
           cy="50"
         />
-        {/* Countdown Circle (Solid) */}
         <circle
           stroke="red"
           fill="transparent"
@@ -61,7 +60,6 @@ const Counter: React.FC<CounterProps> = ({ isCounting }) => {
           strokeDashoffset={offset}
           className="transition-all duration-1000 ease-in-out"
         />
-        {/* Dashed Segment */}
         <circle
           stroke="red"
           fill="transparent"
@@ -69,7 +67,7 @@ const Counter: React.FC<CounterProps> = ({ isCounting }) => {
           r={radius}
           cx="50"
           cy="50"
-          strokeDasharray="5, 5" // Creates the dashed effect
+          strokeDasharray="5, 5"
           strokeDashoffset={offset}
           className="transition-all duration-1000 ease-in-out"
         />
@@ -77,6 +75,4 @@ const Counter: React.FC<CounterProps> = ({ isCounting }) => {
       <span className="absolute text-4xl text-red-500">{count}</span>
     </div>
   );
-};
-
-export default Counter;
+}
