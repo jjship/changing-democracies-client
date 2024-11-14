@@ -6,7 +6,7 @@ import { FilmData, FilmsCollection } from "../../types/videosAndFilms";
 import { FilmsContext } from "./films/FilmsContext";
 import Title from "./Title";
 import ShowAllOrFilters from "./films/ShowAllOrFilters";
-import FilmPlayer from "./films/FilmPlayer";
+import { FilmPlayer } from "./films/FilmPlayer";
 
 export { FreeBrowsing };
 

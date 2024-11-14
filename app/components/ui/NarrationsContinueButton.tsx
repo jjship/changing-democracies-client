@@ -1,14 +1,11 @@
-import { NarrationPath } from "@/types/videosAndFilms";
 import { Box, Text } from "@radix-ui/themes";
 
 interface NarrationsContinueButtonProps {
-  path: NarrationPath;
   text: string;
   onClick?: () => void;
 }
 
 const NarrationsContinueButton: React.FC<NarrationsContinueButtonProps> = ({
-  path,
   text,
   onClick,
 }) => {

@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { Navigation } from "@/components/navigation/Navigation";
@@ -7,11 +6,7 @@ import { NarrationPath } from "@/types/videosAndFilms";
 import { sectionPadding } from "@/components/Section";
 
 export default function NarrationsPage() {
-  // const fragment = await getNationsFragment({
-  //   next: { revalidate: 3600 },
-  // });
-
-  const path = {
+  const narrationPath: NarrationPath = {
     id: "firstId",
     title: "What makes you angry about the world today?",
     total_length: 1236,
@@ -194,7 +189,7 @@ export default function NarrationsPage() {
         <div
           className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x}  mb-9 h-[calc(90vh-40px)] overflow-auto pb-5 md:pb-14 xl:pb-40 `}
         >
-          <NarrationsContinueView path={path} />
+          <NarrationsContinueView narrationPath={narrationPath} />
         </div>
         <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary"></div>
         <Image
