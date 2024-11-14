@@ -8,6 +8,7 @@ import Countdown from "@/ui/countDown";
 import { useEffect, useState } from "react";
 import FilmPlayer from "@/components/films/FilmPlayer";
 import { FilmsContext } from "@/components/films/FilmsContext";
+import SequenceProgressBar from "@/components/SequenceProgrwssBar";
 
 export default function NarrationsContinueView(props: { path?: Path }) {
   const { path } = props;
@@ -111,6 +112,10 @@ export default function NarrationsContinueView(props: { path?: Path }) {
           position: "relative",
         }}
       >
+        <SequenceProgressBar
+          currentFragmentIndex={currentFragmentIndex}
+          totalFragments={path.fragments.length}
+        />
         {isCounting ? (
           <Flex
             align="center"
