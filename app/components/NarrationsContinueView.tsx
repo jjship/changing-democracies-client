@@ -11,7 +11,7 @@ import { FilmsContext } from "@/components/films/FilmsContext";
 import SequenceProgressBar from "@/components/SequenceProgrwssBar";
 
 export default function NarrationsContinueView(props: { path?: Path }) {
-  const { path } = props;
+  const { path } = props; // lets remember to make sure the path has sorted path.fragments - sorting is slow
   const [isCounting, setIsCounting] = useState(true); // Start with counting
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
   const [currentFragmentIndex, setCurrentFragmentIndex] = useState(0);
@@ -36,12 +36,8 @@ export default function NarrationsContinueView(props: { path?: Path }) {
     return <div>Loading... or No path data available.</div>;
   }
 
-  const sortedFragments = [...path.fragments].sort(
-    (a, b) => a.sequence - b.sequence,
-  );
-
-  const currentFragment = sortedFragments[currentFragmentIndex];
-  const nextFragment = sortedFragments[currentFragmentIndex + 1];
+  const currentFragment = path.fragments[currentFragmentIndex];
+  const nextFragment = path.fragments[currentFragmentIndex + 1];
 
   const handleNextFragment = () => {
     if (currentFragmentIndex < sortedFragments.length - 1) {
