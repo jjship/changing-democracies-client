@@ -6,11 +6,11 @@ interface CountdownProps {
 }
 
 export default function Countdown({ isCounting, onFinish }: CountdownProps) {
-  const [count, setCount] = useState<number>(3);
+  const [count, setCount] = useState<number>(5);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
 
-  const offset = circumference - (count / 3) * circumference;
+  const offset = circumference - ((count - 1) / 5) * circumference;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -34,13 +34,8 @@ export default function Countdown({ isCounting, onFinish }: CountdownProps) {
   }, [count, isCounting]);
 
   return (
-    <div className="relative flex h-screen items-center justify-center">
-      <svg
-        width="50%"
-        height="50%"
-        viewBox="0 0 100 100"
-        className="max-h-xs max-w-xs"
-      >
+    <div className="max-h-xs relative flex h-full w-full max-w-xs items-center justify-center">
+      <svg viewBox="0 0 100 100" className="h-1/2 w-1/2">
         <circle
           stroke="rgba(255, 0, 0, 0.2)"
           fill="transparent"
@@ -50,7 +45,7 @@ export default function Countdown({ isCounting, onFinish }: CountdownProps) {
           cy="50"
         />
         <circle
-          stroke="red"
+          stroke="rgba(184,82,82)"
           fill="transparent"
           strokeWidth="8"
           r={radius}
@@ -61,7 +56,7 @@ export default function Countdown({ isCounting, onFinish }: CountdownProps) {
           className="transition-all duration-1000 ease-in-out"
         />
         <circle
-          stroke="red"
+          stroke="rgba(184,82,82)"
           fill="transparent"
           strokeWidth="8"
           r={radius}
@@ -72,7 +67,7 @@ export default function Countdown({ isCounting, onFinish }: CountdownProps) {
           className="transition-all duration-1000 ease-in-out"
         />
       </svg>
-      <span className="absolute text-4xl text-red-500">{count}</span>
+      <span className="absolute text-4xl text-red_mains">{count}</span>
     </div>
   );
 }

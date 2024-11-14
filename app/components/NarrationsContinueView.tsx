@@ -57,7 +57,7 @@ export default function NarrationsContinueView(props: { path: NarrationPath }) {
 
   const handleCountdownFinish = () => {
     setIsCounting(false);
-    setShowControls(true);
+    handleNextFragment();
   };
 
   const handleContinueClick = () => {
@@ -67,6 +67,7 @@ export default function NarrationsContinueView(props: { path: NarrationPath }) {
   const handleVideoEnd = () => {
     setIsVideoEnded(true);
     setShowControls(true);
+    setIsCounting(true);
   };
 
   return (
@@ -117,7 +118,7 @@ export default function NarrationsContinueView(props: { path: NarrationPath }) {
           currentFragmentIndex={currentFragmentIndex}
           totalFragments={path.fragments.length}
         /> */}
-        {isCounting && (
+        {/* {isCounting && (
           <Flex
             align="center"
             justify="center"
@@ -136,14 +137,30 @@ export default function NarrationsContinueView(props: { path: NarrationPath }) {
               onFinish={handleCountdownFinish}
             />
           </Flex>
-        )}
-        {showControls && (
-          <NarrationsContinueButton
-            path={path}
-            text={isFirstInteraction ? "start" : "continue"}
-            onClick={handleContinueClick}
-          />
-        )}
+        )} */}
+        {isFirstInteraction
+          ? showControls && (
+              <>
+                <NarrationsContinueButton
+                  path={path}
+                  text={isFirstInteraction ? "start" : "continue"}
+                  onClick={handleContinueClick}
+                />
+              </>
+            )
+          : showControls && (
+              <>
+                <NarrationsContinueButton
+                  path={path}
+                  text={isFirstInteraction ? "start" : "continue"}
+                  onClick={handleContinueClick}
+                />
+                <Countdown
+                  isCounting={setIsCounting}
+                  onFinish={handleCountdownFinish}
+                />
+              </>
+            )}
       </Flex>
       {!isCounting && (
         <FilmsContext.Provider
