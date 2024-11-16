@@ -1,62 +1,81 @@
 "use client";
 
-import { Path } from "@/types/videosAndFilms";
+import { NarrationPath } from "@/types/videosAndFilms";
 import "@radix-ui/themes/styles.css";
 import { Flex, Text } from "@radix-ui/themes";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import Countdown from "@/ui/countDown";
 import { useEffect, useState } from "react";
-import FilmPlayer from "@/components/films/FilmPlayer";
+import NarrationsFilmPlayer from "@/components/films/NarrationsFilmPlayer";
 import { FilmsContext } from "@/components/films/FilmsContext";
 import SequenceProgressBar from "@/components/SequenceProgrwssBar";
 
-export default function NarrationsContinueView(props: { path?: Path }) {
-  const { path } = props;
-  const [isCounting, setIsCounting] = useState(true); // Start with counting
+export default function NarrationsContinueView(props: {
+  narrationPath: NarrationPath;
+}) {
+  const { narrationPath } = props; // lets remember to make sure the path has sorted path.fragments - sorting is slow
+  // const [isCounting, setIsCounting] = useState(false); // we have to start with a user interaction so chrome allows for unmuted playback
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
   const [currentFragmentIndex, setCurrentFragmentIndex] = useState(0);
-  const [showControls, setShowControls] = useState(false);
+  const [isFirstInteraction, setIsFirstInteraction] = useState(true);
+  const [showControls, setShowControls] = useState(true);
   const [isVideoEnded, setIsVideoEnded] = useState(false);
+  const [isChangedByUser, setIsChangedByUser] = useState(false);
+
+  // if (isChangedByUser) {
+  //   setIsVideoEnded(true);
+  //   setShowControls(true);
+  //   setIsCounting(true);
+  // }
 
   useEffect(() => {
-    if (path && path.fragments && path.fragments.length > 0) {
-      const sortedFragments = [...path.fragments].sort(
-        (a, b) => a.sequence - b.sequence,
-      );
-      const currentFragment = sortedFragments[currentFragmentIndex];
+    if (
+      narrationPath &&
+      narrationPath.fragments &&
+      narrationPath.fragments.length > 0
+    ) {
+      const currentFragment = narrationPath.fragments[currentFragmentIndex];
       if (currentFragment) {
-        setNowPlaying(currentFragment.guid);
-        setShowControls(false);
-        setIsVideoEnded(false);
+        if (!isFirstInteraction) {
+          setNowPlaying(currentFragment.guid);
+          setShowControls(false);
+          setIsVideoEnded(false);
+        }
       }
     }
-  }, [path, currentFragmentIndex]);
+  }, [narrationPath, currentFragmentIndex]);
 
-  if (!path || !path.fragments) {
-    return <div>Loading... or No path data available.</div>;
+  if (!narrationPath || !narrationPath.fragments) {
+    return <div>Loading... or No narrationPath data available.</div>;
   }
 
-  const sortedFragments = [...path.fragments].sort(
-    (a, b) => a.sequence - b.sequence,
-  );
-
-  const currentFragment = sortedFragments[currentFragmentIndex];
-  const nextFragment = sortedFragments[currentFragmentIndex + 1];
+  const currentFragment = narrationPath.fragments[currentFragmentIndex];
+  const nextFragment = narrationPath.fragments[currentFragmentIndex + 1];
 
   const handleNextFragment = () => {
-    if (currentFragmentIndex < sortedFragments.length - 1) {
-      setCurrentFragmentIndex((prevIndex) => prevIndex + 1);
-      setIsCounting(true); // Reset counting for next fragment
+    console.log("HANDLE");
+    if (isFirstInteraction) {
+      setNowPlaying(currentFragment.guid);
       setShowControls(false);
       setIsVideoEnded(false);
+      setIsFirstInteraction(false);
+    } else if (currentFragmentIndex < narrationPath.fragments.length - 1) {
+      console.log("ELSEIF");
+      if (!isChangedByUser)
+        setCurrentFragmentIndex((prevIndex) => prevIndex + 1);
+      // setIsCounting(true); // Reset counting for next fragment
+      setShowControls(false);
+      setIsVideoEnded(false);
+      if (isChangedByUser) setIsChangedByUser(false);
     } else {
       console.log("All fragments completed");
+      window.location.reload();
     }
   };
 
   const handleCountdownFinish = () => {
-    setIsCounting(false);
-    setShowControls(true);
+    // setIsCounting(false);
+    handleNextFragment();
   };
 
   const handleContinueClick = () => {
@@ -66,57 +85,68 @@ export default function NarrationsContinueView(props: { path?: Path }) {
   const handleVideoEnd = () => {
     setIsVideoEnded(true);
     setShowControls(true);
+    // setIsCounting(true);
   };
 
   return (
-    <Flex
-      height={"100%"}
-      align={"center"}
-      justify={"center"}
-      direction={"column"}
+    <FilmsContext.Provider
+      value={{
+        films: narrationPath.fragments,
+        setFilms: () => {},
+        filmsCollection: {
+          films: narrationPath.fragments,
+          tags: [],
+          countries: [],
+          people: [],
+        },
+        nowPlaying,
+        setNowPlaying,
+      }}
     >
       <Flex
-        style={{ justifyContent: "end", color: "#8695c0" }}
-        className={"w-full"}
+        height={"100%"}
+        align={"center"}
+        justify={"center"}
+        direction={"column"}
       >
         <Flex
-          style={{ justifyContent: "center" }}
-          className={
-            "grow-2 relative right-5 top-1/4 box-border h-[10vh] min-w-[40%] items-center rounded-[3px] bg-[#8695c0] px-10"
-          }
+          style={{ justifyContent: "end", color: "#8695c0" }}
+          className={"w-full"}
         >
-          <Text
+          <Flex
+            style={{ justifyContent: "center" }}
             className={
-              "text-center text-white sm:text-[0.5rem] md:text-[1.5vw] lg:text-[1vw]"
+              "grow-2 relative right-5 top-1/4 box-border h-[10vh] min-w-[40%] items-center rounded-[3px] bg-[#8695c0] px-10"
             }
           >
-            {path.title}
-          </Text>
+            <Text
+              className={
+                "text-center text-white sm:text-[0.5rem] md:text-[1.5vw] lg:text-[1vw]"
+              }
+            >
+              {narrationPath.title}
+            </Text>
+          </Flex>
         </Flex>
-      </Flex>
-      <Flex
-        style={{
-          zIndex: 100,
-          overflow: "hidden",
-          backgroundImage: `url(${
-            isVideoEnded && nextFragment
-              ? nextFragment.thumbnailUrl
-              : currentFragment.thumbnailUrl
-          })`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          width: "100%",
-          height: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-        }}
-      >
-        <SequenceProgressBar
-          currentFragmentIndex={currentFragmentIndex}
-          totalFragments={path.fragments.length}
-        />
-        {isCounting ? (
+        <Flex
+          style={{
+            // zIndex: 100,
+            overflow: "hidden",
+            backgroundImage: `url(${
+              isVideoEnded && nextFragment
+                ? nextFragment.thumbnailUrl
+                : currentFragment.thumbnailUrl
+            })`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+          }}
+        >
+          {/* {isCounting && (
           <Flex
             align="center"
             justify="center"
@@ -135,28 +165,46 @@ export default function NarrationsContinueView(props: { path?: Path }) {
               onFinish={handleCountdownFinish}
             />
           </Flex>
-        ) : (
-          <FilmsContext.Provider
-            value={{
-              films: sortedFragments,
-              setFilms: () => {},
-              filmsCollection: {
-                films: sortedFragments,
-                tags: [],
-                countries: [],
-                people: [],
-              },
-              nowPlaying,
-              setNowPlaying,
-            }}
-          >
-            {!isVideoEnded && <FilmPlayer onEnded={handleVideoEnd} />}
-          </FilmsContext.Provider>
+        )} */}
+          {isFirstInteraction
+            ? showControls && (
+                <>
+                  <NarrationsContinueButton
+                    text={isFirstInteraction ? "start" : "continue"}
+                    onClick={handleContinueClick}
+                  />
+                </>
+              )
+            : showControls && (
+                <>
+                  <NarrationsContinueButton
+                    text={isFirstInteraction ? "start" : "continue"}
+                    onClick={handleContinueClick}
+                  />
+                  {/* <Countdown
+                    isCounting={setIsCounting}
+                    onFinish={handleCountdownFinish}
+                  /> */}
+                </>
+              )}
+        </Flex>
+        {/* {!isCounting && !isVideoEnded && !!nowPlaying && ( */}
+        {!isVideoEnded && !!nowPlaying && (
+          <NarrationsFilmPlayer onEnded={handleVideoEnd} />
         )}
-        {showControls && (
-          <NarrationsContinueButton path={path} onClick={handleContinueClick} />
+        {/* {(!nowPlaying || isCounting) && ( */}
+        {(!nowPlaying || isVideoEnded) && (
+          <SequenceProgressBar
+            currentFragmentIndex={currentFragmentIndex}
+            totalFragments={narrationPath.fragments.length}
+            setCurrentFragmentIndex={setCurrentFragmentIndex}
+            setIsVideoEnded={setIsVideoEnded}
+            setShowControls={setShowControls}
+            // setIsCounting={setIsCounting}
+            setIsChangedByUser={setIsChangedByUser}
+          />
         )}
       </Flex>
-    </Flex>
+    </FilmsContext.Provider>
   );
 }
