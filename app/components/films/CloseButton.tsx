@@ -1,7 +1,7 @@
 import { useFilmsContext } from "./FilmsContext";
 
 const CloseButton = (
-  props: { onClose: () => void },
+  props: { onClose?: () => void },
   { style, next }: { style?: string; next?: string },
 ) => {
   const { onClose } = props;
@@ -16,9 +16,7 @@ const CloseButton = (
       href="#"
       onClick={() => {
         setNowPlaying(null);
-        return {
-          onClose,
-        };
+        if (onClose) onClose();
       }}
       className={`absolute left-4 top-4 z-10 bg-transparent p-5 ${additionalStyles}`}
     >

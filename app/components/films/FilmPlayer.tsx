@@ -2,9 +2,12 @@ import CloseButton from "../../components/films/CloseButton";
 import { useFilmsContext } from "./FilmsContext";
 import { useEffect } from "react";
 
-export default function FilmPlayer(props: { onEnded?: () => void }) {
+export default function FilmPlayer(props: {
+  onEnded?: () => void;
+  onClose?: () => void;
+}) {
   const { nowPlaying } = useFilmsContext();
-  const { onEnded } = props;
+  const { onEnded, onClose } = props;
   const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`;
 
   useEffect(() => {
@@ -28,7 +31,7 @@ export default function FilmPlayer(props: { onEnded?: () => void }) {
         id="player-container"
         className="absolute left-0 top-0 z-50 h-full w-full bg-black_bg"
       >
-        <CloseButton />
+        <CloseButton onClose={onClose} />
         <iframe
           src={src}
           className="absolute left-0 top-0 h-full w-full"
