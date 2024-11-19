@@ -1,11 +1,16 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 
 interface CountdownProps {
-  isCounting: React.Dispatch<React.SetStateAction<boolean>>;
   onFinish: () => void;
+  onCountingChange?: (isCounting: boolean) => void;
 }
 
-export default function Countdown({ isCounting, onFinish }: CountdownProps) {
+const Countdown: React.FC<CountdownProps> = ({
+  onFinish,
+  onCountingChange,
+}) => {
   const [count, setCount] = useState<number>(5);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
@@ -18,6 +23,7 @@ export default function Countdown({ isCounting, onFinish }: CountdownProps) {
         if (prevCount <= 1) {
           clearInterval(timer);
           onFinish();
+          onCountingChange?.(false);
           return 0;
         }
         return prevCount - 1;
@@ -25,49 +31,46 @@ export default function Countdown({ isCounting, onFinish }: CountdownProps) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [onFinish]);
-
-  useEffect(() => {
-    if (count === 0) {
-      isCounting(false);
-    }
-  }, [count, isCounting]);
+  }, [onFinish, onCountingChange]);
 
   return (
-    <div className="max-h-xs relative flex h-full w-full max-w-xs items-center justify-center">
-      <svg viewBox="0 0 100 100" className="h-1/2 w-1/2">
-        <circle
-          stroke="rgba(255, 0, 0, 0.2)"
-          fill="transparent"
-          strokeWidth="8"
-          r={radius}
-          cx="50"
-          cy="50"
-        />
-        <circle
-          stroke="rgba(184,82,82)"
-          fill="transparent"
-          strokeWidth="8"
-          r={radius}
-          cx="50"
-          cy="50"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          className="transition-all duration-1000 ease-in-out"
-        />
-        <circle
-          stroke="rgba(184,82,82)"
-          fill="transparent"
-          strokeWidth="8"
-          r={radius}
-          cx="50"
-          cy="50"
-          strokeDasharray="5, 5"
-          strokeDashoffset={offset}
-          className="transition-all duration-1000 ease-in-out"
-        />
-      </svg>
-      <span className="absolute text-4xl text-red_mains">{count}</span>
-    </div>
+    <>
+      <div className="max-h-xs relative flex h-full w-full max-w-xs items-center justify-center">
+        <svg viewBox="0 0 100 100" className="h-1/2 w-1/2">
+          <circle
+            stroke="rgba(255, 0, 0, 0.2)"
+            fill="transparent"
+            strokeWidth="8"
+            r={radius}
+            cx="50"
+            cy="50"
+          />
+          <circle
+            stroke="rgba(184,82,82)"
+            fill="transparent"
+            strokeWidth="8"
+            r={radius}
+            cx="50"
+            cy="50"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            className="transition-all duration-1000 ease-in-out"
+          />
+          <circle
+            stroke="rgba(184,82,82)"
+            fill="transparent"
+            strokeWidth="8"
+            r={radius}
+            cx="50"
+            cy="50"
+            strokeDasharray="5, 5"
+            strokeDashoffset={offset}
+            className="transition-all duration-1000 ease-in-out"
+          />
+        </svg>
+        <span className="absolute text-4xl text-red_mains">{count}</span>
+      </div>
+    </>
   );
-}
+};
+export default Countdown;

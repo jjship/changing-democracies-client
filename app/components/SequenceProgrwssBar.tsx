@@ -7,9 +7,9 @@ interface SequenceProgressBarProps {
   currentFragmentIndex: number;
   setCurrentFragmentIndex: (idx: number) => void;
   setIsVideoEnded: (is: boolean) => void;
-  setShowControls: (is: boolean) => void;
+  // setShowControls: (is: boolean) => void;
   // setIsCounting: (is: boolean) => void;
-  setIsChangedByUser: (is: boolean) => void;
+  // setIsChangedByUser: (is: boolean) => void;
 }
 
 const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
@@ -17,9 +17,9 @@ const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
   currentFragmentIndex,
   setCurrentFragmentIndex,
   setIsVideoEnded,
-  setShowControls,
+  // setShowControls,
   // setIsCounting,
-  setIsChangedByUser,
+  // setIsChangedByUser,
 }) => {
   console.log("SequenceProgressBar props:", {
     totalFragments,
@@ -37,7 +37,7 @@ const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
         right: "0",
         // zIndex: 300,
         width: "60%",
-        backgroundColor: "#808881",
+        backgroundColor: "transparent",
         padding: "10px",
         borderRadius: "5px",
         margin: "auto",
@@ -54,27 +54,27 @@ const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
                 index <= currentFragmentIndex ? "#B85252" : "#54534D",
               margin: "0 5px",
               transition: "background-color 0.3s ease",
-              cursor: "pointer", // Add cursor pointer to indicate clickable
+              cursor: "pointer",
             }}
             onClick={() => {
-              setIsChangedByUser(true);
+              // setIsChangedByUser(true);
               setCurrentFragmentIndex(index);
               setIsVideoEnded(true);
-              setShowControls(true);
+              // setShowControls(true);
               // setIsCounting(true);
             }} // Add onClick handler
           />
-          {/* {index < totalFragments - 1 && index < currentFragmentIndex && (
+          {index < totalFragments - 1 && index < currentFragmentIndex && (
             <div
               style={{
-                width: "20px",
+                width: "30px",
                 height: "2px",
-                backgroundColor: "#FF4136",
-                margin: "0 5px",
+                backgroundColor: "#B85252",
+                margin: "0 2px",
                 transition: "opacity 0.3s ease",
               }}
             />
-          )} */}
+          )}
         </React.Fragment>
       ))}
     </Flex>

@@ -5,9 +5,16 @@ import { Player } from "player.js";
 import CloseButton from "./CloseButton";
 import { useFilmsContext } from "./FilmsContext";
 
-export default function NarrationsFilmPlayer(props: { onEnded?: () => void }) {
+interface NarrationsFilmPlayerProps {
+  onEnded?: () => void;
+  onClose: () => void;
+}
+
+const NarrationsFilmPlayer = ({
+  onEnded,
+  onClose,
+}: NarrationsFilmPlayerProps): JSX.Element => {
   const { nowPlaying } = useFilmsContext();
-  const { onEnded } = props;
   const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`;
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const [isClient, setIsClient] = useState(false);
@@ -34,8 +41,20 @@ export default function NarrationsFilmPlayer(props: { onEnded?: () => void }) {
     }
   }, [isClient, onEnded]);
 
+  const handleClose = () => {
+    if (iframeRef.current) {
+      import("player.js").then(({ Player }) => {
+        const player = new Player(iframeRef.current!);
+        player.on("ready", () => {
+          player.pause();
+        });
+      });
+    }
+    onClose();
+  };
+
   if (!isClient || !nowPlaying) {
-    return null;
+    return <></>; // Return empty fragment instead of null
   }
 
   return (
@@ -43,8 +62,7 @@ export default function NarrationsFilmPlayer(props: { onEnded?: () => void }) {
       id="player-container"
       className="absolute left-0 top-0 z-50 h-full w-full bg-black_bg"
     >
-      {/* <CloseButton /> // need to show controls if close during playing  */}
-
+      <CloseButton onClose={handleClose} />
       <iframe
         ref={iframeRef}
         src={src}
@@ -54,4 +72,6 @@ export default function NarrationsFilmPlayer(props: { onEnded?: () => void }) {
       ></iframe>
     </div>
   );
-}
+};
+
+export default NarrationsFilmPlayer;

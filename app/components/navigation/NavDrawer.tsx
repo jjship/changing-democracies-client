@@ -54,6 +54,14 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         isNavOpen={isNavOpen}
         toggleNav={toggleNav}
       />
+      <AnimatedLink
+        href="/narrations"
+        text="narrations"
+        timeout={300}
+        color="pink"
+        isNavOpen={isNavOpen}
+        toggleNav={toggleNav}
+      />
     </div>
     <div className="h-[15vh]"></div>
   </div>
