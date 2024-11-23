@@ -2,17 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import { NarrationFragment } from "@/types/videosAndFilms";
-import Countdown from "@/ui/countDown";
 import NarrationList from "@/app/narrations/NarrationList";
+import { CountDown } from "@/components/CountDown";
 
-interface NarrationPath {
+type NarrationPath = {
   id: string;
   title: string;
   description?: string;
   total_length: number;
   fragments: NarrationFragment[];
   metadata?: Record<string, any>;
-}
+};
 
 interface NarrationsViewLinkedListProps {
   narrationPath: NarrationPath;
@@ -32,11 +32,9 @@ export default function NarrationsViewLinkedList({
   const [isCounting, setIsCounting] = useState(false);
 
   useEffect(() => {
-    // Initialize the linked list when the component mounts
     const list = new NarrationList(narrationPath.fragments);
     setNarrationList(list);
   }, [narrationPath]);
-  // console.log(list);
   useEffect(() => {
     if (narrationList && !isVideoEnded) {
       const currentFragment = narrationList.getCurrentFragment();
@@ -149,7 +147,7 @@ export default function NarrationsViewLinkedList({
       <div className="progress-indicator">{getProgress()}</div>
       {isCounting && (
         <div className="countdown">
-          <Countdown onFinish={handleCountdownFinish} />
+          <CountDown onFinish={handleCountdownFinish} />
         </div>
       )}
     </div>

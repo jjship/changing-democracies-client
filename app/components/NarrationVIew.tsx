@@ -3,154 +3,202 @@
 import { NarrationPath } from "@/types/videosAndFilms";
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import NarrationsFilmPlayer from "@/components/films/NarrationsFilmPlayer";
 import { FilmsContext } from "@/components/films/FilmsContext";
-import Countdown from "@/ui/countDown";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
-import { useEffect, useState } from "react";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import SequenceProgressBar from "./SequenceProgrwssBar";
+import { CountDown } from "./CountDown";
+import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 
-export default function NarrationsContinueView({
+type PlayerState = {
+  currentIndex: number;
+  isPlaying: boolean;
+  isVisible: boolean;
+  hasStarted: boolean;
+  isEnded: boolean;
+};
+
+export { NarrationsView };
+const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   narrationPath,
-}: {
-  narrationPath: NarrationPath;
-}) {
-  const [currentFragmentIndex, setCurrentFragmentIndex] = useState(0);
-  const [nowPlaying, setNowPlaying] = useState<string | null>(null);
-  const [showControls, setShowControls] = useState(false);
-  const [isVideoEnded, setIsVideoEnded] = useState(false);
-  const [isCounting, setIsCounting] = useState(false);
-  const [isPlayerVisible, setIsPlayerVisible] = useState(true);
+}) => {
+  const [playerState, setPlayerState] = useState<PlayerState>({
+    currentIndex: 0,
+    isPlaying: false,
+    isVisible: true,
+    hasStarted: false,
+    isEnded: false,
+  });
 
-  const currentFragment = narrationPath.fragments?.[currentFragmentIndex];
-  const nextFragment = narrationPath.fragments?.[currentFragmentIndex + 1];
+  const { currentFragment, nextFragment, isLastFragment } = useMemo(
+    () => ({
+      currentFragment: narrationPath.fragments[playerState.currentIndex],
+      nextFragment: narrationPath.fragments[playerState.currentIndex + 1],
+      isLastFragment:
+        playerState.currentIndex === narrationPath.fragments.length - 1,
+    }),
+    [narrationPath.fragments, playerState.currentIndex],
+  );
 
-  useEffect(() => {
-    if (currentFragment && !isVideoEnded) {
-      setNowPlaying(currentFragment.guid);
+  const updatePlayerState = useCallback((updates: Partial<PlayerState>) => {
+    setPlayerState((prev) => ({ ...prev, ...updates }));
+  }, []);
+
+  const handleStart = useCallback(() => {
+    updatePlayerState({
+      isPlaying: true,
+      hasStarted: true,
+      isEnded: false,
+    });
+  }, [updatePlayerState]);
+
+  const handleFragmentSelect = useCallback(
+    (index: number) => {
+      updatePlayerState({
+        currentIndex: index,
+        isPlaying: true,
+        hasStarted: true,
+        isVisible: true,
+        isEnded: false,
+      });
+    },
+    [updatePlayerState],
+  );
+
+  const handleVideoEnd = useCallback(() => {
+    updatePlayerState({
+      isPlaying: false,
+      isEnded: true,
+    });
+  }, [updatePlayerState]);
+
+  const handleContinue = useCallback(() => {
+    if (!isLastFragment) {
+      updatePlayerState({
+        currentIndex: playerState.currentIndex + 1,
+        isPlaying: true,
+        isVisible: true,
+        isEnded: false,
+      });
     }
-  }, [currentFragment, isVideoEnded]);
+  }, [isLastFragment, playerState.currentIndex, updatePlayerState]);
 
-  const handleCountdownFinish = () => {
-    if (currentFragmentIndex < narrationPath.fragments.length - 1) {
-      setCurrentFragmentIndex((prev) => prev + 1);
-      setIsVideoEnded(false);
-      setShowControls(false);
-      setIsCounting(false);
-    }
-  };
+  const handleVisibilityToggle = useCallback(
+    (isVisible: boolean) => {
+      updatePlayerState({
+        isVisible,
+        isPlaying: false,
+        isEnded: false,
+      });
+    },
+    [updatePlayerState],
+  );
 
-  const handleContinueClick = () => {
-    if (currentFragmentIndex < narrationPath.fragments.length - 1) {
-      setCurrentFragmentIndex((prev) => prev + 1);
-      setIsVideoEnded(false);
-      setShowControls(false);
-      setIsCounting(false);
-    }
-  };
+  const handleReopen = useCallback(() => {
+    updatePlayerState({
+      isVisible: true,
+      isPlaying: true,
+      isEnded: false,
+    });
+  }, [updatePlayerState]);
 
-  const handleVideoEnd = () => {
-    setIsVideoEnded(true);
-    setShowControls(true);
-    setIsCounting(true);
-  };
+  const filmsContextValue = useMemo(
+    () => ({
+      films: narrationPath.fragments,
+      setFilms: () => {},
+      filmsCollection: {
+        films: narrationPath.fragments,
+        tags: [],
+        countries: [],
+        people: [],
+      },
+      nowPlaying: playerState.isPlaying ? currentFragment?.guid : null,
+      setNowPlaying: (filmId: string | null) => {
+        if (filmId) {
+          const newIndex = narrationPath.fragments.findIndex(
+            (f) => f.guid === filmId,
+          );
+          if (newIndex !== -1) {
+            handleFragmentSelect(newIndex);
+          }
+        }
+      },
+    }),
+    [
+      narrationPath.fragments,
+      playerState.isPlaying,
+      currentFragment,
+      handleFragmentSelect,
+    ],
+  );
 
-  const handleClose = () => {
-    setIsPlayerVisible(false);
-    setNowPlaying(null);
-    setIsVideoEnded(false);
-    setIsCounting(false);
-  };
-
-  if (!isPlayerVisible) {
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <NarrationsContinueButton
-          text="Continue"
-          onClick={() => {
-            setIsPlayerVisible(true);
-            setNowPlaying(currentFragment?.guid || null);
-          }}
-        />
-      </div>
-    );
-  }
+  const backgroundStyle = useMemo(
+    () => ({
+      overflow: "hidden" as const,
+      backgroundImage: `url(${
+        playerState.isEnded && nextFragment
+          ? nextFragment.thumbnailUrl
+          : currentFragment.thumbnailUrl
+      })`,
+      backgroundSize: "cover" as const,
+      backgroundPosition: "center" as const,
+      width: "100%",
+      height: "100%",
+      alignItems: "center" as const,
+      justifyContent: "center" as const,
+      position: "relative" as const,
+    }),
+    [playerState.isEnded, currentFragment, nextFragment],
+  );
 
   return (
-    <FilmsContext.Provider
-      value={{
-        films: narrationPath.fragments,
-        setFilms: () => {},
-        filmsCollection: {
-          films: narrationPath.fragments,
-          tags: [],
-          countries: [],
-          people: [],
-        },
-        nowPlaying: currentFragment?.guid,
-        setNowPlaying: (filmId: string | null) => {
-          if (filmId) {
-            const newIndex = narrationPath.fragments.findIndex(
-              (f) => f.guid === filmId,
-            );
-            if (newIndex !== -1) {
-              setCurrentFragmentIndex(newIndex);
-            }
-          }
-        },
-      }}
-    >
+    <FilmsContext.Provider value={filmsContextValue}>
       <Flex height="100%" align="center" justify="center" direction="column">
-        <Flex
-          style={{
-            overflow: "hidden",
-            backgroundImage: `url(${
-              isVideoEnded && nextFragment
-                ? nextFragment.thumbnailUrl
-                : currentFragment.thumbnailUrl
-            })`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            width: "100%",
-            height: "100%",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "relative",
-          }}
-        >
-          {nowPlaying && !isVideoEnded && (
-            <NarrationsFilmPlayer
-              onEnded={handleVideoEnd}
-              key={nowPlaying}
-              onClose={handleClose}
-            />
-          )}
-
-          {isVideoEnded && (
+        <Flex style={backgroundStyle}>
+          {!playerState.isVisible ? (
+            <NarrationsContinueButton text="Continue" onClick={handleReopen} />
+          ) : (
             <>
-              {isCounting && (
-                <Countdown
-                  onFinish={handleCountdownFinish}
-                  onCountingChange={setIsCounting}
-                />
+              {!playerState.hasStarted && (
+                <NarrationsContinueButton text="Start" onClick={handleStart} />
               )}
-              {showControls && nextFragment && (
-                <NarrationsContinueButton
-                  text="Continue"
-                  onClick={handleContinueClick}
-                />
+
+              {playerState.isPlaying &&
+                playerState.hasStarted &&
+                currentFragment && (
+                  <NarrationsFilmPlayer
+                    onEnded={handleVideoEnd}
+                    key={currentFragment.guid}
+                    onClose={() => handleVisibilityToggle(false)}
+                  />
+                )}
+
+              {!playerState.isPlaying && playerState.hasStarted && (
+                <>
+                  {playerState.isEnded && (
+                    <CountDown
+                      onFinish={handleContinue}
+                      onCountingChange={() => {}}
+                    />
+                  )}
+                  {nextFragment && playerState.isEnded && (
+                    <NarrationsContinueButton
+                      text="Continue"
+                      onClick={handleContinue}
+                    />
+                  )}
+                </>
               )}
+
+              <SequenceProgressBar
+                currentFragmentIndex={playerState.currentIndex}
+                totalFragments={narrationPath.fragments.length}
+                onFragmentSelect={handleFragmentSelect}
+              />
             </>
           )}
-
-          <SequenceProgressBar
-            currentFragmentIndex={currentFragmentIndex}
-            totalFragments={narrationPath.fragments.length}
-            setCurrentFragmentIndex={setCurrentFragmentIndex}
-            setIsVideoEnded={setIsVideoEnded}
-          />
         </Flex>
       </Flex>
     </FilmsContext.Provider>
   );
-}
+};

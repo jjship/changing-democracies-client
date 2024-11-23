@@ -1,19 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Player } from "player.js";
 import CloseButton from "./CloseButton";
 import { useFilmsContext } from "./FilmsContext";
 
-interface NarrationsFilmPlayerProps {
+export { NarrationsFilmPlayer };
+
+const NarrationsFilmPlayer: FC<{
   onEnded?: () => void;
   onClose: () => void;
-}
-
-const NarrationsFilmPlayer = ({
-  onEnded,
-  onClose,
-}: NarrationsFilmPlayerProps): JSX.Element => {
+}> = ({ onEnded, onClose }) => {
   const { nowPlaying } = useFilmsContext();
   const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`;
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -54,7 +51,7 @@ const NarrationsFilmPlayer = ({
   };
 
   if (!isClient || !nowPlaying) {
-    return <></>; // Return empty fragment instead of null
+    return <></>;
   }
 
   return (
@@ -73,5 +70,3 @@ const NarrationsFilmPlayer = ({
     </div>
   );
 };
-
-export default NarrationsFilmPlayer;

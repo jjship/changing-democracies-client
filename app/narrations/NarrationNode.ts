@@ -1,4 +1,4 @@
-class NarrationNode {
+export default class NarrationNode {
   data: any;
   next: NarrationNode | null;
 

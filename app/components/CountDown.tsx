@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
-interface CountdownProps {
+export { CountDown };
+
+const CountDown: FC<{
   onFinish: () => void;
   onCountingChange?: (isCounting: boolean) => void;
-}
-
-const Countdown: React.FC<CountdownProps> = ({
-  onFinish,
-  onCountingChange,
-}) => {
+}> = ({ onFinish, onCountingChange }) => {
   const [count, setCount] = useState<number>(5);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
@@ -73,4 +70,3 @@ const Countdown: React.FC<CountdownProps> = ({
     </>
   );
 };
-export default Countdown;
