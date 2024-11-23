@@ -1,22 +1,24 @@
-class NarrationList {
+import { NarrationFragment } from "@/types/videosAndFilms";
+
+export default class NarrationList {
   head: NarrationNode | null;
   current: NarrationNode | null;
   private length: number;
 
-  constructor(fragments: any[]) {
+  constructor(fragments: NarrationFragment[]) {
     this.head = null;
     this.current = null;
     this.length = 0;
     this.initializeList(fragments);
   }
 
-  initializeList(fragments: any[]) {
+  initializeList(fragments: NarrationFragment[]) {
     fragments.forEach((fragment) => {
       this.addNode(fragment);
     });
   }
 
-  addNode(fragmentData: any) {
+  addNode(fragmentData: NarrationFragment) {
     const newNode = new NarrationNode(fragmentData);
     this.length++;
 

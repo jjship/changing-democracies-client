@@ -101,7 +101,6 @@ export default function NarrationsContinueView({
       }}
     >
       <Flex height="100%" align="center" justify="center" direction="column">
-        {/* Video Container */}
         <Flex
           style={{
             overflow: "hidden",
