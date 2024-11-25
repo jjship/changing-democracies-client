@@ -1,5 +1,6 @@
+"use client";
 import React, { memo } from "react";
-import { Flex } from "@radix-ui/themes";
+import { Box, Flex } from "@radix-ui/themes";
 
 type SequenceProgressBarProps = {
   totalFragments: number;
@@ -14,37 +15,45 @@ const SequenceProgressBar = memo(
     onFragmentSelect,
   }: SequenceProgressBarProps) => {
     const dotSize = 12;
-    const segmentWidth = 100 / (totalFragments - 1) - dotSize / 100; // Adjusted to ensure visibility
 
     return (
       <Flex
         justify="between"
         align="center"
         style={{
-          position: "absolute",
-          bottom: "0px",
-          left: "0",
-          right: "0",
-          width: "60%",
-          height: "20px",
+          position: "fixed", // Changed to fixed to ensure it stays at the bottom
+          bottom: "12vh", // Adjusted bottom position
+          left: "50%",
+          transform: "translateX(-50%)", // Center the element horizontally
+          width: "80%",
+          height: "40px",
           backgroundColor: "transparent",
           borderRadius: "5px",
-          margin: "auto",
+          zIndex: 10, // Ensure it's above other content
+          overflow: "visible", // Allow dots to overflow if needed
+          maxWidth: "1200px", // Prevent too wide on large screens
         }}
       >
         {Array.from({ length: totalFragments }).map((_, index) => (
-          <Flex key={index}>
-            <div
+          <Flex
+            key={index}
+            style={{
+              flex: 1,
+              alignItems: "center",
+              position: "relative", // Added for better positioning control
+            }}
+          >
+            <Box
               style={{
                 width: `${dotSize}px`,
                 height: `${dotSize}px`,
                 borderRadius: "50%",
                 backgroundColor:
                   index === currentFragmentIndex
-                    ? "#FFD700"
+                    ? "#6bdbc6"
                     : index < currentFragmentIndex
-                    ? "#B85252"
-                    : "#54534D",
+                    ? "#b85252"
+                    : "#808881",
                 transition: "background-color 0.3s ease",
                 cursor: "pointer",
                 zIndex: 1,
@@ -52,13 +61,15 @@ const SequenceProgressBar = memo(
               onClick={() => onFragmentSelect(index)}
             />
             {index < totalFragments - 1 && (
-              <div
+              <Box
                 style={{
-                  height: "2px",
-                  flex: `1 0 calc(${segmentWidth}% - ${dotSize / 2}px)`,
+                  height: "4px",
+                  flex: 1,
+                  borderRadius: "3px",
                   backgroundColor:
-                    index < currentFragmentIndex ? "#B85252" : "transparent", // Transparent placeholder
+                    index < currentFragmentIndex ? "#808881" : "transparent",
                   transition: "background-color 0.3s ease",
+                  margin: "0 4px",
                 }}
               />
             )}
