@@ -175,16 +175,16 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
 
               {!playerState.isPlaying && playerState.hasStarted && (
                 <>
-                  {playerState.isEnded && (
-                    <CountDown
-                      onFinish={handleContinue}
-                      onCountingChange={() => {}}
-                    />
-                  )}
                   {nextFragment && playerState.isEnded && (
                     <NarrationsContinueButton
                       text="Continue"
                       onClick={handleContinue}
+                    />
+                  )}
+                  {playerState.isEnded && (
+                    <CountDown
+                      onFinish={handleContinue}
+                      onCountingChange={() => {}}
                     />
                   )}
                 </>
