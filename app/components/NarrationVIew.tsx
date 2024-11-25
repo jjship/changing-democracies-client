@@ -156,7 +156,17 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       <Flex height="100%" align="center" justify="center" direction="column">
         <Flex style={backgroundStyle}>
           {!playerState.isVisible ? (
-            <NarrationsContinueButton text="Continue" onClick={handleReopen} />
+            <>
+              <NarrationsContinueButton
+                text="Continue"
+                onClick={handleReopen}
+              />
+              <SequenceProgressBar
+                currentFragmentIndex={playerState.currentIndex}
+                totalFragments={narrationPath.fragments.length}
+                onFragmentSelect={handleFragmentSelect}
+              />
+            </>
           ) : (
             <>
               {!playerState.hasStarted && (

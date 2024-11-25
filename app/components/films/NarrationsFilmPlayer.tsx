@@ -1,5 +1,4 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { Player } from "player.js";
 import CloseButton from "./CloseButton";
 import { useFilmsContext } from "./FilmsContext";
 
