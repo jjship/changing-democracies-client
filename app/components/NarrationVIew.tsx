@@ -9,6 +9,7 @@ import React, { FC, useCallback, useMemo, useState } from "react";
 import SequenceProgressBar from "./SequenceProgrwssBar";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
+import { NarrationsOverviewButton } from "@/ui/NarrationOverViewButton";
 
 type PlayerState = {
   currentIndex: number;
@@ -153,7 +154,23 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
 
   return (
     <FilmsContext.Provider value={filmsContextValue}>
-      <Flex height="100%" align="center" justify="center" direction="column">
+      <Flex height="100%" direction="column">
+        <NarrationsOverviewButton />
+        <Flex justify={"end"}>
+          <Flex
+            style={{
+              height: "8vh",
+              backgroundColor: "#8083ae",
+              color: "white",
+              marginRight: "4vw",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "5px 5px 0 0",
+            }}
+          >
+            <p style={{ padding: "4vw" }}>{narrationPath.title}</p>
+          </Flex>
+        </Flex>
         <Flex style={backgroundStyle}>
           {!playerState.isVisible ? (
             <>
