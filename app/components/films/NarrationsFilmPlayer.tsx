@@ -32,12 +32,13 @@ const NarrationsFilmPlayer: FC<{
     nowPlaying && (
       <div
         id="player-container"
-        className="absolute left-0 top-0 z-50 h-full w-full bg-black_bg"
+        className="relative left-0 top-0 h-full w-full bg-black_bg"
+        style={{ width: "100%", height: "100%" }}
       >
         <CloseButton onClose={onClose} />
         <iframe
           src={src}
-          className="absolute left-0 top-0 h-full w-full"
+          className="relative left-0 top-0 h-full w-full"
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           onEnded={onEnded}
         ></iframe>
