@@ -36,6 +36,9 @@ const SequenceProgressBar = memo(
           zIndex: 10,
           overflow: "visible",
           maxWidth: "1200px",
+          borderStyle: "solid",
+          borderWidth: "1px",
+          borderColor: "#808881",
         }}
       >
         {Array.from({ length: totalFragments }).map((_, index) => (

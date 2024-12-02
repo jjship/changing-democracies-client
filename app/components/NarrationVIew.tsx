@@ -153,21 +153,25 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
 
   return (
     <FilmsContext.Provider value={filmsContextValue}>
-      <Flex direction="column" className={"m-auto h-[80%] w-[80%]"}>
-        <Flex justify={"end"}>
-          <NarrationsButton
-            text="Overview"
-            onClick={() => {}}
-            triangleColor="#808881"
-            trianglePlacement="right"
-            style={{
-              transform: "scale(0.4)",
-              transformOrigin: "left center",
-            }}
-          />
+      <Flex
+        direction="column"
+        className={"m-auto h-[80%] w-[80%] border-8 border-amber-100"}
+      >
+        <Flex justify={"end"} className={" border-8 border-red-900"}>
+          {/*<NarrationsButton*/}
+          {/*  text="Overview"*/}
+          {/*  onClick={() => {}}*/}
+          {/*  triangleColor="#808881"*/}
+          {/*  trianglePlacement="right"*/}
+          {/*  style={{*/}
+          {/*    transform: "scale(0.4)",*/}
+          {/*    transformOrigin: "left center",*/}
+          {/*  }}*/}
+          {/*/>*/}
           <Flex
             style={{
-              height: "11vh",
+              height: "8vh",
+              width: "auto",
               backgroundColor: "#8083ae",
               color: "white",
               marginRight: "4vw",
@@ -218,9 +222,9 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
                 currentFragment && (
                   <div
                     style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
+                      // position: "absolute",
+                      // top: 0,
+                      // left: 0,
                       width: "100%",
                       height: "100%",
                     }}
@@ -229,6 +233,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
                       onEnded={handleVideoEnd}
                       key={currentFragment.guid}
                       onClose={() => handleVisibilityToggle(false)}
+                      nowPlaying={null}
                     />
                   </div>
                 )}
