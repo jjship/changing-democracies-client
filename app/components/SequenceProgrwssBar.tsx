@@ -45,7 +45,7 @@ const SequenceProgressBar = memo(
           <Flex
             key={index}
             style={{
-              flex: 1,
+              flex: index === totalFragments - 1 ? "0 1 auto" : 1, // Change flex value for last item
               alignItems: "center",
               position: "relative",
             }}

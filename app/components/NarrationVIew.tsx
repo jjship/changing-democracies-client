@@ -4,11 +4,12 @@ import { NarrationPath } from "@/types/videosAndFilms";
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
 import { FilmsContext } from "@/components/films/FilmsContext";
+import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
+import NarrationsButton from "@/ui/NarrationsContinueButton";
 import React, { FC, useCallback, useMemo, useState } from "react";
 import SequenceProgressBar from "./SequenceProgrwssBar";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
-import NarrationsButton from "@/ui/NarrationsContinueButton";
 
 type PlayerState = {
   currentIndex: number;
@@ -153,52 +154,15 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
 
   return (
     <FilmsContext.Provider value={filmsContextValue}>
-      <Flex
-        direction="column"
-        className={"m-auto h-[80%] w-[80%] border-8 border-amber-100"}
-      >
-        <Flex justify={"end"} className={" border-8 border-red-900"}>
-          {/*<NarrationsButton*/}
-          {/*  text="Overview"*/}
-          {/*  onClick={() => {}}*/}
-          {/*  triangleColor="#808881"*/}
-          {/*  trianglePlacement="right"*/}
-          {/*  style={{*/}
-          {/*    transform: "scale(0.4)",*/}
-          {/*    transformOrigin: "left center",*/}
-          {/*  }}*/}
-          {/*/>*/}
-          <Flex
-            style={{
-              height: "8vh",
-              width: "auto",
-              backgroundColor: "#8083ae",
-              color: "white",
-              marginRight: "4vw",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "5px 5px 0 0",
-            }}
-          >
-            <p style={{ padding: "4vw" }}>{narrationPath.title}</p>
-          </Flex>
-        </Flex>
-        <Flex
-          style={{
-            ...backgroundStyle,
-            width: "100%",
-            aspectRatio: "16/9",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
+      <Flex height="100%" align="center" justify="center" direction="column">
+        <Flex style={backgroundStyle}>
           {!playerState.isVisible ? (
             <>
-              <NarrationsButton
+              <NarrationsContinueButton
                 text="Continue"
-                onClick={handleContinue}
-                triangleColor="#8695c0"
-                trianglePlacement="left"
+                onClick={handleReopen}
+                triangleColor="#8083ae"
+                trianglePlacement={"left"}
               />
               <SequenceProgressBar
                 currentFragmentIndex={playerState.currentIndex}
@@ -212,48 +176,39 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
                 <NarrationsButton
                   text="Start"
                   onClick={handleStart}
-                  triangleColor="#8695c0"
-                  trianglePlacement="left"
+                  triangleColor="#8083ae"
+                  trianglePlacement={"left"}
                 />
               )}
 
               {playerState.isPlaying &&
                 playerState.hasStarted &&
                 currentFragment && (
-                  <div
-                    style={{
-                      // position: "absolute",
-                      // top: 0,
-                      // left: 0,
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  >
-                    <NarrationsFilmPlayer
-                      onEnded={handleVideoEnd}
-                      key={currentFragment.guid}
-                      onClose={() => handleVisibilityToggle(false)}
-                      nowPlaying={null}
-                    />
-                  </div>
+                  <NarrationsFilmPlayer
+                    onEnded={handleVideoEnd}
+                    key={currentFragment.guid}
+                    onClose={() => handleVisibilityToggle(false)}
+                    nowPlaying={null}
+                  />
                 )}
 
               {!playerState.isPlaying && playerState.hasStarted && (
                 <>
                   {nextFragment && playerState.isEnded && (
-                    <NarrationsButton
+                    <NarrationsContinueButton
                       text="Continue"
                       onClick={handleContinue}
-                      triangleColor="#8695c0"
+                      triangleColor="#8083ae"
                       trianglePlacement="left"
                     />
                   )}
-                  {playerState.isEnded && (
-                    <CountDown
-                      onFinish={handleContinue}
-                      onCountingChange={() => {}}
-                    />
-                  )}
+                  {playerState.isEnded &&
+                    !isLastFragment && ( // Add !isLastFragment condition here
+                      <CountDown
+                        onFinish={handleContinue}
+                        onCountingChange={() => {}}
+                      />
+                    )}
                 </>
               )}
 

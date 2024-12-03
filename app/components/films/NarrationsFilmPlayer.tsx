@@ -14,20 +14,15 @@ const NarrationsFilmPlayer: FC<{
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isClient, setIsClient] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const enterFullscreen = () => {
-    if (containerRef.current && containerRef.current.requestFullscreen) {
-      containerRef.current.requestFullscreen();
-    }
-  };
+  // Removed enterFullscreen function
 
   const exitFullscreen = () => {
-    if (document.exitFullscreen) {
+    if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen();
     }
   };
@@ -35,26 +30,17 @@ const NarrationsFilmPlayer: FC<{
   const handleClose = () => {
     if (iframeRef.current) {
       import("player.js").then(({ Player }) => {
-        const player = new Player(iframeRef.current!);
-        player.on("ready", () => {
-          player.pause();
-        });
+        if (iframeRef.current) {
+          const player = new Player(iframeRef.current);
+          player.on("ready", () => {
+            player.pause();
+          });
+        }
       });
     }
     exitFullscreen();
     onClose();
   };
-
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    };
-  }, []);
 
   useEffect(() => {
     if (!isClient || !iframeRef.current || !onEnded) return;
@@ -93,9 +79,7 @@ const NarrationsFilmPlayer: FC<{
     <div
       ref={containerRef}
       id="player-container"
-      className={`m-auto h-full w-full bg-black_bg ${
-        isFullscreen ? "fullscreen" : ""
-      }`}
+      className="m-auto h-full w-full bg-black_bg"
     >
       <CloseButton onClose={handleClose} />
       <iframe
@@ -104,14 +88,6 @@ const NarrationsFilmPlayer: FC<{
         className="absolute left-0 top-0 h-full w-full"
         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
       />
-      {!isFullscreen && (
-        <button
-          onClick={enterFullscreen}
-          className="absolute bottom-4 right-4 rounded bg-white px-4 py-2 text-black"
-        >
-          Enter Fullscreen
-        </button>
-      )}
     </div>
   );
 };
