@@ -75,17 +75,27 @@ const NarrationsFilmPlayer: FC<{
     return null;
   }
 
+  // In NarrationsFilmPlayer.tsx
   return (
     <div
       ref={containerRef}
       id="player-container"
-      className="m-auto h-full w-full bg-black_bg"
+      className="relative flex h-full w-full items-center justify-center bg-black_bg"
     >
       <CloseButton onClose={handleClose} />
       <iframe
         ref={iframeRef}
-        src={src}
-        className="absolute left-0 top-0 h-full w-full"
+        src={`${src}&autoplay=true&letterbox=false`}
+        className="absolute h-full w-full"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "80%",
+          height: "100%",
+          border: "none",
+          objectFit: "cover",
+        }}
         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
       />
     </div>

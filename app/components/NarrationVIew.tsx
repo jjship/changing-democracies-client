@@ -19,7 +19,6 @@ type PlayerState = {
   isEnded: boolean;
 };
 
-export { NarrationsView };
 const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   narrationPath,
 }) => {
@@ -132,7 +131,6 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       handleFragmentSelect,
     ],
   );
-
   const backgroundStyle = useMemo(
     () => ({
       overflow: "hidden" as const,
@@ -141,9 +139,10 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
           ? nextFragment.thumbnailUrl
           : currentFragment.thumbnailUrl
       })`,
-      backgroundSize: "cover" as const,
+      backgroundSize: "cover", // Changed back to "cover" to remove black bars
       backgroundPosition: "center" as const,
-      width: "100%",
+      backgroundRepeat: "no-repeat" as const,
+      width: "80%",
       height: "100%",
       alignItems: "center" as const,
       justifyContent: "center" as const,
@@ -153,74 +152,83 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   );
 
   return (
-    <FilmsContext.Provider value={filmsContextValue}>
-      <Flex height="100%" align="center" justify="center" direction="column">
-        <Flex style={backgroundStyle}>
-          {!playerState.isVisible ? (
-            <>
-              <NarrationsContinueButton
-                text="Continue"
-                onClick={handleReopen}
-                triangleColor="#8083ae"
-                trianglePlacement={"left"}
-              />
-              <SequenceProgressBar
-                currentFragmentIndex={playerState.currentIndex}
-                totalFragments={narrationPath.fragments.length}
-                onFragmentSelect={handleFragmentSelect}
-              />
-            </>
-          ) : (
-            <>
-              {!playerState.hasStarted && (
-                <NarrationsButton
-                  text="Start"
-                  onClick={handleStart}
-                  triangleColor="#8083ae"
-                  trianglePlacement={"left"}
+    <div className="relative h-full w-full">
+      {/* Title bar positioned above the thumbnail area */}
+      <div className=" flex h-[60px] items-center bg-[#8083ae]">
+        <h1 className="text-xl font-medium text-white">
+          {narrationPath.title || "Narration"}
+        </h1>
+      </div>
+
+      {/* Main content area with proper top padding to account for title bar */}
+      <div className="h-full w-full pt-[60px]">
+        <FilmsContext.Provider value={filmsContextValue}>
+          <Flex
+            height="100%"
+            align="center"
+            justify="center"
+            direction="column"
+          >
+            <Flex style={backgroundStyle}>
+              {playerState.isVisible && (
+                <NarrationsFilmPlayer
+                  nowPlaying={currentFragment?.guid ?? null}
+                  onEnded={handleVideoEnd}
+                  onClose={() => handleVisibilityToggle(false)}
                 />
               )}
 
-              {playerState.isPlaying &&
-                playerState.hasStarted &&
-                currentFragment && (
-                  <NarrationsFilmPlayer
-                    onEnded={handleVideoEnd}
-                    key={currentFragment.guid}
-                    onClose={() => handleVisibilityToggle(false)}
-                    nowPlaying={null}
-                  />
-                )}
-
-              {!playerState.isPlaying && playerState.hasStarted && (
+              {!playerState.isVisible ? (
                 <>
-                  {nextFragment && playerState.isEnded && (
-                    <NarrationsContinueButton
-                      text="Continue"
-                      onClick={handleContinue}
+                  <NarrationsContinueButton
+                    text="Continue"
+                    onClick={handleReopen}
+                    triangleColor="#8083ae"
+                    trianglePlacement="left"
+                  />
+                </>
+              ) : (
+                <>
+                  {!playerState.isPlaying && playerState.hasStarted && (
+                    <>
+                      {nextFragment && playerState.isEnded && (
+                        <NarrationsContinueButton
+                          text="Continue"
+                          onClick={handleContinue}
+                          triangleColor="#8083ae"
+                          trianglePlacement="left"
+                        />
+                      )}
+                      {playerState.isEnded && !isLastFragment && (
+                        <CountDown
+                          onFinish={handleContinue}
+                          onCountingChange={() => {}}
+                        />
+                      )}
+                    </>
+                  )}
+
+                  {!playerState.hasStarted && (
+                    <NarrationsButton
+                      text="Start"
+                      onClick={handleStart}
                       triangleColor="#8083ae"
                       trianglePlacement="left"
                     />
                   )}
-                  {playerState.isEnded &&
-                    !isLastFragment && ( // Add !isLastFragment condition here
-                      <CountDown
-                        onFinish={handleContinue}
-                        onCountingChange={() => {}}
-                      />
-                    )}
                 </>
               )}
-
-              <SequenceProgressBar
-                currentFragmentIndex={playerState.currentIndex}
-                totalFragments={narrationPath.fragments.length}
-                onFragmentSelect={handleFragmentSelect}
-              />
-            </>
-          )}
-        </Flex>
-      </Flex>
-    </FilmsContext.Provider>
+            </Flex>
+          </Flex>
+          <SequenceProgressBar
+            currentFragmentIndex={playerState.currentIndex}
+            totalFragments={narrationPath.fragments.length}
+            onFragmentSelect={handleFragmentSelect}
+          />
+        </FilmsContext.Provider>
+      </div>
+    </div>
   );
 };
+
+export { NarrationsView };
