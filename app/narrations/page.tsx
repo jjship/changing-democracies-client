@@ -1,5 +1,3 @@
-import Image from "next/image";
-import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { sectionPadding } from "@/components/Section";
@@ -19,11 +17,11 @@ export default async function NarrationsPage() {
           <NarrationsView narrationPath={narrationPath} />
         </div>
         <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary"></div>
-        <Image
-          src={logoDark}
-          alt="changing democracies logo"
-          className="sticky bottom-2 m-3 h-auto w-[30%] md:mx-10 md:w-[15%]"
-        />
+        {/*<Image*/}
+        {/*  src={logoDark}*/}
+        {/*  alt="changing democracies logo"*/}
+        {/*  className="sticky bottom-2 m-3 h-auto w-[30%] md:mx-10 md:w-[15%]"*/}
+        {/*/>*/}
       </div>
     </main>
   );

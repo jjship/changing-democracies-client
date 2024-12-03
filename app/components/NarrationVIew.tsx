@@ -168,6 +168,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
           color: "white",
           fontSize: "1.25rem",
           fontWeight: 500,
+          marginRight: "1vw",
         }}
       >
         <h1 className="text-xl font-medium text-white">
