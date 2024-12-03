@@ -9,7 +9,7 @@ const CloseButton = (
 
   const additionalStyles = style
     ? style
-    : "text-white transition-colors  hover:bg-black hover:text-yellow_secondary";
+    : "text-white transition-colors  hover:bg-black_bg hover:text-yellow_secondary";
 
   return (
     <a
