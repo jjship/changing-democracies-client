@@ -142,7 +142,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       backgroundSize: "cover", // Changed back to "cover" to remove black bars
       backgroundPosition: "center" as const,
       backgroundRepeat: "no-repeat" as const,
-      width: "80%",
+      width: "100%",
       height: "100%",
       alignItems: "center" as const,
       justifyContent: "center" as const,
@@ -153,8 +153,23 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
 
   return (
     <div className="relative h-full w-full">
-      {/* Title bar positioned above the thumbnail area */}
-      <div className=" flex h-[60px] items-center bg-[#8083ae]">
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          right: "10%", // Adds margin right 10%
+          width: "50%", // Half width
+          height: "60px",
+          backgroundColor: "#8083ae",
+          zIndex: 20,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "20px",
+          color: "white",
+          fontSize: "1.25rem",
+          fontWeight: 500,
+        }}
+      >
         <h1 className="text-xl font-medium text-white">
           {narrationPath.title || "Narration"}
         </h1>

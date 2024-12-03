@@ -69,7 +69,7 @@ const NarrationsFilmPlayer: FC<{
 
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [isClient, onEnded]);
+  }, [isClient, onEnded, onClose]);
 
   if (!isClient || !nowPlaying) {
     return null;
