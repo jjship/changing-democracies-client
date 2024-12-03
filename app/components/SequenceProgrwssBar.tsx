@@ -1,84 +1,142 @@
-// SequenceProgressBar.tsx
-import React from "react";
-import { Flex } from "@radix-ui/themes";
+"use client";
+import React, { memo, useState } from "react";
+import { Box, Flex } from "@radix-ui/themes";
+import { narrationPath } from "@/app/narrations/firstPath";
 
-interface SequenceProgressBarProps {
+type SequenceProgressBarProps = {
   totalFragments: number;
   currentFragmentIndex: number;
-  setCurrentFragmentIndex: (idx: number) => void;
-  setIsVideoEnded: (is: boolean) => void;
-  setShowControls: (is: boolean) => void;
-  // setIsCounting: (is: boolean) => void;
-  setIsChangedByUser: (is: boolean) => void;
-}
+  onFragmentSelect: (index: number) => void;
+};
 
-const SequenceProgressBar: React.FC<SequenceProgressBarProps> = ({
-  totalFragments,
-  currentFragmentIndex,
-  setCurrentFragmentIndex,
-  setIsVideoEnded,
-  setShowControls,
-  // setIsCounting,
-  setIsChangedByUser,
-}) => {
-  console.log("SequenceProgressBar props:", {
+const SequenceProgressBar = memo(
+  ({
     totalFragments,
     currentFragmentIndex,
-  });
+    onFragmentSelect,
+  }: SequenceProgressBarProps) => {
+    const [isHovered, setIsHovered] = useState<number | null>(null);
+    const dotSize = 16;
+    const lineThickness = 6;
+    const thumbnailSize = "8vh";
 
-  return (
-    <Flex
-      justify="between"
-      align="center"
-      style={{
-        position: "absolute",
-        bottom: "30px",
-        left: "0",
-        right: "0",
-        // zIndex: 300,
-        width: "60%",
-        backgroundColor: "#808881",
-        padding: "10px",
-        borderRadius: "5px",
-        margin: "auto",
-      }}
-    >
-      {Array.from({ length: totalFragments }).map((_, index) => (
-        <React.Fragment key={index}>
-          <div
+    return (
+      <Flex
+        justify="between"
+        align="center"
+        style={{
+          position: "fixed",
+          bottom: "3vh",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "80%",
+          height: "40px",
+          backgroundColor: "transparent",
+          borderRadius: "5px",
+          zIndex: 10,
+          overflow: "visible",
+          maxWidth: "1200px",
+        }}
+      >
+        {Array.from({ length: totalFragments }).map((_, index) => (
+          <Flex
+            key={index}
             style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "50%",
-              backgroundColor:
-                index <= currentFragmentIndex ? "#B85252" : "#54534D",
-              margin: "0 5px",
-              transition: "background-color 0.3s ease",
-              cursor: "pointer", // Add cursor pointer to indicate clickable
+              flex: index === totalFragments - 1 ? "0 1 auto" : 1, // Change flex value for last item
+              alignItems: "center",
+              position: "relative",
             }}
-            onClick={() => {
-              setIsChangedByUser(true);
-              setCurrentFragmentIndex(index);
-              setIsVideoEnded(true);
-              setShowControls(true);
-              // setIsCounting(true);
-            }} // Add onClick handler
-          />
-          {/* {index < totalFragments - 1 && index < currentFragmentIndex && (
-            <div
+          >
+            {index < totalFragments - 1 && (
+              <Box
+                style={{
+                  height: `${lineThickness}px`,
+                  width: `calc(100% + ${dotSize}px)`,
+                  position: "absolute",
+                  top: `${dotSize / 2 - lineThickness / 2}px`,
+                  left: `calc(-${dotSize / 50}px)`,
+                  backgroundColor:
+                    index < currentFragmentIndex ? "#808881" : "transparent",
+                  transition: "background-color 0.3s ease",
+                  zIndex: 0,
+                }}
+              />
+            )}
+            <Box
               style={{
-                width: "20px",
-                height: "2px",
-                backgroundColor: "#FF4136",
-                margin: "0 5px",
-                transition: "opacity 0.3s ease",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
-            />
-          )} */}
-        </React.Fragment>
-      ))}
-    </Flex>
-  );
-};
+            >
+              {isHovered === index && (
+                <Box
+                  style={{
+                    position: "absolute",
+                    bottom: "calc(100% + 12px)",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    width: thumbnailSize,
+                  }}
+                >
+                  <Box
+                    style={{
+                      width: thumbnailSize,
+                      height: thumbnailSize,
+                      backgroundImage: `url(${narrationPath.fragments[index].thumbnailUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      borderRadius: "50%",
+                      border: "2px solid #cf9855",
+                    }}
+                  />
+                  <Box
+                    style={{
+                      width: "2px",
+                      height: "48px",
+                      backgroundColor: "#cf9855",
+                      marginTop: "8px",
+                    }}
+                  />
+                </Box>
+              )}
+              <Box
+                style={{
+                  width:
+                    index === currentFragmentIndex
+                      ? `${dotSize * 1.3}px`
+                      : `${dotSize}px`,
+                  height:
+                    index === currentFragmentIndex
+                      ? `${dotSize * 1.3}px`
+                      : `${dotSize}px`,
+                  borderRadius: "50%",
+                  backgroundColor:
+                    index === currentFragmentIndex
+                      ? "#6bdbc6ff"
+                      : index < currentFragmentIndex
+                      ? "#b85252"
+                      : "#808881",
+                  transition: "background-color 0.3s ease",
+                  cursor: "pointer",
+                  zIndex: 1,
+                }}
+                onClick={() => onFragmentSelect(index)}
+                onMouseEnter={() => setIsHovered(index)}
+                onMouseLeave={() => setIsHovered(null)}
+              />
+            </Box>
+          </Flex>
+        ))}
+      </Flex>
+    );
+  },
+);
+
+SequenceProgressBar.displayName = "SequenceProgressBar";
 
 export default SequenceProgressBar;

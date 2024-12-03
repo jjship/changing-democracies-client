@@ -1,28 +1,53 @@
 import { Box, Text } from "@radix-ui/themes";
 
-interface NarrationsContinueButtonProps {
+type NarrationsButtonProps = {
   text: string;
-  onClick?: () => void;
-}
+  onClick: () => void;
+  triangleColor: string;
+  trianglePlacement: string;
+  style?: React.CSSProperties;
+  className?: string;
+};
 
-const NarrationsContinueButton: React.FC<NarrationsContinueButtonProps> = ({
+const NarrationsButton: React.FC<NarrationsButtonProps> = ({
   text,
   onClick,
+  triangleColor,
+  trianglePlacement,
+  style,
 }) => {
+  const isRightPlacement = trianglePlacement === "right";
+
   return (
     <Box>
       <button
         onClick={onClick}
-        style={{ borderRadius: "100px 70px 70px 100px" }}
-        className="relative flex h-[7vw] w-[25vw] items-center space-x-2 overflow-visible rounded-l-full bg-[#b85252] px-10 py-2 text-white opacity-90 shadow-lg"
+        style={{
+          ...style,
+          borderRadius: isRightPlacement
+            ? "70px 100px 100px 70px"
+            : "100px 70px 70px 100px",
+        }}
+        className={`relative flex h-[7vw] w-[25vw] items-center space-x-2 overflow-visible ${
+          isRightPlacement ? "rounded-r-full" : "rounded-l-full"
+        } bg-[#b85252] px-10 py-2 text-white opacity-90 shadow-lg`}
       >
-        <Text className="w-full text-center text-[2vw] font-bold">{text} </Text>
         <Box
-          style={{ filter: "drop-shadow(5px 10px 4px rgba(0,0,0,.5))" }}
-          className="absolute left-[80%] h-0 w-full border-b-[6vw] border-l-[10vw] border-t-[6vw] border-transparent border-l-[#8695c0]"
+          style={{
+            filter: "drop-shadow(5px 10px 4px rgba(0,0,0,.5))",
+            borderRightColor: isRightPlacement ? triangleColor : "transparent",
+            borderLeftColor: isRightPlacement ? "transparent" : triangleColor,
+          }}
+          className={`absolute ${
+            isRightPlacement
+              ? "right-[80%] border-r-[10vw]"
+              : "left-[80%] border-l-[10vw]"
+          } h-0 w-full border-b-[6vw] border-t-[6vw] border-transparent`}
         ></Box>
+        <Text className="w-full text-center text-[2vw] font-bold">{text}</Text>
       </button>
     </Box>
   );
 };
-export default NarrationsContinueButton;
+
+export default NarrationsButton;

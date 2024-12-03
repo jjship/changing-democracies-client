@@ -1,4 +1,4 @@
-import { ParsedEventEntry, parseDbEventEntries } from "../content/event";
+import { parseDbEventEntries, ParsedEventEntry } from "../content/event";
 import Title from "./Title";
 import { createClient } from "@/supabase/clients/server";
 

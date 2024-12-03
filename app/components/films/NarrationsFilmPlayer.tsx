@@ -1,57 +1,105 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Player } from "player.js";
+import { FC, useEffect, useRef, useState } from "react";
 import CloseButton from "./CloseButton";
 import { useFilmsContext } from "./FilmsContext";
 
-export default function NarrationsFilmPlayer(props: { onEnded?: () => void }) {
+const NarrationsFilmPlayer: FC<{
+  nowPlaying: string | null;
+  onEnded: () => void;
+  onClose: () => void;
+}> = ({ onEnded, onClose }) => {
   const { nowPlaying } = useFilmsContext();
-  const { onEnded } = props;
   const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`;
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  useEffect(() => {
-    if (isClient && iframeRef.current && onEnded) {
+  // Removed enterFullscreen function
+
+  const exitFullscreen = () => {
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  };
+
+  const handleClose = () => {
+    if (iframeRef.current) {
       import("player.js").then(({ Player }) => {
         if (iframeRef.current) {
           const player = new Player(iframeRef.current);
-
           player.on("ready", () => {
-            player.on("ended", () => {
-              onEnded();
-            });
-
-            player.play();
+            player.pause();
           });
         }
       });
     }
-  }, [isClient, onEnded]);
+    exitFullscreen();
+    onClose();
+  };
+
+  useEffect(() => {
+    if (!isClient || !iframeRef.current || !onEnded) return;
+
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== "https://iframe.mediadelivery.net") return;
+      if (event.data.event === "videoEnded") {
+        console.log("FilmPlayer: Video ended, calling onEnded");
+        onEnded();
+        exitFullscreen();
+      }
+    };
+
+    import("player.js").then(({ Player }) => {
+      if (iframeRef.current) {
+        const player = new Player(iframeRef.current);
+        player.on("ready", () => {
+          player.on("ended", () => {
+            onEnded();
+            exitFullscreen();
+          });
+          player.play();
+        });
+      }
+    });
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [isClient, onEnded, onClose]);
 
   if (!isClient || !nowPlaying) {
     return null;
   }
 
+  // In NarrationsFilmPlayer.tsx
   return (
     <div
+      ref={containerRef}
       id="player-container"
-      className="absolute left-0 top-0 z-50 h-full w-full bg-black_bg"
+      className="relative flex h-full w-full items-center justify-center bg-black_bg"
     >
-      {/* <CloseButton /> // need to show controls if close during playing  */}
-
+      <CloseButton onClose={handleClose} />
       <iframe
         ref={iframeRef}
-        src={src}
-        className="absolute left-0 top-0 h-full w-full"
+        src={`${src}&autoplay=true&letterbox=false`}
+        className="absolute h-full w-full"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          border: "none",
+          objectFit: "cover",
+        }}
         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-        onEnded={onEnded}
-      ></iframe>
+      />
     </div>
   );
-}
+};
+
+export { NarrationsFilmPlayer };
