@@ -87,7 +87,10 @@ export const narrationPath: NarrationPath = {
       thumbnailUrl:
         "https://vz-cac74041-8b3.b-cdn.net/a35f7a99-70ba-4314-8091-be7082e7d747/thumbnail.jpg",
       sequence: 6,
-      otherPaths: [],
+      otherPaths: [
+        { id: "id1", title: "Alternate Path 1" },
+        { id: "id2", title: "Alternate Path 2" },
+      ],
     },
     {
       guid: "ec20343c-f881-4410-96ad-1d5d90c82f0c",
