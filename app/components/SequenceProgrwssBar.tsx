@@ -22,20 +22,14 @@ const SequenceProgressBar = memo(
 
     return (
       <Flex
-        justify="between"
         align="center"
         style={{
-          position: "fixed",
-          bottom: "3vh",
-          left: "50%",
-          transform: "translateX(-50%)",
+          justifyContent: "center",
+          height: "100%",
           width: "80%",
-          height: "40px",
+          margin: "0 auto",
           backgroundColor: "transparent",
           borderRadius: "5px",
-          zIndex: 10,
-          overflow: "visible",
-          maxWidth: "1200px",
         }}
       >
         {Array.from({ length: totalFragments }).map((_, index) => (

@@ -7,7 +7,6 @@ import { FilmsContext } from "@/components/films/FilmsContext";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import NarrationsButton from "@/ui/NarrationsContinueButton";
 import React, { FC, useCallback, useMemo, useState } from "react";
-import SequenceProgressBar from "./SequenceProgrwssBar";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 
@@ -146,38 +145,30 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       height: "100%",
       alignItems: "center" as const,
       justifyContent: "center" as const,
-      position: "relative" as const,
     }),
     [playerState.isEnded, currentFragment, nextFragment],
   );
 
   return (
-    <div className="relative h-full w-full">
-      <div
+    <div className=" h-full w-full">
+      <Flex
+        align="center"
+        justify="center"
+        width="60%"
         style={{
-          position: "absolute",
-          top: 0,
-          right: "10%", // Adds margin right 10%
-          width: "50%", // Half width
-          height: "60px",
-          backgroundColor: "#8083ae",
-          zIndex: 20,
-          display: "flex",
+          justifyContent: "center",
           alignItems: "center",
-          paddingLeft: "20px",
+          backgroundColor: "#8083ae",
           color: "white",
-          fontSize: "1.25rem",
-          fontWeight: 500,
-          marginRight: "1vw",
         }}
       >
-        <h1 className="text-xl font-medium text-white">
+        <h1 className="text-lg font-medium text-white">
           {narrationPath.title || "Narration"}
         </h1>
-      </div>
+      </Flex>
 
       {/* Main content area with proper top padding to account for title bar */}
-      <div className="h-full w-full pt-[60px]">
+      <div className="h-full w-full">
         <FilmsContext.Provider value={filmsContextValue}>
           <Flex
             height="100%"
@@ -236,11 +227,6 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
               )}
             </Flex>
           </Flex>
-          <SequenceProgressBar
-            currentFragmentIndex={playerState.currentIndex}
-            totalFragments={narrationPath.fragments.length}
-            onFragmentSelect={handleFragmentSelect}
-          />
         </FilmsContext.Provider>
       </div>
     </div>
