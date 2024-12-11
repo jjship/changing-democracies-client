@@ -10,8 +10,8 @@ import SequenceProgressBar from "@/components/SequenceProgrwssBar";
 type PlayerState = {
   currentIndex: number;
   isPlaying: boolean;
-  hasStarted: boolean;
-  isEnded: boolean;
+  // hasStarted: boolean;
+  // isEnded: boolean;
 };
 
 const NarrationsLayout: React.FC<{
@@ -21,13 +21,15 @@ const NarrationsLayout: React.FC<{
   const [playerState, setPlayerState] = useState<PlayerState>({
     currentIndex: 0,
     isPlaying: false,
-    hasStarted: false,
-    isEnded: false,
+    // hasStarted: false,
+    // isEnded: false,
   });
 
   const filmsContextValue = useMemo(() => {
     const currentFragment = narrationPath.fragments[playerState.currentIndex];
     return {
+      setFilms: () => {},
+      filmCollection: null,
       films: narrationPath.fragments,
       nowPlaying: playerState.isPlaying ? currentFragment?.guid : null,
       setNowPlaying: (filmId: string | null) => {
@@ -50,8 +52,8 @@ const NarrationsLayout: React.FC<{
     setPlayerState({
       currentIndex: index,
       isPlaying: true,
-      hasStarted: true,
-      isEnded: false,
+      // hasStarted: true,
+      // isEnded: false,
     });
   };
 

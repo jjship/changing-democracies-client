@@ -6,8 +6,7 @@ export { CountDown };
 
 const CountDown: FC<{
   onFinish: () => void;
-  onCountingChange?: (isCounting: boolean) => void;
-}> = ({ onFinish, onCountingChange }) => {
+}> = ({ onFinish }) => {
   const [count, setCount] = useState<number>(5);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
@@ -20,7 +19,6 @@ const CountDown: FC<{
         if (prevCount <= 1) {
           clearInterval(timer);
           onFinish();
-          onCountingChange?.(false);
           return 0;
         }
         return prevCount - 1;
@@ -28,7 +26,7 @@ const CountDown: FC<{
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [onFinish, onCountingChange]);
+  }, [onFinish]);
 
   return (
     <>

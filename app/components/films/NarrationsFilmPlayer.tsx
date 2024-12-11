@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import CloseButton from "./CloseButton";
 import { useFilmsContext } from "./FilmsContext";
 
@@ -75,24 +75,18 @@ const NarrationsFilmPlayer: FC<{
     return null;
   }
 
-  // In NarrationsFilmPlayer.tsx
   return (
     <div
       ref={containerRef}
       id="player-container"
-      className="relative flex h-full w-full items-center justify-center bg-black_bg"
+      className="flex h-full w-full items-center justify-center bg-black_bg"
     >
       <CloseButton onClose={handleClose} />
       <iframe
         ref={iframeRef}
         src={`${src}&autoplay=true&letterbox=false`}
-        className="absolute h-full w-full"
+        className="h-full w-full"
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
           border: "none",
           objectFit: "cover",
         }}

@@ -14,8 +14,8 @@ type PlayerState = {
   currentIndex: number;
   isPlaying: boolean;
   isVisible: boolean;
-  hasStarted: boolean;
-  isEnded: boolean;
+  // hasStarted: boolean;
+  // isEnded: boolean;
 };
 
 const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
@@ -25,8 +25,8 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
     currentIndex: 0,
     isPlaying: false,
     isVisible: true,
-    hasStarted: false,
-    isEnded: false,
+    // hasStarted: false,
+    // isEnded: false,
   });
 
   const { currentFragment, nextFragment, isLastFragment } = useMemo(
@@ -46,8 +46,8 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   const handleStart = useCallback(() => {
     updatePlayerState({
       isPlaying: true,
-      hasStarted: true,
-      isEnded: false,
+      // hasStarted: true,
+      // isEnded: false,
     });
   }, [updatePlayerState]);
 
@@ -56,9 +56,9 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       updatePlayerState({
         currentIndex: index,
         isPlaying: true,
-        hasStarted: true,
+        // hasStarted: true,
         isVisible: true,
-        isEnded: false,
+        // isEnded: false,
       });
     },
     [updatePlayerState],
@@ -67,7 +67,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   const handleVideoEnd = useCallback(() => {
     updatePlayerState({
       isPlaying: false,
-      isEnded: true,
+      // isEnded: true,
     });
   }, [updatePlayerState]);
 
@@ -87,7 +87,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       updatePlayerState({
         isVisible,
         isPlaying: false,
-        isEnded: false,
+        // isEnded: false,
       });
     },
     [updatePlayerState],
@@ -97,7 +97,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
     updatePlayerState({
       isVisible: true,
       isPlaying: true,
-      isEnded: false,
+      // isEnded: false,
     });
   }, [updatePlayerState]);
 
@@ -132,43 +132,26 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   );
   const backgroundStyle = useMemo(
     () => ({
-      overflow: "hidden" as const,
+      overflow: "hidden",
       backgroundImage: `url(${
         playerState.isEnded && nextFragment
           ? nextFragment.thumbnailUrl
           : currentFragment.thumbnailUrl
       })`,
-      backgroundSize: "cover", // Changed back to "cover" to remove black bars
-      backgroundPosition: "center" as const,
-      backgroundRepeat: "no-repeat" as const,
+      backgroundSize: "contain",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
       width: "100%",
       height: "100%",
-      alignItems: "center" as const,
-      justifyContent: "center" as const,
+      alignItems: "center",
+      justifyContent: "center",
     }),
     [playerState.isEnded, currentFragment, nextFragment],
   );
 
   return (
-    <div className=" h-full w-full">
-      <Flex
-        align="center"
-        justify="center"
-        width="60%"
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#8083ae",
-          color: "white",
-        }}
-      >
-        <h1 className="text-lg font-medium text-white">
-          {narrationPath.title || "Narration"}
-        </h1>
-      </Flex>
-
-      {/* Main content area with proper top padding to account for title bar */}
-      <div className="h-full w-full">
+    <Flex className="absolute left-[50%] top-[50%] h-[80%] w-[80%] translate-x-[-50%] translate-y-[-50%] flex-col items-center justify-center rounded-3xl bg-black_bg">
+      <div className="h-[80%] w-[80%]">
         <FilmsContext.Provider value={filmsContextValue}>
           <Flex
             height="100%"
@@ -177,6 +160,22 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
             direction="column"
           >
             <Flex style={backgroundStyle}>
+              <Flex
+                width="40%"
+                position="absolute"
+                right="15%"
+                top="0"
+                py="10px"
+                style={{
+                  borderRadius: "2px 2px 0px 0px",
+                  backgroundColor: "#8083ae",
+                  color: "white",
+                }}
+              >
+                <h1 className="mx-auto text-white">
+                  {narrationPath.title || "Narration"}
+                </h1>
+              </Flex>
               {playerState.isVisible && (
                 <NarrationsFilmPlayer
                   nowPlaying={currentFragment?.guid ?? null}
@@ -207,10 +206,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
                         />
                       )}
                       {playerState.isEnded && !isLastFragment && (
-                        <CountDown
-                          onFinish={handleContinue}
-                          onCountingChange={() => {}}
-                        />
+                        <CountDown onFinish={handleContinue} />
                       )}
                     </>
                   )}
@@ -229,7 +225,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
           </Flex>
         </FilmsContext.Provider>
       </div>
-    </div>
+    </Flex>
   );
 };
 
