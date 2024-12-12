@@ -3,17 +3,17 @@
 import { FilmData } from "@/types/videosAndFilms";
 import { createContext, useContext, useState } from "react";
 
-type NarrationsContextType = {
+type NarrationState = {
   films: FilmData[] | null;
-  setFilms: (films: FilmData[] | null) => void;
   currentIndex: number;
-  setCurrentIndex: (index: number) => void;
   isPlaying: boolean;
-  setIsPlaying: (isPlaying: boolean) => void;
   hasStarted: boolean;
-  setHasStarted: (hasStarted: boolean) => void;
   isEnded: boolean;
-  setIsEnded: (isEnded: boolean) => void;
+};
+
+type NarrationsContextType = {
+  state: NarrationState;
+  setState: React.Dispatch<React.SetStateAction<NarrationState>>;
 };
 
 export const NarrationsContext = createContext<NarrationsContextType | null>(
@@ -25,27 +25,16 @@ export function NarrationsContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [films, setFilms] = useState<FilmData[] | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
-  const [isEnded, setIsEnded] = useState(false);
+  const [state, setState] = useState<NarrationState>({
+    films: null,
+    currentIndex: 0,
+    isPlaying: false,
+    hasStarted: false,
+    isEnded: false,
+  });
 
   return (
-    <NarrationsContext.Provider
-      value={{
-        films,
-        setFilms,
-        currentIndex,
-        setCurrentIndex,
-        isPlaying,
-        setIsPlaying,
-        hasStarted,
-        setHasStarted,
-        isEnded,
-        setIsEnded,
-      }}
-    >
+    <NarrationsContext.Provider value={{ state, setState }}>
       {children}
     </NarrationsContext.Provider>
   );
