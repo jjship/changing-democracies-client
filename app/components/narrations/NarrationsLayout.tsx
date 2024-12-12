@@ -5,7 +5,7 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { FilmsContext } from "@/components/films/FilmsContext";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { Box, Flex } from "@radix-ui/themes";
-import SequenceProgressBar from "@/components/SequenceProgrwssBar";
+import SequenceProgressBar from "@/components/narrations/SequenceProgrwssBar";
 
 type PlayerState = {
   currentIndex: number;
@@ -30,6 +30,7 @@ const NarrationsLayout: React.FC<{
     return {
       setFilms: () => {},
       filmCollection: null,
+      filmsCollection: null,
       films: narrationPath.fragments,
       nowPlaying: playerState.isPlaying ? currentFragment?.guid : null,
       setNowPlaying: (filmId: string | null) => {

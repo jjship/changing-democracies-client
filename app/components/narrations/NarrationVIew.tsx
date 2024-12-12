@@ -7,7 +7,7 @@ import { FilmsContext } from "@/components/films/FilmsContext";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import NarrationsButton from "@/ui/NarrationsContinueButton";
 import React, { FC, useCallback, useMemo, useState } from "react";
-import { CountDown } from "../CountDown";
+import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 
 type PlayerState = {
