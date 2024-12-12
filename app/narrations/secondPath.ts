@@ -2,7 +2,7 @@ import { NarrationPath } from "../../types/videosAndFilms";
 
 export const narrationPath: NarrationPath = {
   id: "secondId",
-  title: "Do you know what your grandparents think of young people?",
+  title: "What influences you in life?",
   total_length: 1261,
   fragments: [
     {
