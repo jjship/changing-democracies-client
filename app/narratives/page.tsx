@@ -1,6 +1,6 @@
 import NarrationsLayout from "@/components/narrations/NarrationsLayout";
 import { NarrationsView } from "@/components/narrations/NarrationVIew";
-import { narrationPath as narrationPathData } from "@/app/narrations/firstPath";
+import { narrationPath as narrationPathData } from "@/app/narratives/firstPath";
 import { NarrationPath } from "@/types/videosAndFilms";
 
 export default async function NarrationsPage() {
