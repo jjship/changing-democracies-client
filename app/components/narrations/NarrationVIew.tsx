@@ -7,15 +7,15 @@ import { FilmsContext } from "@/components/films/FilmsContext";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import NarrationsButton from "@/ui/NarrationsContinueButton";
 import React, { FC, useCallback, useMemo, useState } from "react";
-import { CountDown } from "./CountDown";
+import { CountDown } from "../CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 
 type PlayerState = {
   currentIndex: number;
   isPlaying: boolean;
   isVisible: boolean;
-  // hasStarted: boolean;
-  // isEnded: boolean;
+  hasStarted: boolean;
+  isEnded: boolean;
 };
 
 const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
@@ -25,8 +25,8 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
     currentIndex: 0,
     isPlaying: false,
     isVisible: true,
-    // hasStarted: false,
-    // isEnded: false,
+    hasStarted: false,
+    isEnded: false,
   });
 
   const { currentFragment, nextFragment, isLastFragment } = useMemo(
@@ -46,8 +46,8 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   const handleStart = useCallback(() => {
     updatePlayerState({
       isPlaying: true,
-      // hasStarted: true,
-      // isEnded: false,
+      hasStarted: true,
+      isEnded: false,
     });
   }, [updatePlayerState]);
 
@@ -56,9 +56,9 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       updatePlayerState({
         currentIndex: index,
         isPlaying: true,
-        // hasStarted: true,
+        hasStarted: true,
         isVisible: true,
-        // isEnded: false,
+        isEnded: false,
       });
     },
     [updatePlayerState],
@@ -67,7 +67,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   const handleVideoEnd = useCallback(() => {
     updatePlayerState({
       isPlaying: false,
-      // isEnded: true,
+      isEnded: true,
     });
   }, [updatePlayerState]);
 
@@ -87,7 +87,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       updatePlayerState({
         isVisible,
         isPlaying: false,
-        // isEnded: false,
+        isEnded: false,
       });
     },
     [updatePlayerState],
@@ -97,7 +97,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
     updatePlayerState({
       isVisible: true,
       isPlaying: true,
-      // isEnded: false,
+      isEnded: false,
     });
   }, [updatePlayerState]);
 
