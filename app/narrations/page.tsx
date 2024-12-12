@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { sectionPadding } from "@/components/Section";
-import { narrationPath as narrationPathData } from "@/app/narrations/firstPath";
+import { narrationPath as narrationPathData } from "@/app/narrations/secondPath";
 import { NarrationsView } from "@/components/NarrationVIew";
 
 export default async function NarrationsPage() {
