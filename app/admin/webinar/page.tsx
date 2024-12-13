@@ -1,6 +1,6 @@
 import { FreeBrowsing } from "@/components/FreeBrowsing";
 import { sectionPadding } from "../../components/Section";
-import { narrationPath } from "@/app/narratives/firstPath";
+import { firstPath as narrationPath } from "@/app/narratives/firstPath";
 import {
   FilmData,
   FilmsCollection,

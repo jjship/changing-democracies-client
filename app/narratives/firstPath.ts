@@ -1,6 +1,6 @@
 import { NarrationPath } from "../../types/videosAndFilms";
 
-export const narrationPath: NarrationPath = {
+export const firstPath: NarrationPath = {
   id: "firstId",
   title: "What makes you angry about the world today?",
   total_length: 1236,

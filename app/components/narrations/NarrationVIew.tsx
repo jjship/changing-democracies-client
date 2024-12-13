@@ -1,50 +1,40 @@
 "use client";
 
-import { NarrationPath } from "@/types/videosAndFilms";
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import { FilmsContext } from "@/components/films/FilmsContext";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import NarrationsButton from "@/ui/NarrationsContinueButton";
-import React, { FC, useMemo, useState } from "react";
+import React, { FC } from "react";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 
-const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
-  narrationPath,
-}) => {
-  const [isVisible, setIsVisible] = useState(false);
-
+const NarrationsView: FC = () => {
   const {
-    currentIndex,
+    narrationPaths,
+    currentPath,
+    films,
+    setFilms,
     isPlaying,
-    hasStarted,
-    isEnded,
     setIsPlaying,
+    isEnded,
     setIsEnded,
+    hasStarted,
     setHasStarted,
+    currentIndex,
     setCurrentIndex,
+    isVisible,
+    setIsVisible,
   } = useNarrationContext();
 
-  const { currentFragment, nextFragment, isLastFragment } = useMemo(
-    () => ({
-      currentFragment: narrationPath.fragments[currentIndex],
-      nextFragment: narrationPath.fragments[currentIndex + 1],
-      isLastFragment: currentIndex === narrationPath.fragments.length - 1,
-    }),
-    [narrationPath.fragments, currentIndex],
-  );
+  const currentFragment = currentPath.fragments[currentIndex];
+  const nextFragment = currentPath.fragments[currentIndex + 1];
+  const isLastFragment = currentIndex === currentPath.fragments.length - 1;
 
   const handleStart = () => {
     setIsPlaying(true);
     setHasStarted(true);
     setIsEnded(false);
-  };
-
-  const handleVideoEnd = () => {
-    setIsEnded(true);
-    setIsPlaying(false);
   };
 
   const handleContinue = () => {
@@ -56,141 +46,88 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
     }
   };
 
-  const handleVisibilityToggle = (isVisible: boolean) => {
-    setIsVisible(isVisible);
-    setIsPlaying(false);
-    setIsEnded(false);
-  };
-
-  // const filmsContextValue = useMemo(
-  //     () => ({
-  //         films: narrationPath.fragments,
-  //         setFilms: () => {
-  //         },
-  //         filmsCollection: {
-  //             films: narrationPath.fragments,
-  //             tags: [],
-  //             countries: [],
-  //             people: [],
-  //         },
-  //         nowPlaying: playerState.isPlaying ? currentFragment?.guid : null,
-  //         setNowPlaying: (filmId: string | null) => {
-  //             if (filmId) {
-  //                 const newIndex = narrationPath.fragments.findIndex(
-  //                     (f) => f.guid === filmId,
-  //                 );
-  //                 if (newIndex !== -1) {
-  //                     handleFragmentSelect(newIndex);
-  //                 }
-  //             }
-  //         },
-  //     }),
-  //     [
-  //         narrationPath.fragments,
-  //         playerState.isPlaying,
-  //         currentFragment,
-  //         handleFragmentSelect,
-  //     ],
-  // );
-
   const handleReopen = () => {
     setIsPlaying(true);
     setIsEnded(false), setIsVisible(true);
   };
-  const backgroundStyle = useMemo(
-    () => ({
-      overflow: "hidden",
-      backgroundImage: `url(${
-        playerState.isEnded && nextFragment
-          ? nextFragment.thumbnailUrl
-          : currentFragment.thumbnailUrl
-      })`,
-      backgroundSize: "contain",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      width: "100%",
-      height: "100%",
-      alignItems: "center",
-      justifyContent: "center",
-    }),
-    [playerState.isEnded, currentFragment, nextFragment],
-  );
+  const backgroundStyle = () => ({
+    overflow: "hidden",
+    backgroundImage: `url(${
+      isEnded && nextFragment
+        ? nextFragment.thumbnailUrl
+        : currentFragment.thumbnailUrl
+    })`,
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  }); // useMemo doesnt work with context: https://18.react.dev/reference/react/useContext
 
   return (
     <Flex className="absolute left-[50%] top-[50%] h-[80%] w-[80%] translate-x-[-50%] translate-y-[-50%] flex-col items-center justify-center rounded-3xl bg-black_bg">
       <div className="h-[80%] w-[80%]">
-        <FilmsContext.Provider value={filmsContextValue}>
-          <Flex
-            height="100%"
-            align="center"
-            justify="center"
-            direction="column"
-          >
-            <Flex style={backgroundStyle}>
-              <Flex
-                width="40%"
-                position="absolute"
-                right="15%"
-                top="0"
-                py="10px"
-                style={{
-                  borderRadius: "2px 2px 0px 0px",
-                  backgroundColor: "#8083ae",
-                  color: "white",
-                }}
-              >
-                <h1 className="mx-auto text-white">
-                  {narrationPath.title || "Narration"}
-                </h1>
-              </Flex>
-              {playerState.isVisible && (
-                <NarrationsFilmPlayer
-                  nowPlaying={currentFragment?.guid ?? null}
-                  onEnded={handleVideoEnd}
-                  onClose={() => handleVisibilityToggle(false)}
-                />
-              )}
+        <Flex height="100%" align="center" justify="center" direction="column">
+          <Flex style={backgroundStyle()}>
+            <Flex
+              width="40%"
+              position="absolute"
+              right="15%"
+              top="0"
+              py="10px"
+              style={{
+                borderRadius: "2px 2px 0px 0px",
+                backgroundColor: "#8083ae",
+                color: "white",
+              }}
+            >
+              <h1 className="mx-auto text-white">
+                {currentPath.title || "Narration"}
+              </h1>
+            </Flex>
+            {isVisible && <NarrationsFilmPlayer />}
 
-              {!playerState.isVisible ? (
-                <>
-                  <NarrationsContinueButton
-                    text="Continue"
-                    onClick={handleReopen}
+            {!isVisible ? (
+              <>
+                <NarrationsContinueButton
+                  text="Continue"
+                  onClick={handleReopen} // now we can use setter functions from context in lower components without passing them in props as in NarrationsFilmPlayer
+                  triangleColor="#8083ae"
+                  trianglePlacement="left"
+                />
+              </>
+            ) : (
+              <>
+                {!isPlaying && hasStarted && (
+                  <>
+                    {nextFragment && isEnded && (
+                      <NarrationsContinueButton
+                        text="Continue"
+                        onClick={handleContinue} //  now we can use setter functions from context in lower components without passing them in props as in NarrationsFilmPlayer
+                        triangleColor="#8083ae"
+                        trianglePlacement="left"
+                      />
+                    )}
+                    {isEnded && !isLastFragment && (
+                      <CountDown onFinish={handleContinue} />
+                    )}
+                  </>
+                )}
+
+                {!hasStarted && (
+                  <NarrationsButton
+                    text="Start"
+                    onClick={handleStart} // now we can use setter functions from context in lower components without passing them in props
                     triangleColor="#8083ae"
                     trianglePlacement="left"
                   />
-                </>
-              ) : (
-                <>
-                  {!playerState.isPlaying && playerState.hasStarted && (
-                    <>
-                      {nextFragment && playerState.isEnded && (
-                        <NarrationsContinueButton
-                          text="Continue"
-                          onClick={handleContinue}
-                          triangleColor="#8083ae"
-                          trianglePlacement="left"
-                        />
-                      )}
-                      {playerState.isEnded && !isLastFragment && (
-                        <CountDown onFinish={handleContinue} />
-                      )}
-                    </>
-                  )}
-
-                  {!playerState.hasStarted && (
-                    <NarrationsButton
-                      text="Start"
-                      onClick={handleStart}
-                      triangleColor="#8083ae"
-                      trianglePlacement="left"
-                    />
-                  )}
-                </>
-              )}
-            </Flex>
+                )}
+              </>
+            )}
           </Flex>
-        </FilmsContext.Provider>
+        </Flex>
       </div>
     </Flex>
   );

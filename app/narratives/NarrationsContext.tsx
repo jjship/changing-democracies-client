@@ -1,12 +1,15 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { FilmData } from "@/types/videosAndFilms";
+import { FilmData, NarrationPath } from "@/types/videosAndFilms";
+import { firstPath } from "./firstPath";
 
 type NarrationContextType = {
+  currentPath: NarrationPath;
+  setCurrentPath: (narrationPath: NarrationPath) => void;
   films: FilmData[] | null;
   setFilms: (films: FilmData[] | null) => void;
-  // narrationsCollections: NarrationPath[] | null;
+  narrationPaths: NarrationPath[] | null;
   isPlaying: boolean | null;
   setIsPlaying: (isPlaying: boolean | null) => void;
   isEnded: boolean | null;
@@ -15,6 +18,10 @@ type NarrationContextType = {
   setHasStarted: (hasStarted: boolean | null) => void;
   currentIndex: number;
   setCurrentIndex: (currentIndex: number) => void;
+  isVisible: boolean;
+  setIsVisible: (hasStarted: boolean) => void;
+  currentFilmId: string | null;
+  setCurrentFilmId: (currentId: string | null) => void;
 };
 
 export const NarrationContext = createContext<NarrationContextType | null>(
@@ -26,19 +33,24 @@ export function NarrationContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  // const [narrationsCollections] = useState<NarrationPath[] | null>(null);
+  const [currentPath, setCurrentPath] = useState<NarrationPath>(firstPath); // lets leave the firstPath hardcoded so we are sure that at least one is available
+  const [narrationPaths] = useState<NarrationPath[] | null>(null);
   const [films, setFilms] = useState<FilmData[] | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean | null>(false);
   const [isEnded, setIsEnded] = useState<boolean | null>(false);
   const [hasStarted, setHasStarted] = useState<boolean | null>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [currentFilmId, setCurrentFilmId] = useState<string | null>(null);
 
   return (
     <NarrationContext.Provider
       value={{
+        currentPath,
+        setCurrentPath,
         films,
         setFilms,
-        // narrationsCollections,
+        narrationPaths,
         isPlaying,
         setIsPlaying,
         isEnded,
@@ -47,7 +59,11 @@ export function NarrationContextProvider({
         setHasStarted,
         currentIndex,
         setCurrentIndex,
-      }}
+        isVisible,
+        setIsVisible,
+        currentFilmId,
+        setCurrentFilmId,
+      }} // here we define the shape of the context and it's default values
     >
       {children}
     </NarrationContext.Provider>

@@ -1,14 +1,9 @@
 import NarrationsLayout from "@/components/narrations/NarrationsLayout";
-import { NarrationsView } from "@/components/narrations/NarrationVIew";
-import { narrationPath as narrationPathData } from "@/app/narratives/firstPath";
+import { firstPath as narrationPathData } from "@/app/narratives/firstPath";
 import { NarrationPath } from "@/types/videosAndFilms";
 
 export default async function NarrationsPage() {
-  const narrationPath: NarrationPath = narrationPathData;
+  const narrationPaths: NarrationPath[] = [narrationPathData]; // this is a server component so its better to fetch here
 
-  return (
-    <NarrationsLayout narrationPath={narrationPath}>
-      <NarrationsView narrationPath={narrationPath} />
-    </NarrationsLayout>
-  );
+  return <NarrationsLayout narrationPaths={narrationPaths} />;
 }
