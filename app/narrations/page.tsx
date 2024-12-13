@@ -6,6 +6,10 @@ import { NarrativesOverview } from "@/components/NarrativesOverview";
 
 export default async function NarrationsPage() {
   const narrationPath: NarrationPath = narrationPathData;
+  const narrationCollection: NarrationPath[] = [
+    narrationPath,
+    narrationPathData,
+  ];
 
   return (
     <main>
@@ -14,7 +18,7 @@ export default async function NarrationsPage() {
         <div
           className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x}  mb-9 h-[85vh] overflow-auto pb-5 md:pb-14 xl:pb-40 `}
         >
-          <NarrativesOverview narrativesCollection={[narrationPath]} />
+          <NarrativesOverview narrativesCollection={narrationCollection} />
         </div>
         <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary"></div>
       </div>
