@@ -4,6 +4,7 @@ import React, { FC, useState } from "react";
 import { FilmData, NarrationPath } from "../../types/videosAndFilms";
 import Title from "./Title";
 import NarrativesLegend from "@/components/NarrativesLegend";
+import { NarrativesList } from "@/components/NarrativesList";
 
 export { NarrativesOverview };
 
@@ -24,7 +25,7 @@ const NarrativesOverview: FC<{
       {narrativesCollection ? (
         <>
           <NarrativesLegend />
-          {/*<NarrativesList />*/}
+          <NarrativesList narrativesCollection={narrativesCollection} />
         </>
       ) : (
         <div className="h-full, bg-black_bg"></div>
