@@ -6,130 +6,97 @@ import { Flex } from "@radix-ui/themes";
 import { FilmsContext } from "@/components/films/FilmsContext";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import NarrationsButton from "@/ui/NarrationsContinueButton";
-import React, { FC, useCallback, useMemo, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
-
-type PlayerState = {
-  currentIndex: number;
-  isPlaying: boolean;
-  isVisible: boolean;
-  hasStarted: boolean;
-  isEnded: boolean;
-};
+import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 
 const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   narrationPath,
 }) => {
-  const [playerState, setPlayerState] = useState<PlayerState>({
-    currentIndex: 0,
-    isPlaying: false,
-    isVisible: true,
-    hasStarted: false,
-    isEnded: false,
-  });
+  const [isVisible, setIsVisible] = useState(false);
+
+  const {
+    currentIndex,
+    isPlaying,
+    hasStarted,
+    isEnded,
+    setIsPlaying,
+    setIsEnded,
+    setHasStarted,
+    setCurrentIndex,
+  } = useNarrationContext();
 
   const { currentFragment, nextFragment, isLastFragment } = useMemo(
     () => ({
-      currentFragment: narrationPath.fragments[playerState.currentIndex],
-      nextFragment: narrationPath.fragments[playerState.currentIndex + 1],
-      isLastFragment:
-        playerState.currentIndex === narrationPath.fragments.length - 1,
+      currentFragment: narrationPath.fragments[currentIndex],
+      nextFragment: narrationPath.fragments[currentIndex + 1],
+      isLastFragment: currentIndex === narrationPath.fragments.length - 1,
     }),
-    [narrationPath.fragments, playerState.currentIndex],
+    [narrationPath.fragments, currentIndex],
   );
 
-  const updatePlayerState = useCallback((updates: Partial<PlayerState>) => {
-    setPlayerState((prev) => ({ ...prev, ...updates }));
-  }, []);
+  const handleStart = () => {
+    setIsPlaying(true);
+    setHasStarted(true);
+    setIsEnded(false);
+  };
 
-  const handleStart = useCallback(() => {
-    updatePlayerState({
-      isPlaying: true,
-      hasStarted: true,
-      isEnded: false,
-    });
-  }, [updatePlayerState]);
+  const handleVideoEnd = () => {
+    setIsEnded(true);
+    setIsPlaying(false);
+  };
 
-  const handleFragmentSelect = useCallback(
-    (index: number) => {
-      updatePlayerState({
-        currentIndex: index,
-        isPlaying: true,
-        hasStarted: true,
-        isVisible: true,
-        isEnded: false,
-      });
-    },
-    [updatePlayerState],
-  );
-
-  const handleVideoEnd = useCallback(() => {
-    updatePlayerState({
-      isPlaying: false,
-      isEnded: true,
-    });
-  }, [updatePlayerState]);
-
-  const handleContinue = useCallback(() => {
+  const handleContinue = () => {
     if (!isLastFragment) {
-      updatePlayerState({
-        currentIndex: playerState.currentIndex + 1,
-        isPlaying: true,
-        isVisible: true,
-        isEnded: false,
-      });
+      setCurrentIndex(currentIndex + 1);
+      setIsPlaying(true);
+      setIsEnded(false);
+      setIsVisible(true);
     }
-  }, [isLastFragment, playerState.currentIndex, updatePlayerState]);
+  };
 
-  const handleVisibilityToggle = useCallback(
-    (isVisible: boolean) => {
-      updatePlayerState({
-        isVisible,
-        isPlaying: false,
-        isEnded: false,
-      });
-    },
-    [updatePlayerState],
-  );
+  const handleVisibilityToggle = (isVisible: boolean) => {
+    setIsVisible(isVisible);
+    setIsPlaying(false);
+    setIsEnded(false);
+  };
 
-  const handleReopen = useCallback(() => {
-    updatePlayerState({
-      isVisible: true,
-      isPlaying: true,
-      isEnded: false,
-    });
-  }, [updatePlayerState]);
+  // const filmsContextValue = useMemo(
+  //     () => ({
+  //         films: narrationPath.fragments,
+  //         setFilms: () => {
+  //         },
+  //         filmsCollection: {
+  //             films: narrationPath.fragments,
+  //             tags: [],
+  //             countries: [],
+  //             people: [],
+  //         },
+  //         nowPlaying: playerState.isPlaying ? currentFragment?.guid : null,
+  //         setNowPlaying: (filmId: string | null) => {
+  //             if (filmId) {
+  //                 const newIndex = narrationPath.fragments.findIndex(
+  //                     (f) => f.guid === filmId,
+  //                 );
+  //                 if (newIndex !== -1) {
+  //                     handleFragmentSelect(newIndex);
+  //                 }
+  //             }
+  //         },
+  //     }),
+  //     [
+  //         narrationPath.fragments,
+  //         playerState.isPlaying,
+  //         currentFragment,
+  //         handleFragmentSelect,
+  //     ],
+  // );
 
-  const filmsContextValue = useMemo(
-    () => ({
-      films: narrationPath.fragments,
-      setFilms: () => {},
-      filmsCollection: {
-        films: narrationPath.fragments,
-        tags: [],
-        countries: [],
-        people: [],
-      },
-      nowPlaying: playerState.isPlaying ? currentFragment?.guid : null,
-      setNowPlaying: (filmId: string | null) => {
-        if (filmId) {
-          const newIndex = narrationPath.fragments.findIndex(
-            (f) => f.guid === filmId,
-          );
-          if (newIndex !== -1) {
-            handleFragmentSelect(newIndex);
-          }
-        }
-      },
-    }),
-    [
-      narrationPath.fragments,
-      playerState.isPlaying,
-      currentFragment,
-      handleFragmentSelect,
-    ],
-  );
+  const handleReopen = () => {
+    setIsPlaying(true);
+    setIsEnded(false), setIsVisible(true);
+  };
   const backgroundStyle = useMemo(
     () => ({
       overflow: "hidden",

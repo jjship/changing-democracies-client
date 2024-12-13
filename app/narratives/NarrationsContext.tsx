@@ -1,18 +1,20 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { FilmData, NarrationPath } from "@/types/videosAndFilms";
+import { FilmData } from "@/types/videosAndFilms";
 
 type NarrationContextType = {
   films: FilmData[] | null;
   setFilms: (films: FilmData[] | null) => void;
-  narrationsCollections: NarrationPath[] | null;
+  // narrationsCollections: NarrationPath[] | null;
   isPlaying: boolean | null;
   setIsPlaying: (isPlaying: boolean | null) => void;
   isEnded: boolean | null;
   setIsEnded: (isEnded: boolean | null) => void;
   hasStarted: boolean | null;
   setHasStarted: (hasStarted: boolean | null) => void;
+  currentIndex: number;
+  setCurrentIndex: (currentIndex: number) => void;
 };
 
 export const NarrationContext = createContext<NarrationContextType | null>(
@@ -24,24 +26,27 @@ export function NarrationContextProvider({
 }: {
   children: React.ReactNode;
 }) {
+  // const [narrationsCollections] = useState<NarrationPath[] | null>(null);
   const [films, setFilms] = useState<FilmData[] | null>(null);
-  const [narrationsCollections] = useState<NarrationPath[] | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean | null>(null);
-  const [isEnded, setIsEnded] = useState<boolean | null>(null);
-  const [hasStarted, setHasStarted] = useState<boolean | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean | null>(false);
+  const [isEnded, setIsEnded] = useState<boolean | null>(false);
+  const [hasStarted, setHasStarted] = useState<boolean | null>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   return (
     <NarrationContext.Provider
       value={{
         films,
         setFilms,
-        narrationsCollections,
+        // narrationsCollections,
         isPlaying,
         setIsPlaying,
         isEnded,
         setIsEnded,
         hasStarted,
         setHasStarted,
+        currentIndex,
+        setCurrentIndex,
       }}
     >
       {children}
