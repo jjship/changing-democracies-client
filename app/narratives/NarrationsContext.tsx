@@ -1,51 +1,60 @@
 "use client";
 
-import { FilmData } from "@/types/videosAndFilms";
 import { createContext, useContext, useState } from "react";
+import { FilmData, NarrationPath } from "@/types/videosAndFilms";
 
-type NarrationState = {
+type NarrationContextType = {
   films: FilmData[] | null;
-  currentIndex: number;
-  isPlaying: boolean;
-  hasStarted: boolean;
-  isEnded: boolean;
+  setFilms: (films: FilmData[] | null) => void;
+  narrationsCollections: NarrationPath[] | null;
+  isPlaying: boolean | null;
+  setIsPlaying: (isPlaying: boolean | null) => void;
+  isEnded: boolean | null;
+  setIsEnded: (isEnded: boolean | null) => void;
+  hasStarted: boolean | null;
+  setHasStarted: (hasStarted: boolean | null) => void;
 };
 
-type NarrationsContextType = {
-  state: NarrationState;
-  setState: React.Dispatch<React.SetStateAction<NarrationState>>;
-};
-
-export const NarrationsContext = createContext<NarrationsContextType | null>(
+export const NarrationContext = createContext<NarrationContextType | null>(
   null,
 );
 
-export function NarrationsContextProvider({
+export function NarrationContextProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [state, setState] = useState<NarrationState>({
-    films: null,
-    currentIndex: 0,
-    isPlaying: false,
-    hasStarted: false,
-    isEnded: false,
-  });
+  const [films, setFilms] = useState<FilmData[] | null>(null);
+  const [narrationsCollections] = useState<NarrationPath[] | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean | null>(null);
+  const [isEnded, setIsEnded] = useState<boolean | null>(null);
+  const [hasStarted, setHasStarted] = useState<boolean | null>(null);
 
   return (
-    <NarrationsContext.Provider value={{ state, setState }}>
+    <NarrationContext.Provider
+      value={{
+        films,
+        setFilms,
+        narrationsCollections,
+        isPlaying,
+        setIsPlaying,
+        isEnded,
+        setIsEnded,
+        hasStarted,
+        setHasStarted,
+      }}
+    >
       {children}
-    </NarrationsContext.Provider>
+    </NarrationContext.Provider>
   );
 }
 
-export function useNarrationsContext() {
-  const context = useContext(NarrationsContext);
+export function useNarrationContext() {
+  const context = useContext(NarrationContext);
 
   if (!context) {
     throw new Error(
-      "useNarrationsContext must be used within a NarrationsContextProvider",
+      "useFilmsContext must be used within a FilmsContextProvider",
     );
   }
 
