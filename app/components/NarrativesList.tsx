@@ -8,8 +8,13 @@ export { NarrativesList };
 
 const NarrativesList: React.FC<{
   narrativesCollection: NarrationPath[];
-}> = ({ narrativesCollection }) => {
+  setSelectedNarration: (narration: NarrationPath) => void;
+}> = ({ narrativesCollection, setSelectedNarration }) => {
   const images = ["q1.png", "q2.png", "q3.jpg", "q4.jpg", "q5.jpg"];
+
+  const handleClick = (narration: NarrationPath) => {
+    setSelectedNarration(narration);
+  };
 
   return (
     <div className="mt-[10vh] flex flex-col items-center justify-center gap-8 md:gap-14">
@@ -42,7 +47,10 @@ const NarrativesList: React.FC<{
                   <a
                     className="mr-2 inline-block h-6 w-6 md:h-8 md:w-8"
                     href="#"
-                    onClick={(e) => {}}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleClick(narration);
+                    }}
                   >
                     <Image
                       src="/watch video - icon.svg"
