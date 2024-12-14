@@ -1,28 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { NarrationPath } from "../../types/videosAndFilms";
 import { Box } from "@radix-ui/themes";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export { NarrativesList };
 
 const NarrativesList: React.FC<{
   narrativesCollection: NarrationPath[];
-}> = ({ narrativesCollection }) => {
-  const [selectedNarration, setSelectedNarration] =
-    useState<NarrationPath | null>(null);
+  setSelectedNarration: (narration: NarrationPath) => void;
+}> = ({ narrativesCollection, setSelectedNarration }) => {
   const images = ["q1.png", "q2.png", "q3.jpg", "q4.jpg", "q5.jpg"];
 
-  const router = useRouter();
-
-  const handleWatchClick = (narration: NarrationPath) => {
+  const handleClick = (narration: NarrationPath) => {
     setSelectedNarration(narration);
-    window.history.pushState(
-      { narrationId: narration },
-      "",
-      `/narrationView/${narration}`,
-    );
   };
 
   return (
@@ -47,7 +38,7 @@ const NarrativesList: React.FC<{
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleWatchClick(narration);
+                      handleClick(narration);
                     }}
                   >
                     <Image
