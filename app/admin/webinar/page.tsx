@@ -1,8 +1,6 @@
 import { FreeBrowsing } from "@/components/FreeBrowsing";
-import { getVideosPerCollection } from "../../../utils/admin/bunny-methods";
-import { serializeFilmsCollection } from "../../../utils/films-methods";
 import { sectionPadding } from "../../components/Section";
-import { narrationPath } from "../../narrations/firstPath";
+import { narrationPath } from "@/app/narratives/firstPath";
 import {
   FilmData,
   FilmsCollection,

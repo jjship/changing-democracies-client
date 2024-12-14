@@ -1,7 +1,7 @@
 "use client";
 import React, { memo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
-import { narrationPath } from "@/app/narrations/secondPath";
+import { narrationPath } from "@/app/narratives/secondPath";
 
 type SequenceProgressBarProps = {
   totalFragments: number;
