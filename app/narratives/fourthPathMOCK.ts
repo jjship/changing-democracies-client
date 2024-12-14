@@ -18,7 +18,7 @@ export const narrationPathFour: NarrationPath = {
         "https://iframe.mediadelivery.net/play/239326/23be7b7b-f356-4abd-b71b-602e546eb999?autoplay=false",
       thumbnailUrl:
         "https://vz-cac74041-8b3.b-cdn.net/23be7b7b-f356-4abd-b71b-602e546eb999/thumbnail.jpg",
-      sequence: 1,
+      sequence: 4,
       otherPaths: [],
     },
     {

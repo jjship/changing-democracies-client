@@ -22,30 +22,19 @@ export default function NarrativesLegend() {
   ];
 
   return (
-    <div className="my-10 grid w-full grid-cols-4 items-center gap-4">
+    <div className="my-10 grid w-[80%] grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-4">
       {data.map((item, index) => (
         <div
           key={index}
           className="flex flex-col items-center justify-center text-center"
         >
           <div className="mb-5 h-20 w-[80%]">
-            <p
-              style={{
-                fontSize: "1.5rem",
-                color: "#b85252",
-                fontWeight: "bold",
-              }}
-            >
+            <p className="text-base font-bold text-[#b85252] sm:text-lg md:text-xl lg:text-2xl">
               {item.text}
             </p>
           </div>
           <div className="flex h-[100px] items-center">
-            <Image
-              src={item.image}
-              alt="circle image"
-              width={100}
-              height={100}
-            />
+            <Image src={item.image} alt="circle image" width={60} height={60} />
           </div>
         </div>
       ))}

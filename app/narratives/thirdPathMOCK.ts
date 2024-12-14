@@ -2,7 +2,7 @@ import { NarrationPath } from "../../types/videosAndFilms";
 
 export const narrationPathThree: NarrationPath = {
   id: "thirdId",
-  title: "I Like Trains",
+  title: "What influences you in life?",
   total_length: 1261,
   description:
     "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -18,7 +18,7 @@ export const narrationPathThree: NarrationPath = {
         "https://iframe.mediadelivery.net/play/239326/23be7b7b-f356-4abd-b71b-602e546eb999?autoplay=false",
       thumbnailUrl:
         "https://vz-cac74041-8b3.b-cdn.net/23be7b7b-f356-4abd-b71b-602e546eb999/thumbnail.jpg",
-      sequence: 1,
+      sequence: 3,
       otherPaths: [],
     },
     {

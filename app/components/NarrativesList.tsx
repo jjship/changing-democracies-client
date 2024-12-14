@@ -1,3 +1,5 @@
+// FILEPATH: D:/changing-democracies-client/app/components/NarrativesList.tsx
+
 "use client";
 import React from "react";
 import { NarrationPath } from "../../types/videosAndFilms";
@@ -17,18 +19,20 @@ const NarrativesList: React.FC<{
   };
 
   return (
-    <div className="mt-[10vh] flex flex-col items-center justify-center  space-y-14">
+    <div className="mt-[10vh] flex flex-col items-center justify-center space-y-14">
       {narrativesCollection.map((narration, index) => (
         <div key={index} className="flex w-3/4 flex-row gap-8">
           <Box className="relative w-1/3 text-yellow_secondary">
-            <Image
-              src={`/${images[index]}`}
-              alt={narration.title}
-              width={300}
-              height={300}
-            />
-            <div className="absolute bottom-4 right-[12vw] text-xl">
-              <div className="flex w-[12vw] items-center justify-between">
+            <div className="origin-top-left scale-75 transform-gpu">
+              <Image
+                src={`/${images[index]}`}
+                alt={narration.title}
+                width={300}
+                height={300}
+              />
+            </div>
+            <div className="absolute bottom-16 right-[12vw] text-xl">
+              <div className="flex w-[12vw] items-end justify-between">
                 <div>
                   <span className="text-3xl font-bold">{narration.title}</span>
                 </div>
@@ -53,7 +57,7 @@ const NarrativesList: React.FC<{
               </div>
             </div>
           </Box>
-          <Box className="flex flex-1 flex-col justify-center">
+          <Box className="mt-12 flex flex-1 flex-col justify-center">
             <p className="text-white">{narration.description}</p>
             <div className="relative mt-8 flex w-1/2 flex-row items-center">
               <Image
