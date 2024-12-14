@@ -1,6 +1,6 @@
 import { NarrationPath } from "../../types/videosAndFilms";
 
-export const narrationPath: NarrationPath = {
+export const narrationPathFour: NarrationPath = {
   id: "fourthId",
   title: "What influences you in life?",
   total_length: 1261,
