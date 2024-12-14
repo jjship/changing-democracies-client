@@ -12,7 +12,6 @@ const NarrativesOverview: FC<{
   narrativesCollection: NarrationPath[];
 }> = ({ narrativesCollection }) => {
   const [films, setFilms] = useState<FilmData[] | null>(null);
-  // const [nowPlaying, setNowPlaying] = useState<string | null>(null);
 
   return (
     <>

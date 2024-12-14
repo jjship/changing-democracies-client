@@ -237,6 +237,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
             </Flex>
           </Flex>
           <SequenceProgressBar
+            narrationFragments={narrationPath.fragments}
             currentFragmentIndex={playerState.currentIndex}
             totalFragments={narrationPath.fragments.length}
             onFragmentSelect={handleFragmentSelect}

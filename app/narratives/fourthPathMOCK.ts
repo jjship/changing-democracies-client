@@ -2,8 +2,10 @@ import { NarrationPath } from "../../types/videosAndFilms";
 
 export const narrationPathFour: NarrationPath = {
   id: "fourthId",
-  title: "What influences you in life?",
+  title: "Ble Ble Ble?",
   total_length: 1261,
+  description:
+    "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in repre",
   fragments: [
     {
       guid: "23be7b7b-f356-4abd-b71b-602e546eb999",

@@ -4,6 +4,8 @@ export const narrationPathTwo: NarrationPath = {
   id: "secondId",
   title: "What influences you in life?",
   total_length: 1261,
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id diam vel quam elementum pulvinar etiam non quam. Nisl pretium fusce id velit ut tortor pretium viverra suspendisse. Nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices. Nisl pretium fusce id velit ut tortor pretium viverra suspendisse. Nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices. Nisl pretium fusce id velit ut tortor pretium viverra suspendisse. Nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices.",
   fragments: [
     {
       guid: "23be7b7b-f356-4abd-b71b-602e546eb999",

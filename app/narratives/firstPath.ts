@@ -1,9 +1,11 @@
 import { NarrationPath } from "../../types/videosAndFilms";
 
-export const narrationPathOne: NarrationPath = {
+export const narrationPath: NarrationPath = {
   id: "firstId",
-  title: "What makes you angry about the world today?",
+  title: "What makes you Happy?",
   total_length: 1236,
+  description:
+    "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in repre",
   fragments: [
     {
       guid: "e5b7fefb-ee1f-430a-9078-8b77ae67a5f5",

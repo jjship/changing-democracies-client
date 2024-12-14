@@ -1,12 +1,13 @@
 "use client";
 import React, { memo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
-import { narrationPath } from "@/app/narratives/secondPath";
+import { NarrationFragment } from "@/types/videosAndFilms";
 
 type SequenceProgressBarProps = {
   totalFragments: number;
   currentFragmentIndex: number;
   onFragmentSelect: (index: number) => void;
+  narrationFragments: NarrationFragment[];
 };
 
 const SequenceProgressBar = memo(
@@ -14,6 +15,7 @@ const SequenceProgressBar = memo(
     totalFragments,
     currentFragmentIndex,
     onFragmentSelect,
+    narrationFragments,
   }: SequenceProgressBarProps) => {
     const [isHovered, setIsHovered] = useState<number | null>(null);
     const dotSize = 16;
@@ -87,7 +89,7 @@ const SequenceProgressBar = memo(
                     style={{
                       width: thumbnailSize,
                       height: thumbnailSize,
-                      backgroundImage: `url(${narrationPath.fragments[index].thumbnailUrl})`,
+                      backgroundImage: `url(${narrationFragments[index].thumbnailUrl})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       borderRadius: "50%",
