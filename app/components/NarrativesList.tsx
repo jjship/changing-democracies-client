@@ -36,8 +36,8 @@ const NarrativesList: React.FC<{
                 />
               </div>
             </div>
-            <div className="mt-4 md:absolute md:bottom-16 md:right-[12vw]">
-              <div className="flex w-full items-end justify-between md:w-[12vw]">
+            <div className="mt-4 md:absolute md:bottom-16 md:right-[8vw]">
+              <div className="flex w-full items-end justify-between md:w-[16vw]">
                 <div>
                   <span className="text-xl font-bold md:text-3xl">
                     {narration.title}
@@ -45,7 +45,7 @@ const NarrativesList: React.FC<{
                 </div>
                 <div className="self-end">
                   <a
-                    className="mr-2 inline-block h-6 w-6 md:h-8 md:w-8"
+                    className="mr-2 inline-block h-12 w-12 md:h-12 md:w-12" // Increased from h-8 w-8
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
@@ -55,8 +55,8 @@ const NarrativesList: React.FC<{
                     <Image
                       src="/watch video - icon.svg"
                       alt="Watch video"
-                      width={32}
-                      height={32}
+                      width={48}
+                      height={48}
                     />
                   </a>
                 </div>
