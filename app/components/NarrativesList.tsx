@@ -32,6 +32,7 @@ const NarrativesList: React.FC<{
                   alt={narration.title}
                   width={300}
                   height={300}
+                  layout="responsive"
                   className="rounded-full object-cover"
                 />
               </div>
@@ -45,7 +46,7 @@ const NarrativesList: React.FC<{
                 </div>
                 <div className="self-end">
                   <a
-                    className="mr-2 inline-block h-12 w-12 md:h-12 md:w-12" // Increased from h-8 w-8
+                    className="mr-2 inline-block h-12 w-12 md:h-12 md:w-12"
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
