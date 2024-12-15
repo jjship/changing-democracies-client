@@ -2,7 +2,7 @@ import { NarrationPath } from "../../types/videosAndFilms";
 
 export const narrationPathThree: NarrationPath = {
   id: "thirdId",
-  title: "I Like Trains",
+  title: "What influences you in life?",
   total_length: 1261,
   description: [
     "Have you ever thought about this question?",

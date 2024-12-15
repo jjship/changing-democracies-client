@@ -4,8 +4,8 @@ import React, { FC, useState } from "react";
 import { NarrationPath } from "../../types/videosAndFilms";
 import Title from "./Title";
 import NarrativesLegend from "@/components/NarrativesLegend";
-import { NarrativesList } from "@/components/NarrativesList";
 import { NarrationsView } from "@/components/NarrationVIew";
+import { NarrativesList } from "@/components/NarrativesList";
 
 export { NarrativesOverview };
 

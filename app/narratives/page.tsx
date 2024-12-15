@@ -2,11 +2,14 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { sectionPadding } from "@/components/Section";
 import { NarrativesOverview } from "@/components/NarrativesOverview";
+import { narrationPathThree } from "@/app/narratives/thirdPath";
 import { narrationPathOne } from "@/app/narratives/firstPath";
 import { narrationPathTwo } from "@/app/narratives/secondPath";
-import { narrationPathFive } from "@/app/narratives/fifthPath";
-import { narrationPathThree } from "@/app/narratives/thirdPath";
 import { narrationPathFour } from "@/app/narratives/fourthPath";
+import { narrationPathFive } from "@/app/narratives/fifthPath";
+import { Archivo } from "next/font/google";
+
+const archivo = Archivo({ subsets: ["latin"] });
 
 export default async function NarrativesPage() {
   const narrationCollection: NarrationPath[] = [
@@ -18,7 +21,7 @@ export default async function NarrativesPage() {
   ];
 
   return (
-    <main>
+    <main className={`${archivo.className} bg-black_bg antialiased`}>
       <div className="relative h-[100vh] overflow-clip">
         <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
         <div
