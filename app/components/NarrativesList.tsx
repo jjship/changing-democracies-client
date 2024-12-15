@@ -31,13 +31,16 @@ const NarrativesList: React.FC<{
         >
           <div className="flex w-3/4 flex-row gap-8">
             <Box className="relative w-1/3 text-yellow_secondary">
-              <Image
-                src={`/${images[index]}`}
-                alt={narration.title}
-                layout="responsive"
-                width={300}
-                height={300}
-              />
+              <div className="relative">
+                <Image
+                  src={`/${images[index]}`}
+                  alt={narration.title}
+                  layout="responsive"
+                  width={300}
+                  height={300}
+                />
+                <div className="absolute inset-0 bg-black_bg opacity-50"></div>
+              </div>
               <div className="absolute bottom-4 right-[12vw] text-xl">
                 <div className="flex w-[12vw] items-center justify-between">
                   <div>
