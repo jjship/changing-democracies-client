@@ -34,6 +34,7 @@ const NarrativesList: React.FC<{
               <Image
                 src={`/${images[index]}`}
                 alt={narration.title}
+                layout="responsive"
                 width={300}
                 height={300}
               />
