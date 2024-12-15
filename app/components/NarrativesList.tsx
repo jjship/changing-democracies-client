@@ -55,11 +55,13 @@ const NarrativesList: React.FC<{
           </Box>
           <Box className="flex flex-1 flex-col justify-center">
             {narration.description?.length ? (
-              narration.description.map((line) => (
-                <p className="text-white">{line}</p>
+              narration.description.map((line, i) => (
+                <p key={(line.length + i).toString()} className="text-white">
+                  {line}
+                </p>
               ))
             ) : (
-              <p className="text-white">""</p>
+              <p className="text-white"></p>
             )}
             <div className="relative mt-8 flex w-1/2 flex-row items-center">
               <Image
