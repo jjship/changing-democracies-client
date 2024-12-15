@@ -31,11 +31,11 @@ const NarrativesList: React.FC<{
         >
           <div
             key={index}
-            className="flex w-[90%] flex-col md:w-3/4 md:flex-row md:gap-8"
+            className="group flex w-[90%] flex-col md:w-3/4 md:flex-row md:gap-8"
           >
             <Box className="relative w-full text-yellow_secondary md:w-1/3">
               <div className="origin-top-left scale-90 transform-gpu md:scale-75">
-                <div className="group relative h-[300px] w-[300px]">
+                <div className=" relative h-[300px] w-[300px]">
                   <div className="absolute inset-0 z-10 rounded-full bg-black/50 transition-opacity duration-300 group-hover:opacity-0" />
                   <Image
                     src={`/${images[index]}`}
