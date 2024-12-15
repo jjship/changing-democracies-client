@@ -61,7 +61,7 @@ const NarrativesList: React.FC<{
               </div>
             </Box>
             <Box className="flex flex-1 border-4 border-solid border-blue-300">
-              <div className="flex h-full flex-col justify-end">
+              <div className="relative top-6 flex h-full flex-col justify-end">
                 <div className="border-4 border-solid border-green-500">
                   {narration.description?.length ? (
                     narration.description.map((line, i) => (
@@ -81,6 +81,7 @@ const NarrativesList: React.FC<{
                     width={32}
                     height={32}
                   />
+                  {/* TODO NIKOLA add number of videos <narration.fragments.length> and length <narration.total_length%60> */}
                   <div
                     className={"h-2 w-full rounded-2xl bg-green_accent"}
                   ></div>
