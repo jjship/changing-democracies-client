@@ -1,9 +1,17 @@
 import { NarrationPath } from "../../types/videosAndFilms";
 
-export const narrationPath: NarrationPath = {
-  id: "secondId",
-  title: "What influences you in life?",
+export const narrationPathThree: NarrationPath = {
+  id: "thirdId",
+  title: "I Like Trains",
   total_length: 1261,
+  description: [
+    "Have you ever thought about this question?",
+    "Are you aware of who and what affects your thinking, choices and actions?",
+    "Find out what it looked like for people who experienced a transition from dictatorship to democracy",
+    "Discover how they talk about the role of their family and friends, school, history, media, books, films, the system, the world outside etc.",
+    "Does this sound familiar?",
+    "Watch now and check if and what you would add to the list.",
+  ],
   fragments: [
     {
       guid: "23be7b7b-f356-4abd-b71b-602e546eb999",
@@ -149,9 +157,9 @@ export const narrationPath: NarrationPath = {
       guid: "8f30764c-d040-4b76-bc1b-ba1ce8afe9aa",
       title: "CD_CZECH REPUBLIC_Michaela Bedrníková_Quote 5.mp4",
       length: 44,
-      tags: ["CHECH REPUBLIC", "MICHAELA BEDRNIKOVA", "TRAVELLING_WORKSHOP"],
+      tags: ["CZECH REPUBLIC", "MICHAELA BEDRNIKOVA", "TRAVELLING_WORKSHOP"],
       person: "Michaela Bedrníková",
-      country: "CHECH REPUBLIC",
+      country: "CZECH REPUBLIC",
       playerUrl:
         "https://iframe.mediadelivery.net/play/239326/8f30764c-d040-4b76-bc1b-ba1ce8afe9aa?autoplay=false",
       thumbnailUrl:
