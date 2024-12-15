@@ -17,30 +17,34 @@ const NarrativesList: React.FC<{
   };
 
   return (
-    <div className="mt-[10vh] flex flex-col items-center justify-center  space-y-14">
+    <div className="mt-[10vh] flex flex-col items-center justify-center space-y-14">
       {narrativesCollection.map((narration, index) => (
-        <div key={index} className="flex w-3/4 flex-row gap-8">
-          <Box className="relative w-1/3 text-yellow_secondary">
-            <Image
-              src={`/${images[index]}`}
-              alt={narration.title}
-              width={300}
-              height={300}
-            />
-            <div className="absolute bottom-4 right-[12vw] text-xl">
-              <div className="flex w-[12vw] items-center justify-between">
-                <div>
-                  <span className="text-3xl font-bold">{narration.title}</span>
-                </div>
-                <div className="self-end">
-                  <a
-                    className="mr-2 inline-block h-8 w-8"
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleClick(narration);
-                    }}
-                  >
+        <a
+          key={index}
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            handleClick(narration);
+          }}
+          className="ml-40 block w-full" // ml-40 is a hack
+          style={{ textDecoration: "none" }}
+        >
+          <div className="flex w-3/4 flex-row gap-8">
+            <Box className="relative w-1/3 text-yellow_secondary">
+              <Image
+                src={`/${images[index]}`}
+                alt={narration.title}
+                width={300}
+                height={300}
+              />
+              <div className="absolute bottom-4 right-[12vw] text-xl">
+                <div className="flex w-[12vw] items-center justify-between">
+                  <div>
+                    <span className="text-3xl font-bold">
+                      {narration.title}
+                    </span>
+                  </div>
+                  <div className="self-end">
                     <Image
                       className={""}
                       src="/watch video - icon.svg"
@@ -48,33 +52,33 @@ const NarrativesList: React.FC<{
                       width={32}
                       height={32}
                     />
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Box>
-          <Box className="flex flex-1 flex-col justify-center">
-            {narration.description?.length ? (
-              narration.description.map((line, i) => (
-                <p key={`${line}-${index}`} className="text-white">
-                  {line}
-                </p>
-              ))
-            ) : (
-              <p className="text-white"></p>
-            )}
-            <div className="relative mt-8 flex w-1/2 flex-row items-center">
-              <Image
-                className="absolute"
-                src="/watch video - icon.svg"
-                alt="Watch video"
-                width={32}
-                height={32}
-              />
-              <div className={"h-2 w-full rounded-2xl bg-green_accent"}></div>
-            </div>
-          </Box>
-        </div>
+            </Box>
+            <Box className="flex flex-1 flex-col justify-center">
+              {narration.description?.length ? (
+                narration.description.map((line, i) => (
+                  <p key={`${line}-${index}`} className="text-white">
+                    {line}
+                  </p>
+                ))
+              ) : (
+                <p className="text-white"></p>
+              )}
+              <div className="relative mt-8 flex w-1/2 flex-row items-center">
+                <Image
+                  className="absolute"
+                  src="/watch video - icon.svg"
+                  alt="Watch video"
+                  width={32}
+                  height={32}
+                />
+                <div className={"h-2 w-full rounded-2xl bg-green_accent"}></div>
+              </div>
+            </Box>
+          </div>
+        </a>
       ))}
     </div>
   );
