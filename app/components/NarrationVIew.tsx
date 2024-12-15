@@ -6,10 +6,18 @@ import { Flex } from "@radix-ui/themes";
 import { FilmsContext } from "@/components/films/FilmsContext";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import NarrationsButton from "@/ui/NarrationsContinueButton";
-import React, { FC, useCallback, useMemo, useState } from "react";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import SequenceProgressBar from "./SequenceProgrwssBar";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
+import OverviewTag from "./OverviewButton";
 
 type PlayerState = {
   currentIndex: number;
@@ -19,9 +27,10 @@ type PlayerState = {
   isEnded: boolean;
 };
 
-const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
-  narrationPath,
-}) => {
+const NarrationsView: FC<{
+  narrationPath: NarrationPath;
+  onOverViewCLick?: Dispatch<SetStateAction<NarrationPath | null>>;
+}> = ({ narrationPath, onOverViewCLick }) => {
   const [playerState, setPlayerState] = useState<PlayerState>({
     currentIndex: 0,
     isPlaying: false,
@@ -152,7 +161,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   );
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative top-[8vh] h-full w-full">
       <div
         style={{
           position: "absolute",
@@ -174,6 +183,9 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
         <h1 className="text-xl font-medium text-white">
           {narrationPath.title || "Narration"}
         </h1>
+      </div>
+      <div>
+        <OverviewTag onClick={onOverViewCLick} />
       </div>
 
       {/* Main content area with proper top padding to account for title bar */}

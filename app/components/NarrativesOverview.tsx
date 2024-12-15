@@ -18,7 +18,10 @@ const NarrativesOverview: FC<{
   return (
     <>
       {selectedNarration ? (
-        <NarrationsView narrationPath={selectedNarration} />
+        <NarrationsView
+          narrationPath={selectedNarration}
+          onOverViewCLick={setSelectedNarration}
+        />
       ) : (
         <>
           <Title
