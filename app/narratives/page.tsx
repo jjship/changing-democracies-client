@@ -2,15 +2,15 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { sectionPadding } from "@/components/Section";
 import { NarrativesOverview } from "@/components/NarrativesOverview";
+import { narrationPathThree } from "@/app/narratives/thirdPath";
+import { narrationPathOne } from "@/app/narratives/firstPath";
 import { narrationPathTwo } from "@/app/narratives/secondPath";
-import { narrationPathFive } from "@/app/narratives/fifthPathMOCK";
-import { narrationPathThree } from "@/app/narratives/thirdPathMOCK";
-import { narrationPathFour } from "@/app/narratives/fourthPathMOCK";
-import { narrationPath } from "@/app/narratives/firstPath";
+import { narrationPathFour } from "@/app/narratives/fourthPath";
+import { narrationPathFive } from "@/app/narratives/fifthPath";
 
 export default async function NarrativesPage() {
   const narrationCollection: NarrationPath[] = [
-    narrationPath,
+    narrationPathOne,
     narrationPathTwo,
     narrationPathThree,
     narrationPathFour,
