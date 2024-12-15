@@ -21,7 +21,7 @@ export default async function NarrativesPage() {
   ];
 
   return (
-    <main className={`${archivo.className} bg-black_bg antialiased`}>
+    <main className={`/*${archivo.className}*/ /*bg-black_bg */antialiased`}>
       <div className="relative h-[100vh] overflow-clip">
         <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
         <div
