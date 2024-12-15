@@ -2,7 +2,7 @@ import { NarrationPath } from "../../types/videosAndFilms";
 
 export const narrationPathOne: NarrationPath = {
   id: "firstId",
-  title: "What makes you Happy?",
+  title: "What makes you angry?",
   total_length: 1236,
   description: [
     "How do you respond when reality clashes with your ideals?",
