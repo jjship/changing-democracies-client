@@ -105,7 +105,7 @@ const path = {
       guid: "3ce9a987-cff7-4a7a-ad34-ab8f2419f89b",
       title: "CD_CROATIA_Željko Rogina_Quote 4.mp4",
       length: 56,
-      tags: [],
+      tags: ["CROATIA", "ZELJKO_ROGINA"],
       person: "Željko Rogina",
       country: "CROATIA",
       playerUrl:
@@ -119,7 +119,7 @@ const path = {
       guid: "0410364c-28d4-4bee-8fbf-78e9106f7264",
       title: "CD_CROATIA_Željko Rogina_Quote 3.mp4",
       length: 121,
-      tags: [],
+      tags: ["CROATIA", "ZELJKO_ROGINA"],
       person: "Željko Rogina",
       country: "CROATIA",
       playerUrl:
@@ -133,7 +133,7 @@ const path = {
       guid: "6aaee4d9-e6c8-4f14-a530-48a211ceeeb1",
       title: "CD_PORTUGAL_Maria Filomena Manuel_Quote 3.mp4",
       length: 125,
-      tags: [],
+      tags: ["PORTUGAL", "MARIA_FILOMENA_MANUEL"],
       person: "Maria Filomena Manuel",
       country: "PORTUGAL",
       playerUrl:
@@ -147,7 +147,7 @@ const path = {
       guid: "e971a7f8-4298-4d93-a744-f0975bf01234",
       title: "CD_BELGIUM_Slobodanka Moravčević_Quote 3.mp4",
       length: 288,
-      tags: [],
+      tags: ["BELGIUM", "SLOBODANKA_MORACEVIC"],
       person: "Slobodanka Moravčević",
       country: "BELGIUM",
       playerUrl:
@@ -161,7 +161,7 @@ const path = {
       guid: "df67e3e8-6dd2-4b89-ba90-c1bf981dcd0e",
       title: "CD_SPAIN_Andrés Ruiz Grima_Quote 8.mp4",
       length: 62,
-      tags: [],
+      tags: ["SPAIN"],
       person: "Andrés Ruiz Grima",
       country: "SPAIN",
       playerUrl:

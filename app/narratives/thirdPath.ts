@@ -4,8 +4,14 @@ export const narrationPathThree: NarrationPath = {
   id: "thirdId",
   title: "I Like Trains",
   total_length: 1261,
-  description:
-    "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  description: [
+    "Have you ever thought about this question?",
+    "Are you aware of who and what affects your thinking, choices and actions?",
+    "Find out what it looked like for people who experienced a transition from dictatorship to democracy",
+    "Discover how they talk about the role of their family and friends, school, history, media, books, films, the system, the world outside etc.",
+    "Does this sound familiar?",
+    "Watch now and check if and what you would add to the list.",
+  ],
   fragments: [
     {
       guid: "23be7b7b-f356-4abd-b71b-602e546eb999",
@@ -151,9 +157,9 @@ export const narrationPathThree: NarrationPath = {
       guid: "8f30764c-d040-4b76-bc1b-ba1ce8afe9aa",
       title: "CD_CZECH REPUBLIC_Michaela Bedrníková_Quote 5.mp4",
       length: 44,
-      tags: ["CHECH REPUBLIC", "MICHAELA BEDRNIKOVA", "TRAVELLING_WORKSHOP"],
+      tags: ["CZECH REPUBLIC", "MICHAELA BEDRNIKOVA", "TRAVELLING_WORKSHOP"],
       person: "Michaela Bedrníková",
-      country: "CHECH REPUBLIC",
+      country: "CZECH REPUBLIC",
       playerUrl:
         "https://iframe.mediadelivery.net/play/239326/8f30764c-d040-4b76-bc1b-ba1ce8afe9aa?autoplay=false",
       thumbnailUrl:

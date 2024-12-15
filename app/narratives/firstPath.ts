@@ -1,17 +1,23 @@
 import { NarrationPath } from "../../types/videosAndFilms";
 
-export const narrationPath: NarrationPath = {
+export const narrationPathOne: NarrationPath = {
   id: "firstId",
   title: "What makes you Happy?",
   total_length: 1236,
-  description:
-    "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in repre",
+  description: [
+    "How do you respond when reality clashes with your ideals?",
+    "Do you care enough to make a difference?",
+    "Get some insights from people who experienced a transition from dictatorship to democracy.",
+    "See what moved some of our witnesses to acknowledge, think, demonstrate, raise awareness, rebel, propose alternatives, teach, sing.",
+    "Do their stories resonate with you?",
+    "Watch now and ask yourself what would move you to action.",
+  ],
   fragments: [
     {
       guid: "e5b7fefb-ee1f-430a-9078-8b77ae67a5f5",
       title: "CD_GREECE_Petros Pizanias_Quote 2.mp4",
       length: 68,
-      tags: ["\tGREECE", "PETROS_PIZANIAS", "TRAVELLING_WORKSHOP"],
+      tags: ["GREECE", "PETROS_PIZANIAS", "TRAVELLING_WORKSHOP"],
       person: "Petros Pizanias",
       country: "GREECE",
       playerUrl:
