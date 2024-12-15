@@ -10,7 +10,7 @@ const NarrativesList: React.FC<{
   narrativesCollection: NarrationPath[];
   setSelectedNarration: (narration: NarrationPath) => void;
 }> = ({ narrativesCollection, setSelectedNarration }) => {
-  const images = ["q1.png", "q2.png", "q3.jpg", "q4.jpg", "q5.jpg"];
+  const images = ["q1.png", "q2.png", "q3.png", "q4.png", "q5.png"];
 
   const handleClick = (narration: NarrationPath) => {
     setSelectedNarration(narration);
