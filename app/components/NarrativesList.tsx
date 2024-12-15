@@ -56,7 +56,7 @@ const NarrativesList: React.FC<{
           <Box className="flex flex-1 flex-col justify-center">
             {narration.description?.length ? (
               narration.description.map((line, i) => (
-                <p key={(line.length + i).toString()} className="text-white">
+                <p key={`${line}-${index}`} className="text-white">
                   {line}
                 </p>
               ))
