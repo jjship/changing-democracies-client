@@ -41,28 +41,26 @@ const NarrativesList: React.FC<{
                 />
                 <div className="absolute inset-0 bg-black_bg opacity-50"></div>
               </div>
-              <div className="absolute bottom-4 right-[12vw] border-4 border-solid border-blue-300 text-xl">
-                <div className="flex w-[12vw] items-center justify-between  border-4 border-solid border-gray-300">
-                  <div>
-                    <span className="text-3xl font-bold">
-                      {narration.title}
-                    </span>
-                  </div>
-                  <div className="self-end">
-                    <Image
-                      className={""}
-                      src="/watch video - icon.svg"
-                      alt="Watch video"
-                      width={32}
-                      height={32}
-                    />
-                  </div>
+              <div className="absolute bottom-4 flex  w-full items-center justify-between border-4  border-solid  border-red-500 text-xl">
+                {/* <div className=""> */}
+                <div className="relative right-12 w-1/2 border-4 border-solid border-green-500">
+                  <span className="text-3xl font-bold">{narration.title}</span>
                 </div>
+                <div className="w-1/2 self-end border-4 border-solid border-blue-500">
+                  <Image
+                    src="/watch video - icon.svg"
+                    alt="Watch video"
+                    layout="responsive"
+                    width={32}
+                    height={32}
+                  />
+                </div>
+                {/* </div> */}
               </div>
             </Box>
             <Box className="flex flex-1 border-4 border-solid border-blue-300">
               <div className="relative top-6 flex h-full flex-col justify-end">
-                <div className="border-4 border-solid border-green-500">
+                <div className="">
                   {narration.description?.length ? (
                     narration.description.map((line, i) => (
                       <p key={`${line}-${i}`} className="text-white">
