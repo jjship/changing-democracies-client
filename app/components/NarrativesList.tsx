@@ -64,9 +64,15 @@ const NarrativesList: React.FC<{
             </div>
           </Box>
           <Box className="mt-6 flex flex-1 flex-col justify-center md:mt-12">
-            <p className="text-sm text-white md:text-base">
-              {narration.description}
-            </p>
+            {narration.description?.length ? (
+              narration.description.map((line, i) => (
+                <p key={(line.length + i).toString()} className="text-white">
+                  {line}
+                </p>
+              ))
+            ) : (
+              <p className="text-white"></p>
+            )}
             <div className="relative mt-4 flex w-full flex-row items-center md:mt-8 md:w-1/2">
               <Image
                 className="absolute"
