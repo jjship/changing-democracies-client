@@ -167,6 +167,7 @@ const NarrationsView: FC<{
         </div>
         <FilmsContext.Provider value={filmsContextValue}>
           <Flex
+            style={{ marginTop: "6vh" }}
             height="100%"
             align="center"
             justify="center"
@@ -176,7 +177,7 @@ const NarrationsView: FC<{
               <Flex
                 width="40%"
                 position="absolute"
-                right="15%"
+                right="18%"
                 top="0"
                 py="10px"
                 style={{
