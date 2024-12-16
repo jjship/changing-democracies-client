@@ -27,8 +27,8 @@ const SequenceProgressBar = memo(
         justify="between"
         align="center"
         style={{
-          position: "fixed",
-          bottom: "3vh",
+          position: "absolute",
+          bottom: "-10vh",
           left: "50%",
           transform: "translateX(-50%)",
           width: "80%",

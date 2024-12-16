@@ -142,54 +142,29 @@ const NarrationsView: FC<{
   );
   const backgroundStyle = useMemo(
     () => ({
-      overflow: "hidden" as const,
+      overflow: "hidden",
       backgroundImage: `url(${
         playerState.isEnded && nextFragment
           ? nextFragment.thumbnailUrl
           : currentFragment.thumbnailUrl
       })`,
-      backgroundSize: "cover", // Changed back to "cover" to remove black bars
-      backgroundPosition: "center" as const,
-      backgroundRepeat: "no-repeat" as const,
+      backgroundSize: "contain",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
       width: "100%",
       height: "100%",
-      alignItems: "center" as const,
-      justifyContent: "center" as const,
-      position: "relative" as const,
+      alignItems: "center",
+      justifyContent: "center",
     }),
     [playerState.isEnded, currentFragment, nextFragment],
   );
 
   return (
-    <div className="relative top-[8vh] h-full w-full">
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          right: "10%", // Adds margin right 10%
-          width: "50%", // Half width
-          height: "60px",
-          backgroundColor: "#8083ae",
-          zIndex: 20,
-          display: "flex",
-          alignItems: "center",
-          paddingLeft: "20px",
-          color: "white",
-          fontSize: "1.25rem",
-          fontWeight: 500,
-          marginRight: "1vw",
-        }}
-      >
-        <h1 className="text-xl font-medium text-white">
-          {narrationPath.title || "Narration"}
-        </h1>
-      </div>
-      <div>
-        <OverviewTag onClick={onOverViewCLick} />
-      </div>
-
-      {/* Main content area with proper top padding to account for title bar */}
-      <div className="h-full w-full pt-[60px]">
+    <Flex className="absolute left-[50%] top-[50%] h-[80%] w-[80%] translate-x-[-50%] translate-y-[-50%] flex-col items-center justify-center rounded-3xl bg-black_bg">
+      <div className="h-[80%] w-[80%]">
+        <div>
+          <OverviewTag onClick={onOverViewCLick} />
+        </div>
         <FilmsContext.Provider value={filmsContextValue}>
           <Flex
             height="100%"
@@ -198,6 +173,23 @@ const NarrationsView: FC<{
             direction="column"
           >
             <Flex style={backgroundStyle}>
+              <Flex
+                width="40%"
+                position="absolute"
+                right="15%"
+                top="0"
+                py="10px"
+                style={{
+                  borderRadius: "2px 2px 0px 0px",
+                  backgroundColor: "#8083ae",
+                  color: "white",
+                }}
+              >
+                <h1 className="mx-auto text-white">
+                  {narrationPath.title || "Narration"}
+                </h1>
+              </Flex>
+
               {playerState.isVisible && (
                 <NarrationsFilmPlayer
                   nowPlaying={currentFragment?.guid ?? null}
@@ -228,10 +220,7 @@ const NarrationsView: FC<{
                         />
                       )}
                       {playerState.isEnded && !isLastFragment && (
-                        <CountDown
-                          onFinish={handleContinue}
-                          onCountingChange={() => {}}
-                        />
+                        <CountDown onFinish={handleContinue} />
                       )}
                     </>
                   )}
@@ -256,7 +245,7 @@ const NarrationsView: FC<{
           />
         </FilmsContext.Provider>
       </div>
-    </div>
+    </Flex>
   );
 };
 
