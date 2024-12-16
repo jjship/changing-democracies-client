@@ -22,7 +22,7 @@ export default function NarrativesLegend() {
   ];
 
   return (
-    <div className="my-10 grid w-[80%] grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-4">
+    <div className="my-10 grid w-[80%] grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:pl-12">
       {data.map((item, index) => (
         <div
           key={index}
