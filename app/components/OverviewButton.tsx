@@ -6,7 +6,7 @@ type OverviewButtonProps = {
 };
 const OverviewTag: React.FC<OverviewButtonProps> = ({ onClick }) => {
   return (
-    <div
+    <button
       className="absolute flex items-center"
       onClick={() => {
         if (onClick) {
@@ -27,7 +27,7 @@ const OverviewTag: React.FC<OverviewButtonProps> = ({ onClick }) => {
       <div className="rounded-full bg-[#b85252] px-10 py-2 text-sm font-medium text-white">
         overview
       </div>
-    </div>
+    </button>
   );
 };
 
