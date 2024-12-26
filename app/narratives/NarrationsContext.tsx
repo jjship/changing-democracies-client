@@ -41,6 +41,7 @@ export function NarrationContextProvider({
   const [hasStarted, setHasStarted] = useState<boolean | null>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+
   const [currentFilmId, setCurrentFilmId] = useState<string | null>(null);
 
   return (

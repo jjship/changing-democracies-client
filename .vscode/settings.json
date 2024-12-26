@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": {
+    "gitDecoration.modifiedResourceForeground": "#503b61",
+    "gitDecoration.untrackedResourceForeground": "#8b63ad"
+  },
+  "cSpell.languageSettings": [],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "notebook.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "files.autoSave": "onFocusChange",
+  "cSpell.words": ["luxon"]
+}

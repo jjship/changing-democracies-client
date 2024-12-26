@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.08 48.59">
+    <defs>
+        <style>
+            .cls-1 {
+            isolation: isolate;
+            }
+
+            .cls-2 {
+            fill: #e3ac55;
+            mix-blend-mode: screen;
+            }
+        </style>
+    </defs>
+    <g class="cls-1">
+        <g id="Layer_2" data-name="Layer 2">
+            <g id="Layer_3" data-name="Layer 3">
+                <polygon class="cls-2" points="42.08 24.29 0 0 0 48.59 42.08 24.29"/>
+            </g>
+        </g>
+    </g>
+</svg>

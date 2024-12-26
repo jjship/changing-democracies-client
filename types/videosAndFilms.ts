@@ -74,7 +74,7 @@ export type NarrationFragment = FilmData & {
 export type NarrationPath = {
   id: string;
   title: string;
-  description?: string;
+  description?: string[];
   total_length: number; // total length of all fragments in the path
   fragments: NarrationFragment[];
   metadata?: Record<string, any>;

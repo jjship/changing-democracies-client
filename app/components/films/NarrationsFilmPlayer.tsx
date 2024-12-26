@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState, useCallback } from "react";
 import { useNarrationContext } from "../../narratives/NarrationsContext";
 import NarrationsCloseButton from "../narrations/NarrationsCloseButton";
 
@@ -8,15 +8,15 @@ const NarrationsFilmPlayer: FC = () => {
   const { currentPath, currentIndex, setIsEnded, setIsPlaying, setIsVisible } =
     useNarrationContext();
   const nowPlaying = currentPath.fragments[currentIndex] ?? null;
-  const onEnded = () => {
+  const onEnded = useCallback(() => {
     setIsEnded(true);
     setIsPlaying(false);
-  };
-  const onClose = () => {
+  }, [setIsEnded, setIsPlaying]);
+  const onClose = useCallback(() => {
     setIsVisible(false);
     setIsPlaying(false);
     setIsEnded(false);
-  };
+  }, [setIsVisible, setIsPlaying, setIsEnded]);
 
   const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`;
   const containerRef = useRef<HTMLDivElement>(null);
