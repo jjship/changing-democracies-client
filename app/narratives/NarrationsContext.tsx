@@ -2,11 +2,11 @@
 
 import { createContext, useContext, useState } from "react";
 import { FilmData, NarrationPath } from "@/types/videosAndFilms";
-import { firstPath } from "./firstPath";
+import { narrationPathOne } from "./firstPath";
 
 type NarrationContextType = {
-  currentPath: NarrationPath;
-  setCurrentPath: (narrationPath: NarrationPath) => void;
+  currentPath: NarrationPath | null;
+  setCurrentPath: (narrationPath: NarrationPath | null) => void;
   films: FilmData[] | null;
   setFilms: (films: FilmData[] | null) => void;
   narrationPaths: NarrationPath[] | null;
@@ -33,7 +33,7 @@ export function NarrationContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [currentPath, setCurrentPath] = useState<NarrationPath>(firstPath); // lets leave the firstPath hardcoded so we are sure that at least one is available
+  const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null); // lets leave the firstPath hardcoded so we are sure that at least one is available
   const [narrationPaths] = useState<NarrationPath[] | null>(null);
   const [films, setFilms] = useState<FilmData[] | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean | null>(false);
@@ -41,7 +41,6 @@ export function NarrationContextProvider({
   const [hasStarted, setHasStarted] = useState<boolean | null>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isVisible, setIsVisible] = useState<boolean>(false);
-
   const [currentFilmId, setCurrentFilmId] = useState<string | null>(null);
 
   return (

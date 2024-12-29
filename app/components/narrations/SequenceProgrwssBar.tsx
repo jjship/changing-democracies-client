@@ -20,7 +20,7 @@ const SequenceProgressBar: FC = () => {
       setHasStarted(true),
       setIsEnded(false);
   };
-  const totalFragments = currentPath.fragments.length;
+  const totalFragments = currentPath?.fragments.length ?? 0;
   const dotSize = 16;
   const lineThickness = 6;
   const thumbnailSize = "8vh";
@@ -29,6 +29,7 @@ const SequenceProgressBar: FC = () => {
     <Flex
       align="center"
       style={{
+        paddingTop: "20px",
         justifyContent: "center",
         height: "100%",
         width: "80%",
@@ -86,7 +87,7 @@ const SequenceProgressBar: FC = () => {
                   style={{
                     width: thumbnailSize,
                     height: thumbnailSize,
-                    backgroundImage: `url(${currentPath.fragments[index].thumbnailUrl})`,
+                    backgroundImage: `url(${currentPath?.fragments[index].thumbnailUrl})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     borderRadius: "50%",

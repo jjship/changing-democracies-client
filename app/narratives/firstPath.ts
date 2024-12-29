@@ -1,15 +1,23 @@
 import { NarrationPath } from "../../types/videosAndFilms";
 
-export const firstPath: NarrationPath = {
+export const narrationPathOne: NarrationPath = {
   id: "firstId",
   title: "What makes you angry about the world today?",
   total_length: 1236,
+  description: [
+    "How do you respond when reality clashes with your ideals?",
+    "Do you care enough to make a difference?",
+    "Get some insights from people who experienced a transition from dictatorship to democracy.",
+    "See what moved some of our witnesses to acknowledge, think, demonstrate, raise awareness, rebel, propose alternatives, teach, sing.",
+    "Do their stories resonate with you?",
+    "Watch now and ask yourself what would move you to action.",
+  ],
   fragments: [
     {
       guid: "e5b7fefb-ee1f-430a-9078-8b77ae67a5f5",
       title: "CD_GREECE_Petros Pizanias_Quote 2.mp4",
       length: 68,
-      tags: ["\tGREECE", "PETROS_PIZANIAS", "TRAVELLING_WORKSHOP"],
+      tags: ["GREECE", "PETROS_PIZANIAS", "TRAVELLING_WORKSHOP"],
       person: "Petros Pizanias",
       country: "GREECE",
       playerUrl:
@@ -87,10 +95,7 @@ export const firstPath: NarrationPath = {
       thumbnailUrl:
         "https://vz-cac74041-8b3.b-cdn.net/a35f7a99-70ba-4314-8091-be7082e7d747/thumbnail.jpg",
       sequence: 6,
-      otherPaths: [
-        { id: "id1", title: "Alternate Path 1" },
-        { id: "id2", title: "Alternate Path 2" },
-      ],
+      otherPaths: [],
     },
     {
       guid: "ec20343c-f881-4410-96ad-1d5d90c82f0c",

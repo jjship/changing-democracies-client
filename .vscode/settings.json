@@ -1,6 +1,6 @@
 {
   "workbench.colorCustomizations": {
-    "gitDecoration.modifiedResourceForeground": "#503b61",
+    "gitDecoration.modifiedResourceForeground": "#a67fc5",
     "gitDecoration.untrackedResourceForeground": "#8b63ad"
   },
   "cSpell.languageSettings": [],

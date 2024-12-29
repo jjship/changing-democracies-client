@@ -4,24 +4,22 @@ import React, { FC, useState } from "react";
 import { NarrationPath } from "../../types/videosAndFilms";
 import Title from "./Title";
 import NarrativesLegend from "@/components/NarrativesLegend";
-import { NarrationsView } from "@/components/NarrationVIew";
 import { NarrativesList } from "@/components/NarrativesList";
+import NarrationsLayout from "./narrations/NarrationsLayout";
+import { useNarrationContext } from "../narratives/NarrationsContext";
+import { NarrationsView } from "./narrations/NarrationVIew";
 
 export { NarrativesOverview };
 
 const NarrativesOverview: FC<{
   narrativesCollection: NarrationPath[];
 }> = ({ narrativesCollection }) => {
-  const [selectedNarration, setSelectedNarration] =
-    useState<NarrationPath | null>(null);
-
+  const { currentPath } = useNarrationContext();
+  console.log(currentPath);
   return (
     <>
-      {selectedNarration ? (
-        <NarrationsView
-          narrationPath={selectedNarration}
-          onOverViewCLick={setSelectedNarration}
-        />
+      {currentPath ? (
+        <NarrationsView narrationPath={currentPath} />
       ) : (
         <>
           <Title
@@ -33,10 +31,7 @@ const NarrativesOverview: FC<{
           {narrativesCollection ? (
             <>
               <NarrativesLegend />
-              <NarrativesList
-                setSelectedNarration={setSelectedNarration}
-                narrativesCollection={narrativesCollection}
-              />
+              <NarrativesList />
             </>
           ) : (
             <div className="h-full, bg-black_bg"></div>

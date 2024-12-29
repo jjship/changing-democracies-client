@@ -8,10 +8,13 @@ import React, { FC } from "react";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 import { useNarrationContext } from "@/app/narratives/NarrationsContext";
+import { NarrationPath } from "@/types/videosAndFilms";
+import OverviewTag from "../OverviewButton";
 
-const NarrationsView: FC = () => {
+const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
+  narrationPath,
+}) => {
   const {
-    narrationPaths,
     currentPath,
     films,
     setFilms,
@@ -25,11 +28,13 @@ const NarrationsView: FC = () => {
     setCurrentIndex,
     isVisible,
     setIsVisible,
+    setCurrentPath,
   } = useNarrationContext();
 
-  const currentFragment = currentPath.fragments[currentIndex];
-  const nextFragment = currentPath.fragments[currentIndex + 1];
-  const isLastFragment = currentIndex === currentPath.fragments.length - 1;
+  const currentFragment = currentPath?.fragments[currentIndex];
+  const nextFragment = currentPath?.fragments[currentIndex + 1];
+  const isLastFragment =
+    currentPath?.fragments && currentIndex === currentPath.fragments.length - 1;
 
   const handleStart = () => {
     setIsPlaying(true);
@@ -46,16 +51,21 @@ const NarrationsView: FC = () => {
     }
   };
 
+  const dupa = () => {
+    setCurrentPath(null);
+  };
+
   const handleReopen = () => {
     setIsPlaying(true);
-    setIsEnded(false), setIsVisible(true);
+    setIsEnded(false);
+    setIsVisible(true);
   };
   const backgroundStyle = () => ({
     overflow: "hidden",
     backgroundImage: `url(${
       isEnded && nextFragment
         ? nextFragment.thumbnailUrl
-        : currentFragment.thumbnailUrl
+        : currentFragment?.thumbnailUrl
     })`,
     backgroundSize: "contain",
     backgroundPosition: "center",
@@ -64,13 +74,20 @@ const NarrationsView: FC = () => {
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-  }); // useMemo doesnt work with context: https://18.react.dev/reference/react/useContext
+  });
 
   return (
     <Flex className="absolute left-[50%] top-[50%] h-[80%] w-[80%] translate-x-[-50%] translate-y-[-50%] flex-col items-center justify-center rounded-3xl bg-black_bg">
       <div className="h-[80%] w-[80%]">
         <Flex height="100%" align="center" justify="center" direction="column">
           <Flex style={backgroundStyle()}>
+            <NarrationsContinueButton
+              text="Overview"
+              onClick={() => setCurrentPath(null)} // now we can use setter functions from context in lower components without passing them in props as in NarrationsFilmPlayer
+              triangleColor="#8083ae"
+              trianglePlacement="right"
+            />
+
             <Flex
               width="40%"
               position="absolute"
@@ -84,7 +101,7 @@ const NarrationsView: FC = () => {
               }}
             >
               <h1 className="mx-auto text-white">
-                {currentPath.title || "Narration"}
+                {currentPath?.title || "Narration"}
               </h1>
             </Flex>
             {isVisible && <NarrationsFilmPlayer />}

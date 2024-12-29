@@ -7,7 +7,7 @@ import NarrationsCloseButton from "../narrations/NarrationsCloseButton";
 const NarrationsFilmPlayer: FC = () => {
   const { currentPath, currentIndex, setIsEnded, setIsPlaying, setIsVisible } =
     useNarrationContext();
-  const nowPlaying = currentPath.fragments[currentIndex] ?? null;
+  const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
   const onEnded = useCallback(() => {
     setIsEnded(true);
     setIsPlaying(false);
@@ -27,8 +27,6 @@ const NarrationsFilmPlayer: FC = () => {
     setIsClient(true);
   }, []);
 
-  // Removed enterFullscreen function
-
   const exitFullscreen = () => {
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen();
@@ -36,49 +34,36 @@ const NarrationsFilmPlayer: FC = () => {
   };
 
   const handleClose = () => {
-    // if (iframeRef.current) {
-    //   import("player.js").then(({ Player }) => {
-    //     if (iframeRef.current) {
-    //       const player = new Player(iframeRef.current);
-    //       player.on("ready", () => {
-    //         player.pause();
-    //       });
-    //     }
-    //   });
-    // }
-    exitFullscreen();
+    if (iframeRef.current) {
+      import("player.js").then(({ Player }) => {
+        if (iframeRef.current) {
+          const player = new Player(iframeRef.current);
+          player.on("ready", () => {
+            player.pause();
+          });
+        }
+      });
+    }
     onClose();
+    exitFullscreen();
   };
 
   useEffect(() => {
     if (!isClient || !iframeRef.current || !onEnded) return;
-
-    // const handleMessage = (event: MessageEvent) => {
-    //   if (event.origin !== "https://iframe.mediadelivery.net") return;
-    //   if (event.data.event === "videoEnded") {
-    //     console.log("FilmPlayer: Video ended, calling onEnded");
-    //     onEnded();
-    //     exitFullscreen();
-    //   }
-    // };
 
     import("player.js").then(({ Player }) => {
       if (iframeRef.current) {
         const player = new Player(iframeRef.current);
         player.on("ready", () => {
           player.on("ended", () => {
+            console.log("FilmPlayer: Video ended, calling onEnded");
             onEnded();
             exitFullscreen();
           });
-          player.play();
         });
       }
     });
-
-    // window.addEventListener("message", handleMessage);
-    // return () => window.removeEventListener("message", handleMessage);
-    // TODO cleanup player
-  }, [isClient, onEnded, onClose]);
+  }, [isClient, iframeRef, onEnded]);
 
   if (!isClient || !nowPlaying) {
     return null;
@@ -103,6 +88,9 @@ const NarrationsFilmPlayer: FC = () => {
       />
     </div>
   );
+
+  // Add this console log to debug the src URL
+  console.log("Iframe src URL:", `${src}&autoplay=true&letterbox=false`);
 };
 
 export { NarrationsFilmPlayer };

@@ -1,18 +1,18 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
+import { useNarrationContext } from "../narratives/NarrationsContext";
 
 type OverviewButtonProps = {
   onClick: Dispatch<SetStateAction<NarrationPath | null>> | undefined;
 };
+
 const OverviewTag: React.FC<OverviewButtonProps> = ({ onClick }) => {
+  const { setCurrentPath } = useNarrationContext();
+
   return (
     <button
       className="absolute flex items-center"
-      onClick={() => {
-        if (onClick) {
-          onClick(null);
-        }
-      }}
+      onClick={() => setCurrentPath(null)}
     >
       <div
         className="absolute h-14 w-14 bg-gray-500"

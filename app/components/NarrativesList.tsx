@@ -4,28 +4,24 @@ import { NarrationPath } from "../../types/videosAndFilms";
 import { Box } from "@radix-ui/themes";
 import Image from "next/image";
 import { floor } from "@floating-ui/utils";
+import { useNarrationContext } from "../narratives/NarrationsContext";
 
 export { NarrativesList };
 
-const NarrativesList: React.FC<{
-  narrativesCollection: NarrationPath[];
-  setSelectedNarration: (narration: NarrationPath) => void;
-}> = ({ narrativesCollection, setSelectedNarration }) => {
+const NarrativesList: React.FC = () => {
   const images = ["q1.png", "q2.png", "q3.png", "q4.png", "q5.png"];
 
-  const handleClick = (narration: NarrationPath) => {
-    setSelectedNarration(narration);
-  };
+  const { narrationPaths, setCurrentPath } = useNarrationContext();
 
   return (
     <div className="mt-[10vh] flex flex-col items-center justify-center gap-8 md:gap-14">
-      {narrativesCollection.map((narration, index) => (
+      {narrationPaths?.map((narration, index) => (
         <a
           key={index}
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            handleClick(narration);
+            setCurrentPath(narration);
           }}
           className="ml-40 block w-[80%]" // ml-40 is a hack
           style={{ textDecoration: "none" }}
@@ -58,7 +54,7 @@ const NarrativesList: React.FC<{
                       href="#"
                       onClick={(e) => {
                         e.preventDefault();
-                        handleClick(narration);
+                        setCurrentPath(narration);
                       }}
                     >
                       <Image
