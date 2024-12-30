@@ -60,7 +60,7 @@ const NarrationsLayout: React.FC<{ narrationPaths: NarrationPath[] }> = ({
 
       {/* <main className={`${archivo.className} bg-black_bg antialiased`}> */}
       <main>
-        <div className="relative h-[100vh] overflow-clip">
+        <div className="relative max-h-[80vh] overflow-clip">
           <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
           <div
             className={`z-10 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x}  mb-9 h-[85vh] overflow-auto pb-5 md:pb-14 xl:pb-40 `}
@@ -68,16 +68,11 @@ const NarrationsLayout: React.FC<{ narrationPaths: NarrationPath[] }> = ({
             <NarrativesOverview
               narrativesCollection={narrationPaths}
             ></NarrativesOverview>
-            <SequenceProgressBar
-            // currentFragmentIndex={currentIndex}
-            // onFragmentSelect={function (index: number): void {
-            //   throw new Error("Function not implemented.");
-            // }}
-            // narrationFragments={currentPath?.fragments ?? null}
-            // totalFragments={currentPath?.fragments.length ?? 0}
-            />
           </div>
-          <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary"></div>
+          <Flex></Flex>
+          <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary">
+            <SequenceProgressBar />
+          </div>
         </div>
       </main>
     </NarrationContext.Provider>

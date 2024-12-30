@@ -18,7 +18,9 @@ const NarrationsFilmPlayer: FC = () => {
     setIsEnded(false);
   }, [setIsVisible, setIsPlaying, setIsEnded]);
 
-  const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`;
+  const src = nowPlaying
+    ? `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying.guid}?autoplay=true&captions=EN`
+    : "";
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isClient, setIsClient] = useState(false);
@@ -69,6 +71,9 @@ const NarrationsFilmPlayer: FC = () => {
     return null;
   }
 
+  // Add this console log to debug the src URL
+  console.log("Iframe src URL:", `${src}&autoplay=true&letterbox=false`);
+
   return (
     <div
       ref={containerRef}
@@ -88,9 +93,6 @@ const NarrationsFilmPlayer: FC = () => {
       />
     </div>
   );
-
-  // Add this console log to debug the src URL
-  console.log("Iframe src URL:", `${src}&autoplay=true&letterbox=false`);
 };
 
 export { NarrationsFilmPlayer };

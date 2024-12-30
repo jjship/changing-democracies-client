@@ -12,6 +12,7 @@ const SequenceProgressBar: FC = () => {
     setIsEnded,
     setHasStarted,
     currentPath,
+    isVisible,
   } = useNarrationContext();
 
   const onFragmentSelect = (index: number) => {
@@ -70,7 +71,7 @@ const SequenceProgressBar: FC = () => {
               alignItems: "center",
             }}
           >
-            {isHovered === index && (
+            {isHovered === index && !isVisible && (
               <Box
                 style={{
                   position: "absolute",

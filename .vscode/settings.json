@@ -1,8 +1,4 @@
 {
-  "workbench.colorCustomizations": {
-    "gitDecoration.modifiedResourceForeground": "#a67fc5",
-    "gitDecoration.untrackedResourceForeground": "#8b63ad"
-  },
   "cSpell.languageSettings": [],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "notebook.defaultFormatter": "rvest.vs-code-prettier-eslint",

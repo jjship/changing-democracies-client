@@ -3,13 +3,13 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
-import NarrationsButton from "@/ui/NarrationsContinueButton";
 import React, { FC } from "react";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 import { NarrationPath } from "@/types/videosAndFilms";
-import OverviewTag from "../OverviewButton";
+import { handleClientScriptLoad } from "next/script";
+import { set } from "date-fns";
 
 const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   narrationPath,
@@ -31,41 +31,51 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
     setCurrentPath,
   } = useNarrationContext();
 
-  const currentFragment = currentPath?.fragments[currentIndex];
-  const nextFragment = currentPath?.fragments[currentIndex + 1];
-  const isLastFragment =
-    currentPath?.fragments && currentIndex === currentPath.fragments.length - 1;
+  // const currentFragment = currentPath?.fragments[currentIndex];
+  // const nextFragment = currentPath?.fragments[currentIndex + 1];
 
   const handleStart = () => {
     setIsPlaying(true);
     setHasStarted(true);
     setIsEnded(false);
+    setIsVisible(true);
   };
 
   const handleContinue = () => {
-    if (!isLastFragment) {
+    if (
+      !currentIndex &&
+      currentPath &&
+      currentIndex !== currentPath?.fragments.length - 1
+    ) {
       setCurrentIndex(currentIndex + 1);
       setIsPlaying(true);
       setIsEnded(false);
       setIsVisible(true);
     }
   };
-
-  const dupa = () => {
-    setCurrentPath(null);
-  };
-
+  console.log(currentIndex);
   const handleReopen = () => {
     setIsPlaying(true);
     setIsEnded(false);
     setIsVisible(true);
   };
-  const backgroundStyle = () => ({
+
+  const handleOverview = () => {
+    setCurrentPath(null);
+    setCurrentIndex(0);
+    setIsPlaying(false);
+    setIsEnded(false);
+    setHasStarted(false);
+    setIsVisible(false);
+    setFilms(null);
+  };
+
+  const backgroundStyle = {
     overflow: "hidden",
     backgroundImage: `url(${
-      isEnded && nextFragment
-        ? nextFragment.thumbnailUrl
-        : currentFragment?.thumbnailUrl
+      isEnded && currentPath && currentPath.fragments[currentIndex]
+        ? currentPath.fragments[currentIndex + 1]?.thumbnailUrl
+        : currentPath?.fragments[currentIndex].thumbnailUrl
     })`,
     backgroundSize: "contain",
     backgroundPosition: "center",
@@ -74,16 +84,16 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-  });
+  };
 
   return (
     <Flex className="absolute left-[50%] top-[50%] h-[80%] w-[80%] translate-x-[-50%] translate-y-[-50%] flex-col items-center justify-center rounded-3xl bg-black_bg">
       <div className="h-[80%] w-[80%]">
         <Flex height="100%" align="center" justify="center" direction="column">
-          <Flex style={backgroundStyle()}>
+          <Flex style={backgroundStyle}>
             <NarrationsContinueButton
               text="Overview"
-              onClick={() => setCurrentPath(null)} // now we can use setter functions from context in lower components without passing them in props as in NarrationsFilmPlayer
+              onClick={handleOverview}
               triangleColor="#8083ae"
               trianglePlacement="right"
             />
@@ -106,42 +116,31 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
             </Flex>
             {isVisible && <NarrationsFilmPlayer />}
 
-            {!isVisible ? (
-              <>
-                <NarrationsContinueButton
-                  text="Continue"
-                  onClick={handleReopen} // now we can use setter functions from context in lower components without passing them in props as in NarrationsFilmPlayer
-                  triangleColor="#8083ae"
-                  trianglePlacement="left"
-                />
-              </>
+            {!isVisible && currentIndex === 0 ? (
+              <NarrationsContinueButton
+                text="Start"
+                onClick={handleStart}
+                triangleColor="#8083ae"
+                trianglePlacement="left"
+              />
             ) : (
-              <>
-                {!isPlaying && hasStarted && (
-                  <>
-                    {nextFragment && isEnded && (
-                      <NarrationsContinueButton
-                        text="Continue"
-                        onClick={handleContinue} //  now we can use setter functions from context in lower components without passing them in props as in NarrationsFilmPlayer
-                        triangleColor="#8083ae"
-                        trianglePlacement="left"
-                      />
-                    )}
-                    {isEnded && !isLastFragment && (
+              !isPlaying && (
+                <>
+                  {isEnded &&
+                    currentPath?.fragments &&
+                    currentIndex !== currentPath.fragments.length - 1 && (
                       <CountDown onFinish={handleContinue} />
                     )}
-                  </>
-                )}
-
-                {!hasStarted && (
-                  <NarrationsButton
-                    text="Start"
-                    onClick={handleStart} // now we can use setter functions from context in lower components without passing them in props
-                    triangleColor="#8083ae"
-                    trianglePlacement="left"
-                  />
-                )}
-              </>
+                  {isEnded && currentIndex !== 0 && (
+                    <NarrationsContinueButton
+                      text="Continue"
+                      onClick={handleContinue}
+                      triangleColor="#8083ae"
+                      trianglePlacement="left"
+                    />
+                  )}
+                </>
+              )
             )}
           </Flex>
         </Flex>
