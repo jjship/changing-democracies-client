@@ -28,15 +28,13 @@ const SequenceProgressBar: FC = () => {
 
   return (
     <Flex
-      align="center"
       style={{
-        paddingTop: "20px",
         justifyContent: "center",
+        alignItems: "center",
         height: "100%",
         width: "80%",
         margin: "0 auto",
         backgroundColor: "transparent",
-        borderRadius: "5px",
       }}
     >
       {Array.from({ length: totalFragments }).map((_, index) => (

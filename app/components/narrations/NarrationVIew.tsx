@@ -10,10 +10,12 @@ import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { handleClientScriptLoad } from "next/script";
 import { set } from "date-fns";
+import SequenceProgressBar from "./SequenceProgrwssBar";
+import { NarrativesOverview } from "../NarrativesOverview";
+import OverviewTag from "./NarrationOverviewButton";
+import Title from "../Title";
 
-const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
-  narrationPath,
-}) => {
+const NarrationsView: FC = ({}) => {
   const {
     currentPath,
     films,
@@ -30,9 +32,6 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
     setIsVisible,
     setCurrentPath,
   } = useNarrationContext();
-
-  // const currentFragment = currentPath?.fragments[currentIndex];
-  // const nextFragment = currentPath?.fragments[currentIndex + 1];
 
   const handleStart = () => {
     setIsPlaying(true);
@@ -53,7 +52,7 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
       setIsVisible(true);
     }
   };
-  console.log(currentIndex);
+
   const handleReopen = () => {
     setIsPlaying(true);
     setIsEnded(false);
@@ -87,66 +86,69 @@ const NarrationsView: FC<{ narrationPath: NarrationPath }> = ({
   };
 
   return (
-    <Flex className="absolute left-[50%] top-[50%] h-[80%] w-[80%] translate-x-[-50%] translate-y-[-50%] flex-col items-center justify-center rounded-3xl bg-black_bg">
-      <div className="h-[80%] w-[80%]">
-        <Flex height="100%" align="center" justify="center" direction="column">
-          <Flex style={backgroundStyle}>
-            <NarrationsContinueButton
-              text="Overview"
-              onClick={handleOverview}
-              triangleColor="#8083ae"
-              trianglePlacement="right"
+    <Flex height="100%" align="center" justify="center" direction="column">
+      <Flex align="center" justify="center" direction="row">
+        <>
+          <OverviewTag onClick={handleOverview} />
+          {currentPath && (
+            <Title
+              text={`${currentPath?.title}`}
+              theme="dark"
+              color="yellow_secondary"
+              alt={true}
             />
+          )}
+        </>
+        {/* <Title text={`${currentPath?.title}`} theme={"light"}></Title>
+        <h1 className="mx-auto text-white">
+          {currentPath?.title || "Narration"}
+        </h1> */}
+      </Flex>
 
-            <Flex
-              width="40%"
-              position="absolute"
-              right="15%"
-              top="0"
-              py="10px"
-              style={{
-                borderRadius: "2px 2px 0px 0px",
-                backgroundColor: "#8083ae",
-                color: "white",
-              }}
-            >
-              <h1 className="mx-auto text-white">
-                {currentPath?.title || "Narration"}
-              </h1>
-            </Flex>
-            {isVisible && <NarrationsFilmPlayer />}
+      <Flex style={backgroundStyle}>
+        {isVisible && <NarrationsFilmPlayer />}
 
-            {!isVisible && currentIndex === 0 ? (
-              <NarrationsContinueButton
-                text="Start"
-                onClick={handleStart}
-                triangleColor="#8083ae"
-                trianglePlacement="left"
-              />
-            ) : (
-              !isPlaying && (
-                <>
-                  {isEnded &&
-                    currentPath?.fragments &&
-                    currentIndex !== currentPath.fragments.length - 1 && (
-                      <CountDown onFinish={handleContinue} />
-                    )}
-                  {isEnded && currentIndex !== 0 && (
-                    <NarrationsContinueButton
-                      text="Continue"
-                      onClick={handleContinue}
-                      triangleColor="#8083ae"
-                      trianglePlacement="left"
-                    />
-                  )}
-                </>
-              )
-            )}
-          </Flex>
-        </Flex>
-      </div>
+        {!isVisible && currentIndex === 0 ? (
+          <NarrationsContinueButton
+            text="Start"
+            onClick={handleStart}
+            triangleColor="#8083ae"
+            trianglePlacement="left"
+          />
+        ) : (
+          !isPlaying && (
+            <>
+              {isEnded &&
+                currentPath?.fragments &&
+                currentIndex !== currentPath.fragments.length - 1 && (
+                  <CountDown onFinish={handleContinue} />
+                )}
+              {isEnded && currentIndex !== 0 && (
+                <NarrationsContinueButton
+                  text="Continue"
+                  onClick={handleContinue}
+                  triangleColor="#8083ae"
+                  trianglePlacement="left"
+                />
+              )}
+              {isEnded &&
+                currentPath &&
+                currentIndex === currentPath?.fragments.length - 1 && (
+                  <NarrationsContinueButton
+                    text="Reopen"
+                    onClick={handleReopen}
+                    triangleColor="#8083ae"
+                    trianglePlacement="left"
+                  />
+                )}
+            </>
+          )
+        )}
+      </Flex>
+      {/* <SequenceProgressBar /> */}
     </Flex>
   );
 };
 
 export { NarrationsView };
+//'DevTools: Open'

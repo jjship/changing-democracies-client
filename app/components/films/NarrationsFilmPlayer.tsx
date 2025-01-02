@@ -71,28 +71,36 @@ const NarrationsFilmPlayer: FC = () => {
     return null;
   }
 
-  // Add this console log to debug the src URL
-  console.log("Iframe src URL:", `${src}&autoplay=true&letterbox=false`);
-
   return (
     <div
-      ref={containerRef}
       id="player-container"
       className="flex h-full w-full items-center justify-center bg-black_bg"
     >
       <NarrationsCloseButton onClose={handleClose} />
       <iframe
-        ref={iframeRef}
+        ref={src}
         src={`${src}&autoplay=true&letterbox=false`}
         className="h-full w-full"
-        style={{
-          border: "none",
-          objectFit: "cover",
-        }}
         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
       />
     </div>
   );
+
+  // return (
+  //   nowPlaying && (
+  //     <div
+  //       id="player-container"
+  //       className="absolute left-0 top-0 z-50 h-full w-full bg-black_bg"
+  //     >
+  //       <NarrationsCloseButton onClose={} />
+  //       <iframe
+  //         src={src}
+  //         className="absolute left-0 top-0 h-full w-full"
+  //         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+  //       ></iframe>
+  //     </div>
+  //   )
+  // );
 };
 
 export { NarrationsFilmPlayer };

@@ -25,11 +25,6 @@ const NarrationsLayout: React.FC<{ narrationPaths: NarrationPath[] }> = ({
   const [films, setFilms] = useState<FilmData[] | null>(null);
   const [currentFilmId, setCurrentFilmId] = useState<string | null>(null);
 
-  useEffect(() => {
-    // setSelectedPath(narrationPathOne);
-    // setFilms(narrationPathOne.fragments);
-    // setCurrentFilmId(narrationPathOne.fragments[0].guid);
-  }, []);
   return (
     <NarrationContext.Provider
       value={{
@@ -52,29 +47,18 @@ const NarrationsLayout: React.FC<{ narrationPaths: NarrationPath[] }> = ({
         setCurrentFilmId,
       }}
     >
-      {/* className={`${archivo.className} bg-black_bg antialiased`} */}
-      {/* <Flex direction="column" className="h-screen w-screen bg-black_bg">
-        <Flex direction="column" className="h-[85vh] w-full">
-          <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
-          <Box className="flex-1"> */}
-
-      {/* <main className={`${archivo.className} bg-black_bg antialiased`}> */}
-      <main>
-        <div className="relative max-h-[80vh] overflow-clip">
-          <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
-          <div
-            className={`z-10 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x}  mb-9 h-[85vh] overflow-auto pb-5 md:pb-14 xl:pb-40 `}
-          >
-            <NarrativesOverview
-              narrativesCollection={narrationPaths}
-            ></NarrativesOverview>
-          </div>
-          <Flex></Flex>
-          <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary">
-            <SequenceProgressBar />
-          </div>
+      <div className="relative h-[100vh] ">
+        <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
+        <div
+          className={`z-20 mx-auto max-w-[90vw] overflow-auto rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x}  h-[calc(90vh-40px)] `}
+        >
+          <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
-      </main>
+        <div className="sticky bottom-0 -z-10 flex h-[15vh] items-center justify-center bg-yellow_secondary"></div>
+        <div className="fixed bottom-5 w-[100%] md:mx-10">
+          {currentPath && <SequenceProgressBar />}
+        </div>
+      </div>
     </NarrationContext.Provider>
   );
 };

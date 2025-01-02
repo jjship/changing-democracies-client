@@ -26,7 +26,7 @@ const Navigation: FC<NavigationProps> = ({
     <div
       className={`bg-${
         isNavOpen ? "black_bg" : bgColor
-      } sticky top-0 z-40 transition-all duration-1000`}
+      } sticky top-0 z-40 w-full transition-all duration-1000`}
     >
       <div className="flex min-h-[5vh] justify-between">
         <Image
