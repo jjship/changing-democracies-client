@@ -1,6 +1,4 @@
-import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
-import { sectionPadding } from "@/components/Section";
 import { narrationPathThree } from "@/app/narratives/thirdPath";
 import { narrationPathTwo } from "@/app/narratives/secondPath";
 import { narrationPathFour } from "@/app/narratives/fourthPath";
@@ -26,3 +24,4 @@ export default async function NarrativesPage() {
     </main>
   );
 }
+

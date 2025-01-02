@@ -28,7 +28,7 @@ export default function NarrativesLegend() {
           key={index}
           className="flex flex-col items-center justify-center text-center"
         >
-          <div className="mb-5 h-20 w-[80%]">
+          <div className="mb-5 h-20 w-[100%]">
             <p className="text-base font-bold text-[#b85252] sm:text-lg md:text-xl lg:text-2xl">
               {item.text}
             </p>

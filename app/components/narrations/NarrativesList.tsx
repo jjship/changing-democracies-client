@@ -1,20 +1,27 @@
 "use client";
-import React from "react";
-import { NarrationPath } from "../../types/videosAndFilms";
+import React, { useEffect, useState } from "react";
 import { Box } from "@radix-ui/themes";
 import Image from "next/image";
 import { floor } from "@floating-ui/utils";
-import { useNarrationContext } from "../narratives/NarrationsContext";
+import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 
 export { NarrativesList };
 
 const NarrativesList: React.FC = () => {
+  const [isClient, setIsClient] = useState(false);
   const images = ["q1.png", "q2.png", "q3.png", "q4.png", "q5.png"];
-
   const { narrationPaths, setCurrentPath } = useNarrationContext();
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
-    <div className="mt-[10vh] flex flex-col items-center justify-center gap-8 md:gap-14">
+    <div className="mt-[5vh] sm:mt-[8vh] md:mt-[10vh] flex flex-col items-center justify-center gap-4 sm:gap-8 md:gap-14">
       {narrationPaths?.map((narration, index) => (
         <a
           key={index}

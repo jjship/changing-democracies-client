@@ -4,6 +4,7 @@ import Events from "./components/Events";
 import Contact from "./components/Contact";
 import { Section } from "./components/Section";
 import { Navigation } from "./components/navigation/Navigation";
+import React from "react";
 
 export default function Page() {
   return (

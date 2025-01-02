@@ -1,47 +1,33 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
 import { useNarrationContext } from "../../narratives/NarrationsContext";
 
 const SequenceProgressBar: FC = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
-  const {
-    currentIndex,
-    setCurrentIndex,
-    setIsPlaying,
-    setIsEnded,
-    setHasStarted,
-    currentPath,
-    isVisible,
-  } = useNarrationContext();
+  const { currentIndex, setCurrentIndex, setIsPlaying, currentPath } =
+    useNarrationContext();
 
-  const onFragmentSelect = (index: number) => {
-    setCurrentIndex(index),
-      setIsPlaying(true),
-      setHasStarted(true),
-      setIsEnded(false);
-  };
+  const onFragmentSelect = useCallback(
+    (index: number) => {
+      setCurrentIndex(index);
+      setIsPlaying(true);
+    },
+    [setCurrentIndex, setIsPlaying],
+  );
+
   const totalFragments = currentPath?.fragments.length ?? 0;
   const dotSize = 16;
   const lineThickness = 6;
   const thumbnailSize = "8vh";
 
-  return (
-    <Flex
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-        width: "80%",
-        margin: "0 auto",
-        backgroundColor: "transparent",
-      }}
-    >
-      {Array.from({ length: totalFragments }).map((_, index) => (
+  const progressBarItems = useMemo(
+    () =>
+      Array.from({ length: totalFragments }).map((_, index) => (
         <Flex
           key={index}
           style={{
-            flex: index === totalFragments - 1 ? "0 1 auto" : 1, // Change flex value for last item
+            flex: index === totalFragments - 1 ? "0 1 auto" : 1,
             alignItems: "center",
             position: "relative",
           }}
@@ -69,7 +55,7 @@ const SequenceProgressBar: FC = () => {
               alignItems: "center",
             }}
           >
-            {isHovered === index && !isVisible && (
+            {isHovered === index && (
               <Box
                 style={{
                   position: "absolute",
@@ -103,6 +89,7 @@ const SequenceProgressBar: FC = () => {
                 />
               </Box>
             )}
+
             <Box
               style={{
                 width:
@@ -130,10 +117,32 @@ const SequenceProgressBar: FC = () => {
             />
           </Box>
         </Flex>
-      ))}
+      )),
+    [
+      totalFragments,
+      currentIndex,
+      dotSize,
+      lineThickness,
+      thumbnailSize,
+      isHovered,
+      onFragmentSelect,
+    ],
+  );
+
+  return (
+    <Flex
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        width: "100%",
+        margin: "0 auto",
+        backgroundColor: "transparent",
+      }}
+    >
+      {progressBarItems}
     </Flex>
   );
 };
-SequenceProgressBar.displayName = "SequenceProgressBar";
 
 export default SequenceProgressBar;

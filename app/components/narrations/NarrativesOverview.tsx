@@ -1,12 +1,12 @@
 "use client";
 
-import React, { FC, useState } from "react";
-import { NarrationPath } from "../../types/videosAndFilms";
-import Title from "./Title";
-import NarrativesLegend from "@/components/NarrativesLegend";
-import { NarrativesList } from "@/components/NarrativesList";
-import { useNarrationContext } from "../narratives/NarrationsContext";
-import { NarrationsView } from "./narrations/NarrationVIew";
+import React, { FC } from "react";
+import { NarrationPath } from "@/types/videosAndFilms";
+import { useNarrationContext } from "@/app/narratives/NarrationsContext";
+import Title from "@/components/Title";
+import NarrativesLegend from "@/components/narrations/NarrativesLegend";
+import { NarrativesList } from "@/components/narrations/NarrativesList";
+import { NarrationsView } from "./NarrationVIew";
 
 export { NarrativesOverview };
 
