@@ -1,7 +1,0 @@
-{
-  "cSpell.languageSettings": [],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "notebook.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "files.autoSave": "onFocusChange",
-  "cSpell.words": ["luxon"]
-}
