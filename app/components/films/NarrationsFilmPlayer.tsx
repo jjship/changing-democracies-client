@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useNarrationContext } from "../../narratives/NarrationsContext";
 import NarrationsCloseButton from "../narrations/NarrationsCloseButton";
+import Image from "next/image";
 
 const NarrationsFilmPlayer: FC = () => {
   const {
@@ -95,21 +96,52 @@ const NarrationsFilmPlayer: FC = () => {
   }
 
   return (
-    isPlaying && (
-      <div
-        ref={containerRef}
-        className="relative flex h-[100%] w-[95%] items-center justify-center bg-black_bg"
-      >
-        <iframe
-          ref={iframeRef}
-          src={`${src}&autoplay=true&letterbox=false`}
-          className="h-full w-full"
-          loading="lazy"
-          allow="accelerometer; gyroscope; autoplay; encrypted-media;"
+    <div
+      ref={containerRef}
+      style={{
+        position: "relative",
+        width: "100%",
+        overflow: "hidden",
+        paddingTop: "56.25%" /* 16:9 Aspect Ratio */,
+      }}
+      // className="relative flex h-full w-full items-center justify-center bg-black_bg"
+    >
+      {isPlaying ? (
+        <>
+          <iframe
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              width: "100%",
+              height: "100%",
+              border: "none",
+            }}
+            ref={iframeRef}
+            src={`${src}&autoplay=true&letterbox=false&responsive=true`}
+            className="h-full w-full object-cover"
+            loading="lazy"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; cover;"
+          />
+          <NarrationsCloseButton onClose={handleClose} />
+        </>
+      ) : (
+        <Image
+          src={
+            (currentIndex === 0 && currentPath?.fragments[0]?.thumbnailUrl) ||
+            currentPath?.fragments[currentIndex]?.thumbnailUrl ||
+            currentPath?.fragments[0]?.thumbnailUrl ||
+            ""
+          }
+          alt="Narration background"
+          fill
+          className="object-cover"
+          priority
         />
-        <NarrationsCloseButton onClose={handleClose} />
-      </div>
-    )
+      )}
+    </div>
   );
 };
 

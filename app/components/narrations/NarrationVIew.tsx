@@ -4,7 +4,6 @@ import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import React, { FC } from "react";
-import Image from "next/image";
 import { CountDown } from "./CountDown";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 import { useNarrationContext } from "@/app/narratives/NarrationsContext";
@@ -58,38 +57,40 @@ const NarrationsView: FC = ({}) => {
   return (
     currentPath && (
       <Flex
+        height={"80%"}
+        width={"100%"}
         overflow="clip"
-        height="100%"
         align="center"
         justify="center"
         direction="column"
       >
         <div className={"flex w-[80%] flex-row justify-between self-start"}>
           <>
-            <div className={"w-fit"}></div>
-            <OverviewTag onClick={handleOverview} />
+            <div className={"w-fit"}>
+              <OverviewTag onClick={handleOverview} />
+            </div>
             <h1 className="flex h-14 items-center bg-[#8083ae] text-white">
               {currentPath?.title || "Narration"}
             </h1>
           </>
         </div>
 
-        <Flex className="relative flex h-[85%] w-[80%] items-center justify-center">
-          {!isPlaying && (
-            <Image
-              src={
-                (currentIndex === 0 &&
-                  currentPath?.fragments[0]?.thumbnailUrl) ||
-                currentPath?.fragments[currentIndex]?.thumbnailUrl ||
-                currentPath?.fragments[0]?.thumbnailUrl ||
-                ""
-              }
-              alt="Narration background"
-              fill
-              className="object-contain"
-              priority
-            />
-          )}
+        <Flex className="relative mt-14 flex h-[60%] w-[80%] items-center justify-center">
+          {/*{!isPlaying && (*/}
+          {/*  <Image*/}
+          {/*    src={*/}
+          {/*      (currentIndex === 0 &&*/}
+          {/*        currentPath?.fragments[0]?.thumbnailUrl) ||*/}
+          {/*      currentPath?.fragments[currentIndex]?.thumbnailUrl ||*/}
+          {/*      currentPath?.fragments[0]?.thumbnailUrl ||*/}
+          {/*      ""*/}
+          {/*    }*/}
+          {/*    alt="Narration background"*/}
+          {/*    fill*/}
+          {/*    className="object-cover"*/}
+          {/*    priority*/}
+          {/*  />*/}
+          {/*)}*/}
           {<NarrationsFilmPlayer />}
 
           {!isPlaying && currentIndex === 0 && (
