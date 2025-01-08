@@ -1,5 +1,3 @@
-"use client";
-
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useNarrationContext } from "../../narratives/NarrationsContext";
 import NarrationsCloseButton from "../narrations/NarrationsCloseButton";
@@ -75,6 +73,19 @@ const NarrationsFilmPlayer: FC = () => {
       }
     });
   }, [isClient, iframeRef, onEnded, isPlaying]);
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== "https://iframe.mediadelivery.net") return;
+      console.log("Message received from iframe:", event.data);
+    };
+
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
 
   if (!isClient || !nowPlaying) {
     return null;

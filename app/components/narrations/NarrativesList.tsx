@@ -55,13 +55,13 @@ const NarrativesList: React.FC = () => {
                     </span>
                   </div>
                   <div className="self-end">
-                    <a
+                    <button
                       className="mr-2 inline-block h-12 w-12 md:h-12 md:w-12"
-                      href="#"
                       onClick={(e) => {
                         e.preventDefault();
                         setCurrentPath(narration);
                       }}
+                      style={{ background: "none", border: "none", padding: 0 }}
                     >
                       <Image
                         className={"m-2"}
@@ -70,7 +70,7 @@ const NarrativesList: React.FC = () => {
                         width={48}
                         height={48}
                       />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
