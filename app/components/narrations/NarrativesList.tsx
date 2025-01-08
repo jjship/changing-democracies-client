@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Box } from "@radix-ui/themes";
-import Image from "next/image";
 import { floor } from "@floating-ui/utils";
 import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 
@@ -36,21 +35,14 @@ const NarrativesList: React.FC = () => {
           <div className="group flex w-[90%] flex-col items-center md:w-3/4 md:flex-row md:gap-8">
             <Box className="relative w-full text-yellow_secondary md:w-1/3">
               <div className="origin-top-left scale-90 transform-gpu md:scale-75">
-                <div className=" relative h-[300px] w-[300px]">
+                <div className="relative h-[300px] w-[300px] rounded-full bg-cover bg-center" style={{ backgroundImage: `url(/${images[index]})` }}>
                   <div className="absolute inset-0 z-10 rounded-full bg-black/50 transition-opacity duration-300 group-hover:opacity-0" />
-                  <Image
-                    src={`/${images[index]}`}
-                    alt={narration.title}
-                    width={300}
-                    height={300}
-                    className="rounded-full object-cover w-auto h-auto"
-                  />
                 </div>
               </div>
-              <div className=" mt-4 md:absolute md:bottom-16 md:right-[8vw]">
+              <div className="mt-4 md:absolute md:bottom-16 md:right-[8vw]">
                 <div className="flex w-full items-end justify-between md:w-[16vw]">
                   <div className={"relative right-6 min-w-[14vw] text-right"}>
-                    <span className="text-xl font-bold  md:text-3xl">
+                    <span className="text-xl font-bold md:text-3xl">
                       {narration.title}
                     </span>
                   </div>
@@ -63,13 +55,7 @@ const NarrativesList: React.FC = () => {
                       }}
                       style={{ background: "none", border: "none", padding: 0 }}
                     >
-                      <Image
-                        className={"m-2"}
-                        src="/watch video - icon.svg"
-                        alt="Watch video"
-                        width={48}
-                        height={48}
-                      />
+                      <div className="m-2 h-12 w-12 bg-cover bg-center" style={{ backgroundImage: "url(/watch video - icon.svg)" }} />
                     </button>
                   </div>
                 </div>
@@ -91,13 +77,7 @@ const NarrativesList: React.FC = () => {
                     narration.total_length / 60,
                   )} min`}
                 </p>
-                <Image
-                  className="absolute"
-                  src="/watch video - icon.svg"
-                  alt="Watch video"
-                  width={32}
-                  height={32}
-                />
+                <div className="absolute h-8 w-8 bg-cover bg-center" style={{ backgroundImage: "url(/watch video - icon.svg)" }} />
                 <div className="h-2 w-full rounded-2xl bg-green_accent" />
               </div>
             </Box>
