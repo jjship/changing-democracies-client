@@ -43,8 +43,7 @@ const NarrativesList: React.FC = () => {
                     alt={narration.title}
                     width={300}
                     height={300}
-                    layout="responsive"
-                    className="rounded-full object-cover"
+                    className="rounded-full object-cover w-auto h-auto"
                   />
                 </div>
               </div>
@@ -79,7 +78,7 @@ const NarrativesList: React.FC = () => {
             <Box className="flex h-[280px] flex-1 flex-col justify-center">
               {narration.description?.length ? (
                 narration.description.map((line, i) => (
-                  <p key={(line.length + i).toString()} className="text-white">
+                  <p key={(i).toString()} className="text-white">
                     {line}
                   </p>
                 ))
