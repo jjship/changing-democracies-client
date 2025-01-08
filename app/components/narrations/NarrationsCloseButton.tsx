@@ -1,9 +1,7 @@
-import { useNarrationContext } from "../../narratives/NarrationsContext";
 import React from "react";
 
 const NarrationsCloseButton = (props: { onClose?: () => void }) => {
   const { onClose } = props;
-  const { setCurrentIndex } = useNarrationContext();
 
   return (
     <a

@@ -17,6 +17,7 @@ const NarrationsView: FC = ({}) => {
     currentIndex,
     setCurrentIndex,
     setCurrentPath,
+    showCountDown,
   } = useNarrationContext();
 
   const handleStart = () => {
@@ -93,7 +94,7 @@ const NarrationsView: FC = ({}) => {
                   triangleColor="#8083ae"
                   trianglePlacement="left"
                 />
-                <CountDown onFinish={handleContinue} />
+                {showCountDown && <CountDown onFinish={handleContinue} />}
               </>
             )}
         </Flex>

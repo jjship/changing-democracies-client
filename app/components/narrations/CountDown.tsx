@@ -24,13 +24,7 @@ const CountDown: FC<{
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    if (count === 0) {
-      onFinish();
-    }
-  }, [count, onFinish]);
+  }, [onFinish]);
 
   return (
     <div className="max-h-xs relative flex h-full w-full max-w-xs items-center justify-center">

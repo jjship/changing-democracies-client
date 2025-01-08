@@ -9,6 +9,8 @@ type NarrationContextType = {
   narrationPaths: NarrationPath[] | null;
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
+  showCountDown: boolean;
+  setShowCountDown: (showCountDown: boolean) => void;
   currentIndex: number;
   setCurrentIndex: (currentIndex: number) => void;
 };
@@ -21,9 +23,12 @@ const defaultContext: NarrationContextType = {
   setIsPlaying: () => {},
   currentIndex: 0,
   setCurrentIndex: () => {},
+  showCountDown: true,
+  setShowCountDown: () => {},
 };
 
-export const NarrationContext = createContext<NarrationContextType>(defaultContext);
+export const NarrationContext =
+  createContext<NarrationContextType>(defaultContext);
 
 export function NarrationContextProvider({
   children,
@@ -34,6 +39,7 @@ export function NarrationContextProvider({
   const [narrationPaths] = useState<NarrationPath[] | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [showCountDown, setShowCountDown] = useState<boolean>(true);
 
   return (
     <NarrationContext.Provider
@@ -45,6 +51,8 @@ export function NarrationContextProvider({
         setIsPlaying,
         currentIndex,
         setCurrentIndex,
+        showCountDown,
+        setShowCountDown,
       }}
     >
       {children}

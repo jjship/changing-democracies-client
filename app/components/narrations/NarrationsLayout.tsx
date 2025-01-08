@@ -18,6 +18,7 @@ const NarrationsLayout: React.FC<{ narrationPaths: NarrationPath[] }> = ({
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
+  const [showCountDown, setShowCountDown] = useState<boolean>(true);
 
   return (
     <NarrationContext.Provider
@@ -29,6 +30,8 @@ const NarrationsLayout: React.FC<{ narrationPaths: NarrationPath[] }> = ({
         setIsPlaying,
         currentIndex,
         setCurrentIndex,
+        showCountDown,
+        setShowCountDown,
       }}
     >
       <div className="max-screen relative max-h-screen overflow-hidden">

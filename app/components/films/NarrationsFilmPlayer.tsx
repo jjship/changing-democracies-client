@@ -9,6 +9,7 @@ const NarrationsFilmPlayer: FC = () => {
     isPlaying,
     setIsPlaying,
     setCurrentIndex,
+    setShowCountDown,
   } = useNarrationContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
@@ -24,7 +25,8 @@ const NarrationsFilmPlayer: FC = () => {
 
   const onClose = useCallback(() => {
     setIsPlaying(false);
-  }, [setIsPlaying]);
+    setShowCountDown(false);
+  }, [setIsPlaying, setShowCountDown]);
 
   const src = nowPlaying
     ? `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying.guid}?autoplay=true&captions=EN`
