@@ -101,7 +101,7 @@ const NarrationsFilmPlayer: FC = () => {
       style={{
         position: "relative",
         width: "100%",
-        overflow: "hidden",
+        // overflow: "hidden",
         paddingTop: "56.25%" /* 16:9 Aspect Ratio */,
       }}
       // className="relative flex h-full w-full items-center justify-center bg-black_bg"
@@ -121,9 +121,8 @@ const NarrationsFilmPlayer: FC = () => {
             }}
             ref={iframeRef}
             src={`${src}&autoplay=true&letterbox=false&responsive=true`}
-            className="h-full w-full object-cover"
-            loading="lazy"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; cover;"
+            className="h-full w-full"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           />
           <NarrationsCloseButton onClose={handleClose} />
         </>
@@ -137,7 +136,7 @@ const NarrationsFilmPlayer: FC = () => {
           }
           alt="Narration background"
           fill
-          className="object-cover"
+          // className="object-cover"
           priority
         />
       )}

@@ -19,7 +19,7 @@ const NarrationsButton: React.FC<NarrationsButtonProps> = ({
   const isRightPlacement = trianglePlacement === "right";
 
   return (
-    <Box>
+    <Box position={'absolute'}>
       <button
         onClick={onClick}
         style={{
