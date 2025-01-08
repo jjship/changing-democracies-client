@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
 
-export { CountDown };
-
 const CountDown: FC<{
   onFinish: () => void;
 }> = ({ onFinish }) => {
@@ -64,3 +62,5 @@ const CountDown: FC<{
     </div>
   );
 };
+
+export { CountDown };
