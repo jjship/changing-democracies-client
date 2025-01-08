@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 export default function NarrativesLegend() {
   const data = [
@@ -33,9 +32,15 @@ export default function NarrativesLegend() {
               {item.text}
             </p>
           </div>
-          <div className="flex h-[100px] items-center">
-            <Image src={item.image} alt="circle image" width={60} height={60} />
-          </div>
+          <div
+            className="flex h-[100px] w-[60px] items-center"
+            style={{
+              backgroundImage: `url(${item.image})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }}
+          ></div>
         </div>
       ))}
     </div>
