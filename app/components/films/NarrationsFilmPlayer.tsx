@@ -13,24 +13,10 @@ const NarrationsFilmPlayer: FC = () => {
   } = useNarrationContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
-  const onEnded = useCallback(() => {
-    if (currentPath && currentIndex < currentPath.fragments.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setIsPlaying(false);
-    } else {
-      setCurrentIndex(0);
-      setIsPlaying(false);
-    }
-  }, [currentIndex, currentPath, setCurrentIndex, setIsPlaying]);
-
-  const onClose = useCallback(() => {
-    setIsPlaying(false);
-    setShowCountDown(false);
-  }, [setIsPlaying, setShowCountDown]);
-
   const src = nowPlaying
     ? `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying.guid}?autoplay=true&captions=EN`
     : "";
+
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isClient, setIsClient] = useState(false);
@@ -38,6 +24,20 @@ const NarrationsFilmPlayer: FC = () => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const onEnded = useCallback(() => {
+    if (currentPath && currentIndex < currentPath.fragments.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      setCurrentIndex(0);
+    }
+    setIsPlaying(false);
+  }, [currentIndex, currentPath, setCurrentIndex, setIsPlaying]);
+
+  const onClose = useCallback(() => {
+    setIsPlaying(false);
+    setShowCountDown(false);
+  }, [setIsPlaying, setShowCountDown]);
 
   const exitFullscreen = () => {
     if (document.fullscreenElement && document.exitFullscreen) {
@@ -78,7 +78,8 @@ const NarrationsFilmPlayer: FC = () => {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== "https://iframe.mediadelivery.net") return;
+      const iframeOrigin = new URL(src).origin;
+      if (event.origin !== iframeOrigin) return;
       console.log("Message received from iframe:", event.data);
     };
 
@@ -87,7 +88,7 @@ const NarrationsFilmPlayer: FC = () => {
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, []);
+  }, [src]);
 
   if (!isClient || !nowPlaying) {
     return null;
@@ -97,7 +98,7 @@ const NarrationsFilmPlayer: FC = () => {
     isPlaying && (
       <div
         ref={containerRef}
-        className="relative flex h-[100%] w-[95%] items-center justify-center bg-black_bg "
+        className="relative flex h-[100%] w-[95%] items-center justify-center bg-black_bg"
       >
         <iframe
           ref={iframeRef}
