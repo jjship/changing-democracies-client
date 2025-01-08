@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function NarrativesLegend() {
   const data = [
     {
@@ -35,7 +33,7 @@ export default function NarrativesLegend() {
           <div
             className="flex h-[100px] w-[60px] items-center"
             style={{
-              backgroundImage: `url(${item.image})`,
+              backgroundImage: `url('${item.image}')`,
               backgroundSize: "contain",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
