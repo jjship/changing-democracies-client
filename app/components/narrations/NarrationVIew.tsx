@@ -93,7 +93,7 @@ const NarrationsView: FC = ({}) => {
                   triangleColor="#8083ae"
                   trianglePlacement="left"
                 />
-                <CountDown />
+                <CountDown onFinish={handleContinue} />
               </>
             )}
         </Flex>

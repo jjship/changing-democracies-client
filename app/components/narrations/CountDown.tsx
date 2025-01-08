@@ -1,12 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
-import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 
-const CountDown: FC = () => {
+export { CountDown };
+
+const CountDown: FC<{
+  onFinish: () => void;
+}> = ({ onFinish }) => {
   const [count, setCount] = useState<number>(5);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
-
-  const { setIsPlaying } = useNarrationContext();
 
   const offset = circumference - ((count - 1) / 5) * circumference;
 
@@ -15,6 +16,7 @@ const CountDown: FC = () => {
       setCount((prevCount) => {
         if (prevCount <= 1) {
           clearInterval(timer);
+          onFinish();
           return 0;
         }
         return prevCount - 1;
@@ -26,9 +28,9 @@ const CountDown: FC = () => {
 
   useEffect(() => {
     if (count === 0) {
-      setIsPlaying(true);
+      onFinish();
     }
-  }, [count, setIsPlaying]);
+  }, [count, onFinish]);
 
   return (
     <div className="max-h-xs relative flex h-full w-full max-w-xs items-center justify-center">
@@ -68,5 +70,3 @@ const CountDown: FC = () => {
     </div>
   );
 };
-
-export { CountDown };
