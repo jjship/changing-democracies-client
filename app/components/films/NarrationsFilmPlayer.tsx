@@ -101,10 +101,8 @@ const NarrationsFilmPlayer: FC = () => {
       style={{
         position: "relative",
         width: "100%",
-        // overflow: "hidden",
         paddingTop: "56.25%" /* 16:9 Aspect Ratio */,
       }}
-      // className="relative flex h-full w-full items-center justify-center bg-black_bg"
     >
       {isPlaying ? (
         <>
@@ -136,7 +134,6 @@ const NarrationsFilmPlayer: FC = () => {
           }
           alt="Narration background"
           fill
-          // className="object-cover"
           priority
         />
       )}
