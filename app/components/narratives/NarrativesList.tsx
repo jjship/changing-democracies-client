@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { Box } from "@radix-ui/themes";
-import { useNarrationContext } from "@/app/narratives/NarrationsContext";
+import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
 
 export { NarrativesList };
 
 const NarrativesList: FC = () => {
   const [isClient, setIsClient] = useState(false);
   const images = ["q1.png", "q2.png", "q3.png", "q4.png", "q5.png"];
-  const { narrationPaths, setCurrentPath } = useNarrationContext();
+  const { narrationPaths, setCurrentPath } = useNarrativesContext();
 
   useEffect(() => {
     setIsClient(true);

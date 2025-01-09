@@ -1,7 +1,7 @@
 import { Box, Text } from "@radix-ui/themes";
 import { CSSProperties, FC } from "react";
 
-type NarrationsButtonProps = {
+type NarrativesButtonProps = {
   text: string;
   onClick: () => void;
   triangleColor: string;
@@ -10,7 +10,7 @@ type NarrationsButtonProps = {
   className?: string;
 };
 
-const NarrationsButton: FC<NarrationsButtonProps> = ({
+const NarrativesViewButton: FC<NarrativesButtonProps> = ({
   text,
   onClick,
   triangleColor,
@@ -51,4 +51,4 @@ const NarrationsButton: FC<NarrationsButtonProps> = ({
   );
 };
 
-export default NarrationsButton;
+export default NarrativesViewButton;

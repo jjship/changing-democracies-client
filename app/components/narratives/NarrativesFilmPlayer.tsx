@@ -1,9 +1,9 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useNarrationContext } from "../../narratives/NarrationsContext";
-import NarrationsCloseButton from "../narrations/NarrationsCloseButton";
+import { useNarrativesContext } from "../../narratives/NarrativesContext";
+import NarrativesCloseButton from "./NarrativesCloseButton";
 import Image from "next/image";
 
-const NarrationsFilmPlayer: FC = () => {
+const NarrativesFilmPlayer: FC = () => {
   const {
     currentPath,
     currentIndex,
@@ -11,7 +11,7 @@ const NarrationsFilmPlayer: FC = () => {
     setIsPlaying,
     setCurrentIndex,
     setShowCountDown,
-  } = useNarrationContext();
+  } = useNarrativesContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
   const src = nowPlaying
@@ -122,7 +122,7 @@ const NarrationsFilmPlayer: FC = () => {
             className="h-full w-full"
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           />
-          <NarrationsCloseButton onClose={handleClose} />
+          <NarrativesCloseButton onClose={handleClose} />
         </>
       ) : (
         <Image
@@ -141,4 +141,4 @@ const NarrationsFilmPlayer: FC = () => {
   );
 };
 
-export { NarrationsFilmPlayer };
+export { NarrativesFilmPlayer };

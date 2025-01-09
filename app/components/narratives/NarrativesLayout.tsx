@@ -2,12 +2,12 @@
 import { FC, useState } from "react";
 import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
-import { NarrationContext } from "@/app/narratives/NarrationsContext";
+import { NarrativesContext } from "@/app/narratives/NarrativesContext";
 import { sectionPadding } from "../Section";
 import SequenceProgressBar from "./SequenceProgrwssBar";
-import { NarrativesOverview } from "@/components/narrations/NarrativesOverview";
+import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
 
-const NarrationsLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
+const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
   narrationPaths,
 }) => {
   if (!narrationPaths) {
@@ -20,7 +20,7 @@ const NarrationsLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
   const [showCountDown, setShowCountDown] = useState<boolean>(true);
 
   return (
-    <NarrationContext.Provider
+    <NarrativesContext.Provider
       value={{
         currentPath,
         setCurrentPath,
@@ -45,8 +45,8 @@ const NarrationsLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
           {currentPath && <SequenceProgressBar />}
         </div>
       </div>
-    </NarrationContext.Provider>
+    </NarrativesContext.Provider>
   );
 };
 
-export default NarrationsLayout;
+export default NarrativesLayout;

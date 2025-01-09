@@ -4,7 +4,7 @@ type NarrationCloseButtonProps = {
   onClose: () => void;
 };
 
-const NarrationsCloseButton: FC<NarrationCloseButtonProps> = ({ onClose }) => {
+const NarrativesCloseButton: FC<NarrationCloseButtonProps> = ({ onClose }) => {
 
   return (
     <a
@@ -19,4 +19,4 @@ const NarrationsCloseButton: FC<NarrationCloseButtonProps> = ({ onClose }) => {
   );
 };
 
-export default NarrationsCloseButton;
+export default NarrativesCloseButton;

@@ -1,13 +1,13 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
 import { FC } from "react";
-import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
-import { useNarrationContext } from "@/app/narratives/NarrationsContext";
-import OverviewTag from "./NarrationOverviewButton";
-import CountDown from "@/components/narrations/CountDown";
+import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import OverviewTag from "./NarrativesOverviewButton";
+import CountDown from "@/components/narratives/CountDown";
+import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
+import NarrativesViewButton from "@/components/narratives/NarrativesViewButton";
 
-const NarrationsView: FC = ({}) => {
+const NarrativesView: FC = ({}) => {
   const {
     currentPath,
     isPlaying,
@@ -17,7 +17,7 @@ const NarrationsView: FC = ({}) => {
     setCurrentPath,
     showCountDown,
     setShowCountDown,
-  } = useNarrationContext();
+  } = useNarrativesContext();
 
   const handleStart = () => {
     setIsPlaying(true);
@@ -59,10 +59,10 @@ const NarrationsView: FC = ({}) => {
         </div>
 
         <Flex className="relative flex w-[80%] items-center justify-center">
-          {<NarrationsFilmPlayer />}
+          {<NarrativesFilmPlayer />}
 
           {!isPlaying && currentIndex === 0 && (
-            <NarrationsContinueButton
+            <NarrativesViewButton
               text="Start"
               onClick={handleStart}
               triangleColor="#8083ae"
@@ -73,7 +73,7 @@ const NarrationsView: FC = ({}) => {
             currentIndex > 0 &&
             currentIndex <= currentPath.fragments.length && (
               <>
-                <NarrationsContinueButton
+                <NarrativesViewButton
                   text="Continue"
                   onClick={handleContinue}
                   triangleColor="#8083ae"
@@ -88,4 +88,4 @@ const NarrationsView: FC = ({}) => {
   );
 };
 
-export { NarrationsView };
+export { NarrativesView };

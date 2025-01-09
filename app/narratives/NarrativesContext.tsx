@@ -1,19 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
 
-type NarrationContextType = {
-  currentPath: NarrationPath | null;
-  setCurrentPath: (narrationPath: NarrationPath | null) => void;
-  narrationPaths: NarrationPath[] | null;
-  isPlaying: boolean;
-  setIsPlaying: (isPlaying: boolean) => void;
-  showCountDown: boolean;
-  setShowCountDown: (showCountDown: boolean) => void;
-  currentIndex: number;
-  setCurrentIndex: (currentIndex: number) => void;
-};
-
-const defaultContext: NarrationContextType = {
+const defaultContext: NarrativesContextType = {
   currentPath: null,
   setCurrentPath: () => {},
   narrationPaths: null,
@@ -25,10 +13,22 @@ const defaultContext: NarrationContextType = {
   setShowCountDown: () => {},
 };
 
-export const NarrationContext =
-  createContext<NarrationContextType>(defaultContext);
+type NarrativesContextType = {
+  currentPath: NarrationPath | null;
+  setCurrentPath: (narrationPath: NarrationPath | null) => void;
+  narrationPaths: NarrationPath[] | null;
+  isPlaying: boolean;
+  setIsPlaying: (isPlaying: boolean) => void;
+  showCountDown: boolean;
+  setShowCountDown: (showCountDown: boolean) => void;
+  currentIndex: number;
+  setCurrentIndex: (currentIndex: number) => void;
+};
 
-export function NarrationContextProvider({
+export const NarrativesContext =
+  createContext<NarrativesContextType>(defaultContext);
+
+export function NarrativesContextProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -40,7 +40,7 @@ export function NarrationContextProvider({
   const [showCountDown, setShowCountDown] = useState<boolean>(true);
 
   return (
-    <NarrationContext.Provider
+    <NarrativesContext.Provider
       value={{
         currentPath,
         setCurrentPath,
@@ -54,16 +54,16 @@ export function NarrationContextProvider({
       }}
     >
       {children}
-    </NarrationContext.Provider>
+    </NarrativesContext.Provider>
   );
 }
 
-export function useNarrationContext() {
-  const context = useContext(NarrationContext);
+export function useNarrativesContext() {
+  const context = useContext(NarrativesContext);
 
   if (!context) {
     throw new Error(
-      "useNarrationContext must be used within a NarrationContextProvider",
+      "useNarrativesContext must be used within a NarrativesContextProvider",
     );
   }
 

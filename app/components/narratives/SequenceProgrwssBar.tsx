@@ -1,11 +1,11 @@
 import { FC, useCallback, useMemo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
-import { useNarrationContext } from "../../narratives/NarrationsContext";
+import { useNarrativesContext } from "../../narratives/NarrativesContext";
 
 const SequenceProgressBar: FC = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const { currentIndex, setCurrentIndex, setIsPlaying, currentPath } =
-    useNarrationContext();
+    useNarrativesContext();
 
   const onFragmentSelect = useCallback(
     (index: number) => {

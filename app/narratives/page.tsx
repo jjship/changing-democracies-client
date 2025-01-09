@@ -4,7 +4,7 @@ import { narrationPathTwo } from "@/app/narratives/secondPath";
 import { narrationPathFour } from "@/app/narratives/fourthPath";
 import { narrationPathOne } from "@/app/narratives/firstPath";
 import { narrationPathFive } from "./fifthPath";
-import NarrationsLayout from "../components/narrations/NarrationsLayout";
+import NarrativesLayout from "@/components/narratives/NarrativesLayout";
 
 export default async function NarrativesPage() {
   const narrationCollection: NarrationPath[] = [
@@ -17,7 +17,7 @@ export default async function NarrativesPage() {
 
   return (
     <main>
-      <NarrationsLayout narrationPaths={narrationCollection} />
+      <NarrativesLayout narrationPaths={narrationCollection} />
     </main>
   );
 }
