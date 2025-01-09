@@ -1,12 +1,10 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Box } from "@radix-ui/themes";
-import { floor } from "@floating-ui/utils";
 import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 
 export { NarrativesList };
 
-const NarrativesList: React.FC = () => {
+const NarrativesList: FC = () => {
   const [isClient, setIsClient] = useState(false);
   const images = ["q1.png", "q2.png", "q3.png", "q4.png", "q5.png"];
   const { narrationPaths, setCurrentPath } = useNarrationContext();
@@ -73,7 +71,7 @@ const NarrativesList: React.FC = () => {
               )}
               <div className="relative top-6 flex w-full flex-row items-center md:mt-8 md:w-1/2">
                 <p className="absolute bottom-2 w-full self-end text-end text-xl font-bold text-yellow_secondary md:text-xl">
-                  {`${narration.fragments.length - 1} videos, ${floor(
+                  {`${narration.fragments.length - 1} videos, ${Math.floor(
                     narration.total_length / 60,
                   )} min`}
                 </p>

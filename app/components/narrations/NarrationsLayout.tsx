@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { NarrationContext } from "@/app/narratives/NarrationsContext";
@@ -8,7 +7,7 @@ import { sectionPadding } from "../Section";
 import SequenceProgressBar from "./SequenceProgrwssBar";
 import { NarrativesOverview } from "@/components/narrations/NarrativesOverview";
 
-const NarrationsLayout: React.FC<{ narrationPaths: NarrationPath[] }> = ({
+const NarrationsLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
   narrationPaths,
 }) => {
   if (!narrationPaths) {

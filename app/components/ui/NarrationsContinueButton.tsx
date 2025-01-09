@@ -1,15 +1,16 @@
 import { Box, Text } from "@radix-ui/themes";
+import { CSSProperties, FC } from "react";
 
 type NarrationsButtonProps = {
   text: string;
   onClick: () => void;
   triangleColor: string;
   trianglePlacement: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
 };
 
-const NarrationsButton: React.FC<NarrationsButtonProps> = ({
+const NarrationsButton: FC<NarrationsButtonProps> = ({
   text,
   onClick,
   triangleColor,

@@ -1,13 +1,11 @@
-"use client";
-
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
 import NarrationsContinueButton from "@/ui/NarrationsContinueButton";
-import React, { FC } from "react";
-import { CountDown } from "./CountDown";
+import { FC } from "react";
 import { NarrationsFilmPlayer } from "@/components/films/NarrationsFilmPlayer";
 import { useNarrationContext } from "@/app/narratives/NarrationsContext";
 import OverviewTag from "./NarrationOverviewButton";
+import CountDown from "@/components/narrations/CountDown";
 
 const NarrationsView: FC = ({}) => {
   const {

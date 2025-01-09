@@ -1,7 +1,10 @@
-import React from "react";
+import { FC } from "react";
 
-const NarrationsCloseButton = (props: { onClose?: () => void }) => {
-  const { onClose } = props;
+type NarrationCloseButtonProps = {
+  onClose: () => void;
+};
+
+const NarrationsCloseButton: FC<NarrationCloseButtonProps> = ({ onClose }) => {
 
   return (
     <a

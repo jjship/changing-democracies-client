@@ -1,5 +1,4 @@
-"use client";
-import React, { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
 import { useNarrationContext } from "../../narratives/NarrationsContext";
 
@@ -121,10 +120,8 @@ const SequenceProgressBar: FC = () => {
     [
       totalFragments,
       currentIndex,
-      dotSize,
-      lineThickness,
-      thumbnailSize,
       isHovered,
+      currentPath?.fragments,
       onFragmentSelect,
     ],
   );

@@ -1,12 +1,10 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { NarrationPath } from "@/types/videosAndFilms";
-import { useNarrationContext } from "@/app/narratives/NarrationsContext";
+import { FC } from "react";
 
 type OverviewButtonProps = {
   onClick: () => void;
 };
 
-const OverviewTag: React.FC<OverviewButtonProps> = ({ onClick }) => {
+const OverviewTag: FC<OverviewButtonProps> = ({ onClick }) => {
   return (
     <button className="absolute flex items-center" onClick={onClick}>
       <div

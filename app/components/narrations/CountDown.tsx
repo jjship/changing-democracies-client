@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 const CountDown: FC<{
   onFinish: () => void;
@@ -63,4 +63,4 @@ const CountDown: FC<{
   );
 };
 
-export { CountDown };
+export default CountDown;

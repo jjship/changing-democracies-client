@@ -1,4 +1,6 @@
-export default function NarrativesLegend() {
+import { FC } from "react";
+
+const NarrativesLegend: FC = () => {
   const data = [
     {
       text: "select path",
@@ -43,4 +45,6 @@ export default function NarrativesLegend() {
       ))}
     </div>
   );
-}
+};
+
+export default NarrativesLegend;

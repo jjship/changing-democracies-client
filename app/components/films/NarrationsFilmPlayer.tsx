@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useNarrationContext } from "../../narratives/NarrationsContext";
 import NarrationsCloseButton from "../narrations/NarrationsCloseButton";
 import Image from "next/image";
