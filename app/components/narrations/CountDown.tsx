@@ -24,6 +24,12 @@ const CountDown: FC<{
     return () => clearInterval(timer);
   }, [onFinish]);
 
+  useEffect(() => {
+    if (count === 0) {
+      onFinish();
+    }
+  }, [count, onFinish]);
+
   return (
     <div className="max-h-xs flex h-full w-full max-w-xs items-center justify-center">
       <svg viewBox="0 0 100 100" className="h-1/2 w-1/2">
