@@ -42,7 +42,6 @@ const NarrativesView: FC = ({}) => {
         height={"90%"}
         width={"100%"}
         align="center"
-        // justify=""
         direction="column"
       >
         <div
