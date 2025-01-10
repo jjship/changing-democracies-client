@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
 const CountDown: FC<{
   onFinish: () => void;
@@ -9,29 +9,30 @@ const CountDown: FC<{
 
   const offset = circumference - ((count - 1) / 5) * circumference;
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCount((prevCount) => {
-        if (prevCount <= 1) {
-          clearInterval(timer);
-          onFinish();
-          return 0;
-        }
-        return prevCount - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
+  const handleFinish = useCallback(() => {
+    requestAnimationFrame(() => {
+      onFinish();
+    });
   }, [onFinish]);
 
   useEffect(() => {
-    if (count === 0) {
-      onFinish();
+    let timer: NodeJS.Timeout;
+
+    if (count > 0) {
+      timer = setTimeout(() => {
+        setCount(count - 1);
+      }, 1000);
+    } else {
+      handleFinish();
     }
-  }, [count, onFinish]);
+
+    return () => clearTimeout(timer);
+  }, [count, handleFinish]);
+
+  if (count === 0) return null;
 
   return (
-    <div className="max-h-xs relative flex h-full w-full max-w-xs items-center justify-center">
+    <div className="max-h-xs flex h-full w-full max-w-xs items-center justify-center">
       <svg viewBox="0 0 100 100" className="h-1/2 w-1/2">
         <circle
           stroke="rgba(255, 0, 0, 0.2)"
