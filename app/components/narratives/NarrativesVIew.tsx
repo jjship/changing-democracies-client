@@ -39,19 +39,23 @@ const NarrativesView: FC = ({}) => {
   return (
     currentPath && (
       <Flex
-        height={"90%"}
-        width={"100%"}
+        width={"90%"}
         align="center"
-        direction="column"
+        justify={"center"}
+        className={"mt-10"}
+        direction={"column"}
+        height={"100%"}
       >
         <div
-          className={"flex h-[10%] w-[80%] flex-row justify-between self-start"}
+          className={
+            "relative box-border flex h-[10%] w-[90%] flex-row items-start justify-between self-start px-8"
+          }
         >
           <>
             <div className={"w-fit"}>
               <OverviewTag onClick={handleOverview} />
             </div>
-            <h1 className="flex h-14 items-center bg-[#8083ae] px-2 text-white">
+            <h1 className="flex h-14 items-center bg-[#8083ae] px-4 text-white">
               {currentPath?.title || "Narration"}
             </h1>
           </>
@@ -61,17 +65,29 @@ const NarrativesView: FC = ({}) => {
           {<NarrativesFilmPlayer />}
 
           {!isPlaying && currentIndex === 0 && (
-            <NarrativesViewButton
-              text="Start"
-              onClick={handleStart}
-              triangleColor="#8083ae"
-              trianglePlacement="left"
-            />
+            <Flex
+              direction={"column"}
+              justify={"center"}
+              align={"center"}
+              className={"absolute w-full"}
+            >
+              <NarrativesViewButton
+                text="Start"
+                onClick={handleStart}
+                triangleColor="#8083ae"
+                trianglePlacement="left"
+              />
+            </Flex>
           )}
           {!isPlaying &&
             currentIndex > 0 &&
             currentIndex <= currentPath.fragments.length && (
-              <>
+              <Flex
+                direction={"row"}
+                justify={"center"}
+                align={"center"}
+                className={"absolute w-full"}
+              >
                 <NarrativesViewButton
                   text="Continue"
                   onClick={handleContinue}
@@ -79,7 +95,7 @@ const NarrativesView: FC = ({}) => {
                   trianglePlacement="left"
                 />
                 {showCountDown && <CountDown onFinish={handleContinue} />}
-              </>
+              </Flex>
             )}
         </Flex>
       </Flex>

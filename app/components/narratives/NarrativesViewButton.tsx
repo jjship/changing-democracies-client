@@ -20,7 +20,7 @@ const NarrativesViewButton: FC<NarrativesButtonProps> = ({
   const isRightPlacement = trianglePlacement === "right";
 
   return (
-    <Box position={'absolute'}>
+    <Box>
       <button
         onClick={onClick}
         style={{

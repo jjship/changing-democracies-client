@@ -101,7 +101,7 @@ const NarrativesFilmPlayer: FC = () => {
       style={{
         position: "relative",
         width: "100%",
-        paddingTop: "56.25%" /* 16:9 Aspect Ratio */,
+        paddingTop: "56%" /* 16:9 Aspect Ratio */,
       }}
     >
       {isPlaying ? (

@@ -5,6 +5,7 @@ import Title from "@/components/Title";
 import NarrativesLegend from "@/components/narratives/NarrativesLegend";
 import { NarrativesList } from "@/components/narratives/NarrativesList";
 import { NarrativesView } from "./NarrativesVIew";
+import { Flex } from "@radix-ui/themes";
 
 export { NarrativesOverview };
 
@@ -15,7 +16,9 @@ const NarrativesOverview: FC<{
   return (
     <>
       {currentPath ? (
-        <NarrativesView />
+        <Flex width={'100%'} justify={'center'}>
+          <NarrativesView />
+        </Flex>
       ) : (
         <>
           <Title

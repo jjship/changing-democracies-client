@@ -18,7 +18,7 @@ const NarrativesList: FC = () => {
   }
 
   return (
-    <div className="mt-[5vh] flex flex-col items-center justify-center gap-4 sm:mt-[8vh] sm:gap-8 md:mt-[10vh] md:gap-14">
+    <div className="mt-[5vh] sm:mt-[8vh] md:mt-[10vh] flex flex-col items-center justify-center gap-4 sm:gap-8 md:gap-14">
       {narrationPaths?.map((narration, index) => (
         <a
           key={index}
@@ -27,66 +27,55 @@ const NarrativesList: FC = () => {
             e.preventDefault();
             setCurrentPath(narration);
           }}
-          className="block w-[80%] xl:ml-40"
+          className="ml-40 block w-[80%]" // ml-40 is a hack
           style={{ textDecoration: "none" }}
         >
-          <div className="group flex w-full flex-col items-center md:w-3/4 md:flex-row md:gap-8">
+          <div className="group flex w-[90%] flex-col items-center md:w-3/4 md:flex-row md:gap-8">
             <Box className="relative w-full text-yellow_secondary md:w-1/3">
               <div className="origin-top-left scale-90 transform-gpu md:scale-75">
-                <div
-                  className="relative h-[200px] w-[200px] rounded-full bg-cover bg-center sm:h-[300px] sm:w-[300px]"
-                  style={{ backgroundImage: `url(/${images[index]})` }}
-                >
+                <div className="relative h-[300px] w-[300px] rounded-full bg-cover bg-center" style={{ backgroundImage: `url(/${images[index]})` }}>
                   <div className="absolute inset-0 z-10 rounded-full bg-black/50 transition-opacity duration-300 group-hover:opacity-0" />
                 </div>
               </div>
               <div className="mt-4 md:absolute md:bottom-16 md:right-[8vw]">
                 <div className="flex w-full items-end justify-between md:w-[16vw]">
-                  <div className="relative  right-6 min-w-[14vw] text-right">
-                    <span className="font-bold sm:text-sm md:text-3xl">
+                  <div className={"relative right-6 min-w-[14vw] text-right"}>
+                    <span className="text-xl font-bold md:text-3xl">
                       {narration.title}
                     </span>
                   </div>
                   <div className="self-end">
                     <button
-                      className="mr-2 inline-block h-11 w-9 sm:h-13 sm:w-13 md:h-13 md:w-13"
+                      className="mr-2 inline-block h-12 w-12 md:h-12 md:w-12"
                       onClick={(e) => {
                         e.preventDefault();
                         setCurrentPath(narration);
                       }}
                       style={{ background: "none", border: "none", padding: 0 }}
                     >
-                      <div
-                        className="m-2 h-11 relative w-9 bg-cover bg-center sm:h-13 sm:w-13"
-                        style={{
-                          backgroundImage: "url('./watch video - icon.svg')",
-                        }}
-                      />
+                      <div className="m-2 h-14 w-12 bg-cover bg-center" style={{ backgroundImage: "url('./watch video - icon.svg')" }} />
                     </button>
                   </div>
                 </div>
               </div>
             </Box>
-            <Box className="flex h-[200px] flex-1 flex-col justify-center sm:my-3 sm:h-[280px]">
+            <Box className="flex h-[280px] flex-1 flex-col justify-center">
               {narration.description?.length ? (
                 narration.description.map((line, i) => (
-                  <p key={i.toString()} className="text-white sm:text-sm md:text-base">
+                  <p key={(i).toString()} className="text-white">
                     {line}
                   </p>
                 ))
               ) : (
-                <p className="text-xs text-white sm:text-base"></p>
+                <p className="text-white"></p>
               )}
-              <div className="relative sm:my-6 top-6 flex w-full flex-row items-center md:mt-8 md:w-1/2">
-                <p className="absolute bottom-2 w-full self-end text-end text-xs font-bold text-yellow_secondary sm:text-base md:text-xl">
+              <div className="relative top-6 flex w-full flex-row items-center md:mt-8 md:w-1/2">
+                <p className="absolute bottom-2 w-full self-end text-end text-xl font-bold text-yellow_secondary md:text-xl">
                   {`${narration.fragments.length - 1} videos, ${Math.floor(
                     narration.total_length / 60,
                   )} min`}
                 </p>
-                <div
-                  className="absolute h-6 w-6 bg-cover bg-center sm:h-8 sm:w-8"
-                  style={{ backgroundImage: "url(/watch video - icon.svg)" }}
-                />
+                <div className="absolute h-10 w-8 bg-cover bg-center" style={{ backgroundImage: "url('./watch video - icon.svg')" }} />
                 <div className="h-2 w-full rounded-2xl bg-green_accent" />
               </div>
             </Box>

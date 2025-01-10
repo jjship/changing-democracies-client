@@ -6,6 +6,9 @@ import { NarrativesContext } from "@/app/narratives/NarrativesContext";
 import { sectionPadding } from "../Section";
 import SequenceProgressBar from "./SequenceProgrwssBar";
 import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
+import { Archivo } from "next/font/google";
+
+const archivo = Archivo({ subsets: ["latin"] });
 
 const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
   narrationPaths,
@@ -33,10 +36,12 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
         setShowCountDown,
       }}
     >
-      <div className="max-screen relative max-h-screen overflow-hidden">
+      <div
+        className={`${archivo.className}  max-screen relative max-h-screen overflow-hidden`}
+      >
         <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
         <div
-          className={`z-20 mx-auto max-w-[85vw] overflow-auto rounded-3xl bg-black_bg md:max-w-[85vw] xl:max-w-[85rem] ${sectionPadding.x}  h-[calc(90vh-40px)] `}
+          className={`z-20 mx-auto max-w-[80vw] overflow-auto rounded-3xl bg-black_bg md:max-w-[80vw] xl:max-w-[80vw] ${sectionPadding.x}  h-[calc(90vh-40px)] `}
         >
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
