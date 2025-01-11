@@ -16,7 +16,7 @@ const OverviewTag: FC<OverviewButtonProps> = ({ onClick }) => {
           transform: "translateY(-50%)",
         }}
       ></div>
-      <div className="rounded-full bg-[#b85252] px-8 py-2 text-sm font-medium text-white">
+      <div className="font-bold rounded-full bg-[#b85252] px-8 py-2 text-sm text-white">
         overview
       </div>
     </button>
