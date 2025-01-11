@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useNarrativesContext } from "../../narratives/NarrativesContext";
 import NarrativesCloseButton from "./NarrativesCloseButton";
 import Image from "next/image";
+import { Box } from "@radix-ui/themes";
 
 const NarrativesFilmPlayer: FC = () => {
   const {
@@ -95,6 +96,9 @@ const NarrativesFilmPlayer: FC = () => {
     return null;
   }
 
+  const country =
+    `${currentPath?.fragments[currentIndex].country[0]}` +
+    `${currentPath?.fragments[currentIndex].country.slice(1).toLowerCase()}`;
   return (
     <div
       ref={containerRef}
@@ -106,6 +110,14 @@ const NarrativesFilmPlayer: FC = () => {
     >
       {isPlaying ? (
         <>
+          <Box
+            className={
+              "w-18 absolute right-16 top-5 z-20 border-[3px] border-turquoise p-4 text-turquoise"
+            }
+          >
+            <p>{`${currentPath?.fragments[currentIndex].person},`}</p>
+            <p>{country}</p>
+          </Box>
           <iframe
             style={{
               position: "absolute",
