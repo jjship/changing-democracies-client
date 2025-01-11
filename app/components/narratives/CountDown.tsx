@@ -33,7 +33,7 @@ const CountDown: FC<{
 
   return (
     <div className="max-h-xs flex h-full w-full max-w-xs items-center justify-center">
-      <svg viewBox="0 0 100 100" className="h-1/2 w-1/2">
+      <svg viewBox="0 0 100 100" className="h-1/3 w-1/3">
         <circle
           stroke="rgba(255, 0, 0, 0.2)"
           fill="transparent"
