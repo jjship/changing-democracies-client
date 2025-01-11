@@ -16,7 +16,7 @@ const SequenceProgressBar: FC = () => {
   );
 
   const totalFragments = currentPath?.fragments.length ?? 0;
-  const dotSize = 16;
+  const dotSize = 14;
   const lineThickness = 6;
   const thumbnailSize = "8vh";
 

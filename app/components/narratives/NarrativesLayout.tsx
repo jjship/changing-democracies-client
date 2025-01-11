@@ -46,7 +46,7 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
         <div className="sticky bottom-0 -z-10 flex h-[20vh] items-center justify-center bg-yellow_secondary"></div>
-        <div className="sticky bottom-5 h-auto w-[100%] px-[25vw] ">
+        <div className="sticky bottom-5 h-auto w-[100%] px-[23vw] ">
           {currentPath && <SequenceProgressBar />}
         </div>
       </div>
