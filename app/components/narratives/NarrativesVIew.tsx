@@ -55,7 +55,7 @@ const NarrativesView: FC = ({}) => {
             <div className={"w-fit"}>
               <OverviewTag onClick={handleOverview} />
             </div>
-            <h1 className="flex h-14 items-center bg-[#8083ae] px-4 text-white">
+            <h1 className="flex h-14 items-center bg-[#8083ae] px-4 font-bold text-white">
               {currentPath?.title || "Narration"}
             </h1>
           </>
