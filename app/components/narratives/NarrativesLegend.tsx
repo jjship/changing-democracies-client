@@ -5,10 +5,12 @@ const NarrativesLegend: FC = () => {
     {
       text: "select path",
       image: "./select path - icon.svg",
+      width: "w-[60px]",
     },
     {
       text: "watch video",
       image: "./watch video - icon.svg",
+      width: "w-[60px]",
     },
     {
       text: "continue on selected path",
@@ -33,7 +35,9 @@ const NarrativesLegend: FC = () => {
             </p>
           </div>
           <div
-            className="flex h-[100px] w-[60px] items-center"
+            className={`flex h-[100px] ${
+              item.width ? item.width : "w-[100px]"
+            } items-center`}
             style={{
               backgroundImage: `url('${item.image}')`,
               backgroundSize: "contain",
