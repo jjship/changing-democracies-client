@@ -1,6 +1,5 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useNarrativesContext } from "../../narratives/NarrativesContext";
-import NarrativesCloseButton from "./NarrativesCloseButton";
 import Image from "next/image";
 import { Box } from "@radix-ui/themes";
 
@@ -45,21 +44,6 @@ const NarrativesFilmPlayer: FC = () => {
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen();
     }
-  };
-
-  const handleClose = () => {
-    if (iframeRef.current) {
-      import("player.js").then(({ Player }) => {
-        if (iframeRef.current) {
-          const player = new Player(iframeRef.current);
-          player.on("ready", () => {
-            player.pause();
-          });
-        }
-      });
-    }
-    onClose();
-    exitFullscreen();
   };
 
   useEffect(() => {
@@ -112,7 +96,7 @@ const NarrativesFilmPlayer: FC = () => {
         <>
           <Box
             className={
-              "w-18 absolute right-16 top-5 z-20 border-[3px] border-turquoise p-4 text-turquoise"
+              "w-18 absolute left-6 top-5 z-20 border-[3px] border-turquoise p-4 text-turquoise"
             }
           >
             <p>{`${currentPath?.fragments[currentIndex].person},`}</p>
@@ -134,7 +118,6 @@ const NarrativesFilmPlayer: FC = () => {
             className="h-full w-full"
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           />
-          <NarrativesCloseButton onClose={handleClose} />
         </>
       ) : (
         <Image
