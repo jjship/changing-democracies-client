@@ -16,7 +16,7 @@ const NarrativesOverview: FC<{
   return (
     <>
       {currentPath ? (
-        <Flex width={'100%'} justify={'center'}>
+        <Flex width={'100%'} height={'100%'} justify={'center'} align={'center'}>
           <NarrativesView />
         </Flex>
       ) : (

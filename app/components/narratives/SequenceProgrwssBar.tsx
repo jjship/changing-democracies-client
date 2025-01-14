@@ -16,8 +16,8 @@ const SequenceProgressBar: FC = () => {
   );
 
   const totalFragments = currentPath?.fragments.length ?? 0;
-  const dotSize = 14;
-  const lineThickness = 6;
+  const dotSize = 18;
+  const lineThickness = 7;
   const thumbnailSize = "8vh";
 
   const progressBarItems = useMemo(
@@ -75,15 +75,14 @@ const SequenceProgressBar: FC = () => {
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     borderRadius: "50%",
-                    border: "2px solid #cf9855",
+                    border: "4px solid #cf9855",
                   }}
                 />
                 <Box
                   style={{
-                    width: "2px",
-                    height: "48px",
+                    width: "4px",
+                    height: "8vh",
                     backgroundColor: "#cf9855",
-                    marginTop: "8px",
                   }}
                 />
               </Box>
@@ -93,11 +92,11 @@ const SequenceProgressBar: FC = () => {
               style={{
                 width:
                   index === currentIndex
-                    ? `${dotSize * 1.3}px`
+                    ? `${dotSize * 1.2}px`
                     : `${dotSize}px`,
                 height:
                   index === currentIndex
-                    ? `${dotSize * 1.3}px`
+                    ? `${dotSize * 1.2}px`
                     : `${dotSize}px`,
                 borderRadius: "50%",
                 backgroundColor:

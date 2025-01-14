@@ -39,29 +39,30 @@ const NarrativesView: FC = ({}) => {
   return (
     currentPath && (
       <Flex
-        width={"90%"}
+        // flexGrow={'1'}
+        // flexBasis={'1'}
+        width={"100%"}
         align="center"
         justify={"center"}
         className={"mt-10"}
         direction={"column"}
-        height={"100%"}
       >
         <div
           className={
-            "relative box-border flex h-[10%] w-[90%] flex-row items-start justify-between self-start px-8"
+            "flex h-[10%] w-[85%] flex-row items-start justify-between"
           }
         >
           <>
-            <div className={"w-fit"}>
+            <div className={"relative right-16 top-2 z-10"}>
               <OverviewTag onClick={handleOverview} />
             </div>
-            <h1 className="flex h-14 items-center bg-[#8083ae] px-4 font-bold text-white rounded-t-sm">
+            <h1 className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white">
               {currentPath?.title || "Narration"}
             </h1>
           </>
         </div>
 
-        <Flex className="relative flex w-[80%] items-center justify-center">
+        <Flex className="relative flex w-[85%] items-center justify-center">
           {<NarrativesFilmPlayer />}
 
           {!isPlaying && currentIndex === 0 && (

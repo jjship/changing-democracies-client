@@ -41,12 +41,12 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
       >
         <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
         <div
-          className={`z-20 mx-auto max-w-[80vw] overflow-auto rounded-3xl bg-black_bg md:max-w-[80vw] xl:max-w-[80vw] ${sectionPadding.x}  h-[calc(90vh-40px)] `}
+          className={`z-20 mx-auto w-[90vw] overflow-auto rounded-3xl bg-black_bg ${sectionPadding.x} h-[calc(90vh-40px)]`}
         >
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
-        <div className="sticky bottom-0 -z-10 flex h-[20vh] items-center justify-center bg-yellow_secondary"></div>
-        <div className="sticky bottom-5 h-auto w-[100%] px-[23vw] ">
+        <div className="sticky bottom-0 -z-10 flex h-[15vh] items-center justify-center bg-yellow_secondary"></div>
+        <div className="sticky bottom-5 h-auto w-[100%] px-[14vw] ">
           {currentPath && <SequenceProgressBar />}
         </div>
       </div>
