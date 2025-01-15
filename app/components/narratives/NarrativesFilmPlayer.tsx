@@ -104,19 +104,9 @@ const NarrativesFilmPlayer: FC = () => {
             <p>{country}</p>
           </Box>
           <iframe
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
-              width: "100%",
-              height: "100%",
-              border: "none",
-            }}
             ref={iframeRef}
             src={`${src}&autoplay=true&letterbox=false&responsive=true`}
-            className="h-full w-full"
+            className="absolute bottom-0 left-0 right-0 top-0 h-full w-full border-none"
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           />
         </>

@@ -126,16 +126,7 @@ const SequenceProgressBar: FC = () => {
   );
 
   return (
-    <Flex
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-        width: "100%",
-        margin: "0 auto",
-        backgroundColor: "transparent",
-      }}
-    >
+    <Flex className="mx-auto h-full w-full items-center justify-center bg-transparent">
       {progressBarItems}
     </Flex>
   );

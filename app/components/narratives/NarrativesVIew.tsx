@@ -39,8 +39,6 @@ const NarrativesView: FC = ({}) => {
   return (
     currentPath && (
       <Flex
-        // flexGrow={'1'}
-        // flexBasis={'1'}
         width={"100%"}
         align="center"
         justify={"center"}
