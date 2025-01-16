@@ -1,11 +1,11 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import { FC } from "react";
-import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { FC, useCallback } from "react";
 import OverviewTag from "./NarrativesOverviewButton";
 import CountDown from "@/components/narratives/CountDown";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
 import NarrativesViewButton from "@/components/narratives/NarrativesViewButton";
+import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
 
 const NarrativesView: FC = ({}) => {
   const {
@@ -15,25 +15,26 @@ const NarrativesView: FC = ({}) => {
     currentIndex,
     setCurrentIndex,
     setCurrentPath,
-    showCountDown,
-    setShowCountDown,
+    switchPath,
+    setSwitchPath,
   } = useNarrativesContext();
 
   const handleStart = () => {
     setIsPlaying(true);
   };
 
-  const handleContinue = () => {
+  const handleContinue = useCallback(() => {
     if (currentPath && currentIndex !== currentPath.fragments.length) {
-      !showCountDown && setShowCountDown(true);
+      switchPath && setSwitchPath(false);
       setIsPlaying(true);
     }
-  };
+  }, [currentIndex, currentPath, setIsPlaying, setSwitchPath, switchPath]);
 
   const handleOverview = () => {
     setCurrentPath(null);
     setCurrentIndex(0);
     setIsPlaying(false);
+    switchPath && setSwitchPath(false);
   };
 
   return (
@@ -54,9 +55,11 @@ const NarrativesView: FC = ({}) => {
             <div className={"relative right-16 top-2 z-10"}>
               <OverviewTag onClick={handleOverview} />
             </div>
-            <h1 className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white">
-              {currentPath?.title || "Narration"}
-            </h1>
+            {!switchPath && (
+              <h1 className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white">
+                {currentPath?.title || "Narration"}
+              </h1>
+            )}
           </>
         </div>
 
@@ -93,7 +96,7 @@ const NarrativesView: FC = ({}) => {
                   triangleColor="#8083ae"
                   trianglePlacement="left"
                 />
-                {showCountDown && <CountDown onFinish={handleContinue} />}
+                {!switchPath && <CountDown onFinish={handleContinue} />}
               </Flex>
             )}
         </Flex>
