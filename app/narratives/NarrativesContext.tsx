@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import { createContext, FC, ReactNode, useContext, useState } from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
 
 const defaultContext: NarrativesContextType = {
@@ -9,8 +9,8 @@ const defaultContext: NarrativesContextType = {
   setIsPlaying: () => {},
   currentIndex: 0,
   setCurrentIndex: () => {},
-  showCountDown: true,
-  setShowCountDown: () => {},
+  switchPath: false,
+  setSwitchPath: () => {},
 };
 
 type NarrativesContextType = {
@@ -19,44 +19,13 @@ type NarrativesContextType = {
   narrationPaths: NarrationPath[] | null;
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
-  showCountDown: boolean;
-  setShowCountDown: (showCountDown: boolean) => void;
   currentIndex: number;
   setCurrentIndex: (currentIndex: number) => void;
+  switchPath: boolean;
+  setSwitchPath: (switchPath: boolean) => void;
 };
 
-export const NarrativesContext =
-  createContext<NarrativesContextType>(defaultContext);
-
-export function NarrativesContextProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
-  const [narrationPaths] = useState<NarrationPath[] | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [showCountDown, setShowCountDown] = useState<boolean>(true);
-
-  return (
-    <NarrativesContext.Provider
-      value={{
-        currentPath,
-        setCurrentPath,
-        narrationPaths,
-        isPlaying,
-        setIsPlaying,
-        currentIndex,
-        setCurrentIndex,
-        showCountDown,
-        setShowCountDown,
-      }}
-    >
-      {children}
-    </NarrativesContext.Provider>
-  );
-}
+const NarrativesContext = createContext<NarrativesContextType>(defaultContext);
 
 export function useNarrativesContext() {
   const context = useContext(NarrativesContext);
@@ -69,3 +38,41 @@ export function useNarrativesContext() {
 
   return context;
 }
+
+interface NarrativesProviderProps {
+  children: ReactNode;
+  initialNarrationPaths?: NarrationPath[] | null;
+}
+
+export const NarrativesProvider: FC<NarrativesProviderProps> = ({
+  children,
+  initialNarrationPaths = null,
+}) => {
+  const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
+  const [narrationPaths] = useState<NarrationPath[] | null>(
+    initialNarrationPaths,
+  );
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [switchPath, setSwitchPath] = useState(false);
+
+  const value = {
+    currentPath,
+    setCurrentPath,
+    narrationPaths,
+    isPlaying,
+    setIsPlaying,
+    currentIndex,
+    setCurrentIndex,
+    switchPath,
+    setSwitchPath,
+  };
+
+  return (
+    <NarrativesContext.Provider value={value}>
+      {children}
+    </NarrativesContext.Provider>
+  );
+};
+
+export default NarrativesContext;
