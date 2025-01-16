@@ -1,11 +1,19 @@
-import { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
 import { useNarrativesContext } from "../../narratives/NarrativesContext";
+import SwitchPathButton from "@/components/narratives/switchPathButton";
 
 const SequenceProgressBar: FC = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
-  const { currentIndex, setCurrentIndex, setIsPlaying, currentPath } =
-    useNarrativesContext();
+  const {
+    currentIndex,
+    setCurrentIndex,
+    setIsPlaying,
+    currentPath,
+    setSwitchPath,
+    switchPath,
+    isPlaying,
+  } = useNarrativesContext();
 
   const onFragmentSelect = useCallback(
     (index: number) => {
@@ -14,6 +22,13 @@ const SequenceProgressBar: FC = () => {
     },
     [setCurrentIndex, setIsPlaying],
   );
+
+  const handleSwitchPathButton = useCallback(() => {
+    isPlaying && setIsPlaying(false);
+    !switchPath && setSwitchPath(true);
+  }, [isPlaying, setIsPlaying, setSwitchPath, switchPath]);
+
+  useEffect(() => {}, [isPlaying, currentIndex, currentPath]);
 
   const totalFragments = currentPath?.fragments.length ?? 0;
   const dotSize = 18;
@@ -38,7 +53,7 @@ const SequenceProgressBar: FC = () => {
                 width: `calc(100% + ${dotSize}px)`,
                 position: "absolute",
                 top: `${dotSize / 2 - lineThickness / 2}px`,
-                left: `calc(-${dotSize / 50}px)`,
+                left: `calc(-${dotSize / 10000000}vw)`,
                 backgroundColor:
                   index < currentIndex ? "#808881" : "transparent",
                 transition: "background-color 0.3s ease",
@@ -46,6 +61,7 @@ const SequenceProgressBar: FC = () => {
               }}
             />
           )}
+
           <Box
             style={{
               position: "relative",
@@ -54,6 +70,20 @@ const SequenceProgressBar: FC = () => {
               alignItems: "center",
             }}
           >
+            <Box
+              className={`absolute -z-10 transition-all duration-500 ease-in-out ${
+                !isPlaying &&
+                currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
+                index === currentIndex
+                  ? "bottom-11 opacity-100"
+                  : "bottom-0 opacity-0"
+              }`}
+            >
+              {!switchPath && (
+                <SwitchPathButton onClick={handleSwitchPathButton} />
+              )}
+            </Box>
+
             {isHovered === index && (
               <Box
                 style={{
@@ -92,11 +122,11 @@ const SequenceProgressBar: FC = () => {
               style={{
                 width:
                   index === currentIndex
-                    ? `${dotSize * 1.2}px`
+                    ? `${dotSize * 1.3}px`
                     : `${dotSize}px`,
                 height:
                   index === currentIndex
-                    ? `${dotSize * 1.2}px`
+                    ? `${dotSize * 1.3}px`
                     : `${dotSize}px`,
                 borderRadius: "50%",
                 backgroundColor:
@@ -119,8 +149,11 @@ const SequenceProgressBar: FC = () => {
     [
       totalFragments,
       currentIndex,
-      isHovered,
+      isPlaying,
       currentPath?.fragments,
+      switchPath,
+      handleSwitchPathButton,
+      isHovered,
       onFragmentSelect,
     ],
   );
