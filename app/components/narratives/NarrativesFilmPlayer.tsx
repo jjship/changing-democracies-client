@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useNarrativesContext } from "../../narratives/NarrativesContext";
 import Image from "next/image";
 import { Box } from "@radix-ui/themes";
+import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
 
 const NarrativesFilmPlayer: FC = () => {
   const {
@@ -10,7 +10,7 @@ const NarrativesFilmPlayer: FC = () => {
     isPlaying,
     setIsPlaying,
     setCurrentIndex,
-    setShowCountDown,
+    setSwitchPath,
   } = useNarrativesContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
@@ -34,11 +34,6 @@ const NarrativesFilmPlayer: FC = () => {
     }
     setIsPlaying(false);
   }, [currentIndex, currentPath, setCurrentIndex, setIsPlaying]);
-
-  const onClose = useCallback(() => {
-    setIsPlaying(false);
-    setShowCountDown(false);
-  }, [setIsPlaying, setShowCountDown]);
 
   const exitFullscreen = () => {
     if (document.fullscreenElement && document.exitFullscreen) {
