@@ -1,7 +1,8 @@
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
 import { useNarrativesContext } from "../../narratives/NarrativesContext";
 import SwitchPathButton from "@/components/narratives/switchPathButton";
+import SwitchPathRedirectButton from "@/components/narratives/SwitchPatchRedirectButton";
 
 const SequenceProgressBar: FC = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
@@ -13,6 +14,8 @@ const SequenceProgressBar: FC = () => {
     setSwitchPath,
     switchPath,
     isPlaying,
+    setCurrentPath,
+    narrationPaths,
   } = useNarrativesContext();
 
   const onFragmentSelect = useCallback(
@@ -28,7 +31,24 @@ const SequenceProgressBar: FC = () => {
     !switchPath && setSwitchPath(true);
   }, [isPlaying, setIsPlaying, setSwitchPath, switchPath]);
 
-  useEffect(() => {}, [isPlaying, currentIndex, currentPath]);
+  const handleSwitchPathRedirectButton = useCallback(
+    (id: string) => {
+      if (narrationPaths) {
+        const path = narrationPaths.find((path) => path.id === id);
+        path && setCurrentPath(path);
+      }
+      if (currentPath) {
+        setCurrentIndex(currentIndex + 1);
+      }
+    },
+    [
+      currentIndex,
+      currentPath,
+      narrationPaths,
+      setCurrentIndex,
+      setCurrentPath,
+    ],
+  );
 
   const totalFragments = currentPath?.fragments.length ?? 0;
   const dotSize = 18;
@@ -143,6 +163,21 @@ const SequenceProgressBar: FC = () => {
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(null)}
             />
+          </Box>
+          <Box className={"absolute top-12"}>
+            {switchPath &&
+              !isPlaying &&
+              index === currentIndex &&
+              currentPath?.fragments[currentIndex].otherPaths.map(
+                (otherPath, index) => (
+                  <SwitchPathRedirectButton
+                    key={index}
+                    onClick={() => handleSwitchPathRedirectButton(otherPath.id)}
+                    id={otherPath.id}
+                    title={otherPath.title}
+                  ></SwitchPathRedirectButton>
+                ),
+              )}
           </Box>
         </Flex>
       )),
