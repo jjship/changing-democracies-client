@@ -71,7 +71,7 @@ const NarrativesList: FC = () => {
               )}
               <div className="relative top-6 flex w-full flex-row items-center md:mt-8 md:w-1/2">
                 <p className="absolute bottom-2 w-full self-end text-end text-xl font-bold text-yellow_secondary md:text-xl">
-                  {`${narration.fragments.length - 1} videos, ${Math.floor(
+                  {`${narration.fragments.length} videos, ${Math.floor(
                     narration.total_length / 60,
                   )} min`}
                 </p>
