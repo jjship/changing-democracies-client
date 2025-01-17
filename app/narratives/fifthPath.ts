@@ -150,7 +150,8 @@ export const narrationPathFive: NarrationPath = {
       playerUrl:
         "https://iframe.mediadelivery.net/play/239326/0dfe1e94-76bd-453e-8349-179f970b6d3e?autoplay=false",
       thumbnailUrl:
-        "https://vz-cac74041-8b3.b-cdn.net/0dfe1e94-76bd-453e-8349-179f970b6d3e/thumbnail.jpg",
+        // "https://vz-cac74041-8b3.b-cdn.net/0dfe1e94-76bd-453e-8349-179f970b6d3e/thumbnail.jpg",
+        "https://vz-cac74041-8b3.b-cdn.net/473de854-532a-41cc-ba7b-b4e1ea2f11bc/thumbnail.jpg",
       sequence: 10,
       otherPaths: [],
     },
