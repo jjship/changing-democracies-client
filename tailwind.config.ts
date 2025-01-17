@@ -105,6 +105,10 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        fadeIn: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
         slideUp: {
           from: {
             transform: "translateY(var(--start-y, 100vh))",
@@ -123,6 +127,7 @@ const config: Config = {
       },
       animation: {
         slideUp: "slideUp 0.9s ease-in-out forwards",
+        fadeIn: "fadeIn 0.9s ease-in-out ease-out",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

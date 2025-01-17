@@ -18,6 +18,8 @@ const SequenceProgressBar: FC = () => {
     narrationPaths,
   } = useNarrativesContext();
 
+  const [animate, setAnimate] = useState(false);
+
   const onFragmentSelect = useCallback(
     (index: number) => {
       setCurrentIndex(index);
@@ -29,6 +31,7 @@ const SequenceProgressBar: FC = () => {
   const handleSwitchPathButton = useCallback(() => {
     isPlaying && setIsPlaying(false);
     !switchPath && setSwitchPath(true);
+    setAnimate(true);
   }, [isPlaying, setIsPlaying, setSwitchPath, switchPath]);
 
   const handleSwitchPathRedirectButton = useCallback(
@@ -174,6 +177,7 @@ const SequenceProgressBar: FC = () => {
                     key={index}
                     onClick={() => handleSwitchPathRedirectButton(otherPath.id)}
                     id={otherPath.id}
+                    animate={animate}
                     title={otherPath.title}
                   ></SwitchPathRedirectButton>
                 ),
@@ -190,6 +194,8 @@ const SequenceProgressBar: FC = () => {
       handleSwitchPathButton,
       isHovered,
       onFragmentSelect,
+      animate,
+      handleSwitchPathRedirectButton,
     ],
   );
 
