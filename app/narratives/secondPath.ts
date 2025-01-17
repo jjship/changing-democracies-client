@@ -135,7 +135,8 @@ export const narrationPathTwo: NarrationPath = {
       playerUrl:
         "https://iframe.mediadelivery.net/play/239326/0c7ea8db-24b1-4d2b-958c-026374e801f5?autoplay=false",
       thumbnailUrl:
-        "https://vz-cac74041-8b3.b-cdn.net/0c7ea8db-24b1-4d2b-958c-026374e801f5/thumbnail.jpg",
+        "https://vz-cac74041-8b3.b-cdn.net/5d0699b3-e099-4df4-a88b-bf7ddc659fb8/thumbnail.jpg",
+      // "https://vz-cac74041-8b3.b-cdn.net/0c7ea8db-24b1-4d2b-958c-026374e801f5/thumbnail.jpg",
       sequence: 9,
       otherPaths: [],
     },
