@@ -214,14 +214,12 @@ async function getVideosPerCollection(
           accept: "application/json",
           AccessKey: process.env.BUNNY_STREAM_API_KEY,
         },
-        params: {
-          colectionId: process.env.BUNNY_STREAM_COLLECTION_ID,
-          page: currentPage,
-          itemsPerPage,
-        },
       };
 
-      const res = await fetchWithRetry({ url, options });
+      const res = await fetchWithRetry({
+        url: `${url}?collectionId=${process.env.BUNNY_STREAM_COLLECTION_ID}&page=${currentPage}&itemsPerPage=${itemsPerPage}`,
+        options,
+      });
 
       if (!res) throw new Error("Failed to fetch video data");
 
