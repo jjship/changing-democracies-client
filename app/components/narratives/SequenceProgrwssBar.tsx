@@ -98,7 +98,7 @@ const SequenceProgressBar: FC = () => {
                 !isPlaying &&
                 currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
                 index === currentIndex
-                  ? "bottom-11 opacity-100"
+                  ? "bottom-[5vh] opacity-100"
                   : "bottom-0 opacity-0"
               }`}
             >
