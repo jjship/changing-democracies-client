@@ -39,7 +39,13 @@ export const dummyPath: NarrationPath = {
       thumbnailUrl:
         "https://vz-cac74041-8b3.b-cdn.net/47335cc5-392c-4584-8344-a4b9e53d6be6/thumbnail.jpg",
       sequence: 2,
-      otherPaths: [{ id: "thirdId", title: "What influences you in life?" }],
+      otherPaths: [
+        { id: "thirdId", title: "What influences you in life?" },
+        {
+          id: "fourthId",
+          title: "What makes you angry about the world today?",
+        },
+      ],
     },
     {
       guid: "afbb1d9b-f6aa-410c-a0b1-dd48175757f5",
