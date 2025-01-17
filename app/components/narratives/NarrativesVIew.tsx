@@ -43,13 +43,11 @@ const NarrativesView: FC = ({}) => {
         width={"100%"}
         align="center"
         justify={"center"}
-        className={"mt-10"}
         direction={"column"}
+        className={`pt-[4.5vh]`}
       >
         <div
-          className={
-            "flex h-[10%] w-[85%] flex-row items-start justify-between"
-          }
+          className={`flex h-[10%] w-[85%] flex-row items-start justify-between`}
         >
           <>
             <div className={"relative right-16 top-2 z-10"}>
