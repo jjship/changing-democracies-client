@@ -13,10 +13,6 @@ const archivo = Archivo({ subsets: ["latin"] });
 const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
   narrationPaths,
 }) => {
-  if (!narrationPaths) {
-    throw new Error("No narrative paths found");
-  }
-
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
@@ -41,18 +37,32 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
       >
         <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
         <div
-          className={`z-20 mx-auto w-[90vw] overflow-auto rounded-3xl bg-black_bg ${sectionPadding.x} h-[calc(90vh-40px)]`}
+          className={`z-20 mx-auto w-[90vw] overflow-auto rounded-3xl bg-black_bg transition-height duration-1000 ease-linear ${
+            sectionPadding.x
+          } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-40px)]"}`}
         >
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
         <div
-          className={`sticky bottom-0 px-[14vw] -z-10 flex items-center justify-center bg-yellow_secondary transition-all duration-1000 ${switchPath ? "h-[50vh]" : " h-[15vh]"}`}></div>
-        <div className="sticky bottom-[3vh] h-auto w-[100%] px-[14vw] z-50">
-             {currentPath && <SequenceProgressBar />}
-          </div>
+          className={` -z-10 flex items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear ${
+            switchPath ? "sticky bottom-0 h-[40vh]" : "sticky bottom-0 h-[15vh]"
+          }`}
+        ></div>
+        <div
+          className={`fixed transition-all duration-1000 ease-linear  ${
+            switchPath ? "bottom-[28vh]" : "bottom-[3vh]"
+          }  z-50 h-auto w-[100%] px-[14vw]`}
+        >
+          {currentPath && <SequenceProgressBar />}
         </div>
+      </div>
     </NarrativesContext.Provider>
-);
+  );
 };
 
 export default NarrativesLayout;
+
+
+// h-[calc(${switchPath ? '65vh' : '90vh'}-40px)]
+// ${switchPath ? 'h-[calc(65vh-40px)]' : 'h--[calc(90vh-40px)]'}
+// ${switchPath ? 'h-[65vh]' : 'h-[90vh]'}
