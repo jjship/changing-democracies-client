@@ -198,26 +198,49 @@ async function getVideosPerCollection(
     throw new Error("Missing Bunny Stream environment variables");
   }
 
-  const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos?collectionId=${process.env.BUNNY_STREAM_COLLECTION_ID}`;
+  const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos`;
 
-  const options = {
-    ...cacheOptions,
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      AccessKey: process.env.BUNNY_STREAM_API_KEY,
-    },
-  };
+  let allVideos: VideoDbEntry[] = [];
+  let currentPage = 1;
+  let totalItems: number | null = null;
+  const itemsPerPage = 100;
 
   try {
-    const res = await fetchWithRetry({ url, options });
+    do {
+      const options = {
+        ...cacheOptions,
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          AccessKey: process.env.BUNNY_STREAM_API_KEY,
+        },
+        params: {
+          colectionId: process.env.BUNNY_STREAM_COLLECTION_ID,
+          page: currentPage,
+          itemsPerPage,
+        },
+      };
 
-    if (!res) throw new Error("Failed to fetch video data");
+      const res = await fetchWithRetry({ url, options });
 
-    const { items }: { items: VideoDbEntry[] } = await res.json();
+      if (!res) throw new Error("Failed to fetch video data");
+
+      const {
+        items,
+        totalItems: fetchedTotalItems,
+      }: { items: VideoDbEntry[]; totalItems: number } = await res.json();
+
+      allVideos = allVideos.concat(items);
+
+      if (totalItems === null) {
+        totalItems = fetchedTotalItems;
+      }
+
+      currentPage++;
+    } while (totalItems && allVideos.length < totalItems);
 
     return {
-      data: items.sort((a, b) => a.title.localeCompare(b.title)),
+      data: allVideos.sort((a, b) => a.title.localeCompare(b.title)),
       success: true,
     };
   } catch (err) {
