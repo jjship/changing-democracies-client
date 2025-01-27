@@ -5,6 +5,7 @@ import { narrationPathFour } from "@/app/narratives/fourthPath";
 import { narrationPathOne } from "@/app/narratives/firstPath";
 import { narrationPathFive } from "./fifthPath";
 import NarrativesLayout from "@/components/narratives/NarrativesLayout";
+import { dummyPath } from "@/app/narratives/dummyPath";
 
 export default async function NarrativesPage() {
   const narrationCollection: NarrationPath[] = [
@@ -13,6 +14,7 @@ export default async function NarrativesPage() {
     narrationPathThree,
     narrationPathFour,
     narrationPathFive,
+    dummyPath,
   ];
 
   return (
