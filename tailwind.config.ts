@@ -135,5 +135,10 @@ const config: Config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  variants: {
+    extend: {
+      scrollSnapType: ["responsive"],
+    },
+  },
 };
 export default config;
