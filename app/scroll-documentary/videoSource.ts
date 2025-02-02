@@ -1,10 +1,13 @@
-// utils/videoSource.ts
 import {
   VideoQuality,
   SubtitleTrack,
   VideoSource,
   VideoSourceResponse,
 } from "@/types/scrollDocumentary";
+import { VideoDbEntry } from "../../types/videosAndFilms";
+
+if (!process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE)
+  throw new Error("Missing Bunny Stream environment variables");
 
 export class VideoSourceError extends Error {
   constructor(
@@ -18,8 +21,6 @@ export class VideoSourceError extends Error {
 }
 
 const QUALITY_LABELS: Record<string, string> = {
-  "2160": "4K",
-  "1440": "2K",
   "1080": "1080p",
   "720": "720p",
   "480": "480p",
@@ -27,52 +28,41 @@ const QUALITY_LABELS: Record<string, string> = {
   "240": "240p",
 };
 
-export async function fetchVideoSource(
-  videoId: string,
-  pullZoneUrl: string,
-  apiKey: string,
-): Promise<VideoSource> {
+export function isHLSSupported(): boolean {
+  if (typeof window === "undefined") return false;
+
+  const video = document.createElement("video");
+  return video.canPlayType("application/vnd.apple.mpegurl") !== "";
+}
+
+export function serializeVideoSource(video: VideoDbEntry): VideoSource {
+  if (!process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE)
+    throw new Error("Missing Bunny Stream environment variables");
+  const pullZoneUrl = process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE;
+  const videoId = video.guid;
   try {
-    // Fetch video details from Bunny CDN API
-    const response = await fetch(
-      `https://video.bunnycdn.com/library/${process.env.NEXT_PUBLIC_VIDEO_LIBRARY_ID}/videos/${videoId}`,
-      {
-        headers: {
-          Accept: "application/json",
-          AccessKey: apiKey,
-        },
-      },
-    );
-
-    if (!response.ok) {
-      throw new VideoSourceError(
-        `Failed to fetch video source: ${response.statusText}`,
-        response.status,
-      );
-    }
-
-    const data: VideoSourceResponse = await response.json();
-
-    if (!data.success || !data.data) {
-      throw new VideoSourceError(
-        data.message || "Invalid response from video API",
-        data.statusCode,
-      );
-    }
-
-    // Parse available qualities
-    const availableQualities: VideoQuality[] = (data.data.resolutions || [])
+    const availableQualities: VideoQuality[] = (
+      video.availableResolutions.split(",") || []
+    )
       .map((resolution) => {
         const height = parseInt(resolution);
         return {
           height,
           label: QUALITY_LABELS[resolution] || `${height}p`,
+          // HLS is supported for all qualities, MP4 only up to 720p
+          supportsHLS: true,
         };
       })
       .sort((a, b) => b.height - a.height); // Sort by height descending
 
-    // Parse available subtitles
-    const availableSubtitles: SubtitleTrack[] = (data.data.captions || [])
+    const mp4Qualities = availableQualities
+      .filter((q) => q.height < 720)
+      .map((q) => ({
+        ...q,
+        supportsHLS: false,
+      }));
+
+    const availableSubtitles: SubtitleTrack[] = (video.captions || [])
       .map((caption) => ({
         languageCode: caption.srclang,
         label: caption.label,
@@ -80,36 +70,33 @@ export async function fetchVideoSource(
       .sort((a, b) => a.label.localeCompare(b.label)); // Sort alphabetically
 
     // Construct thumbnail URL if available
-    const thumbnail = data.data.thumbnailFileName
-      ? `https://${pullZoneUrl}.b-cdn.net/${videoId}/${data.data.thumbnailFileName}`
+    const thumbnail = video.thumbnailFileName
+      ? `https://${pullZoneUrl}.b-cdn.net/${videoId}/${video.thumbnailFileName}`
       : undefined;
 
-    // Construct and return the VideoSource object
-    const videoSource: VideoSource = {
-      videoId,
+    return {
+      videoId: video.guid,
       pullZoneUrl,
-      availableQualities,
+      availableQualities: isHLSSupported() ? availableQualities : mp4Qualities,
       availableSubtitles,
-      title: data.data.title,
-      duration: data.data.length,
+      hlsPlaylistUrl: `https://${pullZoneUrl}.b-cdn.net/${videoId}/playlist.m3u8`,
+      title: video.title,
+      duration: video.length,
       thumbnail,
     };
-
-    return videoSource;
   } catch (error) {
     if (error instanceof VideoSourceError) {
       throw error;
     }
 
     throw new VideoSourceError(
-      "Failed to fetch video source",
+      "Failed to serialize video source",
       500,
       error instanceof Error ? error.message : "Unknown error",
     );
   }
 }
 
-// Utility function to validate video source
 export function validateVideoSource(videoSource: VideoSource): boolean {
   return (
     typeof videoSource.videoId === "string" &&
@@ -120,7 +107,6 @@ export function validateVideoSource(videoSource: VideoSource): boolean {
   );
 }
 
-// Helper function to get optimal quality based on screen size and network
 export function getOptimalQuality(
   qualities: VideoQuality[],
   connection?: { effectiveType?: string; downlink?: number },
@@ -129,18 +115,15 @@ export function getOptimalQuality(
     throw new Error("No qualities available");
   }
 
-  // Get screen height
   const screenHeight =
     typeof window !== "undefined" ? window.screen.height : 1080;
 
-  // Filter qualities based on screen height
   const suitableQualities = qualities.filter((q) => q.height <= screenHeight);
 
   if (!suitableQualities.length) {
     return qualities[0]; // Fallback to highest quality
   }
 
-  // If we have connection info, use it to determine quality
   if (connection) {
     const { effectiveType, downlink } = connection;
 
@@ -163,6 +146,5 @@ export function getOptimalQuality(
     }
   }
 
-  // Default to 720p or the closest available quality
   return suitableQualities.find((q) => q.height <= 720) || suitableQualities[0];
 }

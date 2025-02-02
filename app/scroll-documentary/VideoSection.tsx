@@ -1,4 +1,5 @@
-// components/VideoSection.tsx
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { VideoSource } from "@/types/scrollDocumentary";
@@ -6,23 +7,20 @@ import VideoPlayer from "./VideoPlayer";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import VideoPlayerFallback from "./VideoPlayerFallback";
 import { VideoSourceError } from "./videoSource";
-import { useVideoSource } from "./useVideoSource";
 
 interface VideoSectionProps {
-  videoId: string;
-  pullZoneUrl: string;
-  apiKey: string;
+  videoSource: VideoSource;
+  subtitlesUrl: string;
   onVideoEnd?: () => void;
   additionalContent?: React.ReactNode;
 }
 
-const VideoSection = ({
-  videoId,
-  pullZoneUrl,
-  apiKey,
+export default function VideoSection({
+  videoSource,
+  subtitlesUrl,
   onVideoEnd,
   additionalContent,
-}: VideoSectionProps) => {
+}: VideoSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -48,20 +46,6 @@ const VideoSection = ({
       onVideoEnd?.();
     }, 5000);
   };
-
-  const { videoSource, error, loading } = useVideoSource(
-    videoId,
-    pullZoneUrl,
-    apiKey,
-  );
-
-  if (loading) {
-    return <VideoLoadingPlaceholder />;
-  }
-
-  if (error) {
-    throw error; // This will be caught by ErrorBoundary
-  }
 
   if (!videoSource) {
     throw new VideoSourceError(
@@ -92,9 +76,7 @@ const VideoSection = ({
       {additionalContent}
     </section>
   );
-};
-
-export default VideoSection;
+}
 
 const VideoLoadingPlaceholder = () => (
   <div className="flex h-screen w-full items-center justify-center bg-black">

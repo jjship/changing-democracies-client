@@ -1,7 +1,9 @@
-// components/VideoPlayer.tsx
+import Hls from "hls.js";
 import { forwardRef, useEffect, useState } from "react";
 import useAdaptiveQuality from "./useAdaptiveQuality";
 import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
+import { getOptimalQuality } from "./videoSource";
+import { parseSubtitles } from "./subtitleParser";
 
 interface VideoPlayerProps {
   videoSource: VideoSource;
@@ -12,6 +14,9 @@ interface VideoPlayerProps {
 
 const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
   ({ videoSource, onEnded, isPlaying, className }, ref) => {
+    const [hls, setHls] = useState<Hls | null>(null);
+    const [isUsingHLS, setIsUsingHLS] = useState(false);
+
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
@@ -23,13 +28,41 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     const [selectedLanguage, setSelectedLanguage] = useState(
       videoSource.availableSubtitles[0]?.languageCode,
     );
-
     const { currentQuality, videoRef } = useAdaptiveQuality({
-      initialQuality:
-        videoSource.availableQualities.find((q) => q.height === 720) ||
-        videoSource.availableQualities[0],
-      qualities: videoSource.availableQualities,
+      initialQuality: getOptimalQuality(videoSource.availableQualities),
+      qualities: videoSource.availableQualities.filter((q) =>
+        isUsingHLS ? q.supportsHLS : !q.supportsHLS,
+      ),
     });
+
+    useEffect(() => {
+      const video = videoRef.current;
+      if (!video) return;
+
+      // Check if HLS is supported and available
+      if (Hls.isSupported() && videoSource.hlsPlaylistUrl) {
+        const hls = new Hls({
+          maxMaxBufferLength: 30,
+          maxBufferSize: 10 * 1000 * 1000, // 10MB
+        });
+
+        hls.loadSource(videoSource.hlsPlaylistUrl);
+        hls.attachMedia(video);
+        setHls(hls);
+        setIsUsingHLS(true);
+
+        return () => {
+          hls.destroy();
+        };
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        // For Safari - native HLS support
+        video.src = videoSource.hlsPlaylistUrl!;
+        setIsUsingHLS(true);
+      } else {
+        // Fallback to MP4
+        setIsUsingHLS(false);
+      }
+    }, [videoSource.hlsPlaylistUrl]);
 
     useEffect(() => {
       const fetchSubtitles = async () => {
@@ -75,6 +108,9 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     }, [subtitles]);
 
     const getVideoUrl = (quality: VideoQuality) => {
+      if (isUsingHLS) {
+        return videoSource.hlsPlaylistUrl!;
+      }
       return `https://${videoSource.pullZoneUrl}.b-cdn.net/${videoSource.videoId}/play_${quality.height}p.mp4`;
     };
 
@@ -111,7 +147,9 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           onLoadedData={handleLoadedData}
           crossOrigin="anonymous"
         >
-          <source src={getVideoUrl(currentQuality)} type="video/mp4" />
+          {!isUsingHLS && (
+            <source src={getVideoUrl(currentQuality)} type="video/mp4" />
+          )}
         </video>
 
         {isLoading && (
@@ -149,7 +187,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
 
         {/* Subtitle display */}
         {!subtitlesLoading && !subtitlesError && (
-          <div className="absolute bottom-16 left-1/2 w-full max-w-2xl -translate-x-1/2 rounded bg-black/80 p-4 text-center text-white">
+          <div className="absolute -bottom-16 left-1/2 w-full max-w-2xl -translate-x-1/2 rounded bg-black/80 p-4 text-center text-white">
             {currentSubtitle}
           </div>
         )}

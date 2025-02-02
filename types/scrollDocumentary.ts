@@ -2,6 +2,7 @@
 export interface VideoQuality {
   height: number;
   label: string;
+  supportsHLS: boolean;
 }
 
 export interface SubtitleTrack {
@@ -14,6 +15,7 @@ export interface VideoSource {
   pullZoneUrl: string;
   availableQualities: VideoQuality[];
   availableSubtitles: SubtitleTrack[];
+  hlsPlaylistUrl?: string;
   title?: string;
   duration?: number;
   thumbnail?: string;

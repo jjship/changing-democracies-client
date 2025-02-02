@@ -25,6 +25,17 @@ export type UpdateVideoModel = {
   metaTags?: { property: string; value: string }[] | null;
 };
 
+if (
+  !process.env.BUNNY_STREAM_API_KEY ||
+  !process.env.BUNNY_STREAM_LIBRARY_ID ||
+  !process.env.BUNNY_STREAM_COLLECTION_ID ||
+  !process.env.BUNNY_STORAGE_API_KEY ||
+  !process.env.BUNNY_STORAGE_NAME ||
+  !process.env.BUNNY_SCROLL_DOC_COLLECTION_ID
+) {
+  throw new Error("Missing Bunny Stream environment variables");
+}
+
 async function uploadImage({
   blob,
   fileName,
@@ -32,10 +43,6 @@ async function uploadImage({
   blob: Blob;
   fileName: string;
 }) {
-  if (!process.env.BUNNY_STORAGE_API_KEY || !process.env.BUNNY_STORAGE_NAME) {
-    throw new Error("Missing Bunny Stream environment variables");
-  }
-
   const readStream = blob.stream();
 
   const storageName = process.env.BUNNY_STORAGE_NAME;
@@ -64,14 +71,6 @@ async function uploadImage({
 }
 
 async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
-  if (
-    !process.env.BUNNY_STREAM_API_KEY ||
-    !process.env.BUNNY_STREAM_LIBRARY_ID ||
-    !process.env.BUNNY_STREAM_COLLECTION_ID
-  ) {
-    throw new Error("Missing Bunny Stream environment variables");
-  }
-
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/collections/${process.env.BUNNY_STREAM_COLLECTION_ID}?includeThumbnails=true`;
 
   const options = {
@@ -104,14 +103,6 @@ async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
 async function getVideo(
   videoId: string,
 ): Promise<BunnyMethodReturn<VideoDbEntry>> {
-  if (
-    !process.env.BUNNY_STREAM_API_KEY ||
-    !process.env.BUNNY_STREAM_LIBRARY_ID ||
-    !process.env.BUNNY_STREAM_COLLECTION_ID
-  ) {
-    throw new Error("Missing Bunny Stream environment variables");
-  }
-
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos/${videoId}`;
 
   const options = {
@@ -144,14 +135,6 @@ async function updateVideo({
 }: {
   videoData: UpdateVideoModel;
 }): Promise<BunnyMethodReturn<VideoDbEntry>> {
-  if (
-    !process.env.BUNNY_STREAM_API_KEY ||
-    !process.env.BUNNY_STREAM_LIBRARY_ID ||
-    !process.env.BUNNY_STREAM_COLLECTION_ID
-  ) {
-    throw new Error("Missing Bunny Stream environment variables");
-  }
-
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos/${videoData.guid}`;
 
   const options = {
@@ -187,18 +170,24 @@ async function updateVideo({
   }
 }
 
-async function getVideosPerCollection(
-  cacheOptions?: Record<string, unknown>,
-): Promise<BunnyMethodReturn<VideoDbEntry>> {
-  if (
-    !process.env.BUNNY_STREAM_API_KEY ||
-    !process.env.BUNNY_STREAM_LIBRARY_ID ||
-    !process.env.BUNNY_STREAM_COLLECTION_ID
-  ) {
-    throw new Error("Missing Bunny Stream environment variables");
-  }
+type CollectionKey = "default" | "scroll-documentary";
 
+const streamCollectionKeyToId = new Map<CollectionKey, string>();
+streamCollectionKeyToId.set("default", process.env.BUNNY_STREAM_COLLECTION_ID);
+streamCollectionKeyToId.set(
+  "scroll-documentary",
+  process.env.BUNNY_SCROLL_DOC_COLLECTION_ID,
+);
+
+async function getVideosPerCollection({
+  cacheOptions,
+  collectionKey = "default",
+}: {
+  cacheOptions?: Record<string, unknown>;
+  collectionKey?: CollectionKey;
+}): Promise<BunnyMethodReturn<VideoDbEntry>> {
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos`;
+  const collectionId = streamCollectionKeyToId.get(collectionKey);
 
   let allVideos: VideoDbEntry[] = [];
   let currentPage = 1;
@@ -217,7 +206,7 @@ async function getVideosPerCollection(
       };
 
       const res = await fetchWithRetry({
-        url: `${url}?collectionId=${process.env.BUNNY_STREAM_COLLECTION_ID}&page=${currentPage}&itemsPerPage=${itemsPerPage}`,
+        url: `${url}?collectionId=${collectionId}&page=${currentPage}&itemsPerPage=${itemsPerPage}`,
         options,
       });
 

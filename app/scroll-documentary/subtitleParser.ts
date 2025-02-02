@@ -6,7 +6,7 @@ function parseTimeString(timeString: string): number {
   );
 }
 
-function parseSubtitles(
+export function parseSubtitles(
   vttContent: string,
 ): Array<{ start: number; end: number; text: string }> {
   const lines = vttContent.trim().split("\n");

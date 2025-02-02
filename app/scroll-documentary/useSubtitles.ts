@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import parseSubtitles from "./subtitleParser"; // Use the parser from previous example
+import { parseSubtitles } from "./subtitleParser";
 
 interface Subtitle {
   start: number;
