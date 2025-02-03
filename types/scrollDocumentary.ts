@@ -1,3 +1,5 @@
+import { Language } from "../utils/i18n/languages";
+
 // types/scrollDocumentary.ts
 export interface VideoQuality {
   height: number;
@@ -5,16 +7,11 @@ export interface VideoQuality {
   supportsHLS: boolean;
 }
 
-export interface SubtitleTrack {
-  languageCode: string;
-  label: string;
-}
-
 export interface VideoSource {
   videoId: string;
   pullZoneUrl: string;
   availableQualities: VideoQuality[];
-  availableSubtitles?: SubtitleTrack[];
+  availableSubtitles?: Language[];
   hlsPlaylistUrl?: string;
   title?: string;
   duration?: number;

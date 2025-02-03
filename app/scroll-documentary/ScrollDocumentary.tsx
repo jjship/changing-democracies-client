@@ -7,23 +7,31 @@ import VideoSection from "./VideoSection";
 import ErrorBoundary from "./VideoErrorBoundary";
 import { Navigation } from "@/components/navigation/Navigation";
 
-interface ScrollDocumentaryProps {
+interface ScrollDocumentaryClientProps {
   videoSources: VideoSource[];
+  initialLanguageLabel: string;
+  availableLanguageCodes: { [key: string]: string };
 }
 
-export default function ScrollDocumentary({
+export default function ScrollDocumentaryClient({
   videoSources,
-}: ScrollDocumentaryProps) {
+  initialLanguageLabel,
+  availableLanguageCodes,
+}: ScrollDocumentaryClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isStarted, setIsStarted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [loadedSections, setLoadedSections] = useState<number[]>([0]);
   const [isFirstVideoReady, setIsFirstVideoReady] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
   useEffect(() => {
     setLoadedSections([0]);
   }, []);
+
+  useEffect(() => {
+    setSelectedLanguage(initialLanguageLabel || null);
+  }, [initialLanguageLabel]);
 
   const { ref: loadMoreRef } = useInView({
     threshold: 0,
@@ -82,92 +90,96 @@ export default function ScrollDocumentary({
   );
 
   return (
-    <div className="relative min-h-screen w-full bg-black_bg">
-      <Navigation
-        bgColor="black_bg"
-        fontColor="yellow_secondary"
-        availableLanguages={videoSources[3]?.availableSubtitles}
-        selectedLanguage={selectedLanguage}
-        onLanguageChange={setSelectedLanguage}
-      />
+    selectedLanguage && (
+      <div className="relative min-h-screen w-full bg-black_bg">
+        <Navigation
+          bgColor="black_bg"
+          fontColor="yellow_secondary"
+          availableLanguages={Object.keys(availableLanguageCodes)}
+          selectedLanguage={selectedLanguage}
+          onLanguageChange={setSelectedLanguage}
+        />
 
-      {!isStarted ? (
-        <div className="flex h-[calc(100vh-64px)] w-full items-center justify-center">
-          {/* Hidden preload section */}
-          <div className="hidden">
-            {loadedSections.includes(0) && (
-              <VideoSection
-                key={videoSources[0].videoId}
-                videoSource={videoSources[0]}
-                subtitlesUrl={`https://${videoSources[0].pullZoneUrl}.b-cdn.net/${videoSources[0].videoId}/captions/${selectedLanguage}.vtt`}
-                onVideoEnd={() => {}}
-                isActive={false}
-                shouldPlay={false}
-                onReady={() => setIsFirstVideoReady(true)}
-                selectedLanguage={selectedLanguage}
-              />
-            )}
-          </div>
-          <button
-            onClick={() => setIsStarted(true)}
-            className={`rounded-lg bg-yellow_secondary px-8 py-4 text-xl font-bold text-black_bg transition-all
+        {!isStarted ? (
+          <div className="flex h-[calc(100vh-64px)] w-full items-center justify-center">
+            {/* Hidden preload section */}
+            <div className="hidden">
+              {loadedSections.includes(0) && (
+                <VideoSection
+                  key={videoSources[0].videoId}
+                  videoSource={videoSources[0]}
+                  onVideoEnd={() => {}}
+                  isActive={false}
+                  shouldPlay={false}
+                  onReady={() => setIsFirstVideoReady(true)}
+                  selectedLanguageCode={
+                    availableLanguageCodes[selectedLanguage]
+                  }
+                />
+              )}
+            </div>
+            <button
+              onClick={() => setIsStarted(true)}
+              className={`rounded-lg bg-yellow_secondary px-8 py-4 text-xl font-bold text-black_bg transition-all
              ${
                isFirstVideoReady
                  ? "hover:bg-yellow_secondary/80"
                  : "cursor-wait opacity-50"
              }`}
-            disabled={!isFirstVideoReady}
-          >
-            {isFirstVideoReady ? "Start Documentary" : "Loading..."}
-          </button>
-        </div>
-      ) : (
-        <ErrorBoundary>
-          <div
-            ref={containerRef}
-            className="h-[calc(100vh-64px)] w-full snap-y snap-mandatory overflow-y-auto"
-          >
-            {videoSources.map((source, index) => (
-              <div
-                key={source.videoId}
-                className="flex h-[calc(100vh-64px)] items-center justify-center bg-black_bg"
-              >
-                <div className="relative mx-auto aspect-video max-h-[80vh] w-full max-w-[142.22vh] px-4">
-                  {loadedSections.includes(index) ? (
-                    <VideoSection
-                      videoSource={source}
-                      subtitlesUrl={`https://${source.pullZoneUrl}.b-cdn.net/${source.videoId}/captions/${selectedLanguage}.vtt`}
-                      onVideoEnd={() => scrollToNextSection(index)}
-                      additionalContent={
-                        <div className="absolute left-4 top-4 text-white">
-                          {source.title}
-                        </div>
-                      }
-                      isActive={index === activeIndex}
-                      shouldPlay={isStarted && index === activeIndex}
-                      selectedLanguage={selectedLanguage}
-                    />
-                  ) : (
-                    <div
-                      className="flex h-full w-full items-center justify-center"
-                      ref={
-                        index === Math.max(...loadedSections) + 1
-                          ? loadMoreRef
-                          : undefined
-                      }
-                    >
-                      <div className="text-yellow_secondary">
-                        Loading next section...
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
+              disabled={!isFirstVideoReady}
+            >
+              {isFirstVideoReady ? "Start Documentary" : "Loading..."}
+            </button>
           </div>
-          <ScrollNavigation />
-        </ErrorBoundary>
-      )}
-    </div>
+        ) : (
+          <ErrorBoundary>
+            <div
+              ref={containerRef}
+              className="h-[calc(100vh-64px)] w-full snap-y snap-mandatory overflow-y-auto"
+            >
+              {videoSources.map((source, index) => (
+                <div
+                  key={source.videoId}
+                  className="flex h-[calc(100vh-64px)] items-center justify-center bg-black_bg"
+                >
+                  <div className="relative mx-auto aspect-video max-h-[80vh] w-full max-w-[142.22vh] px-4">
+                    {loadedSections.includes(index) ? (
+                      <VideoSection
+                        videoSource={source}
+                        onVideoEnd={() => scrollToNextSection(index)}
+                        additionalContent={
+                          <div className="absolute left-4 top-4 text-white">
+                            {source.title}
+                          </div>
+                        }
+                        isActive={index === activeIndex}
+                        shouldPlay={isStarted && index === activeIndex}
+                        selectedLanguageCode={
+                          availableLanguageCodes[selectedLanguage]
+                        }
+                      />
+                    ) : (
+                      <div
+                        className="flex h-full w-full items-center justify-center"
+                        ref={
+                          index === Math.max(...loadedSections) + 1
+                            ? loadMoreRef
+                            : undefined
+                        }
+                      >
+                        <div className="text-yellow_secondary">
+                          Loading next section...
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <ScrollNavigation />
+          </ErrorBoundary>
+        )}
+      </div>
+    )
   );
 }

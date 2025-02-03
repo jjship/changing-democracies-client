@@ -1,6 +1,5 @@
 import {
   VideoQuality,
-  SubtitleTrack,
   VideoSource,
   VideoSourceResponse,
 } from "@/types/scrollDocumentary";

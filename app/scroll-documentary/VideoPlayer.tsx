@@ -6,17 +6,21 @@ import useAdaptiveQuality from "./useAdaptiveQuality";
 import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
 import { getOptimalQuality } from "./videoSource";
 import { parseSubtitles } from "./subtitleParser";
+import { getSubtitlesUrl } from "../../utils/i18n/languages";
 
 interface VideoPlayerProps {
   videoSource: VideoSource;
   onEnded?: () => void;
   isPlaying?: boolean;
   className?: string;
-  selectedLanguage: string;
+  selectedLanguageCode: string;
 }
 
 const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
-  ({ videoSource, onEnded, isPlaying, className, selectedLanguage }, ref) => {
+  (
+    { videoSource, onEnded, isPlaying, className, selectedLanguageCode },
+    ref,
+  ) => {
     const [hls, setHls] = useState<Hls | null>(null);
     const [isUsingHLS, setIsUsingHLS] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
@@ -98,10 +102,16 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         try {
           setSubtitlesLoading(true);
           setSubtitlesError(null);
-          const response = await fetch(getSubtitleUrl(selectedLanguage));
+          const response = await fetch(
+            getSubtitlesUrl(
+              videoSource.pullZoneUrl,
+              videoSource.videoId,
+              selectedLanguageCode,
+            ),
+          );
           if (!response.ok) {
             console.warn(
-              `Could not load ${selectedLanguage} subtitles. Status: ${response.status}`,
+              `Could not load  subtitles. Status: ${response.status}`,
             );
             return;
           }
@@ -116,7 +126,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       };
 
       fetchSubtitles();
-    }, [selectedLanguage]);
+    }, [selectedLanguageCode]);
 
     useEffect(() => {
       const video = videoRef.current;
@@ -139,10 +149,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         return videoSource.hlsPlaylistUrl!;
       }
       return `https://${videoSource.pullZoneUrl}.b-cdn.net/${videoSource.videoId}/play_${quality.height}p.mp4`;
-    };
-
-    const getSubtitleUrl = (languageCode: string) => {
-      return `https://${videoSource.pullZoneUrl}.b-cdn.net/${videoSource.videoId}/captions/${languageCode}.vtt`;
     };
 
     const handleError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {

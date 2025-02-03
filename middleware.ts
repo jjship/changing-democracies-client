@@ -1,8 +1,20 @@
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/supabase/middleware";
+import { getBrowserLanguage } from "@/utils/i18n/languages";
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  // Admin routes: only handle Supabase session
+  if (request.nextUrl.pathname.startsWith("/admin")) {
+    return await updateSession(request);
+  }
+
+  // All other routes: handle language detection
+  const response = NextResponse.next();
+  const browserLang = getBrowserLanguage(
+    request.headers.get("accept-language"),
+  );
+  response.headers.set("x-browser-language", browserLang);
+  return response;
 }
 
 export const config = {

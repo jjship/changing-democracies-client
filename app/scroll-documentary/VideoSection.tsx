@@ -10,24 +10,22 @@ import { VideoSourceError } from "./videoSource";
 
 interface VideoSectionProps {
   videoSource: VideoSource;
-  subtitlesUrl: string;
   onVideoEnd?: () => void;
   additionalContent?: React.ReactNode;
   isActive: boolean;
   shouldPlay: boolean;
   onReady?: () => void;
-  selectedLanguage: string;
+  selectedLanguageCode: string;
 }
 
 export default function VideoSection({
   videoSource,
-  subtitlesUrl,
   onVideoEnd,
   additionalContent,
   isActive,
   shouldPlay,
   onReady,
-  selectedLanguage,
+  selectedLanguageCode,
 }: VideoSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -107,7 +105,7 @@ export default function VideoSection({
             onEnded={handleVideoEnd}
             isPlaying={isPlaying}
             className="h-full w-full object-cover"
-            selectedLanguage={selectedLanguage}
+            selectedLanguageCode={selectedLanguageCode}
           />
         </div>
       </ErrorBoundary>
