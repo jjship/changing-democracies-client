@@ -4,33 +4,33 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { FreeBrowsing } from "@/components/FreeBrowsing";
 import { getVideosPerCollection } from "@/utils/admin/bunny-methods";
 import { serializeFilmsCollection } from "@/utils/films-methods";
-import { sectionPadding } from "../components/Section";
+
 import { serializeVideoSource } from "./videoSource";
 import ScrollDocumentary from "./ScrollDocumentary";
+import { cache } from "react";
+import { VideoSource } from "../../types/scrollDocumentary";
 
-export default async function FreeBrowsingPage() {
+const getSerializedAndSortedVideos = cache(async (videosData: any) => {
+  return videosData.data
+    .map((video: any) => serializeVideoSource(video))
+    .sort((a: VideoSource, b: VideoSource) => {
+      const aNum = parseInt(a.title?.match(/^(\d+)/)?.[1] || "0");
+      const bNum = parseInt(b.title?.match(/^(\d+)/)?.[1] || "0");
+
+      return aNum - bNum;
+    });
+});
+
+export default async function ScrollDocumentaryPage() {
   try {
     const videosData = await getVideosPerCollection({
       cacheOptions: { next: { revalidate: 3600 } },
-      collectionKey: "default",
+      collectionKey: "scroll-documentary",
     });
 
-    const videoSources = videosData.data.map((video) =>
-      serializeVideoSource(video),
-    ); // TODO JAC change to take all sources
+    const videoSources = await getSerializedAndSortedVideos(videosData);
 
-    return (
-      <main>
-        <div className="relative h-[100vh] overflow-clip">
-          <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
-          <div
-            className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x}  mb-9 h-[calc(90vh-40px)] overflow-auto pb-5 md:pb-14 xl:pb-40 `}
-          >
-            <ScrollDocumentary videoSources={[videoSources[0]]} />
-          </div>
-        </div>
-      </main>
-    );
+    return <ScrollDocumentary videoSources={videoSources} />;
   } catch (err) {
     console.error("Failed to fetch video sources:", err);
     return (

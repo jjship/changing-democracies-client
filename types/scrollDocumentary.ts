@@ -14,7 +14,7 @@ export interface VideoSource {
   videoId: string;
   pullZoneUrl: string;
   availableQualities: VideoQuality[];
-  availableSubtitles: SubtitleTrack[];
+  availableSubtitles?: SubtitleTrack[];
   hlsPlaylistUrl?: string;
   title?: string;
   duration?: number;

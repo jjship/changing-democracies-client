@@ -206,7 +206,7 @@ async function getVideosPerCollection({
       };
 
       const res = await fetchWithRetry({
-        url: `${url}?collectionId=${collectionId}&page=${currentPage}&itemsPerPage=${itemsPerPage}`,
+        url: `${url}?collection=${collectionId}&page=${currentPage}&itemsPerPage=${itemsPerPage}&orderBy=title`,
         options,
       });
 
@@ -227,7 +227,7 @@ async function getVideosPerCollection({
     } while (totalItems && allVideos.length < totalItems);
 
     return {
-      data: allVideos.sort((a, b) => a.title.localeCompare(b.title)),
+      data: allVideos,
       success: true,
     };
   } catch (err) {

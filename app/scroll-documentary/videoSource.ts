@@ -62,14 +62,16 @@ export function serializeVideoSource(video: VideoDbEntry): VideoSource {
         supportsHLS: false,
       }));
 
-    const availableSubtitles: SubtitleTrack[] = (video.captions || [])
-      .map((caption) => ({
-        languageCode: caption.srclang,
-        label: caption.label,
-      }))
-      .sort((a, b) => a.label.localeCompare(b.label)); // Sort alphabetically
+    const availableSubtitles =
+      video.captions.length > 0
+        ? video.captions
+            .map((caption) => ({
+              languageCode: caption.srclang,
+              label: caption.label,
+            }))
+            .sort((a, b) => a.label.localeCompare(b.label))
+        : undefined;
 
-    // Construct thumbnail URL if available
     const thumbnail = video.thumbnailFileName
       ? `https://${pullZoneUrl}.b-cdn.net/${videoId}/${video.thumbnailFileName}`
       : undefined;

@@ -1,4 +1,6 @@
 import Hls from "hls.js";
+import { Button } from "@/components/ui/button";
+import { Play, Pause } from "lucide-react";
 import { forwardRef, useEffect, useState } from "react";
 import useAdaptiveQuality from "./useAdaptiveQuality";
 import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
@@ -10,13 +12,14 @@ interface VideoPlayerProps {
   onEnded?: () => void;
   isPlaying?: boolean;
   className?: string;
+  selectedLanguage: string;
 }
 
 const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
-  ({ videoSource, onEnded, isPlaying, className }, ref) => {
+  ({ videoSource, onEnded, isPlaying, className, selectedLanguage }, ref) => {
     const [hls, setHls] = useState<Hls | null>(null);
     const [isUsingHLS, setIsUsingHLS] = useState(false);
-
+    const [isPaused, setIsPaused] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
@@ -25,9 +28,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     >([]);
     const [subtitlesLoading, setSubtitlesLoading] = useState(true);
     const [subtitlesError, setSubtitlesError] = useState<string | null>(null);
-    const [selectedLanguage, setSelectedLanguage] = useState(
-      videoSource.availableSubtitles[0]?.languageCode,
-    );
     const { currentQuality, videoRef } = useAdaptiveQuality({
       initialQuality: getOptimalQuality(videoSource.availableQualities),
       qualities: videoSource.availableQualities.filter((q) =>
@@ -35,11 +35,39 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       ),
     });
 
+    const handlePlayPause = () => {
+      const video = videoRef.current;
+      if (!video) return;
+
+      if (video.paused) {
+        video.play();
+        setIsPaused(false);
+      } else {
+        video.pause();
+        setIsPaused(true);
+      }
+    };
+
     useEffect(() => {
       const video = videoRef.current;
       if (!video) return;
 
-      // Check if HLS is supported and available
+      const handlePause = () => setIsPaused(true);
+      const handlePlay = () => setIsPaused(false);
+
+      video.addEventListener("pause", handlePause);
+      video.addEventListener("play", handlePlay);
+
+      return () => {
+        video.removeEventListener("pause", handlePause);
+        video.removeEventListener("play", handlePlay);
+      };
+    }, []);
+
+    useEffect(() => {
+      const video = videoRef.current;
+      if (!video) return;
+
       if (Hls.isSupported() && videoSource.hlsPlaylistUrl) {
         const hls = new Hls({
           maxMaxBufferLength: 30,
@@ -66,23 +94,22 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
 
     useEffect(() => {
       const fetchSubtitles = async () => {
+        if (!videoSource.availableSubtitles) return;
         try {
           setSubtitlesLoading(true);
           setSubtitlesError(null);
           const response = await fetch(getSubtitleUrl(selectedLanguage));
-
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            console.warn(
+              `Could not load ${selectedLanguage} subtitles. Status: ${response.status}`,
+            );
+            return;
           }
-
           const text = await response.text();
           const parsedSubtitles = parseSubtitles(text);
           setSubtitles(parsedSubtitles);
         } catch (error) {
           console.error("Error loading subtitles:", error);
-          setSubtitlesError(
-            error instanceof Error ? error.message : "Failed to load subtitles",
-          );
         } finally {
           setSubtitlesLoading(false);
         }
@@ -129,7 +156,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     };
 
     return (
-      <div className="relative">
+      <div className="group/video relative">
         <video
           ref={(element) => {
             videoRef.current = element;
@@ -141,7 +168,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           }}
           className={className}
           playsInline
-          muted
           onEnded={onEnded}
           onError={handleError}
           onLoadedData={handleLoadedData}
@@ -151,6 +177,19 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
             <source src={getVideoUrl(currentQuality)} type="video/mp4" />
           )}
         </video>
+
+        <Button
+          onClick={handlePlayPause}
+          size="icon"
+          variant="secondary"
+          className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200 hover:scale-110 group-hover/video:opacity-100"
+        >
+          {isPaused ? (
+            <Play className="h-6 w-6" />
+          ) : (
+            <Pause className="h-6 w-6" />
+          )}
+        </Button>
 
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50">
@@ -169,21 +208,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
             {currentQuality.label}
           </div>
         )}
-
-        {/* Subtitle controls */}
-        <div className="absolute bottom-4 right-4 flex gap-2">
-          <select
-            className="rounded bg-black/80 px-2 py-1 text-sm text-white"
-            value={selectedLanguage}
-            onChange={(e) => setSelectedLanguage(e.target.value)}
-          >
-            {videoSource.availableSubtitles.map((track) => (
-              <option key={track.languageCode} value={track.languageCode}>
-                {track.label}
-              </option>
-            ))}
-          </select>
-        </div>
 
         {/* Subtitle display */}
         {!subtitlesLoading && !subtitlesError && (

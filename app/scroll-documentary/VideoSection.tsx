@@ -13,6 +13,10 @@ interface VideoSectionProps {
   subtitlesUrl: string;
   onVideoEnd?: () => void;
   additionalContent?: React.ReactNode;
+  isActive: boolean;
+  shouldPlay: boolean;
+  onReady?: () => void;
+  selectedLanguage: string;
 }
 
 export default function VideoSection({
@@ -20,6 +24,10 @@ export default function VideoSection({
   subtitlesUrl,
   onVideoEnd,
   additionalContent,
+  isActive,
+  shouldPlay,
+  onReady,
+  selectedLanguage,
 }: VideoSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -32,14 +40,41 @@ export default function VideoSection({
     const video = videoRef.current;
     if (!video) return;
 
-    if (inView) {
-      video.play();
+    const handleCanPlay = () => {
+      onReady?.();
+    };
+
+    video.addEventListener("canplay", handleCanPlay);
+    return () => video.removeEventListener("canplay", handleCanPlay);
+  }, [onReady]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (inView && shouldPlay) {
+      video.muted = false;
+      video.play().catch((err) => {
+        if (err.name === "NotAllowedError") {
+          video.muted = true;
+          video.play().catch(console.error);
+        } else {
+          console.error("Playback error:", err);
+        }
+      });
       setIsPlaying(true);
     } else {
       video.pause();
+      if (!isActive) {
+        video.currentTime = 0;
+      }
       setIsPlaying(false);
     }
-  }, [inView]);
+
+    return () => {
+      video.pause();
+    };
+  }, [inView, shouldPlay, isActive]);
 
   const handleVideoEnd = () => {
     setTimeout(() => {
@@ -58,20 +93,23 @@ export default function VideoSection({
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen w-full snap-start overflow-hidden"
+      className="relative h-full w-full snap-start overflow-hidden"
     >
       <ErrorBoundary
         fallback={({ error, retry }) => (
           <VideoPlayerFallback error={error} onRetry={retry} />
         )}
       >
-        <VideoPlayer
-          ref={videoRef}
-          videoSource={videoSource}
-          onEnded={handleVideoEnd}
-          isPlaying={isPlaying}
-          className="h-full w-full object-cover"
-        />
+        <div className="relative h-full w-full">
+          <VideoPlayer
+            ref={videoRef}
+            videoSource={videoSource}
+            onEnded={handleVideoEnd}
+            isPlaying={isPlaying}
+            className="h-full w-full object-cover"
+            selectedLanguage={selectedLanguage}
+          />
+        </div>
       </ErrorBoundary>
       {additionalContent}
     </section>
