@@ -5,8 +5,7 @@ import { forwardRef, useEffect, useState } from "react";
 import useAdaptiveQuality from "./useAdaptiveQuality";
 import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
 import { getOptimalQuality } from "./videoSource";
-import { parseSubtitles } from "./subtitleParser";
-import { getSubtitlesUrl } from "../../utils/i18n/languages";
+import useSubtitles from "./useSubtitles";
 
 interface VideoPlayerProps {
   videoSource: VideoSource;
@@ -27,11 +26,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
-    const [subtitles, setSubtitles] = useState<
-      Array<{ start: number; end: number; text: string }>
-    >([]);
-    const [subtitlesLoading, setSubtitlesLoading] = useState(true);
-    const [subtitlesError, setSubtitlesError] = useState<string | null>(null);
     const { currentQuality, videoRef } = useAdaptiveQuality({
       initialQuality: getOptimalQuality(videoSource.availableQualities),
       qualities: videoSource.availableQualities.filter((q) =>
@@ -96,37 +90,11 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       }
     }, [videoSource.hlsPlaylistUrl]);
 
-    useEffect(() => {
-      const fetchSubtitles = async () => {
-        if (!videoSource.availableSubtitles) return;
-        try {
-          setSubtitlesLoading(true);
-          setSubtitlesError(null);
-          const response = await fetch(
-            getSubtitlesUrl(
-              videoSource.pullZoneUrl,
-              videoSource.videoId,
-              selectedLanguageCode,
-            ),
-          );
-          if (!response.ok) {
-            console.warn(
-              `Could not load  subtitles. Status: ${response.status}`,
-            );
-            return;
-          }
-          const text = await response.text();
-          const parsedSubtitles = parseSubtitles(text);
-          setSubtitles(parsedSubtitles);
-        } catch (error) {
-          console.error("Error loading subtitles:", error);
-        } finally {
-          setSubtitlesLoading(false);
-        }
-      };
-
-      fetchSubtitles();
-    }, [selectedLanguageCode]);
+    const {
+      subtitles,
+      isLoading: subtitlesLoading,
+      error: subtitlesError,
+    } = useSubtitles(videoSource, selectedLanguageCode);
 
     useEffect(() => {
       const video = videoRef.current;
