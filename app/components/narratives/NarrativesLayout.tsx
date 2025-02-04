@@ -17,7 +17,7 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
   const [switchPath, setSwitchPath] = useState<boolean>(false);
-
+// TODO: remove scrolls visibility from all sites
   return (
     <NarrativesContext.Provider
       value={{
@@ -41,13 +41,15 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
             sectionPadding.x
           } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-40px)]"}`}
         >
+          {/*//TODO: max width query for mor than 1200px*/}
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
         <div
-          className={` -z-10 flex items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear ${
+          className={`-z-[5] flex items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear ${
             switchPath ? "sticky bottom-0 h-[40vh]" : "sticky bottom-0 h-[15vh]"
           }`}
         ></div>
+
         <div
           className={`fixed transition-all duration-1000 ease-linear  ${
             switchPath ? "bottom-[28vh]" : "bottom-[3vh]"

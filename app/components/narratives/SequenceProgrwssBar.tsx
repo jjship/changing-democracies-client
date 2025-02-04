@@ -84,7 +84,19 @@ const SequenceProgressBar: FC = () => {
               }}
             />
           )}
-
+          <Box
+            className={`absolute -z-[6] transition-all duration-500 ease-in-out ${
+              !isPlaying &&
+              currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
+              index === currentIndex
+                ? "bottom-[5vh] opacity-100"
+                : "bottom-0 opacity-0"
+            }`}
+          >
+            {!switchPath && (
+              <SwitchPathButton onClick={handleSwitchPathButton} />
+            )}
+          </Box>
           <Box
             style={{
               position: "relative",
@@ -93,20 +105,6 @@ const SequenceProgressBar: FC = () => {
               alignItems: "center",
             }}
           >
-            <Box
-              className={`absolute -z-10 transition-all duration-500 ease-in-out ${
-                !isPlaying &&
-                currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
-                index === currentIndex
-                  ? "bottom-[5vh] opacity-100"
-                  : "bottom-0 opacity-0"
-              }`}
-            >
-              {!switchPath && (
-                <SwitchPathButton onClick={handleSwitchPathButton} />
-              )}
-            </Box>
-
             {isHovered === index && (
               <Box
                 style={{
@@ -173,6 +171,7 @@ const SequenceProgressBar: FC = () => {
               index === currentIndex &&
               currentPath?.fragments[currentIndex].otherPaths.map(
                 (otherPath, index) => (
+                  //TODO: add borders from project
                   <SwitchPathRedirectButton
                     key={index}
                     onClick={() => handleSwitchPathRedirectButton(otherPath.id)}

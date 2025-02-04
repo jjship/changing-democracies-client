@@ -77,6 +77,7 @@ const config: Config = {
         md: "1024px",
         xl: "1450px",
         lg: "1500px",
+        "narratives-player-width": "1024px",
       },
       fontSize: {
         display_lg: "14.813rem",

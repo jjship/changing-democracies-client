@@ -10,7 +10,7 @@ const NarrativesFilmPlayer: FC = () => {
     isPlaying,
     setIsPlaying,
     setCurrentIndex,
-    setSwitchPath,
+    setSwitchPath
   } = useNarrativesContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
@@ -92,7 +92,7 @@ const NarrativesFilmPlayer: FC = () => {
         <>
           <Box
             className={
-              "w-18 absolute left-6 top-5 z-20 border-[3px] border-turquoise p-4 text-turquoise"
+              "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise"
             }
           >
             <p>{`${currentPath?.fragments[currentIndex].person},`}</p>

@@ -46,9 +46,7 @@ const NarrativesView: FC = ({}) => {
         direction={"column"}
         className={`pt-[4.5vh]`}
       >
-        <div
-          className={`flex h-[10%] w-[85%] flex-row items-start justify-between`}
-        >
+        <div className={`flex w-[85%] flex-row items-start justify-between`}>
           <>
             <div className={"relative right-16 top-2 z-10"}>
               <OverviewTag onClick={handleOverview} />
@@ -61,9 +59,9 @@ const NarrativesView: FC = ({}) => {
           </>
         </div>
 
-        <Flex className="relative flex w-[85%] items-center justify-center">
+        <Flex className="max-w-narratives-player-width relative flex w-[85%] flex-1 items-center justify-center overflow-auto">
+          {/*//TODO: remove animation*/}
           {<NarrativesFilmPlayer />}
-
           {!isPlaying && currentIndex === 0 && (
             <Flex
               direction={"column"}
