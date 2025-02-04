@@ -24,6 +24,7 @@ const SequenceProgressBar: FC = () => {
     (index: number) => {
       setCurrentIndex(index);
       setIsPlaying(true);
+      setSwitchPath(false);
     },
     [setCurrentIndex, setIsPlaying],
   );
@@ -36,6 +37,8 @@ const SequenceProgressBar: FC = () => {
 
   const handleSwitchPathRedirectButton = useCallback(
     (id: string) => {
+      setIsPlaying(true);
+      setSwitchPath(false);
       if (narrationPaths) {
         const path = narrationPaths.find((path) => path.id === id);
         path && setCurrentPath(path);
@@ -50,6 +53,8 @@ const SequenceProgressBar: FC = () => {
       narrationPaths,
       setCurrentIndex,
       setCurrentPath,
+      setIsPlaying,
+      setSwitchPath,
     ],
   );
 
@@ -85,11 +90,11 @@ const SequenceProgressBar: FC = () => {
             />
           )}
           <Box
-            className={`absolute -z-[6] transition-all duration-500 ease-in-out ${
+            className={`absolute right-[2.5vw] -z-[100] transition-all duration-500 ease-in-out ${
               !isPlaying &&
               currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
               index === currentIndex
-                ? "bottom-[5vh] opacity-100"
+                ? "bottom-[5.5vh] opacity-100"
                 : "bottom-0 opacity-0"
             }`}
           >
