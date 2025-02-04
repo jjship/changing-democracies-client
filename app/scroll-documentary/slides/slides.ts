@@ -1,5 +1,6 @@
-import { VideoSource } from "../../../types/scrollDocumentary";
+import { VideoSource } from "@/types/scrollDocumentary";
 import { ReactNode } from "react";
+import { NavColor } from "@/components/navigation/Navigation";
 
 type Slide = {
   name: string;
@@ -145,3 +146,27 @@ export function assignVideoSourcesToSlides({
     };
   });
 }
+
+export const themeMapping: Record<
+  string,
+  { pageBg: string; pageFont: string; navBg: NavColor; navFont: NavColor }
+> = {
+  black: {
+    pageBg: "bg-black_bg",
+    pageFont: "text-yellow_secondary",
+    navBg: "black_bg",
+    navFont: "yellow_secondary",
+  },
+  gray: {
+    pageBg: "bg-gray_dark_secondary",
+    pageFont: "text-yellow_secondary",
+    navBg: "gray_dark_secondary",
+    navFont: "yellow_secondary",
+  },
+  pink: {
+    pageBg: "bg-purple_lightest_bg",
+    pageFont: "text-black_bg",
+    navBg: "purple_lightest_bg",
+    navFont: "black_bg",
+  },
+};
