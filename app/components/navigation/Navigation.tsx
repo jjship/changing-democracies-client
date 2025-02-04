@@ -14,7 +14,11 @@ import {
 
 export { Navigation };
 
-export type NavColor = "purple_lightest_bg" | "black_bg" | "yellow_secondary";
+export type NavColor =
+  | "purple_lightest_bg"
+  | "black_bg"
+  | "yellow_secondary"
+  | "gray_dark_secondary";
 
 export type NavigationProps = {
   bgColor?: NavColor;
@@ -41,7 +45,7 @@ const Navigation: FC<NavigationProps> = ({
         isNavOpen ? "black_bg" : bgColor
       } sticky top-0 z-40 w-full transition-all duration-1000`}
     >
-      <div className="flex min-h-[5vh] items-center justify-between">
+      <div className="flex h-[4rem] items-center justify-between">
         <Image
           src={logoDark}
           alt="changing democracies logo"
