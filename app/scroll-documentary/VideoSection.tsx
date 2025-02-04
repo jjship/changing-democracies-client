@@ -31,7 +31,8 @@ export default function VideoSection({
   const [isPlaying, setIsPlaying] = useState(false);
 
   const { ref: sectionRef, inView } = useInView({
-    threshold: 0.5,
+    threshold: 0.7,
+    rootMargin: "-10% 0px",
   });
 
   useEffect(() => {
@@ -50,7 +51,9 @@ export default function VideoSection({
     const video = videoRef.current;
     if (!video) return;
 
-    if (inView && shouldPlay) {
+    const shouldBePlayingNow = shouldPlay && isActive && inView;
+
+    if (shouldBePlayingNow) {
       video.muted = false;
       video.play().catch((err) => {
         if (err.name === "NotAllowedError") {
@@ -63,21 +66,23 @@ export default function VideoSection({
       setIsPlaying(true);
     } else {
       video.pause();
+      setIsPlaying(false);
       if (!isActive) {
         video.currentTime = 0;
       }
-      setIsPlaying(false);
     }
 
     return () => {
       video.pause();
+      setIsPlaying(false);
     };
-  }, [inView, shouldPlay, isActive]);
+  }, [shouldPlay, isActive, inView]);
 
   const handleVideoEnd = () => {
-    setTimeout(() => {
+    if (isActive) {
+      // Only trigger scroll if this section is active
       onVideoEnd?.();
-    }, 5000);
+    }
   };
 
   if (!videoSource) {
