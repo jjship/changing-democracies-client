@@ -61,7 +61,6 @@ const NarrativesView: FC = ({}) => {
           </div>
 
           <Flex className="max-w-narratives-player-width relative flex w-[85%] flex-1 items-center justify-center overflow-auto">
-            {/*//TODO: remove animation*/}
             {<NarrativesFilmPlayer />}
             {!isPlaying && currentIndex === 0 && (
               <Flex

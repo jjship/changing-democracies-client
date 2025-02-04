@@ -18,7 +18,6 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
   const [switchPath, setSwitchPath] = useState<boolean>(false);
-  // TODO: remove scrolls visibility from all sites
   return (
     <NarrativesContext.Provider
       value={{
@@ -42,7 +41,6 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
             sectionPadding.x
           } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-40px)]"}`}
         >
-          {/*//TODO: max width query for mor than 1200px*/}
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
         <div
@@ -68,8 +66,3 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
 };
 
 export default NarrativesLayout;
-
-
-// h-[calc(${switchPath ? '65vh' : '90vh'}-40px)]
-// ${switchPath ? 'h-[calc(65vh-40px)]' : 'h--[calc(90vh-40px)]'}
-// ${switchPath ? 'h-[65vh]' : 'h-[90vh]'}
