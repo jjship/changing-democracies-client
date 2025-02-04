@@ -13,7 +13,7 @@ interface ScrollDocumentaryClientProps {
   availableLanguageCodes: { [key: string]: string };
 }
 
-// A deeper theme mapping where the active slide’s theme controls the whole page.
+// A deeper theme mapping where the active slide's theme controls the whole page.
 // "pageBg" applies to the overall container,
 // "navBg" and "navFont" are passed to the Navigation component.
 const themeMapping: Record<
@@ -135,12 +135,11 @@ export default function ScrollDocumentaryClient({
     const handleScroll = () => {
       const children = Array.from(container.children);
       const viewportHeight = window.innerHeight;
-      const containerTop = container.getBoundingClientRect().top;
+      const viewportCenter = viewportHeight / 2;
 
       children.forEach((child, index) => {
         const rect = child.getBoundingClientRect();
         const childCenter = rect.top + rect.height / 2;
-        const viewportCenter = viewportHeight / 2;
 
         // Check if this section is the most centered one
         if (Math.abs(childCenter - viewportCenter) < viewportHeight * 0.3) {
@@ -168,7 +167,7 @@ export default function ScrollDocumentaryClient({
     handleScroll();
 
     return () => container.removeEventListener("scroll", onScroll);
-  }, [activeIndex]);
+  }, [activeIndex, isStarted]);
 
   // const renderAdditionalContent = (
   //   slide: (typeof slidesWithSources)[number],
@@ -196,7 +195,7 @@ export default function ScrollDocumentaryClient({
 
   return (
     selectedLanguage && (
-      // Outer container uses the active slide’s pageBg color.
+      // Outer container uses the active slide's pageBg color.
       <div className={`relative ${pageTheme.pageBg} min-h-screen w-full`}>
         <Navigation
           bgColor={pageTheme.navBg}
