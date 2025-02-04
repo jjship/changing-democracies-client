@@ -52,11 +52,17 @@ const NarrativesView: FC = ({}) => {
               <div className={"relative right-16 top-2 z-10"}>
                 <OverviewTag onClick={handleOverview} />
               </div>
-              {!switchPath && (
-                <h1 className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white">
-                  {currentPath?.title || "Narration"}
-                </h1>
-              )}
+              <h1
+                className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white"
+                style={{
+                  opacity: switchPath ? 0 : 1,
+                  transform: switchPath ? "translateY(20px)" : "translateY(0)",
+                  transition: "opacity 0.5s ease, transform 0.5s ease",
+                  transitionDelay: switchPath ? "0s" : "0.5s",
+                }}
+              >
+                {currentPath?.title || "Narration"}
+              </h1>
             </>
           </div>
 
