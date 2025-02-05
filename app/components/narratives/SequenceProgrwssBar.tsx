@@ -26,7 +26,7 @@ const SequenceProgressBar: FC = () => {
       setIsPlaying(true);
       setSwitchPath(false);
     },
-    [setCurrentIndex, setIsPlaying],
+    [setCurrentIndex, setIsPlaying, setSwitchPath],
   );
 
   const handleSwitchPathButton = useCallback(() => {
@@ -170,23 +170,29 @@ const SequenceProgressBar: FC = () => {
               onMouseLeave={() => setIsHovered(null)}
             />
           </Box>
-          <Box className={"absolute top-12"}>
-            {switchPath &&
-              !isPlaying &&
-              index === currentIndex &&
-              currentPath?.fragments[currentIndex].otherPaths.map(
-                (otherPath, index) => (
-                  //TODO: add borders from project
-                  <SwitchPathRedirectButton
-                    key={index}
-                    onClick={() => handleSwitchPathRedirectButton(otherPath.id)}
-                    id={otherPath.id}
-                    animate={animate}
-                    title={otherPath.title}
-                  ></SwitchPathRedirectButton>
-                ),
-              )}
-          </Box>
+          <Flex className={"relative"}>
+            <Box
+              className={"absolute top-12"}
+              style={{ overflowY: "auto", maxHeight: "20vh" }}
+            >
+              {switchPath &&
+                !isPlaying &&
+                index === currentIndex &&
+                currentPath?.fragments[currentIndex].otherPaths.map(
+                  (otherPath, index) => (
+                    <SwitchPathRedirectButton
+                      key={index}
+                      onClick={() =>
+                        handleSwitchPathRedirectButton(otherPath.id)
+                      }
+                      id={otherPath.id}
+                      animate={animate}
+                      title={otherPath.title}
+                    ></SwitchPathRedirectButton>
+                  ),
+                )}
+            </Box>
+          </Flex>
         </Flex>
       )),
     [

@@ -45,6 +45,14 @@ export const dummyPath: NarrationPath = {
           id: "fourthId",
           title: "What makes you angry about the world today?",
         },
+        {
+          id: "fourthId",
+          title: "What makes you angry about the world today?",
+        },
+        {
+          id: "fourthId",
+          title: "What makes you angry about the world today?",
+        },
       ],
     },
     {
