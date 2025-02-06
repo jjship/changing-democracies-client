@@ -4,15 +4,20 @@ import { X } from "lucide-react";
 import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
 
 const NarrativesBioSidePanel = () => {
-  const { currentPath, currentIndex, setShowSidePanel, setIsPlaying } =
-    useNarrativesContext();
+  const {
+    currentPath,
+    currentIndex,
+    setShowSidePanel,
+    setIsPlaying,
+    showSidePanel,
+  } = useNarrativesContext();
   return (
     <>
       <Flex
         direction={"column"}
-        className={
-          "fixed left-0 top-0 z-[100000] h-screen w-1/3 bg-purple_mains"
-        }
+        className={`fixed left-0 top-0 z-[100000] h-screen w-1/3 bg-purple_mains transition-transform delay-100 duration-300 ease-in-out ${
+          showSidePanel ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <Button
           onClick={() => {

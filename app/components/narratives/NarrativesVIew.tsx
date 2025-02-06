@@ -111,7 +111,7 @@ const NarrativesView: FC = ({}) => {
               )}
           </Flex>
         </Flex>
-        {showSidePanel && <NarrativesBioSidePanel />}
+        <NarrativesBioSidePanel />
       </>
     )
   );
