@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { sectionPadding } from "../Section";
-import SequenceProgressBar from "./SequenceProgrwssBar";
+import SequenceProgressBar from "./SequenceProgressBar";
 import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
 import { Archivo } from "next/font/google";
 import NarrativesContext from "@/app/narratives/NarrativesContext";
