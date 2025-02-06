@@ -57,6 +57,7 @@ export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
   country: string; // in title
   playerUrl: string;
   thumbnailUrl: string;
+  length?: number;
 };
 
 export type FilmsCollection = {
@@ -70,6 +71,7 @@ export type NarrationFragment = FilmData & {
   sequence: number;
   otherPaths: Pick<NarrationPath, "id" | "title">[];
   description?: string;
+  tags?: string;
 };
 
 export type NarrationPath = {
