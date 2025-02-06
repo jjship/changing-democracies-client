@@ -11,6 +11,8 @@ const defaultContext: NarrativesContextType = {
   setCurrentIndex: () => {},
   switchPath: false,
   setSwitchPath: () => {},
+  showSidePanel: false,
+  setShowSidePanel: () => {},
 };
 
 type NarrativesContextType = {
@@ -23,6 +25,8 @@ type NarrativesContextType = {
   setCurrentIndex: (currentIndex: number) => void;
   switchPath: boolean;
   setSwitchPath: (switchPath: boolean) => void;
+  showSidePanel: boolean;
+  setShowSidePanel: (showSidePanel: boolean) => void;
 };
 
 const NarrativesContext = createContext<NarrativesContextType>(defaultContext);
@@ -55,6 +59,7 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [switchPath, setSwitchPath] = useState(false);
+  const [showSidePanel, setShowSidePanel] = useState(false);
 
   const value = {
     currentPath,
@@ -66,6 +71,8 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
     setCurrentIndex,
     switchPath,
     setSwitchPath,
+    showSidePanel,
+    setShowSidePanel,
   };
 
   return (

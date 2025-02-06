@@ -90,7 +90,7 @@ const NarrativesProgressBar: FC = () => {
             />
           )}
           <Box
-            className={`absolute right-[2.5vw] -z-[100] transition-all duration-500 ease-in-out ${
+            className={`absolute right-[2.5vw] -z-[50] transition-all duration-500 ease-in-out ${
               !isPlaying &&
               currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
               index === currentIndex
