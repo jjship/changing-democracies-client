@@ -105,7 +105,7 @@ const NarrativesFilmPlayer: FC = () => {
       ) : (
         <Image
           src={currentPath?.fragments[currentIndex]?.thumbnailUrl || ""}
-          alt="Narration background"
+          alt="narrative background"
           fill
           priority
         />

@@ -30,13 +30,13 @@ const NarrativesList: FC = () => {
 
   return (
     <div className="mt-[5vh] flex flex-col items-center justify-center gap-4 sm:mt-[8vh] sm:gap-8 md:mt-[10vh] md:gap-14">
-      {narrationPaths?.map((narration, index) => (
+      {narrationPaths?.map((narrativePath, index) => (
         <a
           key={index}
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            setCurrentPath(narration);
+            setCurrentPath(narrativePath);
           }}
           className="ml-40 block w-[80%]" // ml-40 is a hack
           style={{ textDecoration: "none" }}
@@ -57,7 +57,7 @@ const NarrativesList: FC = () => {
                 <div className="flex w-full items-end justify-between md:w-[16vw]">
                   <div className={"relative right-6 min-w-[14vw] text-right"}>
                     <span className="text-xl font-bold md:text-3xl">
-                      {narration.title}
+                      {narrativePath.title}
                     </span>
                   </div>
                   <div className="self-end">
@@ -65,7 +65,7 @@ const NarrativesList: FC = () => {
                       className="mr-2 inline-block h-12 w-12 md:h-12 md:w-12"
                       onClick={(e) => {
                         e.preventDefault();
-                        setCurrentPath(narration);
+                        setCurrentPath(narrativePath);
                       }}
                       style={{ background: "none", border: "none", padding: 0 }}
                     >
@@ -81,8 +81,8 @@ const NarrativesList: FC = () => {
               </div>
             </Box>
             <Box className="flex h-[280px] flex-1 flex-col justify-center">
-              {narration.description?.length ? (
-                narration.description.map((line, i) => (
+              {narrativePath.description?.length ? (
+                narrativePath.description.map((line, i) => (
                   <p key={i.toString()} className="text-white">
                     {line}
                   </p>
@@ -92,8 +92,8 @@ const NarrativesList: FC = () => {
               )}
               <div className="relative top-6 flex w-full flex-row items-center md:mt-8 md:w-1/2">
                 <p className="absolute bottom-2 w-full self-end text-end text-xl font-bold text-yellow_secondary md:text-xl">
-                  {`${narration.fragments.length} videos, ${Math.floor(
-                    narration.total_length / 60,
+                  {`${narrativePath.fragments.length} videos, ${Math.floor(
+                    narrativePath.total_length / 60,
                   )} min`}
                 </p>
                 <div
