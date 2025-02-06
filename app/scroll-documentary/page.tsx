@@ -6,6 +6,7 @@ import { serializeVideoSource } from "./videoSource";
 import ScrollDocumentary from "./ScrollDocumentary";
 import { VideoSource } from "../../types/scrollDocumentary";
 import { VideoDbEntry } from "../../types/videosAndFilms";
+import { assignVideoSourcesToSlides } from "./slides/slides";
 
 const getSerializedAndSortedVideos = cache(
   async (videos: VideoDbEntry[], browserLang: string) => {
@@ -27,11 +28,13 @@ const getSerializedAndSortedVideos = cache(
         return aNum - bNum;
       });
 
+    const slidesWithSources = assignVideoSourcesToSlides({ videoSources });
+
     const initialLanguageLabel = availableLanguageCodes[browserLang]
       ? browserLang
       : "EN";
 
-    return { videoSources, initialLanguageLabel, availableLanguageCodes };
+    return { slidesWithSources, initialLanguageLabel, availableLanguageCodes };
   },
 );
 
@@ -44,12 +47,12 @@ export default async function ScrollDocumentaryPage() {
       collectionKey: "scroll-documentary",
     });
 
-    const { videoSources, initialLanguageLabel, availableLanguageCodes } =
+    const { slidesWithSources, initialLanguageLabel, availableLanguageCodes } =
       await getSerializedAndSortedVideos(videosData.data, browserLang);
 
     return (
       <ScrollDocumentary
-        videoSources={videoSources}
+        slidesWithSources={slidesWithSources}
         initialLanguageLabel={initialLanguageLabel}
         availableLanguageCodes={availableLanguageCodes}
       />

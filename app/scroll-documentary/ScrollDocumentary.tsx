@@ -2,22 +2,21 @@
 
 import { useInView } from "react-intersection-observer";
 import { useRef, useState, useEffect } from "react";
-import { VideoSource } from "@/types/scrollDocumentary";
 import VideoSection from "./VideoSection";
 import ErrorBoundary from "./VideoErrorBoundary";
 import { Navigation } from "@/components/navigation/Navigation";
-import { assignVideoSourcesToSlides, themeMapping } from "./slides/slides";
+import { themeMapping, SlideWithSource } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Play } from "lucide-react";
 
 interface ScrollDocumentaryClientProps {
-  videoSources: VideoSource[];
+  slidesWithSources: SlideWithSource[];
   initialLanguageLabel: string;
   availableLanguageCodes: { [key: string]: string };
 }
 
 export default function ScrollDocumentaryClient({
-  videoSources,
+  slidesWithSources,
   initialLanguageLabel,
   availableLanguageCodes,
 }: ScrollDocumentaryClientProps) {
@@ -27,10 +26,7 @@ export default function ScrollDocumentaryClient({
   const [loadedSections, setLoadedSections] = useState<number[]>([0]);
   const [isFirstVideoReady, setIsFirstVideoReady] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
-  // Assign video sources to slides using the helper.
-  const slidesWithSources = assignVideoSourcesToSlides({ videoSources });
 
-  // Determine the active slide and derive the page (and Navigation) theme.
   const activeSlide = slidesWithSources[activeIndex];
   const pageTheme = activeSlide
     ? themeMapping[activeSlide.colorTheme]
@@ -88,7 +84,7 @@ export default function ScrollDocumentaryClient({
 
   const ScrollNavigation = () => (
     <div className="fixed right-8 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-6">
-      {videoSources.map((_, index) => (
+      {slidesWithSources.map((_, index) => (
         <button
           key={index}
           onClick={() => scrollToSection(index)}
@@ -171,8 +167,9 @@ export default function ScrollDocumentaryClient({
 
   return (
     selectedLanguage && (
-      // Outer container uses the active slide's pageBg color.
-      <div className={`relative ${pageTheme.pageBg} min-h-screen w-full`}>
+      <div
+        className={`relative ${pageTheme.pageBg} min-h-screen w-full transition-all duration-1000`}
+      >
         <Navigation
           bgColor={pageTheme.navBg}
           fontColor={pageTheme.navFont}

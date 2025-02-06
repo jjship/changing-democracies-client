@@ -14,6 +14,8 @@ type Slide = {
   persons: { start: number; end: number; text: string }[];
 };
 
+export type SlideWithSource = Slide & { videoSource: VideoSource };
+
 const slides: Slide[] = [
   {
     name: "opening",
