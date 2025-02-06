@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import VideoSection from "./VideoSection";
 import ErrorBoundary from "./VideoErrorBoundary";
 import { Navigation } from "@/components/navigation/Navigation";
-import { themeMapping, SlideWithSource } from "./slides/slides";
+import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Play } from "lucide-react";
 
@@ -82,17 +82,17 @@ export default function ScrollDocumentaryClient({
     }
   };
 
-  const ScrollNavigation = () => (
-    <div className="fixed right-8 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-6">
+  const ScrollNavigation = (pageTheme: PageTheme) => (
+    <div className="fixed right-1 top-1/2 z-50 mr-3 flex -translate-y-1/2 flex-col gap-6 md:px-10">
       {slidesWithSources.map((_, index) => (
         <button
           key={index}
           onClick={() => scrollToSection(index)}
-          className={`h-5 w-5 rounded-full border-2 transition-all duration-300 
+          className={`h-5 w-5 rounded-full border-4 transition-all duration-300 
             ${
               index === activeIndex
-                ? "border-3 border-green_accent"
-                : "border-yellow_secondary hover:bg-yellow_secondary"
+                ? "border-4 border-green_accent"
+                : `${pageTheme.scrollDotsBorder} ${pageTheme.scrollDotsHover}`
             }`}
           aria-label={`Go to section ${index + 1}`}
         />
@@ -141,29 +141,29 @@ export default function ScrollDocumentaryClient({
     return () => container.removeEventListener("scroll", onScroll);
   }, [activeIndex, isStarted]);
 
-  // const renderAdditionalContent = (
-  //   slide: (typeof slidesWithSources)[number],
-  // ) => (
-  //   <>
-  //     {slide.videoTitle && (
-  //       <div className="absolute left-4 top-4 text-white">
-  //         {slide.videoTitle}
-  //       </div>
-  //     )}
-  //     {slide.additionalElements.map((elem, idx) => (
-  //       <div key={idx} className="absolute" style={{ top: "50%", left: "50%" }}>
-  //         {elem.content}
-  //       </div>
-  //     ))}
-  //     {slide.persons.length > 0 && (
-  //       <div className="absolute bottom-4 right-4 text-white">
-  //         {slide.persons.map((p, idx) => (
-  //           <div key={idx}>{p.text}</div>
-  //         ))}
-  //       </div>
-  //     )}
-  //   </>
-  // );
+  const renderAdditionalContent = (
+    slide: (typeof slidesWithSources)[number],
+  ) => (
+    <>
+      {slide.videoTitle && (
+        <div className="absolute left-4 top-4 text-white">
+          {slide.videoTitle}
+        </div>
+      )}
+      {slide.additionalElements.map((elem, idx) => (
+        <div key={idx} className="absolute" style={{ top: "50%", left: "50%" }}>
+          {elem.content}
+        </div>
+      ))}
+      {slide.persons.length > 0 && (
+        <div className="absolute bottom-4 right-4 text-white">
+          {slide.persons.map((p, idx) => (
+            <div key={idx}>{p.text}</div>
+          ))}
+        </div>
+      )}
+    </>
+  );
 
   return (
     selectedLanguage && (
@@ -196,7 +196,7 @@ export default function ScrollDocumentaryClient({
                 )}
             </div>
             {!isFirstVideoReady ? (
-              <Skeleton className="h-20 w-20   bg-gray_dark_secondary dark:bg-purple_lightest_bg" />
+              <Skeleton className=" h-20 w-20 bg-yellow_secondary   dark:bg-gray_dark_secondary" />
             ) : (
               <Play
                 className="h-20  w-20 cursor-pointer text-yellow_secondary"
@@ -226,6 +226,7 @@ export default function ScrollDocumentaryClient({
                         selectedLanguageCode={
                           availableLanguageCodes[selectedLanguage]
                         }
+                        additionalContent={renderAdditionalContent(slide)}
                       />
                     ) : (
                       <div
@@ -243,7 +244,7 @@ export default function ScrollDocumentaryClient({
                 </div>
               ))}
             </div>
-            <ScrollNavigation />
+            {ScrollNavigation(pageTheme)}
           </ErrorBoundary>
         )}
       </div>

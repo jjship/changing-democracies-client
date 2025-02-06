@@ -177,12 +177,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           </div>
         )}
 
-        {!isLoading && !error && (
-          <div className="absolute right-4 top-4 rounded bg-black/80 px-2 py-1 text-sm text-white">
-            {currentQuality.label}
-          </div>
-        )}
-
         {/* Subtitle display */}
         {!subtitlesLoading && !subtitlesError && (
           <div className="absolute -bottom-16 left-1/2 w-full max-w-2xl -translate-x-1/2 rounded bg-black/80 p-4 text-center text-white">

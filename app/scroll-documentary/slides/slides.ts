@@ -34,8 +34,16 @@ const slides: Slide[] = [
     persons: [],
   },
   {
-    name: "parade",
+    name: "description",
     colorTheme: "pink",
+    additionalElements: [],
+    videSource: null,
+    videoTitle: null,
+    persons: [],
+  },
+  {
+    name: "parade",
+    colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
@@ -51,7 +59,7 @@ const slides: Slide[] = [
   },
   {
     name: "undocumented",
-    colorTheme: "black",
+    colorTheme: "pink",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
@@ -59,6 +67,14 @@ const slides: Slide[] = [
   },
   {
     name: "beauty",
+    colorTheme: "black",
+    additionalElements: [],
+    videSource: null,
+    videoTitle: null,
+    persons: [],
+  },
+  {
+    name: "disillusionment",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
@@ -98,23 +114,7 @@ const slides: Slide[] = [
     persons: [],
   },
   {
-    name: "snap",
-    colorTheme: "black",
-    additionalElements: [],
-    videSource: null,
-    videoTitle: null,
-    persons: [],
-  },
-  {
-    name: "snap",
-    colorTheme: "black",
-    additionalElements: [],
-    videSource: null,
-    videoTitle: null,
-    persons: [],
-  },
-  {
-    name: "snap",
+    name: "noise",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
@@ -149,26 +149,38 @@ export function assignVideoSourcesToSlides({
   });
 }
 
-export const themeMapping: Record<
-  string,
-  { pageBg: string; pageFont: string; navBg: NavColor; navFont: NavColor }
-> = {
+export type PageTheme = {
+  pageBg: string;
+  pageFont: string;
+  navBg: NavColor;
+  navFont: NavColor;
+  scrollDotsBorder: string;
+  scrollDotsHover: string;
+};
+
+export const themeMapping: Record<string, PageTheme> = {
   black: {
     pageBg: "bg-black_bg",
     pageFont: "text-yellow_secondary",
     navBg: "black_bg",
     navFont: "yellow_secondary",
+    scrollDotsBorder: "border-yellow_secondary",
+    scrollDotsHover: "hover:bg-green_accent",
   },
   gray: {
-    pageBg: "bg-gray_dark_secondary",
+    pageBg: "bg-gray_scroll",
     pageFont: "text-yellow_secondary",
-    navBg: "gray_dark_secondary",
+    navBg: "gray_scroll",
     navFont: "yellow_secondary",
+    scrollDotsBorder: "border-yellow_secondary",
+    scrollDotsHover: "hover:bg-green_accent",
   },
   pink: {
-    pageBg: "bg-purple_lightest_bg",
+    pageBg: "bg-pink_scroll",
     pageFont: "text-black_bg",
-    navBg: "purple_lightest_bg",
+    navBg: "pink_scroll",
     navFont: "black_bg",
+    scrollDotsBorder: "border-black_bg",
+    scrollDotsHover: "hover:bg-green_accent",
   },
 };

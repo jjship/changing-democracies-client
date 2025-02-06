@@ -18,7 +18,10 @@ export type NavColor =
   | "purple_lightest_bg"
   | "black_bg"
   | "yellow_secondary"
-  | "gray_dark_secondary";
+  | "gray_dark_secondary"
+  | "pink_scroll"
+  | "black_scroll"
+  | "gray_scroll";
 
 export type NavigationProps = {
   bgColor?: NavColor;
