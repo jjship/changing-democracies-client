@@ -36,8 +36,7 @@ const getSerializedAndSortedVideos = cache(
 );
 
 export default async function ScrollDocumentaryPage() {
-  const browserLang =
-    headers().get("x-browser-language")?.toUpperCase() || "EN";
+  const browserLang = "EN";
 
   try {
     const videosData = await getVideosPerCollection({
