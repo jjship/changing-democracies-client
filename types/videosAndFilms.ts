@@ -67,11 +67,10 @@ export type FilmsCollection = {
   people: string[];
 };
 
-export type NarrationFragment = FilmData & {
+export type NarrationFragment = Omit<FilmData, "tags"> & {
   sequence: number;
   otherPaths: Pick<NarrationPath, "id" | "title">[];
   description?: string;
-  tags?: string;
 };
 
 export type NarrationPath = {
