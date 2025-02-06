@@ -61,7 +61,7 @@ const NarrativesView: FC = ({}) => {
                   transitionDelay: switchPath ? "0s" : "0.5s",
                 }}
               >
-                {currentPath?.title || "Narration"}
+                {currentPath?.title || "Narrative"}
               </h1>
             </>
           </div>
