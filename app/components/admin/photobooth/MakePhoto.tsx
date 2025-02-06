@@ -112,7 +112,7 @@ const MakePhoto: FC = () => {
         ctx.fillText(statement, text1X, text1Y + 5);
       });
     },
-    [canvasWidth, drawTriangle, font.fontFamily],
+    [drawTriangle, font.fontFamily],
   );
 
   const drawUserName = useCallback(
@@ -137,7 +137,7 @@ const MakePhoto: FC = () => {
       ctx.fillStyle = "rgb(255, 255, 255)";
       if (userName) ctx.fillText(userName, textX, textY);
     },
-    [canvasWidth, font.fontFamily],
+    [font.fontFamily],
   );
 
   const applyTintEffect = useCallback(
@@ -225,7 +225,6 @@ const MakePhoto: FC = () => {
     drawUserName,
     countdownCompleted,
     canvasWidth,
-    canvasHeight,
     statements,
     userName,
     location,

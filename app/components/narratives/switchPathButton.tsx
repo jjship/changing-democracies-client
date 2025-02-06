@@ -1,8 +1,15 @@
-import React from "react";
+import { FC } from "react";
 
-const SwitchPathButton = () => {
+type SwitchPathButtonProps = {
+  onClick: () => void;
+};
+
+const SwitchPathButton: FC<SwitchPathButtonProps> = ({ onClick }) => {
   return (
-    <button className="rounded bg-[#b85252] px-4 py-2 font-bold text-white shadow focus:outline-none focus:ring-2 focus:ring-red-400">
+    <button
+      onClick={onClick}
+      className="rounded-t-sm bg-[#b85252] px-4 py-2 font-bold text-white shadow focus:outline-none focus:ring-2 focus:ring-red-400"
+    >
       switch path
     </button>
   );

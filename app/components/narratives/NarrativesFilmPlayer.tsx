@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useNarrativesContext } from "../../narratives/NarrativesContext";
 import Image from "next/image";
 import { Box } from "@radix-ui/themes";
+import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
 
 const NarrativesFilmPlayer: FC = () => {
   const {
@@ -10,12 +10,12 @@ const NarrativesFilmPlayer: FC = () => {
     isPlaying,
     setIsPlaying,
     setCurrentIndex,
-    setShowCountDown,
+    setSwitchPath,
   } = useNarrativesContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
   const src = nowPlaying
-    ? `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying.guid}?autoplay=true&captions=EN`
+    ? `${nowPlaying.playerUrl}?autoplay=true&captions=EN`
     : "";
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,11 +34,6 @@ const NarrativesFilmPlayer: FC = () => {
     }
     setIsPlaying(false);
   }, [currentIndex, currentPath, setCurrentIndex, setIsPlaying]);
-
-  const onClose = useCallback(() => {
-    setIsPlaying(false);
-    setShowCountDown(false);
-  }, [setIsPlaying, setShowCountDown]);
 
   const exitFullscreen = () => {
     if (document.fullscreenElement && document.exitFullscreen) {
@@ -66,7 +61,6 @@ const NarrativesFilmPlayer: FC = () => {
     const handleMessage = (event: MessageEvent) => {
       const iframeOrigin = new URL(src).origin;
       if (event.origin !== iframeOrigin) return;
-      console.log("Message received from iframe:", event.data);
     };
 
     window.addEventListener("message", handleMessage);
@@ -80,9 +74,7 @@ const NarrativesFilmPlayer: FC = () => {
     return null;
   }
 
-  const country =
-    `${currentPath?.fragments[currentIndex].country[0]}` +
-    `${currentPath?.fragments[currentIndex].country.slice(1).toLowerCase()}`;
+  const country = `${currentPath?.fragments[currentIndex].country}`;
   return (
     <div
       ref={containerRef}
@@ -97,7 +89,7 @@ const NarrativesFilmPlayer: FC = () => {
         <>
           <Box
             className={
-              "w-18 absolute left-6 top-5 z-20 border-[3px] border-turquoise p-4 text-turquoise"
+              "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise"
             }
           >
             <p>{`${currentPath?.fragments[currentIndex].person},`}</p>
@@ -112,12 +104,7 @@ const NarrativesFilmPlayer: FC = () => {
         </>
       ) : (
         <Image
-          src={
-            (currentIndex === 0 && currentPath?.fragments[0]?.thumbnailUrl) ||
-            currentPath?.fragments[currentIndex]?.thumbnailUrl ||
-            currentPath?.fragments[0]?.thumbnailUrl ||
-            ""
-          }
+          src={currentPath?.fragments[currentIndex]?.thumbnailUrl || ""}
           alt="Narration background"
           fill
           priority

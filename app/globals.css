@@ -86,16 +86,20 @@ body {
   background: var(--background);
 }
 
+/* Hide scrollbars while maintaining scroll functionality */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
-html::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
 }
 
 html {
   scroll-behavior: smooth;
   transition: all 0.2s ease;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 
 #top-line,

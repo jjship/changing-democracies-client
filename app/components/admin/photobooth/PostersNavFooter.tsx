@@ -41,12 +41,12 @@ const PostersNavFooter: FC<PostersNavFooterProps> = ({
       buttons.push(<Button key="invisible_btn" className="invisible"></Button>);
     }
     return buttons;
-  }, [locations, selectedLocation]);
+  }, [locations, selectedLocation, handleFilterClick]);
 
   return (
-    <div className="bg-purple fixed bottom-0 max-h-min w-full flex-col px-20 pt-10 font-black">
+    <div className="fixed bottom-0 max-h-min w-full flex-col bg-purple px-20 pt-10 font-black">
       {locations && (
-        <div className={`grid-cols-7-cols grid min-h-max gap-x-7 gap-y-5`}>
+        <div className={`grid min-h-max grid-cols-7-cols gap-x-7 gap-y-5`}>
           {buttonsArray()}
         </div>
       )}

@@ -1,18 +1,61 @@
 import { FC, useCallback, useMemo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
 import { useNarrativesContext } from "../../narratives/NarrativesContext";
+import SwitchPathButton from "@/components/narratives/switchPathButton";
+import SwitchPathRedirectButton from "@/components/narratives/SwitchPatchRedirectButton";
 
 const SequenceProgressBar: FC = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
-  const { currentIndex, setCurrentIndex, setIsPlaying, currentPath } =
-    useNarrativesContext();
+  const {
+    currentIndex,
+    setCurrentIndex,
+    setIsPlaying,
+    currentPath,
+    setSwitchPath,
+    switchPath,
+    isPlaying,
+    setCurrentPath,
+    narrationPaths,
+  } = useNarrativesContext();
+
+  const [animate, setAnimate] = useState(false);
 
   const onFragmentSelect = useCallback(
     (index: number) => {
       setCurrentIndex(index);
       setIsPlaying(true);
+      setSwitchPath(false);
     },
-    [setCurrentIndex, setIsPlaying],
+    [setCurrentIndex, setIsPlaying, setSwitchPath],
+  );
+
+  const handleSwitchPathButton = useCallback(() => {
+    isPlaying && setIsPlaying(false);
+    !switchPath && setSwitchPath(true);
+    setAnimate(true);
+  }, [isPlaying, setIsPlaying, setSwitchPath, switchPath]);
+
+  const handleSwitchPathRedirectButton = useCallback(
+    (id: string) => {
+      setIsPlaying(true);
+      setSwitchPath(false);
+      if (narrationPaths) {
+        const path = narrationPaths.find((path) => path.id === id);
+        path && setCurrentPath(path);
+      }
+      if (currentPath) {
+        setCurrentIndex(currentIndex + 1);
+      }
+    },
+    [
+      currentIndex,
+      currentPath,
+      narrationPaths,
+      setCurrentIndex,
+      setCurrentPath,
+      setIsPlaying,
+      setSwitchPath,
+    ],
   );
 
   const totalFragments = currentPath?.fragments.length ?? 0;
@@ -38,7 +81,7 @@ const SequenceProgressBar: FC = () => {
                 width: `calc(100% + ${dotSize}px)`,
                 position: "absolute",
                 top: `${dotSize / 2 - lineThickness / 2}px`,
-                left: `calc(-${dotSize / 50}px)`,
+                left: `calc(-${dotSize / 10000000}vw)`,
                 backgroundColor:
                   index < currentIndex ? "#808881" : "transparent",
                 transition: "background-color 0.3s ease",
@@ -46,6 +89,19 @@ const SequenceProgressBar: FC = () => {
               }}
             />
           )}
+          <Box
+            className={`absolute right-[2.5vw] -z-[100] transition-all duration-500 ease-in-out ${
+              !isPlaying &&
+              currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
+              index === currentIndex
+                ? "bottom-[5.5vh] opacity-100"
+                : "bottom-0 opacity-0"
+            }`}
+          >
+            {!switchPath && (
+              <SwitchPathButton onClick={handleSwitchPathButton} />
+            )}
+          </Box>
           <Box
             style={{
               position: "relative",
@@ -92,11 +148,11 @@ const SequenceProgressBar: FC = () => {
               style={{
                 width:
                   index === currentIndex
-                    ? `${dotSize * 1.2}px`
+                    ? `${dotSize * 1.3}px`
                     : `${dotSize}px`,
                 height:
                   index === currentIndex
-                    ? `${dotSize * 1.2}px`
+                    ? `${dotSize * 1.3}px`
                     : `${dotSize}px`,
                 borderRadius: "50%",
                 backgroundColor:
@@ -114,14 +170,42 @@ const SequenceProgressBar: FC = () => {
               onMouseLeave={() => setIsHovered(null)}
             />
           </Box>
+          <Flex className={"relative"}>
+            <Box
+              className={"absolute top-12"}
+              style={{ overflowY: "auto", maxHeight: "20vh" }}
+            >
+              {switchPath &&
+                !isPlaying &&
+                index === currentIndex &&
+                currentPath?.fragments[currentIndex].otherPaths.map(
+                  (otherPath, index) => (
+                    <SwitchPathRedirectButton
+                      key={index}
+                      onClick={() =>
+                        handleSwitchPathRedirectButton(otherPath.id)
+                      }
+                      id={otherPath.id}
+                      animate={animate}
+                      title={otherPath.title}
+                    ></SwitchPathRedirectButton>
+                  ),
+                )}
+            </Box>
+          </Flex>
         </Flex>
       )),
     [
       totalFragments,
       currentIndex,
-      isHovered,
+      isPlaying,
       currentPath?.fragments,
+      switchPath,
+      handleSwitchPathButton,
+      isHovered,
       onFragmentSelect,
+      animate,
+      handleSwitchPathRedirectButton,
     ],
   );
 

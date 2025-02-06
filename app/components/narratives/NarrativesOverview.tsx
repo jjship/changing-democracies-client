@@ -13,10 +13,16 @@ const NarrativesOverview: FC<{
   narrativesCollection: NarrationPath[];
 }> = ({ narrativesCollection }) => {
   const { currentPath } = useNarrativesContext();
+
   return (
     <>
       {currentPath ? (
-        <Flex width={'100%'} height={'100%'} justify={'center'} align={'center'}>
+        <Flex
+          width={"100%"}
+          height={"100%"}
+          justify={"center"}
+          align={"center"}
+        >
           <NarrativesView />
         </Flex>
       ) : (
