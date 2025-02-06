@@ -156,23 +156,14 @@ export default function ScrollDocumentaryClient({
     slide: (typeof slidesWithSources)[number],
   ) => (
     <>
-      {slide.videoTitle && (
-        <div className="absolute left-4 top-4 text-white">
-          {slide.videoTitle}
-        </div>
-      )}
       {slide.additionalElements.map((elem, idx) => (
-        <div key={idx} className="absolute" style={{ top: "50%", left: "50%" }}>
+        <div
+          key={idx}
+          className="absolute inset-0 flex items-center justify-center"
+        >
           {elem.content}
         </div>
       ))}
-      {slide.persons.length > 0 && (
-        <div className="absolute bottom-4 right-4 text-white">
-          {slide.persons.map((p, idx) => (
-            <div key={idx}>{p.text}</div>
-          ))}
-        </div>
-      )}
     </>
   );
 
@@ -181,13 +172,15 @@ export default function ScrollDocumentaryClient({
       <div
         className={`relative ${pageTheme.pageBg} min-h-screen w-full transition-all duration-1000`}
       >
-        <Navigation
-          bgColor={pageTheme.navBg}
-          fontColor={pageTheme.navFont}
-          availableLanguages={Object.keys(availableLanguageCodes)}
-          selectedLanguage={selectedLanguage}
-          onLanguageChange={setSelectedLanguage}
-        />
+        <div className="absolute w-full">
+          <Navigation
+            bgColor={pageTheme.navBg}
+            fontColor={pageTheme.navFont}
+            availableLanguages={Object.keys(availableLanguageCodes)}
+            selectedLanguage={selectedLanguage}
+            onLanguageChange={setSelectedLanguage}
+          />
+        </div>
         {!isStarted ? (
           <div className="flex h-[calc(100vh-4rem)] w-full items-center justify-center">
             <div className="hidden">

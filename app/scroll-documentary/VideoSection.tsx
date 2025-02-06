@@ -108,7 +108,7 @@ export default function VideoSection({
           <VideoPlayerFallback error={error} onRetry={retry} />
         )}
       >
-        <div className="relative h-full w-full">
+        <div className="relative flex h-full w-full flex-col items-center justify-center">
           <VideoPlayer
             ref={videoRef}
             videoSource={videoSource}
@@ -119,9 +119,13 @@ export default function VideoSection({
             pageTheme={pageTheme}
             speakers={speakers}
           />
+          {isActive && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              {additionalContent}
+            </div>
+          )}
         </div>
       </ErrorBoundary>
-      {additionalContent}
     </section>
   );
 }

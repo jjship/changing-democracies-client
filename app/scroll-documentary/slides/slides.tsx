@@ -2,6 +2,8 @@ import { VideoSource } from "@/types/scrollDocumentary";
 import { ReactNode } from "react";
 import { NavColor } from "@/components/navigation/Navigation";
 import { parseTimeString } from "../subtitleParser";
+import { Slide0Content } from "./slide_0";
+import { Slide1Content } from "./slide_1";
 
 export type Subtitle = {
   start: number;
@@ -28,7 +30,12 @@ const slides: Slide[] = [
   {
     title: "opening",
     colorTheme: "gray",
-    additionalElements: [],
+    additionalElements: [
+      {
+        type: "overlay",
+        content: <Slide0Content />,
+      },
+    ],
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -37,7 +44,12 @@ const slides: Slide[] = [
   {
     title: "arrows",
     colorTheme: "black",
-    additionalElements: [],
+    additionalElements: [
+      {
+        type: "overlay",
+        content: <Slide1Content />,
+      },
+    ],
     videSource: null,
     videoTitle: null,
     persons: [],
