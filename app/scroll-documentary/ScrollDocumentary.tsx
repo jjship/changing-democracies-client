@@ -7,6 +7,9 @@ import VideoSection from "./VideoSection";
 import ErrorBoundary from "./VideoErrorBoundary";
 import { Navigation } from "@/components/navigation/Navigation";
 import { assignVideoSourcesToSlides, themeMapping } from "./slides/slides";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Play } from "lucide-react";
+
 interface ScrollDocumentaryClientProps {
   videoSources: VideoSource[];
   initialLanguageLabel: string;
@@ -195,17 +198,14 @@ export default function ScrollDocumentaryClient({
                   />
                 )}
             </div>
-            <button
-              onClick={() => setIsStarted(true)}
-              className={`rounded-lg bg-yellow_secondary px-8 py-4 text-xl font-bold text-black_bg transition-all ${
-                isFirstVideoReady
-                  ? "hover:bg-yellow_secondary/80"
-                  : "cursor-wait opacity-50"
-              }`}
-              disabled={!isFirstVideoReady}
-            >
-              {isFirstVideoReady ? "Start Documentary" : "Loading..."}
-            </button>
+            {!isFirstVideoReady ? (
+              <Skeleton className="h-20 w-20   bg-gray_dark_secondary dark:bg-purple_lightest_bg" />
+            ) : (
+              <Play
+                className="h-20  w-20 cursor-pointer text-yellow_secondary"
+                onClick={() => setIsStarted(true)}
+              />
+            )}
           </div>
         ) : (
           <ErrorBoundary>
@@ -239,9 +239,7 @@ export default function ScrollDocumentaryClient({
                             : undefined
                         }
                       >
-                        <div className="text-yellow_secondary">
-                          Loading next section...
-                        </div>
+                        <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
                       </div>
                     )}
                   </div>
