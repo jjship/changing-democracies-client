@@ -169,7 +169,7 @@ const slides: Slide[] = [
     persons: [],
     speakers: [
       {
-        start: parseTimeString("00:01:01.001"),
+        start: parseTimeString("00:00:01.001"),
         end: parseTimeString("00:01:46.000"),
         text: "Michaela Roman, Romania",
       },
@@ -192,7 +192,7 @@ const slides: Slide[] = [
   },
   {
     title: "Get together",
-    colorTheme: "black",
+    colorTheme: "pink",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
