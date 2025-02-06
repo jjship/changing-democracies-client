@@ -148,7 +148,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     };
 
     return (
-      <div className="group/video relative">
+      <div className="group/video relative w-full">
         <video
           ref={(element) => {
             videoRef.current = element;
