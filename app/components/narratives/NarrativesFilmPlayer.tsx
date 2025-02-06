@@ -95,9 +95,12 @@ const NarrativesFilmPlayer: FC = () => {
       {isPlaying ? (
         <>
           <Box
-            onClick={() => setShowSidePanel(true)}
+            onClick={() => {
+              setShowSidePanel(true);
+              setIsPlaying(false);
+            }}
             className={
-              "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise"
+              "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise hover:cursor-pointer hover:bg-[#00000080]"
             }
           >
             <p>{`${currentPath?.fragments[currentIndex].person},`}</p>

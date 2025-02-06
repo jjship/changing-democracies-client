@@ -19,17 +19,20 @@ const NarrativesView: FC = ({}) => {
     switchPath,
     setSwitchPath,
     showSidePanel,
+    setShowSidePanel,
   } = useNarrativesContext();
 
   const handleStart = () => {
     setIsPlaying(true);
     switchPath && setSwitchPath(false);
+    setShowSidePanel(false);
   };
 
   const handleContinue = useCallback(() => {
     if (currentPath && currentIndex !== currentPath.fragments.length) {
       switchPath && setSwitchPath(false);
       setIsPlaying(true);
+      setShowSidePanel(false);
     }
   }, [currentIndex, currentPath, setIsPlaying, setSwitchPath, switchPath]);
 
@@ -101,7 +104,7 @@ const NarrativesView: FC = ({}) => {
                     triangleColor="#8083ae"
                     trianglePlacement="left"
                   />
-                  {!switchPath && (
+                  {!switchPath && !showSidePanel && (
                     <NarrativesCountDown onFinish={handleContinue} />
                   )}
                 </Flex>
