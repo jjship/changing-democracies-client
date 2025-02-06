@@ -208,14 +208,14 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         {/* Subtitle display */}
         {!subtitlesLoading && !subtitlesError && (
           <div
-            className={`fixed bottom-2 left-1/2 w-full max-w-2xl -translate-x-1/2 p-4 text-center font-bold italic ${pageTheme.subtitleColor}`}
+            className={`fixed bottom-4 left-1/2 w-full max-w-4xl -translate-x-1/2 p-4 text-center font-bold italic ${pageTheme.subtitleColor}`}
           >
             {currentSubtitle}
           </div>
         )}
 
         {subtitlesError && (
-          <div className="absolute bottom-16 left-1/2 w-full max-w-2xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
+          <div className="absolute bottom-16 left-1/2 w-full max-w-xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
             {subtitlesError}
           </div>
         )}
