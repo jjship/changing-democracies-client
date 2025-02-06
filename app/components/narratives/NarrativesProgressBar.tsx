@@ -89,19 +89,21 @@ const NarrativesProgressBar: FC = () => {
               }}
             />
           )}
-          <Box
-            className={`absolute right-[2.5vw] -z-[50] transition-all duration-500 ease-in-out ${
-              !isPlaying &&
-              currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
-              index === currentIndex
-                ? "bottom-[5.5vh] opacity-100"
-                : "bottom-0 opacity-0"
-            }`}
-          >
-            {!switchPath && (
-              <SwitchPathButton onClick={handleSwitchPathButton} />
-            )}
-          </Box>
+          {index === currentIndex && (
+            <Box
+              className={`absolute right-[2.5vw] -z-[50] transition-all duration-500 ease-in-out ${
+                !isPlaying &&
+                currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
+                index === currentIndex
+                  ? "bottom-[5.5vh] opacity-100"
+                  : "bottom-0 opacity-0"
+              }`}
+            >
+              {!switchPath && (
+                <SwitchPathButton onClick={handleSwitchPathButton} />
+              )}
+            </Box>
+          )}
           <Box
             style={{
               position: "relative",
@@ -210,7 +212,7 @@ const NarrativesProgressBar: FC = () => {
   );
 
   return (
-    <Flex className="mx-auto h-full w-full items-center justify-center bg-transparent">
+    <Flex className="mx-auto  items-center justify-center bg-transparent borde-2">
       {progressBarItems}
     </Flex>
   );
