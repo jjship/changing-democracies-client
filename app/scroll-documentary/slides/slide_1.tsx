@@ -22,27 +22,27 @@ export const Slide1Content: FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWordIndex((prev) => (prev + 1) % changingWords.length);
-    }, 2000);
+    }, 5000); // Changed to 5000ms (5 seconds)
 
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="absolute z-10 flex w-full justify-center">
-      <div className="relative right-6 top-10 flex w-2/3 justify-between font-bold">
+      <div className="relative right-7 top-10 flex w-7/12 justify-between font-bold">
         <div
           className={`${archivo.className} text-4xl text-purple_lightest_bg`}
         >
           Democracy
         </div>
 
-        <div className="relative h-32 overflow-hidden">
-          <AnimatePresence mode="popLayout">
+        <div className="relative h-32">
+          <AnimatePresence mode="wait">
             <motion.div
               key={currentWordIndex}
-              initial={{ y: -100, opacity: 0, x: 0 }} // Ensure x is set to 0
-              animate={{ y: 0, opacity: 1, x: 0 }} // Ensure x remains 0
-              exit={{ y: 100, opacity: 0, x: 0 }} // Ensure x remains 0
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.5 }}
               className={`${archivo.className} text-4xl text-purple_lightest_bg`}
             >
