@@ -2,7 +2,7 @@ import { FC, useCallback, useMemo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
 import { useNarrativesContext } from "../../narratives/NarrativesContext";
 import SwitchPathButton from "@/components/narratives/switchPathButton";
-import SwitchPathRedirectButton from "@/components/narratives/SwitchPatchRedirectButton";
+import SwitchPathRedirectButton from "@/components/narratives/SwitchPathRedirectButton";
 
 const SequenceProgressBar: FC = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
