@@ -170,9 +170,9 @@ const SequenceProgressBar: FC = () => {
               onMouseLeave={() => setIsHovered(null)}
             />
           </Box>
-          <Flex className={"relative"}>
+          <Box className={"relative right-4"}>
             <Box
-              className={"absolute top-12"}
+              className={"absolute "}
               style={{ overflowY: "auto", maxHeight: "20vh" }}
             >
               {switchPath &&
@@ -192,7 +192,7 @@ const SequenceProgressBar: FC = () => {
                   ),
                 )}
             </Box>
-          </Flex>
+          </Box>
         </Flex>
       )),
     [
