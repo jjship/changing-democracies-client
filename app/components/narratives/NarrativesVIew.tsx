@@ -2,7 +2,7 @@ import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
 import { FC, useCallback } from "react";
 import OverviewTag from "./NarrativesOverviewButton";
-import CountDown from "@/components/narratives/CountDown";
+import NarrativesCountDown from "@/components/narratives/NarrativesCountDown";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
 import NarrativesViewButton from "@/components/narratives/NarrativesViewButton";
 import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
@@ -98,7 +98,9 @@ const NarrativesView: FC = ({}) => {
                     triangleColor="#8083ae"
                     trianglePlacement="left"
                   />
-                  {!switchPath && <CountDown onFinish={handleContinue} />}
+                  {!switchPath && (
+                    <NarrativesCountDown onFinish={handleContinue} />
+                  )}
                 </Flex>
               )}
           </Flex>

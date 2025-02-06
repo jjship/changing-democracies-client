@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from "react";
 
-const CountDown: FC<{
+const NarrativesCountDown: FC<{
   onFinish: () => void;
 }> = ({ onFinish }) => {
   const [count, setCount] = useState<number>(5);
@@ -70,4 +70,4 @@ const CountDown: FC<{
   );
 };
 
-export default CountDown;
+export default NarrativesCountDown;
