@@ -53,6 +53,7 @@ export type FormVideo = Pick<VideoDbEntry, "guid" | "title" | "captions"> & {
 export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
   tags: string[]; // in metaTags
   person: string; // in title
+  bio?: string;
   country: string; // in title
   playerUrl: string;
   thumbnailUrl: string;
