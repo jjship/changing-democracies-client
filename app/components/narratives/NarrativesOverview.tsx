@@ -12,7 +12,7 @@ export { NarrativesOverview };
 const NarrativesOverview: FC<{
   narrativesCollection: NarrationPath[];
 }> = ({ narrativesCollection }) => {
-  const { currentPath, switchPath } = useNarrativesContext();
+  const { currentPath } = useNarrativesContext();
 
   return (
     <>

@@ -10,12 +10,12 @@ const NarrativesFilmPlayer: FC = () => {
     isPlaying,
     setIsPlaying,
     setCurrentIndex,
-    setSwitchPath
+    setSwitchPath,
   } = useNarrativesContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
   const src = nowPlaying
-    ? `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying.guid}?autoplay=true&captions=EN`
+    ? `${nowPlaying.playerUrl}?autoplay=true&captions=EN`
     : "";
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -61,7 +61,6 @@ const NarrativesFilmPlayer: FC = () => {
     const handleMessage = (event: MessageEvent) => {
       const iframeOrigin = new URL(src).origin;
       if (event.origin !== iframeOrigin) return;
-      console.log("Message received from iframe:", event.data);
     };
 
     window.addEventListener("message", handleMessage);
@@ -75,9 +74,7 @@ const NarrativesFilmPlayer: FC = () => {
     return null;
   }
 
-  const country =
-    `${currentPath?.fragments[currentIndex].country[0]}` +
-    `${currentPath?.fragments[currentIndex].country.slice(1).toLowerCase()}`;
+  const country = `${currentPath?.fragments[currentIndex].country}`;
   return (
     <div
       ref={containerRef}
@@ -107,12 +104,7 @@ const NarrativesFilmPlayer: FC = () => {
         </>
       ) : (
         <Image
-          src={
-            (currentIndex === 0 && currentPath?.fragments[0]?.thumbnailUrl) ||
-            currentPath?.fragments[currentIndex]?.thumbnailUrl ||
-            currentPath?.fragments[0]?.thumbnailUrl ||
-            ""
-          }
+          src={currentPath?.fragments[currentIndex]?.thumbnailUrl || ""}
           alt="Narration background"
           fill
           priority
