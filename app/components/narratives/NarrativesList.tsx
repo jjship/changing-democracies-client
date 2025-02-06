@@ -18,7 +18,7 @@ const NarrativesList: FC = () => {
     "q9.png",
     "q10.png",
   ];
-  const { narrationPaths, setCurrentPath } = useNarrativesContext();
+  const { narrationPaths, setCurrentPath, setCurrentIndex } = useNarrativesContext();
 
   useEffect(() => {
     setIsClient(true);
@@ -37,6 +37,7 @@ const NarrativesList: FC = () => {
           onClick={(e) => {
             e.preventDefault();
             setCurrentPath(narrativePath);
+            setCurrentIndex(0);
           }}
           className="ml-40 block w-[80%]" // ml-40 is a hack
           style={{ textDecoration: "none" }}

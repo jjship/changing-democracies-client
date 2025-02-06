@@ -10,7 +10,7 @@ const NarrativesFilmPlayer: FC = () => {
     isPlaying,
     setIsPlaying,
     setCurrentIndex,
-    setSwitchPath,
+    setCurrentPath,
   } = useNarrativesContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
@@ -30,10 +30,16 @@ const NarrativesFilmPlayer: FC = () => {
     if (currentPath && currentIndex < currentPath.fragments.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      setCurrentIndex(0);
+      setCurrentPath(null);
     }
     setIsPlaying(false);
-  }, [currentIndex, currentPath, setCurrentIndex, setIsPlaying]);
+  }, [
+    currentIndex,
+    currentPath,
+    setCurrentIndex,
+    setCurrentPath,
+    setIsPlaying,
+  ]);
 
   const exitFullscreen = () => {
     if (document.fullscreenElement && document.exitFullscreen) {
