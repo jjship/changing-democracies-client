@@ -8,6 +8,9 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Play } from "lucide-react";
+import { Archivo_Narrow } from "next/font/google";
+
+const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
 interface ScrollDocumentaryClientProps {
   slidesWithSources: SlideWithSource[];
@@ -156,6 +159,16 @@ export default function ScrollDocumentaryClient({
     slide: (typeof slidesWithSources)[number],
   ) => (
     <>
+      {slide.title && (
+        <div className="absolute left-8 top-8 z-10 flex items-center justify-center ">
+          {" "}
+          <h1
+            className={`${archivoNarrow.className} bg-black_bg bg-opacity-70 px-2 py-1 text-left text-2xl font-bold text-yellow_secondary mix-blend-multiply`}
+          >
+            {slide.title}
+          </h1>
+        </div>
+      )}
       {slide.additionalElements.map((elem, idx) => (
         <div
           key={idx}
@@ -224,18 +237,23 @@ export default function ScrollDocumentaryClient({
                 >
                   <div className="relative mx-auto aspect-video w-[70vw] max-w-[142.22vh] px-4">
                     {loadedSections.includes(index) ? (
-                      <VideoSection
-                        videoSource={slide.videoSource!}
-                        onVideoEnd={() => scrollToNextSection(index)}
-                        isActive={index === activeIndex}
-                        shouldPlay={isStarted && index === activeIndex}
-                        selectedLanguageCode={
-                          availableLanguageCodes[selectedLanguage]
-                        }
-                        additionalContent={renderAdditionalContent(slide)}
-                        pageTheme={pageTheme}
-                        speakers={slide.speakers}
-                      />
+                      <>
+                        {/* <div className="absolute inset-0 flex items-center justify-center">
+                          <h1 className="text-4xl font-bold">{slide.title}</h1>
+                        </div> */}
+                        <VideoSection
+                          videoSource={slide.videoSource!}
+                          onVideoEnd={() => scrollToNextSection(index)}
+                          isActive={index === activeIndex}
+                          shouldPlay={isStarted && index === activeIndex}
+                          selectedLanguageCode={
+                            availableLanguageCodes[selectedLanguage]
+                          }
+                          additionalContent={renderAdditionalContent(slide)}
+                          pageTheme={pageTheme}
+                          speakers={slide.speakers}
+                        />
+                      </>
                     ) : (
                       <div
                         className="flex h-full w-full items-center justify-center"

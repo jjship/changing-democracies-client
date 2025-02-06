@@ -4,6 +4,7 @@ import { NavColor } from "@/components/navigation/Navigation";
 import { parseTimeString } from "../subtitleParser";
 import { Slide0Content } from "./slide_0";
 import { Slide1Content } from "./slide_1";
+import Slide3Content from "./slide_3";
 
 export type Subtitle = {
   start: number;
@@ -28,7 +29,6 @@ export type SlideWithSource = Slide & { videoSource: VideoSource };
 
 const slides: Slide[] = [
   {
-    title: "opening",
     colorTheme: "gray",
     additionalElements: [
       {
@@ -42,7 +42,6 @@ const slides: Slide[] = [
     speakers: [],
   },
   {
-    title: "arrows",
     colorTheme: "black",
     additionalElements: [
       {
@@ -56,9 +55,13 @@ const slides: Slide[] = [
     speakers: [],
   },
   {
-    title: "description",
     colorTheme: "pink",
-    additionalElements: [],
+    additionalElements: [
+      {
+        type: "overlay",
+        content: <Slide3Content />,
+      },
+    ],
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -111,7 +114,7 @@ const slides: Slide[] = [
     ],
   },
   {
-    title: "Is my democracy your democracy? ",
+    title: "Is my democracy your democracy?",
     colorTheme: "pink",
     additionalElements: [],
     videSource: null,
@@ -126,7 +129,6 @@ const slides: Slide[] = [
     ],
   },
   {
-    title: "Is my democracy your democracy?",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
