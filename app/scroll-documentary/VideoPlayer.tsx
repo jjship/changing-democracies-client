@@ -72,7 +72,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         video.removeEventListener("pause", handlePause);
         video.removeEventListener("play", handlePlay);
       };
-    }, []);
+    }, [videoRef]);
 
     useEffect(() => {
       const video = videoRef.current;
@@ -100,7 +100,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         // Fallback to MP4
         setIsUsingHLS(false);
       }
-    }, [videoSource.hlsPlaylistUrl]);
+    }, [videoSource.hlsPlaylistUrl, videoRef]);
 
     const {
       subtitles,
@@ -223,5 +223,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     );
   },
 );
+
+VideoPlayer.displayName = "VideoPlayer";
 
 export default VideoPlayer;

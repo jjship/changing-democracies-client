@@ -182,13 +182,15 @@ streamCollectionKeyToId.set(
 
 async function getVideosPerCollection({
   cacheOptions,
-  collectionKey = "default",
+  collectionKey,
 }: {
   cacheOptions?: Record<string, unknown>;
   collectionKey?: CollectionKey;
 }): Promise<BunnyMethodReturn<VideoDbEntry>> {
   const url = `https://video.bunnycdn.com/library/${process.env.BUNNY_STREAM_LIBRARY_ID}/videos`;
-  const collectionId = streamCollectionKeyToId.get(collectionKey);
+  const collectionId = collectionKey
+    ? streamCollectionKeyToId.get(collectionKey)
+    : undefined;
 
   let allVideos: VideoDbEntry[] = [];
   let currentPage = 1;
@@ -207,7 +209,9 @@ async function getVideosPerCollection({
       };
 
       const res = await fetchWithRetry({
-        url: `${url}?collection=${collectionId}&page=${currentPage}&itemsPerPage=${itemsPerPage}&orderBy=title`,
+        url: `${url}?${
+          collectionKey ? `collection=${collectionId}` : ""
+        }&page=${currentPage}&itemsPerPage=${itemsPerPage}&orderBy=title`,
         options,
       });
 

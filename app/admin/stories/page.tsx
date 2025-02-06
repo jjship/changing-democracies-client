@@ -5,7 +5,7 @@ import { sectionPadding } from "../../components/Section";
 
 export default async function FreeBrowsingPage() {
   const filmsData = await getVideosPerCollection({
-    next: { revalidate: 3600 },
+    cacheOptions: { next: { revalidate: 3600 } },
   });
 
   const filmsCollection = serializeFilmsCollection({ videos: filmsData.data });
