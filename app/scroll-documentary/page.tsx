@@ -42,7 +42,7 @@ export default async function ScrollDocumentaryPage() {
 
   try {
     const videosData = await getVideosPerCollection({
-      cacheOptions: { next: { revalidate: 30 * 60 } },
+      cacheOptions: { next: { revalidate: 5 * 60 } },
       collectionKey: "scroll-documentary",
     });
 
