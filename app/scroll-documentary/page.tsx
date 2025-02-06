@@ -1,5 +1,4 @@
 import { getVideosPerCollection } from "@/utils/admin/bunny-methods";
-import { headers } from "next/headers";
 import { cache } from "react";
 
 import { serializeVideoSource } from "./videoSource";
@@ -43,7 +42,7 @@ export default async function ScrollDocumentaryPage() {
 
   try {
     const videosData = await getVideosPerCollection({
-      cacheOptions: { next: { revalidate: 3600 } },
+      cacheOptions: { next: { revalidate: 30 * 60 } },
       collectionKey: "scroll-documentary",
     });
 

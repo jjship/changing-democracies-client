@@ -84,7 +84,8 @@ async function getCollection(): Promise<BunnyMethodReturn<Collection>> {
   try {
     const res = await fetchWithRetry({ url, options });
 
-    if (!res) throw new Error("Failed to fetch video collection data");
+    if (!res || !res.ok)
+      throw new Error("Failed to fetch video collection data");
 
     const collection: Collection = await res.json();
 
@@ -116,7 +117,7 @@ async function getVideo(
   try {
     const res = await fetchWithRetry({ url, options });
 
-    if (!res) throw new Error("Failed to fetch video data");
+    if (!res || !res.ok) throw new Error("Failed to fetch video data");
 
     const video: VideoDbEntry = await res.json();
 
@@ -156,7 +157,7 @@ async function updateVideo({
   try {
     const res = await fetchWithRetry({ url, options });
 
-    if (!res) throw new Error("Failed to fetch video data");
+    if (!res || !res.ok) throw new Error("Failed to fetch video data");
 
     const video: VideoDbEntry = await res.json();
 
@@ -210,7 +211,7 @@ async function getVideosPerCollection({
         options,
       });
 
-      if (!res) throw new Error("Failed to fetch video data");
+      if (!res || !res.ok) throw new Error("Failed to fetch video data");
 
       const {
         items,
@@ -350,7 +351,7 @@ async function fetchCaptions({
   try {
     const res = await fetchWithRetry({ url, options });
 
-    if (!res) throw new Error("Failed to fetch video data");
+    if (!res || !res.ok) throw new Error("Failed to fetch video data");
 
     const caps = await res.text();
 
