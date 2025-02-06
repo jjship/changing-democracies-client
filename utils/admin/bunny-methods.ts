@@ -217,7 +217,7 @@ async function getVideosPerCollection(
       };
 
       const res = await fetchWithRetry({
-        url: `${url}?collectionId=${process.env.BUNNY_STREAM_COLLECTION_ID}&page=${currentPage}&itemsPerPage=${itemsPerPage}`,
+        url: `${url}?collection=${process.env.BUNNY_STREAM_COLLECTION_ID}&page=${currentPage}&itemsPerPage=${itemsPerPage}`,
         options,
       });
 
