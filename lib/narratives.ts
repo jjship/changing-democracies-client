@@ -11,7 +11,7 @@ export const narrativesApi = {
           body: JSON.stringify({
             languageCode: "en",
           }),
-          cache: "no-store",
+          next: { revalidate: 15 * 60 }, // 15 minutes
         },
       });
     } catch (error) {
