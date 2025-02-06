@@ -3,16 +3,14 @@ import { FC, useCallback, useEffect, useState } from "react";
 const NarrativesCountDown: FC<{
   onFinish: () => void;
 }> = ({ onFinish }) => {
-  const [count, setCount] = useState<number>(5);
+  const [count, setCount] = useState(5);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
 
   const offset = circumference - ((count - 1) / 5) * circumference;
 
   const handleFinish = useCallback(() => {
-    requestAnimationFrame(() => {
-      onFinish();
-    });
+    requestAnimationFrame(onFinish);
   }, [onFinish]);
 
   useEffect(() => {
@@ -27,7 +25,7 @@ const NarrativesCountDown: FC<{
     }
 
     return () => clearTimeout(timer);
-  }, [count, handleFinish]);
+  }, [count, handleFinish, onFinish]);
 
   if (count === 0) return null;
 
