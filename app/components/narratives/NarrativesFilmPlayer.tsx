@@ -11,6 +11,7 @@ const NarrativesFilmPlayer: FC = () => {
     setIsPlaying,
     setCurrentIndex,
     setCurrentPath,
+    setShowSidePanel,
   } = useNarrativesContext();
 
   const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
@@ -94,6 +95,7 @@ const NarrativesFilmPlayer: FC = () => {
       {isPlaying ? (
         <>
           <Box
+            onClick={() => setShowSidePanel(true)}
             className={
               "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise"
             }

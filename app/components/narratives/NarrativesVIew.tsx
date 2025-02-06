@@ -6,6 +6,7 @@ import NarrativesCountDown from "@/components/narratives/NarrativesCountDown";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
 import NarrativesViewButton from "@/components/narratives/NarrativesViewButton";
 import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { NarrativesBioSidePanel } from "@/components/narratives/NarrativesBioSidePanel";
 
 const NarrativesView: FC = ({}) => {
   const {
@@ -17,10 +18,12 @@ const NarrativesView: FC = ({}) => {
     setCurrentPath,
     switchPath,
     setSwitchPath,
+    showSidePanel,
   } = useNarrativesContext();
 
   const handleStart = () => {
     setIsPlaying(true);
+    switchPath && setSwitchPath(false);
   };
 
   const handleContinue = useCallback(() => {
@@ -105,6 +108,7 @@ const NarrativesView: FC = ({}) => {
               )}
           </Flex>
         </Flex>
+        {showSidePanel && <NarrativesBioSidePanel />}
       </>
     )
   );

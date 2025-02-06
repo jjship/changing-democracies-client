@@ -18,9 +18,12 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
   const [switchPath, setSwitchPath] = useState<boolean>(false);
+  const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
   return (
     <NarrativesContext.Provider
       value={{
+        showSidePanel,
+        setShowSidePanel,
         currentPath,
         setCurrentPath,
         narrationPaths,
@@ -52,7 +55,7 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
         <div
           className={`fixed transition-all duration-1000 ease-linear  ${
             switchPath ? "bottom-[28vh]" : "bottom-[3vh]"
-          }  z-50 h-auto w-[100%] px-[14vw]`}
+          }  z-30 h-auto w-[100%] px-[14vw]`}
         >
           {currentPath && (
             <Box className={"bg-yellow relative"}>
