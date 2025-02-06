@@ -7,6 +7,7 @@ import VideoPlayer from "./VideoPlayer";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import VideoPlayerFallback from "./VideoPlayerFallback";
 import { VideoSourceError } from "./videoSource";
+import { PageTheme, Subtitle } from "./slides/slides";
 
 interface VideoSectionProps {
   videoSource: VideoSource;
@@ -16,6 +17,8 @@ interface VideoSectionProps {
   shouldPlay: boolean;
   onReady?: () => void;
   selectedLanguageCode: string;
+  pageTheme: PageTheme;
+  speakers: Subtitle[];
 }
 
 export default function VideoSection({
@@ -26,6 +29,8 @@ export default function VideoSection({
   shouldPlay,
   onReady,
   selectedLanguageCode,
+  pageTheme,
+  speakers,
 }: VideoSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -111,6 +116,8 @@ export default function VideoSection({
             isPlaying={isPlaying}
             className="h-full w-full object-cover"
             selectedLanguageCode={selectedLanguageCode}
+            pageTheme={pageTheme}
+            speakers={speakers}
           />
         </div>
       </ErrorBoundary>

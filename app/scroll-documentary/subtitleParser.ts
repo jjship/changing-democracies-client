@@ -1,4 +1,4 @@
-function parseTimeString(timeString: string): number {
+export function parseTimeString(timeString: string): number {
   const [timestamp, milliseconds] = timeString.trim().split(".");
   const [hours, minutes, seconds] = timestamp.split(":").map(Number);
   return (

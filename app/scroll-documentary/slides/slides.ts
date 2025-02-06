@@ -1,9 +1,16 @@
 import { VideoSource } from "@/types/scrollDocumentary";
 import { ReactNode } from "react";
 import { NavColor } from "@/components/navigation/Navigation";
+import { parseTimeString } from "../subtitleParser";
+
+export type Subtitle = {
+  start: number;
+  end: number;
+  text: string;
+};
 
 type Slide = {
-  name: string;
+  title?: string;
   colorTheme: "gray" | "black" | "pink";
   additionalElements: {
     type: string;
@@ -12,122 +19,229 @@ type Slide = {
   videSource: VideoSource | null;
   videoTitle: string | null;
   persons: { start: number; end: number; text: string }[];
+  speakers: Subtitle[];
 };
 
 export type SlideWithSource = Slide & { videoSource: VideoSource };
 
 const slides: Slide[] = [
   {
-    name: "opening",
+    title: "opening",
     colorTheme: "gray",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [],
   },
   {
-    name: "arrows",
+    title: "arrows",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [],
   },
   {
-    name: "description",
+    title: "description",
     colorTheme: "pink",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:22.018"),
+        end: parseTimeString("00:01:00.017"),
+        text: "Michaela Bedrníková, Czech Republic",
+      },
+    ],
   },
   {
-    name: "parade",
+    title: "Looking back",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:01.000"),
+        end: parseTimeString("00:01:02.008"),
+        text: "Juozas Malickas, Lithuania",
+      },
+      {
+        start: parseTimeString("00:01:02.009"),
+        end: parseTimeString("00:02:01.006"),
+        text: "Slobodanka Moravčević, Serbia/Belgium",
+      },
+      {
+        start: parseTimeString("00:02:01.007"),
+        end: parseTimeString("00:02:55.009"),
+        text: "Lisbeth Ruiz Sanchez, Cuba/Belgium",
+      },
+    ],
   },
   {
-    name: "flag",
+    title: "State of transition",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:01.000"),
+        end: parseTimeString("00:01:03.000"),
+        text: "Mariano Royo Arpón, Spain",
+      },
+    ],
   },
   {
-    name: "undocumented",
+    title: "Is my democracy your democracy? ",
     colorTheme: "pink",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:00.000"),
+        end: parseTimeString("00:00:39.000"),
+        text: "Amir Mohammadi, The Netherlands",
+      },
+    ],
   },
   {
-    name: "beauty",
+    title: "Is my democracy your democracy?",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:00.000"),
+        end: parseTimeString("00:01:22.000"),
+        text: "Chee-Han Kartosen-Wong, The Netherlands",
+      },
+    ],
   },
   {
-    name: "disillusionment",
+    title: "Reality check",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:01.000"),
+        end: parseTimeString("00:01:01.000"),
+        text: "Nikos Vatopoulos, Greece",
+      },
+      {
+        start: parseTimeString("00:01:01.001"),
+        end: parseTimeString("00:02:03.000"),
+        text: "Andrés Ruiz Grima, Spain",
+      },
+    ],
   },
   {
-    name: "diagram",
+    title: "The personal is political",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:01:01.001"),
+        end: parseTimeString("00:01:46.000"),
+        text: "Michaela Roman, Romania",
+      },
+    ],
   },
   {
-    name: "tunel",
+    title: "Past Present Future",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:05.011"),
+        end: parseTimeString("00:00:30.018"),
+        text: "Nikos Vatopoulos, Greece",
+      },
+    ],
   },
   {
-    name: "lecture",
+    title: "Get together",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:01.000"),
+        end: parseTimeString("00:02:25.000"),
+        text: "Jiří Zajíc, Czech Republic",
+      },
+    ],
   },
   {
-    name: "snap",
+    title: "Beware",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:01.000"),
+        end: parseTimeString("00:01:13.000"),
+        text: "Joanna Miłosz-Piekarska, Poland",
+      },
+    ],
   },
   {
-    name: "noise",
+    title: "Make noise",
     colorTheme: "black",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:01.000"),
+        end: parseTimeString("00:00:31.000"),
+        text: "Chee-Han Kartosen-Wong, The Netherlands",
+      },
+    ],
   },
   {
-    name: "toddler",
+    title: "Our turn",
     colorTheme: "gray",
     additionalElements: [],
     videSource: null,
     videoTitle: null,
     persons: [],
+    speakers: [
+      {
+        start: parseTimeString("00:00:01.000"),
+        end: parseTimeString("00:00:29.022"),
+        text: "Željko Rogina, Croatia",
+      },
+      {
+        start: parseTimeString("00:00:29.023"),
+        end: parseTimeString("00:01:18.005"),
+        text: "Milice Ribeiro Dos Santos, Portugal",
+      },
+    ],
   },
 ];
 
@@ -156,6 +270,8 @@ export type PageTheme = {
   navFont: NavColor;
   scrollDotsBorder: string;
   scrollDotsHover: string;
+  subtitleColor: string;
+  speakersColor: string;
 };
 
 export const themeMapping: Record<string, PageTheme> = {
@@ -166,6 +282,8 @@ export const themeMapping: Record<string, PageTheme> = {
     navFont: "yellow_secondary",
     scrollDotsBorder: "border-yellow_secondary",
     scrollDotsHover: "hover:bg-green_accent",
+    subtitleColor: "text-white",
+    speakersColor: "text-green_accent bg-darkRed",
   },
   gray: {
     pageBg: "bg-gray_scroll",
@@ -174,6 +292,8 @@ export const themeMapping: Record<string, PageTheme> = {
     navFont: "yellow_secondary",
     scrollDotsBorder: "border-yellow_secondary",
     scrollDotsHover: "hover:bg-green_accent",
+    subtitleColor: "text-white",
+    speakersColor: "text-green_accent bg-darkRed",
   },
   pink: {
     pageBg: "bg-pink_scroll",
@@ -182,5 +302,7 @@ export const themeMapping: Record<string, PageTheme> = {
     navFont: "black_bg",
     scrollDotsBorder: "border-black_bg",
     scrollDotsHover: "hover:bg-green_accent",
+    subtitleColor: "text-black_bg",
+    speakersColor: "text-darkRed bg-yellow_secondary",
   },
 };

@@ -134,11 +134,22 @@ export default function ScrollDocumentaryClient({
       }
     };
 
+    const onScrollEnd = () => {
+      const activeSlide = container.children[activeIndex];
+      if (activeSlide) {
+        activeSlide.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    };
+
     container.addEventListener("scroll", onScroll);
+    container.addEventListener("scrollend", onScrollEnd);
     // Initial check
     handleScroll();
 
-    return () => container.removeEventListener("scroll", onScroll);
+    return () => {
+      container.removeEventListener("scroll", onScroll);
+      container.removeEventListener("scrollend", onScrollEnd);
+    };
   }, [activeIndex, isStarted]);
 
   const renderAdditionalContent = (
@@ -192,6 +203,8 @@ export default function ScrollDocumentaryClient({
                     selectedLanguageCode={
                       availableLanguageCodes[selectedLanguage]
                     }
+                    pageTheme={pageTheme}
+                    speakers={[]}
                   />
                 )}
             </div>
@@ -208,15 +221,15 @@ export default function ScrollDocumentaryClient({
           <ErrorBoundary>
             <div
               ref={containerRef}
-              className="h-[calc(100vh-4rem)] w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
+              className="h-[calc(100vh-64px)] w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
             >
               {slidesWithSources.map((slide, index) => (
                 <div
                   key={slide.videoSource?.videoId ?? index}
                   id={`section-${index}`}
-                  className="flex  h-[calc(100vh-4rem)] snap-start items-center justify-center"
+                  className="flex h-[calc(100vh-64px)] snap-center items-center justify-center"
                 >
-                  <div className="relative mx-auto aspect-video w-full max-w-[142.22vh] px-4">
+                  <div className="relative mx-auto aspect-video w-[70vw] max-w-[142.22vh] px-4">
                     {loadedSections.includes(index) ? (
                       <VideoSection
                         videoSource={slide.videoSource!}
@@ -227,6 +240,8 @@ export default function ScrollDocumentaryClient({
                           availableLanguageCodes[selectedLanguage]
                         }
                         additionalContent={renderAdditionalContent(slide)}
+                        pageTheme={pageTheme}
+                        speakers={slide.speakers}
                       />
                     ) : (
                       <div
