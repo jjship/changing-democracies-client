@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { sectionPadding } from "../Section";
-import SequenceProgressBar from "./SequenceProgressBar";
+import NarrativesProgressBar from "./NarrativesProgressBar";
 import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
 import { Archivo } from "next/font/google";
 import NarrativesContext from "@/app/narratives/NarrativesContext";
@@ -56,7 +56,7 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
         >
           {currentPath && (
             <Box className={"bg-yellow relative"}>
-              <SequenceProgressBar />
+              <NarrativesProgressBar />
             </Box>
           )}
         </div>

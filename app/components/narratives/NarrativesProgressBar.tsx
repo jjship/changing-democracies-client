@@ -4,7 +4,7 @@ import { useNarrativesContext } from "../../narratives/NarrativesContext";
 import SwitchPathButton from "@/components/narratives/switchPathButton";
 import SwitchPathRedirectButton from "@/components/narratives/SwitchPathRedirectButton";
 
-const SequenceProgressBar: FC = () => {
+const NarrativesProgressBar: FC = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const {
     currentIndex,
@@ -216,4 +216,4 @@ const SequenceProgressBar: FC = () => {
   );
 };
 
-export default SequenceProgressBar;
+export default NarrativesProgressBar;
