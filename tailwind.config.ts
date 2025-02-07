@@ -17,6 +17,9 @@ const config: Config = {
     },
     extend: {
       colors: {
+        pink_scroll: "#d7cbcf",
+        black_scroll: "#1b1b1a",
+        gray_scroll: "#5f5d56",
         red_mains: "#B85252",
         purple_mains: "#8083AE",
         yellow_secondary: "#CF9855",
@@ -135,5 +138,10 @@ const config: Config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  variants: {
+    extend: {
+      scrollSnapType: ["responsive"],
+    },
+  },
 };
 export default config;

@@ -8,16 +8,16 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
   <div
     className={`z-50 flex h-screen transform flex-col justify-between bg-black_bg transition-all duration-1000 ease-in-out ${
       isNavOpen
-        ? "max-h-screen scale-100 opacity-100"
+        ? "max-h-[90vh] scale-100 opacity-100"
         : "max-h-0  overflow-hidden opacity-0"
     } `}
   >
     <div className="z-50 flex-grow "></div>
-    <div className="z-50 ml-5 flex flex-col justify-center gap-8">
+    <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-8">
       <AnimatedLink
-        href="/free-browsing"
-        text="free browsing"
-        timeout={100}
+        href="/scroll-documentary"
+        text="scroll documentary"
+        timeout={80}
         color="yellow"
         isNavOpen={isNavOpen}
         toggleNav={toggleNav}
@@ -31,9 +31,17 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         toggleNav={toggleNav}
       />
       <AnimatedLink
+        href="/free-browsing"
+        text="free browsing"
+        timeout={140}
+        color="yellow"
+        isNavOpen={isNavOpen}
+        toggleNav={toggleNav}
+      />
+      <AnimatedLink
         href="/#project"
         text="project"
-        timeout={150}
+        timeout={160}
         color="pink"
         isNavOpen={isNavOpen}
         toggleNav={toggleNav}
@@ -63,6 +71,5 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         toggleNav={toggleNav}
       />
     </div>
-    <div className="h-[15vh]"></div>
   </div>
 );

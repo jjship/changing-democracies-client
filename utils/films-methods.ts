@@ -4,7 +4,7 @@ import {
   FilmData,
 } from "../types/videosAndFilms";
 
-export { parseTags, serializeFilmsCollection };
+export { parseTags, serializeFilmsCollection, getThumbnail };
 
 function serializeFilmsCollection({
   videos,

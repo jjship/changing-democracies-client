@@ -224,7 +224,6 @@ const MakePhoto: FC = () => {
     drawStatements,
     drawUserName,
     countdownCompleted,
-    canvasWidth,
     statements,
     userName,
     location,

@@ -45,7 +45,9 @@ export type FilmsMethodReturn<T> = {
 };
 
 async function getVideos(): Promise<FilmsMethodReturn<VideoDbEntry>> {
-  const { error, ...res } = await getVideosPerCollection();
+  const { error, ...res } = await getVideosPerCollection({
+    collectionKey: undefined,
+  });
 
   if (error) {
     console.error(error);
