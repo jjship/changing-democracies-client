@@ -7,7 +7,7 @@ export default function Slide3Content() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsAboutVisible(true);
-    }, 100);
+    }, 62000);
 
     return () => clearTimeout(timer); // Cleanup the timer on component unmount
   }, []);
