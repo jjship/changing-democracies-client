@@ -4,7 +4,7 @@ const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
 export default function Slide15Content() {
   return (
-    <div className="relative right-1/4 top-1 flex h-[80vh] w-[24rem] flex-col items-center justify-center">
+    <div className="relative right-1/4 top-5 flex h-[80vh] w-[24rem] flex-col items-center justify-center">
       <div style={{ fontSize: "1vw" }} className=" text-purple_lightest_bg ">
         <h2
           style={{ fontSize: "2vw", marginBottom: "1vw" }}
