@@ -86,7 +86,7 @@ export default function ScrollDocumentaryClient({
   };
 
   const ScrollNavigation = (pageTheme: PageTheme) => (
-    <div className="fixed right-1 top-1/2 z-50 mr-3 flex -translate-y-1/2 flex-col gap-6 md:px-10">
+    <div className="fixed right-1 top-1/2 z-50 mr-1 flex -translate-y-1/2 flex-col gap-6">
       {slidesWithSources.map((_, index) => (
         <button
           key={index}
