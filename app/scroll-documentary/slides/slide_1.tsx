@@ -31,7 +31,8 @@ export const Slide1Content: FC = () => {
     <div className="absolute z-10 flex w-full justify-center">
       <div className="relative right-7 top-10 flex w-7/12 justify-between font-bold">
         <div
-          className={`${archivo.className} text-4xl text-purple_lightest_bg`}
+          className={`${archivo.className} text-purple_lightest_bg`}
+          style={{ fontSize: "2vw" }}
         >
           Democracy
         </div>
@@ -44,7 +45,8 @@ export const Slide1Content: FC = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className={`${archivo.className} text-4xl text-purple_lightest_bg`}
+              className={`${archivo.className} text-purple_lightest_bg`}
+              style={{ fontSize: "2vw" }}
             >
               {changingWords[currentWordIndex]}
             </motion.div>
