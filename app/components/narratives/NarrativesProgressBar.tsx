@@ -91,12 +91,12 @@ const NarrativesProgressBar: FC = () => {
           )}
           {index === currentIndex && (
             <Box
-              className={`absolute right-[2.5vw] -z-[50] transition-all duration-500 ease-in-out ${
+              className={`ease absolute -z-[50] transition-all delay-75 duration-500 ${
                 !isPlaying &&
                 currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
                 index === currentIndex
-                  ? "bottom-[5.5vh] opacity-100"
-                  : "bottom-0 opacity-0"
+                  ? "bottom-0 -translate-x-[45%] -translate-y-[100%] opacity-100"
+                  : "bottom-0 -translate-x-[45%] -translate-y-[0%] opacity-0"
               }`}
             >
               {!switchPath && (
@@ -212,7 +212,7 @@ const NarrativesProgressBar: FC = () => {
   );
 
   return (
-    <Flex className="mx-auto  items-center justify-center bg-transparent borde-2">
+    <Flex className="borde-2  mx-auto items-center justify-center bg-transparent">
       {progressBarItems}
     </Flex>
   );
