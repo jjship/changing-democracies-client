@@ -48,7 +48,7 @@ export default function Slide15Content() {
           MUSIC
         </h3>
         <p style={{ marginBottom: "1vw" }}>
-          Kai Engel, The Moments Of Our Mornings
+          Kai Engel, <span className="italic">The Moments Of Our Mornings</span>
         </p>
       </div>
     </div>
