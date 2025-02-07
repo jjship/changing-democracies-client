@@ -236,11 +236,8 @@ export default function ScrollDocumentaryClient({
                   className="flex h-[calc(100vh-64px)] snap-center items-center justify-center"
                 >
                   <div className="relative mx-auto aspect-video w-[70vw] max-w-[142.22vh] px-4">
-                    {loadedSections.includes(index) ? (
+                    {loadedSections.includes(index) && slide.videoSource ? (
                       <>
-                        {/* <div className="absolute inset-0 flex items-center justify-center">
-                          <h1 className="text-4xl font-bold">{slide.title}</h1>
-                        </div> */}
                         <VideoSection
                           videoSource={slide.videoSource!}
                           onVideoEnd={() => scrollToNextSection(index)}
@@ -254,7 +251,7 @@ export default function ScrollDocumentaryClient({
                           speakers={slide.speakers}
                         />
                       </>
-                    ) : (
+                    ) : slide.videoSource ? (
                       <div
                         className="flex h-full w-full items-center justify-center"
                         ref={
@@ -265,6 +262,8 @@ export default function ScrollDocumentaryClient({
                       >
                         <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
                       </div>
+                    ) : (
+                      renderAdditionalContent(slide)
                     )}
                   </div>
                 </div>

@@ -5,6 +5,7 @@ import { parseTimeString } from "../subtitleParser";
 import { Slide0Content } from "./slide_0";
 import { Slide1Content } from "./slide_1";
 import Slide3Content from "./slide_3";
+import Slide15Content from "./slide_15";
 
 export type Subtitle = {
   start: number;
@@ -257,6 +258,19 @@ const slides: Slide[] = [
       },
     ],
   },
+  {
+    colorTheme: "black",
+    additionalElements: [
+      {
+        type: "credits",
+        content: <Slide15Content />,
+      },
+    ],
+    videSource: null,
+    videoTitle: null,
+    persons: [],
+    speakers: [],
+  },
 ];
 
 export function assignVideoSourcesToSlides({
@@ -264,15 +278,10 @@ export function assignVideoSourcesToSlides({
 }: {
   videoSources: VideoSource[];
 }) {
-  if (videoSources.length !== slides.length) {
-    console.log({ vidLen: videoSources.length, slidesLen: slides.length });
-    throw new Error("videoSources and slides must have the same length");
-  }
-
   return slides.map((slide, index) => {
     return {
       ...slide,
-      videoSource: videoSources[index],
+      videoSource: videoSources[index] ?? null,
     };
   });
 }
