@@ -47,7 +47,7 @@ const AnimatedLink: FC<{
 
     setTimeout(() => {
       router.push(href);
-    }, 800);
+    }, 700);
   };
 
   return (
