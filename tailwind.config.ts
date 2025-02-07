@@ -77,10 +77,10 @@ const config: Config = {
       },
       screens: {
         sm: "370px",
-        md: "1024px",
+        md: "900px",
         xl: "1450px",
         lg: "1500px",
-        "narratives-player-width": "1024px",
+        "narratives-player-width": "900px",
       },
       fontSize: {
         display_lg: "14.813rem",
