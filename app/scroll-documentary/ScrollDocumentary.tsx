@@ -91,7 +91,7 @@ export default function ScrollDocumentaryClient({
         <button
           key={index}
           onClick={() => scrollToSection(index)}
-          className={`h-5 w-5 rounded-full border-4 transition-all duration-300 
+          className={`h-3 w-3 rounded-full border-4 transition-all duration-300 
             ${
               index === activeIndex
                 ? "border-4 border-green_accent"
