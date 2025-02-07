@@ -7,19 +7,19 @@ export default function Slide15Content() {
     <div className="relative right-1/4 flex h-full w-[24rem] flex-col items-center justify-center">
       <div style={{ fontSize: "1vw" }} className=" text-purple_lightest_bg ">
         <h2
-          style={{ fontSize: "2vw" }}
-          className="mb-4  font-bold text-yellow_secondary "
+          style={{ fontSize: "2vw", marginBottom: "2vw" }}
+          className=" font-bold text-yellow_secondary "
         >
           Credits
         </h2>
-        <p className="mb-2">
+        <p style={{ marginBottom: "1vw" }}>
           <span className="font-bold text-darkRed">Changing Democracies</span>{" "}
           aims to explore how Europe&ldquo;s living history about recent
           transitions to democracy might help us to explore and grasp what
           processes are needed today for democracy to fulfil its promises for
           everyone.
         </p>
-        <p className="mb-8">
+        <p style={{ marginBottom: "2vw" }}>
           The project is the result of a collaboration between 12 partners from
           10 European countries and is coordinated by the Evens Foundation and
           EuroClio with funding from the European Commission.
@@ -27,7 +27,7 @@ export default function Slide15Content() {
         <h3 className={`${archivoNarrow.className} text-green_accent`}>
           SCRIPT
         </h3>
-        <p className="mb-2">
+        <p style={{ marginBottom: "1vw" }}>
           David Sypniewski 
           <br />
           Marjolein Delvou and Hanna Zielińska (Evens Foundation) <br />
@@ -36,18 +36,20 @@ export default function Slide15Content() {
         <h3 className={`${archivoNarrow.className} text-green_accent`}>
           VISUALS
         </h3>
-        <p className="mb-2">
+        <p style={{ marginBottom: "1vw" }}>
           David Sypniewski 
           <br />
         </p>
         <h3 className={`${archivoNarrow.className} text-green_accent`}>
           DEVELOPMENT
         </h3>
-        <p className="mb-2">Jacek Skrzypek</p>
+        <p style={{ marginBottom: "1vw" }}>Jacek Skrzypek</p>
         <h3 className={`${archivoNarrow.className} text-green_accent`}>
           MUSIC
         </h3>
-        <p className="mb-2">Kai Engel, The Moments Of Our Mornings</p>
+        <p style={{ marginBottom: "1vw" }}>
+          Kai Engel, The Moments Of Our Mornings
+        </p>
       </div>
     </div>
   );
