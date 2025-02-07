@@ -61,7 +61,7 @@ const AnimatedLink: FC<{
         onClick={handleClick}
         className={`text-${getFontColor(
           color,
-        )} text-5xl capitalize md:text-3xl xl:text-[4.5rem]`}
+        )} text-5xl capitalize md:text-4xl xl:text-[4.5rem]`}
       >
         {text}
       </a>

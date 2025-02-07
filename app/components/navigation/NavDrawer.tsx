@@ -13,7 +13,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
     } `}
   >
     <div className="z-50 flex-grow "></div>
-    <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-8">
+    <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-2">
       <AnimatedLink
         href="/scroll-documentary"
         text="scroll documentary"
