@@ -8,7 +8,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
   <div
     className={`z-50 flex h-screen transform flex-col justify-between bg-black_bg transition-all duration-1000 ease-in-out ${
       isNavOpen
-        ? "max-h-[95vh] scale-100 opacity-100"
+        ? "max-h-[90vh] scale-100 opacity-100"
         : "max-h-0  overflow-hidden opacity-0"
     } `}
   >
