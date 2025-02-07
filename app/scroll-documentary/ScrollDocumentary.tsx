@@ -195,7 +195,7 @@ export default function ScrollDocumentaryClient({
           />
         </div>
         {!isStarted ? (
-          <div className="flex h-[calc(100vh-4rem)] w-full items-center justify-center">
+          <div className="flex h-[calc(90vh)] w-full items-center justify-center">
             <div className="hidden">
               {loadedSections.includes(0) &&
                 slidesWithSources[0].videoSource && (
@@ -227,13 +227,13 @@ export default function ScrollDocumentaryClient({
           <ErrorBoundary>
             <div
               ref={containerRef}
-              className="h-[calc(100vh-64px)] w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
+              className="h-[calc(90vh)] w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
             >
               {slidesWithSources.map((slide, index) => (
                 <div
                   key={slide.videoSource?.videoId ?? index}
                   id={`section-${index}`}
-                  className="flex h-[calc(100vh-64px)] snap-center items-center justify-center"
+                  className="flex h-[calc(90vh)] snap-center items-center justify-center"
                 >
                   <div className="relative mx-auto aspect-video w-[70vw] max-w-[142.22vh] px-4">
                     {loadedSections.includes(index) && slide.videoSource ? (
