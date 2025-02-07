@@ -24,11 +24,12 @@ export default function Slide3Content() {
             About the project
           </h2>
           <p className="mb-2">
-            ‘Democracy failed us’, ‘Democracy is in crisis’, ‘We need to defend
-            democracy’, ‘Authoritarianism is on the rise’, ‘Democratic
-            institutions are in decline’ <br />
+            &ldquo;Democracy failed us&rdquo;, &ldquo;Democracy is in
+            crisis&rdquo;, &ldquo;We need to defend democracy&rdquo;,
+            &ldquo;Authoritarianism is on the rise&rdquo;, &ldquo;Democratic
+            institutions are in decline&rdquo; <br />
             You know these phrases. <br />
-            You've heard them over and over.
+            You&apos;ve heard them over and over.
           </p>
           <p className="mb-2">
             But what lies beyond this gloomy picture? <br />
@@ -57,7 +58,7 @@ export default function Slide3Content() {
               forward.
             </li>
           </ul>
-          <p>Don't take our word for it—see for yourself.</p>
+          <p>Don&apos;t take our word for it—see for yourself.</p>
         </div>
       </div>
     </div>
