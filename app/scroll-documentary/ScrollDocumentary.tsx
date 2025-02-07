@@ -235,7 +235,7 @@ export default function ScrollDocumentaryClient({
                   id={`section-${index}`}
                   className="flex h-[calc(90vh)] snap-center items-center justify-center"
                 >
-                  <div className="relative mx-auto aspect-video w-[70vw] max-w-[142.22vh] px-4">
+                  <div className="relative mx-auto aspect-video w-[70vw] max-w-[120vh] px-4">
                     {loadedSections.includes(index) && slide.videoSource ? (
                       <>
                         <VideoSection
