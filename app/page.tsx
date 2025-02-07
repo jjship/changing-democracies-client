@@ -4,6 +4,7 @@ import Events from "./components/Events";
 import Contact from "./components/Contact";
 import { Section } from "./components/Section";
 import { Navigation } from "./components/navigation/Navigation";
+import EducationalResources from "./components/EducationalResources";
 
 export default function Page() {
   return (
@@ -25,6 +26,9 @@ export default function Page() {
       </Section>
       <Section id="contact" theme="dark">
         <Contact />
+      </Section>
+      <Section id="educational-resources" theme="light">
+        <EducationalResources />
       </Section>
     </>
   );
