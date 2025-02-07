@@ -40,7 +40,7 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
       >
         <Navigation bgColor="black_bg" fontColor="yellow_secondary" />
         <div
-          className={`transition-height z-20 mx-auto w-[90vw] overflow-auto rounded-3xl bg-black_bg duration-1000 ease-linear ${
+          className={` transition-height z-20 mx-auto w-[90vw] overflow-auto rounded-3xl bg-black_bg duration-1000 ease-linear ${
             sectionPadding.x
           } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-40px)]"}`}
         >
@@ -58,7 +58,7 @@ const NarrativesLayout: FC<{ narrationPaths: NarrationPath[] }> = ({
           }  z-30 h-auto w-[100%] px-[14vw]`}
         >
           {currentPath && (
-            <Box className={"bg-yellow relative"}>
+            <Box className={"bg-yellow h-full"}>
               <NarrativesProgressBar />
             </Box>
           )}
