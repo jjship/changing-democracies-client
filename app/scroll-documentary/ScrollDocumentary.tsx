@@ -86,12 +86,16 @@ export default function ScrollDocumentaryClient({
   };
 
   const ScrollNavigation = (pageTheme: PageTheme) => (
-    <div className="fixed right-1 top-1/2 z-50 mr-1 flex -translate-y-1/2 flex-col gap-6">
+    <div className="fixed right-1 top-1/2 z-50 mr-1 flex max-h-[80vh] -translate-y-1/2 flex-col gap-6">
       {slidesWithSources.map((_, index) => (
         <button
           key={index}
           onClick={() => scrollToSection(index)}
-          className={`h-3 w-3 rounded-full border-4 transition-all duration-300 
+          style={{
+            height: "1vh",
+            width: "1vh",
+          }}
+          className={`rounded-full border-4 transition-all duration-300 
             ${
               index === activeIndex
                 ? "border-4 border-green_accent"
@@ -172,7 +176,7 @@ export default function ScrollDocumentaryClient({
       {slide.additionalElements.map((elem, idx) => (
         <div
           key={idx}
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex max-h-[80vh] items-center justify-center"
         >
           {elem.content}
         </div>
