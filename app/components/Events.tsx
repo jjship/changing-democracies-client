@@ -15,12 +15,15 @@ export default async function Events() {
   }
 
   const { futureEvents, pastEvents } = parseDbEventEntries({ events });
-
   return events ? (
     <>
       <Title text="Events" theme="light" />
-      <EventsList events={futureEvents} isFuture={true} />
-      <EventsList events={pastEvents} isFuture={false} />
+      {futureEvents.length ? (
+        <EventsList events={futureEvents} isFuture={true} />
+      ) : null}
+      {pastEvents.length ? (
+        <EventsList events={pastEvents} isFuture={false} />
+      ) : null}
     </>
   ) : (
     "Could not fetch events"
@@ -38,7 +41,7 @@ function EventsList(props: { isFuture: boolean; events: ParsedEventEntry[] }) {
         <p
           className={`${bgColor} text-head_3_sm font-semibold leading-5 md:text-[1.375rem] md:font-bold`}
         >
-          {isFuture ? "upcoming" : "past"}
+          {isFuture ? "upcoming" : ""}
         </p>
       </div>
       <div className="flex gap-[.938em] overflow-x-auto	md:flex-wrap md:gap-x-6 md:gap-y-20 xl:gap-x-40">
