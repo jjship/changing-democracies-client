@@ -53,9 +53,11 @@ export type FormVideo = Pick<VideoDbEntry, "guid" | "title" | "captions"> & {
 export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
   tags: string[]; // in metaTags
   person: string; // in title
+  bio?: string;
   country: string; // in title
   playerUrl: string;
   thumbnailUrl: string;
+  length?: number;
 };
 
 export type FilmsCollection = {
@@ -65,7 +67,7 @@ export type FilmsCollection = {
   people: string[];
 };
 
-export type NarrationFragment = FilmData & {
+export type NarrationFragment = Omit<FilmData, "tags"> & {
   sequence: number;
   otherPaths: Pick<NarrationPath, "id" | "title">[];
   description?: string;
