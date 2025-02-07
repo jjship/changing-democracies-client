@@ -4,10 +4,10 @@ const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
 export default function Slide15Content() {
   return (
-    <div className="relative right-1/4 flex h-full w-[24rem] flex-col items-center justify-center">
+    <div className="relative right-1/4 top-1 flex h-[80vh] w-[24rem] flex-col items-center justify-center">
       <div style={{ fontSize: "1vw" }} className=" text-purple_lightest_bg ">
         <h2
-          style={{ fontSize: "2vw", marginBottom: "2vw" }}
+          style={{ fontSize: "2vw", marginBottom: "1vw" }}
           className=" font-bold text-yellow_secondary "
         >
           Credits
@@ -19,7 +19,7 @@ export default function Slide15Content() {
           processes are needed today for democracy to fulfil its promises for
           everyone.
         </p>
-        <p style={{ marginBottom: "2vw" }}>
+        <p style={{ marginBottom: "1vw" }}>
           The project is the result of a collaboration between 12 partners from
           10 European countries and is coordinated by the Evens Foundation and
           EuroClio with funding from the European Commission.
