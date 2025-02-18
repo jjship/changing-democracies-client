@@ -15,13 +15,13 @@ const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 interface ScrollDocumentaryClientProps {
   slidesWithSources: SlideWithSource[];
   initialLanguageLabel: string;
-  availableLanguageCodes: { [key: string]: string };
+  availableLanguageLabels: string[];
 }
 
 export default function ScrollDocumentaryClient({
   slidesWithSources,
   initialLanguageLabel,
-  availableLanguageCodes,
+  availableLanguageLabels,
 }: ScrollDocumentaryClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isStarted, setIsStarted] = useState(false);
@@ -193,7 +193,7 @@ export default function ScrollDocumentaryClient({
           <Navigation
             bgColor={pageTheme.navBg}
             fontColor={pageTheme.navFont}
-            availableLanguages={Object.keys(availableLanguageCodes)}
+            availableLanguages={availableLanguageLabels}
             selectedLanguage={selectedLanguage}
             onLanguageChange={setSelectedLanguage}
           />
@@ -211,7 +211,9 @@ export default function ScrollDocumentaryClient({
                     shouldPlay={false}
                     onReady={() => setIsFirstVideoReady(true)}
                     selectedLanguageCode={
-                      availableLanguageCodes[selectedLanguage]
+                      slidesWithSources[0].videSource?.availableLanguageCodes[
+                        selectedLanguage
+                      ]
                     }
                     pageTheme={pageTheme}
                     speakers={[]}
@@ -248,7 +250,9 @@ export default function ScrollDocumentaryClient({
                           isActive={index === activeIndex}
                           shouldPlay={isStarted && index === activeIndex}
                           selectedLanguageCode={
-                            availableLanguageCodes[selectedLanguage]
+                            slide.videoSource?.availableLanguageCodes[
+                              selectedLanguage
+                            ]
                           }
                           additionalContent={renderAdditionalContent(slide)}
                           pageTheme={pageTheme}

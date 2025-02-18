@@ -13,7 +13,7 @@ interface VideoPlayerProps {
   onEnded?: () => void;
   isPlaying?: boolean;
   className?: string;
-  selectedLanguageCode: string;
+  selectedLanguageCode?: string;
   pageTheme: PageTheme;
   speakers: Subtitle[];
 }
@@ -44,6 +44,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         isUsingHLS ? q.supportsHLS : !q.supportsHLS,
       ),
     });
+    console.log({ selectedLanguageCode });
 
     const handlePlayPause = () => {
       const video = videoRef.current;

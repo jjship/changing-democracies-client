@@ -1,59 +1,74 @@
-import { getVideosPerCollection } from "@/utils/admin/bunny-methods";
+import { getVideo } from "@/utils/admin/bunny-methods";
 import { cache } from "react";
+import { headers } from "next/headers";
 
 import { serializeVideoSource } from "./videoSource";
 import ScrollDocumentary from "./ScrollDocumentary";
 import { VideoSource } from "../../types/scrollDocumentary";
 import { VideoDbEntry } from "../../types/videosAndFilms";
-import { assignVideoSourcesToSlides } from "./slides/slides";
+import { slides } from "./slides/slides";
 
 const getSerializedAndSortedVideos = cache(
-  async (videos: VideoDbEntry[], browserLang: string) => {
-    const availableLanguageCodes: { [key: string]: string } = {};
-    const videoSources = videos
-      .map((video: VideoDbEntry) => {
-        const serialized = serializeVideoSource(video);
-        // Sort subtitles to prefer browser language
-        if (serialized.availableSubtitles) {
-          serialized.availableSubtitles.forEach(
-            (sub) => (availableLanguageCodes[sub.label] = sub.languageCode),
-          );
-        }
-        return serialized;
-      })
-      .sort((a: VideoSource, b: VideoSource) => {
-        const aNum = parseInt(a.title?.match(/^(\d+)/)?.[1] || "0");
-        const bNum = parseInt(b.title?.match(/^(\d+)/)?.[1] || "0");
-        return aNum - bNum;
-      });
+  async ({
+    videos,
+    browserLang,
+  }: {
+    videos: VideoDbEntry[];
+    browserLang: string;
+  }) => {
+    const videoSources = videos.reduce(
+      (prev, video: VideoDbEntry) =>
+        prev.set(video.guid, serializeVideoSource(video)),
+      new Map<string, VideoSource>(),
+    );
 
-    const slidesWithSources = assignVideoSourcesToSlides({ videoSources });
+    const availableLanguageLabels = new Set<string>(
+      videos.flatMap((vs) => vs.captions.map((cap) => cap.label)),
+    );
 
-    const initialLanguageLabel = availableLanguageCodes[browserLang]
+    const slidesWithSources = slides.map((slide) => ({
+      ...slide,
+      videoSource: slide.videoId ? videoSources.get(slide.videoId) : undefined,
+    }));
+
+    const initialLanguageLabel = availableLanguageLabels.has(browserLang)
       ? browserLang
       : "EN";
 
-    return { slidesWithSources, initialLanguageLabel, availableLanguageCodes };
+    return {
+      slidesWithSources,
+      initialLanguageLabel,
+      availableLanguageLabels: [...availableLanguageLabels],
+    };
   },
 );
 
 export default async function ScrollDocumentaryPage() {
-  const browserLang = "EN";
+  const browserLang =
+    headers().get("x-browser-language")?.toUpperCase() || "EN";
 
   try {
-    const videosData = await getVideosPerCollection({
-      cacheOptions: { next: { revalidate: 5 * 60 } },
-      collectionKey: "scroll-documentary",
-    });
+    const videosResult = await Promise.all(
+      slides
+        .filter(({ videoId }) => videoId !== undefined)
+        .map((slide) => getVideo(slide.videoId as string)),
+    );
 
-    const { slidesWithSources, initialLanguageLabel, availableLanguageCodes } =
-      await getSerializedAndSortedVideos(videosData.data, browserLang);
+    const videoData = videosResult
+      .filter((res) => res.success)
+      .flatMap((res) => res.data);
+
+    const { slidesWithSources, initialLanguageLabel, availableLanguageLabels } =
+      await getSerializedAndSortedVideos({
+        videos: videoData,
+        browserLang,
+      });
 
     return (
       <ScrollDocumentary
         slidesWithSources={slidesWithSources}
         initialLanguageLabel={initialLanguageLabel}
-        availableLanguageCodes={availableLanguageCodes}
+        availableLanguageLabels={availableLanguageLabels}
       />
     );
   } catch (err) {
