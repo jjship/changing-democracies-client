@@ -61,15 +61,12 @@ export function serializeVideoSource(video: VideoDbEntry): VideoSource {
         supportsHLS: false,
       }));
 
-    const availableSubtitles =
-      video.captions.length > 0
-        ? video.captions
-            .map((caption) => ({
-              languageCode: caption.srclang,
-              label: caption.label,
-            }))
-            .sort((a, b) => a.label.localeCompare(b.label))
-        : undefined;
+    const availableLanguageCodes = video.captions.reduce<
+      Record<string, string>
+    >((prev, caption) => {
+      prev[caption.label] = caption.srclang;
+      return prev;
+    }, {});
 
     const thumbnail = video.thumbnailFileName
       ? `https://${pullZoneUrl}.b-cdn.net/${videoId}/${video.thumbnailFileName}`
@@ -79,7 +76,7 @@ export function serializeVideoSource(video: VideoDbEntry): VideoSource {
       videoId: video.guid,
       pullZoneUrl,
       availableQualities: isHLSSupported() ? availableQualities : mp4Qualities,
-      availableSubtitles,
+      availableLanguageCodes,
       hlsPlaylistUrl: `https://${pullZoneUrl}.b-cdn.net/${videoId}/playlist.m3u8`,
       title: video.title,
       duration: video.length,
@@ -96,16 +93,6 @@ export function serializeVideoSource(video: VideoDbEntry): VideoSource {
       error instanceof Error ? error.message : "Unknown error",
     );
   }
-}
-
-export function validateVideoSource(videoSource: VideoSource): boolean {
-  return (
-    typeof videoSource.videoId === "string" &&
-    typeof videoSource.pullZoneUrl === "string" &&
-    Array.isArray(videoSource.availableQualities) &&
-    videoSource.availableQualities.length > 0 &&
-    Array.isArray(videoSource.availableSubtitles)
-  );
 }
 
 export function getOptimalQuality(

@@ -13,7 +13,7 @@ interface VideoPlayerProps {
   onEnded?: () => void;
   isPlaying?: boolean;
   className?: string;
-  selectedLanguageCode: string;
+  selectedLanguageCode?: string;
   pageTheme: PageTheme;
   speakers: Subtitle[];
 }

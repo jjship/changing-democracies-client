@@ -11,7 +11,7 @@ export type Subtitle = {
 
 const useSubtitles = (
   videoSource: VideoSource,
-  selectedLanguageCode: string,
+  selectedLanguageCode?: string,
 ) => {
   const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +19,7 @@ const useSubtitles = (
 
   useEffect(() => {
     const fetchSubtitles = async () => {
-      if (!videoSource.availableSubtitles) {
+      if (!videoSource.availableLanguageCodes || !selectedLanguageCode) {
         setIsLoading(false);
         return;
       }

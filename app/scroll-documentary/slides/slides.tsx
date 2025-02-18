@@ -14,6 +14,7 @@ export type Subtitle = {
 };
 
 type Slide = {
+  videoId?: string;
   title?: string;
   colorTheme: "gray" | "black" | "pink";
   additionalElements: {
@@ -26,9 +27,9 @@ type Slide = {
   speakers: Subtitle[];
 };
 
-export type SlideWithSource = Slide & { videoSource: VideoSource };
+export type SlideWithSource = Slide & { videoSource?: VideoSource };
 
-const slides: Slide[] = [
+export const slides: Slide[] = [
   {
     colorTheme: "gray",
     additionalElements: [
@@ -37,6 +38,7 @@ const slides: Slide[] = [
         content: <Slide0Content />,
       },
     ],
+    videoId: "89ade28e-439a-4952-a068-b81da8c4b22a",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -50,6 +52,7 @@ const slides: Slide[] = [
         content: <Slide1Content />,
       },
     ],
+    videoId: "2952bc8b-2892-4813-8331-0d8e3ce793dd",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -63,6 +66,7 @@ const slides: Slide[] = [
         content: <Slide3Content />,
       },
     ],
+    videoId: "243f8c4a-4a51-4f15-83fb-085524b5e96c",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -78,6 +82,7 @@ const slides: Slide[] = [
     title: "Looking back",
     colorTheme: "black",
     additionalElements: [],
+    videoId: "2219fb4f-e47e-4cc5-83c2-8f5d0c51731b",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -103,6 +108,7 @@ const slides: Slide[] = [
     title: "State of transition",
     colorTheme: "black",
     additionalElements: [],
+    videoId: "844a56e9-2a91-42b4-a037-4e2a93569b21",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -118,6 +124,7 @@ const slides: Slide[] = [
     title: "Is my democracy your democracy?",
     colorTheme: "pink",
     additionalElements: [],
+    videoId: "e689da44-a382-4718-ba5b-f95e2265adb5",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -132,6 +139,7 @@ const slides: Slide[] = [
   {
     colorTheme: "black",
     additionalElements: [],
+    videoId: "fb2f5641-6661-4984-a0bd-ff49bf618c13",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -147,6 +155,7 @@ const slides: Slide[] = [
     title: "Reality check",
     colorTheme: "black",
     additionalElements: [],
+    videoId: "533be4fb-6afb-491e-9b52-d88f1e99b429",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -167,6 +176,7 @@ const slides: Slide[] = [
     title: "The personal is political",
     colorTheme: "black",
     additionalElements: [],
+    videoId: "d934bb17-08b9-4898-be21-94d4bde205f1",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -182,6 +192,7 @@ const slides: Slide[] = [
     title: "Past Present Future",
     colorTheme: "black",
     additionalElements: [],
+    videoId: "10725c06-db6a-4594-b9ab-9b4e66d295da",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -197,6 +208,7 @@ const slides: Slide[] = [
     title: "Get together",
     colorTheme: "pink",
     additionalElements: [],
+    videoId: "6a1fdc30-4b16-4c34-ad53-1b468a4306ca",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -212,6 +224,7 @@ const slides: Slide[] = [
     title: "Beware",
     colorTheme: "black",
     additionalElements: [],
+    videoId: "0096ffae-5844-4d85-a2ab-102d139bf806",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -227,6 +240,7 @@ const slides: Slide[] = [
     title: "Make noise",
     colorTheme: "black",
     additionalElements: [],
+    videoId: "1d16c559-e4fa-4b55-ab4b-ae9e3a464da5",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -242,6 +256,7 @@ const slides: Slide[] = [
     title: "Our turn",
     colorTheme: "gray",
     additionalElements: [],
+    videoId: "b604561b-135f-4ef2-90b4-9cb04381a305",
     videSource: null,
     videoTitle: null,
     persons: [],
@@ -272,19 +287,6 @@ const slides: Slide[] = [
     speakers: [],
   },
 ];
-
-export function assignVideoSourcesToSlides({
-  videoSources,
-}: {
-  videoSources: VideoSource[];
-}) {
-  return slides.map((slide, index) => {
-    return {
-      ...slide,
-      videoSource: videoSources[index] ?? null,
-    };
-  });
-}
 
 export type PageTheme = {
   pageBg: string;

@@ -16,7 +16,7 @@ interface VideoSectionProps {
   isActive: boolean;
   shouldPlay: boolean;
   onReady?: () => void;
-  selectedLanguageCode: string;
+  selectedLanguageCode?: string;
   pageTheme: PageTheme;
   speakers: Subtitle[];
 }
