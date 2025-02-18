@@ -52,28 +52,34 @@ const Navigation: FC<NavigationProps> = ({
         <Image
           src={logoDark}
           alt="changing democracies logo"
-          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%]"
+          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] "
         />
-        <div className="mr-3 flex items-center gap-2">
+        <div className="mr-3 flex items-center gap-2 font-bold">
           {availableLanguages && availableLanguages.length > 0 && isNavOpen && (
-            <Select value={selectedLanguage} onValueChange={onLanguageChange}>
+            <Select
+              value={selectedLanguage}
+              onValueChange={(value) => {
+                toggleNav();
+                if (onLanguageChange) onLanguageChange(value);
+              }}
+              aria-label="Language Selector"
+            >
               <SelectTrigger
-                className={`h-10 w-10 border-none bg-transparent p-0 focus:border-none text-${fontColor} `}
+                className={`h-10 w-10 border-none bg-transparent p-0 text-yellow_secondary`}
+                aria-label="Selected Language"
               >
                 <SelectValue placeholder={selectedLanguage} />
               </SelectTrigger>
               <SelectContent
-                className={`bg-${
-                  isNavOpen ? "black_bg" : bgColor
-                } border-${fontColor}`}
+                className={`border-yellow_secondary bg-black_bg font-bold text-yellow_secondary`}
+                aria-label="Available Languages"
               >
                 {availableLanguages.map((lang) => (
                   <SelectItem
                     key={`${lang}`}
                     value={lang}
-                    className={`text-${fontColor} hover:bg-${fontColor} hover:text-${
-                      isNavOpen ? "black_bg" : bgColor
-                    }`}
+                    className="text-yellow_secondary focus:bg-yellow_secondary focus:text-black_bg"
+                    aria-label={lang}
                   >
                     {lang}
                   </SelectItem>
@@ -85,6 +91,7 @@ const Navigation: FC<NavigationProps> = ({
             isNavOpen={isNavOpen}
             toggleNav={toggleNav}
             fontColor={fontColor}
+            aria-label="Navigation Toggle"
           />
         </div>
       </div>
