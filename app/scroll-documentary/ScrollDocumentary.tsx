@@ -210,11 +210,6 @@ export default function ScrollDocumentaryClient({
                     isActive={false}
                     shouldPlay={false}
                     onReady={() => setIsFirstVideoReady(true)}
-                    selectedLanguageCode={
-                      slidesWithSources[0].videSource?.availableLanguageCodes[
-                        selectedLanguage
-                      ]
-                    }
                     pageTheme={pageTheme}
                     speakers={[]}
                   />

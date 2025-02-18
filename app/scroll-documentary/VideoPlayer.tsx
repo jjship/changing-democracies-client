@@ -44,7 +44,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         isUsingHLS ? q.supportsHLS : !q.supportsHLS,
       ),
     });
-    console.log({ selectedLanguageCode });
 
     const handlePlayPause = () => {
       const video = videoRef.current;

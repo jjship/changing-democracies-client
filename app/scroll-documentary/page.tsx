@@ -9,13 +9,17 @@ import { VideoDbEntry } from "../../types/videosAndFilms";
 import { slides } from "./slides/slides";
 
 const getSerializedAndSortedVideos = cache(
-  async ({
-    videos,
-    browserLang,
-  }: {
-    videos: VideoDbEntry[];
-    browserLang: string;
-  }) => {
+  async ({ browserLang }: { browserLang: string }) => {
+    const videosResult = await Promise.all(
+      slides
+        .filter(({ videoId }) => videoId !== undefined)
+        .map((slide) => getVideo(slide.videoId as string)),
+    );
+
+    const videos = videosResult
+      .filter((res) => res.success)
+      .flatMap((res) => res.data);
+
     const videoSources = videos.reduce(
       (prev, video: VideoDbEntry) =>
         prev.set(video.guid, serializeVideoSource(video)),
@@ -48,19 +52,8 @@ export default async function ScrollDocumentaryPage() {
     headers().get("x-browser-language")?.toUpperCase() || "EN";
 
   try {
-    const videosResult = await Promise.all(
-      slides
-        .filter(({ videoId }) => videoId !== undefined)
-        .map((slide) => getVideo(slide.videoId as string)),
-    );
-
-    const videoData = videosResult
-      .filter((res) => res.success)
-      .flatMap((res) => res.data);
-
     const { slidesWithSources, initialLanguageLabel, availableLanguageLabels } =
       await getSerializedAndSortedVideos({
-        videos: videoData,
         browserLang,
       });
 
