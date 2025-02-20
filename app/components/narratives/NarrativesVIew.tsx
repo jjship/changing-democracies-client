@@ -2,10 +2,11 @@ import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
 import { FC, useCallback } from "react";
 import OverviewTag from "./NarrativesOverviewButton";
-import CountDown from "@/components/narratives/CountDown";
+import NarrativesCountDown from "@/components/narratives/NarrativesCountDown";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
 import NarrativesViewButton from "@/components/narratives/NarrativesViewButton";
 import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { NarrativesBioSidePanel } from "@/components/narratives/NarrativesBioSidePanel";
 
 const NarrativesView: FC = ({}) => {
   const {
@@ -17,16 +18,21 @@ const NarrativesView: FC = ({}) => {
     setCurrentPath,
     switchPath,
     setSwitchPath,
+    showSidePanel,
+    setShowSidePanel,
   } = useNarrativesContext();
 
   const handleStart = () => {
     setIsPlaying(true);
+    switchPath && setSwitchPath(false);
+    setShowSidePanel(false);
   };
 
   const handleContinue = useCallback(() => {
     if (currentPath && currentIndex !== currentPath.fragments.length) {
       switchPath && setSwitchPath(false);
       setIsPlaying(true);
+      setShowSidePanel(false);
     }
   }, [currentIndex, currentPath, setIsPlaying, setSwitchPath, switchPath]);
 
@@ -61,7 +67,7 @@ const NarrativesView: FC = ({}) => {
                   transitionDelay: switchPath ? "0s" : "0.5s",
                 }}
               >
-                {currentPath?.title || "Narration"}
+                {currentPath?.title || "Narrative"}
               </h1>
             </>
           </div>
@@ -98,11 +104,14 @@ const NarrativesView: FC = ({}) => {
                     triangleColor="#8083ae"
                     trianglePlacement="left"
                   />
-                  {!switchPath && <CountDown onFinish={handleContinue} />}
+                  {!switchPath && !showSidePanel && (
+                    <NarrativesCountDown onFinish={handleContinue} />
+                  )}
                 </Flex>
               )}
           </Flex>
         </Flex>
+        <NarrativesBioSidePanel />
       </>
     )
   );
