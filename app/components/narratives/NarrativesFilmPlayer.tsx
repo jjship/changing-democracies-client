@@ -1,39 +1,48 @@
+"use client";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Box } from "@radix-ui/themes";
 import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
 
 const NarrativesFilmPlayer: FC = () => {
+  const [src, setSrc] = useState("");
   const {
     currentPath,
     currentIndex,
     isPlaying,
     setIsPlaying,
     setCurrentIndex,
-    setSwitchPath,
+    setCurrentPath,
+    setShowSidePanel,
+    selectedLanguage,
   } = useNarrativesContext();
-
-  const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
-  const src = nowPlaying
-    ? `${nowPlaying.playerUrl}?autoplay=true&captions=EN`
-    : "";
-
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [isClient, setIsClient] = useState(false);
+
+  const nowPlaying = currentPath?.fragments[currentIndex] ?? null;
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    setSrc(
+      nowPlaying && selectedLanguage
+        ? `${nowPlaying.playerUrl}?captions=${selectedLanguage}&autoplay=true&letterbox=false&responsive=true`
+        : "",
+    );
+  }, [nowPlaying, selectedLanguage]);
 
   const onEnded = useCallback(() => {
     if (currentPath && currentIndex < currentPath.fragments.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      setCurrentIndex(0);
+      setCurrentPath(null);
     }
     setIsPlaying(false);
-  }, [currentIndex, currentPath, setCurrentIndex, setIsPlaying]);
+  }, [
+    currentIndex,
+    currentPath,
+    setCurrentIndex,
+    setCurrentPath,
+    setIsPlaying,
+  ]);
 
   const exitFullscreen = () => {
     if (document.fullscreenElement && document.exitFullscreen) {
@@ -42,7 +51,7 @@ const NarrativesFilmPlayer: FC = () => {
   };
 
   useEffect(() => {
-    if (!isClient || !iframeRef.current || !onEnded) return;
+    if (!iframeRef.current || !onEnded) return;
 
     import("player.js").then(({ Player }) => {
       if (iframeRef.current) {
@@ -55,7 +64,7 @@ const NarrativesFilmPlayer: FC = () => {
         });
       }
     });
-  }, [isClient, iframeRef, onEnded, isPlaying]);
+  }, [iframeRef, onEnded, isPlaying]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -70,47 +79,50 @@ const NarrativesFilmPlayer: FC = () => {
     };
   }, [src]);
 
-  if (!isClient || !nowPlaying) {
-    return null;
-  }
-
   const country = `${currentPath?.fragments[currentIndex].country}`;
   return (
-    <div
-      ref={containerRef}
-      style={{
-        position: "relative",
-        width: "100%",
-        boxSizing: "border-box",
-        paddingTop: "56%" /* 16:9 Aspect Ratio */,
-      }}
-    >
-      {isPlaying ? (
-        <>
-          <Box
-            className={
-              "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise"
-            }
-          >
-            <p>{`${currentPath?.fragments[currentIndex].person},`}</p>
-            <p>{country}</p>
-          </Box>
-          <iframe
-            ref={iframeRef}
-            src={`${src}&autoplay=true&letterbox=false&responsive=true`}
-            className="absolute bottom-0 left-0 right-0 top-0 h-full w-full border-none"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+    nowPlaying && (
+      <div
+        ref={containerRef}
+        style={{
+          position: "relative",
+          width: "100%",
+          boxSizing: "border-box",
+          paddingTop: "56%" /* 16:9 Aspect Ratio */,
+        }}
+      >
+        {isPlaying ? (
+          <>
+            <Box
+              onClick={() => {
+                setShowSidePanel(true);
+                setIsPlaying(false);
+              }}
+              className={
+                "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise hover:cursor-pointer hover:bg-[#00000080]"
+              }
+            >
+              <p>{`${currentPath?.fragments[currentIndex].person},`}</p>
+              <p>{country}</p>
+            </Box>
+            <iframe
+              key={`${src}-${selectedLanguage}`} // Add this key prop
+              ref={iframeRef}
+              src={src}
+              className="absolute bottom-0 left-0 right-0 top-0 h-full w-full border-none"
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            />
+          </>
+        ) : (
+          <Image
+            src={currentPath?.fragments[currentIndex]?.thumbnailUrl || ""}
+            alt="narrative background"
+            fill
+            priority
           />
-        </>
-      ) : (
-        <Image
-          src={currentPath?.fragments[currentIndex]?.thumbnailUrl || ""}
-          alt="Narration background"
-          fill
-          priority
-        />
-      )}
-    </div>
+        )}
+      </div>
+    )
   );
 };
 

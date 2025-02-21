@@ -9,6 +9,7 @@ import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Play } from "lucide-react";
 import { Archivo_Narrow } from "next/font/google";
+import { useLanguageSelection } from "./useLanguageSelection";
 
 const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
@@ -28,7 +29,10 @@ export default function ScrollDocumentaryClient({
   const [activeIndex, setActiveIndex] = useState(0);
   const [loadedSections, setLoadedSections] = useState<number[]>([0]);
   const [isFirstVideoReady, setIsFirstVideoReady] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const { selectedLanguage, setSelectedLanguage } = useLanguageSelection({
+    initialLanguageLabel,
+    availableLanguageLabels,
+  });
 
   const activeSlide = slidesWithSources[activeIndex];
   const pageTheme = activeSlide
@@ -38,10 +42,6 @@ export default function ScrollDocumentaryClient({
   useEffect(() => {
     setLoadedSections([0]);
   }, []);
-
-  useEffect(() => {
-    setSelectedLanguage(initialLanguageLabel || null);
-  }, [initialLanguageLabel]);
 
   const { ref: loadMoreRef } = useInView({
     threshold: 0,
