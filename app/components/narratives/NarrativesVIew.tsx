@@ -34,7 +34,14 @@ const NarrativesView: FC = ({}) => {
       setIsPlaying(true);
       setShowSidePanel(false);
     }
-  }, [currentIndex, currentPath, setIsPlaying, setSwitchPath, switchPath]);
+  }, [
+    currentIndex,
+    currentPath,
+    setIsPlaying,
+    setSwitchPath,
+    switchPath,
+    setShowSidePanel,
+  ]);
 
   const handleOverview = () => {
     setCurrentPath(null);

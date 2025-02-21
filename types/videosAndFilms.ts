@@ -26,7 +26,7 @@ export type VideoDbEntry = {
   encodeProgress: number;
   storageSize: number;
   captions: {
-    srclang: string;
+    srclang: string; //TODO JAC base catpions loading on this,probably need to add this to cd_backend
     label: string;
   }[];
   hasMP4Fallback: boolean;
@@ -50,16 +50,6 @@ export type FormVideo = Pick<VideoDbEntry, "guid" | "title" | "captions"> & {
   description: string; // in metaTags
 };
 
-export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
-  tags: string[]; // in metaTags
-  person: string; // in title
-  bio?: string;
-  country: string; // in title
-  playerUrl: string;
-  thumbnailUrl: string;
-  length?: number;
-};
-
 export type FilmsCollection = {
   films: FilmData[];
   tags: string[];
@@ -67,16 +57,25 @@ export type FilmsCollection = {
   people: string[];
 };
 
-export type NarrationFragment = Omit<FilmData, "tags"> & {
+export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
+  tags: string[]; // in metaTags
+  person: string; // in title
+  country: string; // in title
+  playerUrl: string;
+  thumbnailUrl: string;
+  length?: number;
+};
+
+export type NarrationFragment = Omit<FilmData, "tags" | "bio"> & {
+  bios: { languageCode: string; bio: string }[];
   sequence: number;
   otherPaths: Pick<NarrationPath, "id" | "title">[];
-  description?: string;
 };
 
 export type NarrationPath = {
   id: string;
   title: string;
-  description?: string[];
+  descriptions: { languageCode: string; description: string[] }[];
   total_length: number; // total length of all fragments in the path
   fragments: NarrationFragment[];
   metadata?: Record<string, any>;

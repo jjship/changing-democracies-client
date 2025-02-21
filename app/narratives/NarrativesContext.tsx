@@ -13,6 +13,8 @@ const defaultContext: NarrativesContextType = {
   setSwitchPath: () => {},
   showSidePanel: false,
   setShowSidePanel: () => {},
+  selectedLanguage: undefined,
+  setSelectedLanguage: () => {},
 };
 
 type NarrativesContextType = {
@@ -27,6 +29,8 @@ type NarrativesContextType = {
   setSwitchPath: (switchPath: boolean) => void;
   showSidePanel: boolean;
   setShowSidePanel: (showSidePanel: boolean) => void;
+  selectedLanguage: string | undefined;
+  setSelectedLanguage: (selectedLanguage: string | undefined) => void;
 };
 
 const NarrativesContext = createContext<NarrativesContextType>(defaultContext);
@@ -60,7 +64,9 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [switchPath, setSwitchPath] = useState(false);
   const [showSidePanel, setShowSidePanel] = useState(false);
-
+  const [selectedLanguage, setSelectedLanguage] = useState<string | undefined>(
+    undefined,
+  );
   const value = {
     currentPath,
     setCurrentPath,
@@ -73,6 +79,8 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
     setSwitchPath,
     showSidePanel,
     setShowSidePanel,
+    selectedLanguage,
+    setSelectedLanguage,
   };
 
   return (

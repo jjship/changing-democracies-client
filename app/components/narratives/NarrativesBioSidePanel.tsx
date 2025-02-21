@@ -2,6 +2,7 @@ import { Box, Flex } from "@radix-ui/themes";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { useMemo } from "react";
 
 const NarrativesBioSidePanel = () => {
   const {
@@ -10,7 +11,21 @@ const NarrativesBioSidePanel = () => {
     setShowSidePanel,
     setIsPlaying,
     showSidePanel,
+    selectedLanguage,
   } = useNarrativesContext();
+
+  const currentBio = useMemo(() => {
+    const currentFragment = currentPath?.fragments[currentIndex];
+    if (!currentFragment) return null;
+
+    return (
+      currentFragment.bios.find(
+        (bio: any) => bio.languageCode === selectedLanguage,
+      )?.bio ??
+      currentFragment.bios.find((bio: any) => bio.languageCode === "EN")?.bio
+    );
+  }, [currentPath, currentIndex, selectedLanguage]);
+
   return (
     <>
       <Flex
@@ -39,9 +54,7 @@ const NarrativesBioSidePanel = () => {
             <p>{currentPath?.fragments[currentIndex].person},</p>
             <p>{currentPath?.fragments[currentIndex].country}</p>
           </Box>
-          <p className={"{/*font-bold*/}"}>
-            {currentPath?.fragments[currentIndex].bio}
-          </p>
+          <p className={"font-bold"}>{currentBio}</p>
         </Box>
       </Flex>
     </>

@@ -1,4 +1,5 @@
-import { FC, useEffect, useState } from "react";
+"use client";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Box } from "@radix-ui/themes";
 import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
 
@@ -18,15 +19,19 @@ const NarrativesList: FC = () => {
     "q9.png",
     "q10.png",
   ];
-  const { narrationPaths, setCurrentPath, setCurrentIndex } = useNarrativesContext();
+  const { narrationPaths, setCurrentPath, setCurrentIndex, selectedLanguage } =
+    useNarrativesContext();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  }
+  const getDescriptionInLanguage = useMemo(
+    () => (descriptions: { languageCode: string; description: string[] }[]) => {
+      return (
+        descriptions.find((desc) => desc.languageCode === selectedLanguage)
+          ?.description ||
+        descriptions.find((desc) => desc.languageCode === "EN")?.description
+      );
+    },
+    [selectedLanguage],
+  );
 
   return (
     <div className="mt-[5vh] flex flex-col items-center justify-center gap-4 sm:mt-[8vh] sm:gap-8 md:mt-[10vh] md:gap-14">
@@ -82,15 +87,15 @@ const NarrativesList: FC = () => {
               </div>
             </Box>
             <Box className="flex h-[280px] flex-1 flex-col justify-center">
-              {narrativePath.description?.length ? (
-                narrativePath.description.map((line, i) => (
-                  <p key={i.toString()} className="text-white">
-                    {line}
-                  </p>
-                ))
-              ) : (
-                <p className="text-white"></p>
-              )}
+              {narrativePath.descriptions?.length
+                ? getDescriptionInLanguage(narrativePath.descriptions)?.map(
+                    (line, i) => (
+                      <p key={i.toString()} className="text-white">
+                        {line}
+                      </p>
+                    ),
+                  )
+                : null}
               <div className="relative top-6 flex w-full flex-row items-center md:mt-8 md:w-1/2">
                 <p className="absolute bottom-2 w-full self-end text-end text-xl font-bold text-yellow_secondary md:text-xl">
                   {`${narrativePath.fragments.length} videos, ${Math.floor(
