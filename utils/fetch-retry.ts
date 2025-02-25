@@ -18,6 +18,10 @@ export default async function fetchWithRetry({
       const res = await fetch(url, options);
 
       if (!res.ok) {
+        console.error(
+          { req: info, errorBody: res.body },
+          `Fetch failed with status: ${res.status}`,
+        );
         throw new Error(`Fetch failed with status: ${res.status}`, {
           cause: info,
         });
