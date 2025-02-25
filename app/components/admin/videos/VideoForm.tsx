@@ -37,7 +37,6 @@ const formSchema = z
       .min(3, { message: "Title must be at least 3 characters long" })
       .max(100, { message: "Title must be at most 100 characters long" })
       .optional(),
-    description: z.string().optional(),
     tags: z.string().optional(),
     caption: z.object({
       srclang: z.string(),
@@ -233,19 +232,6 @@ export default function VideoForm({ formVideo }: { formVideo: FormVideo }) {
               />
               <FormField
                 control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Video Description</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="tags"
                 render={({ field }) => (
                   <FormItem>
@@ -307,14 +293,6 @@ function parseVideoMetadata({
 }): UpdateVideoModel {
   const getMetaTags = (formMetadata: FormSchema) => {
     const metaTags: UpdateVideoModel["metaTags"] = [];
-
-    if (formMetadata.description) {
-      metaTags.push({
-        property: "description",
-        value: formMetadata.description,
-      });
-    }
-
     if (formMetadata.tags) {
       metaTags.push({
         property: "tags",
