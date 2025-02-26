@@ -18,14 +18,30 @@ export default async function fetchWithRetry({
       const res = await fetch(url, options);
 
       if (!res.ok) {
-        const errorBody = await res.json();
-        console.error(
-          { req: info, errorBody: JSON.stringify(errorBody, null, 2) },
-          `Fetch failed with status: ${res.status}`,
-        );
-        throw new Error(`Fetch failed with status: ${res.status}`, {
-          cause: info,
-        });
+        try {
+          // Try to parse as JSON first
+          const errorBody = await res.json();
+          console.error(
+            { req: info, errorBody: JSON.stringify(errorBody, null, 2) },
+            `Fetch failed with status: ${res.status}`,
+          );
+
+          // Include the parsed errorBody in the error cause
+          throw new Error(`Fetch failed with status: ${res.status}`, {
+            cause: { info, errorBody },
+          });
+        } catch (parseError) {
+          // If JSON parsing fails, try to get the response as text
+          const errorText = await res.text();
+          console.error(
+            { req: info, errorText },
+            `Fetch failed with status: ${res.status}`,
+          );
+
+          throw new Error(`Fetch failed with status: ${res.status}`, {
+            cause: { info, errorText },
+          });
+        }
       }
 
       return res;

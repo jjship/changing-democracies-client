@@ -7,6 +7,8 @@ type VideosContextType = {
   onEdit?: EditCallback;
   videos: VideoDbEntry[] | null;
   setVideos: (videos: VideoDbEntry[] | null) => void;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+  error: string | null;
 };
 
 export const VideosContext = createContext<VideosContextType | null>(null);
@@ -17,12 +19,15 @@ export function VideosContextProvider({
   children: React.ReactNode;
 }) {
   const [videos, setVideos] = useState<VideoDbEntry[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <VideosContext.Provider
       value={{
         videos,
         setVideos,
+        setError,
+        error,
       }}
     >
       {children}
