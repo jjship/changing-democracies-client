@@ -16,20 +16,22 @@ function serializeFilmsCollection({
     return prev;
   }, new Set<string>());
 
-  const films: FilmData[] = videos.map((film) => ({
-    guid: film.guid,
-    title: film.title,
-    length: film.length,
-    tags: parseTags(film.metaTags),
-    person: film.title.split("_")[2],
-    country: film.title.split("_")[1],
-    playerUrl: getFilmUrl(film.guid),
-    thumbnailUrl: getThumbnail({
-      id: film.guid,
-      fileName: film.thumbnailFileName,
-    }),
-    captions: film.captions,
-  }));
+  const films: FilmData[] = videos
+    .map((film) => ({
+      guid: film.guid,
+      title: film.title,
+      length: film.length,
+      tags: parseTags(film.metaTags),
+      person: film.title.split("_")[2],
+      country: film.title.split("_")[1],
+      playerUrl: getFilmUrl(film.guid),
+      thumbnailUrl: getThumbnail({
+        id: film.guid,
+        fileName: film.thumbnailFileName,
+      }),
+      captions: film.captions,
+    }))
+    .filter((film) => Boolean(film.person));
 
   const countries = new Set<string>();
 

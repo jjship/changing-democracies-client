@@ -5,16 +5,20 @@ import { FreeBrowsing } from "@/components/FreeBrowsing";
 import { getVideosPerCollection } from "../../utils/admin/bunny-methods";
 import { serializeFilmsCollection } from "../../utils/films-methods";
 import { sectionPadding } from "../components/Section";
+import { cache } from "react";
 
-export default async function FreeBrowsingPage() {
+const getFilmsCollection = cache(async () => {
   const filmsData = await getVideosPerCollection({
     collectionKey: "default",
     cacheOptions: {
       next: { revalidate: 3600 },
     },
   });
+  return serializeFilmsCollection({ videos: filmsData.data });
+});
 
-  const filmsCollection = serializeFilmsCollection({ videos: filmsData.data });
+export default async function FreeBrowsingPage() {
+  const filmsCollection = await getFilmsCollection();
 
   return (
     <main>
