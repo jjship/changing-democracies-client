@@ -20,6 +20,7 @@ const NarrativesFilmPlayer: FC = () => {
     setIsPlaying,
     setCurrentIndex,
     setCurrentPath,
+    showSidePanel,
     setShowSidePanel,
     selectedLanguage,
   } = useNarrativesContext();
@@ -56,10 +57,11 @@ const NarrativesFilmPlayer: FC = () => {
 
   // Effect to initialize video player and HLS if supported
   useEffect(() => {
-    if (!nowPlaying || !isPlaying) return;
+    if (!nowPlaying) return;
 
     const video = videoRef.current;
     if (!video) return;
+    video.poster = nowPlaying.thumbnailUrl || "";
 
     setIsLoading(true);
     setError(null);
@@ -84,6 +86,9 @@ const NarrativesFilmPlayer: FC = () => {
         setIsUsingHLS(true);
 
         newHls.on(Hls.Events.MANIFEST_PARSED, () => {
+          if (!isPlaying) {
+            return;
+          }
           video
             .play()
             .then(() => {
@@ -105,6 +110,7 @@ const NarrativesFilmPlayer: FC = () => {
           }
         });
       } else if (
+        isPlaying &&
         video.canPlayType("application/vnd.apple.mpegurl") &&
         nowPlaying.hlsPlaylistUrl
       ) {
@@ -125,10 +131,14 @@ const NarrativesFilmPlayer: FC = () => {
       } else {
         // Fallback to MP4
         console.log("Falling back to MP4 playback");
-        const mp4Url = `https://${nowPlaying.pullZoneUrl}.b-cdn.net/${nowPlaying.videoId}/play_720p.mp4`;
+        const mp4Url = `https://${nowPlaying.pullZoneUrl}.b-cdn.net/${nowPlaying.videoId}/play_play_${currentQuality.height}p.mp4`;
 
         video.src = mp4Url;
         setIsUsingHLS(false);
+
+        if (!isPlaying) {
+          return;
+        }
 
         video
           .play()
@@ -153,7 +163,6 @@ const NarrativesFilmPlayer: FC = () => {
     }
 
     return () => {
-      console.log("Cleaning up video player");
       if (hls) {
         hls.destroy();
       }
@@ -176,6 +185,19 @@ const NarrativesFilmPlayer: FC = () => {
       setIsPaused(true);
     }
   };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (showSidePanel) {
+      video.pause();
+      setIsPaused(true);
+    } else {
+      video.play();
+      setIsPaused(false);
+    }
+  }, [showSidePanel]);
 
   // Effect to sync pause state with video
   useEffect(() => {
@@ -251,86 +273,75 @@ const NarrativesFilmPlayer: FC = () => {
           paddingTop: "56%" /* 16:9 Aspect Ratio */,
         }}
       >
-        {isPlaying ? (
-          <>
-            <Box
-              onClick={() => {
-                setShowSidePanel(true);
-                setIsPlaying(false);
+        <>
+          <Box
+            onClick={() => {
+              setShowSidePanel(true);
+            }}
+            className={
+              "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise hover:cursor-pointer hover:bg-[#00000080]"
+            }
+          >
+            <p>{`${nowPlaying.person},`}</p>
+            <p>{`${nowPlaying.country}`}</p>
+          </Box>
+          <div className="group/video absolute bottom-0 left-0 right-0 top-0 h-full w-full">
+            <video
+              ref={videoRef}
+              className="h-full w-full object-contain"
+              playsInline
+              crossOrigin="anonymous"
+              onError={(e) => {
+                const video = e.currentTarget;
+                console.error("Video error:", video.error);
+                setError(
+                  `Video error: ${video.error?.message || "Unknown error"}`,
+                );
+                setIsLoading(false);
               }}
-              className={
-                "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise hover:cursor-pointer hover:bg-[#00000080]"
-              }
+              onLoadedData={() => {
+                setIsLoading(false);
+              }}
+            />
+
+            <Button
+              onClick={handlePlayPause}
+              size="icon"
+              variant="secondary"
+              className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200 hover:scale-110 group-hover/video:opacity-100"
             >
-              <p>{`${nowPlaying.person},`}</p>
-              <p>{`${nowPlaying.country}`}</p>
-            </Box>
-            <div className="group/video absolute bottom-0 left-0 right-0 top-0 h-full w-full">
-              <video
-                ref={videoRef}
-                className="h-full w-full object-contain"
-                playsInline
-                crossOrigin="anonymous"
-                onError={(e) => {
-                  const video = e.currentTarget;
-                  console.error("Video error:", video.error);
-                  setError(
-                    `Video error: ${video.error?.message || "Unknown error"}`,
-                  );
-                  setIsLoading(false);
-                }}
-                onLoadedData={() => {
-                  console.log("Video loaded");
-                  setIsLoading(false);
-                }}
-              />
-
-              <Button
-                onClick={handlePlayPause}
-                size="icon"
-                variant="secondary"
-                className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200 hover:scale-110 group-hover/video:opacity-100"
-              >
-                {isPaused ? (
-                  <Play className="h-6 w-6" />
-                ) : (
-                  <Pause className="h-6 w-6" />
-                )}
-              </Button>
-
-              {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                  <div className="text-white">Loading...</div>
-                </div>
+              {isPaused ? (
+                <Play className="h-6 w-6" />
+              ) : (
+                <Pause className="h-6 w-6" />
               )}
+            </Button>
 
-              {error && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                  <div className="text-red-500">{error}</div>
-                </div>
-              )}
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                <div className="text-white">Loading...</div>
+              </div>
+            )}
 
-              {!subtitlesLoading && currentSubtitle && (
-                <div className="absolute bottom-8 left-1/2 w-full max-w-4xl -translate-x-1/2 rounded-md bg-black/60 p-4 text-center font-bold text-white">
-                  {currentSubtitle}
-                </div>
-              )}
+            {error && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                <div className="text-red-500">{error}</div>
+              </div>
+            )}
 
-              {subtitlesError && (
-                <div className="absolute bottom-16 left-1/2 w-full max-w-xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
-                  {subtitlesError}
-                </div>
-              )}
-            </div>
-          </>
-        ) : (
-          <Image
-            src={nowPlaying.thumbnailUrl || ""}
-            alt="narrative background"
-            fill
-            priority
-          />
-        )}
+            {!subtitlesLoading && currentSubtitle && (
+              <div className="absolute bottom-8 left-1/2 w-full max-w-4xl -translate-x-1/2 rounded-md bg-black/60 p-4 text-center font-bold text-white">
+                {currentSubtitle}
+              </div>
+            )}
+
+            {subtitlesError && (
+              <div className="absolute bottom-16 left-1/2 w-full max-w-xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
+                {subtitlesError}
+              </div>
+            )}
+          </div>
+        </>
       </div>
     )
   );
