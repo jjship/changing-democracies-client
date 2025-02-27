@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* For screens between 370px and 1440px */
-@media screen and (min-width: 370px) and (max-width: 1023px) {
+@media screen and (min-width: 370px) and (max-width: 900px) {
   html {
     font-size: calc(100vw * (16 / 370));
   }
