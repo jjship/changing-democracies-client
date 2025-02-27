@@ -219,8 +219,9 @@ export default function ScrollDocumentaryClient({
               <Skeleton className=" h-20 w-20 bg-yellow_secondary   dark:bg-gray_dark_secondary" />
             ) : (
               <Play
-                className="h-20  w-20 cursor-pointer text-yellow_secondary"
+                className="h-20  w-20 cursor-pointer  text-yellow_secondary"
                 onClick={() => setIsStarted(true)}
+                aria-label="Play scroll documentary"
               />
             )}
           </div>

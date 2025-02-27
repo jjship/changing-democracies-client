@@ -24,7 +24,11 @@ function serializeFilmsCollection({
     person: film.title.split("_")[2],
     country: film.title.split("_")[1],
     playerUrl: getFilmUrl(film.guid),
-    thumbnailUrl: getThumbnail(film.guid),
+    thumbnailUrl: getThumbnail({
+      id: film.guid,
+      fileName: film.thumbnailFileName,
+    }),
+    captions: film.captions,
   }));
 
   const countries = new Set<string>();
@@ -58,8 +62,8 @@ function parseTags(
   return tags ?? [];
 }
 
-const getThumbnail = (filmId: string) =>
-  `https://${process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE}.b-cdn.net/${filmId}/thumbnail.jpg`;
+const getThumbnail = ({ id, fileName }: { id: string; fileName: string }) =>
+  `https://${process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE}.b-cdn.net/${id}/${fileName}`;
 
 const getFilmUrl = (filmId: string) =>
   `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${filmId}?autoplay=false`;
