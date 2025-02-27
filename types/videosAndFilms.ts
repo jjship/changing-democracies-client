@@ -1,3 +1,5 @@
+import { VideoSource } from "./scrollDocumentary";
+
 export type Collection = {
   videoLibraryId: number;
   guid: string;
@@ -66,11 +68,12 @@ export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
   length?: number;
 };
 
-export type NarrationFragment = Omit<FilmData, "tags" | "bio"> & {
-  bios: { languageCode: string; bio: string }[];
-  sequence: number;
-  otherPaths: Pick<NarrationPath, "id" | "title">[];
-};
+export type NarrationFragment = Omit<FilmData, "tags" | "bio"> &
+  VideoSource & {
+    bios: { languageCode: string; bio: string }[];
+    sequence: number;
+    otherPaths: Pick<NarrationPath, "id" | "title">[];
+  };
 
 export type NarrationPath = {
   id: string;

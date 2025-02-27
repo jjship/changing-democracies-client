@@ -10,7 +10,7 @@ export function useLanguageSelection({
   availableLanguageLabels,
 }: UseLanguageSelectionProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<string | undefined>(
-    undefined,
+    initialLanguageLabel,
   );
 
   useEffect(() => {

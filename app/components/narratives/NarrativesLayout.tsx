@@ -26,6 +26,7 @@ const NarrativesLayout: FC<{
       initialLanguageLabel,
       availableLanguageLabels,
     });
+
   return (
     <NarrativesContext.Provider
       value={{

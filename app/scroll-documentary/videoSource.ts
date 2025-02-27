@@ -34,7 +34,17 @@ export function isHLSSupported(): boolean {
   return video.canPlayType("application/vnd.apple.mpegurl") !== "";
 }
 
-export function serializeVideoSource(video: VideoDbEntry): VideoSource {
+export function serializeVideoSource(
+  video: Pick<
+    VideoDbEntry,
+    | "guid"
+    | "availableResolutions"
+    | "captions"
+    | "thumbnailFileName"
+    | "title"
+    | "length"
+  >,
+): VideoSource {
   if (!process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE)
     throw new Error("Missing Bunny Stream environment variables");
   const pullZoneUrl = process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE;

@@ -28,6 +28,7 @@ function serializeFilmsCollection({
       id: film.guid,
       fileName: film.thumbnailFileName,
     }),
+    captions: film.captions,
   }));
 
   const countries = new Set<string>();

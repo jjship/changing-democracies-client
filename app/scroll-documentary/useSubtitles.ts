@@ -57,6 +57,8 @@ const useSubtitles = (
     fetchSubtitles();
   }, [videoSource, selectedLanguageCode]);
 
+  console.log({ useSubtitles: subtitles });
+
   return { subtitles, isLoading, error };
 };
 
