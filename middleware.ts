@@ -1,6 +1,17 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { match } from "@formatjs/intl-localematcher";
+import Negotiator from "negotiator";
 import { updateSession } from "@/supabase/middleware";
-import { getBrowserLanguage } from "@/utils/i18n/languages";
+import { locales, DEFAULT_LANGUAGE_LABEL } from "@/utils/i18n/languages";
+
+function getLocale(request: NextRequest) {
+  const negotiatorHeaders: Record<string, string> = {};
+  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
+
+  // Use negotiator and intl-localematcher to get the preferred locale
+  const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
+  return match(languages, locales, DEFAULT_LANGUAGE_LABEL);
+}
 
 export async function middleware(request: NextRequest) {
   // Admin routes: only handle Supabase session
@@ -8,13 +19,23 @@ export async function middleware(request: NextRequest) {
     return await updateSession(request);
   }
 
-  // All other routes: handle language detection
-  const response = NextResponse.next();
-  const browserLang = getBrowserLanguage(
-    request.headers.get("accept-language"),
+  const pathname = request.nextUrl.pathname;
+
+  // Check if the pathname already has a locale
+  const pathnameIsMissingLocale = locales.every(
+    (locale) =>
+      !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
-  response.headers.set("x-browser-language", browserLang);
-  return response;
+
+  if (pathnameIsMissingLocale) {
+    const locale = getLocale(request);
+    return NextResponse.redirect(
+      new URL(
+        `/${locale}${pathname.startsWith("/") ? pathname : `/${pathname}`}`,
+        request.url,
+      ),
+    );
+  }
 }
 
 export const config = {
@@ -28,6 +49,6 @@ export const config = {
      * - /# (hash routes)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*.(?:svg|png|jpg|jpeg|gif|webp)$|/film$|/#).*)/",
+    "/((?!_next/static|_next/image|favicon.ico|images|.*.(?:svg|png|jpg|jpeg|gif|webp)$|/film$|/#).*)/",
   ],
 };

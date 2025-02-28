@@ -11,6 +11,7 @@
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.6.0",
     "@hookform/resolvers": "^3.3.1",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.6",
@@ -38,6 +39,7 @@
     "html2canvas": "^1.4.1",
     "lucide-react": "^0.263.1",
     "luxon": "^3.4.3",
+    "negotiator": "^1.0.0",
     "next": "^14.2.22",
     "p5": "^1.9.3",
     "player.js": "^0.1.0",
@@ -67,6 +69,7 @@
     "@next/bundle-analyzer": "^14.0.3",
     "@types/file-saver": "^2.0.7",
     "@types/luxon": "^3.3.2",
+    "@types/negotiator": "^0.6.3",
     "@types/uuid": "^9.0.8",
     "cross-env": "^7.0.3",
     "encoding": "^0.1.13",

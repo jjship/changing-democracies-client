@@ -1,6 +1,3 @@
-import { Language } from "../utils/i18n/languages";
-
-// types/scrollDocumentary.ts
 export interface VideoQuality {
   height: number;
   label: string;

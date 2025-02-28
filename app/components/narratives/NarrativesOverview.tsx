@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
-import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 import Title from "@/components/Title";
 import NarrativesLegend from "@/components/narratives/NarrativesLegend";
 import { NarrativesList } from "@/components/narratives/NarrativesList";

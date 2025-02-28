@@ -3,7 +3,7 @@ import {
   VideoSource,
   VideoSourceResponse,
 } from "@/types/scrollDocumentary";
-import { VideoDbEntry } from "../../types/videosAndFilms";
+import { VideoDbEntry } from "../../../types/videosAndFilms";
 
 if (!process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE)
   throw new Error("Missing Bunny Stream environment variables");

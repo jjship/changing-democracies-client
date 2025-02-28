@@ -23,7 +23,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/app/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/tailwind-utils";
 import { EventDbEntry } from "@/types/database";
 import { redirect } from "next/navigation";
 import { useState } from "react";

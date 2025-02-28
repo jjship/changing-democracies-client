@@ -1,7 +1,5 @@
 import "server-only";
-import { headers } from "next/headers";
 import { NarrationPath } from "../types/videosAndFilms";
-import { Language } from "../utils/i18n/languages";
 
 export const narrativesApi = {
   async getNarratives(): Promise<NarrationPath[]> {
@@ -28,28 +26,6 @@ export interface ApiLanguage {
   name: string;
   code: string;
 }
-
-export const languagesApi = {
-  async getLanguages(): Promise<Language[]> {
-    try {
-      return await cdApiRequest<ApiLanguage[]>({
-        endpoint: "/languages",
-        options: {
-          method: "GET",
-          next: { revalidate: 15 * 60 }, // 15 minutes
-        },
-      }).then((languages) =>
-        languages.map((language) => ({
-          languageCode: language.code.toLowerCase(),
-          label: language.code,
-        })),
-      );
-    } catch (error) {
-      console.error("Error fetching languages:", error);
-      throw error;
-    }
-  },
-};
 
 export async function cdApiRequest<T>({
   endpoint,

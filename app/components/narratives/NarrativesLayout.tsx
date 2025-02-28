@@ -6,9 +6,9 @@ import { sectionPadding } from "../Section";
 import NarrativesProgressBar from "./NarrativesProgressBar";
 import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
 import { Archivo } from "next/font/google";
-import NarrativesContext from "@/app/narratives/NarrativesContext";
+import NarrativesContext from "./NarrativesContext";
 import { Box } from "@radix-ui/themes/dist/esm/components/box.js";
-import { useLanguageSelection } from "../../scroll-documentary/useLanguageSelection";
+import { useLanguageSelection } from "../scrollDocumentary/useLanguageSelection";
 const archivo = Archivo({ subsets: ["latin"] });
 
 const NarrativesLayout: FC<{
