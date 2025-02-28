@@ -68,7 +68,7 @@ const Navigation: FC<NavigationProps> = ({
                 className={`h-10 w-10 border-none bg-transparent p-0 text-yellow_secondary`}
                 aria-label="Selected Language"
               >
-                <SelectValue placeholder={selectedLanguage} />
+                <SelectValue placeholder={selectedLanguage?.toUpperCase()} />
               </SelectTrigger>
               <SelectContent
                 className={`border-yellow_secondary bg-black_bg font-bold text-yellow_secondary`}
@@ -81,7 +81,7 @@ const Navigation: FC<NavigationProps> = ({
                     className="text-yellow_secondary focus:bg-yellow_secondary focus:text-black_bg"
                     aria-label={lang}
                   >
-                    {lang}
+                    {lang.toUpperCase()}
                   </SelectItem>
                 ))}
               </SelectContent>
