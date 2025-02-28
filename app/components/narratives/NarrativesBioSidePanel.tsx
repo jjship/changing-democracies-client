@@ -1,7 +1,7 @@
 import { Box, Flex } from "@radix-ui/themes";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 import { useMemo } from "react";
 
 const NarrativesBioSidePanel = () => {

@@ -5,7 +5,7 @@ import OverviewTag from "./NarrativesOverviewButton";
 import NarrativesCountDown from "@/components/narratives/NarrativesCountDown";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
 import NarrativesViewButton from "@/components/narratives/NarrativesViewButton";
-import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 import { NarrativesBioSidePanel } from "@/components/narratives/NarrativesBioSidePanel";
 
 const NarrativesView: FC = ({}) => {

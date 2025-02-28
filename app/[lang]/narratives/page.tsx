@@ -1,11 +1,11 @@
 import NarrativesLayout from "@/components/narratives/NarrativesLayout";
-import { languagesApi, narrativesApi } from "@/lib/cdApi";
-import { headers } from "next/headers";
-import { NarrationPath, VideoDbEntry } from "../../types/videosAndFilms";
+import { narrativesApi } from "@/lib/cdApi";
+import { NarrationPath, VideoDbEntry } from "@/types/videosAndFilms";
 import { cache } from "react";
-import { getVideo } from "../../utils/admin/bunny-methods";
-import { serializeVideoSource } from "../scroll-documentary/videoSource";
-import { VideoSource } from "../../types/scrollDocumentary";
+import { getVideo } from "@/utils/admin/bunny-methods";
+import { serializeVideoSource } from "@/components/scrollDocumentary/videoSource";
+import { VideoSource } from "@/types/scrollDocumentary";
+import { locales } from "@/utils/i18n/languages";
 
 const getNarrativesWithCaptions = cache(
   async ({
@@ -18,7 +18,6 @@ const getNarrativesWithCaptions = cache(
     initialLanguageLabel: string;
   }> => {
     const narratives = await narrativesApi.getNarratives();
-    const languages = await languagesApi.getLanguages();
     const videoIds = new Set(
       narratives.flatMap((narrative) =>
         narrative.fragments.map((fragment) => fragment.guid),
@@ -52,7 +51,7 @@ const getNarrativesWithCaptions = cache(
       }),
     }));
 
-    const availableLanguageLabels = languages.map((language) => language.label);
+    const availableLanguageLabels = locales;
 
     return {
       narratives: narrativesWithCaptions,
@@ -63,12 +62,13 @@ const getNarrativesWithCaptions = cache(
   },
 );
 
-export default async function NarrativesPage() {
-  const browserLang =
-    headers().get("x-browser-language")?.toUpperCase() || "EN";
-
+export default async function NarrativesPage({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
   const { narratives, availableLanguageLabels, initialLanguageLabel } =
-    await getNarrativesWithCaptions({ browserLang });
+    await getNarrativesWithCaptions({ browserLang: lang.toUpperCase() });
   return (
     <main>
       <NarrativesLayout

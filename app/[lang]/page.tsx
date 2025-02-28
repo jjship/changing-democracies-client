@@ -1,10 +1,10 @@
-import Project from "./components/Project";
-import Team from "./components/Team";
-import Events from "./components/Events";
-import Contact from "./components/Contact";
-import { Section } from "./components/Section";
-import { Navigation } from "./components/navigation/Navigation";
-import EducationalResources from "./components/EducationalResources";
+import Project from "../components/Project";
+import Team from "../components/Team";
+import Events from "../components/Events";
+import Contact from "../components/Contact";
+import { Section } from "../components/Section";
+import { Navigation } from "../components/navigation/Navigation";
+import EducationalResources from "../components/EducationalResources";
 
 export default function Page() {
   return (

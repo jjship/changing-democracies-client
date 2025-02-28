@@ -2,9 +2,9 @@ import Image from "next/image";
 import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { Navigation } from "@/components/navigation/Navigation";
 import { FreeBrowsing } from "@/components/FreeBrowsing";
-import { getVideosPerCollection } from "../../utils/admin/bunny-methods";
-import { serializeFilmsCollection } from "../../utils/films-methods";
-import { sectionPadding } from "../components/Section";
+import { getVideosPerCollection } from "../../../utils/admin/bunny-methods";
+import { serializeFilmsCollection } from "../../../utils/films-methods";
+import { sectionPadding } from "../../components/Section";
 import { cache } from "react";
 
 const getFilmsCollection = cache(async () => {

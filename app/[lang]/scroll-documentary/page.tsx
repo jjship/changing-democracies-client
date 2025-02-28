@@ -1,12 +1,11 @@
 import { getVideo } from "@/utils/admin/bunny-methods";
 import { cache } from "react";
-import { headers } from "next/headers";
 
-import { serializeVideoSource } from "./videoSource";
-import ScrollDocumentary from "./ScrollDocumentary";
-import { VideoSource } from "../../types/scrollDocumentary";
-import { VideoDbEntry } from "../../types/videosAndFilms";
-import { slides } from "./slides/slides";
+import { serializeVideoSource } from "@/components/scrollDocumentary/videoSource";
+import ScrollDocumentary from "@/components/scrollDocumentary/ScrollDocumentary";
+import { VideoSource } from "@/types/scrollDocumentary";
+import { VideoDbEntry } from "@/types/videosAndFilms";
+import { slides } from "@/components/scrollDocumentary/slides/slides";
 
 const getSerializedAndSortedVideos = cache(
   async ({ browserLang }: { browserLang: string }) => {
@@ -47,14 +46,15 @@ const getSerializedAndSortedVideos = cache(
   },
 );
 
-export default async function ScrollDocumentaryPage() {
-  const browserLang =
-    headers().get("x-browser-language")?.toUpperCase() || "EN";
-
+export default async function ScrollDocumentaryPage({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
   try {
     const { slidesWithSources, initialLanguageLabel, availableLanguageLabels } =
       await getSerializedAndSortedVideos({
-        browserLang,
+        browserLang: lang.toUpperCase(),
       });
 
     return (

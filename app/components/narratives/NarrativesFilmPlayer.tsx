@@ -1,13 +1,16 @@
 "use client";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { Box } from "@radix-ui/themes";
-import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 import Hls from "hls.js";
 import { Button } from "@/components/ui/button";
 import { Play, Pause } from "lucide-react";
-import useSubtitles from "@/app/scroll-documentary/useSubtitles";
-import useAdaptiveQuality from "../../scroll-documentary/useAdaptiveQuality";
-import { getOptimalQuality } from "../../scroll-documentary/videoSource";
+import useSubtitles, {
+  Subtitle,
+} from "@/app/components/scrollDocumentary/useSubtitles";
+import { getSubtitlesUrl } from "@/utils/i18n/languages";
+import useAdaptiveQuality from "../scrollDocumentary/useAdaptiveQuality";
+import { getOptimalQuality } from "../scrollDocumentary/videoSource";
 
 const NarrativesFilmPlayer: FC = () => {
   const {

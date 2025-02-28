@@ -1,28 +1,30 @@
-export type Language = {
-  languageCode: string; // e.g., 'en-auto' or 'en' - used for CDN URL
-  label: string; // e.g., 'EN' - used for identification and display
-};
+export { locales, getSubtitlesUrl, DEFAULT_LANGUAGE_LABEL };
+export type { Locale };
 
-export const DEFAULT_LANGUAGE_LABEL = "EN";
+const DEFAULT_LANGUAGE_LABEL = "en";
 
-export function getBrowserLanguage(
-  acceptLanguageHeader: string | null,
-): string {
-  if (!acceptLanguageHeader) return DEFAULT_LANGUAGE_LABEL;
+const languagesData = [
+  { name: "Catalan", code: "ca" },
+  { name: "Croatian", code: "hr" },
+  { name: "Czech", code: "cs" },
+  { name: "Dutch", code: "nl" },
+  { name: "English", code: "en" },
+  { name: "French", code: "fr" },
+  { name: "German", code: "de" },
+  { name: "Greek", code: "el" },
+  { name: "Lithuanian", code: "lt" },
+  { name: "Polish", code: "pl" },
+  { name: "Portuguese", code: "pt" },
+  { name: "Romanian", code: "ro" },
+  { name: "Spanish", code: "es" },
+] as const;
 
-  // Get first preferred language code and convert to uppercase
-  const browserLocale = acceptLanguageHeader
-    .split(",")[0]
-    .trim()
-    .split(";")[0]
-    .split("-")[0]
-    .toUpperCase();
+const locales = languagesData.map((language) => language.code);
 
-  return browserLocale;
-}
+type Locale = (typeof locales)[number];
 
 // Helper function to get subtitle URL using the full languageCode
-export function getSubtitlesUrl(
+function getSubtitlesUrl(
   pullZoneUrl: string,
   videoId: string,
   languageCode: string,

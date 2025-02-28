@@ -1,7 +1,7 @@
 "use client";
 import { FC, useEffect, useMemo, useState } from "react";
 import { Box } from "@radix-ui/themes";
-import { useNarrativesContext } from "@/app/narratives/NarrativesContext";
+import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 
 export { NarrativesList };
 
