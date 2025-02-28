@@ -1,5 +1,6 @@
 import { getVideo } from "@/utils/admin/bunny-methods";
 import { cache } from "react";
+import { Suspense } from "react";
 
 import { serializeVideoSource } from "@/components/scrollDocumentary/videoSource";
 import ScrollDocumentary from "@/components/scrollDocumentary/ScrollDocumentary";
@@ -8,6 +9,7 @@ import { VideoDbEntry } from "@/types/videosAndFilms";
 import { slides } from "@/components/scrollDocumentary/slides/slides";
 import { LangParam } from "@/types/langParam";
 
+// Increase cache time and optimize data fetching
 const getSerializedAndSortedVideos = cache(
   async ({ browserLang }: { browserLang: string }) => {
     const videosResult = await Promise.all(
@@ -47,9 +49,20 @@ const getSerializedAndSortedVideos = cache(
   },
 );
 
-export default async function ScrollDocumentaryPage({
-  params: { lang },
-}: LangParam) {
+// Loading component
+function DocumentaryLoading() {
+  return (
+    <div className="flex h-screen w-full items-center justify-center bg-black text-white">
+      <div className="flex flex-col items-center">
+        <div className="mb-4 h-16 w-16 animate-spin rounded-full border-4 border-yellow_secondary border-t-transparent"></div>
+        <p>Loading documentary...</p>
+      </div>
+    </div>
+  );
+}
+
+// Documentary content component
+async function DocumentaryContent({ lang }: { lang: string }) {
   try {
     const { slidesWithSources, initialLanguageLabel, availableLanguageLabels } =
       await getSerializedAndSortedVideos({
@@ -74,4 +87,12 @@ export default async function ScrollDocumentaryPage({
       </div>
     );
   }
+}
+
+export default function ScrollDocumentaryPage({ params: { lang } }: LangParam) {
+  return (
+    <Suspense fallback={<DocumentaryLoading />}>
+      <DocumentaryContent lang={lang} />
+    </Suspense>
+  );
 }

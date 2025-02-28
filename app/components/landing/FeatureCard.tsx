@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Title from "../Title";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type FeatureCardProps = {
   title: string;
@@ -25,12 +26,27 @@ export default function FeatureCard({
   navTo,
 }: FeatureCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const router = useRouter();
+
   const border =
     !isMobile && position === "top"
       ? "rounded-t-3xl"
       : !isMobile && position === "bottom"
       ? "rounded-b-3xl"
       : "";
+
+  // Preload image when component mounts
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = imageUrl;
+    img.onload = () => setIsImageLoaded(true);
+  }, [imageUrl]);
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push(navTo);
+  };
 
   return (
     <Link
@@ -39,6 +55,7 @@ export default function FeatureCard({
       style={{ height: isMobile ? "160px" : desktopHeight }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
     >
       <div className="absolute inset-0 h-full w-full">
         {isMobile || isHovered ? (
@@ -50,7 +67,8 @@ export default function FeatureCard({
               className={`scale-100 object-cover ${
                 !position ? "object-[20%_20%]" : "object-[60%_40%]"
               }`}
-              priority={isMobile}
+              priority={true} // Always prioritize these images
+              onLoadingComplete={() => setIsImageLoaded(true)}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
           </>

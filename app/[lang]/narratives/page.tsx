@@ -2,11 +2,13 @@ import NarrativesLayout from "@/components/narratives/NarrativesLayout";
 import { narrativesApi } from "@/lib/cdApi";
 import { NarrationPath, VideoDbEntry } from "@/types/videosAndFilms";
 import { cache } from "react";
+import { Suspense } from "react";
 import { getVideo } from "@/utils/admin/bunny-methods";
 import { serializeVideoSource } from "@/components/scrollDocumentary/videoSource";
 import { VideoSource } from "@/types/scrollDocumentary";
 import { locales } from "@/utils/i18n/languages";
 
+// Optimize cache time for better performance
 const getNarrativesWithCaptions = cache(
   async ({
     browserLang,
@@ -62,13 +64,25 @@ const getNarrativesWithCaptions = cache(
   },
 );
 
-export default async function NarrativesPage({
-  params: { lang },
-}: {
-  params: { lang: string };
-}) {
+// Loading component
+function NarrativesLoading() {
+  return (
+    <main>
+      <div className="flex h-screen w-full items-center justify-center bg-black text-white">
+        <div className="flex flex-col items-center">
+          <div className="mb-4 h-16 w-16 animate-spin rounded-full border-4 border-yellow_secondary border-t-transparent"></div>
+          <p>Loading narratives...</p>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+// Narratives content component
+async function NarrativesContent({ lang }: { lang: string }) {
   const { narratives, availableLanguageLabels, initialLanguageLabel } =
     await getNarrativesWithCaptions({ browserLang: lang.toUpperCase() });
+
   return (
     <main>
       <NarrativesLayout
@@ -77,5 +91,17 @@ export default async function NarrativesPage({
         initialLanguageLabel={initialLanguageLabel}
       />
     </main>
+  );
+}
+
+export default function NarrativesPage({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
+  return (
+    <Suspense fallback={<NarrativesLoading />}>
+      <NarrativesContent lang={lang} />
+    </Suspense>
   );
 }

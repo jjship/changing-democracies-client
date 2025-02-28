@@ -2,10 +2,12 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "../../[lang]/context/TranslationContext";
 import FeatureCard from "./FeatureCard";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [windowHeight, setWindowHeight] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     // Set initial values
@@ -21,6 +23,14 @@ export default function LandingPage() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Prefetch all main routes when component mounts
+  useEffect(() => {
+    // Prefetch main navigation routes
+    router.prefetch("/scroll-documentary");
+    router.prefetch("/narratives");
+    router.prefetch("/free-browsing");
+  }, [router]);
 
   // Calculate feature card height (approximately 60% of viewport height divided by number of cards)
   const calculateCardHeight = () => {
