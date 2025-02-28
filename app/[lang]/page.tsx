@@ -7,7 +7,7 @@ import LandingPage from "@/components/landing/LandingPage";
 import { NavigationContainer } from "@/components/navigation/NavigationContainer";
 import { Suspense } from "react";
 
-export default async function ({ params: { lang } }: LangParam) {
+export default async function Home({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang);
 
   return (

@@ -188,7 +188,7 @@ const NarrativesFilmPlayer: FC = () => {
         console.error("Error during cleanup:", e);
       }
     };
-  }, [nowPlaying, currentQuality]);
+  }, [nowPlaying, currentQuality, hls, videoRef]);
 
   // Remove the separate effect that was trying to sync isPlaying with video state
 
@@ -257,7 +257,7 @@ const NarrativesFilmPlayer: FC = () => {
 
     video.addEventListener("timeupdate", handleTimeUpdate);
     return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-  }, [subtitles]);
+  }, [subtitles, videoRef]);
 
   return (
     nowPlaying && (
