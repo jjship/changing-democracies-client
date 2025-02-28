@@ -57,7 +57,8 @@ type Dictionary = {
     }>;
   };
   contact: {
-    getInTouch: string;
+    getIn: string;
+    touch: string;
     download: string;
   };
   narratives: {

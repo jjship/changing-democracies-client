@@ -104,7 +104,8 @@
     ]
   },
   "contact": {
-    "getInTouch": "Skontaktuj się",
+    "getIn": "Skontaktuj",
+    "touch": "się",
     "download": "Pobierz tutaj naszą Politykę Ochrony Dzieci i Młodzieży."
   },
   "narratives": {
