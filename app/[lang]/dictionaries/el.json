@@ -1,142 +1,147 @@
 {
   "navigation": {
-    "scrollDocumentary": "Scroll Documentary",
-    "narratives": "Narratives",
-    "nonLinearNarratives": "Non-Linear Narratives",
-    "freeBrowsing": "Free Browsing",
-    "project": "Project",
-    "team": "Team",
-    "events": "Events",
-    "educationalResources": "Educational Resources",
-    "researchPublication": "Research Publication",
-    "travellingWorkshop": "Travelling Workshop",
-    "contact": "Contact"
+    "scrollDocumentary": "Ντοκιμαντέρ με κύλιση",
+    "narratives": "Αφηγήσεις",
+    "nonLinearNarratives": "Μη γραμμικές αφηγήσεις",
+    "freeBrowsing": "Ελεύθερη περιήγηση",
+    "project": "Έργο",
+    "team": "Ομάδα",
+    "events": "Εκδηλώσεις",
+    "educationalResources": "Εκπαιδευτικοί πόροι",
+    "researchPublication": "Ερευνητική δημοσίευση",
+    "travellingWorkshop": "Περιφερόμενο εργαστήριο",
+    "contact": "Επικοινωνία"
   },
   "landing": {
-    "description": "Changing Democracies explores unknown stories about recent democratic transitions in Europe to grasp what's needed for democracy to fulfil its promises for everyone",
-    "scrollDocumentary": "Pick a topic and watch our selection ",
-    "narratives": "Discover what we've learnt",
-    "freeBrowsing": "Use tags to explore the stories"
+    "description": "Το Changing Democracies διερευνά άγνωστες ιστορίες για πρόσφατες δημοκρατικές μεταβάσεις στην Ευρώπη, προκειμένου να κατανοήσει τι είναι απαραίτητο ώστε η δημοκρατία να εκπληρώσει τις υποσχέσεις της για όλους.",
+    "scrollDocumentary": "Επιλέξτε ένα θέμα και δείτε την επιλογή μας",
+    "narratives": "Ανακαλύψτε τι έχουμε μάθει",
+    "freeBrowsing": "Χρησιμοποιήστε ετικέτες για να εξερευνήσετε τις ιστορίες"
   },
   "about": {
-    "p1": "What would life be like without democracy? Has democracy lived up to its promises? What does a healthy democracy need to function effectively? What is the role of citizens?",
-    "p2": "Changing Democracies explores how untold stories about recent transitions to democracy in Europe might help us to grasp what processes are needed today for democracy to fulfil its promises for everyone."
+    "p1": "Πώς θα ήταν η ζωή χωρίς δημοκρατία; Έχει εκπληρώσει η δημοκρατία τις υποσχέσεις της; Τι χρειάζεται μια υγιής δημοκρατία για να λειτουργεί αποτελεσματικά; Ποιος είναι ο ρόλος των πολιτών;",
+    "p2": "Το Changing Democracies εξετάζει πώς μέχρι τώρα άγνωστες ιστορίες για πρόσφατες μεταβάσεις στη δημοκρατία στην Ευρώπη μπορούν να μας βοηθήσουν να κατανοήσουμε τις διαδικασίες που απαιτούνται σήμερα, ώστε η δημοκρατία να εκπληρώσει τις υποσχέσεις της για όλους."
   },
   "team": {
-    "description": "Changing Democracies is the result of a collaboration between 12 partners from 10 European countries and is coordinated by the Evens Foundation with funding from the European Commission.",
+    "description": "Το Changing Democracies είναι αποτέλεσμα της συνεργασίας 12 εταίρων από 10 ευρωπαϊκές χώρες, συντονιζόμενο από το Ίδρυμα Evens και χρηματοδοτούμενο από την Ευρωπαϊκή Επιτροπή.",
     "teamList": [
       {
         "organisation": "Association for History Education in Greece",
         "members": ["Vassiliki Sakka"],
-        "country": "Greece"
+        "country": "Ελλάδα",
+        "link": "https://www.aheg.gr/"
       },
       {
         "organisation": "Autres Directions",
         "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-        "country": "The Netherlands"
+        "country": "Ολλανδία",
+        "link": "https://www.autresdirections.nl/"
       },
       {
         "organisation": "Borderland Foundation",
         "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Poland"
+        "country": "Πολωνία",
+        "link": "https://www.pogranicze.sejny.pl/"
       },
       {
         "organisation": "EuroClio – European Association of History Educators",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-        "country": "The Netherlands"
+        "country": "Ολλανδία",
+        "link": "https://www.euroclio.eu/"
       },
       {
         "organisation": "Evens Foundation",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
-        "country": "Belgium/Poland"
+        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "country": "Βέλγιο/Πολωνία",
+        "link": "https://evensfoundation.be/"
       },
       {
         "organisation": "Flemish Peace Institute",
         "members": ["Maarten Van Alstein"],
-        "country": "Belgium"
+        "country": "Βέλγιο",
+        "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
         "organisation": "Faculty of Arts, Charles University",
         "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Czechia"
+        "country": "Τσεχία",
+        "link": "https://www.ff.cuni.cz/home/"
       },
       {
         "organisation": "Research Institute in Art, Design and Society, University of Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
-        "country": "Portugal"
+        "country": "Πορτογαλία",
+        "link": "https://i2ads.up.pt/en"
       },
       {
         "organisation": "Mediawise Society",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Romania"
+        "country": "Ρουμανία",
+        "link": "https://mediawise.ro/"
       },
       {
         "organisation": "Museum of Slavonia",
         "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Croatia"
+        "country": "Κροατία",
+        "link": "https://www.mso.hr/"
       },
       {
         "organisation": "Open Lithuania Foundation",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-        "country": "Lithuania"
+        "country": "Λιθουανία",
+        "link": "https://olf.lt/en/"
       },
       {
         "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-        "country": "Spain"
+        "country": "Ισπανία",
+        "link": "https://escolapau.uab.cat/en/publications"
       }
     ]
   },
   "contact": {
-    "getInTouch": "Get in touch",
-    "download": "Download our Children and Young People Protection Policy from here."
+    "getIn": "Επικοινωνήστε",
+    "touch": "μαζί μας",
+    "download": "Κατεβάστε εδώ την πολιτική προστασίας παιδιών και νέων."
   },
   "narratives": {
-    "title": "Narratives",
-    "select": "select path",
-    "watch": "watch video",
-    "continue": "continue on selected path",
-    "switch": "or switch to other connected paths"
+    "title": "Αφηγήσεις",
+    "select": "επιλέξτε διαδρομή",
+    "watch": "δείτε το βίντεο",
+    "continue": "συνεχίστε στη διαλεγμένη διαδρομή",
+    "switch": "ή μεταβείτε σε άλλες συναφείς διαδρομές"
   },
   "freeBrowsing": {
-    "title": "Free Browsing",
-    "description": "The witnesses who shared their stories with us experienced change either by living through their country's transition in Europe or by moving from a non-democratic country to a democratic one — or sometimes both.",
-    "explanation": "Use tags to browse through and compare their voices."
+    "title": "Ελεύθερη περιήγηση",
+    "description": "Οι μάρτυρες που μοιράστηκαν τις ιστορίες τους μαζί μας βίωσαν αλλαγές είτε ζώντας τη μετάβαση της χώρας τους στην Ευρώπη, είτε μετακομίζοντας από μια μη δημοκρατική χώρα σε μία δημοκρατική — ή κάποιες φορές και τα δύο.",
+    "explanation": "Χρησιμοποιήστε ετικέτες για να περιηγηθείτε και να συγκρίνετε τις μαρτυρίες τους."
   },
   "eduPack": {
-    "title": "Educational Resources",
-    "subtitle": "Learning from the Past, reflecting on Today",
-    "lead": "Can the experiences of those who lived through a transition from a non-democratic to a democratic society inspire young people to think critically about democracy today?",
-    "p1": "To help young people engage with the testimonies collected within the Changing Democracies project, we co-created an Educational Resource Pack filled with adaptable learning activities for both formal and non-formal education. Whether you are a history teacher, museum educator, youth worker, or work in another educational setting, you can pick, adapt, and tailor these activities to fit your needs.",
-    "p2": "Each activity is built around first-hand testimonies, weaving together voices from across borders into non-linear narratives that explore five key questions:",
+    "title": "Εκπαιδευτικοί πόροι",
+    "subtitle": "Μαθαίνοντας από το παρελθόν, αναλογιζόμενοι το παρόν",
+    "lead": "Μπορούν οι εμπειρίες εκείνων που έζησαν τη μετάβαση από ένα μη δημοκρατικό σε ένα δημοκρατικό καθεστώς να εμπνεύσουν τους νέους να σκεφτούν κριτικά τη σημερινή δημοκρατία;",
+    "p1": "Για να βοηθήσουμε τους νέους να εξοικειωθούν με τις μαρτυρίες που συλλέχθηκαν στο πλαίσιο του έργου Changing Democracies, δημιουργήσαμε ένα εκπαιδευτικό πακέτο γεμάτο προσαρμόσιμες μαθησιακές δραστηριότητες για τόσο τη τυπική όσο και την άτυπη εκπαίδευση.",
+    "p2": "Κάθε δραστηριότητα βασίζεται σε μαρτυρίες από πρώτο χέρι, συνενώνοντας φωνές πέρα από σύνορα σε μη γραμμικές αφηγήσεις που διερευνούν πέντε βασικά ερωτήματα.",
     "questions": [
-      "What makes you angry about the world today?",
-      "Do you dare to challenge your teachers?",
-      "What influences you in life?",
-      "Do you know what your grandparents think of young people?",
-      "What do you expect from democracy?"
+      "(ποικίλα)"
     ],
-    "p3": "These questions invite deep discussion, reflection, and connection — helping young people relate history to their own lives and societies.",
-    "download": "Download the English version"
+    "p3": "Αυτά τα ερωτήματα προσκαλούν σε βαθιά συζήτηση, αναστοχασμό και σύνδεση — βοηθώντας τους νέους να συνδέσουν την ιστορία με τη δική τους ζωή και κοινωνία.",
+    "download": "Κατεβάστε την αγγλική έκδοση"
   },
   "researchPublication": {
-    "title": "Research Publication",
-    "subtitle": "Changing Democracies: the Power of Testimonies for Democratic Education",
-    "lead": "How do young people give meaning to testimonies about life in a dictatorship and experiences of transition? How do they learn not only about but also from these histories – on their own terms and in their own voice? And, importantly in light of the objectives of Changing Democracies, does learning about histories of dictatorship lead young people to critically reflect about democracy and peace, and, if so, how and in what ways? ",
-    "p1": "In this edited volume, six partners of the consortium report on their research efforts into how young people engaged with the testimonies in local educational projects. Although guided by the same set of research questions, the six case studies cover an fascinating variety of work forms – ranging from traditional dialogues to work on online learning platforms and arts-based practices such as illustrations and theatre – and cultural contexts, from Spain and Portugal, the Czech Republic and Poland, to the Netherlands and Flanders/Belgium.",
-    "download": "Download the publication here."
+    "title": "Ερευνητική δημοσίευση",
+    "subtitle": "Changing Democracies: η δύναμη των μαρτυριών για τη δημοκρατική εκπαίδευση",
+    "lead": "Πώς οι νέοι δίνουν νόημα στις μαρτυρίες για τη ζωή σε δικτατορία και στις εμπειρίες μετάβασης; Πώς μαθαίνουν όχι μόνο για αυτές τις ιστορίες, αλλά και από αυτές, με τους δικούς τους όρους και τη δική τους φωνή; Και, δεδομένων των στόχων του Changing Democracies, οδηγεί η γνώση για δικτατορίες σε κριτικό στοχασμό σχετικά με τη δημοκρατία και την ειρήνη;",
+    "p1": "Σε αυτόν τον τόμο, έξι εταίροι του κοινοπραξίου παρουσιάζουν τα αποτελέσματα της έρευνάς τους για το πώς οι νέοι αλληλεπέδρασαν με τις μαρτυρίες στο πλαίσιο τοπικών εκπαιδευτικών έργων. Παρόλο που καθοδηγήθηκαν από το ίδιο σύνολο ερευνητικών ερωτημάτων, κάθε περίπτωση περιλαμβάνει διαφορετικές μεθόδους εργασίας — από παραδοσιακούς διαλόγους έως διαδικτυακές πλατφόρμες μάθησης και καλλιτεχνικές πρακτικές όπως εικονογραφήσεις και θέατρο — και διαφορετικά πολιτισμικά πλαίσια, από την Ισπανία και την Πορτογαλία, περνώντας από την Τσεχία και την Πολωνία, έως την Ολλανδία και τη Φλάνδρα/Βέλγιο.",
+    "download": "Κατεβάστε τη δημοσίευση εδώ."
   },
   "travellingWorkshop": {
-    "title": "Travelling Workshop",
-    "lead": "Drawing on experiences chronicled in the stories, the Travelling Workshop is an invitation to explore different experiences and visions of democracy.",
-    "p1": "Through the interactive design of the exhibition, visitors meet 31 people from Europe and beyond who witnessed a systemic change from a non-democratic to a democratic society.",
-    "p2": "By engaging with the witnesses' hopes, dreams and disappointments, visitors are encouraged to reflect on the promises that democracy once held and examine their own experiences and expectations.",
-    "p3": "The metaphor of the workshop refers to the need for active participation and involvement to (re-)shape democracy.",
-    "p4": "The Travelling Workshop is available in 10 different languages (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": " If you're interested to host the Travelling Workshop, please get in touch."
+    "title": "Περιφερόμενο εργαστήριο",
+    "lead": "Βασισμένο σε εμπειρίες που καταγράφονται στις ιστορίες, το Περιφερόμενο εργαστήριο προσκαλεί να εξερευνήσουμε διαφορετικές εμπειρίες και οπτικές της δημοκρατίας.",
+    "p1": "Μέσα από τον διαδραστικό σχεδιασμό της έκθεσης, οι επισκέπτες γνωρίζουν 31 ανθρώπους από την Ευρώπη και αλλού, οι οποίοι βίωσαν την αλλαγή από ένα μη δημοκρατικό σε ένα δημοκρατικό καθεστώς.",
+    "p2": "Ερχόμενοι σε επαφή με τις ελπίδες, τα όνειρα και τις απογοητεύσεις των μαρτύρων, οι επισκέπτες ενθαρρύνονται να σκεφτούν τις υποσχέσεις που προσέφερε κάποτε η δημοκρατία και να τις συγκρίνουν με τις δικές τους εμπειρίες και προσδοκίες.",
+    "p3": "Η μεταφορά του εργαστηρίου αναφέρεται στην ανάγκη ενεργής συμμετοχής και εμπλοκής για την (επανα)διαμόρφωση της δημοκρατίας.",
+    "p4": "Το Περιφερόμενο εργαστήριο είναι διαθέσιμο σε 10 διαφορετικές γλώσσες (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Αν ενδιαφέρεστε να φιλοξενήσετε το Περιφερόμενο εργαστήριο, επικοινωνήστε μαζί μας."
   }
 }

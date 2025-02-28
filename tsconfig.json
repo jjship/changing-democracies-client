@@ -27,7 +27,8 @@
       "@/supabase/*": ["./supabase/*"],
       "@/auth/*": ["./app/auth/*"],
       "@/utils/*": ["./utils/*"],
-      "@/ui/*": ["./app/components/ui/*"]
+      "@/ui/*": ["./app/components/ui/*"],
+      "@/translation/*": ["./app/[lang]/context/*"]
     }
   },
   "include": [

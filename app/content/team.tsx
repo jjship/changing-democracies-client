@@ -1,4 +1,10 @@
-import { TeamEntry } from "../components/Team";
+// Define the TeamEntry type here to avoid circular dependency
+export type TeamEntry = {
+  organisation: string;
+  link: string;
+  teamMembers: string[];
+  country: string;
+};
 
 export { teamList, teamParagraphSm };
 

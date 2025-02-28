@@ -18,14 +18,14 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
 
   return (
     <div
-      className={`z-50 flex h-screen transform flex-col justify-between bg-black_bg transition-all duration-1000 ease-in-out ${
+      className={`z-50 flex h-[110vh] transform flex-col justify-between bg-black_bg transition-all duration-1000 ease-in-out ${
         isNavOpen
           ? "max-h-[90vh] scale-100 opacity-100"
           : "max-h-0  overflow-hidden opacity-0"
       } `}
     >
       <div className="z-50 flex-grow "></div>
-      <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-2">
+      <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-2 ">
         <AnimatedLink
           href="/scroll-documentary"
           text="scroll documentary"
@@ -50,42 +50,51 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
         />
+
         <AnimatedLink
-          href="/#project"
-          text="project"
+          href="/team"
+          text="team"
           timeout={160}
           color="pink"
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/#team"
-          text="team"
+          href="/events"
+          text="events"
           timeout={200}
           color="pink"
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/#events"
-          text="events"
+          href="/contact"
+          text="contact"
           timeout={250}
           color="pink"
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/#contact"
-          text="contact"
+          href="/educational-resources"
+          text="educational resources"
           timeout={300}
           color="pink"
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/#educational-resources"
-          text="educational resources"
+          href="/research-publication"
+          text="research publication"
           timeout={350}
+          color="pink"
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
+        />
+        <AnimatedLink
+          href="/travelling-workshop"
+          text="travelling workshop"
+          timeout={400}
           color="pink"
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}

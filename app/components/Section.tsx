@@ -2,7 +2,7 @@ import { FC } from "react";
 
 export { Section, sectionPadding };
 
-const sectionPadding = { x: "px-5 md:px-10", y: "py-5 md:py-14 xl:py-20" };
+const sectionPadding = { x: "px-5 md:px-10", y: "py-5" };
 
 const Section: FC<{
   id: string;

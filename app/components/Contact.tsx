@@ -1,15 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import logoLight from "@/public/logo_light_no_bg.svg";
 
 import roundPhoto from "@/public/photo in circle.png";
 import Title from "./Title";
-
+import { useTranslation } from "../[lang]/context/TranslationContext";
 export default function Contact() {
+  const { dictionary: dict } = useTranslation();
   return (
     <>
-      <Title text="Contact" theme="dark" />
-      <div className="relative mt-6 md:z-20 md:ml-10 md:mt-[5rem] xl:ml-28">
+      <Title text={dict.navigation.contact} theme="dark" />
+      <div className="relative mt-6 md:z-20 md:ml-10  xl:ml-28">
         <div className=" absolute z-10 mr-[5.5rem] mt-[1rem] md:mr-[26rem] md:mt-[2.5rem] xl:mr-[40rem]">
           <Image
             src={roundPhoto}
@@ -18,14 +21,16 @@ export default function Contact() {
           />
         </div>
         <div className="relative z-20 text-display_sm font-bold leading-[4.5rem] tracking-[-.03em] text-red_mains mix-blend-screen md:text-[11rem] md:leading-[12.5rem]  xl:text-[12.5rem]">
-          <p className="ml-[2.875rem] md:ml-[3rem]">Get in</p>
+          <p className="ml-[2.875rem] md:ml-[3rem]">{dict.contact.getIn}</p>
           <div className=" mr-4 mt-5 text-right underline mix-blend-overlay md:ml-64 md:text-left ">
-            <Link href="mailto:touch@changingdemocracies.com">touch.</Link>
+            <Link href="mailto:touch@changingdemocracies.com">
+              {dict.contact.touch}
+            </Link>
           </div>
         </div>
         <div className="flex w-full flex-col items-end">
           <div
-            className="relative z-20 mt-10 flex max-w-min flex-col md:mt-48"
+            className="relative z-20 mt-20 flex max-w-min flex-col md:mt-0"
             style={{ background: "rgba(107, 219, 198, 0.80)" }}
           >
             <Link
@@ -43,21 +48,19 @@ export default function Contact() {
           </div>
         </div>
       </div>
-      <div className="relative z-20 mt-32 max-w-max border-solid border-white md:mx-auto md:mt-40 md:w-full">
-        <span className="text-purple_lightest_bg leading-6 md:text-2xl xl:text-[2.125rem] xl:leading-10">
-          Download our Children and Young
-          <br className="md:hidden" /> People Protection Policy from&nbsp;
+      <div className="relative z-20 mt-20 max-w-max border-solid border-white md:mx-auto md:w-full">
+        <span className="leading-6 text-purple_lightest_bg md:text-2xl xl:text-[2.125rem] xl:leading-10">
           <Link
             href="/cypp_policy.pdf"
             className="text-green_accent underline"
             prefetch={false}
           >
-            here
+            {dict.contact.download}
           </Link>
           .
         </span>
       </div>
-      <div className="ml-6 mr-36 mt-[11.06rem] md:hidden">
+      <div className="ml-6 mr-36 mt-0 md:hidden">
         <Image src={logoLight} alt="changing democracies logo" />
       </div>
     </>

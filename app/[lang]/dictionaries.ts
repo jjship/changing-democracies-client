@@ -53,10 +53,12 @@ type Dictionary = {
       organisation: string;
       members: string[];
       country: string;
+      link: string;
     }>;
   };
   contact: {
-    getInTouch: string;
+    getIn: string;
+    touch: string;
     download: string;
   };
   narratives: {
