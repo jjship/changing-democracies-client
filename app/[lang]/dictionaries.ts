@@ -53,6 +53,7 @@ type Dictionary = {
       organisation: string;
       members: string[];
       country: string;
+      link: string;
     }>;
   };
   contact: {
