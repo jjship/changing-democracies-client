@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { teamList, teamParagraphSm } from "../content/team";
 import Title from "./Title";
 import knotOfArrows from "@/public/arrows_knot_no_bg.svg";
 import logoLight from "@/public/logo_light_no_bg.svg";
+import { useTranslation } from "../[lang]/context/TranslationContext";
+import { Dictionary } from "../[lang]/dictionaries";
 
 export type TeamEntry = {
   organisation: string;
@@ -12,30 +15,50 @@ export type TeamEntry = {
   country: string;
 };
 
+// Type for the team dictionary entries, needed for mapping from dictionary to TeamEntry
+type DictionaryTeamEntry = {
+  organisation: string;
+  members: string[];
+  country: string;
+  link: string;
+};
+
 export default function Team() {
+  const { dictionary: dict } = useTranslation();
+
+  // Map the dictionary team entries to our component's TeamEntry format
+  const teamEntries: TeamEntry[] = dict.team.teamList.map((team) => ({
+    organisation: team.organisation,
+    link: team.link,
+    teamMembers: team.members,
+    country: team.country,
+  }));
+
   return (
     <>
-      <Title text="Team" theme="dark" />
+      <Title text={dict.navigation.team} theme="dark" />
       <div className="hidden w-full text-[1.375rem] md:grid md:grid-cols-custom md:gap-10 xl:grid-cols-2">
         <div className="relative min-h-max">
-          <div className="sticky top-28 mt-20">
+          <div className="sticky top-20 mt-10">
             <Image src={knotOfArrows} alt="image of knotted arrows" />
             <Image
               src={logoLight}
               alt="changing democracies logo"
-              className="mt-[10.3rem] md:max-w-[12rem]"
+              className="mt-[8rem] md:max-w-[12rem]"
             />
           </div>
         </div>
         <div className="md:w-full">
-          <p className="mb-20 mr-14 leading-6 md:mr-0">{teamParagraphSm}</p>
-          <TeamsList teams={teamList} />
+          <p className="mb-10 mr-14 leading-6 md:mr-0">
+            {dict.team.description}
+          </p>
+          <TeamsList teams={teamEntries} />
         </div>
       </div>
 
       <div className="mt-5 flex flex-col items-center gap-[1.125em] md:hidden">
-        <p className="leading-5 md:text-2xl">{teamParagraphSm}</p>
-        <TeamsList teams={teamList} />
+        <p className="leading-5 md:text-2xl">{dict.team.description}</p>
+        <TeamsList teams={teamEntries} />
       </div>
     </>
   );

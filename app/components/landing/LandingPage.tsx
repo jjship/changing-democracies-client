@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useTranslation } from "../../[lang]/context/TranslationContext";
+import { useTranslation } from "@/translation/TranslationContext";
 import FeatureCard from "./FeatureCard";
 import { useRouter } from "next/navigation";
 
@@ -8,6 +8,7 @@ export default function LandingPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [windowHeight, setWindowHeight] = useState(0);
   const router = useRouter();
+  const { dictionary: dict } = useTranslation();
 
   useEffect(() => {
     // Set initial values
@@ -41,7 +42,7 @@ export default function LandingPage() {
   };
 
   // Access the dictionary and other translation context data
-  const { dictionary: dict, language } = useTranslation();
+
   const urls = {
     freeBrowsing: `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/page/free_browsing_bg.png`,
     nln: `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/page/nln_bg.png`,

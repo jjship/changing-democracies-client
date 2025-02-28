@@ -59,7 +59,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/#team"
+          href="/team"
           text="team"
           timeout={200}
           color="pink"
@@ -67,7 +67,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/#events"
+          href="/events"
           text="events"
           timeout={250}
           color="pink"
@@ -75,7 +75,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/#contact"
+          href="/contact"
           text="contact"
           timeout={300}
           color="pink"
@@ -83,7 +83,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/#educational-resources"
+          href="/educational-resources"
           text="educational resources"
           timeout={350}
           color="pink"
