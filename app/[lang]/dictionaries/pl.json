@@ -20,13 +20,13 @@
   },
   "about": {
     "p1": "Jak wyglądałoby życie bez demokracji? Czy demokracja spełniła swoje obietnice? Czego potrzebuje zdrowa demokracja, by funkcjonować sprawnie?",
-    "p2": "\"Changing Democracies\" bada, w jaki sposób nieopowiedziane dotąd historie o niedawnych przemianach demokratycznych w Europie mogą nam pomóc zrozumieć procesy potrzebne demokracji, by spełnić obietnice wobec wszystkich."
+    "p2": "\"Changing Democracies\" sprawdza, w jaki sposób nieopowiedziane dotąd historie o niedawnych przemianach demokratycznych w Europie mogą nam pomóc zrozumieć procesy potrzebne demokracji, by spełnić obietnice wobec wszystkich."
   },
   "team": {
-    "description": "\"Changing Democracies\" jest wynikiem współpracy 12 partnerów z 10 krajów europejskich, koordynowanej przez Fundację Evens i finansowanej przez Komisję Europejską.",
+    "description": "Changing Democracies jest efektem współpracy 12 partnerów z 10 krajów europejskich i jest koordynowany przez Fundację Evens przy wsparciu finansowym Komisji Europejskiej.",
     "teamList": [
       {
-        "organisation": "Stowarzyszenie Edukacji Historycznej w Grecji",
+        "organisation": "Association for History Education in Greece",
         "members": ["Vassiliki Sakka"],
         "country": "Grecja",
         "link": "https://www.aheg.gr/"
@@ -44,35 +44,31 @@
         "link": "https://www.pogranicze.sejny.pl/"
       },
       {
-        "organisation": "EuroClio – Europejskie Stowarzyszenie Nauczycieli Historii",
+        "organisation": "EuroClio – European Association of History Educators",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
         "country": "Holandia",
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Fundacja Evens",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
+        "organisation": "Evens Foundation",
+        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
         "country": "Belgia/Polska",
         "link": "https://evensfoundation.be/"
       },
       {
-        "organisation": "Flamandzki Instytut Pokoju",
+        "organisation": "Flemish Peace Institute",
         "members": ["Maarten Van Alstein"],
         "country": "Belgia",
         "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Wydział Filozoficzny Uniwersytetu Karola",
+        "organisation": "Faculty of Arts, Charles University",
         "members": ["Bohumil Melichar", "Václav Sixta"],
         "country": "Czechy",
         "link": "https://www.ff.cuni.cz/home/"
       },
       {
-        "organisation": "Instytut Badawczy w Dziedzinie Sztuki, Projektowania i Społeczeństwa, Uniwersytet w Porto",
+        "organisation": "Research Institute in Art, Design and Society, University of Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
         "country": "Portugalia",
         "link": "https://i2ads.up.pt/en"
@@ -84,19 +80,19 @@
         "link": "https://mediawise.ro/"
       },
       {
-        "organisation": "Muzeum Slawonii",
+        "organisation": "Museum of Slavonia",
         "members": ["Denis Detling", "Jesenka Ricl"],
         "country": "Chorwacja",
         "link": "https://www.mso.hr/"
       },
       {
-        "organisation": "Fundacja Otwartej Litwy",
+        "organisation": "Open Lithuania Foundation",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
         "country": "Litwa",
         "link": "https://olf.lt/en/"
       },
       {
-        "organisation": "Szkoła Kultury Pokoju, Uniwersytet Autonomiczny w Barcelonie",
+        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
         "country": "Hiszpania",
         "link": "https://escolapau.uab.cat/en/publications"

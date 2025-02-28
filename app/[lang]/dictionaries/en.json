@@ -14,8 +14,8 @@
   },
   "landing": {
     "description": "Changing Democracies explores unknown stories about recent democratic transitions in Europe to grasp what's needed for democracy to fulfil its promises for everyone",
-    "narratives": "Pick a topic and watch our selection ",
-    "scrollDocumentary": "Discover what we've learnt",
+    "scrollDocumentary": "Pick a topic and watch our selection ",
+    "narratives": "Discover what we've learnt",
     "freeBrowsing": "Use tags to explore the stories"
   },
   "about": {
@@ -28,26 +28,22 @@
       {
         "organisation": "Association for History Education in Greece",
         "members": ["Vassiliki Sakka"],
-        "country": "Greece",
-        "link": "https://www.aheg.gr/"
+        "country": "Greece"
       },
       {
         "organisation": "Autres Directions",
         "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-        "country": "The Netherlands",
-        "link": "https://www.autresdirections.nl/"
+        "country": "The Netherlands"
       },
       {
         "organisation": "Borderland Foundation",
         "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Poland",
-        "link": "https://www.pogranicze.sejny.pl/"
+        "country": "Poland"
       },
       {
         "organisation": "EuroClio – European Association of History Educators",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-        "country": "The Netherlands",
-        "link": "https://www.euroclio.eu/"
+        "country": "The Netherlands"
       },
       {
         "organisation": "Evens Foundation",
@@ -56,56 +52,47 @@
           "Marjolein Delvou",
           "Hanna Zielińska"
         ],
-        "country": "Belgium/Poland",
-        "link": "https://evensfoundation.be/"
+        "country": "Belgium/Poland"
       },
       {
         "organisation": "Flemish Peace Institute",
         "members": ["Maarten Van Alstein"],
-        "country": "Belgium",
-        "link": "https://vlaamsvredesinstituut.eu/en/"
+        "country": "Belgium"
       },
       {
         "organisation": "Faculty of Arts, Charles University",
         "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Czechia",
-        "link": "https://www.ff.cuni.cz/home/"
+        "country": "Czechia"
       },
       {
         "organisation": "Research Institute in Art, Design and Society, University of Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
-        "country": "Portugal",
-        "link": "https://i2ads.up.pt/en"
+        "country": "Portugal"
       },
       {
         "organisation": "Mediawise Society",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Romania",
-        "link": "https://mediawise.ro/"
+        "country": "Romania"
       },
       {
         "organisation": "Museum of Slavonia",
         "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Croatia",
-        "link": "https://www.mso.hr/"
+        "country": "Croatia"
       },
       {
         "organisation": "Open Lithuania Foundation",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-        "country": "Lithuania",
-        "link": "https://olf.lt/en/"
+        "country": "Lithuania"
       },
       {
         "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-        "country": "Spain",
-        "link": "https://escolapau.uab.cat/en/publications"
+        "country": "Spain"
       }
     ]
   },
   "contact": {
-    "getIn": "Get in",
-    "touch": "touch",
+    "getInTouch": "Get in touch",
     "download": "Download our Children and Young People Protection Policy from here."
   },
   "narratives": {
