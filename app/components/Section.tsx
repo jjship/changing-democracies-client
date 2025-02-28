@@ -6,7 +6,7 @@ const sectionPadding = { x: "px-5 md:px-10", y: "py-5 md:py-14 xl:py-20" };
 
 const Section: FC<{
   id: string;
-  theme: "light" | "dark";
+  theme: "light" | "dark" | "yellow";
   xPadding?: string;
   yPadding?: string;
   children: React.ReactNode;
@@ -17,9 +17,22 @@ const Section: FC<{
   yPadding = sectionPadding.y,
   children,
 }) => {
-  const bgColor = theme === "light" ? "bg-purple_lightest_bg" : "bg-black_bg";
-  const textColor =
-    theme === "light" ? "text-black_bg" : "text-purple_lightest_bg";
+  const colors = {
+    light: {
+      bg: "bg-purple_lightest_bg",
+      text: "text-black_bg",
+    },
+    dark: {
+      bg: "bg-black_bg",
+      text: "text-purple_lightest_bg",
+    },
+    yellow: {
+      bg: "bg-yellow_secondary",
+      text: "text-black_bg",
+    },
+  };
+  const bgColor = colors[theme].bg;
+  const textColor = colors[theme].text;
 
   return (
     <section className={`relative ${bgColor} ${textColor}`}>

@@ -1,142 +1,142 @@
 {
   "navigation": {
-    "scrollDocumentary": "skroll",
-    "narratives": "narracje",
-    "nonLinearNarratives": "Non-Linear Narratives",
-    "freeBrowsing": "Free Browsing",
-    "project": "Project",
-    "team": "Team",
-    "events": "Events",
-    "educationalResources": "Educational Resources",
-    "researchPublication": "Research Publication",
-    "travellingWorkshop": "Travelling Workshop",
-    "contact": "Contact"
+    "scrollDocumentary": "Przewijany dokument",
+    "narratives": "Narracje",
+    "nonLinearNarratives": "Narracje nielinearne",
+    "freeBrowsing": "Swobodne przeglądanie",
+    "project": "Projekt",
+    "team": "Zespół",
+    "events": "Wydarzenia",
+    "educationalResources": "Zasoby edukacyjne",
+    "researchPublication": "Publikacja badawcza",
+    "travellingWorkshop": "Wędrowne warsztaty",
+    "contact": "Kontakt"
   },
   "landing": {
-    "description": "Changing Democracies odkrywa nieznane historie dotyczące niedawnych przemian demokratycznych w Europie, aby zrozumieć, co jest potrzebne, by demokracja mogła spełnić swoje obietnice wobec każdego.",
-    "scrollDocumentary": "Pick a topic and watch our selection ",
-    "narratives": "Discover what we've learnt",
-    "freeBrowsing": "Use tags to explore the stories"
+    "description": "\"Changing Democracies\" bada nieznane historie o niedawnych przemianach demokratycznych w Europie, aby zrozumieć, czego potrzeba demokratycznemu systemowi, by w pełni spełnić swoje obietnice dla wszystkich.",
+    "scrollDocumentary": "Wybierz temat i obejrzyj nasz wybór",
+    "narratives": "Odkryj, czego się dowiedzieliśmy",
+    "freeBrowsing": "Użyj tagów, aby odkrywać historie"
   },
   "about": {
-    "p1": "What would life be like without democracy? Has democracy lived up to its promises? What does a healthy democracy need to function effectively? What is the role of citizens?",
-    "p2": "Changing Democracies explores how untold stories about recent transitions to democracy in Europe might help us to grasp what processes are needed today for democracy to fulfil its promises for everyone."
+    "p1": "Jak wyglądałoby życie bez demokracji? Czy demokracja spełniła swoje obietnice? Czego potrzebuje zdrowa demokracja, by funkcjonować sprawnie?",
+    "p2": "\"Changing Democracies\" bada, w jaki sposób nieopowiedziane dotąd historie o niedawnych przemianach demokratycznych w Europie mogą nam pomóc zrozumieć procesy potrzebne demokracji, by spełnić obietnice wobec wszystkich."
   },
   "team": {
-    "description": "Changing Democracies is the result of a collaboration between 12 partners from 10 European countries and is coordinated by the Evens Foundation with funding from the European Commission.",
+    "description": "\"Changing Democracies\" jest wynikiem współpracy 12 partnerów z 10 krajów europejskich, koordynowanej przez Fundację Evens i finansowanej przez Komisję Europejską.",
     "teamList": [
       {
-        "organisation": "Association for History Education in Greece",
+        "organisation": "Stowarzyszenie Edukacji Historycznej w Grecji",
         "members": ["Vassiliki Sakka"],
-        "country": "Greece"
+        "country": "Grecja"
       },
       {
         "organisation": "Autres Directions",
         "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-        "country": "The Netherlands"
+        "country": "Holandia"
       },
       {
-        "organisation": "Borderland Foundation",
+        "organisation": "Fundacja Pogranicze",
         "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Poland"
+        "country": "Polska"
       },
       {
-        "organisation": "EuroClio – European Association of History Educators",
+        "organisation": "EuroClio – Europejskie Stowarzyszenie Nauczycieli Historii",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-        "country": "The Netherlands"
+        "country": "Holandia"
       },
       {
-        "organisation": "Evens Foundation",
+        "organisation": "Fundacja Evens",
         "members": [
           "Caroline Coosemans",
           "Marjolein Delvou",
           "Hanna Zielińska"
         ],
-        "country": "Belgium/Poland"
+        "country": "Belgia/Polska"
       },
       {
-        "organisation": "Flemish Peace Institute",
+        "organisation": "Flamandzki Instytut Pokoju",
         "members": ["Maarten Van Alstein"],
-        "country": "Belgium"
+        "country": "Belgia"
       },
       {
-        "organisation": "Faculty of Arts, Charles University",
+        "organisation": "Wydział Filozoficzny Uniwersytetu Karola",
         "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Czechia"
+        "country": "Czechy"
       },
       {
-        "organisation": "Research Institute in Art, Design and Society, University of Porto",
+        "organisation": "Instytut Badawczy w Dziedzinie Sztuki, Projektowania i Społeczeństwa, Uniwersytet w Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
-        "country": "Portugal"
+        "country": "Portugalia"
       },
       {
         "organisation": "Mediawise Society",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Romania"
+        "country": "Rumunia"
       },
       {
-        "organisation": "Museum of Slavonia",
+        "organisation": "Muzeum Slawonii",
         "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Croatia"
+        "country": "Chorwacja"
       },
       {
-        "organisation": "Open Lithuania Foundation",
+        "organisation": "Fundacja Otwartej Litwy",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-        "country": "Lithuania"
+        "country": "Litwa"
       },
       {
-        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
+        "organisation": "Szkoła Kultury Pokoju, Uniwersytet Autonomiczny w Barcelonie",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-        "country": "Spain"
+        "country": "Hiszpania"
       }
     ]
   },
   "contact": {
-    "getInTouch": "Get in touch",
-    "download": "Download our Children and Young People Protection Policy from here."
+    "getInTouch": "Skontaktuj się",
+    "download": "Pobierz tutaj naszą Politykę Ochrony Dzieci i Młodzieży."
   },
   "narratives": {
-    "title": "Narratives",
-    "select": "select path",
-    "watch": "watch video",
-    "continue": "continue on selected path",
-    "switch": "or switch to other connected paths"
+    "title": "Narracje",
+    "select": "wybierz ścieżkę",
+    "watch": "obejrzyj wideo",
+    "continue": "kontynuuj wybraną ścieżką",
+    "switch": "lub przejdź do innej powiązanej ścieżki"
   },
   "freeBrowsing": {
-    "title": "Free Browsing",
-    "description": "The witnesses who shared their stories with us experienced change either by living through their country's transition in Europe or by moving from a non-democratic country to a democratic one — or sometimes both.",
-    "explanation": "Use tags to browse through and compare their voices."
+    "title": "Swobodne przeglądanie",
+    "description": "Osoby, które podzieliły się z nami swoimi historiami, doświadczyły zmian, wynikających z życia w kraju przechodzącym transformację demokratyczną lub z przeprowadzki z kraju niedemokratycznego do demokratycznego.",
+    "explanation": "Użyj tagów, aby porównywać i porządkować ich wypowiedzi."
   },
   "eduPack": {
-    "title": "Educational Resources",
-    "subtitle": "Learning from the Past, reflecting on Today",
-    "lead": "Can the experiences of those who lived through a transition from a non-democratic to a democratic society inspire young people to think critically about democracy today?",
-    "p1": "To help young people engage with the testimonies collected within the Changing Democracies project, we co-created an Educational Resource Pack filled with adaptable learning activities for both formal and non-formal education. Whether you are a history teacher, museum educator, youth worker, or work in another educational setting, you can pick, adapt, and tailor these activities to fit your needs.",
-    "p2": "Each activity is built around first-hand testimonies, weaving together voices from across borders into non-linear narratives that explore five key questions:",
+    "title": "Zasoby edukacyjne",
+    "subtitle": "Ucząc się z przeszłości, refleksja nad dniem dzisiejszym",
+    "lead": "Czy doświadczenia tych, którzy przeżyli transformację z ustroju niedemokratycznego w demokratyczny, mogą inspirować młodych ludzi do krytycznego myślenia o współczesnej demokracji?",
+    "p1": "Aby pomóc młodym ludziom zapoznać się ze świadectwami zgromadzonymi w ramach projektu, przygotowaliśmy pakiet materiałów edukacyjnych, które można dostosowywać do różnych kontekstów.",
+    "p2": "Każde ćwiczenie bazuje na relacjach z pierwszej ręki, łączących głosy ponad granicami w nielinearnej narracji, by wspólnie zastanowić się nad pięcioma istotnymi pytaniami.",
     "questions": [
-      "What makes you angry about the world today?",
-      "Do you dare to challenge your teachers?",
-      "What influences you in life?",
-      "Do you know what your grandparents think of young people?",
-      "What do you expect from democracy?"
+      "Co sprawia, że jesteś niezadowolony z dzisiejszego świata?",
+      "Czy odważysz się zakwestionować swoich nauczycieli?",
+      "Co cię najbardziej kształtuje w życiu?",
+      "Jak twoi dziadkowie postrzegają młode pokolenie?",
+      "Czego oczekujesz od demokracji?"
     ],
-    "p3": "These questions invite deep discussion, reflection, and connection — helping young people relate history to their own lives and societies.",
-    "download": "Download the English version"
+    "p3": "Te pytania zachęcają do głębokiej dyskusji, refleksji i łączenia historii z własnym doświadczeniem.",
+    "download": "Pobierz wersję angielską"
   },
   "researchPublication": {
-    "title": "Research Publication",
-    "subtitle": "Changing Democracies: the Power of Testimonies for Democratic Education",
-    "lead": "How do young people give meaning to testimonies about life in a dictatorship and experiences of transition? How do they learn not only about but also from these histories – on their own terms and in their own voice? And, importantly in light of the objectives of Changing Democracies, does learning about histories of dictatorship lead young people to critically reflect about democracy and peace, and, if so, how and in what ways? ",
-    "p1": "In this edited volume, six partners of the consortium report on their research efforts into how young people engaged with the testimonies in local educational projects. Although guided by the same set of research questions, the six case studies cover an fascinating variety of work forms – ranging from traditional dialogues to work on online learning platforms and arts-based practices such as illustrations and theatre – and cultural contexts, from Spain and Portugal, the Czech Republic and Poland, to the Netherlands and Flanders/Belgium.",
-    "download": "Download the publication here."
+    "title": "Publikacja badawcza",
+    "subtitle": "Changing Democracies: moc świadectw w edukacji demokratycznej",
+    "lead": "W jaki sposób młodzi ludzie nadają sens relacjom świadków, ucząc się nie tylko o, ale też z historii niedemokratycznych ustrojów? W jakim stopniu refleksja nad przeszłością może prowadzić do krytycznego spojrzenia na współczesną demokrację?",
+    "p1": "W tym tomie sześciu partnerów konsorcjum przedstawia wyniki swoich badań nad tym, jak młodzi ludzie reagowali na świadectwa w trakcie lokalnych projektów edukacyjnych. Choć łączy je zestaw wspólnych pytań badawczych, każde studium przypadku obejmuje inną formę pracy – od tradycyjnych dialogów po platformy online i działania artystyczne, takie jak ilustracje i teatr – oraz różne konteksty kulturowe, od Hiszpanii i Portugalii, przez Czechy i Polskę, aż po Holandię i Flandrię/Belgię.",
+    "download": "Pobierz publikację tutaj."
   },
   "travellingWorkshop": {
-    "title": "Travelling Workshop",
-    "lead": "Drawing on experiences chronicled in the stories, the Travelling Workshop is an invitation to explore different experiences and visions of democracy.",
-    "p1": "Through the interactive design of the exhibition, visitors meet 31 people from Europe and beyond who witnessed a systemic change from a non-democratic to a democratic society.",
-    "p2": "By engaging with the witnesses' hopes, dreams and disappointments, visitors are encouraged to reflect on the promises that democracy once held and examine their own experiences and expectations.",
-    "p3": "The metaphor of the workshop refers to the need for active participation and involvement to (re-)shape democracy.",
-    "p4": "The Travelling Workshop is available in 10 different languages (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": " If you're interested to host the Travelling Workshop, please get in touch."
+    "title": "Wędrowne warsztaty",
+    "lead": "Korzystając z doświadczeń opisanych w historiach, Wędrowne warsztaty zapraszają do odkrywania różnych przeżyć i wizji demokracji.",
+    "p1": "Dzięki interaktywnemu charakterowi wystawy odwiedzający mogą spotkać 31 osób z Europy i spoza niej, które doświadczyły zmiany ustroju z niedemokratycznego na demokratyczny.",
+    "p2": "Poznając nadzieje, marzenia i rozczarowania świadków, goście zachęcani są do refleksji nad obietnicami, jakie niegdyś dawała demokracja, oraz do skonfrontowania ich z własnymi doświadczeniami i oczekiwaniami.",
+    "p3": "Metafora warsztatu podkreśla potrzebę aktywnego zaangażowania w (re)kształtowanie demokracji.",
+    "p4": "Wędrowne warsztaty są dostępne w 10 różnych językach (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Jeśli chcesz gościć Wędrowne warsztaty, prosimy o kontakt."
   }
 }

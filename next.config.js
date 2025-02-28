@@ -17,6 +17,18 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "cd-dev-pull.b-cdn.net",
+        port: "",
+        pathname: "*/page/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cd-prod-pull.b-cdn.net",
+        port: "",
+        pathname: "*/page/**",
+      },
+      {
+        protocol: "https",
         hostname: "vz-eb5d6b10-75c.b-cdn.net",
         port: "",
         pathname: "*/**",

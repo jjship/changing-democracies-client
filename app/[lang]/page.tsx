@@ -1,3 +1,5 @@
+import Image from "next/image";
+import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { LangParam } from "@/types/langParam";
 import { getDictionary } from "./dictionaries";
 import { TranslationProvider } from "./context/TranslationContext";
@@ -10,41 +12,15 @@ export default async function ({ params: { lang } }: LangParam) {
 
   return (
     <TranslationProvider dictionary={dictionary}>
-      <NavigationContainer bgColor="yellow_secondary" fontColor="black_bg" />
-      <Section
-        id="project"
-        theme="light"
-        xPadding="px-4 md:px-10"
-        yPadding="pb-5 md:pb-14 xl:pb-20"
-      >
+      <div className="flex min-h-screen  flex-col justify-between bg-yellow_secondary">
+        <NavigationContainer bgColor="yellow_secondary" fontColor="black_bg" />
         <LandingPage />
-      </Section>
+        <Image
+          src={logoDark}
+          alt="changing democracies logo"
+          className="m-3 h-auto w-[30%] md:mx-10 md:w-[15%]"
+        />
+      </div>
     </TranslationProvider>
   );
 }
-
-// return (
-//   <>
-//     <Navigation bgColor="purple_lightest_bg" fontColor="black_bg" />
-//     <Section
-//       id="project"
-//       theme="light"
-//       xPadding="px-4 md:px-10 "
-//       yPadding="pb-5 md:pb-14 xl:pb-20"
-//     >
-//       <Project />
-//     </Section>
-//     <Section id="team" theme="dark">
-//       <Team />
-//     </Section>
-//     <Section id="events" theme="light" xPadding="pl-5 md:px-10">
-//       <Events />
-//     </Section>
-//     <Section id="contact" theme="dark">
-//       <Contact />
-//     </Section>
-//     <Section id="educational-resources" theme="light">
-//       <EducationalResources />
-//     </Section>
-//   </>
-// );

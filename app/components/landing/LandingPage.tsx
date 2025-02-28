@@ -1,36 +1,96 @@
 "use client";
-
-import { FC } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "../../[lang]/context/TranslationContext";
-import { Navigation } from "../navigation/Navigation";
-import { Section } from "../Section";
+import FeatureCard from "./FeatureCard";
 
 export default function LandingPage() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    // Set initial values
+    setIsMobile(window.innerWidth < 865);
+    setWindowHeight(window.innerHeight);
+
+    // Update on resize
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 865);
+      setWindowHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Calculate feature card height (approximately 60% of viewport height divided by number of cards)
+  const calculateCardHeight = () => {
+    if (isMobile) return "160px";
+    const totalCardsHeight = windowHeight * 0.6; // 60% of viewport height
+    const singleCardHeight = Math.floor(totalCardsHeight / featureItems.length);
+    return `${singleCardHeight}px`;
+  };
+
   // Access the dictionary and other translation context data
-  const { dictionary, language } = useTranslation();
+  const { dictionary: dict, language } = useTranslation();
+  const urls = {
+    freeBrowsing: `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/page/free_browsing_bg.png`,
+    nln: `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/page/nln_bg.png`,
+    scroll: `https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/page/scroll_bg.png`,
+  };
+
+  const featureItems = [
+    {
+      title: dict.navigation.scrollDocumentary,
+      description: dict.landing.scrollDocumentary,
+      imageUrl: urls.scroll,
+      navTo: "/scroll-documentary",
+    },
+    {
+      title: dict.navigation.nonLinearNarratives,
+      description: dict.landing.narratives,
+      imageUrl: urls.nln,
+      navTo: "/narratives",
+    },
+    {
+      title: dict.navigation.freeBrowsing,
+      description: dict.landing.freeBrowsing,
+      imageUrl: urls.freeBrowsing,
+      navTo: "/free-browsing",
+    },
+  ];
+
+  const position = (index: number) => {
+    if (index === 0) return "top";
+    if (index === featureItems.length - 1) return "bottom";
+    return undefined;
+  };
+
+  const cardHeight = calculateCardHeight();
 
   return (
-    <>
-      <div className="container mx-auto">
-        <h1 className="mb-6 text-4xl font-bold">
-          {dictionary.landing.scrollDocumentary}
-        </h1>
-        <p className="mb-8 text-lg">{dictionary.landing.description}</p>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div className="rounded-lg bg-yellow-100 p-6">
-            <h2 className="mb-4 text-2xl font-semibold">
-              {dictionary.landing.narratives}
-            </h2>
-            {/* Add more content using dictionary values */}
-          </div>
-          <div className="rounded-lg bg-yellow-100 p-6">
-            <h2 className="mb-4 text-2xl font-semibold">
-              {dictionary.landing.freeBrowsing}
-            </h2>
-            {/* Add more content using dictionary values */}
+    <div className="flex flex-col">
+      {/* Main content area */}
+      <main className="flex-grow">
+        <div className="mx-auto md:max-w-[90vw]">
+          <p className="mx-2 mb-8 max-w-3xl font-openBold text-black md:ml-10  md:text-xl">
+            {dict.landing.description}
+          </p>
+          <div className="flex flex-col">
+            {featureItems.map((item, index) => (
+              <FeatureCard
+                key={index}
+                title={item.title}
+                description={item.description}
+                imageUrl={item.imageUrl}
+                isMobile={isMobile}
+                position={position(index)}
+                desktopHeight={cardHeight}
+                navTo={item.navTo}
+              />
+            ))}
           </div>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

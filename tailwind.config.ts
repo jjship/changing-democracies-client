@@ -77,7 +77,7 @@ const config: Config = {
       },
       screens: {
         sm: "370px",
-        md: "900px",
+        md: "865px",
         xl: "1450px",
         lg: "1500px",
         "narratives-player-width": "900px",
