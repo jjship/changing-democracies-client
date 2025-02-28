@@ -80,7 +80,7 @@ export default function FeatureCard({
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-center px-6 py-4">
         <Title text={title} theme="transparent" color="green_accent" />
-        <p className="absolute bottom-1 pl-5 text-xs text-white  md:bottom-6 md:pl-12 md:text-lg xl:pl-24">
+        <p className="absolute bottom-1 pl-5 text-xs text-white md:bottom-2 md:pl-12 md:text-lg xl:bottom-6 xl:pl-24">
           {description}
         </p>
       </div>
