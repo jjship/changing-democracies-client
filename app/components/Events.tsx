@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "../[lang]/context/TranslationContext";
 import { parseDbEventEntries, ParsedEventEntry } from "../content/event";
 import Title from "./Title";
 import { createClient } from "@/supabase/clients/server";
@@ -5,19 +8,18 @@ import { createClient } from "@/supabase/clients/server";
 // refresh every 30 minutes
 export const revalidate = 1800;
 
-export default async function Events() {
-  const supabase = createClient();
+export default function Events({
+  futureEvents,
+  pastEvents,
+}: {
+  futureEvents: ParsedEventEntry[];
+  pastEvents: ParsedEventEntry[];
+}) {
+  const { dictionary: dict } = useTranslation();
 
-  const { data: events, error } = await supabase.from("events").select("*");
-
-  if (error) {
-    console.error(error);
-  }
-
-  const { futureEvents, pastEvents } = parseDbEventEntries({ events });
-  return events ? (
+  return (
     <>
-      <Title text="Events" theme="light" />
+      <Title text={dict.navigation.events} theme="light" />
       {futureEvents.length ? (
         <EventsList events={futureEvents} isFuture={true} />
       ) : null}
@@ -25,8 +27,6 @@ export default async function Events() {
         <EventsList events={pastEvents} isFuture={false} />
       ) : null}
     </>
-  ) : (
-    "Could not fetch events"
   );
 }
 
