@@ -1,7 +1,7 @@
 {
   "navigation": {
-    "scrollDocumentary": "Scroll Documentary",
-    "narratives": "Narratives",
+    "scrollDocumentary": "skroll",
+    "narratives": "narracje",
     "nonLinearNarratives": "Non-Linear Narratives",
     "freeBrowsing": "Free Browsing",
     "project": "Project",
@@ -13,7 +13,7 @@
     "contact": "Contact"
   },
   "landing": {
-    "description": "Changing Democracies explores unknown stories about recent democratic transitions in Europe to grasp what's needed for democracy to fulfil its promises for everyone",
+    "description": "Changing Democracies odkrywa nieznane historie dotyczące niedawnych przemian demokratycznych w Europie, aby zrozumieć, co jest potrzebne, by demokracja mogła spełnić swoje obietnice wobec każdego.",
     "scrollDocumentary": "Pick a topic and watch our selection ",
     "narratives": "Discover what we've learnt",
     "freeBrowsing": "Use tags to explore the stories"

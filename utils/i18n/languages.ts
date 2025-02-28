@@ -1,5 +1,5 @@
 export { locales, getSubtitlesUrl, DEFAULT_LANGUAGE_LABEL };
-export type { Locale };
+export type { CDLanguages };
 
 const DEFAULT_LANGUAGE_LABEL = "en";
 
@@ -21,7 +21,7 @@ const languagesData = [
 
 const locales = languagesData.map((language) => language.code);
 
-type Locale = (typeof locales)[number];
+type CDLanguages = (typeof locales)[number];
 
 // Helper function to get subtitle URL using the full languageCode
 function getSubtitlesUrl(

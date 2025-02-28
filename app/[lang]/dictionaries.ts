@@ -1,9 +1,9 @@
 import "server-only";
-import { Locale } from "@/utils/i18n/languages";
+import { CDLanguages } from "@/utils/i18n/languages";
 
 export type { Dictionary };
 
-const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
+const dictionaries: Record<CDLanguages, () => Promise<Dictionary>> = {
   en: () => import("./dictionaries/en.json").then((module) => module.default),
   es: () => import("./dictionaries/es.json").then((module) => module.default),
   fr: () => import("./dictionaries/fr.json").then((module) => module.default),
@@ -19,7 +19,7 @@ const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
   el: () => import("./dictionaries/el.json").then((module) => module.default),
 };
 
-export async function getDictionary(locale: Locale): Promise<Dictionary> {
+export async function getDictionary(locale: CDLanguages): Promise<Dictionary> {
   return dictionaries[locale]();
 }
 

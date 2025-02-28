@@ -6,6 +6,7 @@ import ScrollDocumentary from "@/components/scrollDocumentary/ScrollDocumentary"
 import { VideoSource } from "@/types/scrollDocumentary";
 import { VideoDbEntry } from "@/types/videosAndFilms";
 import { slides } from "@/components/scrollDocumentary/slides/slides";
+import { LangParam } from "@/types/langParam";
 
 const getSerializedAndSortedVideos = cache(
   async ({ browserLang }: { browserLang: string }) => {
@@ -48,9 +49,7 @@ const getSerializedAndSortedVideos = cache(
 
 export default async function ScrollDocumentaryPage({
   params: { lang },
-}: {
-  params: { lang: string };
-}) {
+}: LangParam) {
   try {
     const { slidesWithSources, initialLanguageLabel, availableLanguageLabels } =
       await getSerializedAndSortedVideos({
