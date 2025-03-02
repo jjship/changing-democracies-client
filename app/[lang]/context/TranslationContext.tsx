@@ -18,6 +18,9 @@ type TranslationContextType = {
   availableLanguages: CDLanguages[];
 };
 
+// Constants for localStorage
+const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
+
 const TranslationContext = createContext<TranslationContextType | null>(null);
 
 export function TranslationProvider({
@@ -49,8 +52,39 @@ export function TranslationProvider({
   const [currentDictionary, setCurrentDictionary] =
     useState<Dictionary>(dictionary);
 
+  // Load saved language preference when the component mounts
+  useEffect(() => {
+    // Check if we're in the browser environment
+    if (typeof window !== "undefined") {
+      const savedLanguage = localStorage.getItem(
+        LANGUAGE_PREFERENCE_KEY,
+      ) as CDLanguages | null;
+
+      // If there's a saved language and it's different from the current one, redirect
+      if (
+        savedLanguage &&
+        savedLanguage !== currentLang &&
+        availableLanguages.includes(savedLanguage)
+      ) {
+        const newPath = window.location.pathname.replace(
+          `/${currentLang}`,
+          `/${savedLanguage}`,
+        );
+        router.push(newPath);
+      } else {
+        // If no saved language or we're already on the correct language path, save the current language
+        localStorage.setItem(LANGUAGE_PREFERENCE_KEY, currentLang);
+      }
+    }
+  }, [currentLang, router, availableLanguages]);
+
   const setLanguage = (newLang: CDLanguages) => {
     if (newLang === currentLang) return;
+
+    // Save the language preference to localStorage
+    if (typeof window !== "undefined") {
+      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, newLang);
+    }
 
     // Navigate to the new language path
     const newPath = window.location.pathname.replace(
@@ -76,10 +110,8 @@ export function TranslationProvider({
 
 export function useTranslation() {
   const context = useContext(TranslationContext);
-
   if (!context) {
     throw new Error("useTranslation must be used within a TranslationProvider");
   }
-
   return context;
 }

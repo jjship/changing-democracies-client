@@ -1,4 +1,4 @@
-export { locales, getSubtitlesUrl, DEFAULT_LANGUAGE_LABEL };
+export { locales, getSubtitlesUrl, DEFAULT_LANGUAGE_LABEL, getInitialLanguage };
 export type { CDLanguages };
 
 const DEFAULT_LANGUAGE_LABEL = "en";
@@ -30,4 +30,30 @@ function getSubtitlesUrl(
   languageCode: string,
 ): string {
   return `https://${pullZoneUrl}.b-cdn.net/${videoId}/captions/${languageCode}.vtt`;
+}
+
+// Helper function to determine initial language based on various sources
+// Order of precedence: localStorage > browser language > default language
+function getInitialLanguage(): CDLanguages {
+  if (typeof window === "undefined") {
+    return DEFAULT_LANGUAGE_LABEL;
+  }
+
+  // Check localStorage first
+  const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
+  const storedLanguage = localStorage.getItem(
+    LANGUAGE_PREFERENCE_KEY,
+  ) as CDLanguages | null;
+  if (storedLanguage && locales.includes(storedLanguage)) {
+    return storedLanguage;
+  }
+
+  // Try to match browser language
+  const browserLang = navigator.language.split("-")[0] as CDLanguages;
+  if (browserLang && locales.includes(browserLang)) {
+    return browserLang;
+  }
+
+  // Default fallback
+  return DEFAULT_LANGUAGE_LABEL;
 }
