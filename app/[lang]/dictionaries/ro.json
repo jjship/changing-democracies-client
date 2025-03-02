@@ -29,62 +29,78 @@
       {
         "organisation": "Asociația pentru Educație Istorică în Grecia",
         "members": ["Vassiliki Sakka"],
-        "country": "Grecia"
+        "country": "Grecia",
+        "link": "https://www.aheg.gr/"
       },
       {
         "organisation": "Autres Directions",
         "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-        "country": "Țările de Jos"
+        "country": "Țările de Jos",
+        "link": "https://www.autresdirections.nl/"
       },
       {
         "organisation": "Fundația Borderland",
         "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Polonia"
+        "country": "Polonia",
+        "link": "https://www.pogranicze.sejny.pl/"
       },
       {
         "organisation": "EuroClio – Asociația Europeană a Educaților în Istorie",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-        "country": "Țările de Jos"
+        "country": "Țările de Jos",
+        "link": "https://www.euroclio.eu/"
       },
       {
         "organisation": "Fundația Evens",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
-        "country": "Belgia/Polonia"
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
+        "country": "Belgia/Polonia",
+        "link": "https://evensfoundation.be/"
       },
       {
         "organisation": "Institutul Vlaams pentru Pace",
         "members": ["Maarten Van Alstein"],
-        "country": "Belgia"
+        "country": "Belgia",
+        "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
         "organisation": "Facultatea de Artă, Universitatea Carolină",
         "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Cehia"
+        "country": "Cehia",
+        "link": "https://www.ff.cuni.cz/home/"
       },
       {
         "organisation": "Institutul de Cercetare în Artă, Design și Societate, Universitatea din Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
-        "country": "Portugalia"
+        "country": "Portugalia",
+        "link": "https://i2ads.up.pt/en"
       },
       {
         "organisation": "Asociația Mediawise",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "România"
+        "country": "România",
+        "link": "https://mediawise.ro/"
       },
       {
         "organisation": "Muzeul Slavoniei",
         "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Croația"
+        "country": "Croația",
+        "link": "https://www.mso.hr/"
       },
       {
         "organisation": "Fundația Open Lithuania",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-        "country": "Lituania"
+        "country": "Lituania",
+        "link": "https://olf.lt/en/"
       },
       {
         "organisation": "Școala pentru Cultura Păcii, Universitatea Autonomă din Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-        "country": "Spania"
+        "country": "Spania",
+        "link": "https://escolapau.uab.cat/en/publications"
       }
     ]
   },

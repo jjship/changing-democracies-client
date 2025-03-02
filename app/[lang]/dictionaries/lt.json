@@ -29,62 +29,78 @@
       {
         "organisation": "Graikijos istorijos mokymo asociacija",
         "members": ["Vassiliki Sakka"],
-        "country": "Graikija"
+        "country": "Graikija",
+        "link": "https://www.aheg.gr/"
       },
       {
         "organisation": "Autres Directions",
         "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-        "country": "Nyderlandai"
+        "country": "Nyderlandai",
+        "link": "https://www.autresdirections.nl/"
       },
       {
         "organisation": "Borderland Foundation",
         "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Lenkija"
+        "country": "Lenkija",
+        "link": "https://www.pogranicze.sejny.pl/"
       },
       {
         "organisation": "EuroClio Evropskė istorijos mokytojų asociacija",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-        "country": "Nizozemskė"
+        "country": "Nyderlandai",
+        "link": "https://www.euroclio.eu/"
       },
       {
         "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
-        "country": "Belgija/Lenkija"
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
+        "country": "Belgija/Lenkija",
+        "link": "https://evensfoundation.be/"
       },
       {
         "organisation": "Flandijos taikos institutas",
         "members": ["Maarten Van Alstein"],
-        "country": "Belgija"
+        "country": "Belgija",
+        "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
         "organisation": "Prahos Karolio universiteto Menų fakultetas",
         "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Čekija"
+        "country": "Čekija",
+        "link": "https://www.ff.cuni.cz/home/"
       },
       {
         "organisation": "Porto universiteto Menų, dizaino ir visuomenės tyrimų institutas",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
-        "country": "Portugalija"
+        "country": "Portugalija",
+        "link": "https://i2ads.up.pt/en"
       },
       {
         "organisation": "Mediawise Society",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Rumunija"
+        "country": "Rumunija",
+        "link": "https://mediawise.ro/"
       },
       {
         "organisation": "Slavonijos muziejus",
         "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Kroatija"
+        "country": "Kroatija",
+        "link": "https://www.mso.hr/"
       },
       {
         "organisation": "Atviros Lietuvos fondas",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-        "country": "Lietuva"
+        "country": "Lietuva",
+        "link": "https://olf.lt/en/"
       },
       {
         "organisation": "Barselonos autonominio universiteto Taikos kultūros mokykla",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-        "country": "Ispanija"
+        "country": "Ispanija",
+        "link": "https://escolapau.uab.cat/en/publications"
       }
     ]
   },

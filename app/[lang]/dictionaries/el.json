@@ -29,62 +29,74 @@
       {
         "organisation": "Ίδρυμα Ιστορικής Εκπαίδευσης στην Ελλάδα",
         "members": ["Βασίλικα Σάκα"],
-        "country": "Ελλάδα"
+        "country": "Ελλάδα",
+        "link": "https://www.aheg.gr/"
       },
       {
         "organisation": "Autres Directions",
         "members": ["Τάιλ Άκκερμανς", "Κατρίν Σπάικερμαν"],
-        "country": "Ολλανδία"
+        "country": "Ολλανδία",
+        "link": "https://www.autresdirections.nl/"
       },
       {
         "organisation": "Borderland Foundation",
         "members": ["Βερόνικα Τζιζέβσκα-Πονσυλιούζ"],
-        "country": "Πολωνία"
+        "country": "Πολωνία",
+        "link": "https://www.pogranicze.sejny.pl/"
       },
       {
         "organisation": "EuroClio – Ευρωπαϊκή Ένωση Ιστορικών Εκπαιδευτικών",
         "members": ["Ευγενία Κατσατριάν", "Στίβεν Στέγκερς"],
-        "country": "Ολλανδία"
+        "country": "Ολλανδία",
+        "link": "https://www.euroclio.eu/"
       },
       {
         "organisation": "Evens Foundation",
         "members": ["Καρολίνα Κούζμανς", "Μαρζολίν Ντέλβου", "Χάννα Ζιελίνσκα"],
-        "country": "Βέλγιο/Πολωνία"
+        "country": "Βέλγιο/Πολωνία",
+        "link": "https://evensfoundation.be/"
       },
       {
         "organisation": "Flemish Peace Institute",
         "members": ["Μάαρτενς Βαν Άλστάιν"],
-        "country": "Βέλγιο"
+        "country": "Βέλγιο",
+        "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
         "organisation": "Φιλοσοφική Σχολή, Καρόλιν Πανεπιστήμιο",
         "members": ["Βοχομίλ Μελίτσαρ", "Βάκλαβ Σίτσα"],
-        "country": "Τσεχία"
+        "country": "Τσεχία",
+        "link": "https://www.ff.cuni.cz/home/"
       },
       {
         "organisation": "Έρευνα στην Τέχνη, το Διαγραφή και την Κοινωνία, Πανεπιστήμιο του Πορτο",
         "members": ["Σάμιουελ Γκιμαράες", "Καταρίνα (Κατ) Μαρτίνς"],
-        "country": "Πορτογαλία"
+        "country": "Πορτογαλία",
+        "link": "https://i2ads.up.pt/en"
       },
       {
         "organisation": "Mediawise Society",
         "members": ["Νικολέτα Φωτιάδη", "Νικολέτα Νεάσκου"],
-        "country": "Ρουμανία"
+        "country": "Ρουμανία",
+        "link": "https://mediawise.ro/"
       },
       {
         "organisation": "Μουσείο της Σλαβωνίας",
         "members": ["Ντένις Ντεντλίνγκ", "Ζέσενκα Ρίκλ"],
-        "country": "Χορβάτια"
+        "country": "Χορβάτια",
+        "link": "https://www.mso.hr/"
       },
       {
         "organisation": "Open Lithuania Foundation",
         "members": ["Σάντρα Αντομαβίτσιουτε", "Σάντρα Γκαούτσιουτε"],
-        "country": "Λιθουανία"
+        "country": "Λιθουανία",
+        "link": "https://olf.lt/en/"
       },
       {
         "organisation": "Σχολή για μια Κουλτούρα της Ειρήνης, Αυτόνομο Πανεπιστήμιο Βαρκελώνης",
         "members": ["Σεσίλ Μπαρμπέιτο Θονόν", "Μαρίνα Καϊρέτα Σάμπερε"],
-        "country": "Ισπανία"
+        "country": "Ισπανία",
+        "link": "https://escolapau.uab.cat/en/publications"
       }
     ]
   },

@@ -27,64 +27,80 @@
     "description": "Changing Democracies je rezultat suradnje između 12 partnera iz 10 europskih zemalja, a koordinira Zaklada Evens uz financiranje Europske komisije.",
     "teamList": [
       {
-        "organisation": "Udruga za podučavanje povijesti u Grčkoj",
+        "organisation": "Association for History Education in Greece",
         "members": ["Vassiliki Sakka"],
-        "country": "Grčka"
+        "country": "Grčka",
+        "link": "https://www.aheg.gr/"
       },
       {
         "organisation": "Autres Directions",
         "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-        "country": "Nizozemska"
+        "country": "Nizozemska",
+        "link": "https://www.autresdirections.nl/"
       },
       {
-        "organisation": "Zaklada Borderland",
+        "organisation": "Borderland Foundation",
         "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Poljska"
+        "country": "Poljska",
+        "link": "https://www.pogranicze.sejny.pl/"
       },
       {
-        "organisation": "EuroClio – Europska udruga edukatora povijesti",
+        "organisation": "EuroClio – European Association of History Educators",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-        "country": "Nizozemska"
+        "country": "Nizozemska",
+        "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Zaklada Evens",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
-        "country": "Belgija/Poljska"
+        "organisation": "Evens Foundation",
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
+        "country": "Belgija/Poljska",
+        "link": "https://evensfoundation.be/"
       },
       {
-        "organisation": "Flamanski institut za mir",
+        "organisation": "Flemish Peace Institute",
         "members": ["Maarten Van Alstein"],
-        "country": "Belgija"
+        "country": "Belgija",
+        "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Fakultet umjetnosti, Sveučilište Karlovo",
+        "organisation": "Faculty of Arts, Charles University",
         "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Češka"
+        "country": "Češka",
+        "link": "https://www.ff.cuni.cz/home/"
       },
       {
-        "organisation": "Institut za istraživanje umjetnosti, dizajna i društva, Sveučilište u Portu",
+        "organisation": "Research Institute in Art, Design and Society, University of Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
-        "country": "Portugal"
+        "country": "Portugal",
+        "link": "https://i2ads.up.pt/en"
       },
       {
-        "organisation": "Društvo Mediawise",
+        "organisation": "Mediawise Society",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Rumunjska"
+        "country": "Rumunjska",
+        "link": "https://mediawise.ro/"
       },
       {
-        "organisation": "Muzej Slavonije",
+        "organisation": "Museum of Slavonia",
         "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Hrvatska"
+        "country": "Hrvatska",
+        "link": "https://www.mso.hr/"
       },
       {
-        "organisation": "Zaklada Otvorena Litva",
+        "organisation": "Open Lithuania Foundation",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-        "country": "Litva"
+        "country": "Litva",
+        "link": "https://olf.lt/en/"
       },
       {
-        "organisation": "Škola za kulturu mira, Autonomno sveučilište u Barceloni",
+        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-        "country": "Španjolska"
+        "country": "Španjolska",
+        "link": "https://escolapau.uab.cat/en/publications"
       }
     ]
   },
@@ -102,7 +118,7 @@
   },
   "freeBrowsing": {
     "title": "Slobodno pregledavanje",
-    "description": "Svjedoci koji su s nama podijelili svoje priče doživjeli su promjene bilo proživljavajući tranziciju svoje zemlje u Europi, bilo prelaskom iz nedemokratske u demokratsku zemlju — ili ponekad oboje.",
+    "description": "Svjedoci koji su s nama podijelili svoje priče doživjeli su promjene bilo proživljavajući tranziciju svoje zemlje u Europi, bilo prelaskom iz nedemokratskog u demokratsku zemlju — ili ponekad oboje.",
     "explanation": "Koristi oznake za pregledavanje i usporedbu njihovih svjedočanstava."
   },
   "eduPack": {
