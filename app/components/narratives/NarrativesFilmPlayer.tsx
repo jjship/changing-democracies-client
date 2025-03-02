@@ -188,7 +188,7 @@ const NarrativesFilmPlayer: FC = () => {
         console.error("Error during cleanup:", e);
       }
     };
-  }, [nowPlaying, currentQuality, hls, videoRef]);
+  }, [nowPlaying, currentQuality]); // adding hls and videoRef to the dependency array causes an infinite loop
 
   // Remove the separate effect that was trying to sync isPlaying with video state
 
@@ -257,7 +257,7 @@ const NarrativesFilmPlayer: FC = () => {
 
     video.addEventListener("timeupdate", handleTimeUpdate);
     return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-  }, [subtitles, videoRef]);
+  }, [subtitles]); // removing videoRef from the dependency array fixes the infinite loop
 
   return (
     nowPlaying && (
