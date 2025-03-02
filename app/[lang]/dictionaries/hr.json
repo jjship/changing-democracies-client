@@ -1,29 +1,30 @@
 {
   "navigation": {
-    "scrollDocumentary": "Dokumentarni film s pomicanjem",
+    "home": "Početna",
+    "scrollDocumentary": "Dokumentarni pregled",
     "narratives": "Narativi",
-    "nonLinearNarratives": "Nelinearni narativi",
+    "nonLinearNarratives": "Nelinearne priče",
     "freeBrowsing": "Slobodno pregledavanje",
     "project": "Projekt",
     "team": "Tim",
     "events": "Događaji",
-    "educationalResources": "Obrazovni resursi",
-    "researchPublication": "Istraživačka publikacija",
-    "travellingWorkshop": "Putujuća radionica",
+    "educationalResources": "Paket obrazovnih resursa",
+    "researchPublication": "Znanstvena publikacija",
+    "travellingWorkshop": "Putujuća radionica / izložba",
     "contact": "Kontakt"
   },
   "landing": {
-    "description": "Changing Democracies istražuje nepoznate priče o nedavnim demokratskim tranzicijama u Europi kako bi shvatili što je potrebno da demokracija ispuni svoja obećanja za sve.",
-    "scrollDocumentary": "Odaberite temu i pogledajte naš izbor",
-    "narratives": "Otkrijte što smo naučili",
-    "freeBrowsing": "Upotrijebite oznake (tagove) za istraživanje priča"
+    "description": "Changing Democracies istražuje neispričane priče o recentnim prijelazima na demokraciju u Europi kako bi se shvatilo što je potrebno da demokracija ispuni svoja obećanja za sve.",
+    "scrollDocumentary": "Otkrij što smo naučili",
+    "narratives": "Odaberi temu i pogledaj naš izbor",
+    "freeBrowsing": "Koristi oznake za istraživanje priča"
   },
   "about": {
-    "p1": "Kako bi izgledao život bez demokracije? Je li demokracija ispunila svoja obećanja? Što je potrebno zdravoj demokraciji za učinkovito funkcioniranje? Koja je uloga građana?",
-    "p2": "Changing Democracies istražuje kako do sada neispričane priče o nedavnim prelascima na demokraciju u Europi mogu pomoći u razumijevanju procesa potrebnih danas da bi demokracija ispunila obećanja svima."
+    "p1": "Kako bi izgledao život bez demokracije? Je li demokracija ispunila svoja obećanja? Što je potrebno za učinkovito funkcioniranje zdrave demokracije? Koja je uloga građana?",
+    "p2": "Changing Democracies istražuje kako priče o nedavno dogodenoj transformaciji demokracije u Europi mogu pomoći u razumijevanju procesa potrebnih danas da demokracija ispuni svoja obećanja za sve."
   },
   "team": {
-    "description": "Changing Democracies rezultat je suradnje 12 partnera iz 10 europskih zemalja, koju koordinira Evens Foundation uz financijsku potporu Europske komisije.",
+    "description": "Changing Democracies je rezultat suradnje između 12 partnera iz 10 europskih zemalja, a koordinira Zaklada Evens uz financiranje Europske komisije.",
     "teamList": [
       {
         "organisation": "Association for History Education in Greece",
@@ -51,7 +52,11 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "Belgija/Poljska",
         "link": "https://evensfoundation.be/"
       },
@@ -100,48 +105,52 @@
     ]
   },
   "contact": {
-    "getIn": "Stupite u kontakt",
-    "touch": "s nama",
-    "download": "Preuzmite ovdje našu Politiku zaštite djece i mladih."
+    "getIn": "Kontakt:",
+    "touch": "",
+    "download": "Preuzmite našu Politiku zaštite djece i mladih ovdje"
   },
   "narratives": {
     "title": "Narativi",
-    "select": "odaberite put",
-    "watch": "pogledajte video",
-    "continue": "nastavite odabranim putem",
-    "switch": "ili prijeđite na druge povezane putove"
+    "select": "odaberi put",
+    "watch": "pogledaj video",
+    "continue": "nastavi odabrani put",
+    "switch": "ili se prebaci na druge povezane puteve"
   },
   "freeBrowsing": {
     "title": "Slobodno pregledavanje",
-    "description": "Svjedoci koji su podijelili svoje priče s nama doživjeli su promjene ili kroz tranziciju svoje zemlje u Europi ili kroz selidbu iz nedemokratske u demokratsku državu — ili ponekad oboje.",
-    "explanation": "Upotrijebite oznake (tagove) za pregled i usporedbu njihovih iskaza."
+    "description": "Svjedoci koji su s nama podijelili svoje priče doživjeli su promjene bilo proživljavajući tranziciju svoje zemlje u Europi, bilo prelaskom iz nedemokratskog u demokratsku zemlju — ili ponekad oboje.",
+    "explanation": "Koristi oznake za pregledavanje i usporedbu njihovih svjedočanstava."
   },
   "eduPack": {
     "title": "Obrazovni resursi",
-    "subtitle": "Učiti iz prošlosti, promišljati sadašnjost",
-    "lead": "Mogu li iskustva onih koji su doživjeli prijelaz iz nedemokratskog u demokratsko društvo nadahnuti mlade ljude da kritički razmisle o današnjoj demokraciji?",
-    "p1": "Kako bismo pomogli mladima upoznati se sa svjedočanstvima prikupljenima u sklopu projekta Changing Democracies, kreirali smo paket obrazovnih resursa pun prilagodljivih aktivnosti učenja za formalno i neformalno obrazovanje.",
-    "p2": "Svaka aktivnost temelji se na iskazima iz prve ruke, povezujući glasove preko granica u nelinearne narative koji istražuju pet ključnih pitanja.",
+    "subtitle": "Učenje iz prošlosti, razmišljanje o danas",
+    "lead": "Mogu li iskustva onih koji su proživjeli prijelaz iz nedemokratskog u demokratsko društvo inspirirati mlade da kritički razmatraju demokraciju danas?",
+    "p1": "Da bismo pomoći mladima da se angažuju sa svjedočanstvima prikupljenim unutar projekta Changing Democracies, zajedno smo stvorili paket obrazovnih resursa s prilagodljivim aktivnostima za formalno i neformalno obrazovanje.",
+    "p2": "Svakoj aktivnosti je osnovno prve ruke svjedočanstva koje spajaju glase između zemalja u neeilinih priča koji ispituju pet ključnih pitanja:",
     "questions": [
-      "(raznolika)"
+      "Što te ljuti na svijetu danas?",
+      "Usudiš li se suprotstaviti svojim učiteljima?",
+      "Što utječe na tebe u životu?",
+      "Znaš li što tvoji djedovi i bake misle o mladima?",
+      "Što očekuješ od demokracije?"
     ],
-    "p3": "Ta pitanja potiču duboku raspravu, refleksiju i povezivanje, pomažući mladima povezati povijest s vlastitim životom i zajednicama.",
-    "download": "Preuzmite englesku verziju"
+    "p3": "Ova pitanja pozivaju na duboku raspravu, refleksiju i povezivanje — pomažeći mlade da poveže povijest s svojim životima i društvom.",
+    "download": "Preuzmite hrvatsku verziju"
   },
   "researchPublication": {
-    "title": "Istraživačka publikacija",
-    "subtitle": "Changing Democracies: snaga svjedočanstava u demokratskom obrazovanju",
-    "lead": "Kako mladi ljudi daju značenje svjedočanstvima o životu u diktaturi i iskustvima tranzicije? Kako uče ne samo o tim pričama, nego i iz njih, prema vlastitim uvjetima i s vlastitim glasom? I, s obzirom na ciljeve projekta Changing Democracies, dovodi li upoznavanje s diktaturama do kritičkog razmišljanja o demokraciji i miru?",
-    "p1": "U ovom su svesku šest partnera konzorcija predstavili rezultate svojih istraživanja o tome kako su se mladi ljudi uključili u svjedočanstva unutar lokalnih obrazovnih projekata. Iako su svi vođeni istim skupom istraživačkih pitanja, svaka studija slučaja obuhvaća različite metode rada – od tradicionalnih dijaloga do online platformi za učenje i umjetničkih praksi poput ilustracija i kazališta – i različite kulturne kontekste, od Španjolske i Portugala, preko Češke i Poljske, sve do Nizozemske i Flandrije/Belgije.",
-    "download": "Preuzmite publikaciju ovdje."
+    "title": "Changing Democracies: Snaga svjedočanstava za demokratsko obrazovanje",
+    "subtitle": "Kako mladi ljudi interpretiraju svjedočanstva o životu u diktaturi i iskustvima tranzicije?",
+    "lead": "Kako uče mladi ljudi ne samo o ovoj povijesti, već i od nje — na svoj način i svojim glasom?",
+    "p1": "U ovoj publikaciji, šest partnera opisuje kako mladi ljudi su interagirali s svjedočanstvima u lokalnim obrazovnim projektima.",
+    "download": "Preuzmite publikaciju ovdje"
   },
   "travellingWorkshop": {
-    "title": "Putujuća radionica",
-    "lead": "Oslanjajući se na iskustva zabilježena u pričama, Putujuća radionica poziva na istraživanje različitih doživljaja i vizija demokracije.",
-    "p1": "Interaktivnim dizajnom izložbe posjetitelji upoznaju 31 osobu iz Europe i šire, koje su svjedočile promjeni iz nedemokratskog režima u demokratski.",
-    "p2": "Upoznavanjem nada, snova i razočaranja svjedoka, posjetitelji su potaknuti razmisliti o obećanjima koja je demokracija nekoć nudila te ih usporediti sa svojim vlastitim iskustvima i očekivanjima.",
-    "p3": "Metafora radionice upućuje na potrebu aktivnog sudjelovanja i angažmana u (pre)oblikovanju demokracije.",
-    "p4": "Putujuća radionica dostupna je na 10 različitih jezika (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Ako ste zainteresirani ugostiti Putujuću radionicu, stupite u kontakt s nama."
+    "title": "Putujuća radionica / izložba",
+    "lead": "Putujuća radionica je poziv na istraživanje različitih iskustava i vizi demokracije zasnovane na svjedočanstvima.",
+    "p1": "Kroz interaktivni dizajn izložbe, posjetitelji upoznaju 31 osobu iz Europske unije i drugih regija koje su bile svjedoke sustavne promjene od nedemokratskog prema demokratskom društvu.",
+    "p2": "Angažiranje s nadama, snovima i razočaranjima svjedoca potiče na razmatranje obećanja demokracije i vlastitih očekivanja.",
+    "p3": "Metafora radionice predstavlja nužnost aktivnog učešća u oblikovanju demokracije.",
+    "p4": "Putujuća radionica je dostupna na 10 jezika (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Ako ste zainteresirani za organizaciju Putujuće radionice, kontakte nas."
   }
 }

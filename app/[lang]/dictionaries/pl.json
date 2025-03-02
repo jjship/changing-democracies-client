@@ -1,26 +1,27 @@
 {
   "navigation": {
-    "scrollDocumentary": "Przewijany dokument",
+    "home": "Strona główna",
+    "scrollDocumentary": "Dokument Wertykalny",
     "narratives": "Narracje",
-    "nonLinearNarratives": "Narracje nielinearne",
+    "nonLinearNarratives": "Nielinearne narracje",
     "freeBrowsing": "Swobodne przeglądanie",
     "project": "Projekt",
     "team": "Zespół",
     "events": "Wydarzenia",
-    "educationalResources": "Zasoby edukacyjne",
+    "educationalResources": "Pakiet materiałów edukacyjnych",
     "researchPublication": "Publikacja badawcza",
-    "travellingWorkshop": "Wędrowne warsztaty",
+    "travellingWorkshop": "Wędrowna pracownia",
     "contact": "Kontakt"
   },
   "landing": {
-    "description": "\"Changing Democracies\" bada nieznane historie o niedawnych przemianach demokratycznych w Europie, aby zrozumieć, czego potrzeba demokratycznemu systemowi, by w pełni spełnić swoje obietnice dla wszystkich.",
-    "scrollDocumentary": "Wybierz temat i obejrzyj nasz wybór",
-    "narratives": "Odkryj, czego się dowiedzieliśmy",
+    "description": "Changing Democracies bada nieznane historie dotyczące niedawnych przemian demokratycznych w Europie, aby zrozumieć, co jest potrzebne, aby demokracja spełniła swoje obietnice wobec wszystkich",
+    "scrollDocumentary": "Odkryj, czego się nauczyliśmy",
+    "narratives": "Wybierz temat i obejrzyj to co wybraliśmy",
     "freeBrowsing": "Użyj tagów, aby odkrywać historie"
   },
   "about": {
-    "p1": "Jak wyglądałoby życie bez demokracji? Czy demokracja spełniła swoje obietnice? Czego potrzebuje zdrowa demokracja, by funkcjonować sprawnie?",
-    "p2": "\"Changing Democracies\" sprawdza, w jaki sposób nieopowiedziane dotąd historie o niedawnych przemianach demokratycznych w Europie mogą nam pomóc zrozumieć procesy potrzebne demokracji, by spełnić obietnice wobec wszystkich."
+    "p1": "Jak wyglądałoby życie bez demokracji? Czy demokracja spełniła swoje obietnice? Czego potrzebuje zdrowa demokracja, aby działać skutecznie? Jaka jest rola obywateli?",
+    "p2": "Changing Democracies bada, w jaki sposób nieopowiedziane historie o niedawnych procesach transformacji demokratycznej w Europie mogą pomóc nam zrozumieć, jakie procesy są dziś potrzebne, aby demokracja spełniła swoje obietnice dane wszystkim."
   },
   "team": {
     "description": "Changing Democracies jest efektem współpracy 12 partnerów z 10 krajów europejskich i jest koordynowany przez Fundację Evens przy wsparciu finansowym Komisji Europejskiej.",
@@ -51,7 +52,11 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "Belgia/Polska",
         "link": "https://evensfoundation.be/"
       },
@@ -100,52 +105,52 @@
     ]
   },
   "contact": {
-    "getIn": "Skontaktuj",
-    "touch": "się",
-    "download": "Pobierz tutaj naszą Politykę Ochrony Dzieci i Młodzieży."
+    "getIn": "Skontaktuj się",
+    "touch": "z nami",
+    "download": "Pobierz naszą Politykę ochrony dzieci i młodzieży tutaj."
   },
   "narratives": {
     "title": "Narracje",
     "select": "wybierz ścieżkę",
-    "watch": "obejrzyj wideo",
-    "continue": "kontynuuj wybraną ścieżką",
-    "switch": "lub przejdź do innej powiązanej ścieżki"
+    "watch": "oglądaj wideo",
+    "continue": "kontynuuj na wybranej ścieżce",
+    "switch": "lub przejdź do innych połączonych ścieżek"
   },
   "freeBrowsing": {
     "title": "Swobodne przeglądanie",
-    "description": "Osoby, które podzieliły się z nami swoimi historiami, doświadczyły zmian, wynikających z życia w kraju przechodzącym transformację demokratyczną lub z przeprowadzki z kraju niedemokratycznego do demokratycznego.",
-    "explanation": "Użyj tagów, aby porównywać i porządkować ich wypowiedzi."
+    "description": "Świadkowie, którzy podzielili się z nami swoimi historiami, doświadczyli zmiany, albo przeżywając transformację swojego kraju w Europie, albo przeprowadzając się z kraju niedemokratycznego do demokratycznego — a czasem robiąc jedno i drugie.",
+    "explanation": "Użyj tagów, aby przeglądać i porównywać ich głosy."
   },
   "eduPack": {
     "title": "Zasoby edukacyjne",
-    "subtitle": "Ucząc się z przeszłości, refleksja nad dniem dzisiejszym",
-    "lead": "Czy doświadczenia tych, którzy przeżyli transformację z ustroju niedemokratycznego w demokratyczny, mogą inspirować młodych ludzi do krytycznego myślenia o współczesnej demokracji?",
-    "p1": "Aby pomóc młodym ludziom zapoznać się ze świadectwami zgromadzonymi w ramach projektu, przygotowaliśmy pakiet materiałów edukacyjnych, które można dostosowywać do różnych kontekstów.",
-    "p2": "Każde ćwiczenie bazuje na relacjach z pierwszej ręki, łączących głosy ponad granicami w nielinearnej narracji, by wspólnie zastanowić się nad pięcioma istotnymi pytaniami.",
+    "subtitle": "Uczenie się z przeszłości, refleksja nad teraźniejszością",
+    "lead": "Czy doświadczenia osób, które przeżyły transformację ze społeczeństwa niedemokratycznego do demokratycznego, mogą zainspirować młodych ludzi do krytycznego myślenia o dzisiejszej demokracji?",
+    "p1": "Aby pomóc młodym ludziom zaangażować się w świadectwa zebrane w ramach projektu Changing Democracies, wspólnie stworzyliśmy Pakiet zasobów edukacyjnych wypełniony elastycznymi działaniami edukacyjnymi zarówno dla edukacji formalnej, jak i nieformalnej.",
+    "p2": "Każdes działanie opiera się na świadectwach z pierwszej ręki, łącząc głosy z różnych krajów w nielinearne narracje, które zgłębiają pięć kluczowych pytań:",
     "questions": [
-      "Co sprawia, że jesteś niezadowolony z dzisiejszego świata?",
-      "Czy odważysz się zakwestionować swoich nauczycieli?",
-      "Co cię najbardziej kształtuje w życiu?",
-      "Jak twoi dziadkowie postrzegają młode pokolenie?",
+      "Co cię wkurza w dzisiejszym świecie?",
+      "Czy odważysz się rzucić wyzwanie swoim nauczycielom?",
+      "Co ma wpływ na twoje życie?",
+      "Czy wiesz, co twoi dziadkowie myślą o młodych ludziom?",
       "Czego oczekujesz od demokracji?"
     ],
-    "p3": "Te pytania zachęcają do głębokiej dyskusji, refleksji i łączenia historii z własnym doświadczeniem.",
+    "p3": "Te pytania zachęcają do głębokiej dyskusji, refleksji i poszukiwania powiązań, pomagając młodym ludziom powiązać historię z ich własnym życiem i społeczeństwem.",
     "download": "Pobierz wersję angielską"
   },
   "researchPublication": {
     "title": "Publikacja badawcza",
-    "subtitle": "Changing Democracies: moc świadectw w edukacji demokratycznej",
-    "lead": "W jaki sposób młodzi ludzie nadają sens relacjom świadków, ucząc się nie tylko o, ale też z historii niedemokratycznych ustrojów? W jakim stopniu refleksja nad przeszłością może prowadzić do krytycznego spojrzenia na współczesną demokrację?",
-    "p1": "W tym tomie sześciu partnerów konsorcjum przedstawia wyniki swoich badań nad tym, jak młodzi ludzie reagowali na świadectwa w trakcie lokalnych projektów edukacyjnych. Choć łączy je zestaw wspólnych pytań badawczych, każde studium przypadku obejmuje inną formę pracy – od tradycyjnych dialogów po platformy online i działania artystyczne, takie jak ilustracje i teatr – oraz różne konteksty kulturowe, od Hiszpanii i Portugalii, przez Czechy i Polskę, aż po Holandię i Flandrię/Belgię.",
+    "subtitle": "Changing Democracies: siła opowieści świadków dla edukacji demokratycznej",
+    "lead": "W jaki sposób młodzi ludzie nadają znaczenie świadectwom dotyczącym życia w dyktaturze i doświadczeń transformacji systemu? W jaki sposób uczą się nie tylko o tych historiach, ale także z nich – na własnych warunkach i własnym głosie?",
+    "p1": "W tym edytowanym tomie sześciu partnerów konsorcjum przedstawia raporty ze swoich badań nad tym, w jaki sposób młodzi ludzie wchodzili w interakcję z opowieściami świadków w lokalnych projektach edukacyjnych.",
     "download": "Pobierz publikację tutaj."
   },
   "travellingWorkshop": {
-    "title": "Wędrowne warsztaty",
-    "lead": "Korzystając z doświadczeń opisanych w historiach, Wędrowne warsztaty zapraszają do odkrywania różnych przeżyć i wizji demokracji.",
-    "p1": "Dzięki interaktywnemu charakterowi wystawy odwiedzający mogą spotkać 31 osób z Europy i spoza niej, które doświadczyły zmiany ustroju z niedemokratycznego na demokratyczny.",
-    "p2": "Poznając nadzieje, marzenia i rozczarowania świadków, goście zachęcani są do refleksji nad obietnicami, jakie niegdyś dawała demokracja, oraz do skonfrontowania ich z własnymi doświadczeniami i oczekiwaniami.",
-    "p3": "Metafora warsztatu podkreśla potrzebę aktywnego zaangażowania w (re)kształtowanie demokracji.",
-    "p4": "Wędrowne warsztaty są dostępne w 10 różnych językach (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Jeśli chcesz gościć Wędrowne warsztaty, prosimy o kontakt."
+    "title": "Wędrowna Pracownia",
+    "lead": "Oparta na opowieściach świadków historii, Wędrowna Pracownia jest zaproszeniem do eksploracji różnych doświadczeń i wizji demokracji.",
+    "p1": "Dzięki interaktywnej konstrukcji, na wystawie odwiedzający spotykają 31 osób z Europy i spoza niej, które były świadkami systemowej zmiany ze społeczeństwa niedemokratycznego na demokratyczne.",
+    "p2": "Dzięki zetknięciu się z nadzieją, marzeniami i rozczarowaniami świadków, odwiedzający są zachęcani do refleksji nad obietnicami, jakie kiedyś niosła demokracja, i do przemyślenia własnych doświadczeń i oczekiwań.",
+    "p3": "Metafora pracowni odnosi się do potrzeby aktywnego uczestnictwa i zaangażowania w nieustanne (współ)tworzenie demokracji.",
+    "p4": "Wędrowna pracownia jest dostępny w 10 różnych językach (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Jeśli jesteś zainteresowany zorganizowaniem Wędrownej Pracowni u siebie, skontaktuj się z nami."
   }
 }

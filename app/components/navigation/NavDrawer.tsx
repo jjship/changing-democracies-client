@@ -1,20 +1,42 @@
 import { FC, useEffect } from "react";
 import { AnimatedLink } from "./AnimatedLink";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
+
+// Constant for localStorage key to maintain consistency across the app
+const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
 
 export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
   isNavOpen,
   toggleNav,
 }) => {
   const router = useRouter();
+  const params = useParams();
 
   // Prefetch all routes when component mounts
   useEffect(() => {
-    // Prefetch main navigation routes
-    router.prefetch("/scroll-documentary");
-    router.prefetch("/narratives");
-    router.prefetch("/free-browsing");
-  }, [router]);
+    // Get the current language from params or localStorage
+    let currentLang: string = "en"; // Default fallback
+
+    // Try to get from params first
+    if (params?.lang && typeof params.lang === "string") {
+      currentLang = params.lang;
+    }
+    // Otherwise try localStorage
+    else if (typeof window !== "undefined") {
+      const storedLang = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
+      if (storedLang) {
+        currentLang = storedLang;
+      }
+    }
+
+    // Prefetch main navigation routes with language prefix
+    router.prefetch(`/${currentLang}/scroll-documentary`);
+    router.prefetch(`/${currentLang}/narratives`);
+    router.prefetch(`/${currentLang}/free-browsing`);
+    router.prefetch(`/${currentLang}/team`);
+    router.prefetch(`/${currentLang}/events`);
+    router.prefetch(`/${currentLang}/contact`);
+  }, [router, params?.lang]);
 
   return (
     <div

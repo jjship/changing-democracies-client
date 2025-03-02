@@ -1,9 +1,10 @@
 {
   "navigation": {
-    "scrollDocumentary": "Documentar cu derulare",
+    "home": "Acasă",
+    "scrollDocumentary": "Documentarul în format 'scoll'",
     "narratives": "Narațiuni",
-    "nonLinearNarratives": "Narațiuni non-liniare",
-    "freeBrowsing": "Navigare liberă",
+    "nonLinearNarratives": "Narațiuni non-linare",
+    "freeBrowsing": "Navigație liberă",
     "project": "Proiect",
     "team": "Echipă",
     "events": "Evenimente",
@@ -13,20 +14,20 @@
     "contact": "Contact"
   },
   "landing": {
-    "description": "Changing Democracies explorează povești necunoscute despre recentele tranziții democratice din Europa pentru a înțelege de ce este nevoie pentru ca democrația să-și îndeplinească promisiunile pentru toată lumea.",
-    "scrollDocumentary": "Alege un subiect și urmărește selecția noastră",
-    "narratives": "Descoperă ce am învățat",
-    "freeBrowsing": "Folosește etichete pentru a explora poveștile"
+    "description": "Proiectul Changing Democracies explorează povești necunoscute despre tranzițiile democratice recente din Europa pentru a înțelege ce este necesar pentru ca democrația să își îndeplinească promisiunile față de toți.",
+    "scrollDocumentary": "Descoperiți ce am învățat",
+    "narratives": "Selectați un subiect și urmăriți alegerile noastre",
+    "freeBrowsing": "Folosiți etichetele pentru a explora poveștile"
   },
   "about": {
-    "p1": "Cum ar arăta viața fără democrație? Și-a îndeplinit democrația promisiunile? De ce are nevoie o democrație sănătoasă pentru a funcționa eficient? Care este rolul cetățenilor?",
-    "p2": "Changing Democracies explorează modul în care povești încă nespuse despre recentele tranziții democratice din Europa ne pot ajuta să înțelegem procesele necesare astăzi pentru ca democrația să-și îndeplinească promisiunile pentru toți."
+    "p1": "Cum ar fi viața fără democrație? A reușit democrația să-și îndeplinească promisiunile? Ce are nevoie o democrație sănătoasă pentru a funcționa eficient? Care este rolul cetățenilor?",
+    "p2": "Proiectul Changing Democracies cercetează în ce măsură poveștile nespuse despre tranzițiile recente către democrație în Europa pot ajuta la identificarea proceselor necesare astăzi pentru a îndeplini promisiunile democrației pentru toți"
   },
   "team": {
-    "description": "Changing Democracies este rezultatul colaborării a 12 parteneri din 10 țări europene, coordonat de Evens Foundation și finanțat de Comisia Europeană.",
+    "description": "Proiectul Changing Democracies reprezintă rezultatul colaborării 12 de parteneri din 10 țări europene, fiind coordonat de Fondatia Evens cu finanțare din partea Comisiei Europene.",
     "teamList": [
       {
-        "organisation": "Association for History Education in Greece",
+        "organisation": "Asociația pentru Educație Istorică în Grecia",
         "members": ["Vassiliki Sakka"],
         "country": "Grecia",
         "link": "https://www.aheg.gr/"
@@ -38,61 +39,65 @@
         "link": "https://www.autresdirections.nl/"
       },
       {
-        "organisation": "Borderland Foundation",
+        "organisation": "Fundația Borderland",
         "members": ["Weronika Czyżewska-Poncyljusz"],
         "country": "Polonia",
         "link": "https://www.pogranicze.sejny.pl/"
       },
       {
-        "organisation": "EuroClio – European Association of History Educators",
+        "organisation": "EuroClio – Asociația Europeană a Educaților în Istorie",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
         "country": "Țările de Jos",
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "organisation": "Fundația Evens",
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "Belgia/Polonia",
         "link": "https://evensfoundation.be/"
       },
       {
-        "organisation": "Flemish Peace Institute",
+        "organisation": "Institutul Vlaams pentru Pace",
         "members": ["Maarten Van Alstein"],
         "country": "Belgia",
         "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Faculty of Arts, Charles University",
+        "organisation": "Facultatea de Artă, Universitatea Carolină",
         "members": ["Bohumil Melichar", "Václav Sixta"],
         "country": "Cehia",
         "link": "https://www.ff.cuni.cz/home/"
       },
       {
-        "organisation": "Research Institute in Art, Design and Society, University of Porto",
+        "organisation": "Institutul de Cercetare în Artă, Design și Societate, Universitatea din Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
         "country": "Portugalia",
         "link": "https://i2ads.up.pt/en"
       },
       {
-        "organisation": "Mediawise Society",
+        "organisation": "Asociația Mediawise",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
         "country": "România",
         "link": "https://mediawise.ro/"
       },
       {
-        "organisation": "Museum of Slavonia",
+        "organisation": "Muzeul Slavoniei",
         "members": ["Denis Detling", "Jesenka Ricl"],
         "country": "Croația",
         "link": "https://www.mso.hr/"
       },
       {
-        "organisation": "Open Lithuania Foundation",
+        "organisation": "Fundația Open Lithuania",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
         "country": "Lituania",
         "link": "https://olf.lt/en/"
       },
       {
-        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
+        "organisation": "Școala pentru Cultura Păcii, Universitatea Autonomă din Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
         "country": "Spania",
         "link": "https://escolapau.uab.cat/en/publications"
@@ -100,48 +105,52 @@
     ]
   },
   "contact": {
-    "getIn": "Ia legătura",
-    "touch": "cu noi",
-    "download": "Descarcă aici Politica noastră de protecție a copiilor și tinerilor."
+    "getIn": "Contactați-ne",
+    "touch": "",
+    "download": "Descărcați aici Politica de Protecție a Copiilor și a Tineretului"
   },
   "narratives": {
     "title": "Narațiuni",
-    "select": "alege un traseu",
-    "watch": "vizionează videoclipul",
-    "continue": "continuă pe traseul selectat",
-    "switch": "sau schimbă pe alte trasee conexe"
+    "select": "selectați un traseu",
+    "watch": "urmăriți video",
+    "continue": "continuați pe traseul selectat",
+    "switch": "sau mutați către alte trasee conectate"
   },
   "freeBrowsing": {
-    "title": "Navigare liberă",
-    "description": "Martorii care și-au împărtășit poveștile cu noi au experimentat schimbări fie trăind tranziția țării lor în Europa, fie mutându-se dintr-o țară nedemocratică într-una democratică — sau uneori ambele.",
-    "explanation": "Folosește etichete pentru a parcurge și a compara vocile lor."
+    "title": "Navigație liberă",
+    "description": "Martorii care și-au împărtășit poveștile au trăit schimbarea fie prin experiența tranziției democratice a țării lor în Europa, fie prin mutarea dintr-o țară nedemocratică într-o democrație – sau, uneori, ambele.",
+    "explanation": "Folosiți etichetele pentru a explora și a compara vociile acestora."
   },
   "eduPack": {
     "title": "Resurse educaționale",
     "subtitle": "Învățând din trecut, reflectând asupra prezentului",
-    "lead": "Pot experiențele celor care au trăit tranziția de la un regim nedemocratic la unul democratic să-i inspire pe tineri să gândească critic despre democrația actuală?",
-    "p1": "Pentru a-i ajuta pe tineri să se familiarizeze cu mărturiile colectate în cadrul proiectului Changing Democracies, am creat un pachet de resurse educaționale plin de activități de învățare adaptabile, atât pentru educația formală, cât și pentru cea non-formală.",
-    "p2": "Fiecare activitate se bazează pe mărturii de primă mână, reunind voci dincolo de granițe în narațiuni non-liniare care explorează cinci întrebări-cheie.",
+    "lead": "Pot experiențele celor care au trăit tranziția de la o societate nedemocratică la una democratică să îi inspire pe tineri să gândească critic despre democrația de astăzi?",
+    "p1": "Pentru a ajuta tinerii să se angajeze cu marturiile colectate în cadrul proiectului Changing Democracies, am dezvoltat un pachet de resurse educaționale cu activități adaptabile atât pentru învățământ formal, cât și neformal.",
+    "p2": "Fiecare activitate se bazează pe marturiile primare, combinând voci din diferite țări în narațiuni neilinare care exploră cinci întrebări cheie:",
     "questions": [
-      "(variate)"
+      "Ce vă face să vă încrucișați cu lumea de astăzi?",
+      "Ți-ai atât de mult să îi îndrăznești profesorii?",
+      "Ce vă influențează în viață?",
+      "Știți ce cred bunicii și bunicii voștri despre tineri?",
+      "Ce vă așteptați de la democrație?"
     ],
-    "p3": "Aceste întrebări invită la o discuție profundă, reflecție și conectare, ajutându-i pe tineri să relaționeze istoria cu propriile vieți și societăți.",
-    "download": "Descarcă versiunea în limba engleză"
+    "p3": "Aceste întrebări încurajează discuții profunde, reflecții și legături, ajutându-i pe tineri să relateze istoria cu viața și societatea lor.",
+    "download": "Descărcați versiunea engleză"
   },
   "researchPublication": {
-    "title": "Publicație de cercetare",
-    "subtitle": "Changing Democracies: puterea mărturiilor în educația democratică",
-    "lead": "Cum dau sens tinerii mărturiilor despre viața într-o dictatură și despre experiențele de tranziție? Cum învață nu doar despre aceste povești, ci și din ele, în termenii lor și cu propria lor voce? Și, având în vedere obiectivele Changing Democracies, conduce cunoașterea dictaturilor către o reflecție critică asupra democrației și păcii?",
-    "p1": "În acest volum, șase parteneri ai consorțiului raportează despre cercetările lor privind felul în care tinerii s-au implicat cu mărturiile în cadrul proiectelor educaționale locale. Deși au fost ghidați de același set de întrebări de cercetare, fiecare studiu de caz cuprinde metode de lucru foarte variate — de la dialoguri tradiționale la platforme de învățare online și practici artistice, precum ilustrații și teatru — și contexte culturale diverse, de la Spania și Portugalia, trecând prin Cehia și Polonia, până în Țările de Jos și Flandra/Belgia.",
-    "download": "Descarcă publicația aici."
+    "title": "Changing Democracies: Puterea marturiilor pentru educația democratică",
+    "subtitle": "Cum îi interpretă tinerii pe martorii vieții într-o dictatură și ale tranziției?",
+    "lead": "Cum învață tinerii nu doar despre istoriile acesteia, ci și de la ele – pe propriile lor condiții și cu propria voce?",
+    "p1": "În această publicație, șase parteneri din consorțiu raportează cercetările lor despre modul în care tinerii au interacționat cu marturiile în proiectele educaționale locale.",
+    "download": "Descărcați publicația aici"
   },
   "travellingWorkshop": {
     "title": "Atelier itinerant",
-    "lead": "Bazându-se pe experiențele surprinse în povești, Atelierul itinerant invită la explorarea diferitelor experiențe și viziuni despre democrație.",
-    "p1": "Prin intermediul designului interactiv al expoziției, vizitatorii cunosc 31 de persoane din Europa și de dincolo care au asistat la trecerea de la un regim nedemocratic la unul democratic.",
-    "p2": "Conectându-se la speranțele, visele și dezamăgirile martorilor, vizitatorii sunt încurajați să reflecteze la promisiunile pe care democrația le-a avut cândva și să le compare cu propriile experiențe și așteptări.",
-    "p3": "Metafora atelierului se referă la nevoia de participare activă și implicare pentru a (re)configura democrația.",
-    "p4": "Atelierul itinerant este disponibil în 10 limbi diferite (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Dacă ești interesat să găzduiești Atelierul itinerant, ia legătura cu noi."
+    "lead": "Atelierul itinerant este o invitație să explorăm diferite experiențe și viziuni despre democrație bazate pe marturiile primare.",
+    "p1": "Prin designul său interactiv, atelierul permite vizitatorilor să cunoască 31 de persoane din Europa și alte regiuni care au fost martori ai tranzițiilor democratice.",
+    "p2": "Întreruperea cu speranțele, visurile și dezamăgirile martorilor încurajează vizitatorii să reflecte asupra promisiunilor democrației și să examineze propriile lor experiențe.",
+    "p3": "Metafora atelierului subliniază nevoia participării active și a implicării pentru a redifini democrația.",
+    "p4": "Atelierul itinerant este disponibil în 10 limbi (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Dacă sunteți interesați să organizezi Atelierul Itinerant, contactați-ne."
   }
 }

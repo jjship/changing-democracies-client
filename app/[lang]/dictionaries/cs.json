@@ -1,29 +1,30 @@
 {
   "navigation": {
-    "scrollDocumentary": "Dokument s posouváním",
-    "narratives": "Narativy",
-    "nonLinearNarratives": "Nelineární narativy",
-    "freeBrowsing": "Volné procházení",
-    "project": "Projekt",
+    "home": "Úvod",
+    "scrollDocumentary": "Interaktivní dokument",
+    "narratives": "Vyprávění",
+    "nonLinearNarratives": "Nelineární vyprávění",
+    "freeBrowsing": "Volné prohlížení",
+    "project": "O projektu",
     "team": "Tým",
     "events": "Události",
-    "educationalResources": "Vzdělávací zdroje",
-    "researchPublication": "Výzkumná publikace",
+    "educationalResources": "Balíček vzdělávacích materiálů",
+    "researchPublication": "Zpráva z výzkumu",
     "travellingWorkshop": "Putovní workshop",
     "contact": "Kontakt"
   },
   "landing": {
-    "description": "Changing Democracies zkoumá neznámé příběhy nedávných demokratických přechodů v Evropě, aby pochopil, co je potřeba k tomu, aby demokracie splnila své sliby pro všechny.",
-    "scrollDocumentary": "Vyberte téma a podívejte se na náš výběr",
-    "narratives": "Objevte, co jsme zjistili",
-    "freeBrowsing": "Použijte značky (tagy) k prozkoumání příběhů"
+    "description": "Projekt Changing Democracies zkoumá neznámé příběhy nedávných přechodů k demokracii v Evropě, aby pomohl porozumět, co je potřeba k tomu, aby demokracie splnila své přísliby pro všechny",
+    "scrollDocumentary": "Objevte, co jsme se naučili",
+    "narratives": "Vyberte si téma a prohlédněte si naši výběr",
+    "freeBrowsing": "Pomocí štítků můžete jejich hlasy vyhledávat a porovnávat"
   },
   "about": {
-    "p1": "Jak by vypadal život bez demokracie? Naplnila demokracie své sliby? Co potřebuje zdravá demokracie, aby efektivně fungovala? A jakou roli hrají občané?",
-    "p2": "Changing Democracies zkoumá, jak dosud nevyprávěné příběhy o nedávných přechodech k demokracii v Evropě mohou pomoci porozumět procesům, které jsou dnes nutné k tomu, aby demokracie splnila své sliby pro všechny."
+    "p1": "Jaký by byl život bez demokracie? Plní demokracie to, co si od ní slibujeme? Co potřebuje zdravá demokracie, aby mohla efektivně fungovat? Jaká je role občanů?",
+    "p2": "Projekt Changing Democracies zkoumá, jak nám dosud nevyprávěné příběhy o evropské transformaci k demokracii mohou pomoci pochopit, co je dnes zapotřebí k tomu, aby demokracie sloužila všem"
   },
   "team": {
-    "description": "Changing Democracies je výsledkem spolupráce 12 partnerů z 10 evropských zemí, koordinované nadací Evens Foundation a financované Evropskou komisí.",
+    "description": "Changing Democracies je výsledkem spolupráce 12 partnerů z 10 evropských zemí a je koordinován Evens Foundation za finanční podpory Evropské komise.",
     "teamList": [
       {
         "organisation": "Association for History Education in Greece",
@@ -51,7 +52,11 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "Belgie/Polsko",
         "link": "https://evensfoundation.be/"
       },
@@ -102,46 +107,50 @@
   "contact": {
     "getIn": "Spojte se",
     "touch": "s námi",
-    "download": "Stáhněte si zde naši politiku ochrany dětí a mládeže."
+    "download": "Stáhněte si naše Zásady ochrany dětí a mládeže zde"
   },
   "narratives": {
-    "title": "Narativy",
-    "select": "vyberte cestu",
-    "watch": "podívejte se na video",
-    "continue": "pokračujte vybranou cestou",
-    "switch": "nebo přejděte na jiné propojené cesty"
+    "title": "Vyprávění",
+    "select": "vyberte trasu",
+    "watch": "přehrát video",
+    "continue": "pokračovat po vybrané trase",
+    "switch": "nebo přejít na další navazující trasy"
   },
   "freeBrowsing": {
-    "title": "Volné procházení",
-    "description": "Svědci, kteří s námi sdíleli své příběhy, zažili změnu buď tím, že prožili přechod své země v Evropě, nebo přesunem z nedemokratické země do demokratické — anebo obojí.",
-    "explanation": "Použijte značky (tagy) k procházení a porovnávání jejich výpovědí."
+    "title": "Volné prohlížení",
+    "description": "Svědci, kteří se s námi podělili o své příběhy, zažili změnu buď tím, že prožili transformaci své země v Evropě, nebo tím, že se přestěhovali z nedemokratické země do demokratické nebo někdy obojím.",
+    "explanation": "Pomocí štítků můžete jejich hlasy vyhledávat a porovnávat."
   },
   "eduPack": {
-    "title": "Vzdělávací zdroje",
-    "subtitle": "Učit se z minulosti, přemýšlet o současnosti",
-    "lead": "Mohou zkušenosti těch, kteří prožili přechod z nedemokratického režimu na demokratický, inspirovat mladé lidi k tomu, aby kriticky přemýšleli o dnešní demokracii?",
-    "p1": "Abychom mladým lidem pomohli seznámit se se svědectvími shromážděnými v projektu Changing Democracies, vytvořili jsme vzdělávací balíček naplněný přizpůsobitelnými vzdělávacími aktivitami pro formální i neformální vzdělávání.",
-    "p2": "Každá aktivita je založena na svědectvích z první ruky, propojujících hlasy napříč hranicemi do nelineárních narativů, které zkoumají pět klíčových otázek.",
+    "title": "Vzdělávací materiály",
+    "subtitle": "Učení se z minulosti, reflexe dneška",
+    "lead": "Mohou zkušenosti těch, kteří prožili přechod od nedemokratické k demokratické společnosti, inspirovat mladé lidi ke kritickému přemýšlení o demokracii dnes?",
+    "p1": "Abychom mladým lidem pomohli zpracovat svědectví shromážděná v rámci projektu Changing Democracies, společně jsme vytvořili balíček vzdělávacích zdrojů plný přizpůsobitelných vzdělávacích aktivit pro formální i neformální vzdělávání.",
+    "p2": "Každá aktivita je postavena na svědectvích z první ruky, splétajících hlasy z různých zemí do nelineárních vyprávění, která zkoumají pět klíčových otázek:",
     "questions": [
-      "(různé)"
+      "Co vás zlobí na dnešním světě?",
+      "Odvážíte se postavit svým učitelům?",
+      "Co vás v životě ovlivňuje?",
+      "Víte, co si myslí vaši prarodiče o mladých lidech?",
+      "Co očekáváte od demokracie?"
     ],
-    "p3": "Tyto otázky vybízejí k hluboké diskusi, reflexi a propojení – pomáhají mladým lidem spojit historii s jejich vlastním životem a společností.",
+    "p3": "Tyto otázky vybízejí k hluboké diskusi, zamyšlení a propojení pomáhají mladým lidem propojit historii s jejich vlastním životem a společností.",
     "download": "Stáhněte si anglickou verzi"
   },
   "researchPublication": {
-    "title": "Výzkumná publikace",
-    "subtitle": "Changing Democracies: síla svědectví pro demokratické vzdělávání",
-    "lead": "Jak mladí lidé dávají význam svědectvím o životě v diktatuře a zkušenostem s přechodem? Jak se učí nejen o těchto příbězích, ale také z nich, podle svých podmínek a vlastního hlasu? A vede seznámení se s minulými diktaturami k tomu, aby mladí kriticky nahlíželi na současnou demokracii a mír?",
-    "p1": "V tomto svazku šest partnerů konsorcia představuje výsledky svého výzkumu, jak mladí lidé reagovali na svědectví v rámci místních vzdělávacích projektů. Ačkoli všichni pracovali se stejnou sadou výzkumných otázek, každá případová studie používá odlišné metody – od tradičních dialogů po online vzdělávací platformy a umělecké přístupy, jako jsou ilustrace a divadlo – a působí v různých kulturních kontextech: od Španělska a Portugalska, přes Česko a Polsko, až po Nizozemsko a Flandry/Belgii.",
-    "download": "Stáhněte si publikaci zde."
+    "title": "Changing Democracies: The Power of Testimonies for Democratic Education",
+    "subtitle": "Síla svědectví pro demokratické vzdělávání",
+    "lead": "Jak dávají mladí lidé smysl svědectvím o životě v diktatuře a zkušenostem s transformací?",
+    "p1": "V tomto sborníku šest partnerů konsorcia podává zprávy ze svých výzkumů o tom, jak mladí lidé interagují s svědectvími v lokálních vzdělávacích projektech.",
+    "download": "Stáhněte si zde"
   },
   "travellingWorkshop": {
     "title": "Putovní workshop",
-    "lead": "Na základě zkušeností zaznamenaných v příbězích zve Putovní workshop k prozkoumání různých prožitků a vizí demokracie.",
-    "p1": "Díky interaktivnímu pojetí výstavy se návštěvníci setkají s 31 lidmi z Evropy i odjinud, kteří zažili změnu z nedemokratického režimu na demokratický.",
-    "p2": "Ponořením se do nadějí, snů a zklamání svědků jsou návštěvníci vedeni k úvaze o slibech, které demokracie dříve nabízela, a ke konfrontaci s vlastními zkušenostmi a očekáváními.",
-    "p3": "Metafora workshopu poukazuje na potřebu aktivní účasti a zapojení při (znovu)utváření demokracie.",
-    "p4": "Putovní workshop je k dispozici v 10 různých jazycích (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Pokud máte zájem hostit Putovní workshop, prosíme, kontaktujte nás."
+    "lead": "Putovní workshop je výzvou k prozkoumání různých zkušeností a vizí demokracie založených na svědectvích.",
+    "p1": "Prostřednictvím interaktivního designu výstavy se návštěvníci setkají s 31 lidmi z Evropy a jiných oblastí, kteří byli svědky systémové změny od nedemokratické společnosti k demokratické.",
+    "p2": "Tím, že se návštěvníci setkají s nadějemi, sny a zklamáními svědků, jsou vybízeni k tomu, aby se zamysleli nad přísliby, které demokracie kdysi skýtala, a prozkoumali své vlastní zkušenosti a očekávání.",
+    "p3": "Metafora workshopu odkazuje na potřebu aktivní účasti a zapojení pro (re)formování demokracie.",
+    "p4": "Putovní workshop je k dispozici v deseti různých jazycích (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Pokud máte zájem o umístění Putovního workshopu, kontaktujte nás."
   }
 }

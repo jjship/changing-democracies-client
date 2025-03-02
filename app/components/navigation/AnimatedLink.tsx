@@ -1,5 +1,5 @@
 import { useState, useEffect, FC } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { NavColor } from "./Navigation";
 
 export { AnimatedLink };
@@ -18,6 +18,9 @@ const getFontColor = (color: LinkColor): NavColor => {
   }
 };
 
+// Constant for localStorage key to maintain consistency across the app
+const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
+
 const AnimatedLink: FC<{
   href: string;
   text: string;
@@ -28,6 +31,7 @@ const AnimatedLink: FC<{
 }> = ({ href, text, timeout, color, isNavOpen, toggleNav }) => {
   const [slideIn, setSlideIn] = useState(false);
   const router = useRouter();
+  const params = useParams();
 
   useEffect(() => {
     if (isNavOpen) {
@@ -45,8 +49,28 @@ const AnimatedLink: FC<{
     e.preventDefault();
     toggleNav();
 
+    // Get the current language from params or localStorage
+    let currentLang: string = "en"; // Default fallback
+
+    // Try to get from params first
+    if (params?.lang && typeof params.lang === "string") {
+      currentLang = params.lang;
+    }
+    // Otherwise try localStorage
+    else if (typeof window !== "undefined") {
+      const storedLang = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
+      if (storedLang) {
+        currentLang = storedLang;
+      }
+    }
+
+    // Construct a language-prefixed path
+    const languagePrefixedHref = href.startsWith("/")
+      ? `/${currentLang}${href}`
+      : `/${currentLang}/${href}`;
+
     setTimeout(() => {
-      router.push(href);
+      router.push(languagePrefixedHref);
     }, 700);
   };
 

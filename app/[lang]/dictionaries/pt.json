@@ -1,29 +1,30 @@
 {
   "navigation": {
-    "scrollDocumentary": "Documentário com rolagem",
+    "home": "Início",
+    "scrollDocumentary": "Documentário em 'scroll'",
     "narratives": "Narrativas",
     "nonLinearNarratives": "Narrativas não lineares",
     "freeBrowsing": "Navegação livre",
     "project": "Projeto",
-    "team": "Equipa",
+    "team": "Equipe",
     "events": "Eventos",
-    "educationalResources": "Recursos educacionais",
-    "researchPublication": "Publicação de pesquisa",
+    "educationalResources": "Pacote de recursos educativos",
+    "researchPublication": "Publicação de investigação",
     "travellingWorkshop": "Oficina itinerante",
     "contact": "Contacto"
   },
   "landing": {
-    "description": "Changing Democracies explora histórias desconhecidas sobre as recentes transições democráticas na Europa para compreender o que é necessário para que a democracia cumpra as suas promessas para todos.",
-    "scrollDocumentary": "Escolha um tema e veja a nossa seleção",
-    "narratives": "Descubra o que aprendemos",
-    "freeBrowsing": "Use etiquetas para explorar as histórias"
+    "description": "Changing Democracies explora histórias não contadas sobre transições democráticas recentes na Europa para compreender melhor o que é necessário para que a democracia cumpra as suas promessas para todas as pessoas",
+    "scrollDocumentary": "Descubra o que aprendemos",
+    "narratives": "Escolha um tema e visualize nossa seleção",
+    "freeBrowsing": "Use tags para explorar as histórias"
   },
   "about": {
-    "p1": "Como seria a vida sem democracia? A democracia cumpriu as suas promessas? O que é necessário para uma democracia saudável funcionar de forma eficaz? Qual é o papel dos cidadãos?",
-    "p2": "Changing Democracies explora como histórias até agora não contadas sobre as recentes transições democráticas na Europa podem ajudar-nos a compreender que processos são necessários hoje para que a democracia cumpra as suas promessas para todos."
+    "p1": "Como seria a vida sem democracia? Cumprimos as promessas da democracia? O que uma democracia saudável precisa para funcionar eficientemente? Qual é o papel dos cidadãos?",
+    "p2": "Changing Democracies explora como histórias não contadas sobre transições democráticas recentes na Europa podem nos ajudar a entender quais processos são necessários hoje para que a democracia cumpra suas promessas para todos"
   },
   "team": {
-    "description": "Changing Democracies é o resultado da colaboração de 12 parceiros de 10 países europeus, coordenado pela Evens Foundation e financiado pela Comissão Europeia.",
+    "description": "Changing Democracies é resultado de uma colaboração entre 12 parceiros de 10 países europeus e é coordenado pela Fundação Evens com financiamento da Comissão Europeia.",
     "teamList": [
       {
         "organisation": "Association for History Education in Greece",
@@ -40,7 +41,7 @@
       {
         "organisation": "Borderland Foundation",
         "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Polónia",
+        "country": "Polônia",
         "link": "https://www.pogranicze.sejny.pl/"
       },
       {
@@ -51,8 +52,12 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
-        "country": "Bélgica/Polónia",
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
+        "country": "Bélgica/Polônia",
         "link": "https://evensfoundation.be/"
       },
       {
@@ -76,7 +81,7 @@
       {
         "organisation": "Mediawise Society",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Roménia",
+        "country": "Romênia",
         "link": "https://mediawise.ro/"
       },
       {
@@ -100,48 +105,52 @@
     ]
   },
   "contact": {
-    "getIn": "Entre",
-    "touch": "em contacto",
-    "download": "Descarregue aqui a nossa Política de Proteção de Crianças e Jovens."
+    "getIn": "Contáctanos",
+    "touch": "",
+    "download": "Descarregar aqui a versão inglesa do documento 'Política de Proteção de Crianças e Jovens'"
   },
   "narratives": {
     "title": "Narrativas",
-    "select": "escolha um caminho",
-    "watch": "assista ao vídeo",
-    "continue": "continue no caminho selecionado",
-    "switch": "ou mude para outros caminhos relacionados"
+    "select": "selecione um caminho",
+    "watch": "assistir ao vídeo",
+    "continue": "continuar no caminho selecionado",
+    "switch": "ou mudar para outros caminhos conectados"
   },
   "freeBrowsing": {
     "title": "Navegação livre",
-    "description": "As testemunhas que partilharam as suas histórias connosco viveram mudanças, seja pela transição do seu país na Europa ou pela mudança de um país não democrático para um democrático — ou às vezes ambas.",
-    "explanation": "Use etiquetas para navegar e comparar as vozes."
+    "description": "As testemunhas que partilharam as suas histórias connosco viveram a transição da ditadura para democracia no seu país, na Europa, ou migraram de um país não democrático para um democrático – ou às vezes ambos.",
+    "explanation": "Use tags para navegar e comparar as suas vozes."
   },
   "eduPack": {
-    "title": "Recursos educacionais",
-    "subtitle": "Aprender com o passado, refletir sobre o presente",
-    "lead": "Podem as experiências daqueles que viveram a transição de um regime não democrático para um regime democrático inspirar os jovens a refletir criticamente sobre a democracia de hoje?",
-    "p1": "Para ajudar os jovens a envolver-se com os testemunhos recolhidos no projeto Changing Democracies, criámos um Pacote de Recursos Educacionais cheio de atividades de aprendizagem adaptáveis para a educação formal e não formal.",
-    "p2": "Cada atividade é construída em torno de testemunhos em primeira mão, unindo vozes de diferentes fronteiras em narrativas não lineares que exploram cinco questões-chave.",
+    "title": "Recursos educativos",
+    "subtitle": "Aprender com o passado, reflectir sobre o presente",
+    "lead": "Podem as experiências de quem viveu a transição de uma sociedade não democrática para uma democrática inspirar os jovens a reflectir criticamente sobre a democracia de hoje?",
+    "p1": "Para ajudar os jovens a envolverem-se nos testemunhos recolhidos no âmbito do projeto Changing Democracies, co-criámos um pacote de recursos educativos com atividades adaptáveis para educação formal e não formal.",
+    "p2": "Cada atividade centra-se em testemunhos de primeira mão, entrelaçando vozes de diferentes países em narrativas não lineares que exploram cinco questões-chave:",
     "questions": [
-      "(várias)"
+      "O que o faz ficar zangado com o mundo de hoje?",
+      "Atreve-se a desafiar os seus professores?",
+      "O que influencia a sua vida?",
+      "Sabe o que os seus avós pensam sobre os jovens?",
+      "O que espera da democracia?"
     ],
-    "p3": "Essas questões convidam a uma discussão profunda, reflexão e conexão, ajudando os jovens a relacionar a história com as suas próprias vidas e sociedades.",
-    "download": "Descarregue a versão em inglês"
+    "p3": "Estas questões incentivam discussões profundas, reflexão e conexão, ajudando os jovens a relacionar a história com as suas próprias vidas e sociedades.",
+    "download": "Descarregar a versão inglesa"
   },
   "researchPublication": {
-    "title": "Publicação de pesquisa",
-    "subtitle": "Changing Democracies: o poder dos testemunhos para a educação democrática",
-    "lead": "Como os jovens dão significado aos testemunhos sobre a vida sob uma ditadura e experiências de transição? Como aprendem não apenas sobre, mas também a partir dessas histórias, nos seus próprios termos e com a sua própria voz? E, à luz dos objetivos de Changing Democracies, leva o conhecimento de ditaduras a uma reflexão crítica sobre democracia e paz?",
-    "p1": "Neste volume, seis parceiros do consórcio relatam a sua pesquisa sobre como os jovens se envolveram com os testemunhos em projetos educativos locais. Embora todos tenham sido guiados pelo mesmo conjunto de questões de pesquisa, cada estudo de caso abrange métodos de trabalho muito diversos — desde diálogos tradicionais a plataformas de aprendizagem online e práticas artísticas como ilustração e teatro — e contextos culturais variados, desde Espanha e Portugal, passando pela Chéquia e Polónia, até aos Países Baixos e Flandres/Bélgica.",
-    "download": "Descarregue a publicação aqui."
+    "title": "Changing Democracies: O poder dos testemunhos para a educação democrática",
+    "subtitle": "Como os jovens dão significado aos testemunhos sobre a vida em ditadura e as experiências de transição?",
+    "lead": "Como aprendem não apenas sobre estas histórias, mas também delas – nos seus próprios termos e voz?",
+    "p1": "Nesta publicação, seis parceiros do consórcio relatam pesquisas sobre como os jovens interagiram com os testemunhos em projetos educativos locais.",
+    "download": "Descarregar a publicação aqui"
   },
   "travellingWorkshop": {
     "title": "Oficina itinerante",
-    "lead": "Baseando-se nas experiências registadas nas histórias, a Oficina itinerante convida a explorar diferentes vivências e visões da democracia.",
-    "p1": "Através do design interativo da exposição, os visitantes encontram 31 pessoas da Europa e de fora que presenciaram uma mudança de um regime não democrático para um democrático.",
-    "p2": "Ao conectar-se com as esperanças, sonhos e decepções das testemunhas, os visitantes são encorajados a refletir sobre as promessas que a democracia já teve e a confrontá-las com as suas próprias experiências e expetativas.",
-    "p3": "A metáfora da oficina refere-se à necessidade de participação ativa e envolvimento para (re)configurar a democracia.",
-    "p4": "A Oficina itinerante está disponível em 10 idiomas diferentes (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Se estiver interessado em receber a Oficina itinerante, entre em contacto connosco."
+    "lead": "A Oficina Itinerante é uma convocação para explorar diferentes experiências e visões da democracia baseadas em testemunhos.",
+    "p1": "Através do design interativo da exposição, os visitantes conhecem 31 pessoas da Europa e outras regiões que testemunharam a transição de uma sociedade não democrática para uma democrática.",
+    "p2": "Ao conectar-se com as esperanças, sonhos e frustrações das testemunhas, os visitantes são incentivados a refletir sobre as promessas da democracia e as suas próprias experiências.",
+    "p3": "A metáfora da 'oficina' simboliza a necessidade de participação ativa na moldagem da democracia.",
+    "p4": "A Oficina Itinerante está disponível em 10 línguas (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Se quiser sediar a Oficina Itinerante, entre em contacto."
   }
 }

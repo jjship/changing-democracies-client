@@ -1,150 +1,156 @@
 {
-    "navigation": {
-      "scrollDocumentary": "Documental con desplazamiento",
-      "narratives": "Narrativas",
-      "nonLinearNarratives": "Narrativas no lineales",
-      "freeBrowsing": "Navegación libre",
-      "project": "Proyecto",
-      "team": "Equipo",
-      "events": "Eventos",
-      "educationalResources": "Recursos educativos",
-      "researchPublication": "Publicación de investigación",
-      "travellingWorkshop": "Taller itinerante",
-      "contact": "Contacto"
-    },
-    "landing": {
-      "description": "Changing Democracies explora historias desconocidas sobre las recientes transiciones democráticas en Europa para comprender qué se necesita para que la democracia cumpla sus promesas para todos.",
-      "scrollDocumentary": "Elige un tema y mira nuestra selección",
-      "narratives": "Descubre lo que hemos aprendido",
-      "freeBrowsing": "Usa etiquetas para explorar las historias"
-    },
-    "about": {
-      "p1": "¿Cómo sería la vida sin democracia? ¿Ha cumplido la democracia sus promesas? ¿Qué necesita una democracia sana para funcionar de manera efectiva? ¿Cuál es el papel de la ciudadanía?",
-      "p2": "Changing Democracies explora cómo las historias no contadas sobre las recientes transiciones democráticas en Europa podrían ayudarnos a comprender los procesos necesarios hoy para que la democracia cumpla con sus promesas para todos."
-    },
-    "team": {
-      "description": "Changing Democracies es el resultado de la colaboración de 12 socios de 10 países europeos, coordinado por la Evens Foundation y financiado por la Comisión Europea.",
-      "teamList": [
-        {
-          "organisation": "Association for History Education in Greece",
-          "members": ["Vassiliki Sakka"],
-          "country": "Grecia",
-          "link": "https://www.aheg.gr/"
-        },
-        {
-          "organisation": "Autres Directions",
-          "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-          "country": "Países Bajos",
-          "link": "https://www.autresdirections.nl/"
-        },
-        {
-          "organisation": "Borderland Foundation",
-          "members": ["Weronika Czyżewska-Poncyljusz"],
-          "country": "Polonia",
-          "link": "https://www.pogranicze.sejny.pl/"
-        },
-        {
-          "organisation": "EuroClio – European Association of History Educators",
-          "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-          "country": "Países Bajos",
-          "link": "https://www.euroclio.eu/"
-        },
-        {
-          "organisation": "Evens Foundation",
-          "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
-          "country": "Bélgica/Polonia",
-          "link": "https://evensfoundation.be/"
-        },
-        {
-          "organisation": "Flemish Peace Institute",
-          "members": ["Maarten Van Alstein"],
-          "country": "Bélgica",
-          "link": "https://vlaamsvredesinstituut.eu/en/"
-        },
-        {
-          "organisation": "Faculty of Arts, Charles University",
-          "members": ["Bohumil Melichar", "Václav Sixta"],
-          "country": "Chequia",
-          "link": "https://www.ff.cuni.cz/home/"
-        },
-        {
-          "organisation": "Research Institute in Art, Design and Society, University of Porto",
-          "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
-          "country": "Portugal",
-          "link": "https://i2ads.up.pt/en"
-        },
-        {
-          "organisation": "Mediawise Society",
-          "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-          "country": "Rumanía",
-          "link": "https://mediawise.ro/"
-        },
-        {
-          "organisation": "Museum of Slavonia",
-          "members": ["Denis Detling", "Jesenka Ricl"],
-          "country": "Croacia",
-          "link": "https://www.mso.hr/"
-        },
-        {
-          "organisation": "Open Lithuania Foundation",
-          "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-          "country": "Lituania",
-          "link": "https://olf.lt/en/"
-        },
-        {
-          "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
-          "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-          "country": "España",
-          "link": "https://escolapau.uab.cat/en/publications"
-        }
-      ]
-    },
-    "contact": {
-     "getIn": "Ponte",
-      "touch": "en contacto",
-     "download": "Descarga aquí nuestra Política de Protección de la Infancia y la Juventud."
-    },
-    "narratives": {
-      "title": "Narrativas",
-      "select": "elige un camino",
-      "watch": "mira el vídeo",
-      "continue": "continúa por el camino seleccionado",
-      "switch": "o cambia a otros caminos relacionados"
-    },
-    "freeBrowsing": {
-      "title": "Navegación libre",
-      "description": "Los testigos que compartieron sus historias con nosotros experimentaron cambios, ya fuera viviendo la transición de su país en Europa o mudándose de un país no democrático a uno democrático — o a veces ambas cosas.",
-      "explanation": "Usa etiquetas para recorrer y comparar sus voces."
-    },
-    "eduPack": {
-      "title": "Recursos educativos",
-      "subtitle": "Aprender del pasado, reflexionar sobre el presente",
-      "lead": "¿Pueden las experiencias de quienes vivieron la transición de un régimen no democrático a uno democrático inspirar a los jóvenes a reflexionar de forma crítica sobre la democracia actual?",
-      "p1": "Para ayudar a los jóvenes a familiarizarse con los testimonios reunidos dentro del proyecto Changing Democracies, hemos co-creado un paquete de recursos educativos lleno de actividades de aprendizaje adaptables, tanto para la educación formal como para la no formal.",
-      "p2": "Cada actividad se basa en testimonios de primera mano, entrelazando voces de diferentes fronteras en narrativas no lineales que exploran cinco preguntas clave.",
-      "questions": [
-        "(varias)"
-      ],
-      "p3": "Estas preguntas invitan a la discusión profunda, la reflexión y la conexión, ayudando a los jóvenes a relacionar la historia con sus propias vidas y sociedades.",
-      "download": "Descarga la versión en inglés"
-    },
-    "researchPublication": {
-      "title": "Publicación de investigación",
-      "subtitle": "Changing Democracies: el poder de los testimonios para la educación democrática",
-      "lead": "¿Cómo dan significado los jóvenes a los testimonios sobre la vida en una dictadura y las experiencias de transición? ¿Cómo aprenden no solo sobre, sino también de estas historias, en sus propios términos y con su propia voz? Y, en vista de los objetivos de Changing Democracies, ¿conduce el conocimiento de las dictaduras a una reflexión crítica sobre la democracia y la paz?",
-      "p1": "En este volumen, seis socios del consorcio informan sobre su investigación acerca de cómo los jóvenes se involucraron con los testimonios en proyectos educativos locales. Aunque todos comparten las mismas preguntas de investigación, cada estudio de caso abarca métodos de trabajo muy diversos — desde diálogos tradicionales hasta plataformas de aprendizaje en línea y prácticas artísticas como ilustraciones y teatro — y contextos culturales variados, desde España y Portugal, pasando por Chequia y Polonia, hasta los Países Bajos y Flandes/Bélgica.",
-      "download": "Descarga la publicación aquí."
-    },
-    "travellingWorkshop": {
-      "title": "Taller itinerante",
-      "lead": "Basándose en las experiencias narradas, el Taller itinerante invita a explorar diferentes vivencias y visiones de la democracia.",
-      "p1": "A través del diseño interactivo de la exposición, los visitantes conocerán a 31 personas de Europa y otros lugares que presenciaron un cambio de un régimen no democrático a uno democrático.",
-      "p2": "Al conectar con las esperanzas, los sueños y las decepciones de los testigos, se anima a los visitantes a reflexionar sobre las promesas que la democracia tuvo en su día y a contrastarlas con sus propias experiencias y expectativas.",
-      "p3": "La metáfora del taller hace referencia a la necesidad de participación activa e implicación para (re)configurar la democracia.",
-      "p4": "El Taller itinerante está disponible en 10 idiomas diferentes (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-      "p5": "Si estás interesado en albergar el Taller itinerante, ponte en contacto con nosotros."
-    }
+  "navigation": {
+    "home": "Inicio",
+    "scrollDocumentary": "Documental en formato 'scoll'",
+    "narratives": "Narrativas",
+    "nonLinearNarratives": "Narrativas no lineales",
+    "freeBrowsing": "Navegación libre",
+    "project": "Proyecto",
+    "team": "Equipo",
+    "events": "Eventos",
+    "educationalResources": "Recursos educativos",
+    "researchPublication": "Publicación de investigación",
+    "travellingWorkshop": "Exposición itinerante",
+    "contact": "Contacto"
+  },
+  "landing": {
+    "description": "Changing Democracies explora historias desconocidas sobre transiciones democráticas recientes en Europa para comprender qué es necesario para que la democracia cumpla sus promesas para todos",
+    "scrollDocumentary": "Descubre lo que hemos aprendido",
+    "narratives": "Elige un tema y visualiza nuestra selección",
+    "freeBrowsing": "Usa etiquetas para explorar las historias"
+  },
+  "about": {
+    "p1": "¿Cómo sería la vida sin democracia? ¿Ha cumplido la democracia sus promesas? ¿Qué necesita una democracia sana para funcionar eficazmente? ¿Cuál es el papel de la ciudadanía?",
+    "p2": "Changing Democracies explora cómo las historias no contadas sobre las recientes transiciones a la democracia en Europa podrían ayudarnos a comprender qué procesos son necesarios hoy para que la democracia cumpla sus promesas para todas las personas"
+  },
+  "team": {
+    "description": "Changing Democracies es el resultado de una colaboración entre 12 socios de 10 países europeos y está coordinado por la Fundación Evens con financiación de la Comisión Europea.",
+    "teamList": [
+      {
+        "organisation": "Association for History Education in Greece",
+        "members": ["Vassiliki Sakka"],
+        "country": "Grecia",
+        "link": "https://www.aheg.gr/"
+      },
+      {
+        "organisation": "Autres Directions",
+        "members": ["Tijl Akkermans", "Catrien Spijkerman"],
+        "country": "Países Bajos",
+        "link": "https://www.autresdirections.nl/"
+      },
+      {
+        "organisation": "Borderland Foundation",
+        "members": ["Weronika Czyżewska-Poncyljusz"],
+        "country": "Polonia",
+        "link": "https://www.pogranicze.sejny.pl/"
+      },
+      {
+        "organisation": "EuroClio – European Association of History Educators",
+        "members": ["Eugenie Khatschatrian", "Steven Stegers"],
+        "country": "Países Bajos",
+        "link": "https://www.euroclio.eu/"
+      },
+      {
+        "organisation": "Evens Foundation",
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
+        "country": "Bélgica/Polonia",
+        "link": "https://evensfoundation.be/"
+      },
+      {
+        "organisation": "Flemish Peace Institute",
+        "members": ["Maarten Van Alstein"],
+        "country": "Bélgica",
+        "link": "https://vlaamsvredesinstituut.eu/en/"
+      },
+      {
+        "organisation": "Faculty of Arts, Charles University",
+        "members": ["Bohumil Melichar", "Václav Sixta"],
+        "country": "República Checa",
+        "link": "https://www.ff.cuni.cz/home/"
+      },
+      {
+        "organisation": "Research Institute in Art, Design and Society, University of Porto",
+        "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
+        "country": "Portugal",
+        "link": "https://i2ads.up.pt/en"
+      },
+      {
+        "organisation": "Mediawise Society",
+        "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
+        "country": "Rumanía",
+        "link": "https://mediawise.ro/"
+      },
+      {
+        "organisation": "Museum of Slavonia",
+        "members": ["Denis Detling", "Jesenka Ricl"],
+        "country": "Croacia",
+        "link": "https://www.mso.hr/"
+      },
+      {
+        "organisation": "Open Lithuania Foundation",
+        "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
+        "country": "Lituania",
+        "link": "https://olf.lt/en/"
+      },
+      {
+        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
+        "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
+        "country": "España",
+        "link": "https://escolapau.uab.cat/en/publications"
+      }
+    ]
+  },
+  "contact": {
+    "getIn": "Contáctanos",
+    "touch": "",
+    "download": "Descarga nuestra Política de Protección de la infancia y la juventud aquí"
+  },
+  "narratives": {
+    "title": "Narrativas",
+    "select": "selecciona una ruta",
+    "watch": "visualiza el vídeo",
+    "continue": "continúa el camino seleccionado",
+    "switch": "o cambia a otros caminos conectados"
+  },
+  "freeBrowsing": {
+    "title": "Navegación libre",
+    "description": "Las personas que compartieron sus historias con nosotros experimentaron cambios ya sea viviendo la transición de su país en Europa, migrando de un país no democrático a uno democrático, o ambas cosas.",
+    "explanation": "Usa etiquetas para navegar y comparar sus voces."
+  },
+  "eduPack": {
+    "title": "Recursos educativos",
+    "subtitle": "Aprendiendo del pasado, reflexionando sobre el presente",
+    "lead": "¿Las experiencias de quienes vivieron una transición de una sociedad no democrática a una democrática pueden inspirar a los jóvenes a pensar críticamente sobre la democracia actual?",
+    "p1": "Para ayudar a los jóvenes a interactuar con los testimonios del proyecto Changing Democracies, creamos un Paquete de Recursos Educativos con actividades flexibles para educación formal e informal.",
+    "p2": "Cada actividad se construye alrededor de testimonios directos, entrelazando voces de diferentes países en narrativas no lineales que exploran cinco preguntas clave:",
+    "questions": [
+      "¿Qué te enfada del mundo actual?",
+      "¿Te atreves a cuestionar a tus profesores?",
+      "¿Qué te influye en la vida?",
+      "¿Sabes qué piensan tus abuelos de los jóvenes?",
+      "¿Qué esperas de la democracia?"
+    ],
+    "p3": "Estas preguntas invitan a discusiones profundas, reflexión y conexión, ayudando a los jóvenes a relacionar la historia con sus vidas y sociedades.",
+    "download": "Descarga la versión en inglés"
+  },
+  "researchPublication": {
+    "title": "Changing Democracies: el poder de los testimonios para la educación democrática",
+    "subtitle": "¿Cómo dan sentido los jóvenes a los testimonios sobre la vida en una dictadura y las experiencias de transición?",
+    "lead": "¿Cómo aprenden no solo sobre estas historias, sino también de ellas, en sus propios términos y voz?",
+    "p1": "En esta publicación, seis socios del consorcio informan sobre cómo los jóvenes interactuaron con los testimonios en proyectos educativos locales.",
+    "download": "Descarga la publicación aquí"
+  },
+  "travellingWorkshop": {
+    "title": "Exposición itinerante",
+    "lead": "La Exposición Itinerante es una invitación a explorar diferentes experiencias y visiones de la democracia basadas en testimonios personales.",
+    "p1": "Gracias a su diseño interactivo, los visitantes conocen a 31 personas de Europa y otras regiones que fueron testigos de transiciones democráticas.",
+    "p2": "Al conectar con las esperanzas, sueños y decepciones de los testigos, los visitantes son invitados a reflexionar sobre las promesas de la democracia y sus propias expectativas.",
+    "p3": "La metáfora de la 'workshop' simboliza la necesidad de participación activa para moldear la democracia.",
+    "p4": "La Exposición Itinerante está disponible en 10 idiomas (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Si quieres acoger la Exposición Itinerante, contáctanos."
   }
-  
-  
-
+}
