@@ -1,23 +1,26 @@
+"use client";
 import { FC } from "react";
+import { useTranslation } from "@/translation/TranslationContext";
 
 const NarrativesLegend: FC = () => {
+  const { dictionary: dict } = useTranslation();
   const data = [
     {
-      text: "select path",
+      text: `${dict.narratives.select}`,
       image: "../select path - icon.svg",
       width: "w-[60px]",
     },
     {
-      text: "watch video",
+      text: `${dict.narratives.watch}`,
       image: "../watch video - icon.svg",
       width: "w-[60px]",
     },
     {
-      text: "continue on selected path",
+      text: `${dict.narratives.continue}`,
       image: "../continue on path - icon.svg",
     },
     {
-      text: "or switch to other connected paths",
+      text: `${dict.narratives.switch}`,
       image: "../or switch - icon.svg",
     },
   ];

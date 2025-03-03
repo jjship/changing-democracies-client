@@ -8,6 +8,9 @@ import { VideoSource } from "@/types/scrollDocumentary";
 import { VideoDbEntry } from "@/types/videosAndFilms";
 import { slides } from "@/components/scrollDocumentary/slides/slides";
 import { LangParam } from "@/types/langParam";
+import { getDictionary } from "../dictionaries";
+import { TranslationProvider } from "../context/TranslationContext";
+import { CDLanguages } from "@/utils/i18n/languages";
 
 // Increase cache time and optimize data fetching
 const getSerializedAndSortedVideos = cache(
@@ -44,7 +47,7 @@ const getSerializedAndSortedVideos = cache(
     return {
       slidesWithSources,
       initialLanguageLabel,
-      availableLanguageLabels: [...availableLanguageLabels],
+      availableLanguageLabels: Array.from(availableLanguageLabels),
     };
   },
 );
@@ -64,17 +67,20 @@ function DocumentaryLoading() {
 // Documentary content component
 async function DocumentaryContent({ lang }: { lang: string }) {
   try {
+    const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
     const { slidesWithSources, initialLanguageLabel, availableLanguageLabels } =
       await getSerializedAndSortedVideos({
         browserLang: lang.toUpperCase(),
       });
 
     return (
-      <ScrollDocumentary
-        slidesWithSources={slidesWithSources}
-        initialLanguageLabel={initialLanguageLabel}
-        availableLanguageLabels={availableLanguageLabels}
-      />
+      <TranslationProvider dictionary={dictionary}>
+        <ScrollDocumentary
+          slidesWithSources={slidesWithSources}
+          initialLanguageLabel={initialLanguageLabel}
+          availableLanguageLabels={availableLanguageLabels}
+        />
+      </TranslationProvider>
     );
   } catch (err) {
     console.error("Failed to fetch video sources:", err);

@@ -2,26 +2,45 @@
 
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { getInitialLanguage } from "@/utils/i18n/languages";
+import {
+  getInitialLanguage,
+  locales,
+  CDLanguages,
+} from "@/utils/i18n/languages";
 
 export function LanguageRedirect({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    // If we are at the root route or at a route without a language param
-    if (pathname === "/" || !pathname.match(/^\/[a-z]{2}\//)) {
+    // Only run on client-side
+    if (typeof window === "undefined") return;
+
+    // Root path always needs redirect
+    if (pathname === "/") {
       const preferredLanguage = getInitialLanguage();
+      router.replace(`/${preferredLanguage}`);
+      return;
+    }
 
-      // Construct the new path with the language param
-      let newPath = `/${preferredLanguage}`;
+    // For other paths, check if they have a valid language prefix
+    const pathSegments = pathname.split("/").filter(Boolean);
 
-      // If we're not at root, append the current path without the leading slash
-      if (pathname !== "/") {
-        newPath = `/${preferredLanguage}${pathname}`;
+    // If first segment is not a valid language code, prefix with language
+    if (pathSegments.length > 0) {
+      const firstSegment = pathSegments[0].toLowerCase();
+
+      // Check if firstSegment is a valid language code
+      const isValidLanguageCode = locales.includes(firstSegment as CDLanguages);
+
+      // If the first segment is already a valid language code, no redirect needed
+      if (isValidLanguageCode) {
+        return;
       }
 
-      router.replace(newPath);
+      // Otherwise, add language prefix
+      const preferredLanguage = getInitialLanguage();
+      router.replace(`/${preferredLanguage}${pathname}`);
     }
   }, [pathname, router]);
 

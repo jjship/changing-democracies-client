@@ -6,9 +6,10 @@ import { TranslationProvider } from "./context/TranslationContext";
 import LandingPage from "@/components/landing/LandingPage";
 import { NavigationContainer } from "@/components/navigation/NavigationContainer";
 import { Suspense } from "react";
+import { CDLanguages } from "@/utils/i18n/languages";
 
 export default async function Home({ params: { lang } }: LangParam) {
-  const dictionary = await getDictionary(lang);
+  const dictionary = await getDictionary(lang as CDLanguages);
 
   return (
     <TranslationProvider dictionary={dictionary}>
