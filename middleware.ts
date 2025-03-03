@@ -15,7 +15,10 @@ function getLocale(request: NextRequest) {
 
 export async function middleware(request: NextRequest) {
   // Admin routes: only handle Supabase session
-  if (request.nextUrl.pathname.startsWith("/admin")) {
+  if (
+    request.nextUrl.pathname.startsWith("/admin") ||
+    request.nextUrl.pathname.startsWith("/login")
+  ) {
     return await updateSession(request);
   }
 
