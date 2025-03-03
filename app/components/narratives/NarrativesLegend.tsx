@@ -4,21 +4,21 @@ const NarrativesLegend: FC = () => {
   const data = [
     {
       text: "select path",
-      image: "./select path - icon.svg",
+      image: "../select path - icon.svg",
       width: "w-[60px]",
     },
     {
       text: "watch video",
-      image: "./watch video - icon.svg",
+      image: "../watch video - icon.svg",
       width: "w-[60px]",
     },
     {
       text: "continue on selected path",
-      image: "./continue on path - icon.svg",
+      image: "../continue on path - icon.svg",
     },
     {
       text: "or switch to other connected paths",
-      image: "./or switch - icon.svg",
+      image: "../or switch - icon.svg",
     },
   ];
 
