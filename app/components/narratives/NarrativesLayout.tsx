@@ -46,7 +46,7 @@ const NarrativesLayout: FC<{
       }}
     >
       <div
-        className={`${archivo.className} max-screen relative max-h-screen overflow-hidden`}
+        className={`${archivo.className} relative max-h-screen overflow-hidden`}
       >
         <Navigation
           bgColor="black_bg"
@@ -56,7 +56,7 @@ const NarrativesLayout: FC<{
           onLanguageChange={setSelectedLanguage}
         />
         <div
-          className={` transition-height z-20 mx-auto w-[90vw] overflow-auto rounded-3xl bg-black_bg duration-1000 ease-linear ${
+          className={`transition-height z-20 mx-auto overflow-auto rounded-3xl bg-black_bg duration-1000 ease-linear md:w-[90vw] ${
             sectionPadding.x
           } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-40px)]"}`}
         >

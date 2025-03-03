@@ -23,26 +23,26 @@ const NarrativesLegend: FC = () => {
   ];
 
   return (
-    <div className="my-10 grid w-[80%] grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:pl-12">
+    <div className=" grid w-[90%] grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:pl-12">
       {data.map((item, index) => (
         <div
           key={index}
           className="flex flex-col items-center justify-center text-center"
         >
-          <div className="mb-5 h-20 w-[100%]">
-            <p className="text-base font-bold text-[#b85252] sm:text-lg md:text-xl lg:text-2xl">
+          <div className="mb-5  xl:h-20">
+            <p className="text-base font-bold text-[#b85252] md:text-xl lg:text-2xl">
               {item.text}
             </p>
           </div>
           <div
-            className={`flex h-[100px] ${
+            className={`h-5 md:h-10 xl:h-[100px] ${
               item.width ? item.width : "w-[100px]"
             } items-center`}
             style={{
               backgroundImage: `url('${item.image}')`,
               backgroundSize: "contain",
               backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
+              backgroundPosition: "50% 0%",
             }}
           ></div>
         </div>
