@@ -34,7 +34,7 @@ const NarrativesList: FC = () => {
   );
 
   return (
-    <div className="mt-[5vh] flex flex-col items-center justify-center gap-4 sm:mt-[8vh] sm:gap-8 md:mt-[10vh] md:gap-14">
+    <div className="mt-[10vh] flex w-full flex-col items-center justify-center gap-4 sm:gap-8 md:gap-12">
       {narrationPaths?.map((narrativePath, index) => (
         <a
           key={index}
@@ -44,10 +44,10 @@ const NarrativesList: FC = () => {
             setCurrentPath(narrativePath);
             setCurrentIndex(0);
           }}
-          className="ml-40 block w-[80%]" // ml-40 is a hack
+          className="ml-40 block" // ml-40 is a hack
           style={{ textDecoration: "none" }}
         >
-          <div className="group flex w-[90%] flex-col items-center md:w-3/4 md:flex-row md:gap-8">
+          <div className="group flex flex-col items-center md:w-10/12 md:flex-row md:gap-8 xl:w-3/4">
             <Box className="relative w-full text-yellow_secondary md:w-1/3">
               <div className="origin-top-left scale-90 transform-gpu md:scale-75">
                 <div
