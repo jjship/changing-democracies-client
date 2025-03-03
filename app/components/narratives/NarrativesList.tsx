@@ -78,7 +78,7 @@ const NarrativesList: FC = () => {
                       <div
                         className="m-2 h-14 w-12 bg-cover bg-center"
                         style={{
-                          backgroundImage: "url('./watch video - icon.svg')",
+                          backgroundImage: "url('../watch video - icon.svg')",
                         }}
                       />
                     </button>
@@ -104,7 +104,9 @@ const NarrativesList: FC = () => {
                 </p>
                 <div
                   className="absolute h-10 w-8 bg-cover bg-center"
-                  style={{ backgroundImage: "url('./watch video - icon.svg')" }}
+                  style={{
+                    backgroundImage: "url('../watch video - icon.svg')",
+                  }}
                 />
                 <div className="h-2 w-full rounded-2xl bg-green_accent" />
               </div>
