@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { sectionPadding } from "../Section";
@@ -9,7 +9,11 @@ import { Archivo } from "next/font/google";
 import NarrativesContext from "./NarrativesContext";
 import { Box } from "@radix-ui/themes/dist/esm/components/box.js";
 import { useLanguageSelection } from "../scrollDocumentary/useLanguageSelection";
+import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 const archivo = Archivo({ subsets: ["latin"] });
+
+// Constant for localStorage key to maintain consistency across the app
+const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
 
 const NarrativesLayout: FC<{
   narrationPaths: NarrationPath[];
@@ -21,11 +25,77 @@ const NarrativesLayout: FC<{
   const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
   const [switchPath, setSwitchPath] = useState<boolean>(false);
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
+
+  // Access the global TranslationContext
+  const globalTranslation = useTranslation();
+
+  // First prioritize localStorage, then fall back to initialLanguageLabel
+  const getInitialLanguage = (): string => {
+    if (typeof window !== "undefined") {
+      const storedLanguage = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
+      if (
+        storedLanguage &&
+        availableLanguageLabels.includes(storedLanguage.toUpperCase())
+      ) {
+        return storedLanguage.toUpperCase();
+      }
+    }
+    return initialLanguageLabel;
+  };
+
   const { selectedLanguage, availableLanguages, setSelectedLanguage } =
     useLanguageSelection({
-      initialLanguageLabel,
+      initialLanguageLabel: getInitialLanguage(),
       availableLanguageLabels,
     });
+
+  // Sync with global TranslationContext language changes
+  useEffect(() => {
+    if (globalTranslation.language) {
+      const upperLang = globalTranslation.language.toUpperCase();
+
+      // Only update if the language is different and available
+      if (
+        upperLang !== selectedLanguage &&
+        availableLanguageLabels.includes(upperLang)
+      ) {
+        setSelectedLanguage(upperLang);
+      }
+    }
+  }, [
+    globalTranslation.language,
+    availableLanguageLabels,
+    selectedLanguage,
+    setSelectedLanguage,
+  ]);
+
+  // Sync navigation language changes back to global context
+  const handleLanguageChange = (newLang: string | undefined) => {
+    // Update our local state
+    setSelectedLanguage(newLang);
+
+    // Also update global translation context if the language is valid
+    if (
+      newLang &&
+      globalTranslation.availableLanguages.includes(
+        newLang.toLowerCase() as any,
+      )
+    ) {
+      globalTranslation.setLanguage(newLang.toLowerCase() as any);
+    }
+  };
+
+  // Create a wrapper function specifically for the Navigation component which only accepts string
+  const handleNavigationLanguageChange = (newLang: string) => {
+    handleLanguageChange(newLang);
+  };
+
+  // Ensure language changes are saved to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined" && selectedLanguage) {
+      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, selectedLanguage);
+    }
+  }, [selectedLanguage]);
 
   return (
     <NarrativesContext.Provider
@@ -42,7 +112,7 @@ const NarrativesLayout: FC<{
         switchPath,
         setSwitchPath,
         selectedLanguage,
-        setSelectedLanguage,
+        setSelectedLanguage: handleLanguageChange,
       }}
     >
       <div
@@ -53,7 +123,7 @@ const NarrativesLayout: FC<{
           fontColor="yellow_secondary"
           selectedLanguage={selectedLanguage}
           availableLanguages={availableLanguages}
-          onLanguageChange={setSelectedLanguage}
+          onLanguageChange={handleNavigationLanguageChange}
         />
         <div
           className={`transition-height z-20 mx-auto overflow-auto rounded-3xl bg-black_bg duration-1000 ease-linear md:w-[90vw] ${

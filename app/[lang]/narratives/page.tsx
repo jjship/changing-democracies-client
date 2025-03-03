@@ -6,7 +6,13 @@ import { Suspense } from "react";
 import { getVideo } from "@/utils/admin/bunny-methods";
 import { serializeVideoSource } from "@/components/scrollDocumentary/videoSource";
 import { VideoSource } from "@/types/scrollDocumentary";
-import { locales } from "@/utils/i18n/languages";
+import { locales, CDLanguages } from "@/utils/i18n/languages";
+import { getDictionary } from "../dictionaries";
+import { TranslationProvider } from "../context/TranslationContext";
+import { LangParam } from "@/types/langParam";
+
+// Constant for localStorage key
+const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
 
 // Optimize cache time for better performance
 const getNarrativesWithCaptions = cache(
@@ -58,8 +64,7 @@ const getNarrativesWithCaptions = cache(
     return {
       narratives: narrativesWithCaptions,
       availableLanguageLabels,
-      initialLanguageLabel:
-        availableLanguageLabels.find((label) => label === browserLang) ?? "EN",
+      initialLanguageLabel: browserLang,
     };
   },
 );
@@ -80,25 +85,24 @@ function NarrativesLoading() {
 
 // Narratives content component
 async function NarrativesContent({ lang }: { lang: string }) {
+  const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
   const { narratives, availableLanguageLabels, initialLanguageLabel } =
     await getNarrativesWithCaptions({ browserLang: lang.toUpperCase() });
 
   return (
-    <main>
-      <NarrativesLayout
-        narrationPaths={narratives}
-        availableLanguageLabels={availableLanguageLabels}
-        initialLanguageLabel={initialLanguageLabel}
-      />
-    </main>
+    <TranslationProvider dictionary={dictionary}>
+      <main>
+        <NarrativesLayout
+          narrationPaths={narratives}
+          availableLanguageLabels={availableLanguageLabels}
+          initialLanguageLabel={initialLanguageLabel}
+        />
+      </main>
+    </TranslationProvider>
   );
 }
 
-export default function NarrativesPage({
-  params: { lang },
-}: {
-  params: { lang: string };
-}) {
+export default function NarrativesPage({ params: { lang } }: LangParam) {
   return (
     <Suspense fallback={<NarrativesLoading />}>
       <NarrativesContent lang={lang} />

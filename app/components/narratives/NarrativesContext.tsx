@@ -1,5 +1,15 @@
-import { createContext, FC, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  FC,
+  ReactNode,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
+
+// Constant for localStorage key to maintain consistency across the app
+const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
 
 const defaultContext: NarrativesContextType = {
   currentPath: null,
@@ -64,9 +74,30 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [switchPath, setSwitchPath] = useState(false);
   const [showSidePanel, setShowSidePanel] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<string | undefined>(
-    undefined,
-  );
+  const [selectedLanguage, setSelectedLanguageState] = useState<
+    string | undefined
+  >(undefined);
+
+  // Custom setter that also updates localStorage
+  const setSelectedLanguage = (language: string | undefined) => {
+    setSelectedLanguageState(language);
+
+    // Save to localStorage whenever language changes
+    if (typeof window !== "undefined" && language) {
+      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, language);
+    }
+  };
+
+  // Initialize from localStorage on component mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedLanguage = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
+      if (storedLanguage) {
+        setSelectedLanguageState(storedLanguage);
+      }
+    }
+  }, []);
+
   const value = {
     currentPath,
     setCurrentPath,

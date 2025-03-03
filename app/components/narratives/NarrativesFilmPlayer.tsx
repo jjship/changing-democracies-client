@@ -61,6 +61,37 @@ const NarrativesFilmPlayer: FC = () => {
     error: subtitlesError,
   } = useSubtitles(nowPlaying, langCode);
 
+  // Effect to handle language changes
+  useEffect(() => {
+    // If language changes and we have a video playing
+    if (videoRef.current && videoRef.current.currentTime > 0) {
+      // Store current time and playing state
+      const currentTime = videoRef.current.currentTime;
+      const wasPlaying = !videoRef.current.paused;
+
+      // Reset video to apply new subtitles
+      if (hls) {
+        hls.destroy();
+        setHls(null);
+      }
+
+      // Re-initialize after a short delay
+      setTimeout(() => {
+        if (videoRef.current) {
+          // Restore position
+          videoRef.current.currentTime = currentTime;
+
+          // Restore playing state if needed
+          if (wasPlaying) {
+            videoRef.current
+              .play()
+              .catch((err) => console.error("Error resuming playback:", err));
+          }
+        }
+      }, 100);
+    }
+  }, [selectedLanguage, langCode]);
+
   // Effect to initialize video player and HLS if supported
   useEffect(() => {
     if (!nowPlaying) return;

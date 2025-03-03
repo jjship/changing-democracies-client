@@ -41,17 +41,27 @@ function getInitialLanguage(): CDLanguages {
 
   // Check localStorage first
   const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
-  const storedLanguage = localStorage.getItem(
-    LANGUAGE_PREFERENCE_KEY,
-  ) as CDLanguages | null;
-  if (storedLanguage && locales.includes(storedLanguage)) {
-    return storedLanguage;
+  const storedLanguage = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
+
+  if (storedLanguage) {
+    // Normalize the stored language code
+    const normalizedLang = storedLanguage.toLowerCase() as CDLanguages;
+    if (locales.includes(normalizedLang)) {
+      return normalizedLang;
+    }
   }
 
   // Try to match browser language
-  const browserLang = navigator.language.split("-")[0] as CDLanguages;
-  if (browserLang && locales.includes(browserLang)) {
-    return browserLang;
+  try {
+    const browserLang = navigator.language
+      .split("-")[0]
+      .toLowerCase() as CDLanguages;
+    if (browserLang && locales.includes(browserLang)) {
+      return browserLang;
+    }
+  } catch (error) {
+    console.error("Error getting browser language:", error);
+    // Continue to default if there's an error
   }
 
   // Default fallback
