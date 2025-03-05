@@ -1,7 +1,7 @@
 {
   "navigation": {
     "home": "Strona główna",
-    "scrollDocumentary": "Dokument Wertykalny",
+    "scrollDocumentary": "Dokument wertykalny", 
     "narratives": "Narracje",
     "nonLinearNarratives": "Nielinearne narracje",
     "freeBrowsing": "Swobodne przeglądanie",
@@ -10,21 +10,21 @@
     "events": "Wydarzenia",
     "educationalResources": "Pakiet materiałów edukacyjnych",
     "researchPublication": "Publikacja badawcza",
-    "travellingWorkshop": "Wędrowna pracownia",
+    "travellingWorkshop": "Wędrowna Pracownia",
     "contact": "Kontakt"
   },
   "landing": {
-    "description": "Changing Democracies bada nieznane historie dotyczące niedawnych przemian demokratycznych w Europie, aby zrozumieć, co jest potrzebne, aby demokracja spełniła swoje obietnice wobec wszystkich",
+    "description": "Projekt Changing Democracies bada nieznane historie dotyczące niedawnych przemian demokratycznych w Europie, aby zrozumieć, co jest potrzebne, aby demokracja spełniła swoje obietnice wobec wszystkich", 
     "scrollDocumentary": "Odkryj, czego się nauczyliśmy",
-    "narratives": "Wybierz temat i obejrzyj to co wybraliśmy",
+    "narratives": "Wybierz temat i obejrzyj, co przygotowaliśmy",
     "freeBrowsing": "Użyj tagów, aby odkrywać historie"
   },
   "about": {
     "p1": "Jak wyglądałoby życie bez demokracji? Czy demokracja spełniła swoje obietnice? Czego potrzebuje zdrowa demokracja, aby działać skutecznie? Jaka jest rola obywateli?",
-    "p2": "Changing Democracies bada, w jaki sposób nieopowiedziane historie o niedawnych procesach transformacji demokratycznej w Europie mogą pomóc nam zrozumieć, jakie procesy są dziś potrzebne, aby demokracja spełniła swoje obietnice dane wszystkim."
+    "p2": "Changing Democracies bada, jak do tej pory nieopowiedziane historie o niedawnych procesach transformacji demokratycznej w Europie mogą pomóc nam zrozumieć, jakie procesy są dziś potrzebne, aby demokracja spełniła swoje obietnice wobec wszystkich" 
   },
   "team": {
-    "description": "Changing Democracies jest efektem współpracy 12 partnerów z 10 krajów europejskich i jest koordynowany przez Fundację Evens przy wsparciu finansowym Komisji Europejskiej.",
+    "description": "Projekt Changing Democracies jest efektem współpracy 12 organizacji partnerskich z 10 krajów europejskich i jest koordynowany przez Fundację Evens przy wsparciu finansowym Komisji Europejskiej.", 
     "teamList": [
       {
         "organisation": "Association for History Education in Greece",
@@ -52,11 +52,7 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
+        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
         "country": "Belgia/Polska",
         "link": "https://evensfoundation.be/"
       },
@@ -67,7 +63,7 @@
         "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Faculty of Arts, Charles University",
+        "organisation": "Filozoficzny Wydział Uniwersytetu Karola",
         "members": ["Bohumil Melichar", "Václav Sixta"],
         "country": "Czechy",
         "link": "https://www.ff.cuni.cz/home/"
@@ -122,35 +118,35 @@
     "explanation": "Użyj tagów, aby przeglądać i porównywać ich głosy."
   },
   "eduPack": {
-    "title": "Zasoby edukacyjne",
+    "title": "Materiały edukacyjne",
     "subtitle": "Uczenie się z przeszłości, refleksja nad teraźniejszością",
     "lead": "Czy doświadczenia osób, które przeżyły transformację ze społeczeństwa niedemokratycznego do demokratycznego, mogą zainspirować młodych ludzi do krytycznego myślenia o dzisiejszej demokracji?",
-    "p1": "Aby pomóc młodym ludziom zaangażować się w świadectwa zebrane w ramach projektu Changing Democracies, wspólnie stworzyliśmy Pakiet zasobów edukacyjnych wypełniony elastycznymi działaniami edukacyjnymi zarówno dla edukacji formalnej, jak i nieformalnej.",
-    "p2": "Każdes działanie opiera się na świadectwach z pierwszej ręki, łącząc głosy z różnych krajów w nielinearne narracje, które zgłębiają pięć kluczowych pytań:",
+    "p1": "Aby pomóc młodym ludziom zaangażować się w świadectwa zebrane w ramach projektu Changing Democracies, wspólnie stworzyliśmy Materiały edukacyjne - scenariusze aktywności do pracy zarówno w przestrzeni edukacji formalnej, jak i nieformalnej. Niezależnie od tego, czy jesteś nauczycielem historii, edukatorem muzealnym, pracownikiem młodzieżowym, czy pracujesz w innym środowisku edukacyjnym, możesz wybrać, zaadaptować i dostosować proponowane przez nas aktywności do swoich potrzeb.",
+    "p2": "Każda aktywność opiera się na świadectwach z pierwszej ręki, łącząc głosy osób z różnych krajów w nielinearne narracje, które zgłębiają pięć kluczowych pytań:",
     "questions": [
-      "Co cię wkurza w dzisiejszym świecie?",
+      "Co cię złości w dzisiejszym świecie?",
       "Czy odważysz się rzucić wyzwanie swoim nauczycielom?",
       "Co ma wpływ na twoje życie?",
       "Czy wiesz, co twoi dziadkowie myślą o młodych ludziom?",
       "Czego oczekujesz od demokracji?"
     ],
-    "p3": "Te pytania zachęcają do głębokiej dyskusji, refleksji i poszukiwania powiązań, pomagając młodym ludziom powiązać historię z ich własnym życiem i społeczeństwem.",
+    "p3": "Pytania te zachęcają do głębokiej dyskusji, refleksji i szukania powiązań, pomagając młodym ludziom odnieść historię do ich własnych doświadczeń i realiów społecznych.",
     "download": "Pobierz wersję angielską"
   },
   "researchPublication": {
-    "title": "Publikacja badawcza",
-    "subtitle": "Changing Democracies: siła opowieści świadków dla edukacji demokratycznej",
-    "lead": "W jaki sposób młodzi ludzie nadają znaczenie świadectwom dotyczącym życia w dyktaturze i doświadczeń transformacji systemu? W jaki sposób uczą się nie tylko o tych historiach, ale także z nich – na własnych warunkach i własnym głosie?",
-    "p1": "W tym edytowanym tomie sześciu partnerów konsorcjum przedstawia raporty ze swoich badań nad tym, w jaki sposób młodzi ludzie wchodzili w interakcję z opowieściami świadków w lokalnych projektach edukacyjnych.",
+    "title": "Changing Democracies: moc opowieści świadków dla edukacji demokratycznej", 
+    "subtitle": "Changing Democracies: moc opowieści świadków dla edukacji demokratycznej",
+    "lead": "W jaki sposób młodzi ludzie nadają znaczenie świadectwom dotyczącym życia w dyktaturze i doświadczeń transformacji systemu? W jaki sposób uczą się nie tylko o tych historiach, ale także z nich – na własnych warunkach? I co ważne, w świetle celów projektu Changing Democracies, czy nauka o historii dyktatur prowadzi młodych ludzi do krytycznej refleksji na temat demokracji i pokoju, a jeśli tak, to w jaki sposób?", 
+    "p1": "W tym recenzowanym naukowo tomie sześciu partnerów konsorcjum przedstawia swoje badania nad tym, jak młodzi ludzie wchodzili w interakcję z opowieściami świadków w trakcie lokalnych projektów edukacyjnych.", 
     "download": "Pobierz publikację tutaj."
   },
   "travellingWorkshop": {
     "title": "Wędrowna Pracownia",
     "lead": "Oparta na opowieściach świadków historii, Wędrowna Pracownia jest zaproszeniem do eksploracji różnych doświadczeń i wizji demokracji.",
-    "p1": "Dzięki interaktywnej konstrukcji, na wystawie odwiedzający spotykają 31 osób z Europy i spoza niej, które były świadkami systemowej zmiany ze społeczeństwa niedemokratycznego na demokratyczne.",
+    "p1": "Dzięki interaktywnej konstrukcji wystawy, odwiedzający spotykają 31 osób z Europy i spoza niej, które były świadkami zmiany ustroju z niedemokratycznego na demokratyczny.", 
     "p2": "Dzięki zetknięciu się z nadzieją, marzeniami i rozczarowaniami świadków, odwiedzający są zachęcani do refleksji nad obietnicami, jakie kiedyś niosła demokracja, i do przemyślenia własnych doświadczeń i oczekiwań.",
     "p3": "Metafora pracowni odnosi się do potrzeby aktywnego uczestnictwa i zaangażowania w nieustanne (współ)tworzenie demokracji.",
-    "p4": "Wędrowna pracownia jest dostępny w 10 różnych językach (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Jeśli jesteś zainteresowany zorganizowaniem Wędrownej Pracowni u siebie, skontaktuj się z nami."
+    "p4": "Wędrowna Pracownia jest dostępna w 10 różnych językach (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).", 
+    "p5": "Jeśli jesteś zainteresowana/zainteresowany zorganizowaniem jej u siebie, skontaktuj się z nami." 
   }
 }

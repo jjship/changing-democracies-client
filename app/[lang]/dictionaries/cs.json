@@ -1,156 +1,152 @@
 {
-  "navigation": {
-    "home": "Úvod",
-    "scrollDocumentary": "Interaktivní dokument",
-    "narratives": "Vyprávění",
-    "nonLinearNarratives": "Nelineární vyprávění",
-    "freeBrowsing": "Volné prohlížení",
-    "project": "O projektu",
-    "team": "Tým",
-    "events": "Události",
-    "educationalResources": "Balíček vzdělávacích materiálů",
-    "researchPublication": "Zpráva z výzkumu",
-    "travellingWorkshop": "Putovní workshop",
-    "contact": "Kontakt"
-  },
-  "landing": {
-    "description": "Projekt Changing Democracies zkoumá neznámé příběhy nedávných přechodů k demokracii v Evropě, aby pomohl porozumět, co je potřeba k tomu, aby demokracie splnila své přísliby pro všechny",
-    "scrollDocumentary": "Objevte, co jsme se naučili",
-    "narratives": "Vyberte si téma a prohlédněte si naši výběr",
-    "freeBrowsing": "Pomocí štítků můžete jejich hlasy vyhledávat a porovnávat"
-  },
-  "about": {
-    "p1": "Jaký by byl život bez demokracie? Plní demokracie to, co si od ní slibujeme? Co potřebuje zdravá demokracie, aby mohla efektivně fungovat? Jaká je role občanů?",
-    "p2": "Projekt Changing Democracies zkoumá, jak nám dosud nevyprávěné příběhy o evropské transformaci k demokracii mohou pomoci pochopit, co je dnes zapotřebí k tomu, aby demokracie sloužila všem"
-  },
-  "team": {
-    "description": "Changing Democracies je výsledkem spolupráce 12 partnerů z 10 evropských zemí a je koordinován Evens Foundation za finanční podpory Evropské komise.",
-    "teamList": [
-      {
-        "organisation": "Association for History Education in Greece",
-        "members": ["Vassiliki Sakka"],
-        "country": "Řecko",
-        "link": "https://www.aheg.gr/"
-      },
-      {
-        "organisation": "Autres Directions",
-        "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-        "country": "Nizozemsko",
-        "link": "https://www.autresdirections.nl/"
-      },
-      {
-        "organisation": "Borderland Foundation",
-        "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Polsko",
-        "link": "https://www.pogranicze.sejny.pl/"
-      },
-      {
-        "organisation": "EuroClio – European Association of History Educators",
-        "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-        "country": "Nizozemsko",
-        "link": "https://www.euroclio.eu/"
-      },
-      {
-        "organisation": "Evens Foundation",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
-        "country": "Belgie/Polsko",
-        "link": "https://evensfoundation.be/"
-      },
-      {
-        "organisation": "Flemish Peace Institute",
-        "members": ["Maarten Van Alstein"],
-        "country": "Belgie",
-        "link": "https://vlaamsvredesinstituut.eu/en/"
-      },
-      {
-        "organisation": "Faculty of Arts, Charles University",
-        "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Česko",
-        "link": "https://www.ff.cuni.cz/home/"
-      },
-      {
-        "organisation": "Research Institute in Art, Design and Society, University of Porto",
-        "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
-        "country": "Portugalsko",
-        "link": "https://i2ads.up.pt/en"
-      },
-      {
-        "organisation": "Mediawise Society",
-        "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Rumunsko",
-        "link": "https://mediawise.ro/"
-      },
-      {
-        "organisation": "Museum of Slavonia",
-        "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Chorvatsko",
-        "link": "https://www.mso.hr/"
-      },
-      {
-        "organisation": "Open Lithuania Foundation",
-        "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-        "country": "Litva",
-        "link": "https://olf.lt/en/"
-      },
-      {
-        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
-        "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-        "country": "Španělsko",
-        "link": "https://escolapau.uab.cat/en/publications"
-      }
-    ]
-  },
-  "contact": {
-    "getIn": "Spojte se",
-    "touch": "s námi",
-    "download": "Stáhněte si naše Zásady ochrany dětí a mládeže zde"
-  },
-  "narratives": {
-    "title": "Vyprávění",
-    "select": "vyberte trasu",
-    "watch": "přehrát video",
-    "continue": "pokračovat po vybrané trase",
-    "switch": "nebo přejít na další navazující trasy"
-  },
-  "freeBrowsing": {
-    "title": "Volné prohlížení",
-    "description": "Svědci, kteří se s námi podělili o své příběhy, zažili změnu buď tím, že prožili transformaci své země v Evropě, nebo tím, že se přestěhovali z nedemokratické země do demokratické nebo někdy obojím.",
-    "explanation": "Pomocí štítků můžete jejich hlasy vyhledávat a porovnávat."
-  },
-  "eduPack": {
-    "title": "Vzdělávací materiály",
-    "subtitle": "Učení se z minulosti, reflexe dneška",
-    "lead": "Mohou zkušenosti těch, kteří prožili přechod od nedemokratické k demokratické společnosti, inspirovat mladé lidi ke kritickému přemýšlení o demokracii dnes?",
-    "p1": "Abychom mladým lidem pomohli zpracovat svědectví shromážděná v rámci projektu Changing Democracies, společně jsme vytvořili balíček vzdělávacích zdrojů plný přizpůsobitelných vzdělávacích aktivit pro formální i neformální vzdělávání.",
-    "p2": "Každá aktivita je postavena na svědectvích z první ruky, splétajících hlasy z různých zemí do nelineárních vyprávění, která zkoumají pět klíčových otázek:",
-    "questions": [
-      "Co vás zlobí na dnešním světě?",
-      "Odvážíte se postavit svým učitelům?",
-      "Co vás v životě ovlivňuje?",
-      "Víte, co si myslí vaši prarodiče o mladých lidech?",
-      "Co očekáváte od demokracie?"
-    ],
-    "p3": "Tyto otázky vybízejí k hluboké diskusi, zamyšlení a propojení pomáhají mladým lidem propojit historii s jejich vlastním životem a společností.",
-    "download": "Stáhněte si anglickou verzi"
-  },
-  "researchPublication": {
-    "title": "Changing Democracies: The Power of Testimonies for Democratic Education",
-    "subtitle": "Síla svědectví pro demokratické vzdělávání",
-    "lead": "Jak dávají mladí lidé smysl svědectvím o životě v diktatuře a zkušenostem s transformací?",
-    "p1": "V tomto sborníku šest partnerů konsorcia podává zprávy ze svých výzkumů o tom, jak mladí lidé interagují s svědectvími v lokálních vzdělávacích projektech.",
-    "download": "Stáhněte si zde"
-  },
-  "travellingWorkshop": {
-    "title": "Putovní workshop",
-    "lead": "Putovní workshop je výzvou k prozkoumání různých zkušeností a vizí demokracie založených na svědectvích.",
-    "p1": "Prostřednictvím interaktivního designu výstavy se návštěvníci setkají s 31 lidmi z Evropy a jiných oblastí, kteří byli svědky systémové změny od nedemokratické společnosti k demokratické.",
-    "p2": "Tím, že se návštěvníci setkají s nadějemi, sny a zklamáními svědků, jsou vybízeni k tomu, aby se zamysleli nad přísliby, které demokracie kdysi skýtala, a prozkoumali své vlastní zkušenosti a očekávání.",
-    "p3": "Metafora workshopu odkazuje na potřebu aktivní účasti a zapojení pro (re)formování demokracie.",
-    "p4": "Putovní workshop je k dispozici v deseti různých jazycích (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Pokud máte zájem o umístění Putovního workshopu, kontaktujte nás."
+    "navigation": {
+      "home": "Úvod",
+      "scrollDocumentary": "Interaktivní dokument",
+      "narratives": "Vyprávění",
+      "nonLinearNarratives": "Nelineární vyprávění",
+      "freeBrowsing": "Volné prohlížení",
+      "project": "O projektu",
+      "team": "Tým",
+      "events": "Události",
+      "educationalResources": "Balíček vzdělávacích materiálů",
+      "researchPublication": "Zpráva z výzkumu",
+      "travellingWorkshop": "Putovní workshop",
+      "contact": "Kontakt"
+    },
+    "landing": {
+      "description": "Projekt Changing Democracies zkoumá neznámé příběhy nedávných přechodů k demokracii v Evropě, aby pomohl porozumět, co je potřeba k tomu, aby demokracie splnila své přísliby pro všechny",
+      "scrollDocumentary": "Objevte, co jsme se naučili",
+      "narratives": "Vyberte si téma a prohlédněte si naši výběr",
+      "freeBrowsing": "Pomocí štítků můžete jejich hlasy vyhledávat a porovnávat"
+    },
+    "about": {
+      "p1": "Jaký by byl život bez demokracie? Plní demokracie to, co si od ní slibujeme? Co potřebuje zdravá demokracie, aby mohla efektivně fungovat? Jaká je role občanů?",
+      "p2": "Projekt Changing Democracies zkoumá, jak nám dosud nevyprávěné příběhy o evropské transformaci k demokracii mohou pomoci pochopit, co je dnes zapotřebí k tomu, aby demokracie sloužila všem"
+    },
+    "team": {
+      "description": "Changing Democracies je výsledkem spolupráce 12 partnerů z 10 evropských zemí a je koordinován Evens Foundation za finanční podpory Evropské komise.",
+      "teamList": [
+        {
+          "organisation": "Association for History Education in Greece",
+          "members": ["Vassiliki Sakka"],
+          "country": "Řecko",
+          "link": "https://www.aheg.gr/"
+        },
+        {
+          "organisation": "Autres Directions",
+          "members": ["Tijl Akkermans", "Catrien Spijkerman"],
+          "country": "Nizozemsko",
+          "link": "https://www.autresdirections.nl/"
+        },
+        {
+          "organisation": "Borderland Foundation",
+          "members": ["Weronika Czyżewska-Poncyljusz"],
+          "country": "Polsko",
+          "link": "https://www.pogranicze.sejny.pl/"
+        },
+        {
+          "organisation": "EuroClio – European Association of History Educators",
+          "members": ["Eugenie Khatschatrian", "Steven Stegers"],
+          "country": "Nizozemsko",
+          "link": "https://www.euroclio.eu/"
+        },
+        {
+          "organisation": "Evens Foundation",
+          "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+          "country": "Belgie/Polsko",
+          "link": "https://evensfoundation.be/"
+        },
+        {
+          "organisation": "Flemish Peace Institute",
+          "members": ["Maarten Van Alstein"],
+          "country": "Belgie",
+          "link": "https://vlaamsvredesinstituut.eu/en/"
+        },
+        {
+          "organisation": "Filozofická fakulta Univerzity Karlovy",  
+          "members": ["Bohumil Melichar", "Václav Sixta"],
+          "country": "Česko",
+          "link": "https://www.ff.cuni.cz/home/"
+        },
+        {
+          "organisation": "Research Institute in Art, Design and Society, University of Porto",
+          "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
+          "country": "Portugalsko",
+          "link": "https://i2ads.up.pt/en"
+        },
+        {
+          "organisation": "Mediawise Society",
+          "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
+          "country": "Rumunsko",
+          "link": "https://mediawise.ro/"
+        },
+        {
+          "organisation": "Museum of Slavonia",
+          "members": ["Denis Detling", "Jesenka Ricl"],
+          "country": "Chorvatsko",
+          "link": "https://www.mso.hr/"
+        },
+        {
+          "organisation": "Open Lithuania Foundation",
+          "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
+          "country": "Litva",
+          "link": "https://olf.lt/en/"
+        },
+        {
+          "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
+          "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
+          "country": "Španělsko",
+          "link": "https://escolapau.uab.cat/en/publications"
+        }
+      ]
+    },
+    "contact": {
+      "getIn": "Spojte se",
+      "touch": "s námi",
+      "download": "Stáhněte si naše Zásady ochrany dětí a mládeže zde"
+    },
+    "narratives": {
+      "title": "Vyprávění",
+      "select": "vyberte trasu",
+      "watch": "přehrát video",
+      "continue": "pokračovat po vybrané trase",
+      "switch": "nebo přejít na další navazující trasy"
+    },
+    "freeBrowsing": {
+      "title": "Volné prohlížení",
+      "description": "Svědci, kteří se s námi podělili o své příběhy, zažili změnu buď tím, že prožili transformaci své země v Evropě, nebo tím, že se přestěhovali z nedemokratické země do demokratické nebo někdy obojím.",
+      "explanation": "Pomocí štítků můžete jejich hlasy vyhledávat a porovnávat."
+    },
+    "eduPack": {
+      "title": "Vzdělávací materiály",
+      "subtitle": "Učení se z minulosti a reflexe dneška", 
+      "lead": "Mohou zkušenosti těch, kteří prožili přechod od nedemokratické k demokratické společnosti, inspirovat mladé lidi ke kritickému přemýšlení o demokracii dnes?",
+      "p1": "Abychom mladým lidem pomohli zpracovat svědectví shromážděná v rámci projektu Changing Democracies, společně jsme vytvořili balíček vzdělávacích zdrojů plný přizpůsobitelných vzdělávacích aktivit pro formální i neformální vzdělávání.",
+      "p2": "Každá aktivita je postavena na svědectvích z první ruky, splétajících hlasy z různých zemí do nelineárních vyprávění, která zkoumají pět klíčových otázek:",
+      "questions": [
+        "Co vás zlobí na dnešním světě?",
+        "Odvážíte se postavit svým učitelům?",
+        "Co vás v životě ovlivňuje?",
+        "Víte, co si myslí vaši prarodiče o mladých lidech?",
+        "Co očekáváte od demokracie?"
+      ],
+      "p3": "Tyto otázky vybízejí k hluboké diskusi, zamyšlení a propojení pomáhají mladým lidem propojit historii s jejich vlastním životem a společností.",
+      "download": "Stáhněte si anglickou verzi"
+    },
+    "researchPublication": {
+      "title": "Changing Democracies: The Power of Testimonies for Democratic Education",
+      "subtitle": "Síla svědectví pro demokratické vzdělávání",
+      "lead": "Jak dávají mladí lidé smysl svědectvím o životě v diktatuře a zkušenostem s transformací?",
+      "p1": "V tomto sborníku šest partnerů konsorcia podává zprávy ze svých výzkumů o tom, jak mladí lidé interagují s svědectvími v lokálních vzdělávacích projektech.",
+      "download": "Stáhněte si zde"
+    },
+    "travellingWorkshop": {
+      "title": "Putovní workshop",
+      "lead": "Putovní workshop je výzvou k prozkoumání různých zkušeností a vizí demokracie založených na svědectvích.",
+      "p1": "Prostřednictvím interaktivního designu výstavy se návštěvníci setkají s 31 lidmi z Evropy a jiných oblastí, kteří byli svědky systémové změny od nedemokratické společnosti k demokratické.",
+      "p2": "Tím, že se návštěvníci setkají s nadějemi, sny a zklamáními svědků, jsou vybízeni k tomu, aby se zamysleli nad přísliby, které demokracie kdysi skýtala, a prozkoumali své vlastní zkušenosti a očekávání.",
+      "p3": "Metafora workshopu odkazuje na potřebu aktivní účasti a zapojení pro (re)formování demokracie.",
+      "p4": "Putovní workshop je k dispozici v deseti různých jazycích (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+      "p5": "Pokud máte zájem o umístění Putovního workshopu, kontaktujte nás."
+    }
   }
-}
