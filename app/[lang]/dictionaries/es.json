@@ -14,7 +14,7 @@
     "contact": "Contacto"
   },
   "landing": {
-    "description": "Changing Democracies explora historias desconocidas sobre transiciones democráticas recientes en Europa para comprender qué es necesario para que la democracia cumpla sus promesas para todos",
+    "description": "Changing Democracies explora historias desconocidas sobre transiciones democráticas recientes en Europa para comprender qué es necesario para que la democracia cumpla sus promesas para todas las personas", 
     "scrollDocumentary": "Descubre lo que hemos aprendido",
     "narratives": "Elige un tema y visualiza nuestra selección",
     "freeBrowsing": "Usa etiquetas para explorar las historias"
@@ -52,11 +52,7 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
+        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
         "country": "Bélgica/Polonia",
         "link": "https://evensfoundation.be/"
       },
@@ -125,7 +121,7 @@
     "title": "Recursos educativos",
     "subtitle": "Aprendiendo del pasado, reflexionando sobre el presente",
     "lead": "¿Las experiencias de quienes vivieron una transición de una sociedad no democrática a una democrática pueden inspirar a los jóvenes a pensar críticamente sobre la democracia actual?",
-    "p1": "Para ayudar a los jóvenes a interactuar con los testimonios del proyecto Changing Democracies, creamos un Paquete de Recursos Educativos con actividades flexibles para educación formal e informal.",
+    "p1": "Para ayudar a los jóvenes a interactuar con los testimonios recopilados en el marco del proyecto Changing Democracies, creamos un Paquete de Recursos Educativos con actividades flexibles para educación formal e informal.",  
     "p2": "Cada actividad se construye alrededor de testimonios directos, entrelazando voces de diferentes países en narrativas no lineales que exploran cinco preguntas clave:",
     "questions": [
       "¿Qué te enfada del mundo actual?",
@@ -134,22 +130,22 @@
       "¿Sabes qué piensan tus abuelos de los jóvenes?",
       "¿Qué esperas de la democracia?"
     ],
-    "p3": "Estas preguntas invitan a discusiones profundas, reflexión y conexión, ayudando a los jóvenes a relacionar la historia con sus vidas y sociedades.",
+    "p3": "Estas preguntas invitan a una discusión, reflexión y conexión profundas, ayudando a los jóvenes a relacionar la historia con sus propias vidas y sociedades.",  
     "download": "Descarga la versión en inglés"
   },
   "researchPublication": {
     "title": "Changing Democracies: el poder de los testimonios para la educación democrática",
     "subtitle": "¿Cómo dan sentido los jóvenes a los testimonios sobre la vida en una dictadura y las experiencias de transición?",
-    "lead": "¿Cómo aprenden no solo sobre estas historias, sino también de ellas, en sus propios términos y voz?",
-    "p1": "En esta publicación, seis socios del consorcio informan sobre cómo los jóvenes interactuaron con los testimonios en proyectos educativos locales.",
+    "lead": "¿Cómo aprenden no solo sobre estas historias, sino también de ellas, en sus propios términos y con su propia voz?", 
+    "p1": "En esta publicación, seis socios del consorcio informan sobre sus investigaciones sobre cómo los jóvenes interactuaron con los testimonios en proyectos educativos locales.",  
     "download": "Descarga la publicación aquí"
   },
   "travellingWorkshop": {
     "title": "Exposición itinerante",
     "lead": "La Exposición Itinerante es una invitación a explorar diferentes experiencias y visiones de la democracia basadas en testimonios personales.",
     "p1": "Gracias a su diseño interactivo, los visitantes conocen a 31 personas de Europa y otras regiones que fueron testigos de transiciones democráticas.",
-    "p2": "Al conectar con las esperanzas, sueños y decepciones de los testigos, los visitantes son invitados a reflexionar sobre las promesas de la democracia y sus propias expectativas.",
-    "p3": "La metáfora de la 'workshop' simboliza la necesidad de participación activa para moldear la democracia.",
+    "p2": "Al conectar con las esperanzas, sueños y decepciones de los testigos, los visitantes son invitados a reflexionar sobre las promesas que alguna vez tuvo la democracia y a examinar sus propias experiencias y expectativas.",  
+    "p3": "La metáfora de la exposición alude a la necesidad de participación activa e implicación para (re)moldear la democracia.",  
     "p4": "La Exposición Itinerante está disponible en 10 idiomas (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
     "p5": "Si quieres acoger la Exposición Itinerante, contáctanos."
   }
