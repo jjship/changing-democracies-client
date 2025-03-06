@@ -5,10 +5,7 @@ import { useNarrativesContext } from "@/components/narratives/NarrativesContext"
 import Hls from "hls.js";
 import { Button } from "@/components/ui/button";
 import { Play, Pause } from "lucide-react";
-import useSubtitles, {
-  Subtitle,
-} from "@/app/components/scrollDocumentary/useSubtitles";
-import { getSubtitlesUrl } from "@/utils/i18n/languages";
+import useSubtitles from "@/app/components/scrollDocumentary/useSubtitles";
 import useAdaptiveQuality from "../scrollDocumentary/useAdaptiveQuality";
 import { getOptimalQuality } from "../scrollDocumentary/videoSource";
 

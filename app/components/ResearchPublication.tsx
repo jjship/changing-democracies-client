@@ -17,7 +17,7 @@ const ResearchPublication: FC = () => {
         <p className="mb-3">{dict.researchPublication.p1}</p>
 
         <a
-          href={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/edu/Educational_Resource_Pack_Eng.pdf`}
+          href={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/research/Changing-Democraties-WEB02.pdf`}
           className="inline-block rounded bg-darkRed px-4 py-2 text-white"
           target="_blank"
           rel="noopener noreferrer"
