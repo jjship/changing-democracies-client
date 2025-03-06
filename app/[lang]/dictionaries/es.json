@@ -1,7 +1,7 @@
 {
   "navigation": {
     "home": "Inicio",
-    "scrollDocumentary": "Documental en formato 'scoll'",
+    "scrollDocumentary": "Documental interactivo",
     "narratives": "Narrativas",
     "nonLinearNarratives": "Narrativas no lineales",
     "freeBrowsing": "Navegación libre",
@@ -14,10 +14,10 @@
     "contact": "Contacto"
   },
   "landing": {
-    "description": "Changing Democracies explora historias desconocidas sobre transiciones democráticas recientes en Europa para comprender qué es necesario para que la democracia cumpla sus promesas para todas las personas", 
+    "description": "Changing Democracies explora historias desconocidas sobre transiciones democráticas recientes en Europa con el objetivo de comprender qué hace falta para que la democracia cumpla sus promesas para todo el mundo",
     "scrollDocumentary": "Descubre lo que hemos aprendido",
-    "narratives": "Elige un tema y visualiza nuestra selección",
-    "freeBrowsing": "Usa etiquetas para explorar las historias"
+    "narratives": "Elije un tema y visualiza nuestra selección",
+    "freeBrowsing": "Utiliza las etiquetas para explorar las historias"
   },
   "about": {
     "p1": "¿Cómo sería la vida sin democracia? ¿Ha cumplido la democracia sus promesas? ¿Qué necesita una democracia sana para funcionar eficazmente? ¿Cuál es el papel de la ciudadanía?",
@@ -52,7 +52,11 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "Bélgica/Polonia",
         "link": "https://evensfoundation.be/"
       },
@@ -114,15 +118,15 @@
   },
   "freeBrowsing": {
     "title": "Navegación libre",
-    "description": "Las personas que compartieron sus historias con nosotros experimentaron cambios ya sea viviendo la transición de su país en Europa, migrando de un país no democrático a uno democrático, o ambas cosas.",
-    "explanation": "Usa etiquetas para navegar y comparar sus voces."
+    "description": "Las personas que compartieron sus historias con nosotros experimentaron el cambio, ya sea viviendo la transición de su país en Europa, migrando de un país no democrático a uno democrático, o a veces ambas cosas.",
+    "explanation": "Ayúdate de las etiquetas para navegar y comparar sus voces."
   },
   "eduPack": {
     "title": "Recursos educativos",
     "subtitle": "Aprendiendo del pasado, reflexionando sobre el presente",
-    "lead": "¿Las experiencias de quienes vivieron una transición de una sociedad no democrática a una democrática pueden inspirar a los jóvenes a pensar críticamente sobre la democracia actual?",
-    "p1": "Para ayudar a los jóvenes a interactuar con los testimonios recopilados en el marco del proyecto Changing Democracies, creamos un Paquete de Recursos Educativos con actividades flexibles para educación formal e informal.",  
-    "p2": "Cada actividad se construye alrededor de testimonios directos, entrelazando voces de diferentes países en narrativas no lineales que exploran cinco preguntas clave:",
+    "lead": "¿Las experiencias de quienes vivieron una transición de una sociedad no democrática a una democrática pueden inspirar a los jóvenes a pensar críticamente sobre la democracia hoy?",
+    "p1": "Para ayudar a los jóvenes a interactuar con los testimonios del proyecto Changing Democracies, co-creamos un Paquete de Recursos Educativos con actividades flexibles para educación formal e informal. Ya seas profesor/a de historia, educador/a de museos, trabajador/a juvenil o trabajes en otro entorno educativo, puedes elegir, adaptar y personalizar estas actividades para ajustarlas a tus necesidades.",
+    "p2": "Cada actividad se construye en torno a testimonios de primera mano, entrelazando voces de diferentes países en narrativas no lineales que exploran cinco preguntas clave:",
     "questions": [
       "¿Qué te enfada del mundo actual?",
       "¿Te atreves a cuestionar a tus profesores?",
@@ -130,23 +134,23 @@
       "¿Sabes qué piensan tus abuelos de los jóvenes?",
       "¿Qué esperas de la democracia?"
     ],
-    "p3": "Estas preguntas invitan a una discusión, reflexión y conexión profundas, ayudando a los jóvenes a relacionar la historia con sus propias vidas y sociedades.",  
+    "p3": "Estas preguntas invitan a una discusión, reflexión y conexión profundas, ayudando a los jóvenes a relacionar la historia con sus propias vidas y sociedades.",
     "download": "Descarga la versión en inglés"
   },
   "researchPublication": {
     "title": "Changing Democracies: el poder de los testimonios para la educación democrática",
     "subtitle": "¿Cómo dan sentido los jóvenes a los testimonios sobre la vida en una dictadura y las experiencias de transición?",
-    "lead": "¿Cómo aprenden no solo sobre estas historias, sino también de ellas, en sus propios términos y con su propia voz?", 
-    "p1": "En esta publicación, seis socios del consorcio informan sobre sus investigaciones sobre cómo los jóvenes interactuaron con los testimonios en proyectos educativos locales.",  
+    "lead": "¿Cómo aprenden no solo sobre estas historias, sino también de ellas, en sus propios términos y voz?",
+    "p1": "En esta publicación editada, seis socios del consorcio reportan sobre sus esfuerzos de investigación sobre cómo los jóvenes interactuaron con los testimonios en proyectos educativos locales.",
     "download": "Descarga la publicación aquí"
   },
   "travellingWorkshop": {
     "title": "Exposición itinerante",
     "lead": "La Exposición Itinerante es una invitación a explorar diferentes experiencias y visiones de la democracia basadas en testimonios personales.",
-    "p1": "Gracias a su diseño interactivo, los visitantes conocen a 31 personas de Europa y otras regiones que fueron testigos de transiciones democráticas.",
-    "p2": "Al conectar con las esperanzas, sueños y decepciones de los testigos, los visitantes son invitados a reflexionar sobre las promesas que alguna vez tuvo la democracia y a examinar sus propias experiencias y expectativas.",  
-    "p3": "La metáfora de la exposición alude a la necesidad de participación activa e implicación para (re)moldear la democracia.",  
+    "p1": "A través del diseño interactivo de la exposición, los visitantes conocen a 31 personas de Europa y otras regiones que fueron testigos de un cambio sistémico de una sociedad no democrática a una democrática.",
+    "p2": "Al interactuar con las esperanzas, sueños y decepciones de los testigos, se anima a los visitantes a reflexionar sobre las promesas que alguna vez tuvo la democracia y a examinar sus propias experiencias y expectativas.",
+    "p3": "La metáfora de la exposición alude a la necesidad de participación activa e implicación para (re)moldear la democracia.",
     "p4": "La Exposición Itinerante está disponible en 10 idiomas (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Si quieres acoger la Exposición Itinerante, contáctanos."
+    "p5": "Si estás interesado/a en acoger la Exposición Itinerante, ponte en contacto con nosotros."
   }
 }
