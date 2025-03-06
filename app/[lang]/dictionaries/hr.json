@@ -14,20 +14,20 @@
     "contact": "Kontakt"
   },
   "landing": {
-    "description": "Changing Democracies istražuje neispričane priče o recentnim prijelazima na demokraciju u Europi kako bi se shvatilo što je potrebno da demokracija ispuni svoja obećanja za sve.",
+    "description": "Changing Democracies istražuje nepoznate priče o nedavnim demokratskim tranzicijama u Europi kako bi se shvatilo što je potrebno da demokracija ispuni svoja obećanja za sve.",
     "scrollDocumentary": "Otkrij što smo naučili",
     "narratives": "Odaberi temu i pogledaj naš izbor",
     "freeBrowsing": "Koristi oznake za istraživanje priča"
   },
   "about": {
     "p1": "Kako bi izgledao život bez demokracije? Je li demokracija ispunila svoja obećanja? Što je potrebno za učinkovito funkcioniranje zdrave demokracije? Koja je uloga građana?",
-    "p2": "Changing Democracies istražuje kako priče o nedavno dogodenoj transformaciji demokracije u Europi mogu pomoći u razumijevanju procesa potrebnih danas da demokracija ispuni svoja obećanja za sve."
+    "p2": "Changing Democracies istražuje kako neispričane priče o nedavnim prijelazima na demokraciju u Europi mogu pomoći u razumijevanju procesa potrebnih danas da demokracija ispuni svoja obećanja za sve."
   },
   "team": {
-    "description": "Changing Democracies je rezultat suradnje između 12 partnera iz 10 europskih zemalja, a koordinira Zaklada Evens uz financiranje Europske komisije.",
+    "description": "Changing Democracies je rezultat suradnje između 12 partnera iz 10 europskih zemalja, a koordinira ga Zaklada Evens uz financiranje Europske komisije.",
     "teamList": [
       {
-        "organisation": "Association for History Education in Greece",
+        "organisation": "Udruga za podučavanje povijesti u Grčkoj",
         "members": ["Vassiliki Sakka"],
         "country": "Grčka",
         "link": "https://www.aheg.gr/"
@@ -39,65 +39,61 @@
         "link": "https://www.autresdirections.nl/"
       },
       {
-        "organisation": "Borderland Foundation",
+        "organisation": "Zaklada Borderland",
         "members": ["Weronika Czyżewska-Poncyljusz"],
         "country": "Poljska",
         "link": "https://www.pogranicze.sejny.pl/"
       },
       {
-        "organisation": "EuroClio – European Association of History Educators",
+        "organisation": "EuroClio – Europska udruga edukatora povijesti",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
         "country": "Nizozemska",
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Evens Foundation",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
+        "organisation": "Zaklada Evens",
+        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
         "country": "Belgija/Poljska",
         "link": "https://evensfoundation.be/"
       },
       {
-        "organisation": "Flemish Peace Institute",
+        "organisation": "Flamanski institut za mir",
         "members": ["Maarten Van Alstein"],
         "country": "Belgija",
         "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Faculty of Arts, Charles University",
+        "organisation": "Fakultet umjetnosti, Sveučilište Karlova",
         "members": ["Bohumil Melichar", "Václav Sixta"],
         "country": "Češka",
         "link": "https://www.ff.cuni.cz/home/"
       },
       {
-        "organisation": "Research Institute in Art, Design and Society, University of Porto",
+        "organisation": "Institut za istraživanje umjetnosti, dizajna i društva, Sveučilište u Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
         "country": "Portugal",
         "link": "https://i2ads.up.pt/en"
       },
       {
-        "organisation": "Mediawise Society",
+        "organisation": "Društvo Mediawise",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
         "country": "Rumunjska",
         "link": "https://mediawise.ro/"
       },
       {
-        "organisation": "Museum of Slavonia",
+        "organisation": "Muzej Slavonije",
         "members": ["Denis Detling", "Jesenka Ricl"],
         "country": "Hrvatska",
         "link": "https://www.mso.hr/"
       },
       {
-        "organisation": "Open Lithuania Foundation",
+        "organisation": "Zaklada Otvorena Litva",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
         "country": "Litva",
         "link": "https://olf.lt/en/"
       },
       {
-        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
+        "organisation": "Škola za kulturu mira, Autonomno sveučilište Barcelone",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
         "country": "Španjolska",
         "link": "https://escolapau.uab.cat/en/publications"
@@ -105,7 +101,7 @@
     ]
   },
   "contact": {
-    "getIn": "Kontakt:",
+    "getIn": "Kontakt",
     "touch": "",
     "download": "Preuzmite našu Politiku zaštite djece i mladih ovdje"
   },
@@ -118,15 +114,15 @@
   },
   "freeBrowsing": {
     "title": "Slobodno pregledavanje",
-    "description": "Svjedoci koji su s nama podijelili svoje priče doživjeli su promjene bilo proživljavajući tranziciju svoje zemlje u Europi, bilo prelaskom iz nedemokratskog u demokratsku zemlju — ili ponekad oboje.",
+    "description": "Svjedoci koji su s nama podijelili svoje priče doživjeli su promjene bilo proživljavajući tranziciju svoje zemlje u Europi, bilo prelaskom iz nedemokratske u demokratsku zemlju — ili ponekad oboje.",
     "explanation": "Koristi oznake za pregledavanje i usporedbu njihovih svjedočanstava."
   },
   "eduPack": {
     "title": "Obrazovni resursi",
-    "subtitle": "Učenje iz prošlosti, razmišljanje o danas",
+    "subtitle": "Učenje iz prošlosti, razmišljanje o današnjici",
     "lead": "Mogu li iskustva onih koji su proživjeli prijelaz iz nedemokratskog u demokratsko društvo inspirirati mlade da kritički razmatraju demokraciju danas?",
-    "p1": "Da bismo pomoći mladima da se angažuju sa svjedočanstvima prikupljenim unutar projekta Changing Democracies, zajedno smo stvorili paket obrazovnih resursa s prilagodljivim aktivnostima za formalno i neformalno obrazovanje.",
-    "p2": "Svakoj aktivnosti je osnovno prve ruke svjedočanstva koje spajaju glase između zemalja u neeilinih priča koji ispituju pet ključnih pitanja:",
+    "p1": "Da bismo pomoći mladima da se angažuju sa svjedočanstvima prikupljenim unutar projekta Changing Democracies, zajedno smo stvorili Paket obrazovnih resursa s prilagodljivim aktivnostima za formalno i neformalno obrazovanje.",
+    "p2": "Svaka aktivnost temelji se na svjedočanstvima iz prve ruke, spajajući glase preko granica u nelinearne narative koji istražuju pet ključnih pitanja:",
     "questions": [
       "Što te ljuti na svijetu danas?",
       "Usudiš li se suprotstaviti svojim učiteljima?",
@@ -140,17 +136,17 @@
   "researchPublication": {
     "title": "Changing Democracies: Snaga svjedočanstava za demokratsko obrazovanje",
     "subtitle": "Kako mladi ljudi interpretiraju svjedočanstva o životu u diktaturi i iskustvima tranzicije?",
-    "lead": "Kako uče mladi ljudi ne samo o ovoj povijesti, već i od nje — na svoj način i svojim glasom?",
-    "p1": "U ovoj publikaciji, šest partnera opisuje kako mladi ljudi su interagirali s svjedočanstvima u lokalnim obrazovnim projektima.",
+    "lead": "Kako mladi ljudi uče ne samo o tim povijestima, već i od njih — na svoj način i svojim glasom?",
+    "p1": "U ovoj uređenoj publikaciji, šest partnera opisuje svoje istraživačke napore oko interakcije mladih s svjedočanstvima u lokalnim obrazovnim projektima.",
     "download": "Preuzmite publikaciju ovdje"
   },
   "travellingWorkshop": {
     "title": "Putujuća radionica / izložba",
     "lead": "Putujuća radionica je poziv na istraživanje različitih iskustava i vizi demokracije zasnovane na svjedočanstvima.",
-    "p1": "Kroz interaktivni dizajn izložbe, posjetitelji upoznaju 31 osobu iz Europske unije i drugih regija koje su bile svjedoke sustavne promjene od nedemokratskog prema demokratskom društvu.",
-    "p2": "Angažiranje s nadama, snovima i razočaranjima svjedoca potiče na razmatranje obećanja demokracije i vlastitih očekivanja.",
-    "p3": "Metafora radionice predstavlja nužnost aktivnog učešća u oblikovanju demokracije.",
-    "p4": "Putujuća radionica je dostupna na 10 jezika (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p1": "Kroz interaktivni dizajn izložbe, posjetitelji upoznaju 31 osobu iz Europe i drugih regija koje su bile svjedoke sustavne promjene od nedemokratskog prema demokratskom društvu.",
+    "p2": "Angažiranje s nadama, snovima i razočaranjima svjedoca potiče posjetitelje da razmatraju obećanja koje demokracija je dala i ispituju vlastita iskustva i očekivanja.",
+    "p3": "Metafora radionice / izložbe odnosi se na potrebu aktivnog sudjelovanja i uključivanja u (pre)oblikovanje demokracije.",
+    "p4": "Putujuća radionice / izložbe je dostupna na 10 jezika (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
     "p5": "Ako ste zainteresirani za organizaciju Putujuće radionice, kontakte nas."
   }
 }

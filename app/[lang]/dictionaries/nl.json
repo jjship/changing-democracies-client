@@ -27,86 +27,82 @@
     "description": "Changing Democracies is het resultaat van een samenwerking tussen 12 partners uit 10 Europese landen en wordt gecoördineerd door Stichting Evens met financiering van de Europese Commissie.",
     "teamList": [
       {
-        "organisation": "Association for History Education in Greece",
+        "organisation": "Vereniging voor Historisch Onderwijs in Griekenland",
         "members": ["Vassiliki Sakka"],
-        "country": "Greece",
+        "country": "Griekenland",
         "link": "https://www.aheg.gr/"
       },
       {
         "organisation": "Autres Directions",
         "members": ["Tijl Akkermans", "Catrien Spijkerman"],
-        "country": "The Netherlands",
+        "country": "Nederland",
         "link": "https://www.autresdirections.nl/"
       },
       {
-        "organisation": "Borderland Foundation",
+        "organisation": "Borderland Stichting",
         "members": ["Weronika Czyżewska-Poncyljusz"],
-        "country": "Poland",
+        "country": "Polen",
         "link": "https://www.pogranicze.sejny.pl/"
       },
       {
-        "organisation": "EuroClio – European Association of History Educators",
+        "organisation": "EuroClio – Europese Vereniging van Historische Onderwijskundigen",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
-        "country": "The Netherlands",
+        "country": "Nederland",
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Evens Foundation",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
-        "country": "Belgium/Poland",
+        "organisation": "Stichting Evens",
+        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "country": "België/Polen",
         "link": "https://evensfoundation.be/"
       },
       {
-        "organisation": "Flemish Peace Institute",
+        "organisation": "Vlaams Vredesinstituut",
         "members": ["Maarten Van Alstein"],
-        "country": "Belgium",
+        "country": "België",
         "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Faculty of Arts, Charles University",
+        "organisation": "Faculteit van de Kunsten, Universiteit van Praag",
         "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Czechia",
+        "country": "Tsjechië",
         "link": "https://www.ff.cuni.cz/home/"
       },
       {
-        "organisation": "Research Institute in Art, Design and Society, University of Porto",
+        "organisation": "Onderzoeksinstituut voor Kunst, Ontwerp en Maatschappij, Universiteit van Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
         "country": "Portugal",
         "link": "https://i2ads.up.pt/en"
       },
       {
-        "organisation": "Mediawise Society",
+        "organisation": "Mediawise Vereniging",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Romania",
+        "country": "Roemenië",
         "link": "https://mediawise.ro/"
       },
       {
-        "organisation": "Museum of Slavonia",
+        "organisation": "Slavonisch Museum",
         "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Croatia",
+        "country": "Kroatië",
         "link": "https://www.mso.hr/"
       },
       {
-        "organisation": "Open Lithuania Foundation",
+        "organisation": "Open Lithuania Stichting",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
-        "country": "Lithuania",
+        "country": "Litouwen",
         "link": "https://olf.lt/en/"
       },
       {
-        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
+        "organisation": "School voor een Cultuur van Vrede, Autonome Universiteit van Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
-        "country": "Spain",
+        "country": "Spanje",
         "link": "https://escolapau.uab.cat/en/publications"
       }
     ]
   },
   "contact": {
-    "getIn": "Neem contact",
-    "touch": "op",
+    "getIn": "Neem",
+    "touch": "contact op",
     "download": "Download onze Children and Young People Protection Policy hier."
   },
   "narratives": {
@@ -125,7 +121,7 @@
     "title": "Educatief pakket",
     "subtitle": "Leren uit het verleden, nadenken over vandaag",
     "lead": "Kunnen ervaringen van mensen die overgang van een niet-democratische naar een democratische samenleving hebben meegemaakt, jongeren inspireren om kritisch na te denken over democratie vandaag?",
-    "p1": "Om jongeren te helpen zich te verdiepen in de getuigenissen die zijn verzameld in het kader van het project Changing Democracies, hebben we een educatief pakket samengesteld vol aanpasbare activiteiten voor zowel formeel als niet-formeel onderwijs.",
+    "p1": "Om jongeren te helpen zich te verdiepen in de getuigenissen die zijn verzameld in het kader van het project Changing Democracies, hebben we een educatief pakket samengesteld vol aanpasbare activiteiten voor zowel formeel als niet-formeel onderwijs. Of je nu geschiedenisleraar, museumdocent, jeugdwerker bent of in een andere educatieve omgeving werkt, je kunt uit deze activiteiten kiezen en ze naar wens aanpassen.",
     "p2": "Elke activiteit is opgebouwd rond getuigenissen waarbij verschillende stemmen over grenzen heen worden verweven in verhaallijnen die vijf belangrijke vragen onderzoeken:",
     "questions": [
       "Wat maakt je boos over de wereld van vandaag?",
@@ -141,16 +137,16 @@
     "title": "Changing Democracies: democratie, educatie en de kracht van getuigenissen",
     "subtitle": "Hoe geven jongeren betekenis aan getuigenissen over het leven in een dictatuur en het ervaren van een politieke omwenteling?",
     "lead": "Hoe leren ze niet alleen over maar ook van deze geschiedenissen – op hun eigen voorwaarden en met hun eigen stem?",
-    "p1": "In deze publicatie brengen zes partners van het consortium verslag uit over hun onderzoek naar de manier waarop jongeren zich in lokale onderwijsprojecten verhielden tot of verbonden met de getuigenissen.",
+    "p1": "In deze publicatie brengen zes partners van het consortium verslag uit over hun onderzoek naar de manier waarop jongeren zich in lokale onderwijsprojecten verhielden tot of verbonden met de getuigenissen. Hoewel ze zich lieten leiden door dezelfde onderzoeksvragen, bestrijken de zes casestudies een fascinerende verscheidenheid aan werkvormen van meer traditionele dialoogsessies tot activiteiten op online leerplatforms en kunsteducatieve praktijken zoals illustraties en theater en culturele contexten, van Spanje en Portugal, Tsjechië en Polen, tot Nederland en Vlaanderen/België.",
     "download": "Download de publicatie hier."
   },
   "travellingWorkshop": {
     "title": "Reizende werkplaats",
     "lead": "De Reizende Werkplaats is een uitnodiging om verschillende ervaringen en visies op democratie te onderzoeken, vertrekkende van de opgetekende verhalen.",
-    "p1": "Door het interactieve ontwerp van de tentoonstelling maken bezoekers kennis met 31 mensen uit Europa en daarbuiten die getuige waren van een systematische verandering van een niet-democratische naar een democratische samenleving.",
+    "p1": "Door het interactieve ontwerp van de tentoonstelling maken bezoekers kennis met 31 mensen uit Europa en daarbuiten die getuige waren van een systematische overgang van een niet-democratische naar een democratische samenleving.",
     "p2": "Door zich te verdiepen in de verwachtingen, dromen en teleurstellingen van de getuigen, worden bezoekers aangemoedigd om na te denken over de beloften die democratie inhield en hun eigen ervaringen en verwachtingen te onderzoeken.",
     "p3": "De metafoor van de werkplaats verwijst naar de noodzaak van actieve participatie en betrokkenheid om de democratie (opnieuw) vorm te geven.",
-    "p4": "De reizende workshop is beschikbaar in 10 verschillende talen (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Als je geïnteresseerd bent om de Travelling Workshop te hosten, neem dan contact op."
+    "p4": "De reizende werkplaats is beschikbaar in 10 verschillende talen (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Als je geïnteresseerd bent om de Reizende Werkplaats te hosten, neem dan contact op."
   }
 }
