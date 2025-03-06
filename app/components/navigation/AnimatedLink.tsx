@@ -17,9 +17,7 @@ const getFontColor = (color: LinkColor): NavColor => {
       return "purple_lightest_bg";
   }
 };
-
-// Constant for localStorage key to maintain consistency across the app
-const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
+import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 const AnimatedLink: FC<{
   href: string;

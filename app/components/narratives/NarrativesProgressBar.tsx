@@ -16,6 +16,7 @@ const NarrativesProgressBar: FC = () => {
     isPlaying,
     setCurrentPath,
     narrationPaths,
+    selectedLanguage,
   } = useNarrativesContext();
 
   const [animate, setAnimate] = useState(false);
@@ -27,6 +28,18 @@ const NarrativesProgressBar: FC = () => {
       setSwitchPath(false);
     },
     [setCurrentIndex, setIsPlaying, setSwitchPath],
+  );
+
+  const getTitleInLanguage = useMemo(
+    () => (titles: { languageCode: string; title: string }[]) => {
+      return (
+        (titles.find((title) => title.languageCode === selectedLanguage)
+          ?.title ||
+          titles.find((title) => title.languageCode === "EN")?.title) ??
+        ""
+      );
+    },
+    [selectedLanguage],
   );
 
   const handleSwitchPathButton = useCallback(() => {
@@ -189,7 +202,7 @@ const NarrativesProgressBar: FC = () => {
                       }
                       id={otherPath.id}
                       animate={animate}
-                      title={otherPath.title}
+                      title={getTitleInLanguage(otherPath.titles)}
                     ></SwitchPathRedirectButton>
                   ),
                 )}

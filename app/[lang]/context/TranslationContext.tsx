@@ -10,6 +10,7 @@ import {
 import { Dictionary } from "../dictionaries";
 import { CDLanguages, DEFAULT_LANGUAGE_LABEL } from "@/utils/i18n/languages";
 import { useRouter, useParams } from "next/navigation";
+import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 type TranslationContextType = {
   dictionary: Dictionary;
@@ -17,9 +18,6 @@ type TranslationContextType = {
   setLanguage: (lang: CDLanguages) => void;
   availableLanguages: CDLanguages[];
 };
-
-// Constants for localStorage
-const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
 
 const TranslationContext = createContext<TranslationContextType | null>(null);
 

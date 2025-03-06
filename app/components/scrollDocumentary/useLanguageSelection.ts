@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // Constant for localStorage key to maintain consistency across the app
-const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
+export const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
 
 interface UseLanguageSelectionProps {
   initialLanguageLabel: string;
@@ -26,12 +26,9 @@ export function useLanguageSelection({
     // Try to get language from localStorage first
     const storedLanguage = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
 
-    if (
-      storedLanguage &&
-      availableLanguageLabels.includes(storedLanguage.toUpperCase())
-    ) {
+    if (storedLanguage && availableLanguageLabels.includes(storedLanguage)) {
       // If stored language is valid for this content, use it
-      setSelectedLanguage(storedLanguage.toUpperCase());
+      setSelectedLanguage(storedLanguage);
     } else {
       // Otherwise fall back to the initialLabel or "EN"
       const initialLabel = availableLanguageLabels.includes(
@@ -45,11 +42,11 @@ export function useLanguageSelection({
 
   // Wrapper for setSelectedLanguage that also updates localStorage
   const handleSetSelectedLanguage = (language: string | undefined) => {
-    setSelectedLanguage(language);
+    setSelectedLanguage(language?.toUpperCase());
 
     // Save to localStorage whenever language changes
     if (typeof window !== "undefined" && language) {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, language);
+      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, language.toUpperCase());
     }
   };
 

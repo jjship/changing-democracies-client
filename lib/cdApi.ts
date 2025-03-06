@@ -7,11 +7,8 @@ export const narrativesApi = {
       return await cdApiRequest<NarrationPath[]>({
         endpoint: "/client-narratives",
         options: {
-          method: "POST",
-          body: JSON.stringify({
-            languageCode: "en",
-          }),
-          next: { revalidate: 15 * 60 }, // 15 minutes
+          method: "GET",
+          next: { revalidate: 60 * 60 },
         },
       });
     } catch (error) {
