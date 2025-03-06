@@ -1,12 +1,11 @@
 "use client";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { Box } from "@radix-ui/themes";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 
 export { NarrativesList };
 
 const NarrativesList: FC = () => {
-  const [isClient, setIsClient] = useState(false);
   const images = [
     "q1.png",
     "q2.png",
@@ -28,6 +27,16 @@ const NarrativesList: FC = () => {
         descriptions.find((desc) => desc.languageCode === selectedLanguage)
           ?.description ||
         descriptions.find((desc) => desc.languageCode === "EN")?.description
+      );
+    },
+    [selectedLanguage],
+  );
+
+  const getTitleInLanguage = useMemo(
+    () => (titles: { languageCode: string; title: string }[]) => {
+      return (
+        titles.find((title) => title.languageCode === selectedLanguage)
+          ?.title || titles.find((title) => title.languageCode === "EN")?.title
       );
     },
     [selectedLanguage],
@@ -63,7 +72,7 @@ const NarrativesList: FC = () => {
                 <div className="flex w-full items-end justify-between md:w-[16vw]">
                   <div className={"relative right-6 min-w-[14vw] text-right"}>
                     <span className="text-xl font-bold md:text-3xl">
-                      {narrativePath.title}
+                      {getTitleInLanguage(narrativePath.titles)}
                     </span>
                   </div>
                   <div className="self-end">

@@ -1,9 +1,7 @@
 import { FC, useEffect } from "react";
 import { AnimatedLink } from "./AnimatedLink";
 import { useRouter, useParams } from "next/navigation";
-
-// Constant for localStorage key to maintain consistency across the app
-const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
+import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
   isNavOpen,

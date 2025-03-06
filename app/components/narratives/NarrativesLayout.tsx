@@ -11,9 +11,7 @@ import { Box } from "@radix-ui/themes/dist/esm/components/box.js";
 import { useLanguageSelection } from "../scrollDocumentary/useLanguageSelection";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 const archivo = Archivo({ subsets: ["latin"] });
-
-// Constant for localStorage key to maintain consistency across the app
-const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
+import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 const NarrativesLayout: FC<{
   narrationPaths: NarrationPath[];
@@ -32,12 +30,11 @@ const NarrativesLayout: FC<{
   // First prioritize localStorage, then fall back to initialLanguageLabel
   const getInitialLanguage = (): string => {
     if (typeof window !== "undefined") {
-      const storedLanguage = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
-      if (
-        storedLanguage &&
-        availableLanguageLabels.includes(storedLanguage.toUpperCase())
-      ) {
-        return storedLanguage.toUpperCase();
+      const storedLanguage = localStorage
+        .getItem(LANGUAGE_PREFERENCE_KEY)
+        ?.toUpperCase();
+      if (storedLanguage && availableLanguageLabels.includes(storedLanguage)) {
+        return storedLanguage;
       }
     }
     return initialLanguageLabel;

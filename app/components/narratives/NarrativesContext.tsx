@@ -7,9 +7,7 @@ import {
   useEffect,
 } from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
-
-// Constant for localStorage key to maintain consistency across the app
-const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
+import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 const defaultContext: NarrativesContextType = {
   currentPath: null,

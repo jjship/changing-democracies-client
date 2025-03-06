@@ -11,21 +11,19 @@ import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "../context/TranslationContext";
 import { LangParam } from "@/types/langParam";
 
-// Constant for localStorage key
-const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
-
 // Optimize cache time for better performance
 const getNarrativesWithCaptions = cache(
   async ({
-    browserLang,
+    lang,
   }: {
-    browserLang: string;
+    lang: string;
   }): Promise<{
     narratives: NarrationPath[];
     availableLanguageLabels: string[];
     initialLanguageLabel: string;
   }> => {
     const narratives = await narrativesApi.getNarratives();
+
     const videoIds = new Set(
       narratives.flatMap((narrative) =>
         narrative.fragments.map((fragment) => fragment.guid),
@@ -59,12 +57,11 @@ const getNarrativesWithCaptions = cache(
       }),
     }));
 
-    const availableLanguageLabels = locales;
-
+    const availableLanguageLabels = locales.map((loc) => loc.toUpperCase());
     return {
       narratives: narrativesWithCaptions,
       availableLanguageLabels,
-      initialLanguageLabel: browserLang,
+      initialLanguageLabel: lang,
     };
   },
 );
@@ -87,7 +84,7 @@ function NarrativesLoading() {
 async function NarrativesContent({ lang }: { lang: string }) {
   const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
   const { narratives, availableLanguageLabels, initialLanguageLabel } =
-    await getNarrativesWithCaptions({ browserLang: lang.toUpperCase() });
+    await getNarrativesWithCaptions({ lang });
 
   return (
     <TranslationProvider dictionary={dictionary}>
@@ -102,7 +99,8 @@ async function NarrativesContent({ lang }: { lang: string }) {
   );
 }
 
-export default function NarrativesPage({ params: { lang } }: LangParam) {
+export default function NarrativesPage({ params }: LangParam) {
+  const { lang } = params;
   return (
     <Suspense fallback={<NarrativesLoading />}>
       <NarrativesContent lang={lang} />

@@ -1,6 +1,6 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useMemo } from "react";
 import OverviewTag from "./NarrativesOverviewButton";
 import NarrativesCountDown from "@/components/narratives/NarrativesCountDown";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
@@ -20,6 +20,7 @@ const NarrativesView: FC = ({}) => {
     setSwitchPath,
     showSidePanel,
     setShowSidePanel,
+    selectedLanguage,
   } = useNarrativesContext();
 
   const handleStart = () => {
@@ -50,6 +51,18 @@ const NarrativesView: FC = ({}) => {
     switchPath && setSwitchPath(false);
   };
 
+  const getTitleInLanguage = useMemo(
+    () => (titles: { languageCode: string; title: string }[]) => {
+      return (
+        (titles.find((title) => title.languageCode === selectedLanguage)
+          ?.title ||
+          titles.find((title) => title.languageCode === "EN")?.title) ??
+        "Narrative"
+      );
+    },
+    [selectedLanguage],
+  );
+
   return (
     currentPath && (
       <>
@@ -74,7 +87,7 @@ const NarrativesView: FC = ({}) => {
                   transitionDelay: switchPath ? "0s" : "0.5s",
                 }}
               >
-                {currentPath?.title || "Narrative"}
+                {getTitleInLanguage(currentPath.titles)}
               </h1>
             </>
           </div>

@@ -68,16 +68,17 @@ export type FilmData = Pick<VideoDbEntry, "guid" | "title" | "length"> & {
   length?: number;
 };
 
-export type NarrationFragment = Omit<FilmData, "tags" | "bio"> &
+export type NarrationFragment = Omit<FilmData, "tags" | "bio" | "country"> &
   VideoSource & {
+    country: { code: string; names: { languageCode: string; name: string }[] };
     bios: { languageCode: string; bio: string }[];
     sequence: number;
-    otherPaths: Pick<NarrationPath, "id" | "title">[];
+    otherPaths: Pick<NarrationPath, "id" | "titles">[];
   };
 
 export type NarrationPath = {
   id: string;
-  title: string;
+  titles: { languageCode: string; title: string }[];
   descriptions: { languageCode: string; description: string[] }[];
   total_length: number; // total length of all fragments in the path
   fragments: NarrationFragment[];

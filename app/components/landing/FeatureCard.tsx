@@ -68,7 +68,7 @@ export default function FeatureCard({
                 !position ? "object-[20%_20%]" : "object-[60%_40%]"
               }`}
               priority={true} // Always prioritize these images
-              onLoadingComplete={() => setIsImageLoaded(true)}
+              onLoad={() => setIsImageLoaded(true)}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
           </>

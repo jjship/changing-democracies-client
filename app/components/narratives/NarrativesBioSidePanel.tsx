@@ -26,6 +26,20 @@ const NarrativesBioSidePanel = () => {
     );
   }, [currentPath, currentIndex, selectedLanguage]);
 
+  const currentCountryName = useMemo(() => {
+    const currentFragment = currentPath?.fragments[currentIndex];
+    if (!currentFragment) return null;
+
+    return (
+      currentFragment.country.names.find(
+        (name: any) => name.languageCode === selectedLanguage,
+      )?.name ??
+      currentFragment.country.names.find(
+        (name: any) => name.languageCode === "EN",
+      )?.name
+    );
+  }, [currentPath, currentIndex, selectedLanguage]);
+
   return (
     <>
       <Flex
@@ -52,7 +66,7 @@ const NarrativesBioSidePanel = () => {
             }
           >
             <p>{currentPath?.fragments[currentIndex].person},</p>
-            <p>{currentPath?.fragments[currentIndex].country}</p>
+            <p>{currentCountryName}</p>
           </Box>
           <p className={"font-bold"}>{currentBio}</p>
         </Box>

@@ -15,6 +15,7 @@ import { CDLanguages } from "@/utils/i18n/languages";
 // Increase cache time and optimize data fetching
 const getSerializedAndSortedVideos = cache(
   async ({ browserLang }: { browserLang: string }) => {
+    const upperCaseBrowserLang = browserLang.toUpperCase();
     const videosResult = await Promise.all(
       slides
         .filter(({ videoId }) => videoId !== undefined)
@@ -40,8 +41,10 @@ const getSerializedAndSortedVideos = cache(
       videoSource: slide.videoId ? videoSources.get(slide.videoId) : undefined,
     }));
 
-    const initialLanguageLabel = availableLanguageLabels.has(browserLang)
-      ? browserLang
+    const initialLanguageLabel = availableLanguageLabels.has(
+      upperCaseBrowserLang,
+    )
+      ? upperCaseBrowserLang
       : "EN";
 
     return {
@@ -70,7 +73,7 @@ async function DocumentaryContent({ lang }: { lang: string }) {
     const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
     const { slidesWithSources, initialLanguageLabel, availableLanguageLabels } =
       await getSerializedAndSortedVideos({
-        browserLang: lang.toUpperCase(),
+        browserLang: lang,
       });
 
     return (
@@ -98,7 +101,7 @@ async function DocumentaryContent({ lang }: { lang: string }) {
 export default function ScrollDocumentaryPage({ params: { lang } }: LangParam) {
   return (
     <Suspense fallback={<DocumentaryLoading />}>
-      <DocumentaryContent lang={lang} />
+      <DocumentaryContent lang={lang.toUpperCase()} />
     </Suspense>
   );
 }
