@@ -109,9 +109,6 @@ const NarrativesFilmPlayer: FC = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Set poster image
-    video.poster = nowPlaying.thumbnailUrl || "";
-
     // Set initial states
     setIsLoading(true);
     setError(null);
@@ -231,12 +228,14 @@ const NarrativesFilmPlayer: FC = () => {
     };
   }, [nowPlaying, currentQuality]); // adding hls and videoRef to the dependency array causes an infinite loop
 
-  // Remove the separate effect that was trying to sync isPlaying with video state
-
   // Handle play/pause toggling
   const handlePlayPause = () => {
     setIsPaused(!isPaused);
   };
+
+  useEffect(() => {
+    setIsPaused(showSidePanel);
+  }, [showSidePanel]);
 
   // Effect to play/pause video based on isPlaying state
   useEffect(() => {
