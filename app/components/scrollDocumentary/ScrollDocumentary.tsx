@@ -27,8 +27,7 @@ export default function ScrollDocumentaryClient({
   const containerRef = useRef<HTMLDivElement>(null);
   const [isStarted, setIsStarted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [loadedSections, setLoadedSections] = useState<number[]>([0]);
-  const [isFirstVideoReady, setIsFirstVideoReady] = useState(false);
+  const [loadedSections, setLoadedSections] = useState<number[]>([0, 1]);
   const { selectedLanguage, setSelectedLanguage } = useLanguageSelection({
     initialLanguageLabel,
     availableLanguageLabels,
@@ -40,7 +39,7 @@ export default function ScrollDocumentaryClient({
     : themeMapping.black;
 
   useEffect(() => {
-    setLoadedSections([0]);
+    setLoadedSections([0, 1]);
   }, []);
 
   const { ref: loadMoreRef } = useInView({
@@ -184,6 +183,11 @@ export default function ScrollDocumentaryClient({
     </>
   );
 
+  const startDocumentary = () => {
+    setIsStarted(true);
+    scrollToNextSection(0);
+  };
+
   return (
     selectedLanguage && (
       <div
@@ -198,84 +202,64 @@ export default function ScrollDocumentaryClient({
             onLanguageChange={setSelectedLanguage}
           />
         </div>
-        {!isStarted ? (
-          <div className="flex h-[calc(90vh)] w-full items-center justify-center">
-            <div className="hidden">
-              {loadedSections.includes(0) &&
-                slidesWithSources[0].videoSource && (
-                  <VideoSection
-                    key={slidesWithSources[0].videoSource.videoId}
-                    videoSource={slidesWithSources[0].videoSource}
-                    onVideoEnd={() => {}}
-                    isActive={false}
-                    shouldPlay={false}
-                    onReady={() => setIsFirstVideoReady(true)}
-                    pageTheme={pageTheme}
-                    speakers={[]}
-                  />
-                )}
-            </div>
-            {!isFirstVideoReady ? (
-              <Skeleton className=" h-20 w-20 bg-yellow_secondary   dark:bg-gray_dark_secondary" />
-            ) : (
-              <Play
-                className="h-20  w-20 cursor-pointer  text-yellow_secondary"
-                onClick={() => setIsStarted(true)}
-                aria-label="Play scroll documentary"
-              />
-            )}
-          </div>
-        ) : (
-          <ErrorBoundary>
-            <div
-              ref={containerRef}
-              className="h-[calc(90vh)] w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
-            >
-              {slidesWithSources.map((slide, index) => (
+        <ErrorBoundary>
+          <div
+            ref={containerRef}
+            className="h-screen w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
+          >
+            {slidesWithSources.map((slide, index) => (
+              <div
+                key={slide.videoSource?.videoId ?? index}
+                id={`section-${index}`}
+                className="flex h-screen snap-center items-center justify-center"
+              >
                 <div
-                  key={slide.videoSource?.videoId ?? index}
-                  id={`section-${index}`}
-                  className="flex h-[calc(90vh)] snap-center items-center justify-center"
+                  className={`relative mx-auto aspect-video w-[90vw] max-w-full px-2 ${
+                    index === 0 ? "cursor-pointer" : ""
+                  }`}
+                  onClick={index === 0 ? startDocumentary : undefined}
                 >
-                  <div className="relative mx-auto aspect-video w-[70vw] max-w-[120vh] px-4">
-                    {loadedSections.includes(index) && slide.videoSource ? (
-                      <>
-                        <VideoSection
-                          videoSource={slide.videoSource!}
-                          onVideoEnd={() => scrollToNextSection(index)}
-                          isActive={index === activeIndex}
-                          shouldPlay={isStarted && index === activeIndex}
-                          selectedLanguageCode={
-                            slide.videoSource?.availableLanguageCodes[
-                              selectedLanguage
-                            ]
-                          }
-                          additionalContent={renderAdditionalContent(slide)}
-                          pageTheme={pageTheme}
-                          speakers={slide.speakers}
-                        />
-                      </>
-                    ) : slide.videoSource ? (
-                      <div
-                        className="flex h-full w-full items-center justify-center"
-                        ref={
-                          index === Math.max(...loadedSections) + 1
-                            ? loadMoreRef
-                            : undefined
+                  {loadedSections.includes(index) ? (
+                    slide.videoSource ? (
+                      <VideoSection
+                        videoSource={slide.videoSource}
+                        onVideoEnd={() => scrollToNextSection(index)}
+                        isActive={
+                          isStarted ? index === activeIndex : index === 0
                         }
-                      >
-                        <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
-                      </div>
+                        shouldPlay={isStarted && index === activeIndex}
+                        selectedLanguageCode={
+                          slide.videoSource?.availableLanguageCodes[
+                            selectedLanguage
+                          ]
+                        }
+                        additionalContent={renderAdditionalContent(slide)}
+                        pageTheme={pageTheme}
+                        speakers={slide.speakers}
+                      />
                     ) : (
                       renderAdditionalContent(slide)
-                    )}
-                  </div>
+                    )
+                  ) : slide.videoSource ? (
+                    <div
+                      className="flex h-full w-full items-center justify-center"
+                      ref={
+                        index === Math.max(...loadedSections) + 1
+                          ? loadMoreRef
+                          : undefined
+                      }
+                    >
+                      <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
+                    </div>
+                  ) : (
+                    renderAdditionalContent(slide)
+                  )}
                 </div>
-              ))}
-            </div>
-            {ScrollNavigation(pageTheme)}
-          </ErrorBoundary>
-        )}
+              </div>
+            ))}
+          </div>
+          {ScrollNavigation(pageTheme)}
+        </ErrorBoundary>
       </div>
     )
   );

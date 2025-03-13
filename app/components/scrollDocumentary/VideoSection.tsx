@@ -8,6 +8,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import VideoPlayerFallback from "./VideoPlayerFallback";
 import { VideoSourceError } from "./videoSource";
 import { PageTheme, Subtitle } from "./slides/slides";
+import { Button } from "@/components/ui/button";
+import { Play, Pause } from "lucide-react";
 
 interface VideoSectionProps {
   videoSource: VideoSource;
@@ -34,6 +36,8 @@ export default function VideoSection({
 }: VideoSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isManuallyPaused, setIsManuallyPaused] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const { ref: sectionRef, inView } = useInView({
     threshold: 0.7,
@@ -56,7 +60,8 @@ export default function VideoSection({
     const video = videoRef.current;
     if (!video) return;
 
-    const shouldBePlayingNow = shouldPlay && isActive && inView;
+    const shouldBePlayingNow =
+      shouldPlay && isActive && inView && !isManuallyPaused;
 
     if (shouldBePlayingNow) {
       video.muted = false;
@@ -81,12 +86,28 @@ export default function VideoSection({
       video.pause();
       setIsPlaying(false);
     };
-  }, [shouldPlay, isActive, inView]);
+  }, [shouldPlay, isActive, inView, isManuallyPaused]);
 
   const handleVideoEnd = () => {
     if (isActive) {
       // Only trigger scroll if this section is active
       onVideoEnd?.();
+    }
+  };
+
+  const togglePlayPause = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isPlaying) {
+      video.pause();
+      setIsPlaying(false);
+      setIsManuallyPaused(true);
+    } else {
+      video.play().catch(console.error);
+      setIsPlaying(true);
+      setIsManuallyPaused(false);
     }
   };
 
@@ -102,6 +123,8 @@ export default function VideoSection({
     <section
       ref={sectionRef}
       className="relative h-full w-full snap-start overflow-hidden"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
       <ErrorBoundary
         fallback={({ error, retry }) => (
@@ -123,6 +146,26 @@ export default function VideoSection({
             <div className="absolute inset-0 flex items-center justify-center">
               {additionalContent}
             </div>
+          )}
+          {isHovering && (
+            <Button
+              onClick={togglePlayPause}
+              size="icon"
+              variant="ghost"
+              className={`absolute right-4 top-6 z-50 rounded-none transition-opacity duration-200 hover:scale-110 ${
+                pageTheme.pageBg === "bg-pink_scroll"
+                  ? "bg-yellow_secondary bg-opacity-70 hover:bg-yellow_secondary/90"
+                  : pageTheme.pageBg === "bg-black_bg"
+                  ? "bg-darkRed bg-opacity-70 hover:bg-darkRed/90"
+                  : "bg-yellow_secondary bg-opacity-70 hover:bg-yellow_secondary/90"
+              }`}
+            >
+              {isPlaying ? (
+                <Pause className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
+              ) : (
+                <Play className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
+              )}
+            </Button>
           )}
         </div>
       </ErrorBoundary>

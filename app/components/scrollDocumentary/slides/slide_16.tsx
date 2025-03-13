@@ -1,8 +1,9 @@
 import { Archivo_Narrow } from "next/font/google";
+import { FC } from "react";
 
 const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
-export default function Slide15Content() {
+export const Slide16Content: FC = () => {
   return (
     <div className="relative right-1/4 top-5 flex h-[80vh] w-[24rem] flex-col items-center justify-center">
       <div style={{ fontSize: "1vw" }} className=" text-purple_lightest_bg ">
@@ -53,4 +54,4 @@ export default function Slide15Content() {
       </div>
     </div>
   );
-}
+};

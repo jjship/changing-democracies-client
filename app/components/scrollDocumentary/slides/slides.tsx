@@ -2,10 +2,11 @@ import { VideoSource } from "@/types/scrollDocumentary";
 import { ReactNode } from "react";
 import { NavColor } from "@/components/navigation/Navigation";
 import { parseTimeString } from "../subtitleParser";
-import { Slide0Content } from "./slide_0";
 import { Slide1Content } from "./slide_1";
-import Slide3Content from "./slide_3";
-import Slide15Content from "./slide_15";
+import { Slide2Content } from "./slide_2";
+import { Slide4Content } from "./slide_4";
+import { Slide16Content } from "./slide_16";
+import { Slide0Content } from "./slide_0";
 
 export type Subtitle = {
   start: number;
@@ -31,11 +32,24 @@ export type SlideWithSource = Slide & { videoSource?: VideoSource };
 
 export const slides: Slide[] = [
   {
+    colorTheme: "black",
+    additionalElements: [
+      {
+        type: "start",
+        content: <Slide0Content />,
+      },
+    ],
+    videSource: null,
+    videoTitle: null,
+    persons: [],
+    speakers: [],
+  },
+  {
     colorTheme: "gray",
     additionalElements: [
       {
         type: "overlay",
-        content: <Slide0Content />,
+        content: <Slide1Content />,
       },
     ],
     videoId: "89ade28e-439a-4952-a068-b81da8c4b22a",
@@ -49,7 +63,7 @@ export const slides: Slide[] = [
     additionalElements: [
       {
         type: "overlay",
-        content: <Slide1Content />,
+        content: <Slide2Content />,
       },
     ],
     videoId: "2952bc8b-2892-4813-8331-0d8e3ce793dd",
@@ -63,7 +77,7 @@ export const slides: Slide[] = [
     additionalElements: [
       {
         type: "overlay",
-        content: <Slide3Content />,
+        content: <Slide4Content />,
       },
     ],
     videoId: "243f8c4a-4a51-4f15-83fb-085524b5e96c",
@@ -278,7 +292,7 @@ export const slides: Slide[] = [
     additionalElements: [
       {
         type: "credits",
-        content: <Slide15Content />,
+        content: <Slide16Content />,
       },
     ],
     videSource: null,
