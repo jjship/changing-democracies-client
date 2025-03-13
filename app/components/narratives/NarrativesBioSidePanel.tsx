@@ -32,11 +32,10 @@ const NarrativesBioSidePanel = () => {
 
     return (
       currentFragment.country.names.find(
-        (name: any) => name.languageCode === selectedLanguage,
+        (name) => name.languageCode === selectedLanguage,
       )?.name ??
-      currentFragment.country.names.find(
-        (name: any) => name.languageCode === "EN",
-      )?.name
+      currentFragment.country.names.find((name) => name.languageCode === "EN")
+        ?.name
     );
   }, [currentPath, currentIndex, selectedLanguage]);
 
