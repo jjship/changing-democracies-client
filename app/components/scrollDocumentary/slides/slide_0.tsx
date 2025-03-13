@@ -6,24 +6,28 @@ const archivo = Archivo({ subsets: ["latin"] });
 export const Slide0Content: FC = () => {
   return (
     <>
-      <div className={`ml-2 flex items-center`}>
+      <div
+        className={`group absolute left-0 top-1/2 flex -translate-y-1/2 items-center`}
+      >
         {/* Arrow Rectangle */}
-        <div className="h-12 w-64 bg-slate-500/70" />
+        <div className="h-36 w-[40rem] bg-purple_mains" />
 
         {/* Arrow Triangle - Changes color on hover */}
         <div
-          className="h-0 w-0 
-        border-b-[8rem] border-l-[10rem] 
-        border-t-[8rem] border-b-transparent 
-        border-l-amber-400 border-t-transparent
+          className="z-20 h-0 w-0
+        border-b-[7rem] border-l-[11rem] 
+        border-t-[7rem] border-b-transparent 
+        border-l-yellow_secondary border-t-transparent
         transition-colors
         duration-200 group-hover:border-l-teal-300"
         />
       </div>
 
-      <div className="absolute bottom-10 left-10 z-10 flex items-center justify-center bg-black/30 mix-blend-screen">
+      <div className="absolute bottom-10 left-60 z-10 flex items-center justify-center bg-black/30 mix-blend-screen">
         <div className="min-w-[60vw] text-left">
-          <h1 className={`${archivo.className} text-8xl  text-green_accent`}>
+          <h1
+            className={`${archivo.className} text-8xl  text-yellow_secondary`}
+          >
             <span className={`block ${archivo.className}`}>Scroll</span>
             <span className={`mt-4 block ${archivo.className}`}>
               documentary
