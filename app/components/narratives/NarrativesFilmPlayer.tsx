@@ -1,5 +1,5 @@
 "use client";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@radix-ui/themes";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 import Hls from "hls.js";
@@ -29,6 +29,19 @@ const NarrativesFilmPlayer: FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
   const nowPlaying = currentPath?.fragments[currentIndex];
+
+  const currentCountryName = useMemo(() => {
+    const currentFragment = currentPath?.fragments[currentIndex];
+    if (!currentFragment) return null;
+
+    return (
+      currentFragment.country.names.find(
+        (name) => name.languageCode === selectedLanguage,
+      )?.name ??
+      currentFragment.country.names.find((name) => name.languageCode === "EN")
+        ?.name
+    );
+  }, [currentPath, currentIndex, selectedLanguage]);
 
   const { currentQuality, videoRef } = useAdaptiveQuality({
     initialQuality: getOptimalQuality(nowPlaying?.availableQualities ?? []),
@@ -95,9 +108,6 @@ const NarrativesFilmPlayer: FC = () => {
 
     const video = videoRef.current;
     if (!video) return;
-
-    // Set poster image
-    video.poster = nowPlaying.thumbnailUrl || "";
 
     // Set initial states
     setIsLoading(true);
@@ -218,12 +228,14 @@ const NarrativesFilmPlayer: FC = () => {
     };
   }, [nowPlaying, currentQuality]); // adding hls and videoRef to the dependency array causes an infinite loop
 
-  // Remove the separate effect that was trying to sync isPlaying with video state
-
   // Handle play/pause toggling
   const handlePlayPause = () => {
     setIsPaused(!isPaused);
   };
+
+  useEffect(() => {
+    setIsPaused(showSidePanel);
+  }, [showSidePanel]);
 
   // Effect to play/pause video based on isPlaying state
   useEffect(() => {
@@ -308,7 +320,7 @@ const NarrativesFilmPlayer: FC = () => {
             }
           >
             <p>{`${nowPlaying.person},`}</p>
-            <p>{`${nowPlaying.country}`}</p>
+            <p>{`${currentCountryName}`}</p>
           </Box>
           <div className="group/video absolute bottom-0 left-0 right-0 top-0 h-full w-full">
             <video

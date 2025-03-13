@@ -32,11 +32,10 @@ const NarrativesBioSidePanel = () => {
 
     return (
       currentFragment.country.names.find(
-        (name: any) => name.languageCode === selectedLanguage,
+        (name) => name.languageCode === selectedLanguage,
       )?.name ??
-      currentFragment.country.names.find(
-        (name: any) => name.languageCode === "EN",
-      )?.name
+      currentFragment.country.names.find((name) => name.languageCode === "EN")
+        ?.name
     );
   }, [currentPath, currentIndex, selectedLanguage]);
 
@@ -51,7 +50,6 @@ const NarrativesBioSidePanel = () => {
         <Button
           onClick={() => {
             setShowSidePanel(false);
-            setIsPlaying(true);
           }}
           className={
             "m-8 h-[5vh] w-[5vh] self-end rounded-full border-4 border-green_accent bg-purple_mains p-3 text-2xl font-bold text-green_accent hover:bg-purple_mains"

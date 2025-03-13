@@ -1,16 +1,16 @@
 {
   "navigation": {
     "home": "Home",
-    "scrollDocumentary": "Scroll documentaire",
+    "scrollDocumentary": "Scroll Documentaire",
     "narratives": "Verhaallijnen",
-    "nonLinearNarratives": "Niet-lineaire verhaallijnen",
-    "freeBrowsing": "Vrij surfen",
+    "nonLinearNarratives": "Verhaallijnen",
+    "freeBrowsing": "Vrij Surfen",
     "project": "Project",
     "team": "Team",
     "events": "Events",
-    "educationalResources": "Educatief pakket",
+    "educationalResources": "Educatief Pakket",
     "researchPublication": "Onderzoekspublicatie",
-    "travellingWorkshop": "Reizende werkplaats",
+    "travellingWorkshop": "Reizende Werkplaats",
     "contact": "Contact"
   },
   "landing": {
@@ -20,14 +20,14 @@
     "freeBrowsing": "Gebruik tags om de verhalen te verkennen"
   },
   "about": {
-    "p1": "Hoe zou het leven eruit zien zonder democratie? Maakt onze democratie haar beloften waar? Wat heeft een gezonde democratie nodig om effectief te functioneren? Wat is de rol van burgers daarin?",
-    "p2": "Changing Democracies onderzoekt hoe niet eerder vertelde verhalen over recente transities naar democratie in Europa ons kunnen helpen om te begrijpen welke processen er vandaag nodig zijn zodat onze democratie haar beloften voor iedereen kan waarmaken."
+    "p1": "Hoe zou het leven eruit zien zonder democratie? Maakt onze democratie haar beloften waar? Wat heeft een gezonde democratie nodig om optimaal te functioneren? Wat is de rol van burgers daarin?",
+    "p2": "Changing Democracies onderzoekt hoe niet eerder vertelde verhalen over recente transities naar democratie in Europa ons kunnen helpen om te begrijpen welke processen er nodig zijn opdat onze democratie haar beloften voor iedereen kan waarmaken."
   },
   "team": {
-    "description": "Changing Democracies is het resultaat van een samenwerking tussen 12 partners uit 10 Europese landen en wordt gecoördineerd door Stichting Evens met financiering van de Europese Commissie.",
+    "description": "Changing Democracies is het resultaat van een samenwerking tussen 12 partners uit 10 Europese landen en wordt gecoördineerd door de Evens Foundation met financiering van de Europese Commissie.",
     "teamList": [
       {
-        "organisation": "Vereniging voor Historisch Onderwijs in Griekenland",
+        "organisation": "Association for History Education in Greece",
         "members": ["Vassiliki Sakka"],
         "country": "Griekenland",
         "link": "https://www.aheg.gr/"
@@ -39,19 +39,19 @@
         "link": "https://www.autresdirections.nl/"
       },
       {
-        "organisation": "Borderland Stichting",
+        "organisation": "Borderland Foundation",
         "members": ["Weronika Czyżewska-Poncyljusz"],
         "country": "Polen",
         "link": "https://www.pogranicze.sejny.pl/"
       },
       {
-        "organisation": "EuroClio – Europese Vereniging van Historische Onderwijskundigen",
+        "organisation": "EuroClio – European Association of History Educators",
         "members": ["Eugenie Khatschatrian", "Steven Stegers"],
         "country": "Nederland",
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Stichting Evens",
+        "organisation": "Evens Foundation",
         "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
         "country": "België/Polen",
         "link": "https://evensfoundation.be/"
@@ -63,37 +63,37 @@
         "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Faculteit van de Kunsten, Universiteit van Praag",
+        "organisation": "Faculty of Arts, Charles University",
         "members": ["Bohumil Melichar", "Václav Sixta"],
         "country": "Tsjechië",
         "link": "https://www.ff.cuni.cz/home/"
       },
       {
-        "organisation": "Onderzoeksinstituut voor Kunst, Ontwerp en Maatschappij, Universiteit van Porto",
+        "organisation": "Research Institute in Art, Design and Society, University of Porto",
         "members": ["Samuel Guimarães", "Catarina (Cat) Martins"],
         "country": "Portugal",
         "link": "https://i2ads.up.pt/en"
       },
       {
-        "organisation": "Mediawise Vereniging",
+        "organisation": "Mediawise Society",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
         "country": "Roemenië",
         "link": "https://mediawise.ro/"
       },
       {
-        "organisation": "Slavonisch Museum",
+        "organisation": "Museum of Slavonia",
         "members": ["Denis Detling", "Jesenka Ricl"],
         "country": "Kroatië",
         "link": "https://www.mso.hr/"
       },
       {
-        "organisation": "Open Lithuania Stichting",
+        "organisation": "Open Lithuania Foundation",
         "members": ["Sandra Adomavičiūtė", "Sandra Gaučiūtė"],
         "country": "Litouwen",
         "link": "https://olf.lt/en/"
       },
       {
-        "organisation": "School voor een Cultuur van Vrede, Autonome Universiteit van Barcelona",
+        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
         "country": "Spanje",
         "link": "https://escolapau.uab.cat/en/publications"
@@ -118,10 +118,10 @@
     "explanation": "Gebruik de tags om hun wedervaren te verkennen en te vergelijken."
   },
   "eduPack": {
-    "title": "Educatief pakket",
+    "title": "Educatief Pakket",
     "subtitle": "Leren uit het verleden, nadenken over vandaag",
-    "lead": "Kunnen ervaringen van mensen die overgang van een niet-democratische naar een democratische samenleving hebben meegemaakt, jongeren inspireren om kritisch na te denken over democratie vandaag?",
-    "p1": "Om jongeren te helpen zich te verdiepen in de getuigenissen die zijn verzameld in het kader van het project Changing Democracies, hebben we een educatief pakket samengesteld vol aanpasbare activiteiten voor zowel formeel als niet-formeel onderwijs. Of je nu geschiedenisleraar, museumdocent, jeugdwerker bent of in een andere educatieve omgeving werkt, je kunt uit deze activiteiten kiezen en ze naar wens aanpassen.",
+    "lead": "Kunnen ervaringen van mensen die een overgang van een niet-democratische naar een democratische samenleving hebben meegemaakt, jongeren inspireren om kritisch na te denken over democratie vandaag?",
+    "p1": "Om jongeren te helpen zich te verdiepen in de getuigenissen die zijn verzameld in het kader van Changing Democracies, hebben we een educatief pakket samengesteld vol aanpasbare activiteiten voor zowel formeel als niet-formeel onderwijs. Of je nu geschiedenisleraar, museumdocent, jeugdwerker bent of in een andere educatieve omgeving werkt, je kunt uit deze activiteiten kiezen en ze naar wens aanpassen.",
     "p2": "Elke activiteit is opgebouwd rond getuigenissen waarbij verschillende stemmen over grenzen heen worden verweven in verhaallijnen die vijf belangrijke vragen onderzoeken:",
     "questions": [
       "Wat maakt je boos over de wereld van vandaag?",
@@ -130,20 +130,20 @@
       "Weet je wat je grootouders van jongeren denken?",
       "Wat verwacht je van democratie?"
     ],
-    "p3": "Deze vragen nodigen uit tot diepgaande discussie, reflectie en verbinding – helpen jongeren om geschiedenis in verband te brengen met hun eigen leven en samenleving.",
-    "download": "Download de Nederlandse versie"
+    "p3": "Deze vragen nodigen uit tot diepgaande discussie, reflectie en verbinding en helpen jongeren om geschiedenis in verband te brengen met hun eigen leven en samenleving.",
+    "download": "Download hier"
   },
   "researchPublication": {
     "title": "Onderzoekspublicatie",
     "subtitle": "Changing Democracies: democratie, educatie en de kracht van getuigenissen",
     "lead": "Hoe geven jongeren betekenis aan getuigenissen over het leven in een dictatuur en het ervaren van een politieke omwenteling? Hoe leren ze niet alleen over maar ook van deze geschiedenissen – op hun eigen voorwaarden en met hun eigen stem?",
-    "p1": "In deze publicatie brengen zes partners van het consortium verslag uit over hun onderzoek naar de manier waarop jongeren zich in lokale onderwijsprojecten verhielden tot of verbonden met de getuigenissen. Hoewel ze zich lieten leiden door dezelfde onderzoeksvragen, bestrijken de zes casestudies een fascinerende verscheidenheid aan werkvormen van meer traditionele dialoogsessies tot activiteiten op online leerplatforms en kunsteducatieve praktijken zoals illustraties en theater en culturele contexten, van Spanje en Portugal, Tsjechië en Polen, tot Nederland en Vlaanderen/België.",
+    "p1": "In deze publicatie brengen zes partners van het consortium verslag uit over hun onderzoek naar de manier waarop jongeren zich in lokale onderwijsprojecten verhielden tot of verbonden met de getuigenissen. Hoewel ze zich lieten leiden door dezelfde onderzoeksvragen, bestrijken de zes casestudies een fascinerende verscheidenheid aan werkvormen van meer traditionele dialoogsessies tot activiteiten op online leerplatforms en kunsteducatieve praktijken zoals illustraties en theater; en aan culturele contexten, van Spanje en Portugal, Tsjechië en Polen, tot Nederland en Vlaanderen/België.",
     "download": "Download de publicatie hier."
   },
   "travellingWorkshop": {
-    "title": "Reizende werkplaats",
+    "title": "Reizende Werkplaats",
     "lead": "De Reizende Werkplaats is een uitnodiging om verschillende ervaringen en visies op democratie te onderzoeken, vertrekkende van de opgetekende verhalen.",
-    "p1": "Door het interactieve ontwerp van de tentoonstelling maken bezoekers kennis met 31 mensen uit Europa en daarbuiten die getuige waren van een systematische overgang van een niet-democratische naar een democratische samenleving.",
+    "p1": "In de tentoonstelling kunnen de bezoekers kennismaken met 31 mensen uit Europa en daarbuiten die getuige waren van een systemische overgang van een niet-democratische naar een democratische samenleving.",
     "p2": "Door zich te verdiepen in de verwachtingen, dromen en teleurstellingen van de getuigen, worden bezoekers aangemoedigd om na te denken over de beloften die democratie inhield en hun eigen ervaringen en verwachtingen te onderzoeken.",
     "p3": "De metafoor van de werkplaats verwijst naar de noodzaak van actieve participatie en betrokkenheid om de democratie (opnieuw) vorm te geven.",
     "p4": "De reizende werkplaats is beschikbaar in 10 verschillende talen (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
