@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 
-export default function Slide3Content() {
+export const Slide4Content: FC = () => {
   const [isAboutVisible, setIsAboutVisible] = useState(false);
 
   useEffect(() => {
@@ -71,4 +71,4 @@ export default function Slide3Content() {
       </div>
     </div>
   );
-}
+};

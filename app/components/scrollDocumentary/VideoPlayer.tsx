@@ -127,8 +127,16 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       };
 
       video.addEventListener("timeupdate", handleTimeUpdate);
+      handleTimeUpdate(); // Initial call to set speaker based on current time
+
       return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-    }, [subtitles, speakers, videoRef, currentSpeaker]);
+    }, [subtitles, speakers, videoRef]);
+
+    // Reset subtitle and speaker when video source changes
+    useEffect(() => {
+      setCurrentSubtitle("");
+      setCurrentSpeaker("");
+    }, [videoSource]);
 
     const getVideoUrl = (quality: VideoQuality) => {
       if (isUsingHLS) {
@@ -170,19 +178,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           )}
         </video>
 
-        <Button
-          onClick={handlePlayPause}
-          size="icon"
-          variant="secondary"
-          className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200 hover:scale-110 group-hover/video:opacity-100"
-        >
-          {isPaused ? (
-            <Play className="h-6 w-6" />
-          ) : (
-            <Pause className="h-6 w-6" />
-          )}
-        </Button>
-
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50">
             <div className="text-white">Loading...</div>
@@ -195,22 +190,28 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           </div>
         )}
 
+        {/* Subtitle display */}
+        {!subtitlesLoading && !subtitlesError && currentSubtitle && (
+          <div
+            className={`absolute bottom-0 left-0 z-50 w-full px-3 py-2 text-center font-bold ${
+              pageTheme.pageBg === "bg-pink_scroll"
+                ? "bg-yellow_secondary bg-opacity-70"
+                : pageTheme.pageBg === "bg-black_bg"
+                ? "bg-darkRed bg-opacity-70"
+                : "bg-yellow_secondary bg-opacity-70"
+            } ${pageTheme.subtitleColor}`}
+          >
+            {currentSubtitle}
+          </div>
+        )}
+
         {/* Speaker display */}
         {isPlaying && currentSpeaker && (
           <div
             key={currentSpeaker}
-            className={`fixed bottom-28 left-1/2  max-w-2xl -translate-x-1/2 px-3 py-2 text-center font-bold ${pageTheme.speakersColor}`}
+            className={`fixed bottom-1 left-1/2 z-50 max-w-2xl -translate-x-1/2 px-3 py-2 text-center font-bold ${pageTheme.speakersColor}`}
           >
             {currentSpeaker}
-          </div>
-        )}
-
-        {/* Subtitle display */}
-        {!subtitlesLoading && !subtitlesError && (
-          <div
-            className={`fixed bottom-4 left-1/2 w-full max-w-4xl -translate-x-1/2 p-4 text-center font-bold italic ${pageTheme.subtitleColor}`}
-          >
-            {currentSubtitle}
           </div>
         )}
 
