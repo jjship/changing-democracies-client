@@ -3,7 +3,7 @@ import { FC } from "react";
 
 const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
-export const Slide16Content: FC = () => {
+export const Slide15Content: FC = () => {
   return (
     <div className="relative right-1/4 top-5 flex h-[80vh] w-[24rem] flex-col items-center justify-center">
       <div style={{ fontSize: "1vw" }} className=" text-purple_lightest_bg ">

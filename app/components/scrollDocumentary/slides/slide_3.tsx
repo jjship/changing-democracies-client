@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, FC } from "react";
 
-export const Slide4Content: FC = () => {
+export const Slide3Content: FC = () => {
   const [isAboutVisible, setIsAboutVisible] = useState(false);
 
   useEffect(() => {

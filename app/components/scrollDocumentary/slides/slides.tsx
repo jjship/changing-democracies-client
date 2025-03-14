@@ -4,8 +4,8 @@ import { NavColor } from "@/components/navigation/Navigation";
 import { parseTimeString } from "../subtitleParser";
 import { Slide1Content } from "./slide_1";
 import { Slide2Content } from "./slide_2";
-import { Slide4Content } from "./slide_4";
-import { Slide16Content } from "./slide_16";
+import { Slide3Content } from "./slide_3";
+import { Slide15Content } from "./slide_15";
 import { Slide0Content } from "./slide_0";
 
 export type Subtitle = {
@@ -15,6 +15,7 @@ export type Subtitle = {
 };
 
 type Slide = {
+  id: string;
   videoId?: string;
   title?: string;
   colorTheme: "gray" | "black" | "pink";
@@ -32,6 +33,7 @@ export type SlideWithSource = Slide & { videoSource?: VideoSource };
 
 export const slides: Slide[] = [
   {
+    id: "slide_0",
     colorTheme: "black",
     additionalElements: [
       {
@@ -45,6 +47,7 @@ export const slides: Slide[] = [
     speakers: [],
   },
   {
+    id: "slide_1",
     colorTheme: "gray",
     additionalElements: [
       {
@@ -59,6 +62,7 @@ export const slides: Slide[] = [
     speakers: [],
   },
   {
+    id: "slide_2",
     colorTheme: "black",
     additionalElements: [
       {
@@ -73,11 +77,12 @@ export const slides: Slide[] = [
     speakers: [],
   },
   {
+    id: "slide_3",
     colorTheme: "pink",
     additionalElements: [
       {
         type: "overlay",
-        content: <Slide4Content />,
+        content: <Slide3Content />,
       },
     ],
     videoId: "243f8c4a-4a51-4f15-83fb-085524b5e96c",
@@ -93,6 +98,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_4",
     title: "Looking back",
     colorTheme: "black",
     additionalElements: [],
@@ -119,6 +125,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_5",
     title: "State of transition",
     colorTheme: "black",
     additionalElements: [],
@@ -135,6 +142,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_6",
     title: "Is my democracy your democracy?",
     colorTheme: "pink",
     additionalElements: [],
@@ -151,6 +159,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_7",
     colorTheme: "black",
     additionalElements: [],
     videoId: "fb2f5641-6661-4984-a0bd-ff49bf618c13",
@@ -166,6 +175,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_8",
     title: "Reality check",
     colorTheme: "black",
     additionalElements: [],
@@ -187,6 +197,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_9",
     title: "The personal is political",
     colorTheme: "black",
     additionalElements: [],
@@ -203,6 +214,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_10",
     title: "Past Present Future",
     colorTheme: "black",
     additionalElements: [],
@@ -219,6 +231,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_11",
     title: "Get together",
     colorTheme: "pink",
     additionalElements: [],
@@ -235,6 +248,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_12",
     title: "Beware",
     colorTheme: "black",
     additionalElements: [],
@@ -251,6 +265,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_13",
     title: "Make noise",
     colorTheme: "black",
     additionalElements: [],
@@ -267,6 +282,7 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_14",
     title: "Our turn",
     colorTheme: "gray",
     additionalElements: [],
@@ -288,11 +304,12 @@ export const slides: Slide[] = [
     ],
   },
   {
+    id: "slide_15",
     colorTheme: "black",
     additionalElements: [
       {
         type: "credits",
-        content: <Slide16Content />,
+        content: <Slide15Content />,
       },
     ],
     videSource: null,

@@ -99,4 +99,14 @@ type Dictionary = {
     p4: string;
     p5: string;
   };
+  scrollDocumentary: ScrollDictionary;
+};
+
+type ScrollDictionary = {
+  slides: {
+    [slideId: string]: {
+      title?: string;
+      additionalContent?: Record<string, string>;
+    };
+  };
 };

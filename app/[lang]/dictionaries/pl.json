@@ -1,7 +1,7 @@
 {
   "navigation": {
     "home": "Strona główna",
-    "scrollDocumentary": "Dokument wertykalny", 
+    "scrollDocumentary": "Dokument wertykalny",
     "narratives": "Narracje",
     "nonLinearNarratives": "Nielinearne narracje",
     "freeBrowsing": "Swobodne przeglądanie",
@@ -14,17 +14,17 @@
     "contact": "Kontakt"
   },
   "landing": {
-    "description": "Projekt Changing Democracies bada nieznane historie dotyczące niedawnych przemian demokratycznych w Europie, aby zrozumieć, co jest potrzebne, aby demokracja spełniła swoje obietnice wobec wszystkich", 
+    "description": "Projekt Changing Democracies bada nieznane historie dotyczące niedawnych przemian demokratycznych w Europie, aby zrozumieć, co jest potrzebne, aby demokracja spełniła swoje obietnice wobec wszystkich",
     "scrollDocumentary": "Odkryj, czego się nauczyliśmy",
     "narratives": "Wybierz temat i obejrzyj, co przygotowaliśmy",
     "freeBrowsing": "Użyj tagów, aby odkrywać historie"
   },
   "about": {
     "p1": "Jak wyglądałoby życie bez demokracji? Czy demokracja spełniła swoje obietnice? Czego potrzebuje zdrowa demokracja, aby działać skutecznie? Jaka jest rola obywateli?",
-    "p2": "Changing Democracies bada, jak do tej pory nieopowiedziane historie o niedawnych procesach transformacji demokratycznej w Europie mogą pomóc nam zrozumieć, jakie procesy są dziś potrzebne, aby demokracja spełniła swoje obietnice wobec wszystkich" 
+    "p2": "Changing Democracies bada, jak do tej pory nieopowiedziane historie o niedawnych procesach transformacji demokratycznej w Europie mogą pomóc nam zrozumieć, jakie procesy są dziś potrzebne, aby demokracja spełniła swoje obietnice wobec wszystkich"
   },
   "team": {
-    "description": "Projekt Changing Democracies jest efektem współpracy 12 organizacji partnerskich z 10 krajów europejskich i jest koordynowany przez Fundację Evens przy wsparciu finansowym Komisji Europejskiej.", 
+    "description": "Projekt Changing Democracies jest efektem współpracy 12 organizacji partnerskich z 10 krajów europejskich i jest koordynowany przez Fundację Evens przy wsparciu finansowym Komisji Europejskiej.",
     "teamList": [
       {
         "organisation": "Association for History Education in Greece",
@@ -52,7 +52,11 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "Belgia/Polska",
         "link": "https://evensfoundation.be/"
       },
@@ -134,19 +138,116 @@
     "download": "Pobierz wersję angielską"
   },
   "researchPublication": {
-    "title": "Publikacja badawcza", 
+    "title": "Publikacja badawcza",
     "subtitle": "Changing Democracies: moc opowieści świadków dla edukacji demokratycznej",
-    "lead": "W jaki sposób młodzi ludzie nadają znaczenie świadectwom dotyczącym życia w dyktaturze i doświadczeń transformacji systemu? W jaki sposób uczą się nie tylko o tych historiach, ale także z nich – na własnych warunkach? I co ważne, w świetle celów projektu Changing Democracies, czy nauka o historii dyktatur prowadzi młodych ludzi do krytycznej refleksji na temat demokracji i pokoju, a jeśli tak, to w jaki sposób?", 
-    "p1": "W tym recenzowanym naukowo tomie sześciu partnerów konsorcjum przedstawia swoje badania nad tym, jak młodzi ludzie wchodzili w interakcję z opowieściami świadków w trakcie lokalnych projektów edukacyjnych.", 
+    "lead": "W jaki sposób młodzi ludzie nadają znaczenie świadectwom dotyczącym życia w dyktaturze i doświadczeń transformacji systemu? W jaki sposób uczą się nie tylko o tych historiach, ale także z nich – na własnych warunkach? I co ważne, w świetle celów projektu Changing Democracies, czy nauka o historii dyktatur prowadzi młodych ludzi do krytycznej refleksji na temat demokracji i pokoju, a jeśli tak, to w jaki sposób?",
+    "p1": "W tym recenzowanym naukowo tomie sześciu partnerów konsorcjum przedstawia swoje badania nad tym, jak młodzi ludzie wchodzili w interakcję z opowieściami świadków w trakcie lokalnych projektów edukacyjnych.",
     "download": "Pobierz publikację tutaj."
   },
   "travellingWorkshop": {
     "title": "Wędrowna Pracownia",
     "lead": "Oparta na opowieściach świadków historii, Wędrowna Pracownia jest zaproszeniem do eksploracji różnych doświadczeń i wizji demokracji.",
-    "p1": "Dzięki interaktywnej konstrukcji wystawy, odwiedzający spotykają 31 osób z Europy i spoza niej, które były świadkami zmiany ustroju z niedemokratycznego na demokratyczny.", 
+    "p1": "Dzięki interaktywnej konstrukcji wystawy, odwiedzający spotykają 31 osób z Europy i spoza niej, które były świadkami zmiany ustroju z niedemokratycznego na demokratyczny.",
     "p2": "Dzięki zetknięciu się z nadzieją, marzeniami i rozczarowaniami świadków, odwiedzający są zachęcani do refleksji nad obietnicami, jakie kiedyś niosła demokracja, i do przemyślenia własnych doświadczeń i oczekiwań.",
     "p3": "Metafora pracowni odnosi się do potrzeby aktywnego uczestnictwa i zaangażowania w nieustanne (współ)tworzenie demokracji.",
-    "p4": "Wędrowna Pracownia jest dostępna w 10 różnych językach (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).", 
-    "p5": "Jeśli jesteś zainteresowana/zainteresowany zorganizowaniem jej u siebie, skontaktuj się z nami." 
+    "p4": "Wędrowna Pracownia jest dostępna w 10 różnych językach (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p5": "Jeśli jesteś zainteresowana/zainteresowany zorganizowaniem jej u siebie, skontaktuj się z nami."
+  },
+  "scrollDocumentary": {
+    "slides": {
+      "slide_0": {
+        "additionalContent": {
+          "scroll": "Scroll",
+          "documentary": "Documentary"
+        }
+      },
+      "slide_1": {
+        "additionalContent": {
+          "is_democracy": "Is democracy",
+          "worth": "worth",
+          "the_trouble": "the trouble?"
+        }
+      },
+      "slide_2": {
+        "additionalContent": {
+          "democracy": "Democracy",
+          "equality": "Equality",
+          "freedom": "Freedom",
+          "honesty": "Honesty",
+          "love": "Love",
+          "conflict": "Conflict",
+          "safety": "Safety",
+          "justice": "Justice"
+        }
+      },
+      "slide_3": {
+        "additionalContent": {
+          "about_the_project": "About the project",
+          "democracy_failed_us": "Democracy failed us",
+          "democracy_is_in_crisis": "Democracy is in crisis",
+          "we_need_to_defend_democracy": "We need to defend democracy",
+          "authoritarianism_is_on_the_rise": "Authoritarianism is on the rise",
+          "democratic_institutions_are_in_decline": "Democratic institutions are in decline",
+          "you_know_these_phrases": "You know these phrases",
+          "you_ve_heard_them_over_and_over": "You've heard them over and over",
+          "but_what_lies_beyond_this_gloomy_picture": "But what lies beyond this gloomy picture?",
+          "there_are_people_around_us_who_know": "There are people around us who know",
+          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "They have experienced firsthand what life is like under different political systems",
+          "they_have_lived_through_times_of_transition": "They have lived through times of transition",
+          "so_we_asked_them": "So we asked them:",
+          "is_democracy_worth_the_trouble": "Is democracy worth the trouble?",
+          "they_shared_their_fears_their_hopes_their_disillusions": "They shared their fears, their hopes, their disillusions",
+          "their_stories": "Their stories",
+          "changing_democracies_brings_you_their_wisdom": "Changing Democracies brings you their wisdom",
+          "we_learnt": "We learnt:",
+          "that_it_pays_to_move_beyond_historical_facts": "That it pays to move beyond historical facts",
+          "that_democracy_is_never_finished": "That democracy is never finished",
+          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "That engaging with its challenges together is the only way forward",
+          "dont_take_our_word_for_it_see_for_yourself": "Don't take our word for it—see for yourself."
+        }
+      },
+      "slide_4": {
+        "title": "Looking back"
+      },
+      "slide_5": {
+        "title": "State of transition"
+      },
+      "slide_6": {
+        "title": "Is my democracy your democracy?"
+      },
+      "slide_8": {
+        "title": "Reality check"
+      },
+      "slide_9": {
+        "title": "The personal is political"
+      },
+      "slide_10": {
+        "title": "Past Present Future"
+      },
+      "slide_11": {
+        "title": "Get together"
+      },
+      "slide_12": {
+        "title": "Beware"
+      },
+      "slide_13": {
+        "title": "Make noise"
+      },
+      "slide_14": {
+        "title": "Our turn"
+      },
+      "slide_15": {
+        "additionalContent": {
+          "credits": "Credits",
+          "script": "Script",
+          "visuals": "Visuals",
+          "development": "Development",
+          "music": "Music",
+          "Changing_Democracies": "Changing Democracies",
+          "p1": "explores how Europe's living history about recent transitions to democracy might help us to grasp what processes are needed today for democracy to fulfil its promises for everyone.",
+          "p2": "The project is the result of a collaboration between 12 partners from 10 European countries and is coordinated by the Evens Foundation and EuroClio with funding from the European Commission. "
+        }
+      }
+    }
   }
 }
