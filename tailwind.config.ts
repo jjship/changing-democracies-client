@@ -81,6 +81,9 @@ const config: Config = {
         xl: "1450px",
         lg: "1500px",
         "narratives-player-width": "900px",
+        tall: { raw: "(min-height: 1200px)" },
+        short: { raw: "(max-height: 780px)" },
+        midheight: { raw: "(min-height: 1200px) or (max-height: 780px)" },
       },
       fontSize: {
         display_lg: "14.813rem",

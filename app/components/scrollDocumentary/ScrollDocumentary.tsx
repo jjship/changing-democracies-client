@@ -7,7 +7,6 @@ import ErrorBoundary from "./VideoErrorBoundary";
 import { Navigation } from "@/components/navigation/Navigation";
 import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Play } from "lucide-react";
 import { Archivo_Narrow } from "next/font/google";
 import { useLanguageSelection } from "./useLanguageSelection";
 
@@ -163,8 +162,7 @@ export default function ScrollDocumentaryClient({
   ) => (
     <>
       {slide.title && (
-        <div className="absolute left-8 top-8 z-10 flex items-center justify-center ">
-          {" "}
+        <div className="absolute left-8 top-8 flex items-center justify-center">
           <h1
             className={`${archivoNarrow.className} bg-black_bg bg-opacity-70 px-2 py-1 text-left text-2xl font-bold text-yellow_secondary mix-blend-multiply`}
           >
@@ -175,7 +173,7 @@ export default function ScrollDocumentaryClient({
       {slide.additionalElements.map((elem, idx) => (
         <div
           key={idx}
-          className="absolute inset-0 flex max-h-[80vh] items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center"
         >
           {elem.content}
         </div>
@@ -211,62 +209,49 @@ export default function ScrollDocumentaryClient({
               <div
                 key={slide.videoSource?.videoId ?? index}
                 id={`section-${index}`}
-                className="border-pink-500 flex h-screen min-h-[500px] snap-center items-center justify-center border-4 border-solid px-1 pb-10 pt-16 sm:px-2"
+                className="flex h-screen snap-center items-center justify-center px-1 pb-10 pt-16 sm:px-2"
               >
                 <div
-                  className={`relative mx-auto flex max-h-[calc(100vh-120px)] max-w-[90vw] items-center justify-center ${
+                  className={`relative flex aspect-video max-h-[calc(100vh-120px)] w-auto max-w-[90vw] items-center justify-center ${
                     index === 0 ? "cursor-pointer" : ""
-                  } border-4 border-solid border-green-500`}
+                  }`}
                   onClick={index === 0 ? startDocumentary : undefined}
                 >
-                  <div
-                    className="relative h-auto w-auto border-4 border-solid border-yellow-500"
-                    style={{
-                      maxHeight: "calc(100vh - 120px)",
-                      maxWidth: "90vw",
-                      aspectRatio: "16/9",
-                    }}
-                  >
-                    {loadedSections.includes(index) ? (
-                      slide.videoSource ? (
-                        <VideoSection
-                          videoSource={slide.videoSource}
-                          onVideoEnd={() => scrollToNextSection(index)}
-                          isActive={
-                            isStarted ? index === activeIndex : index === 0
-                          }
-                          shouldPlay={isStarted && index === activeIndex}
-                          selectedLanguageCode={
-                            slide.videoSource?.availableLanguageCodes[
-                              selectedLanguage
-                            ]
-                          }
-                          additionalContent={renderAdditionalContent(slide)}
-                          pageTheme={pageTheme}
-                          speakers={slide.speakers}
-                        />
-                      ) : (
-                        <div className="relative flex h-full w-full items-center justify-center overflow-hidden border-4 border-solid border-red-500">
-                          {/* <div className="absolute inset-0 flex items-center justify-center border-4 border-solid border-blue-500"> */}
-                          {renderAdditionalContent(slide)}
-                          {/* </div> */}
-                        </div>
-                      )
-                    ) : slide.videoSource ? (
-                      <div
-                        className="flex h-full w-full items-center justify-center"
-                        ref={
-                          index === Math.max(...loadedSections) + 1
-                            ? loadMoreRef
-                            : undefined
+                  {loadedSections.includes(index) ? (
+                    slide.videoSource ? (
+                      <VideoSection
+                        videoSource={slide.videoSource}
+                        onVideoEnd={() => scrollToNextSection(index)}
+                        isActive={
+                          isStarted ? index === activeIndex : index === 0
                         }
-                      >
-                        <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
-                      </div>
+                        shouldPlay={isStarted && index === activeIndex}
+                        selectedLanguageCode={
+                          slide.videoSource?.availableLanguageCodes[
+                            selectedLanguage
+                          ]
+                        }
+                        additionalContent={renderAdditionalContent(slide)}
+                        pageTheme={pageTheme}
+                        speakers={slide.speakers}
+                      />
                     ) : (
-                      renderAdditionalContent(slide)
-                    )}
-                  </div>
+                      <div className="tall:max-h-[1076px]  relative aspect-video h-[calc(100vh-120px)] max-w-[90vw]">
+                        {renderAdditionalContent(slide)}
+                      </div>
+                    )
+                  ) : (
+                    <div
+                      className="h-full w-full"
+                      ref={
+                        index === Math.max(...loadedSections) + 1
+                          ? loadMoreRef
+                          : undefined
+                      }
+                    >
+                      <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

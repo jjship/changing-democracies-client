@@ -1,7 +1,7 @@
 import Hls from "hls.js";
 import { Button } from "@/components/ui/button";
 import { Play, Pause } from "lucide-react";
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useState, useRef } from "react";
 import useAdaptiveQuality from "./useAdaptiveQuality";
 import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
 import { getOptimalQuality } from "./videoSource";
@@ -38,6 +38,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     const [error, setError] = useState<string | null>(null);
     const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
     const [currentSpeaker, setCurrentSpeaker] = useState<string>("");
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const { currentQuality, videoRef } = useAdaptiveQuality({
       initialQuality: getOptimalQuality(videoSource.availableQualities),
@@ -170,69 +171,76 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     };
 
     return (
-      <div className="group/video relative w-full border-4 border-solid border-blue-500">
-        <video
-          ref={(element) => {
-            videoRef.current = element;
-            if (typeof ref === "function") {
-              ref(element);
-            } else if (ref) {
-              ref.current = element;
-            }
-          }}
-          className={className}
-          playsInline
-          onEnded={onEnded}
-          onError={handleError}
-          onLoadedData={handleLoadedData}
-          crossOrigin="anonymous"
-          aria-label="video player"
-        >
-          {!isUsingHLS && (
-            <source src={getVideoUrl(currentQuality)} type="video/mp4" />
+      <div
+        ref={containerRef}
+        className="relative mx-auto flex h-full items-center justify-center"
+      >
+        <div className="relative h-auto w-auto">
+          <video
+            ref={(element) => {
+              videoRef.current = element;
+              if (typeof ref === "function") {
+                ref(element);
+              } else if (ref) {
+                ref.current = element;
+              }
+            }}
+            className={className}
+            playsInline
+            onEnded={onEnded}
+            onError={handleError}
+            onLoadedData={handleLoadedData}
+            crossOrigin="anonymous"
+            aria-label="video player"
+          >
+            {!isUsingHLS && (
+              <source src={getVideoUrl(currentQuality)} type="video/mp4" />
+            )}
+          </video>
+
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+              <div className="text-white">Loading...</div>
+            </div>
           )}
-        </video>
 
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <div className="text-white">Loading...</div>
-          </div>
-        )}
+          {error && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+              <div className="text-red-500">{error}</div>
+            </div>
+          )}
 
-        {error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <div className="text-red-500">{error}</div>
-          </div>
-        )}
+          {!subtitlesLoading && !subtitlesError && currentSubtitle && (
+            <div
+              className={`absolute bottom-0 left-0 right-0 z-10 px-3 py-2 text-center font-bold ${
+                pageTheme.pageBg === "bg-pink_scroll"
+                  ? "bg-yellow_secondary bg-opacity-70"
+                  : pageTheme.pageBg === "bg-black_bg"
+                  ? "bg-darkRed bg-opacity-70"
+                  : "bg-yellow_secondary bg-opacity-70"
+              } ${pageTheme.subtitleColor}`}
+              aria-label="video subtitle"
+            >
+              {currentSubtitle}
+            </div>
+          )}
 
-        {!subtitlesLoading && !subtitlesError && currentSubtitle && (
-          <div
-            className={`aria-label="video subtitle" absolute bottom-0 left-0 z-50 w-full px-3 py-2 text-center font-bold ${
-              pageTheme.pageBg === "bg-pink_scroll"
-                ? "bg-yellow_secondary bg-opacity-70"
-                : pageTheme.pageBg === "bg-black_bg"
-                ? "bg-darkRed bg-opacity-70"
-                : "bg-yellow_secondary bg-opacity-70"
-            } ${pageTheme.subtitleColor}`}
-          >
-            {currentSubtitle}
-          </div>
-        )}
+          {isPlaying && currentSpeaker && (
+            <div
+              key={currentSpeaker}
+              className={`absolute bottom-0 left-1/2  mx-auto -translate-x-1/2 translate-y-full transform px-3 py-2 text-center font-bold ${pageTheme.speakersColor}`}
+              aria-label="video speaker"
+            >
+              {currentSpeaker}
+            </div>
+          )}
 
-        {isPlaying && currentSpeaker && (
-          <div
-            key={currentSpeaker}
-            className={`aria-label="video speaker" fixed bottom-4 left-1/2 z-50 max-w-2xl -translate-x-1/2 px-3 py-2 text-center font-bold ${pageTheme.speakersColor}`}
-          >
-            {currentSpeaker}
-          </div>
-        )}
-
-        {subtitlesError && (
-          <div className="absolute bottom-16 left-1/2 w-full max-w-xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
-            {subtitlesError}
-          </div>
-        )}
+          {subtitlesError && (
+            <div className="absolute bottom-16 left-0 right-0 mx-auto w-full max-w-xl rounded bg-red-500/80 p-4 text-center text-white">
+              {subtitlesError}
+            </div>
+          )}
+        </div>
       </div>
     );
   },
