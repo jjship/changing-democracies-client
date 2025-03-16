@@ -1,56 +1,94 @@
+"use client";
+import Image from "next/image";
 import { Archivo_Narrow } from "next/font/google";
 import { FC } from "react";
+import { useTranslation } from "../../../[lang]/context/TranslationContext";
+import { Slide15AdditionalContent } from "../../../[lang]/dictionaries";
+import logoEvens from "@/public/logo_evens_white.svg";
+import logoAutres from "@/public/logo_autres_white.svg";
 
 const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
 export const Slide15Content: FC = () => {
+  const { dictionary: dict } = useTranslation();
+
+  const slide15AdditionalContent = dict.scrollDocumentary.slides.slide_15
+    .additionalContent as Slide15AdditionalContent;
+
   return (
-    <div className="relative right-1/4 top-5 flex h-[80vh] w-[24rem] flex-col items-center justify-center">
-      <div style={{ fontSize: "1vw" }} className=" text-purple_lightest_bg ">
-        <h2
-          style={{ fontSize: "2vw", marginBottom: "1vw" }}
-          className=" font-bold text-yellow_secondary "
-        >
-          Credits
-        </h2>
-        <p style={{ marginBottom: "1vw" }}>
-          <span className="font-bold text-darkRed">Changing Democracies</span>{" "}
-          aims to explore how Europe&ldquo;s living history about recent
-          transitions to democracy might help us to explore and grasp what
-          processes are needed today for democracy to fulfil its promises for
-          everyone.
-        </p>
-        <p style={{ marginBottom: "1vw" }}>
-          The project is the result of a collaboration between 12 partners from
-          10 European countries and is coordinated by the Evens Foundation and
-          EuroClio with funding from the European Commission.
-        </p>
-        <h3 className={`${archivoNarrow.className} text-green_accent`}>
-          SCRIPT
-        </h3>
-        <p style={{ marginBottom: "1vw" }}>
-          David Sypniewski 
-          <br />
-          Marjolein Delvou and Hanna Zielińska (Evens Foundation) <br />
-          Tijl Akkermans (Autres Directions)
-        </p>
-        <h3 className={`${archivoNarrow.className} text-green_accent`}>
-          VISUALS
-        </h3>
-        <p style={{ marginBottom: "1vw" }}>
-          David Sypniewski 
-          <br />
-        </p>
-        <h3 className={`${archivoNarrow.className} text-green_accent`}>
-          DEVELOPMENT
-        </h3>
-        <p style={{ marginBottom: "1vw" }}>Jacek Skrzypek</p>
-        <h3 className={`${archivoNarrow.className} text-green_accent`}>
-          MUSIC
-        </h3>
-        <p style={{ marginBottom: "1vw" }}>
-          Kai Engel, <span className="italic">The Moments Of Our Mornings</span>
-        </p>
+    <div className="relative h-full flex-col   pl-8 pr-24 pt-2 font-bold text-purple_lightest_bg">
+      <h1
+        className={`text-4xl font-bold ${archivoNarrow.className}  mb-10 text-yellow_secondary`}
+      >
+        {slide15AdditionalContent.credits}
+      </h1>
+      <div className="flex-grow"></div>
+      <div className="low:text-xs l:text-sm relative grid h-[80%] grid-cols-2 gap-10 xl:text-4xl ">
+        <div className="flex h-full flex-col justify-between ">
+          <>
+            <h4
+              className={`${archivoNarrow.className} uppercase text-green_accent`}
+            >
+              {slide15AdditionalContent.script}
+            </h4>
+            <p>
+              David Sypniewski 
+              <br />
+              Marjolein Delvou and Hanna Zielińska (Evens Foundation) <br />
+              Tijl Akkermans (Autres Directions)
+            </p>
+          </>
+          <div className="flex-grow"></div>
+          <>
+            <h4
+              className={`${archivoNarrow.className} uppercase text-green_accent`}
+            >
+              {slide15AdditionalContent.visuals}
+            </h4>
+            <p>David Sypniewski </p>
+          </>
+          <div className="flex-grow"></div>
+          <>
+            <h4
+              className={`${archivoNarrow.className} uppercase text-green_accent`}
+            >
+              {slide15AdditionalContent.development}
+            </h4>
+            <p>Jacek Skrzypek</p>
+          </>
+          <div className="flex-grow"></div>
+          <>
+            <h4
+              className={`${archivoNarrow.className} uppercase text-green_accent`}
+            >
+              {slide15AdditionalContent.music}
+            </h4>
+            <p>
+              Kai Engel,{" "}
+              <span className="italic">The Moments Of Our Mornings</span>
+            </p>
+          </>
+          <div className="flex-grow"></div>
+          <div className="flex flex-col items-start self-start">
+            <Image
+              src={logoEvens}
+              alt="evens logo"
+              className="h-10 w-auto -translate-x-6 md:h-20"
+            />
+            <Image
+              src={logoAutres}
+              alt="autres logo"
+              className="h-5 w-auto -translate-x-2 md:h-10"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <p>
+            <span className="font-bold text-darkRed">Changing Democracies</span>{" "}
+            {slide15AdditionalContent.p1}
+          </p>
+          <p>{slide15AdditionalContent.p2}</p>
+        </div>
       </div>
     </div>
   );

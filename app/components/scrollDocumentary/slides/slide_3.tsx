@@ -1,8 +1,14 @@
 "use client";
 import { useState, useEffect, FC } from "react";
+import { useTranslation } from "../../../[lang]/context/TranslationContext";
+import { Slide3AdditionalContent } from "../../../[lang]/dictionaries";
 
 export const Slide3Content: FC = () => {
   const [isAboutVisible, setIsAboutVisible] = useState(false);
+  const { dictionary: dict } = useTranslation();
+
+  const slide3AdditionalContent = dict.scrollDocumentary.slides.slide_3
+    .additionalContent as Slide3AdditionalContent;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -13,60 +19,88 @@ export const Slide3Content: FC = () => {
   }, []);
 
   return (
-    <div className="relative left-1/2 flex h-3/4 w-[90vw] max-w-[23rem] -translate-x-1/2 flex-col items-center justify-center">
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
-          isAboutVisible ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <div className="max-w-lg rounded bg-pink_scroll bg-opacity-70 p-4">
-          <h2
-            className=" font-bold text-purple_mains"
-            style={{ fontSize: "2vh", marginBottom: "2vh" }}
-          >
-            About the project
-          </h2>
-          <p style={{ fontSize: "1.6vh", marginBottom: "1.6vh" }}>
-            &ldquo;Democracy failed us&rdquo;, &ldquo;Democracy is in
-            crisis&rdquo;, &ldquo;We need to defend democracy&rdquo;,
-            &ldquo;Authoritarianism is on the rise&rdquo;, &ldquo;Democratic
-            institutions are in decline&rdquo; <br />
-            You know these phrases. <br />
-            You&apos;ve heard them over and over.
+    <div
+      className={`relative h-full  bg-pink_scroll/70 pl-8 pr-24 pt-2 font-bold  transition-opacity duration-1000 ${
+        isAboutVisible ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <h2 className="mb-8  text-2xl text-purple_mains md:text-4xl">
+        {slide3AdditionalContent.about_the_project}
+      </h2>
+      <div className="low:text-xs l:text-xl relative grid h-[80%] grid-cols-2 gap-8 xl:text-4xl">
+        <div className="flex  flex-col justify-between">
+          <p>
+            {`"${slide3AdditionalContent.democracy_failed_us}", 
+            "${slide3AdditionalContent.democracy_is_in_crisis}", 
+            "${slide3AdditionalContent.we_need_to_defend_democracy}", 
+            "${slide3AdditionalContent.authoritarianism_is_on_the_rise}", 
+            "${slide3AdditionalContent.democratic_institutions_are_in_decline}"`}
           </p>
-          <p style={{ fontSize: "1.6vh", marginBottom: "1.6vh" }}>
-            But what lies beyond this gloomy picture? <br />
-            There are people around us who know.
+
+          <div className="flex-grow"></div>
+          <p>
+            {slide3AdditionalContent.you_know_these_phrases} <br />
+            {slide3AdditionalContent.you_ve_heard_them_over_and_over}
           </p>
-          <p style={{ fontSize: "1.6vh", marginBottom: "1.6vh" }}>
-            They have experienced firsthand what life is like under different
-            political systems. <br />
-            They have lived through times of transition.
-            <br /> So we asked them:{" "}
-            <span className="font-bold">
-              Is democracy worth the trouble?
-            </span>{" "}
-            They shared their fears, their hopes, their disillusions. <br />
-            Their stories.
+          <div className="flex-grow"></div>
+          <p>
+            {slide3AdditionalContent.but_what_lies_beyond_this_gloomy_picture}{" "}
+            <br />
+            {slide3AdditionalContent.there_are_people_around_us_who_know}
           </p>
-          <p style={{ fontSize: "1.6vh", marginBottom: "1.6vh" }}>
-            Changing Democracies brings you their wisdom.
-            <br /> We learnt:
+          <div className="flex-grow"></div>
+          <p>
+            {
+              slide3AdditionalContent.they_have_experienced_firsthand_what_life_is_like_under_different_political_systems
+            }{" "}
+            <br />
+            {
+              slide3AdditionalContent.they_have_lived_through_times_of_transition
+            }
           </p>
-          <ul
-            className="list- list-inside list-disc"
-            style={{ fontSize: "1.6vh", marginBottom: "1.6vh" }}
-          >
-            <li>That it pays to move beyond historical facts.</li>
+          <div className="flex-grow"></div>
+          <div className="flex-grow"></div>
+        </div>
+        <div className="flex flex-col justify-between">
+          <p>
+            {slide3AdditionalContent.so_we_asked_them}
+            <br />
+            {slide3AdditionalContent.is_democracy_worth_the_trouble}{" "}
+          </p>
+          <div className="flex-grow"></div>
+          <p>
+            {
+              slide3AdditionalContent.they_shared_their_fears_their_hopes_their_disillusions
+            }
+            <br />
+            {slide3AdditionalContent.their_stories}
+          </p>
+          <div className="flex-grow"></div>
+          <p>
+            {
+              slide3AdditionalContent.changing_democracies_brings_you_their_wisdom
+            }
+            . <br />
+            {slide3AdditionalContent.we_learnt}:
+          </p>
+          <ul className="list- list-inside list-disc">
+            <li>
+              {
+                slide3AdditionalContent.that_it_pays_to_move_beyond_historical_facts
+              }
+            </li>
             <li>That democracy is never finished.</li>
             <li>
-              That engaging with its challenges together is the only way
-              forward.
+              {
+                slide3AdditionalContent.that_engaging_with_its_challenges_together_is_the_only_way_forward
+              }
             </li>
           </ul>
-          <p style={{ fontSize: "1.6vh" }}>
-            Don&apos;t take our word for it—see for yourself.
+          <div className="flex-grow"></div>
+          <p>
+            {slide3AdditionalContent.dont_take_our_word_for_it_see_for_yourself}
           </p>
+          <div className="flex-grow"></div>
         </div>
       </div>
     </div>
