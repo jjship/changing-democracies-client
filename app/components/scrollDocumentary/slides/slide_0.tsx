@@ -5,12 +5,12 @@ const archivo = Archivo({ subsets: ["latin"] });
 
 export const Slide0Content: FC = () => {
   return (
-    <>
+    <div className="group">
       <div
-        className={`group absolute left-0 top-1/2 flex -translate-y-1/2 items-center`}
+        className={`absolute left-0 top-1/2 flex h-full w-full -translate-y-1/2 items-center`}
       >
         {/* Arrow Rectangle */}
-        <div className="h-36 w-[40rem] bg-purple_mains" />
+        <div className="midheight:w-[30vw] tall:w-[20rem] h-36 w-[40rem] bg-purple_mains" />
 
         {/* Arrow Triangle - Changes color on hover */}
         <div
@@ -23,7 +23,7 @@ export const Slide0Content: FC = () => {
         />
       </div>
 
-      <div className="absolute bottom-10 left-60 z-10 flex items-center justify-center bg-black/30 mix-blend-screen">
+      <div className="absolute left-40 top-2/3 z-10 flex items-center justify-center mix-blend-screen">
         <div className="min-w-[60vw] text-left">
           <h1
             className={`${archivo.className} text-8xl  text-yellow_secondary`}
@@ -35,6 +35,6 @@ export const Slide0Content: FC = () => {
           </h1>
         </div>
       </div>
-    </>
+    </div>
   );
 };

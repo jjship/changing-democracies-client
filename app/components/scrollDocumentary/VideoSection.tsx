@@ -120,9 +120,9 @@ export default function VideoSection({
   }
 
   return (
-    <section
+    <div
       ref={sectionRef}
-      className="relative h-full w-full snap-start overflow-hidden"
+      className="relative h-full w-full"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -131,55 +131,42 @@ export default function VideoSection({
           <VideoPlayerFallback error={error} onRetry={retry} />
         )}
       >
-        <div className="relative flex h-full w-full flex-col items-center justify-center">
-          <VideoPlayer
-            ref={videoRef}
-            videoSource={videoSource}
-            onEnded={handleVideoEnd}
-            isPlaying={isPlaying}
-            className="h-full w-full object-cover"
-            selectedLanguageCode={selectedLanguageCode}
-            pageTheme={pageTheme}
-            speakers={speakers}
-          />
-          {isActive && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              {additionalContent}
-            </div>
-          )}
-          {isHovering && (
-            <Button
-              onClick={togglePlayPause}
-              size="icon"
-              variant="ghost"
-              className={`absolute right-4 top-6 z-50 rounded-none transition-opacity duration-200 hover:scale-110 ${
-                pageTheme.pageBg === "bg-pink_scroll"
-                  ? "bg-yellow_secondary bg-opacity-70 hover:bg-yellow_secondary/90"
-                  : pageTheme.pageBg === "bg-black_bg"
-                  ? "bg-darkRed bg-opacity-70 hover:bg-darkRed/90"
-                  : "bg-yellow_secondary bg-opacity-70 hover:bg-yellow_secondary/90"
-              }`}
-            >
-              {isPlaying ? (
-                <Pause className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
-              ) : (
-                <Play className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
-              )}
-            </Button>
-          )}
-        </div>
+        <VideoPlayer
+          ref={videoRef}
+          videoSource={videoSource}
+          onEnded={handleVideoEnd}
+          isPlaying={isPlaying}
+          className="h-full w-full object-contain"
+          selectedLanguageCode={selectedLanguageCode}
+          pageTheme={pageTheme}
+          speakers={speakers}
+        />
+
+        {isActive && additionalContent && (
+          <div className="absolute inset-0 ">{additionalContent}</div>
+        )}
+
+        {isHovering && (
+          <Button
+            onClick={togglePlayPause}
+            size="icon"
+            variant="ghost"
+            className={`absolute right-4 top-6 z-20 rounded-none transition-opacity duration-200 hover:scale-110 ${
+              pageTheme.pageBg === "bg-pink_scroll"
+                ? "bg-yellow_secondary bg-opacity-70 hover:bg-yellow_secondary/90"
+                : pageTheme.pageBg === "bg-black_bg"
+                ? "bg-darkRed bg-opacity-70 hover:bg-darkRed/90"
+                : "bg-yellow_secondary bg-opacity-70 hover:bg-yellow_secondary/90"
+            }`}
+          >
+            {isPlaying ? (
+              <Pause className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
+            ) : (
+              <Play className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
+            )}
+          </Button>
+        )}
       </ErrorBoundary>
-    </section>
+    </div>
   );
 }
-
-const VideoLoadingPlaceholder = () => (
-  <div className="flex h-screen w-full items-center justify-center bg-black">
-    <div className="text-white">
-      <div
-        className="h-8 w-8 animate-spin rounded-full border-4 border-white 
-                    border-t-transparent"
-      />
-    </div>
-  </div>
-);

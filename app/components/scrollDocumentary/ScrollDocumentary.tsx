@@ -7,7 +7,6 @@ import ErrorBoundary from "./VideoErrorBoundary";
 import { Navigation } from "@/components/navigation/Navigation";
 import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Play } from "lucide-react";
 import { Archivo_Narrow } from "next/font/google";
 import { useLanguageSelection } from "./useLanguageSelection";
 
@@ -163,8 +162,7 @@ export default function ScrollDocumentaryClient({
   ) => (
     <>
       {slide.title && (
-        <div className="absolute left-8 top-8 z-10 flex items-center justify-center ">
-          {" "}
+        <div className="absolute left-8 top-8 flex items-center justify-center">
           <h1
             className={`${archivoNarrow.className} bg-black_bg bg-opacity-70 px-2 py-1 text-left text-2xl font-bold text-yellow_secondary mix-blend-multiply`}
           >
@@ -175,7 +173,7 @@ export default function ScrollDocumentaryClient({
       {slide.additionalElements.map((elem, idx) => (
         <div
           key={idx}
-          className="absolute inset-0 flex max-h-[80vh] items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center"
         >
           {elem.content}
         </div>
@@ -211,10 +209,10 @@ export default function ScrollDocumentaryClient({
               <div
                 key={slide.videoSource?.videoId ?? index}
                 id={`section-${index}`}
-                className="flex h-screen snap-center items-center justify-center"
+                className="flex h-screen snap-center items-center justify-center px-1 pb-10 pt-16 sm:px-2"
               >
                 <div
-                  className={`relative mx-auto aspect-video w-[90vw] max-w-full px-2 ${
+                  className={`relative flex aspect-video max-h-[calc(100vh-120px)] w-auto max-w-[90vw] items-center justify-center ${
                     index === 0 ? "cursor-pointer" : ""
                   }`}
                   onClick={index === 0 ? startDocumentary : undefined}
@@ -238,11 +236,13 @@ export default function ScrollDocumentaryClient({
                         speakers={slide.speakers}
                       />
                     ) : (
-                      renderAdditionalContent(slide)
+                      <div className="tall:max-h-[1076px]  relative aspect-video h-[calc(100vh-120px)] max-w-[90vw]">
+                        {renderAdditionalContent(slide)}
+                      </div>
                     )
-                  ) : slide.videoSource ? (
+                  ) : (
                     <div
-                      className="flex h-full w-full items-center justify-center"
+                      className="h-full w-full"
                       ref={
                         index === Math.max(...loadedSections) + 1
                           ? loadMoreRef
@@ -251,8 +251,6 @@ export default function ScrollDocumentaryClient({
                     >
                       <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
                     </div>
-                  ) : (
-                    renderAdditionalContent(slide)
                   )}
                 </div>
               </div>
