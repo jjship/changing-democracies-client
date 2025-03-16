@@ -211,49 +211,62 @@ export default function ScrollDocumentaryClient({
               <div
                 key={slide.videoSource?.videoId ?? index}
                 id={`section-${index}`}
-                className="flex h-screen snap-center items-center justify-center"
+                className="border-pink-500 flex h-screen min-h-[500px] snap-center items-center justify-center border-4 border-solid px-1 pb-10 pt-16 sm:px-2"
               >
                 <div
-                  className={`relative mx-auto aspect-video w-[90vw] max-w-full px-2 ${
+                  className={`relative mx-auto flex max-h-[calc(100vh-120px)] max-w-[90vw] items-center justify-center ${
                     index === 0 ? "cursor-pointer" : ""
-                  }`}
+                  } border-4 border-solid border-green-500`}
                   onClick={index === 0 ? startDocumentary : undefined}
                 >
-                  {loadedSections.includes(index) ? (
-                    slide.videoSource ? (
-                      <VideoSection
-                        videoSource={slide.videoSource}
-                        onVideoEnd={() => scrollToNextSection(index)}
-                        isActive={
-                          isStarted ? index === activeIndex : index === 0
+                  <div
+                    className="relative h-auto w-auto border-4 border-solid border-yellow-500"
+                    style={{
+                      maxHeight: "calc(100vh - 120px)",
+                      maxWidth: "90vw",
+                      aspectRatio: "16/9",
+                    }}
+                  >
+                    {loadedSections.includes(index) ? (
+                      slide.videoSource ? (
+                        <VideoSection
+                          videoSource={slide.videoSource}
+                          onVideoEnd={() => scrollToNextSection(index)}
+                          isActive={
+                            isStarted ? index === activeIndex : index === 0
+                          }
+                          shouldPlay={isStarted && index === activeIndex}
+                          selectedLanguageCode={
+                            slide.videoSource?.availableLanguageCodes[
+                              selectedLanguage
+                            ]
+                          }
+                          additionalContent={renderAdditionalContent(slide)}
+                          pageTheme={pageTheme}
+                          speakers={slide.speakers}
+                        />
+                      ) : (
+                        <div className="relative flex h-full w-full items-center justify-center overflow-hidden border-4 border-solid border-red-500">
+                          {/* <div className="absolute inset-0 flex items-center justify-center border-4 border-solid border-blue-500"> */}
+                          {renderAdditionalContent(slide)}
+                          {/* </div> */}
+                        </div>
+                      )
+                    ) : slide.videoSource ? (
+                      <div
+                        className="flex h-full w-full items-center justify-center"
+                        ref={
+                          index === Math.max(...loadedSections) + 1
+                            ? loadMoreRef
+                            : undefined
                         }
-                        shouldPlay={isStarted && index === activeIndex}
-                        selectedLanguageCode={
-                          slide.videoSource?.availableLanguageCodes[
-                            selectedLanguage
-                          ]
-                        }
-                        additionalContent={renderAdditionalContent(slide)}
-                        pageTheme={pageTheme}
-                        speakers={slide.speakers}
-                      />
+                      >
+                        <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
+                      </div>
                     ) : (
                       renderAdditionalContent(slide)
-                    )
-                  ) : slide.videoSource ? (
-                    <div
-                      className="flex h-full w-full items-center justify-center"
-                      ref={
-                        index === Math.max(...loadedSections) + 1
-                          ? loadMoreRef
-                          : undefined
-                      }
-                    >
-                      <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
-                    </div>
-                  ) : (
-                    renderAdditionalContent(slide)
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

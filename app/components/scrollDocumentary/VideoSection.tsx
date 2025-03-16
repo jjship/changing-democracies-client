@@ -122,7 +122,7 @@ export default function VideoSection({
   return (
     <section
       ref={sectionRef}
-      className="relative h-full w-full snap-start overflow-hidden"
+      className="relative flex h-full w-full snap-start items-center justify-center overflow-hidden"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -131,13 +131,13 @@ export default function VideoSection({
           <VideoPlayerFallback error={error} onRetry={retry} />
         )}
       >
-        <div className="relative flex h-full w-full flex-col items-center justify-center">
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden border-4 border-solid border-red-500">
           <VideoPlayer
             ref={videoRef}
             videoSource={videoSource}
             onEnded={handleVideoEnd}
             isPlaying={isPlaying}
-            className="h-full w-full object-cover"
+            className="h-full max-w-[100%] object-contain"
             selectedLanguageCode={selectedLanguageCode}
             pageTheme={pageTheme}
             speakers={speakers}
@@ -172,14 +172,3 @@ export default function VideoSection({
     </section>
   );
 }
-
-const VideoLoadingPlaceholder = () => (
-  <div className="flex h-screen w-full items-center justify-center bg-black">
-    <div className="text-white">
-      <div
-        className="h-8 w-8 animate-spin rounded-full border-4 border-white 
-                    border-t-transparent"
-      />
-    </div>
-  </div>
-);

@@ -38,6 +38,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     const [error, setError] = useState<string | null>(null);
     const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
     const [currentSpeaker, setCurrentSpeaker] = useState<string>("");
+
     const { currentQuality, videoRef } = useAdaptiveQuality({
       initialQuality: getOptimalQuality(videoSource.availableQualities),
       qualities: videoSource.availableQualities.filter((q) =>
@@ -82,6 +83,20 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         const hls = new Hls({
           maxMaxBufferLength: 30,
           maxBufferSize: 10 * 1000 * 1000, // 10MB
+          // Prevent automatic level switching by starting with high quality
+          startLevel: 3,
+          // Configuration for stable quality
+          autoStartLoad: true,
+          abrEwmaDefaultEstimate: 5000000,
+          abrMaxWithRealBitrate: true,
+          // Disable debug logs
+          debug: false,
+        });
+
+        hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+          // Force highest quality level to prevent resizing
+          const maxLevel = Math.max(0, data.levels.length - 1);
+          hls.currentLevel = maxLevel;
         });
 
         hls.loadSource(videoSource.hlsPlaylistUrl);
@@ -127,12 +142,11 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       };
 
       video.addEventListener("timeupdate", handleTimeUpdate);
-      handleTimeUpdate(); // Initial call to set speaker based on current time
+      handleTimeUpdate();
 
       return () => video.removeEventListener("timeupdate", handleTimeUpdate);
     }, [subtitles, speakers, videoRef]);
 
-    // Reset subtitle and speaker when video source changes
     useEffect(() => {
       setCurrentSubtitle("");
       setCurrentSpeaker("");
@@ -156,7 +170,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     };
 
     return (
-      <div className="group/video relative w-full">
+      <div className="group/video relative w-full border-4 border-solid border-blue-500">
         <video
           ref={(element) => {
             videoRef.current = element;
@@ -172,6 +186,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           onError={handleError}
           onLoadedData={handleLoadedData}
           crossOrigin="anonymous"
+          aria-label="video player"
         >
           {!isUsingHLS && (
             <source src={getVideoUrl(currentQuality)} type="video/mp4" />
@@ -190,10 +205,9 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           </div>
         )}
 
-        {/* Subtitle display */}
         {!subtitlesLoading && !subtitlesError && currentSubtitle && (
           <div
-            className={`absolute bottom-0 left-0 z-50 w-full px-3 py-2 text-center font-bold ${
+            className={`aria-label="video subtitle" absolute bottom-0 left-0 z-50 w-full px-3 py-2 text-center font-bold ${
               pageTheme.pageBg === "bg-pink_scroll"
                 ? "bg-yellow_secondary bg-opacity-70"
                 : pageTheme.pageBg === "bg-black_bg"
@@ -205,11 +219,10 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           </div>
         )}
 
-        {/* Speaker display */}
         {isPlaying && currentSpeaker && (
           <div
             key={currentSpeaker}
-            className={`fixed bottom-1 left-1/2 z-50 max-w-2xl -translate-x-1/2 px-3 py-2 text-center font-bold ${pageTheme.speakersColor}`}
+            className={`aria-label="video speaker" fixed bottom-4 left-1/2 z-50 max-w-2xl -translate-x-1/2 px-3 py-2 text-center font-bold ${pageTheme.speakersColor}`}
           >
             {currentSpeaker}
           </div>
