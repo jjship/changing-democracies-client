@@ -164,7 +164,7 @@ export default function ScrollDocumentaryClient({
       {slide.title && (
         <div className="absolute left-8 top-8 flex items-center justify-center">
           <h1
-            className={`${archivoNarrow.className} bg-black_bg bg-opacity-70 px-2 py-1 text-left text-2xl font-bold text-yellow_secondary mix-blend-multiply`}
+            className={`${archivoNarrow.className} bg-black_bg bg-opacity-70 px-2 py-1 text-left text-2xl font-bold text-yellow_secondary`}
           >
             {slide.title}
           </h1>
