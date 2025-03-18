@@ -1,20 +1,19 @@
 {
   "navigation": {
-    "home": "Početna",
-    "scrollDocumentary": "Dokumentarni pregled",
+     "scrollDocumentary": "Dokumentarni pregled",
     "narratives": "Narativi",
     "nonLinearNarratives": "Nelinearne priče",
     "freeBrowsing": "Slobodno pregledavanje",
     "project": "Projekt",
     "team": "Tim",
     "events": "Događaji",
-    "educationalResources": "Paket obrazovnih resursa",
+    "educationalResources": "Edukacijski paket",
     "researchPublication": "Znanstvena publikacija",
     "travellingWorkshop": "Putujuća radionica / izložba",
     "contact": "Kontakt"
   },
   "landing": {
-    "description": "Changing Democracies istražuje nepoznate priče o nedavnim demokratskim tranzicijama u Europi kako bi se shvatilo što je potrebno da demokracija ispuni svoja obećanja za sve.",
+    "description": "'Changing Democracies' istražuje nepoznate priče o nedavnim demokratskim tranzicijama u Europi kako bi se shvatilo što je potrebno da demokracija ispuni svoja obećanja za sve.",
     "scrollDocumentary": "Otkrij što smo naučili",
     "narratives": "Odaberi temu i pogledaj naš izbor",
     "freeBrowsing": "Koristi oznake za istraživanje priča"
@@ -52,11 +51,7 @@
       },
       {
         "organisation": "Zaklada Evens",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
+        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
         "country": "Belgija/Poljska",
         "link": "https://evensfoundation.be/"
       },
@@ -122,10 +117,10 @@
     "explanation": "Koristi oznake za pregledavanje i usporedbu njihovih svjedočanstava."
   },
   "eduPack": {
-    "title": "Obrazovni resursi",
+    "title": "Edukacijski paket",
     "subtitle": "Učenje iz prošlosti, razmišljanje o današnjici",
     "lead": "Mogu li iskustva onih koji su proživjeli prijelaz iz nedemokratskog u demokratsko društvo inspirirati mlade da kritički razmatraju demokraciju danas?",
-    "p1": "Da bismo pomoći mladima da se angažuju sa svjedočanstvima prikupljenim unutar projekta Changing Democracies, zajedno smo stvorili Paket obrazovnih resursa s prilagodljivim aktivnostima za formalno i neformalno obrazovanje.",
+    "p1": "Da bismo pomoći mladima da se angažuju sa svjedočanstvima prikupljenim unutar projekta Changing Democracies, zajedno smo stvorili Edukacijski paket s prilagodljivim aktivnostima za formalno i neformalno obrazovanje.",
     "p2": "Svaka aktivnost temelji se na svjedočanstvima iz prve ruke, spajajući glase preko granica u nelinearne narative koji istražuju pet ključnih pitanja:",
     "questions": [
       "Što te ljuti na svijetu danas?",
@@ -141,113 +136,116 @@
     "title": "Znanstvena publikacija",
     "subtitle": "Changing Democracies: Snaga svjedočanstava za demokratsko obrazovanje",
     "lead": "Kako mladi ljudi interpretiraju svjedočanstva o životu u diktaturi i iskustvima tranzicije? Kako mladi ljudi uče ne samo o tim povijestima, već i od njih — na svoj način i svojim glasom? I, što je važno u svjetlu ciljeva projekta „Changing democracies“, vodi li učenje o povijesti diktatura mlade ljude da kritički promišljaju o demokraciji i miru, i ako da, kako i na koje načine?",
-    "p1": "U ovoj uređenoj knjizi, šest partnera konzorcija izvještavaju o svojim istraživačkim naporima o tome kako su mladi ljudi sudjelovali u svjedočanstvima kroz lokalne edukacijske projekte. Iako vođeni istim skupom istraživačkih pitanja, šest studija slučaja obuhvaća fascinantnu raznolikost oblika rada – od tradicionalnih dijaloga do rada na online platformama za učenje i umjetničkih praksi poput ilustracija i kazališta – te kulturnih konteksta, od Španjolske i Portugala, Češke i Poljske, do Nizozemske i Flandrije/Belgije.",
+    "p1": "U ovoj uređenoj knjizi, šest partnera konzorcija izvještavaju o svojim istraživačkim naporima o tome kako su mladi ljudi sudjelovali u svjedočanstvima kroz lokalne edukacijske projekte. Iako vođeni istim skupom istraživačkih pitanja, šest studija slučaja obuhvaća fascinantnu raznolikost oblika rada – od tradicionalnih dijaloga do rada na online platformama za učenje i umjetničkih praksi poput ilustracija i kazališta – te kulturnih konteksta, od Španjolske i Portugala, Češke i Poljske, do Nizozemske i Flandrije/Belgije. Publikacija je dostupna jedino na engleskom jeziku.",
     "download": "Preuzmite publikaciju ovdje"
   },
   "travellingWorkshop": {
-    "title": "Putujuća radionica / izložba",
+    "title": "Putujuća radionica",
     "lead": "Putujuća radionica je poziv na istraživanje različitih iskustava i vizi demokracije zasnovane na svjedočanstvima.",
     "p1": "Kroz interaktivni dizajn izložbe, posjetitelji upoznaju 31 osobu iz Europe i drugih regija koje su bile svjedoke sustavne promjene od nedemokratskog prema demokratskom društvu.",
     "p2": "Angažiranje s nadama, snovima i razočaranjima svjedoca potiče posjetitelje da razmatraju obećanja koje demokracija je dala i ispituju vlastita iskustva i očekivanja.",
-    "p3": "Metafora radionice / izložbe odnosi se na potrebu aktivnog sudjelovanja i uključivanja u (pre)oblikovanje demokracije.",
-    "p4": "Putujuća radionice / izložbe je dostupna na 10 jezika (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p3": "Metafora radionice se odnosi na potrebu aktivnog sudjelovanja i uključivanja u (pre)oblikovanje demokracije.",
+    "p4": "Putujuća radionica je dostupna na 10 jezika (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
     "p5": "Ako ste zainteresirani za organizaciju Putujuće radionice, kontakte nas."
   },
   "scrollDocumentary": {
-    "slides": {
-      "slide_0": {
-        "additionalContent": {
-          "scroll": "Scroll",
-          "documentary": "Documentary"
-        }
-      },
-      "slide_1": {
-        "additionalContent": {
-          "is_democracy": "Is democracy",
-          "worth": "worth",
-          "the_trouble": "the trouble?"
-        }
-      },
-      "slide_2": {
-        "additionalContent": {
-          "democracy": "Democracy",
-          "equality": "Equality",
-          "freedom": "Freedom",
-          "honesty": "Honesty",
-          "love": "Love",
-          "conflict": "Conflict",
-          "safety": "Safety",
-          "justice": "Justice"
-        }
-      },
-      "slide_3": {
-        "additionalContent": {
-          "about_the_project": "About the project",
-          "democracy_failed_us": "Democracy failed us",
-          "democracy_is_in_crisis": "Democracy is in crisis",
-          "we_need_to_defend_democracy": "We need to defend democracy",
-          "authoritarianism_is_on_the_rise": "Authoritarianism is on the rise",
-          "democratic_institutions_are_in_decline": "Democratic institutions are in decline",
-          "you_know_these_phrases": "You know these phrases",
-          "you_ve_heard_them_over_and_over": "You've heard them over and over",
-          "but_what_lies_beyond_this_gloomy_picture": "But what lies beyond this gloomy picture?",
-          "there_are_people_around_us_who_know": "There are people around us who know",
-          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "They have experienced firsthand what life is like under different political systems",
-          "they_have_lived_through_times_of_transition": "They have lived through times of transition",
-          "so_we_asked_them": "So we asked them:",
-          "is_democracy_worth_the_trouble": "Is democracy worth the trouble?",
-          "they_shared_their_fears_their_hopes_their_disillusions": "They shared their fears, their hopes, their disillusions",
-          "their_stories": "Their stories",
-          "changing_democracies_brings_you_their_wisdom": "Changing Democracies brings you their wisdom",
-          "we_learnt": "We learnt:",
-          "that_it_pays_to_move_beyond_historical_facts": "That it pays to move beyond historical facts",
-          "that_democracy_is_never_finished": "That democracy is never finished",
-          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "That engaging with its challenges together is the only way forward",
-          "dont_take_our_word_for_it_see_for_yourself": "Don't take our word for it—see for yourself."
-        }
-      },
-      "slide_4": {
-        "title": "Looking back"
-      },
-      "slide_5": {
-        "title": "State of transition"
-      },
-      "slide_6": {
-        "title": "Is my democracy your democracy?"
-      },
-      "slide_8": {
-        "title": "Reality check"
-      },
-      "slide_9": {
-        "title": "The personal is political"
-      },
-      "slide_10": {
-        "title": "Past Present Future"
-      },
-      "slide_11": {
-        "title": "Get together"
-      },
-      "slide_12": {
-        "title": "Beware"
-      },
-      "slide_13": {
-        "title": "Make noise"
-      },
-      "slide_14": {
-        "title": "Our turn"
-      },
-      "slide_15": {
-        "additionalContent": {
-          "credits": "Credits",
-          "script": "Script",
-          "visuals": "Visuals",
-          "development": "Development",
-          "music": "Music",
-          "Changing_Democracies": "Changing Democracies",
-          "p1": "explores how Europe's living history about recent transitions to democracy might help us to grasp what processes are needed today for democracy to fulfil its promises for everyone.",
-          "p2": "The project is the result of a collaboration between 12 partners from 10 European countries and is coordinated by the Evens Foundation and EuroClio with funding from the European Commission. "
-        }
+  "slides": {
+    "slide_0": {
+      "additionalContent": {
+        "scroll": "Pomalu",
+        "documentary": "Dokumentar"
+      }
+    },
+    "slide_1": {
+      "additionalContent": {
+        "is_democracy": "Je demokracie",
+        "worth": "hodna",
+        "the_trouble": "truda?"
+      }
+    },
+    "slide_2": {
+      "additionalContent": {
+        "democracy": "Demokracija",
+        "equality": "Jednakost",
+        "freedom": "Sloboda",
+        "honesty": "Iskrenost",
+        "love": "Ljubav",
+        "conflict": "Sukob",
+        "safety": "Sigurnost",
+        "justice": "Pravda"
+      }
+    },
+    "slide_3": {
+      "additionalContent": {
+        "about_the_project": "O projektu",
+        "democracy_failed_us": "Demokracija nas je iznevjerila",
+        "democracy_is_in_crisis": "Demokracija je u krizi",
+        "we_need_to_defend_democracy": "Moramo braniti demokraciju",
+        "authoritarianism_is_on_the_rise": "Autoritarizam raste",
+        "democratic_institutions_are_in_decline": "Demokratske institucije slabe",
+        "you_know_these_phrases": "Znate ove fraze",
+        "you_ve_heard_them_over_and_over": "Čuli ste ih iznova i iznova",
+        "but_what_lies_beyond_this_gloomy_picture": "Ali što leži iza ove tmurne slike?",
+        "there_are_people_around_us_who_know": "Postoje ljudi oko nas koji znaju",
+        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Iskusili su iz prve ruke kakav je život u različitim političkim sustavima",
+        "they_have_lived_through_times_of_transition": "Živjeli su u vremenima tranzicije",
+        "so_we_asked_them": "Pa smo ih pitali:",
+        "is_democracy_worth_the_trouble": "Je li demokracija vrijedna truda?",
+        "they_shared_their_fears_their_hopes_their_disillusions": "Podijelili su svoje strahove, nade i razočaranja",
+        "their_stories": "Njihove priče",
+        "changing_democracies_brings_you_their_wisdom": "Changing Democracies donosi njihovu mudrost",
+        "we_learnt": "Naučili smo:",
+        "that_it_pays_to_move_beyond_historical_facts": "Da se isplati ići dalje od povijesnih činjenica",
+        "that_democracy_is_never_finished": "Da demokracija nikada nije gotova",
+        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Da je suočavanje s njezinim izazovima zajedno jedini put naprijed",
+        "dont_take_our_word_for_it_see_for_yourself": "Nemojte nam vjerovati na riječ – uvjerite se sami."
+      }
+    },
+    "slide_4": {
+      "title": "Pogled unatrag"
+    },
+    "slide_5": {
+      "title": "Stanje tranzicije"
+    },
+    "slide_6": {
+      "title": "Je li moja demokracija tvoja demokracija?"
+    },
+    "slide_8": {
+      "title": "Provjera stvarnosti"
+    },
+    "slide_9": {
+      "title": "Osobno je političko"
+    },
+    "slide_10": {
+      "title": "Prošlost Sadašnjost Budućnost"
+    },
+    "slide_11": {
+      "title": "Udružite se"
+    },
+    "slide_12": {
+      "title": "Oprez"
+    },
+    "slide_13": {
+      "title": "Napravite buku"
+    },
+    "slide_14": {
+      "title": "Naš red"
+    },
+    "slide_15": {
+      "additionalContent": {
+        "credits": "Zasluge",
+        "script": "Scenarij",
+        "visuals": "Vizuali",
+        "development": "Razvoj",
+        "music": "Glazba",
+        "Changing_Democracies": "Changing Democracies",
+        "p1": "istražuje kako živa povijest Europe o nedavnim tranzicijama prema demokraciji može pomoći da shvatimo koji su procesi danas potrebni da demokracija ispuni svoja obećanja za sve.",
+        "p2": "Projekt je rezultat suradnje između 12 partnera iz 10 europskih zemalja, a koordiniraju ga Evens Foundation uz financiranje Europske komisije."
       }
     }
   }
 }
+
+}
+
+

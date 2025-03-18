@@ -1,9 +1,8 @@
 {
   "navigation": {
-    "home": "Inici",
     "scrollDocumentary": "Documental en format 'scoll'",
     "narratives": "Narratives",
-    "nonLinearNarratives": "Narratives nielíniques",
+    "nonLinearNarratives": "Narratives no linears",
     "freeBrowsing": "Navega pels testimonis",
     "project": "Projecte",
     "team": "Equip",
@@ -21,10 +20,10 @@
   },
   "about": {
     "p1": "Com seria la vida sense democràcia? Ha complert la democràcia les seves promeses? Què necessita una democràcia sana per funcionar eficaçment? Quin és el paper de la ciutadania?",
-    "p2": "Changing Democracies explora com les històries no explicades sobre transicions democràtiques recents a Europa podrien ajudar-nos a comprendre quins processos són necessaris avui perquè la democràcia compleixi les seves promeses per a tothom"
+    "p2": "Changing Democracies explora com les històries no explicades sobre transicions democràtiques recents a Europa podrien ajudar-nos a comprendre quins processos són necessaris avui per a què la democràcia compleixi les seves promeses per a tothom"
   },
   "team": {
-    "description": "Changing Democracies és el resultat d'una col·laboració entre 12 socis de 10 països europeus i està coordinat per la Fundació Evens amb finançament de la Comissió Europea.",
+    "description": "Changing Democracies és el resultat d'una col·laboració entre 12 socis de 10 països europeus. El projecte està coordinat per la Fundació Evens amb finançament de la Comissió Europea.",
     "teamList": [
       {
         "organisation": "Association for History Education in Greece",
@@ -69,7 +68,7 @@
       {
         "organisation": "Faculty of Arts, Charles University",
         "members": ["Bohumil Melichar", "Václav Sixta"],
-        "country": "Xecquia",
+        "country": "Txèquia",
         "link": "https://www.ff.cuni.cz/home/"
       },
       {
@@ -81,13 +80,13 @@
       {
         "organisation": "Mediawise Society",
         "members": ["Nicoleta Fotiade", "Nicoleta Neacsu"],
-        "country": "Romània",
+        "country": "Romania",
         "link": "https://mediawise.ro/"
       },
       {
         "organisation": "Museum of Slavonia",
         "members": ["Denis Detling", "Jesenka Ricl"],
-        "country": "Croatia",
+        "country": "Croàcia",
         "link": "http://www.mso.hr/"
       },
       {
@@ -97,7 +96,7 @@
         "link": "https://olf.lt/"
       },
       {
-        "organisation": "School for a Culture of Peace, Autonomous University of Barcelona",
+        "organisation": "Escola de Cultura de Pau, Universitat Autònoma de Barcelona",
         "members": ["Cécile Barbeito Thonon", "Marina Caireta Sampere"],
         "country": "Espanya",
         "link": "https://escolapau.uab.cat/"
@@ -111,9 +110,9 @@
   },
   "narratives": {
     "title": "Narratives",
-    "select": "selecciona una ruta",
-    "watch": "visualitza el vídeo",
-    "continue": "continua el camí seleccionat",
+    "select": "Selecciona una ruta",
+    "watch": "Visualitza el vídeo",
+    "continue": "Continua el camí seleccionat",
     "switch": "o canvia a altres camins connectats"
   },
   "freeBrowsing": {
@@ -128,126 +127,129 @@
     "p1": "Per ajudar els joves a interactuar amb els testimonis del projecte Changing Democracies, hem creat un paquet d'activitats educatives flexibles per a educació formal i no formal.",
     "p2": "Cada activitat es basa en testimonis primers, connectant veus d'Europa en narracions no lineals que exploren cinc qüestions clau:",
     "questions": [
-      "Què et fa estar zangiat/ada pel món d'avui?",
-      "Atrevs a reŀlencar els teus mestres?",
+      "Què et fa enfadar del món d'avui?",
+      "T'atreveixes a qÜestionar als teus professors i professores?",
       "Què té inflüència en la teva vida?",
       "Saps què pensen els teus avantpassats dels joves?",
-      "Què esperes de la democràcia?"
+      "Què n'esperes de la democràcia?"
     ],
-    "p3": "Aquestes qüestions fan emergir debats profunds, reflexions i coneixements, ajudant als joves a connectar l'història amb les seves vides i societat.",
+    "p3": "Aquestes preguntes fan emergir debats profunds, reflexions i coneixements, ajudant als joves a connectar l'història amb les seves vides i societat.",
     "download": "Descàrrega la versió anglesa"
   },
   "researchPublication": {
     "title": "Publicació de recerca",
     "subtitle": "Changing democracies: El poder dels testimonis per a l'educació democràtica",
-    "lead": "Com donen sentit els joves als testimonis sobre la vida en una dictadura i les experiències de transició? Com aprenen no només sobre aquestes històries, sinó també d'elles, en els seus propis termes i amb la seva pròpia veu? I, el que és més important per als objectius de Changing democracies, ¿aprendre sobre les històries de les dictadures porta els joves a reflexionar críticament sobre la democràcia i la pau? i, si és així, com i de quina manera?",
+    "lead": "Com donen sentit els joves als testimonis sobre la vida en una dictadura i les experiències de transició? Com aprenen no només sobre aquestes històries, sinó també d'aquestes, en els seus propis termes i amb la seva pròpia veu? I, el que és més important per als objectius de Changing democracies, aprendre sobre les històries de les dictadures porta els joves a reflexionar críticament sobre la democràcia i la pau? i, si és així, com i de quina manera?",
     "p1": "En aquesta publicació, sis socis del projecte informen sobre les seves investigacions sobre com els joves van interactuar amb els testimonis en projectes educatius locals. Tot i que es guien pel mateix conjunt de preguntes de recerca, els sis estudis de cas abasten una fascinant varietat de formes de treball, que van des de diàlegs tradicionals fins al treball en plataformes d'aprenentatge en línia i pràctiques basades en les arts, com la il·lustració i el teatre, i contextos culturals, des d'Espanya i Portugal, República Txeca i Polònia, fins als Països Baixos i Flandes/Bèlgica.",
     "download": "Descàrrega la publicació aquí"
   },
   "travellingWorkshop": {
     "title": "Exposició itinerant",
     "lead": "A partir de testimonis sobre les seves experiències, l'exposició itinerant és una invitació a explorar diferents experiències i visions de la democràcia.",
-    "p1": "A través del disseny interactiu de l'exposició, els/les visitants coneixen 31 persones d'Europa i d'altres països que van ser testimonis d'un canvi sistèmic d'una societat no democràtica a una democràtica.",
-    "p2": "Enganxant-se als esports, sonys i desil·lacions dels testigos, els visitants són convidats a reflexionar sobre les promeses de la democràcia i les seves pròpies expectatives.",
-    "p3": "La metafora de la 'dil·lada' simbolitza la necessitat d'una participació activa per modelar la democràcia.",
-    "p4": "L'Exposició Itinerant està disponible en 10 llengües (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
+    "p1": "A través del disseny interactiu de l'exposició, els/les visitants coneixen 31 persones d'Europa i d'altres països que van ser testimonis d'un canvi sistèmic d'una societat no democràtica a una de democràtica.",
+    "p2": "En interactuar amb les esperances, els somnis i les decepcions dels testimonis, s'anima als/a les visitants a reflexionar sobre les promeses que alguna vegada va tenir la democràcia i a examinar les seves pròpies experiències i expectatives.",
+    "p3": "La metàfora de l'exposició al·ludeix a la necessitat de participació activa i implicació per (re)modelar la democràcia.",
+    "p4": "L'Exposició Itinerant està disponible en 11 llengües (CA, CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
     "p5": "Si vols acollir l'Exposició Itinerant, contacta'ns."
   },
   "scrollDocumentary": {
-    "slides": {
-      "slide_0": {
-        "additionalContent": {
-          "scroll": "Scroll",
-          "documentary": "Documentary"
-        }
-      },
-      "slide_1": {
-        "additionalContent": {
-          "is_democracy": "Is democracy",
-          "worth": "worth",
-          "the_trouble": "the trouble?"
-        }
-      },
-      "slide_2": {
-        "additionalContent": {
-          "democracy": "Democracy",
-          "equality": "Equality",
-          "freedom": "Freedom",
-          "honesty": "Honesty",
-          "love": "Love",
-          "conflict": "Conflict",
-          "safety": "Safety",
-          "justice": "Justice"
-        }
-      },
-      "slide_3": {
-        "additionalContent": {
-          "about_the_project": "About the project",
-          "democracy_failed_us": "Democracy failed us",
-          "democracy_is_in_crisis": "Democracy is in crisis",
-          "we_need_to_defend_democracy": "We need to defend democracy",
-          "authoritarianism_is_on_the_rise": "Authoritarianism is on the rise",
-          "democratic_institutions_are_in_decline": "Democratic institutions are in decline",
-          "you_know_these_phrases": "You know these phrases",
-          "you_ve_heard_them_over_and_over": "You've heard them over and over",
-          "but_what_lies_beyond_this_gloomy_picture": "But what lies beyond this gloomy picture?",
-          "there_are_people_around_us_who_know": "There are people around us who know",
-          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "They have experienced firsthand what life is like under different political systems",
-          "they_have_lived_through_times_of_transition": "They have lived through times of transition",
-          "so_we_asked_them": "So we asked them:",
-          "is_democracy_worth_the_trouble": "Is democracy worth the trouble?",
-          "they_shared_their_fears_their_hopes_their_disillusions": "They shared their fears, their hopes, their disillusions",
-          "their_stories": "Their stories",
-          "changing_democracies_brings_you_their_wisdom": "Changing Democracies brings you their wisdom",
-          "we_learnt": "We learnt:",
-          "that_it_pays_to_move_beyond_historical_facts": "That it pays to move beyond historical facts",
-          "that_democracy_is_never_finished": "That democracy is never finished",
-          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "That engaging with its challenges together is the only way forward",
-          "dont_take_our_word_for_it_see_for_yourself": "Don't take our word for it—see for yourself."
-        }
-      },
-      "slide_4": {
-        "title": "Looking back"
-      },
-      "slide_5": {
-        "title": "State of transition"
-      },
-      "slide_6": {
-        "title": "Is my democracy your democracy?"
-      },
-      "slide_8": {
-        "title": "Reality check"
-      },
-      "slide_9": {
-        "title": "The personal is political"
-      },
-      "slide_10": {
-        "title": "Past Present Future"
-      },
-      "slide_11": {
-        "title": "Get together"
-      },
-      "slide_12": {
-        "title": "Beware"
-      },
-      "slide_13": {
-        "title": "Make noise"
-      },
-      "slide_14": {
-        "title": "Our turn"
-      },
-      "slide_15": {
-        "additionalContent": {
-          "credits": "Credits",
-          "script": "Script",
-          "visuals": "Visuals",
-          "development": "Development",
-          "music": "Music",
-          "Changing_Democracies": "Changing Democracies",
-          "p1": "explores how Europe's living history about recent transitions to democracy might help us to grasp what processes are needed today for democracy to fulfil its promises for everyone.",
-          "p2": "The project is the result of a collaboration between 12 partners from 10 European countries and is coordinated by the Evens Foundation and EuroClio with funding from the European Commission. "
-        }
+  "slides": {
+    "slide_0": {
+      "additionalContent": {
+        "scroll": "Rolar",
+        "documentary": "Documentário"
+      }
+    },
+    "slide_1": {
+      "additionalContent": {
+        "is_democracy": "A democracia",
+        "worth": "vale",
+        "the_trouble": "o esforço?"
+      }
+    },
+    "slide_2": {
+      "additionalContent": {
+        "democracy": "Democracia",
+        "equality": "Igualdade",
+        "freedom": "Liberdade",
+        "honesty": "Honestidade",
+        "love": "Amor",
+        "conflict": "Conflito",
+        "safety": "Segurança",
+        "justice": "Justiça"
+      }
+    },
+    "slide_3": {
+      "additionalContent": {
+        "about_the_project": "Sobre o projeto",
+        "democracy_failed_us": "A democracia falhou connosco",
+        "democracy_is_in_crisis": "A democracia está em crise",
+        "we_need_to_defend_democracy": "Precisamos defender a democracia",
+        "authoritarianism_is_on_the_rise": "O autoritarismo está a aumentar",
+        "democratic_institutions_are_in_decline": "As instituições democráticas estão em declínio",
+        "you_know_these_phrases": "Você conhece estas frases",
+        "you_ve_heard_them_over_and_over": "Você já as ouviu várias vezes",
+        "but_what_lies_beyond_this_gloomy_picture": "Mas o que há além deste cenário sombrio?",
+        "there_are_people_around_us_who_know": "Há pessoas à nossa volta que sabem",
+        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Elas experimentaram em primeira mão como é a vida em diferentes sistemas políticos",
+        "they_have_lived_through_times_of_transition": "Elas viveram períodos de transição",
+        "so_we_asked_them": "Então perguntámos-lhes:",
+        "is_democracy_worth_the_trouble": "A democracia vale o esforço?",
+        "they_shared_their_fears_their_hopes_their_disillusions": "Elas partilharam os seus medos, as suas esperanças, as suas desilusões",
+        "their_stories": "As suas histórias",
+        "changing_democracies_brings_you_their_wisdom": "Changing Democracies traz-lhe a sua sabedoria",
+        "we_learnt": "Aprendemos:",
+        "that_it_pays_to_move_beyond_historical_facts": "Que vale a pena ir além dos factos históricos",
+        "that_democracy_is_never_finished": "Que a democracia nunca está concluída",
+        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Que enfrentar juntos os seus desafios é o único caminho",
+        "dont_take_our_word_for_it_see_for_yourself": "Não acredite apenas na nossa palavra—veja por si próprio."
+      }
+    },
+    "slide_4": {
+      "title": "Looking back"
+    },
+    "slide_5": {
+      "title": "State of transition"
+    },
+    "slide_6": {
+      "title": "Is my democracy your democracy?"
+    },
+    "slide_8": {
+      "title": "Reality check"
+    },
+    "slide_9": {
+      "title": "The personal is political"
+    },
+    "slide_10": {
+      "title": "Past Present Future"
+    },
+    "slide_11": {
+      "title": "Get together"
+    },
+    "slide_12": {
+      "title": "Beware"
+    },
+    "slide_13": {
+      "title": "Make noise"
+    },
+    "slide_14": {
+      "title": "Our turn"
+    },
+    "slide_15": {
+      "additionalContent": {
+        "credits": "Créditos",
+        "script": "Script",
+        "visuals": "Visuais",
+        "development": "Desenvolvimento",
+        "music": "Música",
+        "Changing_Democracies": "Changing Democracies",
+        "p1": "explora como a história viva da Europa sobre as recentes transições para a democracia pode ajudar-nos a entender quais os processos necessários hoje para que a democracia cumpra as suas promessas para todos.",
+        "p2": "O projeto resulta de uma colaboração entre 12 parceiros de 10 países europeus e é coordenado pela Evens Foundation com financiamento da Comissão Europeia. "
       }
     }
   }
 }
+
+}
+
+

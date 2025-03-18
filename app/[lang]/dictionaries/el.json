@@ -1,6 +1,5 @@
 {
   "navigation": {
-    "home": "Αρχική",
     "scrollDocumentary": "Περιηγηθείτε στο ντοκιμαντέρ",
     "narratives": "Αφηγήσεις",
     "nonLinearNarratives": "Μη γραμμικές αφηγήσεις",
@@ -14,7 +13,7 @@
     "contact": "Επαφή"
   },
   "landing": {
-    "description": "Οι Μεταβαλλόμενες Δημοκρατίες διερευνούν άγνωστες ιστορίες σχετικά με τίς πρόσφατες διαδικασίες μετάβασης στην Ευρώπη έτσι ώστε να συλλάβουν τι χρειάζεται η δημοκρατία για να εκπληρώσει τις υποσχέσεις της για κάθε άνθρωπο.",
+    "description": "Οι Μεταβαλλόμενες Δημοκρατίες διερευνούν άγνωστες ιστορίες σχετικά με τις πρόσφατες διαδικασίες μετάβασης στην δημοκρατία στην Ευρώπη έτσι ώστε να συλλάβουν τι χρειάζεται η δημοκρατία για να εκπληρώσει τις υποσχέσεις της για κάθε άνθρωπο.",
     "scrollDocumentary": "Ανακαλύψτε τι έχουμε μάθει",
     "narratives": "Επιλέξτε ένα θέμα και δείτε τη συλλογή μας",
     "freeBrowsing": "Χρησιμοποιήστε ετικέτες για να εξερευνήσετε τις ιστορίες"
@@ -27,8 +26,8 @@
     "description": "Οι Μεταβαλλόμενες Δημοκρατίες είναι το αποτέλεσμα μιας συνεργασίας ανάμεσα σε 12 εταίρους από 10 Ευρωπαϊκές χώρες και το πρόγραμμα συντονίζεται από το Ίδρυμα Έβανς με χρηματοδότηση από την Ευρωπαϊκή Κοινότητα.",
     "teamList": [
       {
-        "organisation": "Ίδρυμα Ιστορικής Εκπαίδευσης στην Ελλάδα",
-        "members": ["Βασίλικα Σάκα"],
+        "organisation": "Όμιλος για την Ιστορική Εκπαίδευση στην Ελλάδα-AHEG",
+        "members": ["Βασιλική Σακκά"],
         "country": "Ελλάδα",
         "link": "https://www.aheg.gr/"
       },
@@ -45,31 +44,31 @@
         "link": "https://www.pogranicze.sejny.pl/"
       },
       {
-        "organisation": "EuroClio – Ευρωπαϊκή Ένωση Ιστορικών Εκπαιδευτικών",
-        "members": ["Ευγενία Κατσατριάν", "Στίβεν Στέγκερς"],
+        "organisation": "Euroclio - Ευρωπαϊκή Ένωση Ιστορικών Εκπαιδευτικών",
+        "members": ["Ευγενία Κατσατριάν", "Στήβεν Στέγκερς"],
         "country": "Ολλανδία",
         "link": "https://www.euroclio.eu/"
       },
       {
         "organisation": "Evens Foundation",
         "members": ["Καρολίνα Κούζμανς", "Μαρζολίν Ντέλβου", "Χάννα Ζιελίνσκα"],
-        "country": "Βέλγιο/Πολωνία",
+        "country": "Βέλγιο-Πολωνία",
         "link": "https://evensfoundation.be/"
       },
       {
-        "organisation": "Flemish Peace Institute",
+        "organisation": "Φλαμανδικό Ινστιτούτο για την Ειρήνη",
         "members": ["Μάαρτενς Βαν Άλστάιν"],
         "country": "Βέλγιο",
         "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Φιλοσοφική Σχολή, Καρόλιν Πανεπιστήμιο",
+        "organisation": "Σχολή Τεχνών, Πανεπιστήμιο Καρόλου",
         "members": ["Βοχομίλ Μελίτσαρ", "Βάκλαβ Σίτσα"],
         "country": "Τσεχία",
         "link": "https://www.ff.cuni.cz/home/"
       },
       {
-        "organisation": "Έρευνα στην Τέχνη, το Διαγραφή και την Κοινωνία, Πανεπιστήμιο του Πορτο",
+        "organisation": "Ερευνητικό Ίδρυμα για την Τέχνη,τον Σχεδιασμό και την Κοινωνία, Πανεπιστήμιο του Πόρτο",
         "members": ["Σάμιουελ Γκιμαράες", "Καταρίνα (Κατ) Μαρτίνς"],
         "country": "Πορτογαλία",
         "link": "https://i2ads.up.pt/en"
@@ -83,7 +82,7 @@
       {
         "organisation": "Μουσείο της Σλαβωνίας",
         "members": ["Ντένις Ντεντλίνγκ", "Ζέσενκα Ρίκλ"],
-        "country": "Χορβάτια",
+        "country": "Κροατία",
         "link": "https://www.mso.hr/"
       },
       {
@@ -125,9 +124,9 @@
     "p2": "Κάθε δραστηριότητα οικοδομείται γύρω από πρωτότυπες μαρτυρίες, υφαίνοντας μαζί φωνές πέρα από τα σύνορα σε μη γραμμικές αφηγήσεις οι οποίες διερευνούν πέντε βασικές ερωτήσεις:",
     "questions": [
       "Τι σας κάνει να θυμώνετε με τον κόσμο σήμερα;",
-      "Τολμάτε να αμφισβητήσετε τους δασκάλους σας;",
+      "Τολμάτε να προκαλέσετε τους δασκάλους σας;",
       "Τι σας επηρεάζει στη ζωή σας;",
-      "Γνωρίζετε τι άποψη είχαν οι παπούδες και γιαγιάδες σας για τους νέους ανθρώπους;",
+      "Γνωρίζετε τι άποψη έχουν οι παπούδες και γιαγιάδες σας για τους νέους ανθρώπους;",
       "Ποιες είναι οι προσδοκίες σας από τη δημοκρατία;"
     ],
     "p3": "Αυτές οι ερωτήσεις προσκαλούν σε αναστοχασμό, συζήτηση σε βάθος και σύνδεση— βοηθώντας τους νέους να συσχετίσουν την ιστορία με τις δικές τους ζωές και κοινωνίες.",
@@ -150,100 +149,103 @@
     "p5": "Αν ενδιαφέρεστε να φιλοξενήσετε το Περιοδεύον Εργαστήριο, παρακαλούμε επικοινωνήστε μαζί μας."
   },
   "scrollDocumentary": {
-    "slides": {
-      "slide_0": {
-        "additionalContent": {
-          "scroll": "Scroll",
-          "documentary": "Documentary"
-        }
-      },
-      "slide_1": {
-        "additionalContent": {
-          "is_democracy": "Is democracy",
-          "worth": "worth",
-          "the_trouble": "the trouble?"
-        }
-      },
-      "slide_2": {
-        "additionalContent": {
-          "democracy": "Democracy",
-          "equality": "Equality",
-          "freedom": "Freedom",
-          "honesty": "Honesty",
-          "love": "Love",
-          "conflict": "Conflict",
-          "safety": "Safety",
-          "justice": "Justice"
-        }
-      },
-      "slide_3": {
-        "additionalContent": {
-          "about_the_project": "About the project",
-          "democracy_failed_us": "Democracy failed us",
-          "democracy_is_in_crisis": "Democracy is in crisis",
-          "we_need_to_defend_democracy": "We need to defend democracy",
-          "authoritarianism_is_on_the_rise": "Authoritarianism is on the rise",
-          "democratic_institutions_are_in_decline": "Democratic institutions are in decline",
-          "you_know_these_phrases": "You know these phrases",
-          "you_ve_heard_them_over_and_over": "You've heard them over and over",
-          "but_what_lies_beyond_this_gloomy_picture": "But what lies beyond this gloomy picture?",
-          "there_are_people_around_us_who_know": "There are people around us who know",
-          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "They have experienced firsthand what life is like under different political systems",
-          "they_have_lived_through_times_of_transition": "They have lived through times of transition",
-          "so_we_asked_them": "So we asked them:",
-          "is_democracy_worth_the_trouble": "Is democracy worth the trouble?",
-          "they_shared_their_fears_their_hopes_their_disillusions": "They shared their fears, their hopes, their disillusions",
-          "their_stories": "Their stories",
-          "changing_democracies_brings_you_their_wisdom": "Changing Democracies brings you their wisdom",
-          "we_learnt": "We learnt:",
-          "that_it_pays_to_move_beyond_historical_facts": "That it pays to move beyond historical facts",
-          "that_democracy_is_never_finished": "That democracy is never finished",
-          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "That engaging with its challenges together is the only way forward",
-          "dont_take_our_word_for_it_see_for_yourself": "Don't take our word for it—see for yourself."
-        }
-      },
-      "slide_4": {
-        "title": "Looking back"
-      },
-      "slide_5": {
-        "title": "State of transition"
-      },
-      "slide_6": {
-        "title": "Is my democracy your democracy?"
-      },
-      "slide_8": {
-        "title": "Reality check"
-      },
-      "slide_9": {
-        "title": "The personal is political"
-      },
-      "slide_10": {
-        "title": "Past Present Future"
-      },
-      "slide_11": {
-        "title": "Get together"
-      },
-      "slide_12": {
-        "title": "Beware"
-      },
-      "slide_13": {
-        "title": "Make noise"
-      },
-      "slide_14": {
-        "title": "Our turn"
-      },
-      "slide_15": {
-        "additionalContent": {
-          "credits": "Credits",
-          "script": "Script",
-          "visuals": "Visuals",
-          "development": "Development",
-          "music": "Music",
-          "Changing_Democracies": "Changing Democracies",
-          "p1": "explores how Europe's living history about recent transitions to democracy might help us to grasp what processes are needed today for democracy to fulfil its promises for everyone.",
-          "p2": "The project is the result of a collaboration between 12 partners from 10 European countries and is coordinated by the Evens Foundation and EuroClio with funding from the European Commission. "
-        }
+  "slides": {
+    "slide_0": {
+      "additionalContent": {
+        "scroll": "Κύλιση",
+        "documentary": "Ντοκιμαντέρ"
+      }
+    },
+    "slide_1": {
+      "additionalContent": {
+        "is_democracy": "Είναι η δημοκρατία",
+        "worth": "άξια",
+        "the_trouble": "της προσπάθειας;"
+      }
+    },
+    "slide_2": {
+      "additionalContent": {
+        "democracy": "Δημοκρατία",
+        "equality": "Ισότητα",
+        "freedom": "Ελευθερία",
+        "honesty": "Ειλικρίνεια",
+        "love": "Αγάπη",
+        "conflict": "Σύγκρουση",
+        "safety": "Ασφάλεια",
+        "justice": "Δικαιοσύνη"
+      }
+    },
+    "slide_3": {
+      "additionalContent": {
+        "about_the_project": "Σχετικά με το έργο",
+        "democracy_failed_us": "Η δημοκρατία μας απογοήτευσε",
+        "democracy_is_in_crisis": "Η δημοκρατία βρίσκεται σε κρίση",
+        "we_need_to_defend_democracy": "Πρέπει να υπερασπιστούμε τη δημοκρατία",
+        "authoritarianism_is_on_the_rise": "Ο αυταρχισμός αυξάνεται",
+        "democratic_institutions_are_in_decline": "Οι δημοκρατικοί θεσμοί βρίσκονται σε παρακμή",
+        "you_know_these_phrases": "Γνωρίζετε αυτές τις φράσεις",
+        "you_ve_heard_them_over_and_over": "Τις έχετε ακούσει ξανά και ξανά",
+        "but_what_lies_beyond_this_gloomy_picture": "Αλλά τι βρίσκεται πέρα από αυτήν τη ζοφερή εικόνα;",
+        "there_are_people_around_us_who_know": "Υπάρχουν άνθρωποι γύρω μας που γνωρίζουν",
+        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Έχουν βιώσει προσωπικά πώς είναι η ζωή κάτω από διαφορετικά πολιτικά συστήματα",
+        "they_have_lived_through_times_of_transition": "Έζησαν σε εποχές μετάβασης",
+        "so_we_asked_them": "Έτσι, τους ρωτήσαμε:",
+        "is_democracy_worth_the_trouble": "Αξίζει η δημοκρατία την προσπάθεια;",
+        "they_shared_their_fears_their_hopes_their_disillusions": "Μοιράστηκαν τους φόβους τους, τις ελπίδες τους, τις απογοητεύσεις τους",
+        "their_stories": "Οι ιστορίες τους",
+        "changing_democracies_brings_you_their_wisdom": "Το Changing Democracies σας φέρνει τη σοφία τους",
+        "we_learnt": "Μάθαμε:",
+        "that_it_pays_to_move_beyond_historical_facts": "Ότι αξίζει να πάμε πέρα από τα ιστορικά γεγονότα",
+        "that_democracy_is_never_finished": "Ότι η δημοκρατία δεν ολοκληρώνεται ποτέ",
+        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Ότι ο μόνος δρόμος είναι να αντιμετωπίζουμε τις προκλήσεις μαζί",
+        "dont_take_our_word_for_it_see_for_yourself": "Μην βασίζεστε μόνο στα λόγια μας – δείτε το μόνοι σας."
+      }
+    },
+    "slide_4": {
+      "title": "Κοιτάζοντας πίσω"
+    },
+    "slide_5": {
+      "title": "Κατάσταση μετάβασης"
+    },
+    "slide_6": {
+      "title": "Η δική μου δημοκρατία είναι η δική σας δημοκρατία;"
+    },
+    "slide_8": {
+      "title": "Έλεγχος πραγματικότητας"
+    },
+    "slide_9": {
+      "title": "Το προσωπικό είναι πολιτικό"
+    },
+    "slide_10": {
+      "title": "Παρελθόν Παρόν Μέλλον"
+    },
+    "slide_11": {
+      "title": "Ενωθείτε"
+    },
+    "slide_12": {
+      "title": "Προσοχή"
+    },
+    "slide_13": {
+      "title": "Κάντε θόρυβο"
+    },
+    "slide_14": {
+      "title": "Η σειρά μας"
+    },
+    "slide_15": {
+      "additionalContent": {
+        "credits": "Συντελεστές",
+        "script": "Σενάριο",
+        "visuals": "Οπτικά",
+        "development": "Ανάπτυξη",
+        "music": "Μουσική",
+        "Changing_Democracies": "Changing Democracies",
+        "p1": "διερευνά πώς η ζωντανή ιστορία της Ευρώπης για τις πρόσφατες μεταβάσεις στη δημοκρατία μπορεί να μας βοηθήσει να κατανοήσουμε ποιες διαδικασίες απαιτούνται σήμερα ώστε η δημοκρατία να εκπληρώσει τις υποσχέσεις της προς όλους.",
+        "p2": "Το έργο είναι αποτέλεσμα συνεργασίας 12 εταίρων από 10 ευρωπαϊκές χώρες και συντονίζεται από το Evens Foundation με χρηματοδότηση από την Ευρωπαϊκή Επιτροπή."
       }
     }
   }
 }
+
+}
+
+

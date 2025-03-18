@@ -1,9 +1,8 @@
 {
   "navigation": {
-    "home": "Acasă",
-    "scrollDocumentary": "Documentarul în format scroll",
-    "narratives": "Narațiuni",
-    "nonLinearNarratives": "Narațiuni non-linare",
+    "scrollDocumentary": "Derulează documentarul",
+    "narratives": "Narative",
+    "nonLinearNarratives": "Narative",
     "freeBrowsing": "Navigație liberă",
     "project": "Proiect",
     "team": "Echipă",
@@ -52,11 +51,7 @@
       },
       {
         "organisation": "Fundația Evens",
-        "members": [
-          "Caroline Coosemans",
-          "Marjolein Delvou",
-          "Hanna Zielińska"
-        ],
+        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
         "country": "Belgia/Polonia",
         "link": "https://evensfoundation.be/"
       },
@@ -110,16 +105,16 @@
     "download": "Descărcați aici Politica de Protecție a Copiilor și a Tineretului"
   },
   "narratives": {
-    "title": "Narațiuni",
-    "select": "selectați un traseu",
-    "watch": "urmăriți video",
-    "continue": "continuați pe traseul selectat",
-    "switch": "sau schimbați către alte trasee conectate"
+    "title": "Narative",
+    "select": "alege un traseu",
+    "watch": "urmărește videoclipul",
+    "continue": "continuă pe traseul ales",
+    "switch": "sau schimbă către alte trasee"
   },
   "freeBrowsing": {
-    "title": "Navigație liberă",
-    "description": "Martorii care și-au împărtășit poveștile au trăit schimbarea fie prin experiența tranziției democratice a țării lor în Europa, fie prin mutarea dintr-o țară nedemocratică într-o democrație – sau, uneori, ambele.",
-    "explanation": "Folosiți etichetele pentru a explora și a compara vocile lor."
+    "title": "Descoperă",
+    "description": "Martorii care și-au împărtășit poveștile au trăit schimbarea fie prin experiența tranziției democratice a țării lor în Europa, fie prin mutarea dintr-o țară nedemocratică într-una democratică – sau, uneori, ambele.",
+    "explanation": "Folosește etichetele pentru a explora și a compara vocile lor."
   },
   "eduPack": {
     "title": "Resurse educaționale",
@@ -153,101 +148,102 @@
     "p4": "Atelierul itinerant este disponibil în 10 limbi (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
     "p5": "Dacă sunteți interesați să organizați Atelierul Itinerant, contactați-ne."
   },
-  "scrollDocumentary": {
-    "slides": {
-      "slide_0": {
-        "additionalContent": {
-          "scroll": "Scroll",
-          "documentary": "Documentary"
-        }
-      },
-      "slide_1": {
-        "additionalContent": {
-          "is_democracy": "Is democracy",
-          "worth": "worth",
-          "the_trouble": "the trouble?"
-        }
-      },
-      "slide_2": {
-        "additionalContent": {
-          "democracy": "Democracy",
-          "equality": "Equality",
-          "freedom": "Freedom",
-          "honesty": "Honesty",
-          "love": "Love",
-          "conflict": "Conflict",
-          "safety": "Safety",
-          "justice": "Justice"
-        }
-      },
-      "slide_3": {
-        "additionalContent": {
-          "about_the_project": "About the project",
-          "democracy_failed_us": "Democracy failed us",
-          "democracy_is_in_crisis": "Democracy is in crisis",
-          "we_need_to_defend_democracy": "We need to defend democracy",
-          "authoritarianism_is_on_the_rise": "Authoritarianism is on the rise",
-          "democratic_institutions_are_in_decline": "Democratic institutions are in decline",
-          "you_know_these_phrases": "You know these phrases",
-          "you_ve_heard_them_over_and_over": "You've heard them over and over",
-          "but_what_lies_beyond_this_gloomy_picture": "But what lies beyond this gloomy picture?",
-          "there_are_people_around_us_who_know": "There are people around us who know",
-          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "They have experienced firsthand what life is like under different political systems",
-          "they_have_lived_through_times_of_transition": "They have lived through times of transition",
-          "so_we_asked_them": "So we asked them:",
-          "is_democracy_worth_the_trouble": "Is democracy worth the trouble?",
-          "they_shared_their_fears_their_hopes_their_disillusions": "They shared their fears, their hopes, their disillusions",
-          "their_stories": "Their stories",
-          "changing_democracies_brings_you_their_wisdom": "Changing Democracies brings you their wisdom",
-          "we_learnt": "We learnt:",
-          "that_it_pays_to_move_beyond_historical_facts": "That it pays to move beyond historical facts",
-          "that_democracy_is_never_finished": "That democracy is never finished",
-          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "That engaging with its challenges together is the only way forward",
-          "dont_take_our_word_for_it_see_for_yourself": "Don't take our word for it—see for yourself."
-        }
-      },
-      "slide_4": {
-        "title": "Looking back"
-      },
-      "slide_5": {
-        "title": "State of transition"
-      },
-      "slide_6": {
-        "title": "Is my democracy your democracy?"
-      },
-      "slide_8": {
-        "title": "Reality check"
-      },
-      "slide_9": {
-        "title": "The personal is political"
-      },
-      "slide_10": {
-        "title": "Past Present Future"
-      },
-      "slide_11": {
-        "title": "Get together"
-      },
-      "slide_12": {
-        "title": "Beware"
-      },
-      "slide_13": {
-        "title": "Make noise"
-      },
-      "slide_14": {
-        "title": "Our turn"
-      },
-      "slide_15": {
-        "additionalContent": {
-          "credits": "Credits",
-          "script": "Script",
-          "visuals": "Visuals",
-          "development": "Development",
-          "music": "Music",
-          "Changing_Democracies": "Changing Democracies",
-          "p1": "explores how Europe's living history about recent transitions to democracy might help us to grasp what processes are needed today for democracy to fulfil its promises for everyone.",
-          "p2": "The project is the result of a collaboration between 12 partners from 10 European countries and is coordinated by the Evens Foundation and EuroClio with funding from the European Commission. "
-        }
+ "scrollDocumentary": {
+  "slides": {
+    "slide_0": {
+      "additionalContent": {
+        "scroll": "Derulează",
+        "documentary": "Documentar"
+      }
+    },
+    "slide_1": {
+      "additionalContent": {
+        "is_democracy": "Este democrația",
+        "worth": "demnă",
+        "the_trouble": "de efort?"
+      }
+    },
+    "slide_2": {
+      "additionalContent": {
+        "democracy": "Democrație",
+        "equality": "Egalitate",
+        "freedom": "Libertate",
+        "honesty": "Onestitate",
+        "love": "Iubire",
+        "conflict": "Conflict",
+        "safety": "Siguranță",
+        "justice": "Justiție"
+      }
+    },
+    "slide_3": {
+      "additionalContent": {
+        "about_the_project": "Despre proiect",
+        "democracy_failed_us": "Democrația ne-a dezamăgit",
+        "democracy_is_in_crisis": "Democrația este în criză",
+        "we_need_to_defend_democracy": "Trebuie să apărăm democrația",
+        "authoritarianism_is_on_the_rise": "Autoritarismul este în creștere",
+        "democratic_institutions_are_in_decline": "Instituțiile democratice sunt în declin",
+        "you_know_these_phrases": "Cunoașteți aceste fraze",
+        "you_ve_heard_them_over_and_over": "Le-ați auzit de multe ori",
+        "but_what_lies_beyond_this_gloomy_picture": "Dar ce se află dincolo de această imagine sumbră?",
+        "there_are_people_around_us_who_know": "Există oameni în jurul nostru care știu",
+        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Au trăit direct experiența vieții sub diferite sisteme politice",
+        "they_have_lived_through_times_of_transition": "Au trecut prin perioade de tranziție",
+        "so_we_asked_them": "Așa că i-am întrebat:",
+        "is_democracy_worth_the_trouble": "Este democrația demnă de efort?",
+        "they_shared_their_fears_their_hopes_their_disillusions": "Au împărtășit temerile, speranțele și deziluziile lor",
+        "their_stories": "Poveștile lor",
+        "changing_democracies_brings_you_their_wisdom": "Changing Democracies vă aduce înțelepciunea lor",
+        "we_learnt": "Am învățat:",
+        "that_it_pays_to_move_beyond_historical_facts": "Că merită să mergem dincolo de faptele istorice",
+        "that_democracy_is_never_finished": "Că democrația nu este niciodată finalizată",
+        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Că singura cale înainte este să înfruntăm provocările împreună",
+        "dont_take_our_word_for_it_see_for_yourself": "Nu ne credeți pe cuvânt—convingeți-vă singuri."
+      }
+    },
+    "slide_4": {
+      "title": "Privind înapoi"
+    },
+    "slide_5": {
+      "title": "Stare de tranziție"
+    },
+    "slide_6": {
+      "title": "Democrația mea este democrația ta?"
+    },
+    "slide_8": {
+      "title": "Verificarea realității"
+    },
+    "slide_9": {
+      "title": "Personalul este politic"
+    },
+    "slide_10": {
+      "title": "Trecut Prezent Viitor"
+    },
+    "slide_11": {
+      "title": "Uniți-vă"
+    },
+    "slide_12": {
+      "title": "Atenție"
+    },
+    "slide_13": {
+      "title": "Faceți zgomot"
+    },
+    "slide_14": {
+      "title": "Este rândul nostru"
+    },
+    "slide_15": {
+      "additionalContent": {
+        "credits": "Credite",
+        "script": "Scenariu",
+        "visuals": "Vizualuri",
+        "development": "Dezvoltare",
+        "music": "Muzică",
+        "Changing_Democracies": "Changing Democracies",
+        "p1": "explorează cum istoria vie a Europei despre recentele tranziții la democrație ne poate ajuta să înțelegem ce procese sunt necesare astăzi pentru ca democrația să-și îndeplinească promisiunile pentru toți.",
+        "p2": "Proiectul este rezultatul unei colaborări între 12 parteneri din 10 țări europene și este coordonat de Fundația Evens și EuroClio cu finanțare din partea Comisiei Europene."
       }
     }
   }
+}
+
 }
