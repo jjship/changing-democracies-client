@@ -19,7 +19,7 @@ const NarrativesOverview: FC<{
   return (
     <>
       {currentPath ? (
-        <div className="mx-auto flex h-full w-[85%] items-center justify-center border-4 border-solid border-red-500">
+        <div className="mx-auto flex h-full w-full items-center justify-center">
           <NarrativesView />
         </div>
       ) : (

@@ -1,6 +1,6 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import { FC, useCallback, useMemo } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import OverviewTag from "./NarrativesOverviewButton";
 import NarrativesCountDown from "@/components/narratives/NarrativesCountDown";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
@@ -22,6 +22,42 @@ const NarrativesView: FC = ({}) => {
     setShowSidePanel,
     selectedLanguage,
   } = useNarrativesContext();
+
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const titleContainerRef = useRef<HTMLDivElement>(null);
+
+  // Function to sync the widths
+  const syncContainerWidths = useCallback(() => {
+    if (videoContainerRef.current && titleContainerRef.current) {
+      const videoWidth = videoContainerRef.current.offsetWidth;
+      titleContainerRef.current.style.width = `${videoWidth}px`;
+    }
+  }, []);
+
+  // Set up the resize observer
+  useEffect(() => {
+    // Initial sync
+    syncContainerWidths();
+
+    // Create ResizeObserver
+    const resizeObserver = new ResizeObserver(() => {
+      window.requestAnimationFrame(syncContainerWidths);
+    });
+
+    // Observe the video container
+    if (videoContainerRef.current) {
+      resizeObserver.observe(videoContainerRef.current);
+    }
+
+    // Also observe window resize as a fallback
+    window.addEventListener("resize", syncContainerWidths);
+
+    // Cleanup
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", syncContainerWidths);
+    };
+  }, [syncContainerWidths]);
 
   const handleStart = () => {
     setIsPlaying(true);
@@ -65,14 +101,16 @@ const NarrativesView: FC = ({}) => {
 
   return (
     currentPath && (
-      <div className="h-full w-full border-4 border-solid border-yellow-500">
+      <div className="h-full w-full ">
         <Flex
-          className={`flex h-full w-full flex-col items-center justify-start overflow-auto border-4 border-solid border-blue-500 pt-[4.5vh]`}
+          justify={"center"}
+          className={`flex h-full w-full flex-col items-center   `}
         >
           <div
-            className={`flex min-h-[60px] w-[85%] flex-shrink-0 flex-row items-start justify-between border-4 border-solid border-green-500`}
+            ref={titleContainerRef}
+            className={`flex min-h-[60px] flex-shrink-0 flex-row items-start justify-between `}
           >
-            <div className={"relative right-16 top-2 z-10"}>
+            <div className={"relative right-10 top-2 z-10"}>
               <OverviewTag onClick={handleOverview} />
             </div>
             <h1
@@ -88,7 +126,10 @@ const NarrativesView: FC = ({}) => {
             </h1>
           </div>
 
-          <Flex className="border-white-500 relative flex min-h-0 w-[85%] flex-1 items-center overflow-hidden border-4 border-solid">
+          <Flex
+            ref={videoContainerRef}
+            className=" relative flex aspect-video flex-1 items-center overflow-hidden "
+          >
             {<NarrativesFilmPlayer />}
             {!isPlaying && currentIndex === 0 && (
               <Flex

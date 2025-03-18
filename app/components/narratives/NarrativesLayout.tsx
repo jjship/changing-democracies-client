@@ -27,6 +27,8 @@ const NarrativesLayout: FC<{
   // Access the global TranslationContext
   const globalTranslation = useTranslation();
 
+  const overflow = currentPath ? "overflow-visible" : "overflow-auto";
+
   // First prioritize localStorage, then fall back to initialLanguageLabel
   const getInitialLanguage = (): string => {
     if (typeof window !== "undefined") {
@@ -112,9 +114,7 @@ const NarrativesLayout: FC<{
         setSelectedLanguage: handleLanguageChange,
       }}
     >
-      <div
-        className={`${archivo.className} relative max-h-screen overflow-hidden`}
-      >
+      <div className={`${archivo.className} relative max-h-screen`}>
         <Navigation
           bgColor="black_bg"
           fontColor="yellow_secondary"
@@ -123,7 +123,7 @@ const NarrativesLayout: FC<{
           onLanguageChange={handleNavigationLanguageChange}
         />
         <div
-          className={`transition-height z-20 mx-auto overflow-auto rounded-3xl bg-black_bg duration-1000 ease-linear md:w-[90vw] ${
+          className={`transition-height z-20 mx-auto ${overflow} rounded-3xl bg-black_bg duration-1000 ease-linear md:w-[90vw] ${
             sectionPadding.x
           } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-40px)]"}`}
         >
