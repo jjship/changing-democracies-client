@@ -19,14 +19,9 @@ const NarrativesOverview: FC<{
   return (
     <>
       {currentPath ? (
-        <Flex
-          width={"100%"}
-          height={"100%"}
-          justify={"center"}
-          align={"center"}
-        >
+        <div className="mx-auto flex h-full w-[85%] items-center justify-center border-4 border-solid border-red-500">
           <NarrativesView />
-        </Flex>
+        </div>
       ) : (
         <>
           <Title
