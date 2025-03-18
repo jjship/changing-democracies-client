@@ -1,6 +1,7 @@
 "use client";
 import { FC, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import logoDark from "@/public/logo_dark_no_bg.svg";
 import { NavDrawer } from "./NavDrawer";
 import { Hamburger } from "./Hamburger";
@@ -49,11 +50,9 @@ const Navigation: FC<NavigationProps> = ({
       } sticky top-0 z-40 w-full transition-all duration-1000`}
     >
       <div className="flex h-[4rem] items-center justify-between">
-        <Image
-          src={logoDark}
-          alt="changing democracies logo"
-          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] "
-        />
+        <Link href="/" className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] ">
+          <Image src={logoDark} alt="changing democracies logo" />
+        </Link>
         <div className="mr-3 flex items-center gap-2 font-bold">
           {availableLanguages && availableLanguages.length > 0 && isNavOpen && (
             <Select
