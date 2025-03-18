@@ -84,7 +84,7 @@ const NarrativesLayout: FC<{
     }
   };
 
-  // Create a wrapper function specifically for the Navigation component which only accepts string
+  // Create a wrapper function specifically for the Navigation component which only accepts strings
   const handleNavigationLanguageChange = (newLang: string) => {
     handleLanguageChange(newLang);
   };
