@@ -24,6 +24,8 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
+  const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
+
   // Check if the pathname already has a locale
   const pathnameIsMissingLocale = locales.every(
     (locale) =>
@@ -31,14 +33,44 @@ export async function middleware(request: NextRequest) {
   );
 
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-    return NextResponse.redirect(
+    const locale =
+      cookieLocale && locales.includes(cookieLocale as any)
+        ? cookieLocale
+        : getLocale(request);
+
+    const response = NextResponse.redirect(
       new URL(
         `/${locale}${pathname.startsWith("/") ? pathname : `/${pathname}`}`,
         request.url,
       ),
     );
+
+    // Set cookie to maintain consistency between server and client
+    if (!cookieLocale) {
+      response.cookies.set("NEXT_LOCALE", locale, {
+        path: "/",
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+      });
+    }
+
+    return response;
   }
+  const locale = pathname.split("/")[1];
+  if (
+    locales.includes(locale as any) &&
+    (!cookieLocale || cookieLocale !== locale)
+  ) {
+    const response = NextResponse.next();
+    response.cookies.set("NEXT_LOCALE", locale, {
+      path: "/",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    });
+    return response;
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {

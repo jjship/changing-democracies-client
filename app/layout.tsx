@@ -13,11 +13,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body className={`${archivo.className} bg-black_bg antialiased`}>
-        {children}
-      </body>
-    </html>
-  );
+  return children;
 }
