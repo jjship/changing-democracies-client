@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { AnimatedLink } from "./AnimatedLink";
 import { useRouter, useParams } from "next/navigation";
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
+import { LANGUAGE_PREFERENCE_KEY } from "@/utils/i18n/constants";
 import { useTranslation } from "../../[lang]/context/TranslationContext";
 
 export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({

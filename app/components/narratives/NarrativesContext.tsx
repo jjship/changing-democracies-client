@@ -7,7 +7,7 @@ import {
   useEffect,
 } from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
+import { LANGUAGE_PREFERENCE_KEY, storeLanguage } from "@/utils/i18n/constants";
 
 const defaultContext: NarrativesContextType = {
   currentPath: null,
@@ -80,9 +80,9 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
   const setSelectedLanguage = (language: string | undefined) => {
     setSelectedLanguageState(language);
 
-    // Save to localStorage whenever language changes
+    // Save to localStorage whenever language changes using our centralized helper
     if (typeof window !== "undefined" && language) {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, language);
+      storeLanguage(language);
     }
   };
 

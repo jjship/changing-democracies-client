@@ -8,7 +8,7 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Archivo_Narrow } from "next/font/google";
-import { useLanguageSelection } from "./useLanguageSelection";
+import { useLanguageAdapter } from "../hooks/useLanguageAdapter";
 
 const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
@@ -27,10 +27,8 @@ export default function ScrollDocumentaryClient({
   const [isStarted, setIsStarted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [loadedSections, setLoadedSections] = useState<number[]>([0, 1]);
-  const { selectedLanguage, setSelectedLanguage } = useLanguageSelection({
-    initialLanguageLabel,
-    availableLanguageLabels,
-  });
+  const { selectedLanguage, setSelectedLanguage, availableLanguages } =
+    useLanguageAdapter(availableLanguageLabels);
 
   const activeSlide = slidesWithSources[activeIndex];
   const pageTheme = activeSlide
@@ -195,7 +193,7 @@ export default function ScrollDocumentaryClient({
           <Navigation
             bgColor={pageTheme.navBg}
             fontColor={pageTheme.navFont}
-            availableLanguages={availableLanguageLabels}
+            availableLanguages={availableLanguages}
             selectedLanguage={selectedLanguage}
             onLanguageChange={setSelectedLanguage}
           />
@@ -236,7 +234,7 @@ export default function ScrollDocumentaryClient({
                         speakers={slide.speakers}
                       />
                     ) : (
-                      <div className="tall:max-h-[1076px]  relative aspect-video h-[calc(100vh-120px)] max-w-[90vw]">
+                      <div className="relative  aspect-video h-[calc(100vh-120px)] max-w-[90vw] tall:max-h-[1076px]">
                         {renderAdditionalContent(slide)}
                       </div>
                     )

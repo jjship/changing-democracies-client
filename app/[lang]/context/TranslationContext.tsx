@@ -10,7 +10,11 @@ import {
 import { Dictionary } from "../dictionaries";
 import { CDLanguages, DEFAULT_LANGUAGE_LABEL } from "@/utils/i18n/languages";
 import { useRouter, useParams } from "next/navigation";
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
+import {
+  LANGUAGE_PREFERENCE_KEY,
+  normalizeLanguage,
+  storeLanguage,
+} from "@/utils/i18n/constants";
 
 type TranslationContextType = {
   dictionary: Dictionary;
@@ -50,44 +54,43 @@ export function TranslationProvider({
   const [currentDictionary, setCurrentDictionary] =
     useState<Dictionary>(dictionary);
 
-  // Load saved language preference when the component mounts
+  // Synchronize URL language with localStorage on mount
   useEffect(() => {
-    // Check if we're in the browser environment
-    if (typeof window !== "undefined") {
-      const savedLanguage = localStorage.getItem(
-        LANGUAGE_PREFERENCE_KEY,
-      ) as CDLanguages | null;
+    if (typeof window === "undefined") return;
 
-      // If there's a saved language and it's different from the current one, redirect
-      if (
-        savedLanguage &&
-        savedLanguage !== currentLang &&
-        availableLanguages.includes(savedLanguage)
-      ) {
-        const newPath = window.location.pathname.replace(
-          `/${currentLang}`,
-          `/${savedLanguage}`,
-        );
-        router.push(newPath);
-      } else {
-        // If no saved language or we're already on the correct language path, save the current language
-        localStorage.setItem(LANGUAGE_PREFERENCE_KEY, currentLang);
-      }
+    const storedLang = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
+    const normalizedStoredLang = storedLang
+      ? normalizeLanguage(storedLang)
+      : null;
+
+    // If there's a stored language and it's different from the URL language, redirect
+    if (
+      normalizedStoredLang &&
+      normalizedStoredLang !== currentLang &&
+      availableLanguages.includes(normalizedStoredLang)
+    ) {
+      const newPath = window.location.pathname.replace(
+        `/${currentLang}`,
+        `/${normalizedStoredLang}`,
+      );
+      router.push(newPath);
+    } else {
+      // Always ensure localStorage is in sync with the URL
+      storeLanguage(currentLang);
     }
   }, [currentLang, router, availableLanguages]);
 
   const setLanguage = (newLang: CDLanguages) => {
     if (newLang === currentLang) return;
 
-    // Save the language preference to localStorage
-    if (typeof window !== "undefined") {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, newLang);
-    }
+    // Normalize and store the language
+    const normalizedLang = normalizeLanguage(newLang);
+    storeLanguage(normalizedLang);
 
     // Navigate to the new language path
     const newPath = window.location.pathname.replace(
       `/${currentLang}`,
-      `/${newLang}`,
+      `/${normalizedLang}`,
     );
     router.push(newPath);
   };

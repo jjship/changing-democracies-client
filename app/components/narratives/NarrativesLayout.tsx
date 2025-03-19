@@ -8,10 +8,9 @@ import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
 import { Archivo } from "next/font/google";
 import NarrativesContext from "./NarrativesContext";
 import { Box } from "@radix-ui/themes/dist/esm/components/box.js";
-import { useLanguageSelection } from "../scrollDocumentary/useLanguageSelection";
-import { useTranslation } from "@/app/[lang]/context/TranslationContext";
+import { useLanguageAdapter } from "../hooks/useLanguageAdapter";
+
 const archivo = Archivo({ subsets: ["latin"] });
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 const NarrativesLayout: FC<{
   narrationPaths: NarrationPath[];
@@ -24,77 +23,16 @@ const NarrativesLayout: FC<{
   const [switchPath, setSwitchPath] = useState<boolean>(false);
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
 
-  // Access the global TranslationContext
-  const globalTranslation = useTranslation();
-
   const overflow = currentPath ? "overflow-visible" : "overflow-auto";
 
-  // First prioritize localStorage, then fall back to initialLanguageLabel
-  const getInitialLanguage = (): string => {
-    if (typeof window !== "undefined") {
-      const storedLanguage = localStorage
-        .getItem(LANGUAGE_PREFERENCE_KEY)
-        ?.toUpperCase();
-      if (storedLanguage && availableLanguageLabels.includes(storedLanguage)) {
-        return storedLanguage;
-      }
-    }
-    return initialLanguageLabel;
-  };
+  // Use the language adapter to handle uppercase/lowercase conversion
+  const { selectedLanguage, setSelectedLanguage, availableLanguages } =
+    useLanguageAdapter(availableLanguageLabels);
 
-  const { selectedLanguage, availableLanguages, setSelectedLanguage } =
-    useLanguageSelection({
-      initialLanguageLabel: getInitialLanguage(),
-      availableLanguageLabels,
-    });
-
-  // Sync with global TranslationContext language changes
-  useEffect(() => {
-    if (globalTranslation.language) {
-      const upperLang = globalTranslation.language.toUpperCase();
-
-      // Only update if the language is different and available
-      if (
-        upperLang !== selectedLanguage &&
-        availableLanguageLabels.includes(upperLang)
-      ) {
-        setSelectedLanguage(upperLang);
-      }
-    }
-  }, [
-    globalTranslation.language,
-    availableLanguageLabels,
-    selectedLanguage,
-    setSelectedLanguage,
-  ]);
-
-  // Sync navigation language changes back to global context
-  const handleLanguageChange = (newLang: string | undefined) => {
-    // Update our local state
-    setSelectedLanguage(newLang);
-
-    // Also update global translation context if the language is valid
-    if (
-      newLang &&
-      globalTranslation.availableLanguages.includes(
-        newLang.toLowerCase() as any,
-      )
-    ) {
-      globalTranslation.setLanguage(newLang.toLowerCase() as any);
-    }
-  };
-
-  // Create a wrapper function specifically for the Navigation component which only accepts strings
+  // Create a wrapper function specifically for the Navigation component
   const handleNavigationLanguageChange = (newLang: string) => {
-    handleLanguageChange(newLang);
+    setSelectedLanguage(newLang);
   };
-
-  // Ensure language changes are saved to localStorage
-  useEffect(() => {
-    if (typeof window !== "undefined" && selectedLanguage) {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, selectedLanguage);
-    }
-  }, [selectedLanguage]);
 
   return (
     <NarrativesContext.Provider
@@ -111,7 +49,7 @@ const NarrativesLayout: FC<{
         switchPath,
         setSwitchPath,
         selectedLanguage,
-        setSelectedLanguage: handleLanguageChange,
+        setSelectedLanguage,
       }}
     >
       <div className={`${archivo.className} relative max-h-screen`}>

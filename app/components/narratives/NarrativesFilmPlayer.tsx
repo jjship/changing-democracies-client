@@ -38,7 +38,7 @@ const NarrativesFilmPlayer: FC = () => {
       currentFragment.country.names.find(
         (name) => name.languageCode === selectedLanguage,
       )?.name ??
-      currentFragment.country.names.find((name) => name.languageCode === "EN")
+      currentFragment.country.names.find((name) => name.languageCode === "en")
         ?.name
     );
   }, [currentPath, currentIndex, selectedLanguage]);

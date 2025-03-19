@@ -1,6 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { NavColor } from "./Navigation";
+import { LANGUAGE_PREFERENCE_KEY } from "@/utils/i18n/constants";
 
 export { AnimatedLink };
 
@@ -17,7 +18,6 @@ const getFontColor = (color: LinkColor): NavColor => {
       return "purple_lightest_bg";
   }
 };
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 const AnimatedLink: FC<{
   href: string;
