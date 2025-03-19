@@ -212,7 +212,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
 
           {!subtitlesLoading && !subtitlesError && currentSubtitle && (
             <div
-              className={`absolute bottom-0 left-0 right-0 z-10 px-3 py-2 text-center font-bold xl:text-2xl ${
+              className={`absolute bottom-0 left-0 right-0 z-10 px-3 py-2 text-center  font-bold xl:text-2xl ${
                 pageTheme.pageBg === "bg-pink_scroll"
                   ? "bg-yellow_secondary bg-opacity-70"
                   : pageTheme.pageBg === "bg-black_bg"
