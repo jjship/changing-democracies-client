@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { AnimatedLink } from "./AnimatedLink";
 import { useRouter, useParams } from "next/navigation";
 import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
+import { useTranslation } from "../../[lang]/context/TranslationContext";
 
 export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
   isNavOpen,
@@ -36,6 +37,8 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
     router.prefetch(`/${currentLang}/contact`);
   }, [router, params?.lang]);
 
+  const { dictionary: dict } = useTranslation();
+
   return (
     <div
       className={`z-50 flex h-[110vh] transform flex-col justify-between bg-black_bg transition-all duration-1000 ease-in-out ${
@@ -48,7 +51,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
       <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-2 ">
         <AnimatedLink
           href="/scroll-documentary"
-          text="scroll documentary"
+          text={dict.navigation.scrollDocumentary}
           timeout={80}
           color="yellow"
           isNavOpen={isNavOpen}
@@ -56,7 +59,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
         <AnimatedLink
           href="/narratives"
-          text="narratives"
+          text={dict.navigation.narratives}
           timeout={120}
           color="yellow"
           isNavOpen={isNavOpen}
@@ -64,7 +67,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
         <AnimatedLink
           href="/free-browsing"
-          text="free browsing"
+          text={dict.navigation.freeBrowsing}
           timeout={140}
           color="yellow"
           isNavOpen={isNavOpen}
@@ -73,7 +76,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
 
         <AnimatedLink
           href="/team"
-          text="team"
+          text={dict.navigation.team}
           timeout={160}
           color="pink"
           isNavOpen={isNavOpen}
@@ -81,7 +84,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
         <AnimatedLink
           href="/events"
-          text="events"
+          text={dict.navigation.events}
           timeout={200}
           color="pink"
           isNavOpen={isNavOpen}
@@ -89,7 +92,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
         <AnimatedLink
           href="/contact"
-          text="contact"
+          text={dict.navigation.contact}
           timeout={250}
           color="pink"
           isNavOpen={isNavOpen}
@@ -97,7 +100,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
         <AnimatedLink
           href="/educational-resources"
-          text="educational resources"
+          text={dict.navigation.educationalResources}
           timeout={300}
           color="pink"
           isNavOpen={isNavOpen}
@@ -105,7 +108,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
         <AnimatedLink
           href="/research-publication"
-          text="research publication"
+          text={dict.navigation.researchPublication}
           timeout={350}
           color="pink"
           isNavOpen={isNavOpen}
@@ -113,7 +116,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
         <AnimatedLink
           href="/travelling-workshop"
-          text="travelling workshop"
+          text={dict.navigation.travellingWorkshop}
           timeout={400}
           color="pink"
           isNavOpen={isNavOpen}
