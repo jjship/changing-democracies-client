@@ -212,7 +212,7 @@ export default function ScrollDocumentaryClient({
                 className="flex h-screen snap-center items-center justify-center px-1 pb-10 pt-16 sm:px-2"
               >
                 <div
-                  className={`relative flex aspect-video max-h-[calc(100vh-120px)] w-auto max-w-[90vw] items-center justify-center ${
+                  className={`relative flex aspect-video h-[calc(100vh-120px)] w-auto max-w-[90vw] items-center justify-center tall:max-h-[1076px] ${
                     index === 0 ? "cursor-pointer" : ""
                   }`}
                   onClick={index === 0 ? startDocumentary : undefined}
@@ -236,7 +236,7 @@ export default function ScrollDocumentaryClient({
                         speakers={slide.speakers}
                       />
                     ) : (
-                      <div className="tall:max-h-[1076px]  relative aspect-video h-[calc(100vh-120px)] max-w-[90vw]">
+                      <div className="relative aspect-video h-[calc(100vh-120px)] max-w-[90vw] tall:max-h-[1076px]">
                         {renderAdditionalContent(slide)}
                       </div>
                     )
