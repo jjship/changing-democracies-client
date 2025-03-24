@@ -76,13 +76,44 @@ export function TranslationProvider({
     }
   }, [currentLang, router, availableLanguages]);
 
+  // Add this effect to listen for language changes from other components
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleLanguageChange = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const newLang = customEvent.detail.language.toLowerCase();
+
+      if (
+        newLang !== currentLang &&
+        availableLanguages.includes(newLang as CDLanguages)
+      ) {
+        const newPath = window.location.pathname.replace(
+          `/${currentLang}`,
+          `/${newLang}`,
+        );
+        router.push(newPath);
+      }
+    };
+
+    window.addEventListener("language-changed", handleLanguageChange);
+
+    return () => {
+      window.removeEventListener("language-changed", handleLanguageChange);
+    };
+  }, [currentLang, router, availableLanguages]);
+
   const setLanguage = (newLang: CDLanguages) => {
     if (newLang === currentLang) return;
 
-    // Save the language preference to localStorage
-    if (typeof window !== "undefined") {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, newLang);
-    }
+    // Store the language
+    localStorage.setItem(LANGUAGE_PREFERENCE_KEY, newLang);
+
+    // Dispatch event to notify other components
+    const event = new CustomEvent("language-changed", {
+      detail: { language: newLang },
+    });
+    window.dispatchEvent(event);
 
     // Navigate to the new language path
     const newPath = window.location.pathname.replace(

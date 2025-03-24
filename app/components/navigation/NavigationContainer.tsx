@@ -27,7 +27,16 @@ export const NavigationContainer: FC<NavigationProps> = (props) => {
       localStorage.setItem(LANGUAGE_PREFERENCE_KEY, newLang);
     }
 
-    setLanguage(newLang as CDLanguages);
+    // Update the language in the global context
+    setLanguage(newLang.toLowerCase() as CDLanguages);
+
+    // Also dispatch a custom event for components not using the context
+    if (typeof window !== "undefined") {
+      const event = new CustomEvent("language-changed", {
+        detail: { language: newLang.toUpperCase() },
+      });
+      window.dispatchEvent(event);
+    }
   };
 
   return (
