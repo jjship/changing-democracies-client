@@ -1,6 +1,4 @@
 import Hls from "hls.js";
-import { Button } from "@/components/ui/button";
-import { Play, Pause } from "lucide-react";
 import { forwardRef, useEffect, useState, useRef } from "react";
 import useAdaptiveQuality from "./useAdaptiveQuality";
 import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
@@ -46,19 +44,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         isUsingHLS ? q.supportsHLS : !q.supportsHLS,
       ),
     });
-
-    const handlePlayPause = () => {
-      const video = videoRef.current;
-      if (!video) return;
-
-      if (video.paused) {
-        video.play();
-        setIsPaused(false);
-      } else {
-        video.pause();
-        setIsPaused(true);
-      }
-    };
 
     useEffect(() => {
       const video = videoRef.current;
