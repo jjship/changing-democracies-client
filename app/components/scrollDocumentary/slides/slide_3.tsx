@@ -17,7 +17,7 @@ export const Slide3Content: FC = () => {
 
     const hideTimer = setTimeout(() => {
       setIsAboutVisible(false);
-    }, 179000);
+    }, 93000);
 
     return () => {
       clearTimeout(showTimer);
