@@ -23,7 +23,7 @@ export const Slide15Content: FC = () => {
         {slide15AdditionalContent.credits}
       </h1>
       <div className="flex-grow"></div>
-      <div className="low:text-xs l:text-sm relative grid h-[80%] grid-cols-2 gap-10 xl:text-4xl ">
+      <div className="relative grid h-[80%] grid-cols-2 gap-10 xl:text-2xl l:text-xl low:text-xs ">
         <div className="flex h-full flex-col justify-between ">
           <>
             <h4
