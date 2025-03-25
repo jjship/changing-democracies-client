@@ -1,16 +1,24 @@
+"use client";
 import { FC } from "react";
 import { Archivo } from "next/font/google";
+import { useTranslation } from "../../../[lang]/context/TranslationContext";
+import { Slide0AdditionalContent } from "../../../[lang]/dictionaries";
 
 const archivo = Archivo({ subsets: ["latin"] });
 
 export const Slide0Content: FC = () => {
+  const { dictionary: dict } = useTranslation();
+
+  const slide0AdditionalContent = dict.scrollDocumentary.slides.slide_0
+    .additionalContent as Slide0AdditionalContent;
+
   return (
     <div className="group">
       <div
         className={`absolute left-0 top-1/2 flex h-full w-full -translate-y-1/2 items-center`}
       >
         {/* Arrow Rectangle */}
-        <div className="midheight:w-[30vw] tall:w-[20rem] h-36 w-[40rem] bg-purple_mains" />
+        <div className="h-36 w-[40rem] bg-purple_mains tall:w-[20rem] midheight:w-[30vw]" />
 
         {/* Arrow Triangle - Changes color on hover */}
         <div
@@ -28,9 +36,11 @@ export const Slide0Content: FC = () => {
           <h1
             className={`${archivo.className} text-8xl  text-yellow_secondary`}
           >
-            <span className={`block ${archivo.className}`}>Scroll</span>
+            <span className={`block ${archivo.className}`}>
+              {slide0AdditionalContent.scroll}
+            </span>
             <span className={`mt-4 block ${archivo.className}`}>
-              documentary
+              {slide0AdditionalContent.documentary}
             </span>
           </h1>
         </div>

@@ -1,23 +1,28 @@
 "use client";
-
 import { FC, useEffect, useState } from "react";
 import { Archivo } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "../../../[lang]/context/TranslationContext";
+import { Slide2AdditionalContent } from "../../../[lang]/dictionaries";
 
 const archivo = Archivo({ subsets: ["latin"] });
 
-const changingWords = [
-  "Equality",
-  "Freedom",
-  "Honesty",
-  "Love",
-  "Conflict",
-  "Safety",
-  "Justice",
-];
-
 export const Slide2Content: FC = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const { dictionary: dict } = useTranslation();
+
+  const slide2AdditionalContent = dict.scrollDocumentary.slides.slide_2
+    .additionalContent as Slide2AdditionalContent;
+
+  const changingWords = [
+    slide2AdditionalContent.equality,
+    slide2AdditionalContent.freedom,
+    slide2AdditionalContent.honesty,
+    slide2AdditionalContent.love,
+    slide2AdditionalContent.conflict,
+    slide2AdditionalContent.safety,
+    slide2AdditionalContent.justice,
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,7 +39,7 @@ export const Slide2Content: FC = () => {
           className={`${archivo.className} text-purple_lightest_bg`}
           style={{ fontSize: "2vw" }}
         >
-          Democracy
+          {slide2AdditionalContent.democracy}
         </div>
 
         <div className="relative h-32">
