@@ -58,29 +58,42 @@ export default function FeatureCard({
       onClick={handleClick}
     >
       <div className="absolute inset-0 h-full w-full">
-        {isMobile || isHovered ? (
-          <>
-            <Image
-              src={imageUrl}
-              alt={title}
-              fill
-              className={`scale-100 object-cover ${
-                !position ? "object-[20%_20%]" : "object-[60%_40%]"
-              }`}
-              priority={true} // Always prioritize these images
-              onLoad={() => setIsImageLoaded(true)}
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-black" />
+        {/* Loading placeholder */}
+        {!isImageLoaded && (
+          <div className="absolute inset-0 animate-pulse bg-gray-800"></div>
         )}
+
+        {/* Image with opacity transition based on load state */}
+        <Image
+          src={imageUrl}
+          alt={title}
+          fill
+          className={`scale-100 object-cover transition-opacity duration-300 ${
+            !position ? "object-[20%_20%]" : "object-[60%_40%]"
+          } ${isImageLoaded ? "opacity-100" : "opacity-0"}`}
+          priority={true} // Always prioritize these images
+          onLoad={() => setIsImageLoaded(true)}
+        />
+
+        {/* Gradient overlay */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-r ${
+            isHovered
+              ? "from-[#E3AC55]/50 to-transparent"
+              : "from-black/50 to-transparent"
+          }`}
+        />
       </div>
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-center px-6 py-4">
-        <Title text={title} theme="transparent" color="green_accent" />
-        <p className="absolute bottom-1 pl-5 text-xs text-white md:bottom-2 md:pl-12 md:text-lg xl:bottom-6 xl:pl-24">
+      <div className="absolute inset-0 flex flex-col justify-center p-6">
+        <div className="z-30 mb-4 md:z-20 md:mb-6">
+          {/* Direct styling instead of Title component */}
+          <h1 className="pl-5 text-[2.25rem] leading-9 tracking-[-0.064rem] text-green_accent md:pl-12 md:text-6xl md:leading-8 xl:pl-24">
+            {title}
+          </h1>
+        </div>
+        <p className="pl-5 text-base text-white md:pl-12 md:text-2xl xl:pl-24 xl:text-3xl">
           {description}
         </p>
       </div>

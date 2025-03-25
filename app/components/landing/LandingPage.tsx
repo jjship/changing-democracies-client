@@ -9,11 +9,13 @@ export default function LandingPage() {
   const [windowHeight, setWindowHeight] = useState(0);
   const router = useRouter();
   const { dictionary: dict } = useTranslation();
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     // Set initial values
     setIsMobile(window.innerWidth < 865);
     setWindowHeight(window.innerHeight);
+    setIsReady(true);
 
     // Update on resize
     const handleResize = () => {
@@ -77,6 +79,37 @@ export default function LandingPage() {
   };
 
   const cardHeight = calculateCardHeight();
+
+  // Display a minimal layout while measuring to prevent layout shift
+  if (!isReady) {
+    return (
+      <div className="flex flex-col">
+        <main className="flex-grow">
+          <div className="mx-auto md:max-w-[90vw]">
+            <p className="mx-2 mb-8 max-w-3xl font-openBold text-black md:ml-10 md:text-xl">
+              {dict.landing.description}
+            </p>
+            <div className="flex flex-col">
+              {/* Placeholder elements with same structure as final cards */}
+              {[0, 1, 2].map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-full ${
+                    index === 0
+                      ? "rounded-t-3xl"
+                      : index === 2
+                      ? "rounded-b-3xl"
+                      : ""
+                  }`}
+                  style={{ height: "160px" }} // Fixed height that works on most screens
+                />
+              ))}
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">

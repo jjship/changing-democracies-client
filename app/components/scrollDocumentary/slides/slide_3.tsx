@@ -13,7 +13,7 @@ export const Slide3Content: FC = () => {
   useEffect(() => {
     const showTimer = setTimeout(() => {
       setIsAboutVisible(true);
-    }, 200);
+    }, 62000);
 
     const hideTimer = setTimeout(() => {
       setIsAboutVisible(false);
