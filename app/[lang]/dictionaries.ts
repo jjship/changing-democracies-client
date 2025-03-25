@@ -121,18 +121,18 @@ type SlideAdditionalContent =
   | Record<string, string>; // Fallback for other slides
 
 // Specific types for each slide's additional content
-type Slide0AdditionalContent = {
+export type Slide0AdditionalContent = {
   scroll: string;
   documentary: string;
 };
 
-type Slide1AdditionalContent = {
+export type Slide1AdditionalContent = {
   is_democracy: string;
   worth: string;
   the_trouble: string;
 };
 
-type Slide2AdditionalContent = {
+export type Slide2AdditionalContent = {
   democracy: string;
   equality: string;
   freedom: string;

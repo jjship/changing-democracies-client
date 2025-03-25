@@ -122,6 +122,11 @@ export default function ScrollDocumentaryClient({
         if (Math.abs(childCenter - viewportCenter) < viewportHeight * 0.3) {
           if (activeIndex !== index) {
             setActiveIndex(index);
+
+            // Start the documentary if user scrolls from first slide to another slide
+            if (activeIndex === 0 && index > 0 && !isStarted) {
+              setIsStarted(true);
+            }
           }
         }
       });
