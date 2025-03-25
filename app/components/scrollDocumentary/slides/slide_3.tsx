@@ -11,11 +11,18 @@ export const Slide3Content: FC = () => {
     .additionalContent as Slide3AdditionalContent;
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const showTimer = setTimeout(() => {
       setIsAboutVisible(true);
     }, 62000);
 
-    return () => clearTimeout(timer); // Cleanup the timer on component unmount
+    const hideTimer = setTimeout(() => {
+      setIsAboutVisible(false);
+    }, 179000);
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    }; // Cleanup the timers on component unmount
   }, []);
 
   return (
@@ -24,11 +31,11 @@ export const Slide3Content: FC = () => {
         isAboutVisible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <h2 className="mb-8  text-2xl text-purple_mains md:text-4xl">
+      <h2 className="mb-8  text-2xl text-purple_mains md:text-4xl lg:text-4xl">
         {slide3AdditionalContent.about_the_project}
       </h2>
-      <div className="low:text-xs l:text-xl relative grid h-[80%] grid-cols-2 gap-8 xl:text-4xl">
-        <div className="flex  flex-col justify-between">
+      <div className="relative grid h-[80%] grid-cols-2 gap-8 l:gap-16 ">
+        <div className="flex  flex-col justify-between xl:text-2xl l:text-lg low:text-xs">
           <p>
             {`"${slide3AdditionalContent.democracy_failed_us}", 
             "${slide3AdditionalContent.democracy_is_in_crisis}", 
@@ -61,7 +68,7 @@ export const Slide3Content: FC = () => {
           <div className="flex-grow"></div>
           <div className="flex-grow"></div>
         </div>
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between xl:text-2xl l:text-lg low:text-xs">
           <p>
             {slide3AdditionalContent.so_we_asked_them}
             <br />
