@@ -42,11 +42,21 @@ export function useLanguageSelection({
 
   // Wrapper for setSelectedLanguage that also updates localStorage
   const handleSetSelectedLanguage = (language: string | undefined) => {
-    setSelectedLanguage(language?.toUpperCase());
+    if (!language) return;
+
+    // Always store and use uppercase for consistency with subtitles
+    const uppercaseLanguage = language.toUpperCase();
+    setSelectedLanguage(uppercaseLanguage);
 
     // Save to localStorage whenever language changes
-    if (typeof window !== "undefined" && language) {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, language.toUpperCase());
+    if (typeof window !== "undefined") {
+      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, uppercaseLanguage);
+
+      // Dispatch a custom event to notify other components
+      const event = new CustomEvent("language-changed", {
+        detail: { language: uppercaseLanguage },
+      });
+      window.dispatchEvent(event);
     }
   };
 

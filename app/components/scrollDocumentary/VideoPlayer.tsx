@@ -38,6 +38,12 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     const [currentSpeaker, setCurrentSpeaker] = useState<string>("");
     const containerRef = useRef<HTMLDivElement>(null);
 
+    const {
+      subtitles,
+      isLoading: subtitlesLoading,
+      error: subtitlesError,
+    } = useSubtitles(videoSource, selectedLanguageCode);
+
     const { currentQuality, videoRef } = useAdaptiveQuality({
       initialQuality: getOptimalQuality(videoSource.availableQualities),
       qualities: videoSource.availableQualities.filter((q) =>
@@ -102,12 +108,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         setIsUsingHLS(false);
       }
     }, [videoSource.hlsPlaylistUrl, videoRef]);
-
-    const {
-      subtitles,
-      isLoading: subtitlesLoading,
-      error: subtitlesError,
-    } = useSubtitles(videoSource, selectedLanguageCode);
 
     useEffect(() => {
       const video = videoRef.current;

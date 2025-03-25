@@ -16,10 +16,32 @@ const useSubtitles = (
   const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [languageCode, setLanguageCode] = useState<string | undefined>(
+    selectedLanguageCode,
+  );
+
+  useEffect(() => {
+    // Update languageCode when selectedLanguageCode changes
+    if (selectedLanguageCode && selectedLanguageCode !== languageCode) {
+      setLanguageCode(selectedLanguageCode);
+    }
+  }, [selectedLanguageCode, languageCode]);
 
   useEffect(() => {
     const fetchSubtitles = async () => {
-      if (!videoSource.availableLanguageCodes || !selectedLanguageCode) {
+      if (!videoSource.availableLanguageCodes || !languageCode) {
+        setIsLoading(false);
+        return;
+      }
+
+      // Convert languageCode to uppercase to match the keys in availableLanguageCodes
+      const upperLanguageCode = languageCode.toUpperCase();
+      if (
+        !Object.keys(videoSource.availableLanguageCodes).includes(
+          upperLanguageCode,
+        )
+      ) {
+        setError(`Subtitles not available for language: ${languageCode}`);
         setIsLoading(false);
         return;
       }
@@ -27,16 +49,20 @@ const useSubtitles = (
       try {
         setIsLoading(true);
         setError(null);
+
+        // Get the actual subtitle code from the availableLanguageCodes using the uppercase key
+        const subtitleCode =
+          videoSource.availableLanguageCodes[upperLanguageCode];
+
         const response = await fetch(
           getSubtitlesUrl(
             videoSource.pullZoneUrl,
             videoSource.videoId,
-            selectedLanguageCode,
+            subtitleCode,
           ),
         );
 
         if (!response.ok) {
-          console.warn(`Could not load subtitles. Status: ${response.status}`);
           setError(`Failed to load subtitles (${response.status})`);
           return;
         }
@@ -45,7 +71,6 @@ const useSubtitles = (
         const parsedSubtitles = parseSubtitles(text);
         setSubtitles(parsedSubtitles);
       } catch (err) {
-        console.error("Error loading subtitles:", err);
         setError(
           err instanceof Error ? err.message : "Failed to load subtitles",
         );
@@ -55,7 +80,7 @@ const useSubtitles = (
     };
 
     fetchSubtitles();
-  }, [videoSource, selectedLanguageCode]);
+  }, [videoSource, languageCode]);
 
   return { subtitles, isLoading, error };
 };

@@ -9,6 +9,7 @@ import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Archivo_Narrow } from "next/font/google";
 import { useLanguageSelection } from "./useLanguageSelection";
+import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 
 const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
@@ -27,10 +28,12 @@ export default function ScrollDocumentaryClient({
   const [isStarted, setIsStarted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [loadedSections, setLoadedSections] = useState<number[]>([0, 1]);
-  const { selectedLanguage, setSelectedLanguage } = useLanguageSelection({
-    initialLanguageLabel,
-    availableLanguageLabels,
-  });
+  const globalTranslation = useTranslation();
+  const { selectedLanguage, setSelectedLanguage, availableLanguages } =
+    useLanguageSelection({
+      initialLanguageLabel: globalTranslation.language.toUpperCase(),
+      availableLanguageLabels,
+    });
 
   const activeSlide = slidesWithSources[activeIndex];
   const pageTheme = activeSlide
@@ -185,6 +188,43 @@ export default function ScrollDocumentaryClient({
     setIsStarted(true);
     scrollToNextSection(0);
   };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleLanguageChange = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const newLang = customEvent.detail.language;
+
+      if (
+        newLang !== selectedLanguage &&
+        availableLanguages.includes(newLang)
+      ) {
+        setSelectedLanguage(newLang);
+      }
+    };
+
+    window.addEventListener("language-changed", handleLanguageChange);
+
+    return () => {
+      window.removeEventListener("language-changed", handleLanguageChange);
+    };
+  }, [selectedLanguage, availableLanguages, setSelectedLanguage]);
+
+  useEffect(() => {
+    const globalLangUppercase = globalTranslation.language.toUpperCase();
+    if (
+      globalLangUppercase !== selectedLanguage &&
+      availableLanguages.includes(globalLangUppercase)
+    ) {
+      setSelectedLanguage(globalLangUppercase);
+    }
+  }, [
+    globalTranslation.language,
+    selectedLanguage,
+    availableLanguages,
+    setSelectedLanguage,
+  ]);
 
   return (
     selectedLanguage && (

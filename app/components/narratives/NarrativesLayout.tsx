@@ -68,19 +68,41 @@ const NarrativesLayout: FC<{
     setSelectedLanguage,
   ]);
 
-  // Sync navigation language changes back to global context
-  const handleLanguageChange = (newLang: string | undefined) => {
-    // Update our local state
-    setSelectedLanguage(newLang);
+  // Add this effect to listen for language changes
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-    // Also update global translation context if the language is valid
-    if (
-      newLang &&
-      globalTranslation.availableLanguages.includes(
-        newLang.toLowerCase() as any,
-      )
-    ) {
-      globalTranslation.setLanguage(newLang.toLowerCase() as any);
+    const handleLanguageChange = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const newLang = customEvent.detail.language;
+
+      if (
+        newLang !== selectedLanguage &&
+        availableLanguageLabels.includes(newLang)
+      ) {
+        setSelectedLanguage(newLang);
+      }
+    };
+
+    window.addEventListener("language-changed", handleLanguageChange);
+
+    return () => {
+      window.removeEventListener("language-changed", handleLanguageChange);
+    };
+  }, [selectedLanguage, availableLanguageLabels]);
+
+  // Update the handleLanguageChange function
+  const handleLanguageChange = (newLang: string | undefined) => {
+    if (!newLang) return;
+
+    setSelectedLanguage(newLang.toUpperCase());
+
+    // Dispatch event to notify other components
+    if (typeof window !== "undefined") {
+      const event = new CustomEvent("language-changed", {
+        detail: { language: newLang.toUpperCase() },
+      });
+      window.dispatchEvent(event);
     }
   };
 
