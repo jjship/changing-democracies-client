@@ -184,15 +184,6 @@ export default function ScrollDocumentaryClient({
     scrollToNextSection(0);
   };
 
-  const getSelectedLanguageCode = ({
-    slide,
-    language,
-  }: {
-    slide: SlideWithSource;
-    language: CDLanguages;
-  }) =>
-    slide.videoSource?.availableLanguageCodes[language.toUpperCase()] ?? "en";
-
   return (
     <div
       className={`relative ${pageTheme.pageBg} min-h-screen w-full transition-all duration-1000`}
@@ -225,10 +216,7 @@ export default function ScrollDocumentaryClient({
                       onVideoEnd={() => scrollToNextSection(index)}
                       isActive={isStarted ? index === activeIndex : index === 0}
                       shouldPlay={isStarted && index === activeIndex}
-                      selectedLanguageCode={getSelectedLanguageCode({
-                        slide,
-                        language,
-                      })}
+                      selectedLanguageCode={language}
                       additionalContent={renderAdditionalContent(slide)}
                       pageTheme={pageTheme}
                       speakers={slide.speakers}
