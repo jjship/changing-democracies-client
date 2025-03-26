@@ -8,7 +8,7 @@ import {
   useEffect,
 } from "react";
 import { Dictionary } from "../dictionaries";
-import { CDLanguages, DEFAULT_LANGUAGE_LABEL } from "@/utils/i18n/languages";
+import { CDLanguages, DEFAULT_CD_LANG } from "@/utils/i18n/languages";
 import { useRouter, useParams } from "next/navigation";
 import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
@@ -46,7 +46,7 @@ export function TranslationProvider({
 }) {
   const params = useParams();
   const router = useRouter();
-  const currentLang = (params?.lang as CDLanguages) || DEFAULT_LANGUAGE_LABEL;
+  const currentLang = (params?.lang as CDLanguages) || DEFAULT_CD_LANG;
   const [currentDictionary, setCurrentDictionary] =
     useState<Dictionary>(dictionary);
 

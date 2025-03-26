@@ -4,34 +4,27 @@ import { useInView } from "react-intersection-observer";
 import { useRef, useState, useEffect } from "react";
 import VideoSection from "./VideoSection";
 import ErrorBoundary from "./VideoErrorBoundary";
-import { Navigation } from "@/components/navigation/Navigation";
 import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Archivo_Narrow } from "next/font/google";
-import { useLanguageSelection } from "./useLanguageSelection";
+import { NavigationContainer } from "../navigation/NavigationContainer";
+import { useTranslation } from "../../[lang]/context/TranslationContext";
+import { CDLanguages } from "../../../utils/i18n/languages";
 
 const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
 interface ScrollDocumentaryClientProps {
   slidesWithSources: SlideWithSource[];
-  initialLanguageLabel: string;
-  availableLanguageLabels: string[];
 }
 
 export default function ScrollDocumentaryClient({
   slidesWithSources,
-  initialLanguageLabel,
-  availableLanguageLabels,
 }: ScrollDocumentaryClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isStarted, setIsStarted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [loadedSections, setLoadedSections] = useState<number[]>([0, 1]);
-  const { selectedLanguage, setSelectedLanguage } = useLanguageSelection({
-    initialLanguageLabel,
-    availableLanguageLabels,
-  });
-
+  const { language } = useTranslation();
   const activeSlide = slidesWithSources[activeIndex];
   const pageTheme = activeSlide
     ? themeMapping[activeSlide.colorTheme]
@@ -191,79 +184,78 @@ export default function ScrollDocumentaryClient({
     scrollToNextSection(0);
   };
 
+  const getSelectedLanguageCode = ({
+    slide,
+    language,
+  }: {
+    slide: SlideWithSource;
+    language: CDLanguages;
+  }) =>
+    slide.videoSource?.availableLanguageCodes[language.toUpperCase()] ?? "en";
+
   return (
-    selectedLanguage && (
-      <div
-        className={`relative ${pageTheme.pageBg} min-h-screen w-full transition-all duration-1000`}
-      >
-        <div className="absolute w-full">
-          <Navigation
-            bgColor={pageTheme.navBg}
-            fontColor={pageTheme.navFont}
-            availableLanguages={availableLanguageLabels}
-            selectedLanguage={selectedLanguage}
-            onLanguageChange={setSelectedLanguage}
-          />
-        </div>
-        <ErrorBoundary>
-          <div
-            ref={containerRef}
-            className="h-screen w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
-          >
-            {slidesWithSources.map((slide, index) => (
+    <div
+      className={`relative ${pageTheme.pageBg} min-h-screen w-full transition-all duration-1000`}
+    >
+      <NavigationContainer
+        bgColor={pageTheme.navBg}
+        fontColor={pageTheme.navFont}
+      />
+      <ErrorBoundary>
+        <div
+          ref={containerRef}
+          className="h-screen w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
+        >
+          {slidesWithSources.map((slide, index) => (
+            <div
+              key={slide.videoSource?.videoId ?? index}
+              id={`section-${index}`}
+              className="flex h-screen snap-center items-center justify-center px-1 pb-10 pt-16 sm:px-2"
+            >
               <div
-                key={slide.videoSource?.videoId ?? index}
-                id={`section-${index}`}
-                className="flex h-screen snap-center items-center justify-center px-1 pb-10 pt-16 sm:px-2"
+                className={`relative flex aspect-video h-[calc(100vh-120px)] w-auto max-w-[90vw] items-center justify-center tall:max-h-[1076px] ${
+                  index === 0 ? "cursor-pointer" : ""
+                }`}
+                onClick={index === 0 ? startDocumentary : undefined}
               >
-                <div
-                  className={`relative flex aspect-video h-[calc(100vh-120px)] w-auto max-w-[90vw] items-center justify-center tall:max-h-[1076px] ${
-                    index === 0 ? "cursor-pointer" : ""
-                  }`}
-                  onClick={index === 0 ? startDocumentary : undefined}
-                >
-                  {loadedSections.includes(index) ? (
-                    slide.videoSource ? (
-                      <VideoSection
-                        videoSource={slide.videoSource}
-                        onVideoEnd={() => scrollToNextSection(index)}
-                        isActive={
-                          isStarted ? index === activeIndex : index === 0
-                        }
-                        shouldPlay={isStarted && index === activeIndex}
-                        selectedLanguageCode={
-                          slide.videoSource?.availableLanguageCodes[
-                            selectedLanguage
-                          ]
-                        }
-                        additionalContent={renderAdditionalContent(slide)}
-                        pageTheme={pageTheme}
-                        speakers={slide.speakers}
-                      />
-                    ) : (
-                      <div className="relative aspect-video h-[calc(100vh-120px)] max-w-[90vw] tall:max-h-[1076px]">
-                        {renderAdditionalContent(slide)}
-                      </div>
-                    )
+                {loadedSections.includes(index) ? (
+                  slide.videoSource ? (
+                    <VideoSection
+                      videoSource={slide.videoSource}
+                      onVideoEnd={() => scrollToNextSection(index)}
+                      isActive={isStarted ? index === activeIndex : index === 0}
+                      shouldPlay={isStarted && index === activeIndex}
+                      selectedLanguageCode={getSelectedLanguageCode({
+                        slide,
+                        language,
+                      })}
+                      additionalContent={renderAdditionalContent(slide)}
+                      pageTheme={pageTheme}
+                      speakers={slide.speakers}
+                    />
                   ) : (
-                    <div
-                      className="h-full w-full"
-                      ref={
-                        index === Math.max(...loadedSections) + 1
-                          ? loadMoreRef
-                          : undefined
-                      }
-                    >
-                      <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
+                    <div className="relative aspect-video h-[calc(100vh-120px)] max-w-[90vw] tall:max-h-[1076px]">
+                      {renderAdditionalContent(slide)}
                     </div>
-                  )}
-                </div>
+                  )
+                ) : (
+                  <div
+                    className="h-full w-full"
+                    ref={
+                      index === Math.max(...loadedSections) + 1
+                        ? loadMoreRef
+                        : undefined
+                    }
+                  >
+                    <Skeleton className="h-full w-full bg-pink dark:bg-black_bg" />
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
-          {ScrollNavigation(pageTheme)}
-        </ErrorBoundary>
-      </div>
-    )
+            </div>
+          ))}
+        </div>
+        {ScrollNavigation(pageTheme)}
+      </ErrorBoundary>
+    </div>
   );
 }
