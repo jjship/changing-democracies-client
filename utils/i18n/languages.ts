@@ -1,7 +1,7 @@
-export { locales, getSubtitlesUrl, DEFAULT_LANGUAGE_LABEL, getInitialLanguage };
+export { locales, getSubtitlesUrl, DEFAULT_CD_LANG, getInitialLanguage };
 export type { CDLanguages };
 
-const DEFAULT_LANGUAGE_LABEL = "en";
+const DEFAULT_CD_LANG = "en";
 
 const languagesData = [
   { name: "Catalan", code: "ca" },
@@ -36,7 +36,7 @@ function getSubtitlesUrl(
 // Order of precedence: localStorage > browser language > default language
 function getInitialLanguage(): CDLanguages {
   if (typeof window === "undefined") {
-    return DEFAULT_LANGUAGE_LABEL;
+    return DEFAULT_CD_LANG;
   }
 
   // Check localStorage first
@@ -65,5 +65,5 @@ function getInitialLanguage(): CDLanguages {
   }
 
   // Default fallback
-  return DEFAULT_LANGUAGE_LABEL;
+  return DEFAULT_CD_LANG;
 }

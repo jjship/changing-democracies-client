@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { updateSession } from "@/supabase/middleware";
-import { locales, DEFAULT_LANGUAGE_LABEL } from "@/utils/i18n/languages";
+import { locales, DEFAULT_CD_LANG } from "@/utils/i18n/languages";
 
 function getLocale(request: NextRequest) {
   const negotiatorHeaders: Record<string, string> = {};
@@ -10,7 +10,7 @@ function getLocale(request: NextRequest) {
 
   // Use negotiator and intl-localematcher to get the preferred locale
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
-  return match(languages, locales, DEFAULT_LANGUAGE_LABEL);
+  return match(languages, locales, DEFAULT_CD_LANG);
 }
 
 export async function middleware(request: NextRequest) {
