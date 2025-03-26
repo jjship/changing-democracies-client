@@ -16,10 +16,13 @@ const useSubtitles = (
   const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
     const fetchSubtitles = async () => {
-      if (!videoSource.availableLanguageCodes || !selectedLanguageCode) {
+      if (
+        !videoSource.availableLanguageCodes ||
+        Object.keys(videoSource.availableLanguageCodes).length === 0 ||
+        !selectedLanguageCode
+      ) {
         setIsLoading(false);
         return;
       }
