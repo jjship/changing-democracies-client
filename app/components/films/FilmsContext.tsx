@@ -1,14 +1,14 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { FilmData, FilmsCollection } from "@/types/videosAndFilms";
+import { ClientFragment, FragmentsResponse } from "@/lib/cdApi";
 
 type FilmsContextType = {
-  films: FilmData[] | null;
-  setFilms: (films: FilmData[] | null) => void;
-  filmsCollection: FilmsCollection | null;
+  fragments: ClientFragment[] | null;
+  setFragments: (fragments: ClientFragment[] | null) => void;
+  fragmentsResponse: FragmentsResponse | null;
   nowPlaying: string | null;
-  setNowPlaying: (filmId: string | null) => void;
+  setNowPlaying: (fragmentId: string | null) => void;
 };
 
 export const FilmsContext = createContext<FilmsContextType | null>(null);
@@ -18,16 +18,16 @@ export function FilmsContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [films, setFilms] = useState<FilmData[] | null>(null);
-  const [filmsCollection] = useState<FilmsCollection | null>(null);
+  const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
+  const [fragmentsResponse] = useState<FragmentsResponse | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
 
   return (
     <FilmsContext.Provider
       value={{
-        films,
-        setFilms,
-        filmsCollection,
+        fragments,
+        setFragments,
+        fragmentsResponse,
         nowPlaying,
         setNowPlaying,
       }}

@@ -3,9 +3,19 @@ import CloseButton from "../../components/films/CloseButton";
 import { useFilmsContext } from "./FilmsContext";
 
 export const FilmPlayer: FC = () => {
-  const { nowPlaying } = useFilmsContext();
+  const { nowPlaying, fragments } = useFilmsContext();
 
-  const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`;
+  // Find the current fragment by its ID
+  const currentFragment = fragments?.find(
+    (fragment) => fragment.id === nowPlaying,
+  );
+
+  // Use the playerUrl from the fragment, or fall back to the old method if not available
+  const src =
+    currentFragment?.playerUrl ||
+    (nowPlaying
+      ? `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`
+      : "");
 
   return (
     nowPlaying && (
