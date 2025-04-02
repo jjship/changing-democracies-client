@@ -1,29 +1,29 @@
 {
   "navigation": {
     "scrollDocumentary": "Derulează documentarul",
-    "narratives": "Narative",
-    "nonLinearNarratives": "Narative",
-    "freeBrowsing": "Navigație liberă",
+    "narratives": "Narațiuni",
+    "nonLinearNarratives": "Narațiuni",
+    "freeBrowsing": "Descoperă",
     "project": "Proiect",
     "team": "Echipă",
     "events": "Evenimente",
     "educationalResources": "Resurse educaționale",
-    "researchPublication": "Publicație de cercetare",
-    "travellingWorkshop": "Atelier itinerant",
+    "researchPublication": "Studiu de cercetare",
+    "travellingWorkshop": "Expoziție călătoare",
     "contact": "Contact"
   },
   "landing": {
-    "description": "Proiectul Changing Democracies explorează povești necunoscute despre tranzițiile democratice recente din Europa pentru a înțelege de ce este necesar ca democrația să-și îndeplinească promisiunile față de toți.",
-    "scrollDocumentary": "Descoperiți ce am învățat",
+    "description": "Proiectul Changing Democracies explorează povești necunoscute despre tranzițiile la democrație petrecute recent în  Europa pentru a înțelege de ce este necesar ca democrația să-și îndeplinească promisiunile către cetățenii săi.",
+    "scrollDocumentary": "Descoperă ce am aflat de la martorii noștri",
     "narratives": "Selectați un subiect și urmăriți alegerile noastre",
     "freeBrowsing": "Folosiți etichetele pentru a explora poveștile"
   },
   "about": {
-    "p1": "Cum ar fi viața fără democrație? A reușit democrația să-și îndeplinească promisiunile? Ce are nevoie o democrație sănătoasă pentru a funcționa eficient? Care este rolul cetățenilor?",
-    "p2": "Proiectul Changing Democracies cercetează în ce măsură poveștile nespuse despre tranzițiile recente către democrație în Europa pot ajuta la identificarea proceselor necesare astăzi pentru a îndeplini promisiunile democrației pentru toți."
+    "p1": "Cum ar fi viața fără democrație? A reușit democrația să-și îndeplinească promisiunile? De ce are nevoie o democrație sănătoasă pentru a funcționa eficient? Care este rolul cetățenilor într-o democrație?",
+    "p2": "Proiectul Changing Democracies explorează povești necunoscute despre tranzițiile la democrație petrecute recent în  Europa pentru a înțelege de ce este necesar ca democrația să-și îndeplinească promisiunile către cetățenii săi."
   },
   "team": {
-    "description": "Proiectul Changing Democracies reprezintă rezultatul colaborării 12 de parteneri din 10 țări europene, fiind coordonat de Fundația Evens cu finanțare din partea Comisiei Europene.",
+    "description": "Changing Democracies este rezultatul unei colaborări între 12 parteneri din 10 țări europene și este coordonat de Fundația Evens cu finanțare din partea Comisiei Europene.",
     "teamList": [
       {
         "organisation": "Asociația pentru Educație Istorică în Grecia",
@@ -100,12 +100,12 @@
     ]
   },
   "contact": {
-    "getIn": "Contactați",
-    "touch": "-ne",
-    "download": "Descărcați aici Politica de Protecție a Copiilor și a Tineretului"
+    "getIn": "Ne poți contacta la",
+    "touch": "  ",
+    "download": "Descarcă Politica de Protecție a Copiilor și Tinerilor aici."
   },
   "narratives": {
-    "title": "Narative",
+    "title": "Narațiuni",
     "select": "alege un traseu",
     "watch": "urmărește videoclipul",
     "continue": "continuă pe traseul ales",
@@ -113,40 +113,40 @@
   },
   "freeBrowsing": {
     "title": "Descoperă",
-    "description": "Martorii care și-au împărtășit poveștile au trăit schimbarea fie prin experiența tranziției democratice a țării lor în Europa, fie prin mutarea dintr-o țară nedemocratică într-una democratică – sau, uneori, ambele.",
-    "explanation": "Folosește etichetele pentru a explora și a compara vocile lor."
+    "description": "Martorii și-au împărtășit experiențele legate de schimbarea democratică, fie trăind tranziția țării lor către democrație, fie mutându-se personal dintr-o țară nedemocratică într-una democratică. Unii dintre aceștia au trecut prin ambele experiențe, combinând astfel perspectivele asupra schimbării democratice atât la nivel național, cât și personal.",
+    "explanation": "Folosește etichetele pentru a explora și compara poveștile lor."
   },
   "eduPack": {
     "title": "Resurse educaționale",
-    "subtitle": "Învățând din trecut, reflectând asupra prezentului",
-    "lead": "Pot experiențele celor care au trăit tranziția de la o societate nedemocratică la una democratică să îi inspire pe tineri să gândească critic despre democrația de astăzi?",
-    "p1": "Pentru a ajuta tinerii să se angajeze cu marturiile colectate în cadrul proiectului Changing Democracies, am co-creat un pachet de resurse educaționale cu activități adaptabile pentru învățământul formal și neformal. Fie că sunteți profesor de istorie, educator muzeal, lucrător de tineret sau lucrați în alt cadru educațional, puteți alege, adapta și personaliza aceste activități pentru a se potrivi nevoilor dvs.",
-    "p2": "Fiecare activitate se bazează pe marturiile primare, combinând voci din diferite țări în narațiuni non-linare care exploatează cinci întrebări cheie:",
+    "subtitle": "Reflectăm asupra prezentului învățând din trecut.",
+    "lead": "Pot experiențele celor care au trăit tranziția de la o societate nedemocratică la una democratică să inspire tinerii să gândească critic despre democrația de astăzi?",
+    "p1": "Pentru a ajuta tinerii să se implice activ în mărturiile colectate în cadrul proiectului Changing Democracies, am co-creat un Pachet de resurse educaționale, care conține activități de învățare adaptabile atât pentru educația formală, cât și pentru cea non-formală.",
+    "p2": "Fiecare activitate se bazează pe mărturiile martorilor, combinând voci din diferite țări în narațiuni care exploatează cinci întrebări cheie:",
     "questions": [
       "Ce te enervează la lumea de astăzi?",
-      "Ți-ai atât de mult să-ți îndrăznești profesorii?",
+      "Ai curajul să-ți contrazici profesorii?",
       "Ce te influențează în viață?",
-      "Știi ce cred bunicii și bunicii voștri despre tineri?",
-      "Ce te aștepti de la democrație?"
+      "Știi ce cred bunicii tăi despre tineri?",
+      "Ce aștepți de la democrație?"
     ],
-    "p3": "Aceste întrebări încurajează discuții profunde, reflecții și legături, ajutând tinerii să-și coreleze istoria cu viața și societatea lor.",
-    "download": "Descărcați versiunea românească"
+    "p3": "Aceste întrebări invită la discuții profunde, reflecție și conexiune, ajutând tinerii să relaționeze istoria cu propriile vieți și societăți.",
+    "download": "Descărcați versiunea în limba română"
   },
   "researchPublication": {
-    "title": "Publicație de cercetare",
-    "subtitle": "Changing Democracies: Puterea marturiilor pentru educația democratică",
-    "lead": "Cum îi interpretă tinerii pe martorii vieții într-o dictatură și ale tranziției? Cum învață ei nu doar despre aceste istorii, ci și din ele – în propriile lor condiții și cu propria lor voce?",
-    "p1": "În această publicație, șase parteneri din consorțiu raportează cercetările lor despre modul în care tinerii au interacționat cu marturiile în proiecte locale. În timp ce urmăreau aceleași întrebări de cercetare, cele șase studii de caz acoperă o varietate fascinantă de practici – de la dialoguri tradiționale la platforme online și practici artistice precum ilustrații și teatru, în contexte culturale din Spania și Portugalia, Cehia și Polonia, până în Țările de Jos și Belgia.",
+    "title": "Studiu de cercetare",
+    "subtitle": "Changing Democracies: Puterea mărturiilor în educația despre democrație",
+    "lead": "Cum dau tinerii sens mărturiilor despre viața într-o dictatură și experiențele de tranziție? Cum învață nu doar despre aceste istorii, ci și din ele – în propriile lor termeni și cu propria lor voce? Și, cel mai important, în contextul obiectivelor Changing Democracies, îi determină studiul istoriilor despre dictatură pe tineri să reflecteze critic asupra democrației și păcii? Dacă da, cum și în ce feluri?",
+    "p1": "Această publicație reunește cercetările realizate de șase parteneri ai consorțiului, care au analizat modul în care tinerii au interacționat cu mărturiile în cadrul unor proiecte educaționale locale. Deși ghidate de aceleași întrebări de cercetare, cele șase studii de caz explorează o diversitate fascinantă de metode de lucru – de la dialoguri tradiționale la platforme de învățare online și practici artistice, cum ar fi ilustrația și teatrul. Aceste proiecte s-au desfășurat în contexte culturale variate, din Spania și Portugalia, Republica Cehă și Polonia, până în Țările de Jos și Flandra/Belgia.",
     "download": "Descarcă publicația de aici"
   },
   "travellingWorkshop": {
-    "title": "Atelier itinerant",
-    "lead": "Atelierul itinerant este o invitație să explorați diferite experiențe și viziuni asupra democrației bazate pe marturiile primare.",
-    "p1": "Prin designul său interactiv, atelierul prezintă 31 de persoane din Europa și alte regiuni care au fost martori ai tranzițiilor democratice.",
-    "p2": "Prin interacțiunea cu speranțele, visurile și dezamăgirile martorilor, vizitatorii sunt încurajați să reflecteze asupra promisiunilor democrației și să analizeze propriile lor experiențe.",
-    "p3": "Metafora atelierului subliniază nevoia participării active și a implicării pentru a (re)definește democrația.",
-    "p4": "Atelierul itinerant este disponibil în 10 limbi (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
-    "p5": "Dacă sunteți interesați să organizați Atelierul Itinerant, contactați-ne."
+    "title": "Expoziție călătoare",
+    "lead": "Inspirată de experiențele relatate de martori, expoziția călătoare este o invitație de a explora diferite perspective și viziuni asupra democrației.",
+    "p1": "Prin designul interactiv al expoziției, vizitatorii descoperă 31 de persoane din Europa și din alte regiuni ale lumii, care au fost martori ai unor tranziții sistemice de la o societate nedemocratică la una democratică.",
+    "p2": "Interacționând cu speranțele, visurile și dezamăgirile martorilor, vizitatorii sunt încurajați să reflecteze asupra promisiunilor democrației și să-și analizeze propriile experiențe și așteptări despre democrație.",
+    "p3": "Metafora expoziției interactive subliniază necesitatea participării active și a implicării pentru a modela sau remodela democrația.",
+    "p4": "Expoziția călătoare este disponibilă în 10 limbi (cehă, greacă, engleză, spaniolă, croată, lituaniană, neerlandeză, poloneză, portugheză și română).",
+    "p5": "Dacă ești interesat să găzduiești expoziția interactivă, te rugăm să ne contactezi."
   },
  "scrollDocumentary": {
   "slides": {
@@ -198,7 +198,7 @@
         "that_it_pays_to_move_beyond_historical_facts": "Că merită să mergem dincolo de faptele istorice",
         "that_democracy_is_never_finished": "Că democrația nu este niciodată finalizată",
         "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Că singura cale înainte este să înfruntăm provocările împreună",
-        "dont_take_our_word_for_it_see_for_yourself": "Nu ne credeți pe cuvânt—convingeți-vă singuri."
+        "dont_take_our_word_for_it_see_for_yourself": "Nu ne credeți pe cuvânt, convingeți-vă singuri."
       }
     },
     "slide_4": {
@@ -240,10 +240,12 @@
         "music": "Muzică",
         "Changing_Democracies": "Changing Democracies",
         "p1": "explorează cum istoria vie a Europei despre recentele tranziții la democrație ne poate ajuta să înțelegem ce procese sunt necesare astăzi pentru ca democrația să-și îndeplinească promisiunile pentru toți.",
-        "p2": "Proiectul este rezultatul unei colaborări între 12 parteneri din 10 țări europene și este coordonat de Fundația Evens și EuroClio cu finanțare din partea Comisiei Europene."
+        "p2": "Proiectul este rezultatul unei colaborări între 12 parteneri din 10 țări europene și este coordonat de Fundația Evens cu finanțare din partea Comisiei Europene."
       }
     }
   }
 }
 
 }
+
+

@@ -2,8 +2,6 @@ import Image from "next/image";
 import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { Navigation } from "@/components/navigation/Navigation";
 import { FreeBrowsing } from "@/components/FreeBrowsing";
-import { getVideosPerCollection } from "@/utils/admin/bunny-methods";
-import { serializeFilmsCollection } from "@/utils/films-methods";
 import { sectionPadding } from "../../components/Section";
 import { cache } from "react";
 import { Suspense } from "react";
@@ -11,17 +9,36 @@ import { TranslationProvider } from "../context/TranslationContext";
 import { CDLanguages } from "@/utils/i18n/languages";
 import { LangParam } from "@/types/langParam";
 import { getDictionary } from "../dictionaries";
+import { fragmentsApi, FragmentsResponse } from "@/lib/cdApi";
 
-// Increase revalidation time to reduce API calls
-const getFilmsCollection = cache(async () => {
-  const filmsData = await getVideosPerCollection({
-    collectionKey: "default",
-    cacheOptions: {
-      next: { revalidate: 86400 }, // Cache for 24 hours instead of 1 hour
-    },
+// Set this to true to disable caching for development testing
+const DISABLE_CACHE = false;
+
+// Cached version for production
+const getCachedFragments = cache(
+  async (languageCode: string): Promise<FragmentsResponse> => {
+    return await fragmentsApi.getFragments({
+      languageCode,
+      limit: 500, // Use a high limit to get all fragments
+      disableCache: DISABLE_CACHE, // Pass the disable cache flag to the API
+    });
+  },
+);
+
+// Non-cached version for development testing
+const getUncachedFragments = async (
+  languageCode: string,
+): Promise<FragmentsResponse> => {
+  console.log("Fetching fragments without cache");
+  return await fragmentsApi.getFragments({
+    languageCode,
+    limit: 500, // Use a high limit to get all fragments
+    disableCache: true, // Always disable cache in uncached version
   });
-  return serializeFilmsCollection({ videos: filmsData.data });
-});
+};
+
+// Choose which function to use based on DISABLE_CACHE flag
+const getFragments = DISABLE_CACHE ? getUncachedFragments : getCachedFragments;
 
 // Loading component
 function FilmsLoading() {
@@ -33,14 +50,20 @@ function FilmsLoading() {
 }
 
 // Films content component
-async function FilmsContent() {
-  const filmsCollection = await getFilmsCollection();
-  return <FreeBrowsing filmsCollection={filmsCollection} />;
+async function FilmsContent({ languageCode }: { languageCode: string }) {
+  const fragmentsResponse = await getFragments(languageCode);
+  console.log(
+    `Fetched ${fragmentsResponse.data.length} fragments for language ${languageCode}`,
+  );
+  return <FreeBrowsing fragmentsResponse={fragmentsResponse} />;
 }
 
 export default async function FreeBrowsingPage({ params }: LangParam) {
   const { lang } = params;
   const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
+  // Get the two-letter language code for the API
+  const languageCode = lang.toLowerCase().substring(0, 2);
+
   return (
     <TranslationProvider dictionary={dictionary}>
       <main>
@@ -50,7 +73,7 @@ export default async function FreeBrowsingPage({ params }: LangParam) {
             className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x}  mb-9 h-[calc(90vh-40px)] overflow-auto pb-5 md:pb-14 xl:pb-40 `}
           >
             <Suspense fallback={<FilmsLoading />}>
-              <FilmsContent />
+              <FilmsContent languageCode={languageCode} />
             </Suspense>
           </div>
           <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary"></div>

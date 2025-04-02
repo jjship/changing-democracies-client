@@ -1,6 +1,44 @@
 import "server-only";
 import { NarrationPath } from "../types/videosAndFilms";
 
+// Client Fragment interfaces based on the schema
+export interface ClientTag {
+  id: string;
+  name: string;
+}
+
+export interface ClientPerson {
+  id: string;
+  name: string;
+  bio: string;
+  country: {
+    code: string;
+    name: string;
+  };
+}
+
+export interface ClientFragment {
+  id: string;
+  title: string;
+  duration: number;
+  playerUrl: string;
+  thumbnailUrl: string;
+  person: ClientPerson | null;
+  tags: ClientTag[];
+}
+
+export interface FragmentsPagination {
+  total: number;
+  page: number;
+  limit: number;
+  pages: number;
+}
+
+export interface FragmentsResponse {
+  data: ClientFragment[];
+  pagination: FragmentsPagination;
+}
+
 export const narrativesApi = {
   async getNarratives(): Promise<NarrationPath[]> {
     try {
@@ -13,6 +51,44 @@ export const narrativesApi = {
       });
     } catch (error) {
       console.error("Error fetching narratives:", error);
+      throw error;
+    }
+  },
+};
+
+export const fragmentsApi = {
+  async getFragments(params: {
+    languageCode: string;
+    page?: number;
+    limit?: number;
+    disableCache?: boolean;
+  }): Promise<FragmentsResponse> {
+    try {
+      // Build query parameters
+      const queryParams = new URLSearchParams();
+      queryParams.append("languageCode", params.languageCode);
+      if (params.page) queryParams.append("page", params.page.toString());
+      if (params.limit) queryParams.append("limit", params.limit.toString());
+
+      const queryString = queryParams.toString();
+      const endpoint = `/client-fragments${
+        queryString ? `?${queryString}` : ""
+      }`;
+
+      // Set revalidation based on disableCache flag
+      const options: RequestInit = {
+        method: "GET",
+        next: params.disableCache
+          ? { revalidate: 0 } // Set revalidate to 0 to disable cache
+          : { revalidate: 10 * 60 }, // Default: cache for 10 minutes
+      };
+
+      return await cdApiRequest<FragmentsResponse>({
+        endpoint,
+        options,
+      });
+    } catch (error) {
+      console.error("Error fetching fragments:", error);
       throw error;
     }
   },

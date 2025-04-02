@@ -6,14 +6,15 @@ import { useFilmsContext } from "./FilmsContext";
 import { Filters, filterButtons, filterGrid } from "./FilmFilters";
 
 const ShowAllOrFilters: FC = () => {
-  const { setFilms, filmsCollection } = useFilmsContext();
+  const { setFragments, fragmentsResponse } = useFilmsContext();
   const [showAll, toggleShowAll] = useState(true);
 
+  // Reset to show all fragments when toggling back to "Show All"
   useEffect(() => {
-    if (filmsCollection && showAll) {
-      setFilms(filmsCollection.films);
+    if (fragmentsResponse?.data && showAll) {
+      setFragments(fragmentsResponse.data);
     }
-  }, [filmsCollection, setFilms, showAll]);
+  }, [showAll, fragmentsResponse, setFragments]);
 
   return (
     <>

@@ -1,21 +1,28 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import FilmList from "./films/FilmList";
-import { FilmData, FilmsCollection } from "../../types/videosAndFilms";
 import { FilmsContext } from "./films/FilmsContext";
 import Title from "./Title";
 import ShowAllOrFilters from "./films/ShowAllOrFilters";
 import { FilmPlayer } from "./films/FilmPlayer";
+import { ClientFragment, FragmentsResponse } from "@/lib/cdApi";
 
 export { FreeBrowsing };
 
 const FreeBrowsing: FC<{
-  filmsCollection: FilmsCollection;
+  fragmentsResponse: FragmentsResponse;
   title?: boolean;
-}> = ({ filmsCollection, title = true }) => {
-  const [films, setFilms] = useState<FilmData[] | null>(null);
+}> = ({ fragmentsResponse, title = true }) => {
+  const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
+
+  // Initialize fragments with data when component mounts
+  useEffect(() => {
+    if (fragmentsResponse?.data && !fragments) {
+      setFragments(fragmentsResponse.data);
+    }
+  }, [fragmentsResponse, fragments]);
 
   return (
     <>
@@ -29,14 +36,14 @@ const FreeBrowsing: FC<{
       )}
       <FilmsContext.Provider
         value={{
-          films,
-          setFilms,
-          filmsCollection,
+          fragments,
+          setFragments,
+          fragmentsResponse,
           nowPlaying,
           setNowPlaying,
         }}
       >
-        {filmsCollection ? (
+        {fragmentsResponse ? (
           <>
             <ShowAllOrFilters />
             <FilmList />
