@@ -28,7 +28,7 @@ const ShowAllOrFilters: FC = () => {
           {showAll ? "Filter stories" : "Show all"}
         </Button>
       </div>
-      <p className="mb-5 ml-4 text-yellow_secondary">
+      <p className="mb-2 mt-4 text-lg font-medium text-yellow_secondary">
         {showAll
           ? dictionary.freeBrowsing.description
           : dictionary.freeBrowsing.explanation}
