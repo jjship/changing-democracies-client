@@ -59,7 +59,7 @@ export default function LandingPage() {
       navTo: "/scroll-documentary",
     },
     {
-      title: dict.navigation.nonLinearNarratives,
+      title: dict.navigation.narratives,
       description: dict.landing.narratives,
       imageUrl: urls.nln,
       navTo: "/narratives",
