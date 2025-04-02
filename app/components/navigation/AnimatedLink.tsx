@@ -1,6 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { NavColor } from "./Navigation";
+import { getCurrentLanguage, getLocalizedRoute } from "@/utils/i18n/routeUtils";
 
 export { AnimatedLink };
 
@@ -17,7 +18,6 @@ const getFontColor = (color: LinkColor): NavColor => {
       return "purple_lightest_bg";
   }
 };
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 const AnimatedLink: FC<{
   href: string;
@@ -47,25 +47,11 @@ const AnimatedLink: FC<{
     e.preventDefault();
     toggleNav();
 
-    // Get the current language from params or localStorage
-    let currentLang: string = "en"; // Default fallback
+    // Get the current language using our utility function
+    const currentLang = getCurrentLanguage(params);
 
-    // Try to get from params first
-    if (params?.lang && typeof params.lang === "string") {
-      currentLang = params.lang;
-    }
-    // Otherwise try localStorage
-    else if (typeof window !== "undefined") {
-      const storedLang = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
-      if (storedLang) {
-        currentLang = storedLang;
-      }
-    }
-
-    // Construct a language-prefixed path
-    const languagePrefixedHref = href.startsWith("/")
-      ? `/${currentLang}${href}`
-      : `/${currentLang}/${href}`;
+    // Get the localized route
+    const languagePrefixedHref = getLocalizedRoute(href, currentLang);
 
     setTimeout(() => {
       router.push(languagePrefixedHref);

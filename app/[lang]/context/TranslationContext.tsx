@@ -8,9 +8,13 @@ import {
   useEffect,
 } from "react";
 import { Dictionary } from "../dictionaries";
-import { CDLanguages, DEFAULT_CD_LANG } from "@/utils/i18n/languages";
+import { CDLanguages, DEFAULT_CD_LANG, locales } from "@/utils/i18n/languages";
 import { useRouter, useParams } from "next/navigation";
 import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
+import {
+  getCurrentLanguage,
+  updateRouteLanguage,
+} from "@/utils/i18n/routeUtils";
 
 type TranslationContextType = {
   dictionary: Dictionary;
@@ -24,21 +28,7 @@ const TranslationContext = createContext<TranslationContextType | null>(null);
 export function TranslationProvider({
   dictionary,
   children,
-  availableLanguages = [
-    "en",
-    "es",
-    "fr",
-    "de",
-    "ca",
-    "hr",
-    "cs",
-    "nl",
-    "lt",
-    "pl",
-    "pt",
-    "ro",
-    "el",
-  ] as CDLanguages[],
+  availableLanguages = locales as CDLanguages[],
 }: {
   dictionary: Dictionary;
   children: ReactNode;
@@ -46,7 +36,7 @@ export function TranslationProvider({
 }) {
   const params = useParams();
   const router = useRouter();
-  const currentLang = (params?.lang as CDLanguages) || DEFAULT_CD_LANG;
+  const currentLang = getCurrentLanguage(params);
   const [currentDictionary, setCurrentDictionary] =
     useState<Dictionary>(dictionary);
 
@@ -64,9 +54,10 @@ export function TranslationProvider({
         savedLanguage !== currentLang &&
         availableLanguages.includes(savedLanguage)
       ) {
-        const newPath = window.location.pathname.replace(
-          `/${currentLang}`,
-          `/${savedLanguage}`,
+        const newPath = updateRouteLanguage(
+          window.location.pathname,
+          currentLang,
+          savedLanguage,
         );
         router.push(newPath);
       } else {
@@ -84,10 +75,11 @@ export function TranslationProvider({
       localStorage.setItem(LANGUAGE_PREFERENCE_KEY, newLang);
     }
 
-    // Navigate to the new language path
-    const newPath = window.location.pathname.replace(
-      `/${currentLang}`,
-      `/${newLang}`,
+    // Navigate to the new language path using our utility
+    const newPath = updateRouteLanguage(
+      window.location.pathname,
+      currentLang,
+      newLang,
     );
     router.push(newPath);
   };

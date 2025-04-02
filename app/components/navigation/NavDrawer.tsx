@@ -1,8 +1,8 @@
 import { FC, useEffect } from "react";
 import { AnimatedLink } from "./AnimatedLink";
 import { useRouter, useParams } from "next/navigation";
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 import { useTranslation } from "../../[lang]/context/TranslationContext";
+import { getCurrentLanguage, getLocalizedRoute } from "@/utils/i18n/routeUtils";
 
 export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
   isNavOpen,
@@ -10,34 +10,28 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
 }) => {
   const router = useRouter();
   const params = useParams();
+  const { dictionary: dict } = useTranslation();
 
   // Prefetch all routes when component mounts
   useEffect(() => {
-    // Get the current language from params or localStorage
-    let currentLang: string = "en"; // Default fallback
+    // Get the current language using our utility function
+    const currentLang = getCurrentLanguage(params);
 
-    // Try to get from params first
-    if (params?.lang && typeof params.lang === "string") {
-      currentLang = params.lang;
-    }
-    // Otherwise try localStorage
-    else if (typeof window !== "undefined") {
-      const storedLang = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
-      if (storedLang) {
-        currentLang = storedLang;
-      }
-    }
+    // Define routes to prefetch
+    const routes = [
+      "scroll-documentary",
+      "narratives",
+      "free-browsing",
+      "team",
+      "events",
+      "contact",
+    ];
 
-    // Prefetch main navigation routes with language prefix
-    router.prefetch(`/${currentLang}/scroll-documentary`);
-    router.prefetch(`/${currentLang}/narratives`);
-    router.prefetch(`/${currentLang}/free-browsing`);
-    router.prefetch(`/${currentLang}/team`);
-    router.prefetch(`/${currentLang}/events`);
-    router.prefetch(`/${currentLang}/contact`);
-  }, [router, params?.lang]);
-
-  const { dictionary: dict } = useTranslation();
+    // Prefetch each route with language prefix
+    routes.forEach((route) => {
+      router.prefetch(getLocalizedRoute(route, currentLang));
+    });
+  }, [router, params]);
 
   return (
     <div

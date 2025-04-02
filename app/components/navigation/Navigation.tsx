@@ -2,6 +2,7 @@
 import { FC, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import logoDark from "@/public/logo_dark_no_bg.svg";
 import { NavDrawer } from "./NavDrawer";
 import { Hamburger } from "./Hamburger";
@@ -12,6 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CDLanguages, locales } from "@/utils/i18n/languages";
+import { getCurrentLanguage, getLocalizedRoute } from "@/utils/i18n/routeUtils";
 
 export { Navigation };
 
@@ -36,12 +39,24 @@ const Navigation: FC<NavigationProps> = ({
   bgColor = "purple_lightest_bg",
   fontColor = "black_bg",
   onLanguageChange,
-  availableLanguages,
+  availableLanguages = locales as CDLanguages[],
   selectedLanguage,
 }: NavigationProps) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const params = useParams();
+  const currentLang = getCurrentLanguage(params);
 
   const toggleNav = () => setIsNavOpen((prev) => !prev);
+
+  const handleLanguageChange = (value: string) => {
+    toggleNav(); // Close nav drawer
+    if (onLanguageChange) {
+      onLanguageChange(value);
+    }
+  };
+
+  // Generate localized home route
+  const homeRoute = getLocalizedRoute("/", currentLang);
 
   return (
     <div
@@ -50,17 +65,17 @@ const Navigation: FC<NavigationProps> = ({
       } sticky top-0 z-40 w-full transition-all duration-1000`}
     >
       <div className="flex h-[4rem] items-center justify-between">
-        <Link href="/" className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] ">
+        <Link
+          href={homeRoute}
+          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] "
+        >
           <Image src={logoDark} alt="changing democracies logo" />
         </Link>
         <div className="mr-3 flex items-center gap-2 font-bold">
           {availableLanguages && availableLanguages.length > 0 && isNavOpen && (
             <Select
               value={selectedLanguage}
-              onValueChange={(value) => {
-                toggleNav();
-                if (onLanguageChange) onLanguageChange(value);
-              }}
+              onValueChange={handleLanguageChange}
               aria-label="Language Selector"
             >
               <SelectTrigger
