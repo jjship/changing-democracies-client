@@ -17,6 +17,7 @@ const FreeBrowsing: FC<{
 }> = ({ fragmentsResponse, title = true }) => {
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
+  const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
   const { dictionary } = useTranslation();
 
   // Initialize fragments with data when component mounts
@@ -43,6 +44,8 @@ const FreeBrowsing: FC<{
           fragmentsResponse,
           nowPlaying,
           setNowPlaying,
+          showSidePanel,
+          setShowSidePanel,
         }}
       >
         {fragmentsResponse ? (
