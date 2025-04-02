@@ -9,15 +9,36 @@ import { TranslationProvider } from "../context/TranslationContext";
 import { CDLanguages } from "@/utils/i18n/languages";
 import { LangParam } from "@/types/langParam";
 import { getDictionary } from "../dictionaries";
-import { fragmentsApi } from "@/lib/cdApi";
+import { fragmentsApi, FragmentsResponse } from "@/lib/cdApi";
 
-// Increase revalidation time to reduce API calls
-const getFragments = cache(async (languageCode: string) => {
+// Set this to true to disable caching for development testing
+const DISABLE_CACHE = false;
+
+// Cached version for production
+const getCachedFragments = cache(
+  async (languageCode: string): Promise<FragmentsResponse> => {
+    return await fragmentsApi.getFragments({
+      languageCode,
+      limit: 500, // Use a high limit to get all fragments
+      disableCache: DISABLE_CACHE, // Pass the disable cache flag to the API
+    });
+  },
+);
+
+// Non-cached version for development testing
+const getUncachedFragments = async (
+  languageCode: string,
+): Promise<FragmentsResponse> => {
+  console.log("Fetching fragments without cache");
   return await fragmentsApi.getFragments({
     languageCode,
     limit: 500, // Use a high limit to get all fragments
+    disableCache: true, // Always disable cache in uncached version
   });
-});
+};
+
+// Choose which function to use based on DISABLE_CACHE flag
+const getFragments = DISABLE_CACHE ? getUncachedFragments : getCachedFragments;
 
 // Loading component
 function FilmsLoading() {
@@ -31,7 +52,9 @@ function FilmsLoading() {
 // Films content component
 async function FilmsContent({ languageCode }: { languageCode: string }) {
   const fragmentsResponse = await getFragments(languageCode);
-
+  console.log(
+    `Fetched ${fragmentsResponse.data.length} fragments for language ${languageCode}`,
+  );
   return <FreeBrowsing fragmentsResponse={fragmentsResponse} />;
 }
 

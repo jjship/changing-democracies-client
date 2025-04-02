@@ -61,6 +61,7 @@ export const fragmentsApi = {
     languageCode: string;
     page?: number;
     limit?: number;
+    disableCache?: boolean;
   }): Promise<FragmentsResponse> {
     try {
       // Build query parameters
@@ -74,12 +75,17 @@ export const fragmentsApi = {
         queryString ? `?${queryString}` : ""
       }`;
 
+      // Set revalidation based on disableCache flag
+      const options: RequestInit = {
+        method: "GET",
+        next: params.disableCache
+          ? { revalidate: 0 } // Set revalidate to 0 to disable cache
+          : { revalidate: 10 * 60 }, // Default: cache for 10 minutes
+      };
+
       return await cdApiRequest<FragmentsResponse>({
         endpoint,
-        options: {
-          method: "GET",
-          next: { revalidate: 10 * 60 }, // Cache for 10 minutes
-        },
+        options,
       });
     } catch (error) {
       console.error("Error fetching fragments:", error);
