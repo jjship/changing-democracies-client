@@ -11,7 +11,7 @@ const CloseButton = (props: { onClose?: () => void }) => {
         setNowPlaying(null);
         if (onClose) onClose();
       }}
-      className={`hover:text-yellow_secondary" absolute left-4 top-4 z-10 bg-transparent p-5 text-white  transition-colors hover:bg-black_bg`}
+      className={`absolute right-4 top-4 z-10 bg-transparent p-5 text-white transition-colors hover:bg-black_bg hover:text-yellow_secondary`}
     >
       <span className="text-xl font-bold">X</span>
     </a>

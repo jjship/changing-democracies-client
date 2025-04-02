@@ -8,7 +8,7 @@ const FilmList: React.FC = () => {
   const { fragments, setNowPlaying } = useFilmsContext();
 
   return fragments ? (
-    <div className="grid grid-cols-1 gap-10 pt-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-10 pt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {fragments.map(({ id, title, person, thumbnailUrl, tags }) => (
         <a key={id} href="#" onClick={() => setNowPlaying(id)}>
           <div className="cursor-pointer text-yellow_secondary transition-colors hover:bg-yellow_secondary hover:text-black_bg">

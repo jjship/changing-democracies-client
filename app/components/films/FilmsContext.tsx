@@ -9,6 +9,8 @@ type FilmsContextType = {
   fragmentsResponse: FragmentsResponse | null;
   nowPlaying: string | null;
   setNowPlaying: (fragmentId: string | null) => void;
+  showSidePanel: boolean;
+  setShowSidePanel: (show: boolean) => void;
 };
 
 export const FilmsContext = createContext<FilmsContextType | null>(null);
@@ -21,6 +23,7 @@ export function FilmsContextProvider({
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
   const [fragmentsResponse] = useState<FragmentsResponse | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
+  const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
 
   return (
     <FilmsContext.Provider
@@ -30,6 +33,8 @@ export function FilmsContextProvider({
         fragmentsResponse,
         nowPlaying,
         setNowPlaying,
+        showSidePanel,
+        setShowSidePanel,
       }}
     >
       {children}

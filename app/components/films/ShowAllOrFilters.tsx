@@ -4,10 +4,12 @@ import { FC, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useFilmsContext } from "./FilmsContext";
 import { Filters, filterButtons, filterGrid } from "./FilmFilters";
+import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 
 const ShowAllOrFilters: FC = () => {
   const { setFragments, fragmentsResponse } = useFilmsContext();
   const [showAll, toggleShowAll] = useState(true);
+  const { dictionary } = useTranslation();
 
   // Reset to show all fragments when toggling back to "Show All"
   useEffect(() => {
@@ -26,6 +28,11 @@ const ShowAllOrFilters: FC = () => {
           {showAll ? "Filter stories" : "Show all"}
         </Button>
       </div>
+      <p className="mt-4 pb-6 text-lg font-medium text-yellow_secondary">
+        {showAll
+          ? dictionary.freeBrowsing.description
+          : dictionary.freeBrowsing.explanation}
+      </p>
       {!showAll && <Filters />}
     </>
   );

@@ -7,6 +7,7 @@ import Title from "./Title";
 import ShowAllOrFilters from "./films/ShowAllOrFilters";
 import { FilmPlayer } from "./films/FilmPlayer";
 import { ClientFragment, FragmentsResponse } from "@/lib/cdApi";
+import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 
 export { FreeBrowsing };
 
@@ -16,6 +17,8 @@ const FreeBrowsing: FC<{
 }> = ({ fragmentsResponse, title = true }) => {
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
+  const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
+  const { dictionary } = useTranslation();
 
   // Initialize fragments with data when component mounts
   useEffect(() => {
@@ -28,7 +31,7 @@ const FreeBrowsing: FC<{
     <>
       {title && (
         <Title
-          text="Free browsing"
+          text={dictionary.freeBrowsing.title}
           theme="dark"
           color="yellow_secondary"
           alt={true}
@@ -41,6 +44,8 @@ const FreeBrowsing: FC<{
           fragmentsResponse,
           nowPlaying,
           setNowPlaying,
+          showSidePanel,
+          setShowSidePanel,
         }}
       >
         {fragmentsResponse ? (
