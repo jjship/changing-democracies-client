@@ -7,10 +7,13 @@ import { useFilmsContext } from "./FilmsContext";
 export { Filters, filterButtons, filterGrid };
 
 const filterGrid =
-  "w-max-ful grid grid-flow-row grid-cols-4 gap-5 md:grid-cols-7 lg:grid-cols-8";
+  "w-max-1/2 grid grid-flow-row grid-cols-4 gap-5 md:grid-cols-8 lg:grid-cols-8";
+
+const tagsGrid =
+  "w-max-ful grid grid-flow-row grid-cols-4 gap-5 md:grid-cols-8 lg:grid-cols-8";
 
 const filterButtons =
-  "text-[0.4rem] font-semibold text-black transition-colors hover:bg-yellow_secondary md:text-[0.65rem] lg:text-xs md:font-bold";
+  "text-[0.4rem] font-semibold text-black transition-colors hover:bg-yellow_secondary md:text-[0.5rem] lg:text-xs md:font-bold";
 
 const Filters: FC = () => {
   const { setFragments, fragmentsResponse } = useFilmsContext();
@@ -105,7 +108,7 @@ const Filters: FC = () => {
   return fragmentsResponse ? (
     <>
       {/* People filter section */}
-      <div className={`${filterGrid} pb-6`}>
+      <div className="grid grid-flow-row grid-cols-4 gap-2 pb-2 md:grid-cols-9 lg:grid-cols-10">
         {people.map((person, i) => (
           <Button
             key={i}
@@ -129,7 +132,7 @@ const Filters: FC = () => {
       {/* Tags filter section */}
       {tags.length > 0 && (
         <>
-          <div className={`${filterGrid} pb-6`}>
+          <div className="grid grid-flow-row grid-cols-4 gap-2 pb-6 md:grid-cols-9 lg:grid-cols-10">
             {tags.map((tag, i) => (
               <Button
                 key={i}
