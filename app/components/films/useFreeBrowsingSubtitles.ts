@@ -9,10 +9,14 @@ export type Subtitle = {
 };
 
 // Helper function to get subtitle URL
-function getSubtitlesUrl(videoId: string, languageCode: string): string {
+function getSubtitlesUrl(
+  videoId: string,
+  languageCode: string,
+  suffix: string = "",
+) {
   // Using the constant pullZoneUrl
   const pullZoneUrl = "vz-cac74041-8b3";
-  return `https://${pullZoneUrl}.b-cdn.net/${videoId}/captions/${languageCode}.vtt`;
+  return `https://${pullZoneUrl}.b-cdn.net/${videoId}/captions/${languageCode}${suffix}.vtt`;
 }
 
 const useFreeBrowsingSubtitles = (
@@ -35,14 +39,22 @@ const useFreeBrowsingSubtitles = (
         setError(null);
 
         const videoId = fragment.id;
-        const subtitleUrl = getSubtitlesUrl(
-          videoId,
-          languageCode.toLowerCase(),
-        );
 
-        console.log("Fetching subtitles from:", subtitleUrl);
+        // First try the standard format (e.g., "en.vtt")
+        let subtitleUrl = getSubtitlesUrl(videoId, languageCode.toLowerCase());
 
-        const response = await fetch(subtitleUrl);
+        let response = await fetch(subtitleUrl);
+
+        // If the first attempt fails, try the auto-generated format (e.g., "en-auto.vtt")
+        if (!response.ok) {
+          subtitleUrl = getSubtitlesUrl(
+            videoId,
+            languageCode.toLowerCase(),
+            "-auto",
+          );
+
+          response = await fetch(subtitleUrl);
+        }
 
         if (!response.ok) {
           console.warn(`Could not load subtitles. Status: ${response.status}`);
