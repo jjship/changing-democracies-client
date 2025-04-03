@@ -17,46 +17,37 @@ const filterButtons =
 
 const Filters: FC = () => {
   const { setFragments, fragmentsResponse } = useFilmsContext();
-  const [selectedPeople, setSelectedPeople] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // Extract unique people, and tags from fragments data
-  const { people, tags } = useMemo(() => {
+  // Extract unique tags from fragments data
+  const { tags } = useMemo(() => {
     if (!fragmentsResponse?.data) {
-      return { people: [], tags: [] };
+      return { tags: [] };
     }
 
-    const uniquePeople = new Set<string>();
     const uniqueTags = new Set<string>();
 
     fragmentsResponse.data.forEach((fragment) => {
-      if (fragment.person?.name) {
-        uniquePeople.add(fragment.person.name);
-      }
-
       // Extract tags
       if (fragment.tags && fragment.tags.length > 0) {
         fragment.tags.forEach((tag) => {
-          if (tag.name) {
-            uniqueTags.add(tag.name);
+          if (tag.id) {
+            uniqueTags.add(tag.id);
           }
         });
       }
     });
 
     return {
-      people: Array.from(uniquePeople).sort(),
       tags: Array.from(uniqueTags).sort(),
     };
   }, [fragmentsResponse]);
 
-  // Load saved filters from localStorage
+  // Load saved filters from sessionStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const storedPeople = localStorage.getItem("people");
-      const storedTags = localStorage.getItem("tags");
+      const storedTags = sessionStorage.getItem("tags");
 
-      if (storedPeople) setSelectedPeople(JSON.parse(storedPeople));
       if (storedTags) setSelectedTags(JSON.parse(storedTags));
     }
   }, []);
@@ -64,93 +55,74 @@ const Filters: FC = () => {
   // Apply filters when selection changes
   useEffect(() => {
     if (fragmentsResponse?.data) {
-      const hasPeopleFilters = selectedPeople.length > 0;
       const hasTagFilters = selectedTags.length > 0;
 
       // If no filters are active, show all fragments
-      if (!hasPeopleFilters && !hasTagFilters) {
+      if (!hasTagFilters) {
         setFragments(fragmentsResponse.data);
         return;
       }
 
       // Apply filters
       const filteredFragments = fragmentsResponse.data.filter((fragment) => {
-        // Person filter matching
-        const matchesPerson =
-          !hasPeopleFilters ||
-          (fragment.person?.name &&
-            selectedPeople.includes(fragment.person.name));
-
-        // Tag filter matching
+        // Tag filter matching - require ALL selected tags to be present
         const matchesTags =
           !hasTagFilters ||
           (fragment.tags &&
-            fragment.tags.some((tag) => selectedTags.includes(tag.name)));
+            selectedTags.every((selectedTagId) => {
+              const hasTag = fragment.tags.some(
+                (tag) => tag.id === selectedTagId,
+              );
 
-        // Include fragment if it matches ALL active filter types (AND between categories, OR within each category)
-        const filterResult =
-          (!hasPeopleFilters || matchesPerson) &&
-          (!hasTagFilters || matchesTags);
+              return hasTag;
+            }));
 
-        return filterResult;
+        return matchesTags;
       });
 
       setFragments(filteredFragments);
     }
 
-    // Save filter selections to localStorage
+    // Save filter selections to sessionStorage
     if (typeof window !== "undefined") {
-      localStorage.setItem("people", JSON.stringify(selectedPeople));
-      localStorage.setItem("tags", JSON.stringify(selectedTags));
+      sessionStorage.setItem("tags", JSON.stringify(selectedTags));
     }
-  }, [selectedPeople, selectedTags, fragmentsResponse, setFragments]);
+  }, [selectedTags, fragmentsResponse, setFragments]);
 
   return fragmentsResponse ? (
     <>
-      {/* People filter section */}
-      <div className="grid grid-flow-row grid-cols-4 gap-2 pb-2 md:grid-cols-9 lg:grid-cols-10">
-        {people.map((person, i) => (
-          <Button
-            key={i}
-            value={person}
-            className={`${
-              selectedPeople.includes(person)
-                ? "bg-red_mains"
-                : "bg-gray_light_secondary"
-            } ${filterButtons}`}
-            onClick={() => {
-              selectedPeople.includes(person)
-                ? setSelectedPeople(selectedPeople.filter((p) => p !== person))
-                : setSelectedPeople([...selectedPeople, person]);
-            }}
-          >
-            {person}
-          </Button>
-        ))}
-      </div>
-
       {/* Tags filter section */}
       {tags.length > 0 && (
         <>
           <div className="grid grid-flow-row grid-cols-4 gap-2 pb-6 md:grid-cols-9 lg:grid-cols-10">
-            {tags.map((tag, i) => (
-              <Button
-                key={i}
-                value={tag}
-                className={`${
-                  selectedTags.includes(tag)
-                    ? "bg-green_accent" // Use a distinct color for tags
-                    : "bg-gray_light_secondary"
-                } ${filterButtons}`}
-                onClick={() => {
-                  selectedTags.includes(tag)
-                    ? setSelectedTags(selectedTags.filter((t) => t !== tag))
-                    : setSelectedTags([...selectedTags, tag]);
-                }}
-              >
-                {tag}
-              </Button>
-            ))}
+            {tags.map((tagId, i) => {
+              // Find the tag name for display
+              const tagName =
+                fragmentsResponse.data
+                  .find((fragment) =>
+                    fragment.tags.some((tag) => tag.id === tagId),
+                  )
+                  ?.tags.find((tag) => tag.id === tagId)?.name || tagId;
+
+              return (
+                <Button
+                  key={i}
+                  value={tagId}
+                  className={`${
+                    selectedTags.includes(tagId)
+                      ? "bg-green_accent" // Use a distinct color for tags
+                      : "bg-gray_light_secondary"
+                  } ${filterButtons}`}
+                  onClick={() => {
+                    selectedTags.includes(tagId)
+                      ? setSelectedTags(selectedTags.filter((t) => t !== tagId))
+                      : setSelectedTags([...selectedTags, tagId]);
+                  }}
+                >
+                  {tagName}
+                </Button>
+              );
+            })}
           </div>
         </>
       )}
