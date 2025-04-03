@@ -256,7 +256,10 @@ export const FilmPlayer: FC = () => {
           <div className="relative h-full w-full" onMouseMove={handleMouseMove}>
             {/* Close Button - positioned relative to video content */}
             <button
-              onClick={() => setNowPlaying(null)}
+              onClick={() => {
+                setNowPlaying(null);
+                setShowSidePanel(false);
+              }}
               className="absolute right-4 top-4 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60 hover:text-yellow_secondary"
               aria-label="Close video"
             >
