@@ -51,7 +51,11 @@
       },
       {
         "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "België/Polen",
         "link": "https://evensfoundation.be/"
       },
@@ -135,7 +139,7 @@
   "researchPublication": {
     "title": "Onderzoekspublicatie",
     "subtitle": "Changing Democracies: democratie, educatie en de kracht van getuigenissen",
-    "lead": "Hoe geven jongeren betekenis aan getuigenissen over het leven in een dictatuur en het ervaren van een politieke omwenteling? Hoe leren ze niet alleen over maar ook van deze geschiedenissen – op hun eigen voorwaarden en met hun eigen stem?",
+    "lead": "Hoe geven jongeren betekenis aan getuigenissen over het leven in een dictatuur en het ervaren van een politieke omwenteling? Hoe leren ze niet alleen over maar ook van deze geschiedenissen op hun eigen voorwaarden en met hun eigen stem?",
     "p1": "In deze publicatie brengen zes partners van het consortium verslag uit over hun onderzoek naar de manier waarop jongeren zich in lokale onderwijsprojecten verhielden tot of verbonden met de getuigenissen. Hoewel ze zich lieten leiden door dezelfde onderzoeksvragen, bestrijken de zes casestudies een fascinerende verscheidenheid aan werkvormen van meer traditionele dialoogsessies tot activiteiten op online leerplatforms en kunsteducatieve praktijken zoals illustraties en theater; en aan culturele contexten, van Spanje en Portugal, Tsjechië en Polen, tot Nederland en Vlaanderen/België.",
     "download": "Download de publicatie hier."
   },
@@ -149,103 +153,100 @@
     "p5": "Als je geïnteresseerd bent om de Reizende Werkplaats te hosten, neem dan contact op."
   },
   "scrollDocumentary": {
-  "slides": {
-    "slide_0": {
-      "additionalContent": {
-        "scroll": "Scrollen",
-        "documentary": "Documentaire"
-      }
-    },
-    "slide_1": {
-      "additionalContent": {
-        "is_democracy": "Is democratie",
-        "worth": "de moeite",
-        "the_trouble": "waard?"
-      }
-    },
-    "slide_2": {
-      "additionalContent": {
-        "democracy": "Democratie",
-        "equality": "Gelijkheid",
-        "freedom": "Vrijheid",
-        "honesty": "Eerlijkheid",
-        "love": "Liefde",
-        "conflict": "Conflict",
-        "safety": "Veiligheid",
-        "justice": "Rechtvaardigheid"
-      }
-    },
-    "slide_3": {
-      "additionalContent": {
-        "about_the_project": "Over het project",
-        "democracy_failed_us": "Democratie heeft ons teleurgesteld",
-        "democracy_is_in_crisis": "Democratie verkeert in crisis",
-        "we_need_to_defend_democracy": "We moeten democratie verdedigen",
-        "authoritarianism_is_on_the_rise": "Autoritarisme neemt toe",
-        "democratic_institutions_are_in_decline": "Democratische instellingen gaan achteruit",
-        "you_know_these_phrases": "Je kent deze zinnen",
-        "you_ve_heard_them_over_and_over": "Je hebt ze keer op keer gehoord",
-        "but_what_lies_beyond_this_gloomy_picture": "Maar wat ligt er achter dit sombere beeld?",
-        "there_are_people_around_us_who_know": "Er zijn mensen om ons heen die het weten",
-        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Ze hebben uit eerste hand ervaren hoe het leven is onder verschillende politieke systemen",
-        "they_have_lived_through_times_of_transition": "Ze hebben tijden van transitie meegemaakt",
-        "so_we_asked_them": "Dus vroegen we hen:",
-        "is_democracy_worth_the_trouble": "Is democratie de moeite waard?",
-        "they_shared_their_fears_their_hopes_their_disillusions": "Ze deelden hun angsten, hun hoop, hun teleurstellingen",
-        "their_stories": "Hun verhalen",
-        "changing_democracies_brings_you_their_wisdom": "Changing Democracies brengt je hun wijsheid",
-        "we_learnt": "We hebben geleerd:",
-        "that_it_pays_to_move_beyond_historical_facts": "Dat het loont om verder te kijken dan historische feiten",
-        "that_democracy_is_never_finished": "Dat democratie nooit af is",
-        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Dat het gezamenlijk aanpakken van uitdagingen de enige weg vooruit is",
-        "dont_take_our_word_for_it_see_for_yourself": "Neem het niet zomaar van ons aan—overtuig jezelf."
-      }
-    },
-    "slide_4": {
-      "title": "Terugkijken"
-    },
-    "slide_5": {
-      "title": "Overgangssituatie"
-    },
-    "slide_6": {
-      "title": "Is mijn democratie jouw democratie?"
-    },
-    "slide_8": {
-      "title": "Realiteitscheck"
-    },
-    "slide_9": {
-      "title": "Het persoonlijke is politiek"
-    },
-    "slide_10": {
-      "title": "Verleden Heden Toekomst"
-    },
-    "slide_11": {
-      "title": "Kom samen"
-    },
-    "slide_12": {
-      "title": "Pas op"
-    },
-    "slide_13": {
-      "title": "Maak geluid"
-    },
-    "slide_14": {
-      "title": "Onze beurt"
-    },
-    "slide_15": {
-      "additionalContent": {
-        "credits": "Credits",
-        "script": "Script",
-        "visuals": "Beelden",
-        "development": "Ontwikkeling",
-        "music": "Muziek",
-        "Changing_Democracies": "Changing Democracies",
-        "p1": "onderzoekt hoe de levende geschiedenis van Europa over recente transities naar democratie ons kan helpen begrijpen welke processen vandaag nodig zijn zodat democratie haar beloften voor iedereen kan waarmaken.",
-        "p2": "Het project is het resultaat van een samenwerking tussen 12 partners uit 10 Europese landen en wordt gecoördineerd door de Evens Foundation met financiering van de Europese Commissie."
+    "slides": {
+      "slide_0": {
+        "additionalContent": {
+          "scroll": "Scroll",
+          "documentary": "Documentaire"
+        }
+      },
+      "slide_1": {
+        "additionalContent": {
+          "is_democracy": "Is democratie",
+          "worth": "de moeite",
+          "the_trouble": "waard?"
+        }
+      },
+      "slide_2": {
+        "additionalContent": {
+          "democracy": "Democratie",
+          "equality": "Gelijkheid",
+          "freedom": "Vrijheid",
+          "honesty": "Eerlijkheid",
+          "love": "Liefde",
+          "conflict": "Conflict",
+          "safety": "Veiligheid",
+          "justice": "Rechtvaardigheid"
+        }
+      },
+      "slide_3": {
+        "additionalContent": {
+          "about_the_project": "Over het project",
+          "democracy_failed_us": "Democratie heeft gefaald",
+          "democracy_is_in_crisis": "Democratie verkeert in crisis",
+          "we_need_to_defend_democracy": "We moeten onze democratie verdedigen",
+          "authoritarianism_is_on_the_rise": "Autoritarisme neemt toe",
+          "democratic_institutions_are_in_decline": "Democratische instellingen zijn in verval",
+          "you_know_these_phrases": "Je kent deze uitspraken",
+          "you_ve_heard_them_over_and_over": "Je hoort ze keer op keer",
+          "but_what_lies_beyond_this_gloomy_picture": "Maar wat ligt er achter dit sombere beeld",
+          "there_are_people_around_us_who_know": "Er zijn mensen om ons heen die het weten",
+          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Ze hebben zelf ervaren wat het betekent om te leven onder verschillende politieke systemen",
+          "they_have_lived_through_times_of_transition": "Ze hebben tijden van transitie meegemaakt",
+          "so_we_asked_them": "Dus vroegen we hen:",
+          "is_democracy_worth_the_trouble": "Is democratie de moeite waard",
+          "they_shared_their_fears_their_hopes_their_disillusions": "Ze deelden hun angsten, hun hoop, hun teleurstellingen",
+          "their_stories": "Hun verhalen",
+          "changing_democracies_brings_you_their_wisdom": "Changing Democracies brengt je hun wijsheid",
+          "we_learnt": "Wij hebben geleerd:",
+          "that_it_pays_to_move_beyond_historical_facts": "Dat het loont om verder te kijken dan historische feiten",
+          "that_democracy_is_never_finished": "Dat democratie nooit af is",
+          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Dat het gezamenlijk aanpakken van uitdagingen de enige weg vooruit is",
+          "dont_take_our_word_for_it_see_for_yourself": "Neem het niet zomaar van ons aan-overtuig jezelf."
+        }
+      },
+      "slide_4": {
+        "title": "Terugblik"
+      },
+      "slide_5": {
+        "title": "Overgangssituatie"
+      },
+      "slide_6": {
+        "title": "Is mijn democratie jouw democratie?"
+      },
+      "slide_8": {
+        "title": "Realiteitscheck"
+      },
+      "slide_9": {
+        "title": "Het persoonlijke is politiek"
+      },
+      "slide_10": {
+        "title": "Verleden Heden Toekomst"
+      },
+      "slide_11": {
+        "title": "Kom bijeen"
+      },
+      "slide_12": {
+        "title": "Wees op je hoede"
+      },
+      "slide_13": {
+        "title": "Maak lawaai"
+      },
+      "slide_14": {
+        "title": "Onze beurt"
+      },
+      "slide_15": {
+        "additionalContent": {
+          "credits": "Credits",
+          "script": "Script",
+          "visuals": "Visuals",
+          "development": "Development",
+          "music": "Muziek",
+          "Changing_Democracies": "Changing Democracies",
+          "p1": "onderzoekt hoe de levende geschiedenis van Europa over recente transities naar democratie ons kan helpen begrijpen welke processen vandaag nodig zijn zodat democratie haar beloften voor iedereen kan waarmaken.",
+          "p2": "Het project is het resultaat van een samenwerking tussen 12 partners uit 10 Europese landen en wordt geco�rdineerd door de Evens Foundation met financiering van de Europese Commissie."
+        }
       }
     }
   }
 }
-
-}
-
-
