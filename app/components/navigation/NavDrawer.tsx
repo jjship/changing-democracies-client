@@ -69,6 +69,14 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
 
         <AnimatedLink
+          href="/project"
+          text={dict.navigation.project}
+          timeout={160}
+          color="pink"
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
+        />
+        <AnimatedLink
           href="/team"
           text={dict.navigation.team}
           timeout={160}
