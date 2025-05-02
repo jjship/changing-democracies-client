@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Title from "./Title";
 import knotOfArrows from "@/public/arrows_knot_no_bg.svg";
-import logoLight from "@/public/logo_light_no_bg.svg";
 import { useTranslation } from "../[lang]/context/TranslationContext";
 
 export type TeamEntry = {
@@ -12,14 +11,6 @@ export type TeamEntry = {
   link: string;
   teamMembers: string[];
   country: string;
-};
-
-// Type for the team dictionary entries, needed for mapping from dictionary to TeamEntry
-type DictionaryTeamEntry = {
-  organisation: string;
-  members: string[];
-  country: string;
-  link: string;
 };
 
 export default function Team() {
