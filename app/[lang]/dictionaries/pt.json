@@ -5,10 +5,10 @@
     "nonLinearNarratives": "Narrativas não lineares",
     "freeBrowsing": "Navegação livre",
     "project": "Projeto",
-    "team": "Equipe",
+    "team": "Equipa",
     "events": "Eventos",
-    "educationalResources": "Pacote de recursos educativos",
-    "researchPublication": "Publicação de investigação",
+    "educationalResources": "Recursos educativos",
+    "researchPublication": "Investigação - Publicação",
     "travellingWorkshop": "Oficina itinerante",
     "contact": "Contacto"
   },
@@ -50,7 +50,7 @@
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Evens Foundation - Project Coordinator",
+        "organisation": "Evens Foundation",
         "members": [
           "Caroline Coosemans",
           "Marjolein Delvou",
@@ -156,7 +156,7 @@
     "slides": {
       "slide_0": {
         "additionalContent": {
-          "scroll": "Rolar",
+          "scroll": "Ver",
           "documentary": "Documentário"
         }
       },
