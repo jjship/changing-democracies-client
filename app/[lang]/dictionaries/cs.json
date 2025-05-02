@@ -50,8 +50,12 @@
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Evens Foundation",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "organisation": "Evens Foundation - Project Coordinator",
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "Belgie/Polsko",
         "link": "https://evensfoundation.be/"
       },
@@ -62,7 +66,7 @@
         "link": "https://vlaamsvredesinstituut.eu/en/"
       },
       {
-        "organisation": "Filozofická fakulta Univerzity Karlovy",  
+        "organisation": "Filozofická fakulta Univerzity Karlovy",
         "members": ["Bohumil Melichar", "Václav Sixta"],
         "country": "Česko",
         "link": "https://www.ff.cuni.cz/home/"
@@ -118,7 +122,7 @@
   },
   "eduPack": {
     "title": "Vzdělávací materiály",
-    "subtitle": "Učení se z minulosti a reflexe dneška", 
+    "subtitle": "Učení se z minulosti a reflexe dneška",
     "lead": "Mohou zkušenosti těch, kteří prožili přechod od nedemokratické k demokratické společnosti, inspirovat mladé lidi ke kritickému přemýšlení o demokracii dnes?",
     "p1": "Abychom mladým lidem pomohli zpracovat svědectví shromážděná v rámci projektu Changing Democracies, společně jsme vytvořili balíček zdrojů a přizpůsobitelných vzdělávacích aktivit pro formální i neformální vzdělávání.",
     "p2": "Každá aktivita je postavena na svědectvích z první ruky, splétajících hlasy z různých zemí do nelineárních vyprávění, která zkoumají pět klíčových otázek:",
@@ -149,103 +153,100 @@
     "p5": "Pokud máte zájem o umístění Putovního workshopu, kontaktujte nás."
   },
   "scrollDocumentary": {
-  "slides": {
-    "slide_0": {
-      "additionalContent": {
-        "scroll": "Posunout",
-        "documentary": "Dokument"
-      }
-    },
-    "slide_1": {
-      "additionalContent": {
-        "is_democracy": "Stojí demokracie",
-        "worth": "za",
-        "the_trouble": "námahu?"
-      }
-    },
-    "slide_2": {
-      "additionalContent": {
-        "democracy": "Demokracie",
-        "equality": "Rovnost",
-        "freedom": "Svoboda",
-        "honesty": "Upřímnost",
-        "love": "Láska",
-        "conflict": "Konflikt",
-        "safety": "Bezpečí",
-        "justice": "Spravedlnost"
-      }
-    },
-    "slide_3": {
-      "additionalContent": {
-        "about_the_project": "O projektu",
-        "democracy_failed_us": "Demokracie nás zklamala",
-        "democracy_is_in_crisis": "Demokracie je v krizi",
-        "we_need_to_defend_democracy": "Musíme bránit demokracii",
-        "authoritarianism_is_on_the_rise": "Autoritářství sílí",
-        "democratic_institutions_are_in_decline": "Demokratické instituce upadají",
-        "you_know_these_phrases": "Tyto fráze znáte",
-        "you_ve_heard_them_over_and_over": "Slyšeli jste je stále dokola",
-        "but_what_lies_beyond_this_gloomy_picture": "Ale co se skrývá za tímto ponurým obrazem?",
-        "there_are_people_around_us_who_know": "Existují lidé kolem nás, kteří to vědí",
-        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Zažili na vlastní kůži život v různých politických systémech",
-        "they_have_lived_through_times_of_transition": "Prožili období přechodu",
-        "so_we_asked_them": "A tak jsme se jich zeptali:",
-        "is_democracy_worth_the_trouble": "Stojí demokracie za námahu?",
-        "they_shared_their_fears_their_hopes_their_disillusions": "Sdíleli své obavy, naděje i zklamání",
-        "their_stories": "Jejich příběhy",
-        "changing_democracies_brings_you_their_wisdom": "Changing Democracies vám přináší jejich moudrost",
-        "we_learnt": "Zjistili jsme:",
-        "that_it_pays_to_move_beyond_historical_facts": "Že se vyplatí jít za hranice historických faktů",
-        "that_democracy_is_never_finished": "Že demokracie není nikdy dokončená",
-        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Že jedinou cestou vpřed je společně čelit jejím výzvám",
-        "dont_take_our_word_for_it_see_for_yourself": "Nevěřte nám jen tak – přesvědčte se sami."
-      }
-    },
-    "slide_4": {
-      "title": "Pohled zpět"
-    },
-    "slide_5": {
-      "title": "Stav přechodu"
-    },
-    "slide_6": {
-      "title": "Je má demokracie vaše demokracie?"
-    },
-    "slide_8": {
-      "title": "Setkání s realitou"
-    },
-    "slide_9": {
-      "title": "Osobní je politické"
-    },
-    "slide_10": {
-      "title": "Minulost Přítomnost Budoucnost"
-    },
-    "slide_11": {
-      "title": "Spojit se"
-    },
-    "slide_12": {
-      "title": "Pozor"
-    },
-    "slide_13": {
-      "title": "Ozvěte se"
-    },
-    "slide_14": {
-      "title": "Teď jsme na řadě my"
-    },
-    "slide_15": {
-      "additionalContent": {
-        "credits": "Titulky",
-        "script": "Scénář",
-        "visuals": "Vizuály",
-        "development": "Vývoj",
-        "music": "Hudba",
-        "Changing_Democracies": "Changing Democracies",
-        "p1": "zkoumá, jak nám živé dějiny Evropy a nedávné přechody k demokracii mohou pomoci pochopit, jaké procesy jsou dnes nutné, aby demokracie splnila své sliby všem.",
-        "p2": "Projekt je výsledkem spolupráce 12 partnerů z 10 evropských zemí a koordinují jej Evens Foundation s financováním Evropské komise."
+    "slides": {
+      "slide_0": {
+        "additionalContent": {
+          "scroll": "Posunout",
+          "documentary": "Dokument"
+        }
+      },
+      "slide_1": {
+        "additionalContent": {
+          "is_democracy": "Stojí demokracie",
+          "worth": "za",
+          "the_trouble": "námahu?"
+        }
+      },
+      "slide_2": {
+        "additionalContent": {
+          "democracy": "Demokracie",
+          "equality": "Rovnost",
+          "freedom": "Svoboda",
+          "honesty": "Upřímnost",
+          "love": "Láska",
+          "conflict": "Konflikt",
+          "safety": "Bezpečí",
+          "justice": "Spravedlnost"
+        }
+      },
+      "slide_3": {
+        "additionalContent": {
+          "about_the_project": "O projektu",
+          "democracy_failed_us": "Demokracie nás zklamala",
+          "democracy_is_in_crisis": "Demokracie je v krizi",
+          "we_need_to_defend_democracy": "Musíme bránit demokracii",
+          "authoritarianism_is_on_the_rise": "Autoritářství sílí",
+          "democratic_institutions_are_in_decline": "Demokratické instituce upadají",
+          "you_know_these_phrases": "Tyto fráze znáte",
+          "you_ve_heard_them_over_and_over": "Slyšeli jste je stále dokola",
+          "but_what_lies_beyond_this_gloomy_picture": "Ale co se skrývá za tímto ponurým obrazem?",
+          "there_are_people_around_us_who_know": "Existují lidé kolem nás, kteří to vědí",
+          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Zažili na vlastní kůži život v různých politických systémech",
+          "they_have_lived_through_times_of_transition": "Prožili období přechodu",
+          "so_we_asked_them": "A tak jsme se jich zeptali:",
+          "is_democracy_worth_the_trouble": "Stojí demokracie za námahu?",
+          "they_shared_their_fears_their_hopes_their_disillusions": "Sdíleli své obavy, naděje i zklamání",
+          "their_stories": "Jejich příběhy",
+          "changing_democracies_brings_you_their_wisdom": "Changing Democracies vám přináší jejich moudrost",
+          "we_learnt": "Zjistili jsme:",
+          "that_it_pays_to_move_beyond_historical_facts": "Že se vyplatí jít za hranice historických faktů",
+          "that_democracy_is_never_finished": "Že demokracie není nikdy dokončená",
+          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Že jedinou cestou vpřed je společně čelit jejím výzvám",
+          "dont_take_our_word_for_it_see_for_yourself": "Nevěřte nám jen tak – přesvědčte se sami."
+        }
+      },
+      "slide_4": {
+        "title": "Pohled zpět"
+      },
+      "slide_5": {
+        "title": "Stav přechodu"
+      },
+      "slide_6": {
+        "title": "Je má demokracie vaše demokracie?"
+      },
+      "slide_8": {
+        "title": "Setkání s realitou"
+      },
+      "slide_9": {
+        "title": "Osobní je politické"
+      },
+      "slide_10": {
+        "title": "Minulost Přítomnost Budoucnost"
+      },
+      "slide_11": {
+        "title": "Spojit se"
+      },
+      "slide_12": {
+        "title": "Pozor"
+      },
+      "slide_13": {
+        "title": "Ozvěte se"
+      },
+      "slide_14": {
+        "title": "Teď jsme na řadě my"
+      },
+      "slide_15": {
+        "additionalContent": {
+          "credits": "Titulky",
+          "script": "Scénář",
+          "visuals": "Vizuály",
+          "development": "Vývoj",
+          "music": "Hudba",
+          "Changing_Democracies": "Changing Democracies",
+          "p1": "zkoumá, jak nám živé dějiny Evropy a nedávné přechody k demokracii mohou pomoci pochopit, jaké procesy jsou dnes nutné, aby demokracie splnila své sliby všem.",
+          "p2": "Projekt je výsledkem spolupráce 12 partnerů z 10 evropských zemí a koordinují jej Evens Foundation s financováním Evropské komise."
+        }
       }
     }
   }
 }
-
-}
-
-

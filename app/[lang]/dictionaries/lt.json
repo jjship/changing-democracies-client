@@ -51,7 +51,7 @@
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Evens Foundation",
+        "organisation": "Evens Foundation - Project Coordinator",
         "members": [
           "Caroline Coosemans",
           "Marjolein Delvou",
@@ -141,7 +141,7 @@
     "title": "Mokslinė publikacija",
     "subtitle": "Changing Democracies: liudijimų galia demokratiniam ugdymui",
     "lead": "Kokią prasmę jauni žmonės suteikia liudijimams apie gyvenimą diktatūroje ir perėjimo patirtis? Kaip jie mokosi ne tik apie šias istorijas, bet ir iš jų – sau tinkančiomis sąlygomis ir ką apie tai kalba? Svarstant apie Changing Democracies tikslus, kyla dar vienas klausimas: ar mokymasis apie diktatūrą skatina jaunus žmones kritiškai mąstyti apie demokratiją ir taiką? Jei taip - kaip ir kokiais būdais?",
-    "p1": "Šiame leidinyje pristatomi šešių projekto partnerių tyrimų ataskaitos, kuriose aprašoma, kaip jauni žmonės įsitraukė į liudijimų analizę vietiniuose švietimo projektuose. Nors tyrimai buvo grindžiami tais pačiais klausimais, šešios atvejų studijos apėmė įvairias metodikas – nuo tradicinių diskusijų iki internetinių mokymosi platformų ir meno metodų, tokių kaip iliustracijos ir teatras, panaudojimo. Jos taip pat atspindėjo ir skirtingus kultūrinius kontekstus – nuo Ispanijos ir Portugalijos, Čekijos ir Lenkijos iki Nyderlandų ir Flandrijos (Belgija).",  
+    "p1": "Šiame leidinyje pristatomi šešių projekto partnerių tyrimų ataskaitos, kuriose aprašoma, kaip jauni žmonės įsitraukė į liudijimų analizę vietiniuose švietimo projektuose. Nors tyrimai buvo grindžiami tais pačiais klausimais, šešios atvejų studijos apėmė įvairias metodikas – nuo tradicinių diskusijų iki internetinių mokymosi platformų ir meno metodų, tokių kaip iliustracijos ir teatras, panaudojimo. Jos taip pat atspindėjo ir skirtingus kultūrinius kontekstus – nuo Ispanijos ir Portugalijos, Čekijos ir Lenkijos iki Nyderlandų ir Flandrijos (Belgija).",
     "download": "Atsisiųskite leidinį čia"
   },
   "travellingWorkshop": {
@@ -154,103 +154,100 @@
     "p5": "Jei norite surengti keliaujančias dirbtuvės, susisiekite su mumis."
   },
   "scrollDocumentary": {
-  "slides": {
-    "slide_0": {
-      "additionalContent": {
-        "scroll": "Slinkti",
-        "documentary": "Dokumentinis filmas"
-      }
-    },
-    "slide_1": {
-      "additionalContent": {
-        "is_democracy": "Ar demokratija",
-        "worth": "verta",
-        "the_trouble": "pastangų?"
-      }
-    },
-    "slide_2": {
-      "additionalContent": {
-        "democracy": "Demokratija",
-        "equality": "Lygybė",
-        "freedom": "Laisvė",
-        "honesty": "Sąžiningumas",
-        "love": "Meilė",
-        "conflict": "Konfliktas",
-        "safety": "Saugumas",
-        "justice": "Teisingumas"
-      }
-    },
-    "slide_3": {
-      "additionalContent": {
-        "about_the_project": "Apie projektą",
-        "democracy_failed_us": "Demokratija mus nuvylė",
-        "democracy_is_in_crisis": "Demokratija išgyvena krizę",
-        "we_need_to_defend_democracy": "Mes privalome ginti demokratiją",
-        "authoritarianism_is_on_the_rise": "Autoritarizmas stiprėja",
-        "democratic_institutions_are_in_decline": "Demokratinės institucijos silpsta",
-        "you_know_these_phrases": "Jūs žinote šias frazes",
-        "you_ve_heard_them_over_and_over": "Jūs jas girdėjote daugybę kartų",
-        "but_what_lies_beyond_this_gloomy_picture": "Tačiau kas slypi už šio niūraus paveikslo?",
-        "there_are_people_around_us_who_know": "Aplink mus yra žmonių, kurie žino",
-        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Jie patys patyrė, koks yra gyvenimas skirtingose politinėse sistemose",
-        "they_have_lived_through_times_of_transition": "Jie išgyveno pereinamuosius laikotarpius",
-        "so_we_asked_them": "Tad mes jų paklausėme:",
-        "is_democracy_worth_the_trouble": "Ar demokratija verta pastangų?",
-        "they_shared_their_fears_their_hopes_their_disillusions": "Jie pasidalijo savo baimėmis, viltimis ir nusivylimais",
-        "their_stories": "Jų istorijos",
-        "changing_democracies_brings_you_their_wisdom": "Changing Democracies suteikia jums jų išmintį",
-        "we_learnt": "Mes išmokome:",
-        "that_it_pays_to_move_beyond_historical_facts": "Kad verta žengti toliau nei istoriniai faktai",
-        "that_democracy_is_never_finished": "Kad demokratija niekada nėra užbaigta",
-        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Kad vienintelis kelias pirmyn yra kartu įveikti jos iššūkius",
-        "dont_take_our_word_for_it_see_for_yourself": "Netikėkite mūsų žodžiais – įsitikinkite patys."
-      }
-    },
-    "slide_4": {
-      "title": "Žvilgsnis atgal"
-    },
-    "slide_5": {
-      "title": "Pereinamoji būsena"
-    },
-    "slide_6": {
-      "title": "Ar mano demokratija yra jūsų demokratija?"
-    },
-    "slide_8": {
-      "title": "Realybės patikra"
-    },
-    "slide_9": {
-      "title": "Asmeniška yra politiška"
-    },
-    "slide_10": {
-      "title": "Praeitis Dabartis Ateitis"
-    },
-    "slide_11": {
-      "title": "Susiburkime"
-    },
-    "slide_12": {
-      "title": "Atsargiai"
-    },
-    "slide_13": {
-      "title": "Kelkim triukšmą"
-    },
-    "slide_14": {
-      "title": "Mūsų eilė"
-    },
-    "slide_15": {
-      "additionalContent": {
-        "credits": "Kreditai",
-        "script": "Scenarijus",
-        "visuals": "Vaizdai",
-        "development": "Vystymas",
-        "music": "Muzika",
-        "Changing_Democracies": "Changing Democracies",
-        "p1": "tiria, kaip gyvoji Europos istorija apie nesenas demokratijos transformacijas gali padėti mums suprasti, kokių procesų šiandien reikia, kad demokratija išpildytų savo pažadus visiems.",
-        "p2": "Projektas yra 12 partnerių iš 10 Europos šalių bendradarbiavimo rezultatas, koordinuojamas Evens Foundation bei finansuojamas Europos Komisijos."
+    "slides": {
+      "slide_0": {
+        "additionalContent": {
+          "scroll": "Slinkti",
+          "documentary": "Dokumentinis filmas"
+        }
+      },
+      "slide_1": {
+        "additionalContent": {
+          "is_democracy": "Ar demokratija",
+          "worth": "verta",
+          "the_trouble": "pastangų?"
+        }
+      },
+      "slide_2": {
+        "additionalContent": {
+          "democracy": "Demokratija",
+          "equality": "Lygybė",
+          "freedom": "Laisvė",
+          "honesty": "Sąžiningumas",
+          "love": "Meilė",
+          "conflict": "Konfliktas",
+          "safety": "Saugumas",
+          "justice": "Teisingumas"
+        }
+      },
+      "slide_3": {
+        "additionalContent": {
+          "about_the_project": "Apie projektą",
+          "democracy_failed_us": "Demokratija mus nuvylė",
+          "democracy_is_in_crisis": "Demokratija išgyvena krizę",
+          "we_need_to_defend_democracy": "Mes privalome ginti demokratiją",
+          "authoritarianism_is_on_the_rise": "Autoritarizmas stiprėja",
+          "democratic_institutions_are_in_decline": "Demokratinės institucijos silpsta",
+          "you_know_these_phrases": "Jūs žinote šias frazes",
+          "you_ve_heard_them_over_and_over": "Jūs jas girdėjote daugybę kartų",
+          "but_what_lies_beyond_this_gloomy_picture": "Tačiau kas slypi už šio niūraus paveikslo?",
+          "there_are_people_around_us_who_know": "Aplink mus yra žmonių, kurie žino",
+          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Jie patys patyrė, koks yra gyvenimas skirtingose politinėse sistemose",
+          "they_have_lived_through_times_of_transition": "Jie išgyveno pereinamuosius laikotarpius",
+          "so_we_asked_them": "Tad mes jų paklausėme:",
+          "is_democracy_worth_the_trouble": "Ar demokratija verta pastangų?",
+          "they_shared_their_fears_their_hopes_their_disillusions": "Jie pasidalijo savo baimėmis, viltimis ir nusivylimais",
+          "their_stories": "Jų istorijos",
+          "changing_democracies_brings_you_their_wisdom": "Changing Democracies suteikia jums jų išmintį",
+          "we_learnt": "Mes išmokome:",
+          "that_it_pays_to_move_beyond_historical_facts": "Kad verta žengti toliau nei istoriniai faktai",
+          "that_democracy_is_never_finished": "Kad demokratija niekada nėra užbaigta",
+          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Kad vienintelis kelias pirmyn yra kartu įveikti jos iššūkius",
+          "dont_take_our_word_for_it_see_for_yourself": "Netikėkite mūsų žodžiais – įsitikinkite patys."
+        }
+      },
+      "slide_4": {
+        "title": "Žvilgsnis atgal"
+      },
+      "slide_5": {
+        "title": "Pereinamoji būsena"
+      },
+      "slide_6": {
+        "title": "Ar mano demokratija yra jūsų demokratija?"
+      },
+      "slide_8": {
+        "title": "Realybės patikra"
+      },
+      "slide_9": {
+        "title": "Asmeniška yra politiška"
+      },
+      "slide_10": {
+        "title": "Praeitis Dabartis Ateitis"
+      },
+      "slide_11": {
+        "title": "Susiburkime"
+      },
+      "slide_12": {
+        "title": "Atsargiai"
+      },
+      "slide_13": {
+        "title": "Kelkim triukšmą"
+      },
+      "slide_14": {
+        "title": "Mūsų eilė"
+      },
+      "slide_15": {
+        "additionalContent": {
+          "credits": "Kreditai",
+          "script": "Scenarijus",
+          "visuals": "Vaizdai",
+          "development": "Vystymas",
+          "music": "Muzika",
+          "Changing_Democracies": "Changing Democracies",
+          "p1": "tiria, kaip gyvoji Europos istorija apie nesenas demokratijos transformacijas gali padėti mums suprasti, kokių procesų šiandien reikia, kad demokratija išpildytų savo pažadus visiems.",
+          "p2": "Projektas yra 12 partnerių iš 10 Europos šalių bendradarbiavimo rezultatas, koordinuojamas Evens Foundation bei finansuojamas Europos Komisijos."
+        }
       }
     }
   }
 }
-
-}
-
-

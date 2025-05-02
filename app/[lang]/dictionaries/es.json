@@ -50,7 +50,7 @@
         "link": "https://www.euroclio.eu/"
       },
       {
-        "organisation": "Evens Foundation",
+        "organisation": "Evens Foundation - Project Coordinator",
         "members": [
           "Caroline Coosemans",
           "Marjolein Delvou",
@@ -153,103 +153,100 @@
     "p5": "Si estás interesado/a en acoger la Exposición Itinerante, ponte en contacto con nosotros."
   },
   "scrollDocumentary": {
-  "slides": {
-    "slide_0": {
-      "additionalContent": {
-        "scroll": "Desplazar",
-        "documentary": "Documental"
-      }
-    },
-    "slide_1": {
-      "additionalContent": {
-        "is_democracy": "¿Vale la pena",
-        "worth": "la democracia",
-        "the_trouble": "el esfuerzo?"
-      }
-    },
-    "slide_2": {
-      "additionalContent": {
-        "democracy": "Democracia",
-        "equality": "Igualdad",
-        "freedom": "Libertad",
-        "honesty": "Honestidad",
-        "love": "Amor",
-        "conflict": "Conflicto",
-        "safety": "Seguridad",
-        "justice": "Justicia"
-      }
-    },
-    "slide_3": {
-      "additionalContent": {
-        "about_the_project": "Acerca del proyecto",
-        "democracy_failed_us": "La democracia nos falló",
-        "democracy_is_in_crisis": "La democracia está en crisis",
-        "we_need_to_defend_democracy": "Necesitamos defender la democracia",
-        "authoritarianism_is_on_the_rise": "El autoritarismo está aumentando",
-        "democratic_institutions_are_in_decline": "Las instituciones democráticas están en declive",
-        "you_know_these_phrases": "Conoces estas frases",
-        "you_ve_heard_them_over_and_over": "Las has escuchado una y otra vez",
-        "but_what_lies_beyond_this_gloomy_picture": "¿Pero qué hay más allá de este panorama sombrío?",
-        "there_are_people_around_us_who_know": "Hay personas a nuestro alrededor que lo saben",
-        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Han experimentado personalmente cómo es la vida bajo diferentes sistemas políticos",
-        "they_have_lived_through_times_of_transition": "Han vivido tiempos de transición",
-        "so_we_asked_them": "Así que les preguntamos:",
-        "is_democracy_worth_the_trouble": "¿Vale la pena la democracia?",
-        "they_shared_their_fears_their_hopes_their_disillusions": "Compartieron sus miedos, sus esperanzas, sus desilusiones",
-        "their_stories": "Sus historias",
-        "changing_democracies_brings_you_their_wisdom": "Changing Democracies te ofrece su sabiduría",
-        "we_learnt": "Aprendimos:",
-        "that_it_pays_to_move_beyond_historical_facts": "Que vale la pena ir más allá de los hechos históricos",
-        "that_democracy_is_never_finished": "Que la democracia nunca está acabada",
-        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Que enfrentar juntos sus desafíos es el único camino hacia adelante",
-        "dont_take_our_word_for_it_see_for_yourself": "No nos creas solo a nosotros, compruébalo tú mismo."
-      }
-    },
-    "slide_4": {
-      "title": "Mirando hacia atrás"
-    },
-    "slide_5": {
-      "title": "Estado de transición"
-    },
-    "slide_6": {
-      "title": "¿Mi democracia es tu democracia?"
-    },
-    "slide_8": {
-      "title": "Chequeo de realidad"
-    },
-    "slide_9": {
-      "title": "Lo personal es político"
-    },
-    "slide_10": {
-      "title": "Pasado Presente Futuro"
-    },
-    "slide_11": {
-      "title": "Unirse"
-    },
-    "slide_12": {
-      "title": "Cuidado"
-    },
-    "slide_13": {
-      "title": "Haz ruido"
-    },
-    "slide_14": {
-      "title": "Nuestro turno"
-    },
-    "slide_15": {
-      "additionalContent": {
-        "credits": "Créditos",
-        "script": "Guión",
-        "visuals": "Visuales",
-        "development": "Desarrollo",
-        "music": "Música",
-        "Changing_Democracies": "Changing Democracies",
-        "p1": "explora cómo la historia viva de Europa sobre las recientes transiciones hacia la democracia puede ayudarnos a comprender qué procesos son necesarios hoy para que la democracia cumpla sus promesas para todos.",
-        "p2": "El proyecto es el resultado de una colaboración entre 12 socios de 10 países europeos y está coordinado por la Fundación Evens con financiación de la Comisión Europea."
+    "slides": {
+      "slide_0": {
+        "additionalContent": {
+          "scroll": "Desplazar",
+          "documentary": "Documental"
+        }
+      },
+      "slide_1": {
+        "additionalContent": {
+          "is_democracy": "¿Vale la pena",
+          "worth": "la democracia",
+          "the_trouble": "el esfuerzo?"
+        }
+      },
+      "slide_2": {
+        "additionalContent": {
+          "democracy": "Democracia",
+          "equality": "Igualdad",
+          "freedom": "Libertad",
+          "honesty": "Honestidad",
+          "love": "Amor",
+          "conflict": "Conflicto",
+          "safety": "Seguridad",
+          "justice": "Justicia"
+        }
+      },
+      "slide_3": {
+        "additionalContent": {
+          "about_the_project": "Acerca del proyecto",
+          "democracy_failed_us": "La democracia nos falló",
+          "democracy_is_in_crisis": "La democracia está en crisis",
+          "we_need_to_defend_democracy": "Necesitamos defender la democracia",
+          "authoritarianism_is_on_the_rise": "El autoritarismo está aumentando",
+          "democratic_institutions_are_in_decline": "Las instituciones democráticas están en declive",
+          "you_know_these_phrases": "Conoces estas frases",
+          "you_ve_heard_them_over_and_over": "Las has escuchado una y otra vez",
+          "but_what_lies_beyond_this_gloomy_picture": "¿Pero qué hay más allá de este panorama sombrío?",
+          "there_are_people_around_us_who_know": "Hay personas a nuestro alrededor que lo saben",
+          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Han experimentado personalmente cómo es la vida bajo diferentes sistemas políticos",
+          "they_have_lived_through_times_of_transition": "Han vivido tiempos de transición",
+          "so_we_asked_them": "Así que les preguntamos:",
+          "is_democracy_worth_the_trouble": "¿Vale la pena la democracia?",
+          "they_shared_their_fears_their_hopes_their_disillusions": "Compartieron sus miedos, sus esperanzas, sus desilusiones",
+          "their_stories": "Sus historias",
+          "changing_democracies_brings_you_their_wisdom": "Changing Democracies te ofrece su sabiduría",
+          "we_learnt": "Aprendimos:",
+          "that_it_pays_to_move_beyond_historical_facts": "Que vale la pena ir más allá de los hechos históricos",
+          "that_democracy_is_never_finished": "Que la democracia nunca está acabada",
+          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Que enfrentar juntos sus desafíos es el único camino hacia adelante",
+          "dont_take_our_word_for_it_see_for_yourself": "No nos creas solo a nosotros, compruébalo tú mismo."
+        }
+      },
+      "slide_4": {
+        "title": "Mirando hacia atrás"
+      },
+      "slide_5": {
+        "title": "Estado de transición"
+      },
+      "slide_6": {
+        "title": "¿Mi democracia es tu democracia?"
+      },
+      "slide_8": {
+        "title": "Chequeo de realidad"
+      },
+      "slide_9": {
+        "title": "Lo personal es político"
+      },
+      "slide_10": {
+        "title": "Pasado Presente Futuro"
+      },
+      "slide_11": {
+        "title": "Unirse"
+      },
+      "slide_12": {
+        "title": "Cuidado"
+      },
+      "slide_13": {
+        "title": "Haz ruido"
+      },
+      "slide_14": {
+        "title": "Nuestro turno"
+      },
+      "slide_15": {
+        "additionalContent": {
+          "credits": "Créditos",
+          "script": "Guión",
+          "visuals": "Visuales",
+          "development": "Desarrollo",
+          "music": "Música",
+          "Changing_Democracies": "Changing Democracies",
+          "p1": "explora cómo la historia viva de Europa sobre las recientes transiciones hacia la democracia puede ayudarnos a comprender qué procesos son necesarios hoy para que la democracia cumpla sus promesas para todos.",
+          "p2": "El proyecto es el resultado de una colaboración entre 12 socios de 10 países europeos y está coordinado por la Fundación Evens con financiación de la Comisión Europea."
+        }
       }
     }
   }
 }
-
-}
-
-
