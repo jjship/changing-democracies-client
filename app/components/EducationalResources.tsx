@@ -3,23 +3,33 @@
 import { FC } from "react";
 import Title from "./Title";
 import { useTranslation } from "../[lang]/context/TranslationContext";
+import { Archivo_Narrow } from "next/font/google";
 
+const archivo_narrow = Archivo_Narrow({ weight: "600", subsets: ["latin"] });
 const EducationalResources: FC = () => {
   const { dictionary: dict } = useTranslation();
   return (
     <>
-      <Title text={dict.eduPack.title} theme="light" />
-      <div className="mdpy-5  md:w-8/12">
-        <h2 className="mb-4 text-lg font-bold">{dict.eduPack.subtitle}</h2>
-        <p className="mb-4 italic">{dict.eduPack.lead}</p>
+      <div className="w-4/5">
+        <Title text={dict.eduPack.title} theme="light" />
+      </div>
+
+      <div className="md:w-3/5">
+        <h2 className={`${archivo_narrow.className}  mb-4 text-2xl font-bold`}>
+          {dict.eduPack.subtitle}
+        </h2>
+        <p className="italic md:text-xl">{dict.eduPack.lead}</p>
+        <div className="mb-10 mt-2 h-[.4rem] w-16 bg-yellow_secondary"></div>
         <p className="mb-3">{dict.eduPack.p1}</p>
-        <p className="mb-3">{dict.eduPack.p2}</p>
-        <ul className="mb-3 list-inside list-disc">
+        <p className="hidden md:block">{dict.eduPack.p2}</p>
+        <ul className="mb-3 hidden list-inside list-disc md:block">
           {dict.eduPack.questions.map((question, index) => (
-            <li key={index}>{question}</li>
+            <li className="mb-0 ml-4" key={index}>
+              {question}
+            </li>
           ))}
         </ul>
-        <p className="mb-4">{dict.eduPack.p3}</p>
+        <p className="mb-6 hidden md:block">{dict.eduPack.p3}</p>
         <a
           href={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/edu/Educational_Resource_Pack_Eng.pdf`}
           className="inline-block rounded bg-darkRed px-4 py-2 text-white"
