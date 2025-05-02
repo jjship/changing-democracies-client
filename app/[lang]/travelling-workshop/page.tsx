@@ -1,13 +1,11 @@
-import Image from "next/image";
-import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { LangParam } from "@/types/langParam";
 import { NavigationContainer } from "@/components/navigation/NavigationContainer";
 import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "@/translation/TranslationContext";
 import { Section } from "@/components/Section";
-import TravellingWorkshop from "../../components/TravellingWorkshop";
-
+import TravellingWorkshop from "@/components/TravellingWorkshop";
+import PageFooter from "@/components/PageFooter";
 export default async function Travelling({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang);
 
@@ -22,11 +20,7 @@ export default async function Travelling({ params: { lang } }: LangParam) {
           <Section theme="light" id="edu-resources">
             <TravellingWorkshop />
           </Section>
-          <Image
-            src={logoDark}
-            alt="Co-funded by the EU logo"
-            className="m-3 h-auto w-[30%] md:mx-10 md:w-[15%]"
-          />
+          <PageFooter theme="light" />
         </div>
       </Suspense>
     </TranslationProvider>

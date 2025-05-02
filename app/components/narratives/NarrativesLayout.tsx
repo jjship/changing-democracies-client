@@ -12,7 +12,7 @@ import { useLanguageSelection } from "../scrollDocumentary/useLanguageSelection"
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 const archivo = Archivo({ subsets: ["latin"] });
 import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
-
+import PageFooter from "../PageFooter";
 const NarrativesLayout: FC<{
   narrationPaths: NarrationPath[];
   availableLanguageLabels: string[];
@@ -125,7 +125,7 @@ const NarrativesLayout: FC<{
         <div
           className={`transition-height z-20 mx-auto ${overflow} rounded-3xl bg-black_bg duration-1000 ease-linear md:w-[90vw] ${
             sectionPadding.x
-          } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-40px)]"}`}
+          } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-55px)]"}`}
         >
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
@@ -134,6 +134,11 @@ const NarrativesLayout: FC<{
             switchPath ? "sticky bottom-0 h-[40vh]" : "sticky bottom-0 h-[15vh]"
           }`}
         ></div>
+        {!currentPath && (
+          <div className="sticky bottom-0">
+            <PageFooter theme="light" />
+          </div>
+        )}
 
         <div
           className={`fixed transition-all duration-1000 ease-linear  ${

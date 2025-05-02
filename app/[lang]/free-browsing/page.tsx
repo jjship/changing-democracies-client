@@ -1,12 +1,10 @@
 import { cache } from "react";
 import { Suspense } from "react";
 import { TranslationProvider } from "../context/TranslationContext";
-import { CDLanguages, locales } from "@/utils/i18n/languages";
 import { LangParam } from "@/types/langParam";
 import { getDictionary } from "../dictionaries";
 import { fragmentsApi, FragmentsResponse } from "@/lib/cdApi";
 import { FreeBrowsingLayout } from "@/components/FreeBrowsingLayout";
-
 // Set this to true to disable caching for development testing
 const DISABLE_CACHE = false;
 
@@ -39,26 +37,21 @@ const getFragments = DISABLE_CACHE ? getUncachedFragments : getCachedFragments;
 // Loading component
 function FilmsLoading() {
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <div className="h-16 w-16 animate-spin rounded-full border-4 border-yellow_secondary border-t-transparent"></div>
-    </div>
+    <main>
+      <div className="flex h-screen w-full items-center justify-center bg-black text-white">
+        <div className="flex flex-col items-center">
+          <div className="mb-4 h-16 w-16 animate-spin rounded-full border-4 border-yellow_secondary border-t-transparent"></div>
+          <p>Loading fragments...</p>
+        </div>
+      </div>
+    </main>
   );
 }
 
 // Films content component with language handling
-async function FilmsContent({
-  languageCode,
-  lang,
-}: {
-  languageCode: string;
-  lang: string;
-}) {
-  const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
-  const fragmentsResponse = await getFragments(languageCode);
-
-  console.log(
-    `Fetched ${fragmentsResponse.data.length} fragments for language ${languageCode}`,
-  );
+async function FilmsContent({ params: { lang } }: LangParam) {
+  const dictionary = await getDictionary(lang);
+  const fragmentsResponse = await getFragments(lang);
 
   return (
     <TranslationProvider dictionary={dictionary}>
@@ -70,14 +63,12 @@ async function FilmsContent({
   );
 }
 
-export default async function FreeBrowsingPage({ params }: LangParam) {
-  const { lang } = params;
-  // Get the two-letter language code for the API
-  const languageCode = lang.toLowerCase().substring(0, 2);
-
+export default async function FreeBrowsingPage({
+  params: { lang },
+}: LangParam) {
   return (
     <Suspense fallback={<FilmsLoading />}>
-      <FilmsContent languageCode={languageCode} lang={lang} />
+      <FilmsContent params={{ lang }} />
     </Suspense>
   );
 }

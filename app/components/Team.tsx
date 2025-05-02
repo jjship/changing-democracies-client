@@ -6,7 +6,6 @@ import Title from "./Title";
 import knotOfArrows from "@/public/arrows_knot_no_bg.svg";
 import logoLight from "@/public/logo_light_no_bg.svg";
 import { useTranslation } from "../[lang]/context/TranslationContext";
-import { Dictionary } from "../[lang]/dictionaries";
 
 export type TeamEntry = {
   organisation: string;
@@ -41,11 +40,6 @@ export default function Team() {
         <div className="relative min-h-max">
           <div className="sticky top-20 mt-10">
             <Image src={knotOfArrows} alt="image of knotted arrows" />
-            <Image
-              src={logoLight}
-              alt="changing democracies logo"
-              className="mt-[8rem] md:max-w-[12rem]"
-            />
           </div>
         </div>
         <div className="md:w-full">

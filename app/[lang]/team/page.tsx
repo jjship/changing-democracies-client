@@ -8,6 +8,7 @@ import { TranslationProvider } from "../context/TranslationContext";
 import Team from "@/components/Team";
 import { Section } from "@/components/Section";
 import { CDLanguages } from "@/utils/i18n/languages";
+import PageFooter from "../../components/PageFooter";
 
 export default async function Home({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang as CDLanguages);
@@ -23,11 +24,7 @@ export default async function Home({ params: { lang } }: LangParam) {
           <Section theme="dark" id="team">
             <Team />
           </Section>
-          <Image
-            src={logoDark}
-            alt="Co-funded by the EU logo"
-            className="m-3 h-auto w-[30%] md:mx-10 md:w-[15%]"
-          />
+          <PageFooter theme="dark" />
         </div>
       </Suspense>
     </TranslationProvider>

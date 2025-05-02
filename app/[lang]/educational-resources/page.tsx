@@ -1,5 +1,3 @@
-import Image from "next/image";
-import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { LangParam } from "@/types/langParam";
 import { NavigationContainer } from "@/components/navigation/NavigationContainer";
 import { Suspense } from "react";
@@ -8,6 +6,7 @@ import { TranslationProvider } from "../context/TranslationContext";
 import { Section } from "@/components/Section";
 import EducationalResources from "../../components/EducationalResources";
 import { CDLanguages } from "@/utils/i18n/languages";
+import PageFooter from "@/components/PageFooter";
 
 export default async function EduResources({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang as CDLanguages);
@@ -23,11 +22,7 @@ export default async function EduResources({ params: { lang } }: LangParam) {
           <Section theme="light" id="edu-resources">
             <EducationalResources />
           </Section>
-          <Image
-            src={logoDark}
-            alt="changing democracies logo"
-            className="m-3 h-auto w-[30%] md:mx-10 md:w-[15%]"
-          />
+          <PageFooter theme="light" />
         </div>
       </Suspense>
     </TranslationProvider>

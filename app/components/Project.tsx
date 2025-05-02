@@ -3,7 +3,7 @@
 import Image from "next/image";
 import earshapedArrows from "@/public/arrows_ear_no_bg.svg";
 import fundedByEu from "@/public/EU_co-founded.svg";
-
+import evensDark from "@/public/logo_evens_black.svg";
 import { useTranslation } from "../[lang]/context/TranslationContext";
 
 export default function Project() {
@@ -17,8 +17,13 @@ export default function Project() {
         </div>
         <div>{dict.about.p1}</div>
         <div>{dict.about.p2}</div>
-        <div className="mx-[5.625rem]">
+        <div className="mx-[5.625rem] flex flex-col items-center justify-center gap-4">
           <Image src={fundedByEu} alt="funded by EU logo" />
+          <Image
+            src={evensDark}
+            alt="Evens Foundation logo"
+            className="h-auto w-[60%]"
+          />
         </div>
       </div>
       <MdProject />
@@ -42,6 +47,11 @@ function MdProject() {
           <div>{dict.about.p2}</div>
           <div className="mr-[10.4rem] flex w-1/2 gap-4">
             <Image src={fundedByEu} alt="funded by EU logo" />
+            <Image
+              src={evensDark}
+              alt="Evens Foundation logo"
+              className="h-auto w-[50%]"
+            />
           </div>
         </div>
       </div>
@@ -63,6 +73,11 @@ function XlProject() {
           <div>
             <div className="mr-[10.4rem] flex flex-col gap-10">
               <Image src={fundedByEu} alt="funded by EU logo" />
+              <Image
+                src={evensDark}
+                alt="Evens Foundation logo"
+                className="h-auto w-[60%]"
+              />
             </div>
           </div>
           <div>{dict.about.p1}</div>
