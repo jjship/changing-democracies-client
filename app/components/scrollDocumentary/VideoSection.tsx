@@ -7,7 +7,7 @@ import VideoPlayer from "./VideoPlayer";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import VideoPlayerFallback from "./VideoPlayerFallback";
 import { VideoSourceError } from "./videoSource";
-import { PageTheme, Subtitle } from "./slides/slides";
+import { PageTheme, Speaker } from "./slides/slides";
 import { Button } from "@/components/ui/button";
 import { Play, Pause } from "lucide-react";
 
@@ -20,7 +20,7 @@ interface VideoSectionProps {
   onReady?: () => void;
   selectedLanguageCode?: string;
   pageTheme: PageTheme;
-  speakers: Subtitle[];
+  speakers: Speaker[];
 }
 
 export default function VideoSection({

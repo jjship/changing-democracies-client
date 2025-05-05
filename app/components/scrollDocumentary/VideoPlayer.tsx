@@ -4,7 +4,7 @@ import useAdaptiveQuality from "./useAdaptiveQuality";
 import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
 import { getOptimalQuality } from "./videoSource";
 import useSubtitles from "./useSubtitles";
-import { PageTheme, Subtitle } from "./slides/slides";
+import { PageTheme, Speaker, getSpeakerText } from "./slides/slides";
 
 interface VideoPlayerProps {
   videoSource: VideoSource;
@@ -13,7 +13,7 @@ interface VideoPlayerProps {
   className?: string;
   selectedLanguageCode?: string;
   pageTheme: PageTheme;
-  speakers: Subtitle[];
+  speakers: Speaker[];
 }
 
 const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
@@ -124,7 +124,8 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           (speaker) =>
             currentTime >= speaker.start && currentTime <= speaker.end,
         );
-        setCurrentSpeaker(currentSpeakerSub?.text || "");
+
+        setCurrentSpeaker(getSpeakerText(currentSpeakerSub));
       };
 
       video.addEventListener("timeupdate", handleTimeUpdate);
