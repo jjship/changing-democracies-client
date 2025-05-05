@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { TranslationProvider } from "../context/TranslationContext";
 import { LangParam } from "@/types/langParam";
 import { getDictionary } from "../dictionaries";
-import { fragmentsApi, FragmentsResponse } from "@/lib/cdApi";
+import { fragmentsApi, FragmentsResponse } from "@/utils/cdApi";
 import { FreeBrowsingLayout } from "@/components/FreeBrowsingLayout";
 // Set this to true to disable caching for development testing
 const DISABLE_CACHE = false;

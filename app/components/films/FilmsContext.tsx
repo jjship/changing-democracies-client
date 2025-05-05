@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { ClientFragment, FragmentsResponse } from "@/lib/cdApi";
+import { ClientFragment, FragmentsResponse } from "@/utils/cdApi";
 
 type FilmsContextType = {
   fragments: ClientFragment[] | null;

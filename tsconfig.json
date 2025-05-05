@@ -23,7 +23,6 @@
       "@/*": ["./*", "./src/*"],
       "@/components/*": ["./app/components/*"],
       "@/types/*": ["./types/*"],
-      "@/lib/*": ["./lib/*"],
       "@/supabase/*": ["./supabase/*"],
       "@/auth/*": ["./app/auth/*"],
       "@/utils/*": ["./utils/*"],

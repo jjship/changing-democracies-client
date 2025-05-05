@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { parseSubtitles } from "../scrollDocumentary/subtitleParser";
-import { ClientFragment } from "@/lib/cdApi";
+import { ClientFragment } from "@/utils/cdApi";
 
 export type Subtitle = {
   start: number;

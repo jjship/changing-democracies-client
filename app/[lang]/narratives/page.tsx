@@ -1,5 +1,5 @@
 import NarrativesLayout from "@/components/narratives/NarrativesLayout";
-import { narrativesApi } from "@/lib/cdApi";
+import { narrativesApi } from "@/utils/cdApi";
 import { NarrationPath, VideoDbEntry } from "@/types/videosAndFilms";
 import { cache } from "react";
 import { Suspense } from "react";

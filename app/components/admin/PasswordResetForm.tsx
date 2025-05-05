@@ -14,7 +14,7 @@ import {
 } from "../ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
-import { baseUrl } from "@/lib/constants";
+import { baseUrl } from "@/utils/constants";
 import { editButton } from "./classNames";
 
 const formSchema = z.object({

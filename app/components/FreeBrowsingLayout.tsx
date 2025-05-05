@@ -4,7 +4,7 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { FreeBrowsing } from "@/components/FreeBrowsing";
 import { sectionPadding } from "./Section";
 import { CDLanguages } from "@/utils/i18n/languages";
-import { FragmentsResponse } from "@/lib/cdApi";
+import { FragmentsResponse } from "@/utils/cdApi";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 import PageFooter from "./PageFooter";
 
