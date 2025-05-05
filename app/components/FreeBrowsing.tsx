@@ -6,7 +6,7 @@ import { FilmsContext } from "./films/FilmsContext";
 import Title from "./Title";
 import ShowAllOrFilters from "./films/ShowAllOrFilters";
 import { FilmPlayer } from "./films/FilmPlayer";
-import { ClientFragment, FragmentsResponse } from "@/lib/cdApi";
+import { ClientFragment, FragmentsResponse } from "@/utils/cdApi";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 
 export { FreeBrowsing };

@@ -4,23 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import Title from "./Title";
 import knotOfArrows from "@/public/arrows_knot_no_bg.svg";
-import logoLight from "@/public/logo_light_no_bg.svg";
 import { useTranslation } from "../[lang]/context/TranslationContext";
-import { Dictionary } from "../[lang]/dictionaries";
 
 export type TeamEntry = {
   organisation: string;
   link: string;
   teamMembers: string[];
   country: string;
-};
-
-// Type for the team dictionary entries, needed for mapping from dictionary to TeamEntry
-type DictionaryTeamEntry = {
-  organisation: string;
-  members: string[];
-  country: string;
-  link: string;
 };
 
 export default function Team() {
@@ -41,11 +31,6 @@ export default function Team() {
         <div className="relative min-h-max">
           <div className="sticky top-20 mt-10">
             <Image src={knotOfArrows} alt="image of knotted arrows" />
-            <Image
-              src={logoLight}
-              alt="changing democracies logo"
-              className="mt-[8rem] md:max-w-[12rem]"
-            />
           </div>
         </div>
         <div className="md:w-full">

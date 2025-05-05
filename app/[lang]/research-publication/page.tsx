@@ -7,6 +7,7 @@ import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "@/translation/TranslationContext";
 import { Section } from "@/components/Section";
 import ResearchPublication from "@/components/ResearchPublication";
+import PageFooter from "../../components/PageFooter";
 
 export default async function EduResources({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang);
@@ -22,11 +23,7 @@ export default async function EduResources({ params: { lang } }: LangParam) {
           <Section theme="light" id="edu-resources">
             <ResearchPublication />
           </Section>
-          <Image
-            src={logoDark}
-            alt="Co-funded by the EU logo"
-            className="m-3 h-auto w-[30%] md:mx-10 md:w-[15%]"
-          />
+          <PageFooter theme="light" />
         </div>
       </Suspense>
     </TranslationProvider>

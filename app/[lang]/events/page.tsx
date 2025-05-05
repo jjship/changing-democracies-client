@@ -1,5 +1,3 @@
-import Image from "next/image";
-import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { LangParam } from "@/types/langParam";
 import { NavigationContainer } from "@/components/navigation/NavigationContainer";
 import { Suspense } from "react";
@@ -9,6 +7,7 @@ import { Section } from "@/components/Section";
 import Events from "@/components/Events";
 import { createClient } from "@/supabase/clients/server";
 import { parseDbEventEntries } from "../../content/event";
+import PageFooter from "../../components/PageFooter";
 
 export default async function Home({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang);
@@ -28,11 +27,7 @@ export default async function Home({ params: { lang } }: LangParam) {
           <Section theme="light" id="events">
             <Events futureEvents={futureEvents} pastEvents={pastEvents} />
           </Section>
-          <Image
-            src={logoDark}
-            alt="Co-funded by the EU logo"
-            className="m-3 h-auto w-[30%] md:mx-10 md:w-[15%]"
-          />
+          <PageFooter theme="light" />
         </div>
       </Suspense>
     </TranslationProvider>

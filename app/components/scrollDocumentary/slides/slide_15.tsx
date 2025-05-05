@@ -67,7 +67,7 @@ export const Slide15Content: FC = () => {
           <div className="pt-0 lg:pt-4 low:mt-0">
             <Image
               src={logoEvens}
-              alt="evens logo"
+              alt="Evens Foundation logo"
               className="h-10 w-auto -translate-x-4 md:h-16 lg:h-20 low:h-6 low:-translate-x-2"
             />
             <Image

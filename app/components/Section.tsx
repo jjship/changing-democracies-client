@@ -36,7 +36,6 @@ const Section: FC<{
 
   return (
     <section className={`relative ${bgColor} ${textColor}`}>
-      <div id={id} className={`absolute -top-16`}></div>
       <div
         className={`m-auto max-w-[23.125rem] md:max-w-[64rem] xl:max-w-[90rem] ${xPadding} ${yPadding}`}
       >

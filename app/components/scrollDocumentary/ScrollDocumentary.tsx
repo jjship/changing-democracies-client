@@ -24,7 +24,7 @@ export default function ScrollDocumentaryClient({
   const [isStarted, setIsStarted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [loadedSections, setLoadedSections] = useState<number[]>([0, 1]);
-  const { language } = useTranslation();
+  const { language, dictionary: dict } = useTranslation();
   const activeSlide = slidesWithSources[activeIndex];
   const pageTheme = activeSlide
     ? themeMapping[activeSlide.colorTheme]
@@ -159,12 +159,12 @@ export default function ScrollDocumentaryClient({
     slide: (typeof slidesWithSources)[number],
   ) => (
     <>
-      {slide.title && (
+      {slide.hasTitle && (
         <div className="absolute left-8 top-8 flex items-center justify-center">
           <h1
             className={`${archivoNarrow.className} bg-black_bg bg-opacity-70 px-2 py-1 text-left text-2xl font-bold text-yellow_secondary`}
           >
-            {slide.title}
+            {dict.scrollDocumentary.slides[slide.id].title}
           </h1>
         </div>
       )}

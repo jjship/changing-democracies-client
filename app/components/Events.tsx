@@ -44,7 +44,7 @@ function EventsList(props: { isFuture: boolean; events: ParsedEventEntry[] }) {
           {isFuture ? "upcoming" : ""}
         </p>
       </div>
-      <div className="flex gap-[.938em] overflow-x-auto	md:flex-wrap md:gap-x-6 md:gap-y-20 xl:gap-x-40">
+      <div className="flex gap-[.938em] overflow-x-auto md:gap-x-6 md:gap-y-20 xl:gap-x-40">
         {events.map((event, index) => {
           return (
             <EventEntryComponent

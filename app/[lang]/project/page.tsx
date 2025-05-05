@@ -2,25 +2,25 @@ import { LangParam } from "@/types/langParam";
 import { NavigationContainer } from "@/components/navigation/NavigationContainer";
 import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
-import { TranslationProvider } from "@/translation/TranslationContext";
+import { TranslationProvider } from "../context/TranslationContext";
 import { Section } from "@/components/Section";
-import TravellingWorkshop from "@/components/TravellingWorkshop";
-import PageFooter from "@/components/PageFooter";
-export default async function Travelling({ params: { lang } }: LangParam) {
-  const dictionary = await getDictionary(lang);
+import { CDLanguages } from "@/utils/i18n/languages";
+import Project from "@/components/Project";
+
+export default async function ProjectPage({ params: { lang } }: LangParam) {
+  const dictionary = await getDictionary(lang as CDLanguages);
 
   return (
     <TranslationProvider dictionary={dictionary}>
       <Suspense>
-        <div className="flex min-h-screen flex-col justify-between bg-purple_lightest_bg">
+        <div className="flex h-screen flex-col bg-purple_lightest_bg">
           <NavigationContainer
             fontColor="black_bg"
             bgColor="purple_lightest_bg"
           />
-          <Section theme="light" id="edu-resources">
-            <TravellingWorkshop />
+          <Section theme="light" id="project">
+            <Project />
           </Section>
-          <PageFooter theme="light" />
         </div>
       </Suspense>
     </TranslationProvider>

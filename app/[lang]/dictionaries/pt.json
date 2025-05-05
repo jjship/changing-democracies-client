@@ -5,10 +5,10 @@
     "nonLinearNarratives": "Narrativas não lineares",
     "freeBrowsing": "Navegação livre",
     "project": "Projeto",
-    "team": "Equipe",
+    "team": "Equipa",
     "events": "Eventos",
-    "educationalResources": "Pacote de recursos educativos",
-    "researchPublication": "Publicação de investigação",
+    "educationalResources": "Recursos educativos",
+    "researchPublication": "Investigação - Publicação",
     "travellingWorkshop": "Oficina itinerante",
     "contact": "Contacto"
   },
@@ -152,103 +152,101 @@
     "p4": "A Oficina Itinerante está disponível em 10 línguas (CZ, EL, EN, ES, HR, LT, NL, PL, PT, RO).",
     "p5": "Se quiser sediar a Oficina Itinerante, entre em contacto."
   },
- "scrollDocumentary": {
-  "slides": {
-    "slide_0": {
-      "additionalContent": {
-        "scroll": "Rolar",
-        "documentary": "Documentário"
-      }
-    },
-    "slide_1": {
-      "additionalContent": {
-        "is_democracy": "A democracia",
-        "worth": "vale",
-        "the_trouble": "o esforço?"
-      }
-    },
-    "slide_2": {
-      "additionalContent": {
-        "democracy": "Democracia",
-        "equality": "Igualdade",
-        "freedom": "Liberdade",
-        "honesty": "Honestidade",
-        "love": "Amor",
-        "conflict": "Conflito",
-        "safety": "Segurança",
-        "justice": "Justiça"
-      }
-    },
-    "slide_3": {
-      "additionalContent": {
-        "about_the_project": "Sobre o projeto",
-        "democracy_failed_us": "A democracia falhou connosco",
-        "democracy_is_in_crisis": "A democracia está em crise",
-        "we_need_to_defend_democracy": "Precisamos defender a democracia",
-        "authoritarianism_is_on_the_rise": "O autoritarismo está a aumentar",
-        "democratic_institutions_are_in_decline": "As instituições democráticas estão em declínio",
-        "you_know_these_phrases": "Você conhece estas frases",
-        "you_ve_heard_them_over_and_over": "Você já as ouviu várias vezes",
-        "but_what_lies_beyond_this_gloomy_picture": "Mas o que há além deste cenário sombrio?",
-        "there_are_people_around_us_who_know": "Há pessoas à nossa volta que sabem",
-        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Elas experimentaram em primeira mão como é a vida em diferentes sistemas políticos",
-        "they_have_lived_through_times_of_transition": "Elas viveram períodos de transição",
-        "so_we_asked_them": "Então perguntamos-lhes:",
-        "is_democracy_worth_the_trouble": "A democracia vale o esforço?",
-        "they_shared_their_fears_their_hopes_their_disillusions": "Elas partilharam os seus medos, as suas esperanças, as suas desilusões",
-        "their_stories": "As suas histórias",
-        "changing_democracies_brings_you_their_wisdom": "Changing Democracies traz-lhe a sua sabedoria",
-        "we_learnt": "Aprendemos:",
-        "that_it_pays_to_move_beyond_historical_facts": "Que vale a pena ir além dos factos históricos",
-        "that_democracy_is_never_finished": "Que a democracia nunca está concluída",
-        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Que enfrentar juntos os seus desafios é o único caminho",
-        "dont_take_our_word_for_it_see_for_yourself": "Não acredite apenas na nossa palavra—veja por si próprio."
-      }
-    },
-    "slide_4": {
-      "title": "Olhando para trás"
-    },
-    "slide_5": {
-      "title": "Estado de transição"
-    },
-    "slide_6": {
-      "title": "A minha democracia é a sua democracia?"
-    },
-    "slide_8": {
-      "title": "Confronto com a realidade"
-    },
-    "slide_9": {
-      "title": "O pessoal é político"
-    },
-    "slide_10": {
-      "title": "Passado Presente Futuro"
-    },
-    "slide_11": {
-      "title": "Unir forças"
-    },
-    "slide_12": {
-      "title": "Atenção"
-    },
-    "slide_13": {
-      "title": "Fazer barulho"
-    },
-    "slide_14": {
-      "title": "É a nossa vez"
-    },
-    "slide_15": {
-      "additionalContent": {
-        "credits": "Créditos",
-        "script": "Roteiro",
-        "visuals": "Visuais",
-        "development": "Desenvolvimento",
-        "music": "Música",
-        "Changing_Democracies": "Changing Democracies",
-        "p1": "explora como a história viva da Europa sobre as recentes transições para a democracia pode ajudar-nos a entender quais os processos necessários hoje para que a democracia cumpra as suas promessas para todos.",
-        "p2": "O projeto resulta de uma colaboração entre 12 parceiros de 10 países europeus e é coordenado pela Evens Foundation com financiamento da Comissão Europeia."
+  "scrollDocumentary": {
+    "slides": {
+      "slide_0": {
+        "additionalContent": {
+          "scroll": "Ver",
+          "documentary": "Documentário"
+        }
+      },
+      "slide_1": {
+        "additionalContent": {
+          "is_democracy": "A democracia",
+          "worth": "vale",
+          "the_trouble": "o esforço?"
+        }
+      },
+      "slide_2": {
+        "additionalContent": {
+          "democracy": "Democracia",
+          "equality": "Igualdade",
+          "freedom": "Liberdade",
+          "honesty": "Honestidade",
+          "love": "Amor",
+          "conflict": "Conflito",
+          "safety": "Segurança",
+          "justice": "Justiça"
+        }
+      },
+      "slide_3": {
+        "additionalContent": {
+          "about_the_project": "Sobre o projeto",
+          "democracy_failed_us": "A democracia falhou connosco",
+          "democracy_is_in_crisis": "A democracia está em crise",
+          "we_need_to_defend_democracy": "Precisamos defender a democracia",
+          "authoritarianism_is_on_the_rise": "O autoritarismo está a aumentar",
+          "democratic_institutions_are_in_decline": "As instituições democráticas estão em declínio",
+          "you_know_these_phrases": "Você conhece estas frases",
+          "you_ve_heard_them_over_and_over": "Você já as ouviu várias vezes",
+          "but_what_lies_beyond_this_gloomy_picture": "Mas o que há além deste cenário sombrio?",
+          "there_are_people_around_us_who_know": "Há pessoas à nossa volta que sabem",
+          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Elas experimentaram em primeira mão como é a vida em diferentes sistemas políticos",
+          "they_have_lived_through_times_of_transition": "Elas viveram períodos de transição",
+          "so_we_asked_them": "Então perguntamos-lhes:",
+          "is_democracy_worth_the_trouble": "A democracia vale o esforço?",
+          "they_shared_their_fears_their_hopes_their_disillusions": "Elas partilharam os seus medos, as suas esperanças, as suas desilusões",
+          "their_stories": "As suas histórias",
+          "changing_democracies_brings_you_their_wisdom": "Changing Democracies traz-lhe a sua sabedoria",
+          "we_learnt": "Aprendemos:",
+          "that_it_pays_to_move_beyond_historical_facts": "Que vale a pena ir além dos factos históricos",
+          "that_democracy_is_never_finished": "Que a democracia nunca está concluída",
+          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Que enfrentar juntos os seus desafios é o único caminho",
+          "dont_take_our_word_for_it_see_for_yourself": "Não acredite apenas na nossa palavra—veja por si próprio."
+        }
+      },
+      "slide_4": {
+        "title": "Olhando para trás"
+      },
+      "slide_5": {
+        "title": "Estado de transição"
+      },
+      "slide_6": {
+        "title": "A minha democracia é a sua democracia?"
+      },
+      "slide_8": {
+        "title": "Confronto com a realidade"
+      },
+      "slide_9": {
+        "title": "O pessoal é político"
+      },
+      "slide_10": {
+        "title": "Passado Presente Futuro"
+      },
+      "slide_11": {
+        "title": "Unir forças"
+      },
+      "slide_12": {
+        "title": "Atenção"
+      },
+      "slide_13": {
+        "title": "Fazer barulho"
+      },
+      "slide_14": {
+        "title": "É a nossa vez"
+      },
+      "slide_15": {
+        "additionalContent": {
+          "credits": "Créditos",
+          "script": "Roteiro",
+          "visuals": "Visuais",
+          "development": "Desenvolvimento",
+          "music": "Música",
+          "Changing_Democracies": "Changing Democracies",
+          "p1": "explora como a história viva da Europa sobre as recentes transições para a democracia pode ajudar-nos a entender quais os processos necessários hoje para que a democracia cumpra as suas promessas para todos.",
+          "p2": "O projeto resulta de uma colaboração entre 12 parceiros de 10 países europeus e é coordenado pela Evens Foundation com financiamento da Comissão Europeia."
+        }
       }
     }
   }
 }
-}
-
-
