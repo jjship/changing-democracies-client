@@ -5,7 +5,7 @@ import { useFilmsContext } from "@/components/films/FilmsContext";
 export const StoriesFilmPlayer: FC = () => {
   const { nowPlaying } = useFilmsContext();
 
-  const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN`;
+  const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN&muted=false`;
 
   return (
     nowPlaying && (
