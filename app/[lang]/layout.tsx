@@ -2,7 +2,8 @@ import "@/app/globals.css";
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
 import { ReactNode } from "react";
-import { locales } from "@/utils/i18n/languages";
+import { CDLanguages, locales } from "@/utils/i18n/languages";
+import CookieConsent from "@/components/CookieConsent";
 const archivo = Archivo({ subsets: ["latin"] });
 
 export async function generateStaticParams() {
@@ -18,13 +19,16 @@ export default function RootLayout({
   params: { lang },
 }: {
   children: ReactNode;
-  params: { lang: string };
+  params: { lang: CDLanguages };
 }) {
   return (
-    <html lang={lang} suppressHydrationWarning>
-      <body className={`${archivo.className} bg-black_bg antialiased`}>
-        {children}
-      </body>
-    </html>
+    <>
+      <html lang={lang} suppressHydrationWarning>
+        <body className={`${archivo.className} bg-black_bg antialiased`}>
+          {children}
+        </body>
+      </html>
+      <CookieConsent lang={lang} />
+    </>
   );
 }
