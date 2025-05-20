@@ -49,15 +49,20 @@ function FilmsLoading() {
 }
 
 // Films content component with language handling
-async function FilmsContent({ params: { lang } }: LangParam) {
+async function FilmsContent({
+  params: { lang },
+  searchParams,
+}: LangParam & { searchParams: { id?: string } }) {
   const dictionary = await getDictionary(lang);
   const fragmentsResponse = await getFragments(lang);
+  const { id: fragmentId } = searchParams;
 
   return (
     <TranslationProvider dictionary={dictionary}>
       <FreeBrowsingLayout
         fragmentsResponse={fragmentsResponse}
         languageCode={lang}
+        initialFragmentId={fragmentId}
       />
     </TranslationProvider>
   );
@@ -65,10 +70,11 @@ async function FilmsContent({ params: { lang } }: LangParam) {
 
 export default async function FreeBrowsingPage({
   params: { lang },
-}: LangParam) {
+  searchParams,
+}: LangParam & { searchParams: { id?: string } }) {
   return (
     <Suspense fallback={<FilmsLoading />}>
-      <FilmsContent params={{ lang }} />
+      <FilmsContent params={{ lang }} searchParams={searchParams} />
     </Suspense>
   );
 }

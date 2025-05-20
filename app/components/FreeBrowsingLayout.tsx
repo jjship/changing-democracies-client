@@ -7,17 +7,15 @@ import { CDLanguages } from "@/utils/i18n/languages";
 import { FragmentsResponse } from "@/utils/cdApi";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 import PageFooter from "./PageFooter";
+import { FC } from "react";
 
-export function FreeBrowsingLayout({
-  fragmentsResponse,
-  languageCode,
-}: {
+export const FreeBrowsingLayout: FC<{
   fragmentsResponse: FragmentsResponse;
   languageCode: string;
-}) {
+  initialFragmentId?: string;
+}> = ({ fragmentsResponse, languageCode, initialFragmentId }) => {
   const { setLanguage } = useTranslation();
 
-  // Handle language change
   const handleLanguageChange = (newLang: string) => {
     setLanguage(newLang as CDLanguages);
   };
@@ -34,7 +32,10 @@ export function FreeBrowsingLayout({
         <div
           className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x} h-[calc(90vh-55px)] overflow-auto pb-5`}
         >
-          <FreeBrowsing fragmentsResponse={fragmentsResponse} />
+          <FreeBrowsing
+            fragmentsResponse={fragmentsResponse}
+            initialFragmentId={initialFragmentId}
+          />
         </div>
         <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary"></div>
         <div className="sticky bottom-0">
@@ -43,4 +44,4 @@ export function FreeBrowsingLayout({
       </div>
     </main>
   );
-}
+};

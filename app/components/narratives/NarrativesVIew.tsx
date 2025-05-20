@@ -7,6 +7,7 @@ import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlay
 import NarrativesViewButton from "@/components/narratives/NarrativesViewButton";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 import { NarrativesBioSidePanel } from "@/components/narratives/NarrativesBioSidePanel";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 const NarrativesView: FC = ({}) => {
   const {
@@ -22,6 +23,10 @@ const NarrativesView: FC = ({}) => {
     setShowSidePanel,
     selectedLanguage,
   } = useNarrativesContext();
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const titleContainerRef = useRef<HTMLDivElement>(null);
@@ -85,6 +90,13 @@ const NarrativesView: FC = ({}) => {
     setCurrentIndex(0);
     setIsPlaying(false);
     switchPath && setSwitchPath(false);
+
+    // Create new URLSearchParams with existing params
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("id");
+
+    // Update URL while preserving other parameters
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   const getTitleInLanguage = useMemo(

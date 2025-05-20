@@ -3,6 +3,7 @@ import { FC, useMemo } from "react";
 import { Box } from "@radix-ui/themes";
 import Image from "next/image";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 export { NarrativesList };
 
@@ -27,6 +28,9 @@ const images = [
 const NarrativesList: FC = () => {
   const { narrationPaths, setCurrentPath, setCurrentIndex, selectedLanguage } =
     useNarrativesContext();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const getDescriptionInLanguage = useMemo(
     () => (descriptions: { languageCode: string; description: string[] }[]) => {
@@ -49,17 +53,29 @@ const NarrativesList: FC = () => {
     [selectedLanguage],
   );
 
+  const handleNarrativeClick = (narrativePath: any, e: React.MouseEvent) => {
+    e.preventDefault();
+    setCurrentPath(narrativePath);
+    setCurrentIndex(0);
+
+    // Create new URLSearchParams with existing params
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("id", narrativePath.id);
+
+    // Update URL while preserving other parameters
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
   return (
     <div className="mt-[10vh] flex w-full flex-col items-center justify-center gap-8 md:gap-12">
       {narrationPaths?.map((narrativePath, index) => (
         <a
           key={index}
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPath(narrativePath);
-            setCurrentIndex(0);
-          }}
+          href={`${pathname}?${new URLSearchParams({
+            ...Object.fromEntries(searchParams.entries()),
+            id: narrativePath.id,
+          }).toString()}`}
+          onClick={(e) => handleNarrativeClick(narrativePath, e)}
           className="ml-40 block w-full"
           style={{ textDecoration: "none" }}
         >
@@ -89,10 +105,7 @@ const NarrativesList: FC = () => {
                   <div className="self-end">
                     <button
                       className="mr-2 inline-block h-12 w-12 md:h-12 md:w-12"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setCurrentPath(narrativePath);
-                      }}
+                      onClick={(e) => handleNarrativeClick(narrativePath, e)}
                     >
                       <Image
                         src="../watch video - icon.svg"

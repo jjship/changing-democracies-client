@@ -8,17 +8,24 @@ import ShowAllOrFilters from "./films/ShowAllOrFilters";
 import { FilmPlayer } from "./films/FilmPlayer";
 import { ClientFragment, FragmentsResponse } from "@/utils/cdApi";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 export { FreeBrowsing };
 
 const FreeBrowsing: FC<{
   fragmentsResponse: FragmentsResponse;
   title?: boolean;
-}> = ({ fragmentsResponse, title = true }) => {
+  initialFragmentId?: string;
+}> = ({ fragmentsResponse, title = true, initialFragmentId }) => {
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
-  const [nowPlaying, setNowPlaying] = useState<string | null>(null);
+  const [nowPlaying, setNowPlaying] = useState<string | null>(
+    () => initialFragmentId || null,
+  );
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
   const { dictionary } = useTranslation();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   // Initialize fragments with data when component mounts
   useEffect(() => {
@@ -26,6 +33,19 @@ const FreeBrowsing: FC<{
       setFragments(fragmentsResponse.data);
     }
   }, [fragmentsResponse, fragments]);
+
+  // Update URL when nowPlaying changes
+  useEffect(() => {
+    if (nowPlaying) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("id", nowPlaying);
+      router.push(`${pathname}?${params.toString()}`);
+    } else {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("id");
+      router.push(`${pathname}?${params.toString()}`);
+    }
+  }, [nowPlaying, pathname, router, searchParams]);
 
   return (
     <>
