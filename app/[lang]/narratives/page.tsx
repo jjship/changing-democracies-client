@@ -81,10 +81,21 @@ function NarrativesLoading() {
 }
 
 // Narratives content component
-async function NarrativesContent({ lang }: { lang: string }) {
+async function NarrativesContent({
+  lang,
+  narrativeId,
+}: {
+  lang: string;
+  narrativeId?: string;
+}) {
   const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
   const { narratives, availableLanguageLabels, initialLanguageLabel } =
     await getNarrativesWithCaptions({ lang });
+
+  // Find the selected narrative if an ID is provided
+  const selectedNarrative = narrativeId
+    ? narratives.find((n) => n.id === narrativeId) || null
+    : null;
 
   return (
     <TranslationProvider dictionary={dictionary}>
@@ -93,17 +104,23 @@ async function NarrativesContent({ lang }: { lang: string }) {
           narrationPaths={narratives}
           availableLanguageLabels={availableLanguageLabels}
           initialLanguageLabel={initialLanguageLabel}
+          initialNarrativeId={narrativeId}
         />
       </main>
     </TranslationProvider>
   );
 }
 
-export default function NarrativesPage({ params }: LangParam) {
+export default function NarrativesPage({
+  params,
+  searchParams,
+}: LangParam & { searchParams: { id?: string } }) {
   const { lang } = params;
+  const { id: narrativeId } = searchParams;
+
   return (
     <Suspense fallback={<NarrativesLoading />}>
-      <NarrativesContent lang={lang} />
+      <NarrativesContent lang={lang} narrativeId={narrativeId} />
     </Suspense>
   );
 }

@@ -17,10 +17,21 @@ const NarrativesLayout: FC<{
   narrationPaths: NarrationPath[];
   availableLanguageLabels: string[];
   initialLanguageLabel: string;
-}> = ({ narrationPaths, availableLanguageLabels, initialLanguageLabel }) => {
+  initialNarrativeId?: string;
+}> = ({
+  narrationPaths,
+  availableLanguageLabels,
+  initialLanguageLabel,
+  initialNarrativeId,
+}) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [currentPath, setCurrentPath] = useState<NarrationPath | null>(null);
+  const [currentPath, setCurrentPath] = useState<NarrationPath | null>(() => {
+    if (initialNarrativeId) {
+      return narrationPaths.find((n) => n.id === initialNarrativeId) || null;
+    }
+    return null;
+  });
   const [switchPath, setSwitchPath] = useState<boolean>(false);
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
 
