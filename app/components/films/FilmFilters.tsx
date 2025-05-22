@@ -61,6 +61,8 @@ function MultiSelectDropdown({
           variant="outline"
           role="combobox"
           aria-expanded={open}
+          aria-label={`Select ${category.name} tags`}
+          aria-controls={`${category.id}-tags-list`}
           className="min-h-10 h-auto w-full justify-between border-none bg-gray_light_secondary text-[0.4rem] font-semibold text-black transition-colors hover:bg-gray_light_secondary md:text-[0.5rem] md:font-bold lg:text-xs"
           onMouseEnter={() => setOpen(true)}
         >
@@ -79,21 +81,34 @@ function MultiSelectDropdown({
                     )?.id;
                     if (value) handleRemove(value);
                   }}
+                  aria-label={`Remove ${label} tag`}
                 >
                   {label}
-                  <X className="ml-1 h-3 w-3 text-black hover:text-black" />
+                  <X
+                    className="ml-1 h-3 w-3 text-black hover:text-black"
+                    aria-hidden="true"
+                  />
                 </Badge>
               ))
             ) : (
-              <span className="text-black">Select {category.name}...</span>
+              <span
+                className="text-black"
+                aria-label={`No ${category.name} tags selected`}
+              ></span>
             )}
           </div>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 text-black" />
+          <ChevronsUpDown
+            className="ml-2 h-4 w-4 shrink-0 text-black"
+            aria-hidden="true"
+          />
         </Button>
       </PopoverTrigger>
       <PopoverContent
         className="w-[var(--radix-popover-trigger-width)] border-none bg-gray_light_secondary p-0"
         onMouseLeave={() => setOpen(false)}
+        id={`${category.id}-tags-list`}
+        role="listbox"
+        aria-label={`${category.name} tags`}
       >
         <Command className="bg-gray_light_secondary">
           <CommandList>
@@ -109,6 +124,8 @@ function MultiSelectDropdown({
                     handleSelect(tag.id);
                   }}
                   className="text-[0.4rem] font-semibold text-black md:text-[0.5rem] md:font-bold lg:text-xs [&[data-highlighted]]:!bg-yellow_secondary"
+                  role="option"
+                  aria-selected={selectedTags.includes(tag.id)}
                 >
                   <Check
                     className={cn(
@@ -117,6 +134,7 @@ function MultiSelectDropdown({
                         ? "opacity-100"
                         : "opacity-0",
                     )}
+                    aria-hidden="true"
                   />
                   {tag.name}
                 </CommandItem>
@@ -188,11 +206,14 @@ export const FilmFilters: FC = () => {
   if (!fragmentsResponse || !tagCategoriesResponse) return null;
 
   return (
-    <div className="pb-8">
+    <div className="pb-8" role="region" aria-label="Story filters">
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {tagCategoriesResponse.tagCategories.map((category) => (
           <div key={category.id} className="w-full space-y-2">
-            <h3 className="text-lg font-medium text-yellow_secondary">
+            <h3
+              className="text-lg font-medium text-yellow_secondary"
+              id={`${category.id}-heading`}
+            >
               {category.name}
             </h3>
             <MultiSelectDropdown
