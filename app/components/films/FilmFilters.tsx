@@ -130,7 +130,7 @@ function MultiSelectDropdown({
 }
 
 export const FilmFilters: FC = () => {
-  const { fragments, setFragments, fragmentsResponse, tagCategoriesResponse } =
+  const { setFragments, fragmentsResponse, tagCategoriesResponse } =
     useFilmsContext();
   const [selectedTagsByCategory, setSelectedTagsByCategory] = useState<
     Record<string, string[]>
