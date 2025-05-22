@@ -62,6 +62,7 @@ function MultiSelectDropdown({
           role="combobox"
           aria-expanded={open}
           className="min-h-10 h-auto w-full justify-between border-none bg-gray_light_secondary text-[0.4rem] font-semibold text-black transition-colors hover:bg-gray_light_secondary md:text-[0.5rem] md:font-bold lg:text-xs"
+          onMouseEnter={() => setOpen(true)}
         >
           <div className="flex min-h-[1.6rem] flex-wrap items-center gap-1">
             {selectedLabels.length > 0 ? (
@@ -90,7 +91,10 @@ function MultiSelectDropdown({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 text-black" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[var(--radix-popover-trigger-width)] border-none bg-gray_light_secondary p-0">
+      <PopoverContent
+        className="w-[var(--radix-popover-trigger-width)] border-none bg-gray_light_secondary p-0"
+        onMouseLeave={() => setOpen(false)}
+      >
         <Command className="bg-gray_light_secondary">
           <CommandList>
             <CommandEmpty className="text-[0.4rem] font-semibold text-black md:text-[0.5rem] md:font-bold lg:text-xs">
@@ -188,7 +192,7 @@ export const FilmFilters: FC = () => {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {tagCategoriesResponse.tagCategories.map((category) => (
           <div key={category.id} className="w-full space-y-2">
-            <h3 className="text-sm font-medium text-yellow_secondary">
+            <h3 className="text-lg font-medium text-yellow_secondary">
               {category.name}
             </h3>
             <MultiSelectDropdown
