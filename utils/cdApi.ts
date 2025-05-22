@@ -172,3 +172,33 @@ const getApiConfig = (): ApiConfig => {
 
   return { baseUrl, apiKey };
 };
+
+export type TagCategory = {
+  id: string;
+  name: string;
+  tags: {
+    id: string;
+    name: string;
+  }[];
+};
+
+export type TagCategoriesResponse = {
+  tagCategories: TagCategory[];
+};
+
+export const tagCategoriesApi = {
+  async getTagCategories(languageCode: string): Promise<TagCategoriesResponse> {
+    try {
+      return await cdApiRequest<TagCategoriesResponse>({
+        endpoint: `/client-tag-categories?languageCode=${languageCode}`,
+        options: {
+          method: "GET",
+          next: { revalidate: 60 * 10 }, // 10 minutes cache
+        },
+      });
+    } catch (error) {
+      console.error("Error fetching tag categories:", error);
+      throw error;
+    }
+  },
+};

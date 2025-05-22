@@ -2,11 +2,15 @@
 
 import { FC, useState, useEffect } from "react";
 import FilmList from "./films/FilmList";
-import { FilmsContext } from "./films/FilmsContext";
+import { FilmsContextProvider } from "./films/FilmsContext";
 import Title from "./Title";
 import ShowAllOrFilters from "./films/ShowAllOrFilters";
 import { FilmPlayer } from "./films/FilmPlayer";
-import { ClientFragment, FragmentsResponse } from "@/utils/cdApi";
+import {
+  ClientFragment,
+  FragmentsResponse,
+  TagCategoriesResponse,
+} from "@/utils/cdApi";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
@@ -14,9 +18,15 @@ export { FreeBrowsing };
 
 const FreeBrowsing: FC<{
   fragmentsResponse: FragmentsResponse;
+  tagCategoriesResponse: TagCategoriesResponse;
   title?: boolean;
   initialFragmentId?: string;
-}> = ({ fragmentsResponse, title = true, initialFragmentId }) => {
+}> = ({
+  fragmentsResponse,
+  tagCategoriesResponse,
+  title = true,
+  initialFragmentId,
+}) => {
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(
     () => initialFragmentId || null,
@@ -57,16 +67,9 @@ const FreeBrowsing: FC<{
           alt={true}
         />
       )}
-      <FilmsContext.Provider
-        value={{
-          fragments,
-          setFragments,
-          fragmentsResponse,
-          nowPlaying,
-          setNowPlaying,
-          showSidePanel,
-          setShowSidePanel,
-        }}
+      <FilmsContextProvider
+        fragmentsResponse={fragmentsResponse}
+        tagCategoriesResponse={tagCategoriesResponse}
       >
         {fragmentsResponse ? (
           <>
@@ -77,7 +80,7 @@ const FreeBrowsing: FC<{
         ) : (
           <div className="h-full, bg-black_bg"></div>
         )}
-      </FilmsContext.Provider>
+      </FilmsContextProvider>
     </>
   );
 };

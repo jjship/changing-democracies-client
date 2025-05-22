@@ -3,7 +3,12 @@ import { Suspense } from "react";
 import { TranslationProvider } from "../context/TranslationContext";
 import { LangParam } from "@/types/langParam";
 import { getDictionary } from "../dictionaries";
-import { fragmentsApi, FragmentsResponse } from "@/utils/cdApi";
+import {
+  fragmentsApi,
+  FragmentsResponse,
+  tagCategoriesApi,
+  TagCategoriesResponse,
+} from "@/utils/cdApi";
 import { FreeBrowsingLayout } from "@/components/FreeBrowsingLayout";
 // Set this to true to disable caching for development testing
 const DISABLE_CACHE = false;
@@ -16,6 +21,13 @@ const getCachedFragments = cache(
       limit: 500, // Use a high limit to get all fragments
       disableCache: DISABLE_CACHE, // Pass the disable cache flag to the API
     });
+  },
+);
+
+// Cached version for tag categories
+const getCachedTagCategories = cache(
+  async (languageCode: string): Promise<TagCategoriesResponse> => {
+    return await tagCategoriesApi.getTagCategories(languageCode);
   },
 );
 
@@ -54,13 +66,17 @@ async function FilmsContent({
   searchParams,
 }: LangParam & { searchParams: { id?: string } }) {
   const dictionary = await getDictionary(lang);
-  const fragmentsResponse = await getFragments(lang);
+  const [fragmentsResponse, tagCategoriesResponse] = await Promise.all([
+    getFragments(lang),
+    getCachedTagCategories(lang),
+  ]);
   const { id: fragmentId } = searchParams;
 
   return (
     <TranslationProvider dictionary={dictionary}>
       <FreeBrowsingLayout
         fragmentsResponse={fragmentsResponse}
+        tagCategoriesResponse={tagCategoriesResponse}
         languageCode={lang}
         initialFragmentId={fragmentId}
       />

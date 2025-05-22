@@ -1,56 +1,36 @@
 "use client";
 
-import { FC, useEffect, useState, useMemo } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import { useFilmsContext } from "./FilmsContext";
+import { ClientTag, TagCategory } from "@/utils/cdApi";
 
-export { Filters, filterButtons, filterGrid };
-
-const filterGrid =
+export const filterGrid =
   "w-max-1/2 grid grid-flow-row grid-cols-4 gap-5 md:grid-cols-8 lg:grid-cols-8";
 
-const tagsGrid =
+export const tagsGrid =
   "w-max-ful grid grid-flow-row grid-cols-4 gap-5 md:grid-cols-8 lg:grid-cols-8";
 
-const filterButtons =
+export const filterButtons =
   "text-[0.4rem] font-semibold text-black transition-colors hover:bg-yellow_secondary md:text-[0.5rem] lg:text-xs md:font-bold";
 
-const Filters: FC = () => {
-  const { setFragments, fragmentsResponse } = useFilmsContext();
+export const FilmFilters: FC = () => {
+  const { fragments, setFragments, fragmentsResponse, tagCategoriesResponse } =
+    useFilmsContext();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // Extract unique tags from fragments data
-  const { tags } = useMemo(() => {
-    if (!fragmentsResponse?.data) {
-      return { tags: [] };
-    }
-
-    const uniqueTags = new Set<string>();
-
-    fragmentsResponse.data.forEach((fragment) => {
-      // Extract tags
-      if (fragment.tags && fragment.tags.length > 0) {
-        fragment.tags.forEach((tag) => {
-          if (tag.id) {
-            uniqueTags.add(tag.id);
-          }
-        });
-      }
-    });
-
-    return {
-      tags: Array.from(uniqueTags).sort(),
-    };
-  }, [fragmentsResponse]);
-
-  // Load saved filters from sessionStorage
+  // Load selected tags from sessionStorage on mount
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedTags = sessionStorage.getItem("tags");
-
-      if (storedTags) setSelectedTags(JSON.parse(storedTags));
+    const savedTags = sessionStorage.getItem("selectedTags");
+    if (savedTags) {
+      setSelectedTags(JSON.parse(savedTags));
     }
   }, []);
+
+  // Save selected tags to sessionStorage when they change
+  useEffect(() => {
+    sessionStorage.setItem("selectedTags", JSON.stringify(selectedTags));
+  }, [selectedTags]);
 
   // Apply filters when selection changes
   useEffect(() => {
@@ -66,68 +46,54 @@ const Filters: FC = () => {
       // Apply filters
       const filteredFragments = fragmentsResponse.data.filter((fragment) => {
         // Tag filter matching - require ALL selected tags to be present
-        const matchesTags =
-          !hasTagFilters ||
-          (fragment.tags &&
-            selectedTags.every((selectedTagId) => {
-              const hasTag = fragment.tags.some(
-                (tag) => tag.id === selectedTagId,
-              );
-
-              return hasTag;
-            }));
+        const matchesTags = selectedTags.every((selectedTagId) =>
+          fragment.tags.some((tag) => tag.id === selectedTagId),
+        );
 
         return matchesTags;
       });
 
       setFragments(filteredFragments);
     }
-
-    // Save filter selections to sessionStorage
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("tags", JSON.stringify(selectedTags));
-    }
   }, [selectedTags, fragmentsResponse, setFragments]);
 
-  return fragmentsResponse ? (
-    <>
-      {/* Tags filter section */}
-      {tags.length > 0 && (
-        <>
-          <div className="grid grid-flow-row grid-cols-4 gap-2 pb-6 md:grid-cols-9 lg:grid-cols-10">
-            {tags.map((tagId, i) => {
-              // Find the tag name for display
-              const tagName =
-                fragmentsResponse.data
-                  .find((fragment) =>
-                    fragment.tags.some((tag) => tag.id === tagId),
-                  )
-                  ?.tags.find((tag) => tag.id === tagId)?.name || tagId;
+  const handleTagClick = (tag: ClientTag) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag.id)
+        ? prev.filter((t) => t !== tag.id)
+        : [...prev, tag.id],
+    );
+  };
 
-              return (
+  if (!fragmentsResponse || !tagCategoriesResponse) return null;
+
+  return (
+    <div className="space-y-6">
+      <div className="space-y-4">
+        {tagCategoriesResponse.tagCategories.map((category: TagCategory) => (
+          <div key={category.id} className="space-y-2">
+            <h3 className="text-sm font-medium text-yellow_secondary">
+              {category.name}
+            </h3>
+            <div className={tagsGrid}>
+              {category.tags.map((tag) => (
                 <Button
-                  key={i}
-                  value={tagId}
+                  key={tag.id}
+                  value={tag.id}
                   className={`${
-                    selectedTags.includes(tagId)
-                      ? "bg-green_accent" // Use a distinct color for tags
+                    selectedTags.includes(tag.id)
+                      ? "bg-green_accent"
                       : "bg-gray_light_secondary"
                   } ${filterButtons}`}
-                  onClick={() => {
-                    selectedTags.includes(tagId)
-                      ? setSelectedTags(selectedTags.filter((t) => t !== tagId))
-                      : setSelectedTags([...selectedTags, tagId]);
-                  }}
+                  onClick={() => handleTagClick(tag)}
                 >
-                  {tagName}
+                  {tag.name}
                 </Button>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </>
-      )}
-    </>
-  ) : (
-    <div className="h-full, bg-black_bg"></div>
+        ))}
+      </div>
+    </div>
   );
 };

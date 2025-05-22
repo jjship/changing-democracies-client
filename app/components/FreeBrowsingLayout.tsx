@@ -4,16 +4,22 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { FreeBrowsing } from "@/components/FreeBrowsing";
 import { sectionPadding } from "./Section";
 import { CDLanguages } from "@/utils/i18n/languages";
-import { FragmentsResponse } from "@/utils/cdApi";
+import { FragmentsResponse, TagCategoriesResponse } from "@/utils/cdApi";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 import PageFooter from "./PageFooter";
 import { FC } from "react";
 
 export const FreeBrowsingLayout: FC<{
   fragmentsResponse: FragmentsResponse;
+  tagCategoriesResponse: TagCategoriesResponse;
   languageCode: string;
   initialFragmentId?: string;
-}> = ({ fragmentsResponse, languageCode, initialFragmentId }) => {
+}> = ({
+  fragmentsResponse,
+  tagCategoriesResponse,
+  languageCode,
+  initialFragmentId,
+}) => {
   const { setLanguage } = useTranslation();
 
   const handleLanguageChange = (newLang: string) => {
@@ -34,6 +40,7 @@ export const FreeBrowsingLayout: FC<{
         >
           <FreeBrowsing
             fragmentsResponse={fragmentsResponse}
+            tagCategoriesResponse={tagCategoriesResponse}
             initialFragmentId={initialFragmentId}
           />
         </div>

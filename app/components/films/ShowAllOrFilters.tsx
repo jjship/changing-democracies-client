@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useFilmsContext } from "./FilmsContext";
-import { Filters, filterButtons, filterGrid } from "./FilmFilters";
+import { FilmFilters, filterButtons, filterGrid } from "./FilmFilters";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 
 const ShowAllOrFilters: FC = () => {
@@ -33,7 +33,7 @@ const ShowAllOrFilters: FC = () => {
           ? dictionary.freeBrowsing.description
           : dictionary.freeBrowsing.explanation}
       </p>
-      {!showAll && <Filters />}
+      {!showAll && <FilmFilters />}
     </>
   );
 };
