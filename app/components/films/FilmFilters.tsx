@@ -8,7 +8,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/ui/command";
@@ -62,44 +61,41 @@ function MultiSelectDropdown({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="min-h-10 h-auto min-w-[200px] justify-between bg-gray_light_secondary"
+          className="min-h-10 h-auto w-full justify-between border-none bg-gray_light_secondary text-[0.4rem] font-semibold text-black transition-colors hover:bg-gray_light_secondary md:text-[0.5rem] md:font-bold lg:text-xs"
         >
-          <div className="flex flex-wrap gap-1">
+          <div className="flex min-h-[1.6rem] flex-wrap items-center gap-1">
             {selectedLabels.length > 0 ? (
               selectedLabels.map((label) => (
-                <Badge key={label} variant="secondary" className="mb-1 mr-1">
+                <Badge
+                  key={label}
+                  variant="secondary"
+                  className="mb-1 mr-1 cursor-pointer bg-yellow_secondary text-[0.4rem] font-semibold text-black hover:bg-darkRed md:text-[0.5rem] md:font-bold lg:text-xs"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const value = category.tags.find(
+                      (tag) => tag.name === label,
+                    )?.id;
+                    if (value) handleRemove(value);
+                  }}
+                >
                   {label}
-                  <button
-                    className="ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      const value = category.tags.find(
-                        (tag) => tag.name === label,
-                      )?.id;
-                      if (value) handleRemove(value);
-                    }}
-                  >
-                    <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
-                  </button>
+                  <X className="ml-1 h-3 w-3 text-black hover:text-black" />
                 </Badge>
               ))
             ) : (
-              <span className="text-muted-foreground">
-                Select {category.name}...
-              </span>
+              <span className="text-black">Select {category.name}...</span>
             )}
           </div>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 text-black" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput
-            placeholder={`Search ${category.name.toLowerCase()}...`}
-          />
+      <PopoverContent className="w-[var(--radix-popover-trigger-width)] border-none bg-gray_light_secondary p-0">
+        <Command className="bg-gray_light_secondary">
           <CommandList>
-            <CommandEmpty>No {category.name.toLowerCase()} found.</CommandEmpty>
+            <CommandEmpty className="text-[0.4rem] font-semibold text-black md:text-[0.5rem] md:font-bold lg:text-xs">
+              No {category.name.toLowerCase()} found.
+            </CommandEmpty>
             <CommandGroup>
               {category.tags.map((tag) => (
                 <CommandItem
@@ -108,6 +104,7 @@ function MultiSelectDropdown({
                   onSelect={() => {
                     handleSelect(tag.id);
                   }}
+                  className="text-[0.4rem] font-semibold text-black md:text-[0.5rem] md:font-bold lg:text-xs [&[data-highlighted]]:!bg-yellow_secondary"
                 >
                   <Check
                     className={cn(
@@ -187,10 +184,10 @@ export const FilmFilters: FC = () => {
   if (!fragmentsResponse || !tagCategoriesResponse) return null;
 
   return (
-    <div className="space-y-6">
+    <div className="pb-8">
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {tagCategoriesResponse.tagCategories.map((category) => (
-          <div key={category.id} className="space-y-2">
+          <div key={category.id} className="w-full space-y-2">
             <h3 className="text-sm font-medium text-yellow_secondary">
               {category.name}
             </h3>
@@ -201,35 +198,6 @@ export const FilmFilters: FC = () => {
             />
           </div>
         ))}
-      </div>
-
-      <div className="mt-8 rounded-lg border p-4">
-        <h3 className="mb-2 font-medium text-yellow_secondary">
-          Selected Tags:
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {Object.entries(selectedTagsByCategory).flatMap(
-            ([categoryId, tags]) =>
-              tags.map((tagId) => {
-                const category = tagCategoriesResponse.tagCategories.find(
-                  (cat) => cat.id === categoryId,
-                );
-                const tag = category?.tags.find((t) => t.id === tagId);
-                return (
-                  <Badge
-                    key={`${categoryId}-${tagId}`}
-                    variant="outline"
-                    className="bg-gray_light_secondary"
-                  >
-                    {tag?.name || tagId}
-                  </Badge>
-                );
-              }),
-          )}
-          {Object.values(selectedTagsByCategory).every(
-            (tags) => tags.length === 0,
-          ) && <span className="text-muted-foreground">No tags selected</span>}
-        </div>
       </div>
     </div>
   );
