@@ -1,6 +1,11 @@
 import { cache } from "react";
 import { Suspense } from "react";
-import { fragmentsApi, FragmentsResponse } from "@/utils/cdApi";
+import {
+  fragmentsApi,
+  FragmentsResponse,
+  tagCategoriesApi,
+  TagCategoriesResponse,
+} from "@/utils/cdApi";
 import { Stories } from "@/components/admin/stories/Stories";
 import { sectionPadding } from "@/components/Section";
 // Set this to true to disable caching for development testing
@@ -14,6 +19,13 @@ const getFragments = cache(
       limit: 500, // Use a high limit to get all fragments
       disableCache: DISABLE_CACHE, // Pass the disable cache flag to the API
     });
+  },
+);
+
+// Cached version for tag categories
+const getCachedTagCategories = cache(
+  async (languageCode: string): Promise<TagCategoriesResponse> => {
+    return await tagCategoriesApi.getTagCategories(languageCode);
   },
 );
 
@@ -33,9 +45,17 @@ function StoriesLoading() {
 
 // Films content component with language handling
 async function StoriesContent() {
-  const fragmentsResponse = await getFragments("en");
+  const [fragmentsResponse, tagCategoriesResponse] = await Promise.all([
+    getFragments("en"),
+    getCachedTagCategories("en"),
+  ]);
 
-  return <Stories fragmentsResponse={fragmentsResponse} />;
+  return (
+    <Stories
+      fragmentsResponse={fragmentsResponse}
+      tagCategoriesResponse={tagCategoriesResponse}
+    />
+  );
 }
 
 export default async function StoriesPage() {

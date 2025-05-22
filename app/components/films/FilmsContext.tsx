@@ -1,7 +1,11 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { ClientFragment, FragmentsResponse } from "@/utils/cdApi";
+import {
+  ClientFragment,
+  FragmentsResponse,
+  TagCategoriesResponse,
+} from "@/utils/cdApi";
 
 type FilmsContextType = {
   fragments: ClientFragment[] | null;
@@ -11,17 +15,21 @@ type FilmsContextType = {
   setNowPlaying: (fragmentId: string | null) => void;
   showSidePanel: boolean;
   setShowSidePanel: (show: boolean) => void;
+  tagCategoriesResponse: TagCategoriesResponse | null;
 };
 
 export const FilmsContext = createContext<FilmsContextType | null>(null);
 
 export function FilmsContextProvider({
   children,
+  fragmentsResponse,
+  tagCategoriesResponse,
 }: {
   children: React.ReactNode;
+  fragmentsResponse: FragmentsResponse;
+  tagCategoriesResponse: TagCategoriesResponse;
 }) {
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
-  const [fragmentsResponse] = useState<FragmentsResponse | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
 
@@ -35,6 +43,7 @@ export function FilmsContextProvider({
         setNowPlaying,
         showSidePanel,
         setShowSidePanel,
+        tagCategoriesResponse,
       }}
     >
       {children}

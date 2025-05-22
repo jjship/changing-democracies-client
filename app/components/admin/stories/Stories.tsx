@@ -3,7 +3,11 @@
 import { FC, useState, useEffect } from "react";
 import FilmList from "@/components/films/FilmList";
 import { FilmsContext } from "@/components/films/FilmsContext";
-import { ClientFragment, FragmentsResponse } from "@/utils/cdApi";
+import {
+  ClientFragment,
+  FragmentsResponse,
+  TagCategoriesResponse,
+} from "@/utils/cdApi";
 import { StoriesFilmPlayer } from "../storiesFilmPlayer";
 import StoriesShowAllOrFilters from "./StoriesShowAllOrFilters";
 
@@ -11,7 +15,8 @@ export { Stories };
 
 const Stories: FC<{
   fragmentsResponse: FragmentsResponse;
-}> = ({ fragmentsResponse }) => {
+  tagCategoriesResponse: TagCategoriesResponse;
+}> = ({ fragmentsResponse, tagCategoriesResponse }) => {
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(null);
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
@@ -30,6 +35,7 @@ const Stories: FC<{
           fragments,
           setFragments,
           fragmentsResponse,
+          tagCategoriesResponse,
           nowPlaying,
           setNowPlaying,
           showSidePanel,
