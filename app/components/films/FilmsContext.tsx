@@ -24,13 +24,17 @@ export function FilmsContextProvider({
   children,
   fragmentsResponse,
   tagCategoriesResponse,
+  initialFragmentId,
 }: {
   children: React.ReactNode;
   fragmentsResponse: FragmentsResponse;
   tagCategoriesResponse: TagCategoriesResponse;
+  initialFragmentId?: string;
 }) {
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
-  const [nowPlaying, setNowPlaying] = useState<string | null>(null);
+  const [nowPlaying, setNowPlaying] = useState<string | null>(
+    initialFragmentId || null,
+  );
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
 
   return (
