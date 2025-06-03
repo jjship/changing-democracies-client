@@ -2,7 +2,7 @@
 
 import { FC, useState, useEffect } from "react";
 import FilmList from "./films/FilmList";
-import { FilmsContextProvider } from "./films/FilmsContext";
+import { FilmsContext, FilmsContextProvider } from "./films/FilmsContext";
 import Title from "./Title";
 import ShowAllOrFilters from "./films/ShowAllOrFilters";
 import { FilmPlayer } from "./films/FilmPlayer";
@@ -67,9 +67,17 @@ const FreeBrowsing: FC<{
           alt={true}
         />
       )}
-      <FilmsContextProvider
-        fragmentsResponse={fragmentsResponse}
-        tagCategoriesResponse={tagCategoriesResponse}
+      <FilmsContext.Provider
+        value={{
+          fragments,
+          setFragments,
+          fragmentsResponse,
+          nowPlaying,
+          setNowPlaying,
+          showSidePanel,
+          setShowSidePanel,
+          tagCategoriesResponse,
+        }}
       >
         {fragmentsResponse ? (
           <>
@@ -80,7 +88,7 @@ const FreeBrowsing: FC<{
         ) : (
           <div className="h-full, bg-black_bg"></div>
         )}
-      </FilmsContextProvider>
+      </FilmsContext.Provider>
     </>
   );
 };
