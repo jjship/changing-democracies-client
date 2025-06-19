@@ -1,4 +1,4 @@
-export { locales, getSubtitlesUrl, DEFAULT_CD_LANG, getInitialLanguage };
+export { locales, getSubtitlesUrl, DEFAULT_CD_LANG };
 export type { CDLanguages };
 
 const DEFAULT_CD_LANG = "en";
@@ -33,40 +33,4 @@ function getSubtitlesUrl(
   const pullZoneUrl =
     process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE || "vz-cac74041-8b3";
   return `https://${pullZoneUrl}.b-cdn.net/${videoId}/captions/${languageCode}${suffix}.vtt`;
-}
-
-// Helper function to determine initial language based on various sources
-// Order of precedence: localStorage > browser language > default language
-function getInitialLanguage(): CDLanguages {
-  if (typeof window === "undefined") {
-    return DEFAULT_CD_LANG;
-  }
-
-  // Check localStorage first
-  const LANGUAGE_PREFERENCE_KEY = "changing-democracies-language";
-  const storedLanguage = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
-
-  if (storedLanguage) {
-    // Normalize the stored language code
-    const normalizedLang = storedLanguage.toLowerCase() as CDLanguages;
-    if (locales.includes(normalizedLang)) {
-      return normalizedLang;
-    }
-  }
-
-  // Try to match browser language
-  try {
-    const browserLang = navigator.language
-      .split("-")[0]
-      .toLowerCase() as CDLanguages;
-    if (browserLang && locales.includes(browserLang)) {
-      return browserLang;
-    }
-  } catch (error) {
-    console.error("Error getting browser language:", error);
-    // Continue to default if there's an error
-  }
-
-  // Default fallback
-  return DEFAULT_CD_LANG;
 }

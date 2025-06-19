@@ -8,13 +8,10 @@ import {
   useEffect,
 } from "react";
 import { Dictionary } from "../dictionaries";
-import { CDLanguages, DEFAULT_CD_LANG, locales } from "@/utils/i18n/languages";
+import { CDLanguages, locales } from "@/utils/i18n/languages";
 import { useRouter, useParams } from "next/navigation";
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
-import {
-  getCurrentLanguage,
-  updateRouteLanguage,
-} from "@/utils/i18n/routeUtils";
+import { LanguageService } from "@/utils/i18n/languageService";
+import { updateRouteLanguage } from "@/utils/i18n/routeUtils";
 
 type TranslationContextType = {
   dictionary: Dictionary;
@@ -36,46 +33,19 @@ export function TranslationProvider({
 }) {
   const params = useParams();
   const router = useRouter();
-  const currentLang = getCurrentLanguage(params);
+
+  // Use the simplified language service
+  const { language: currentLang } = LanguageService.getCurrentLanguage(params);
   const [currentDictionary, setCurrentDictionary] =
     useState<Dictionary>(dictionary);
 
-  // Load saved language preference when the component mounts
-  useEffect(() => {
-    // Check if we're in the browser environment
-    if (typeof window !== "undefined") {
-      const savedLanguage = localStorage.getItem(
-        LANGUAGE_PREFERENCE_KEY,
-      ) as CDLanguages | null;
-
-      // If there's a saved language and it's different from the current one, redirect
-      if (
-        savedLanguage &&
-        savedLanguage !== currentLang &&
-        availableLanguages.includes(savedLanguage)
-      ) {
-        const newPath = updateRouteLanguage(
-          window.location.pathname,
-          currentLang,
-          savedLanguage,
-        );
-        router.push(newPath);
-      } else {
-        // If no saved language or we're already on the correct language path, save the current language
-        localStorage.setItem(LANGUAGE_PREFERENCE_KEY, currentLang);
-      }
-    }
-  }, [currentLang, router, availableLanguages]);
+  // The middleware handles cookie setting automatically when routes change
+  // No need for manual localStorage management
 
   const setLanguage = (newLang: CDLanguages) => {
     if (newLang === currentLang) return;
 
-    // Save the language preference to localStorage
-    if (typeof window !== "undefined") {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, newLang);
-    }
-
-    // Navigate to the new language path using our utility
+    // Navigate to the new language path - middleware will set the cookie
     const newPath = updateRouteLanguage(
       window.location.pathname,
       currentLang,

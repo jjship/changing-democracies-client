@@ -14,7 +14,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CDLanguages, locales } from "@/utils/i18n/languages";
-import { getCurrentLanguage, getLocalizedRoute } from "@/utils/i18n/routeUtils";
+import { getLocalizedRoute } from "@/utils/i18n/routeUtils";
+import { LanguageService } from "@/utils/i18n/languageService";
 
 export { Navigation };
 
@@ -27,13 +28,13 @@ export type NavColor =
   | "black_scroll"
   | "gray_scroll";
 
-export type NavigationProps = {
-  bgColor?: NavColor;
-  fontColor?: NavColor;
+export interface NavigationProps {
+  bgColor?: string;
+  fontColor?: string;
   onLanguageChange?: (language: string) => void;
-  availableLanguages?: string[];
+  availableLanguages?: CDLanguages[];
   selectedLanguage?: string;
-};
+}
 
 const Navigation: FC<NavigationProps> = ({
   bgColor = "purple_lightest_bg",
@@ -44,7 +45,9 @@ const Navigation: FC<NavigationProps> = ({
 }: NavigationProps) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const params = useParams();
-  const currentLang = getCurrentLanguage(params);
+
+  // Use the centralized language service
+  const { language: currentLang } = LanguageService.getCurrentLanguage(params);
 
   const toggleNav = () => setIsNavOpen((prev) => !prev);
 

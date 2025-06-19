@@ -2,7 +2,8 @@ import { FC, useEffect } from "react";
 import { AnimatedLink } from "./AnimatedLink";
 import { useRouter, useParams } from "next/navigation";
 import { useTranslation } from "../../[lang]/context/TranslationContext";
-import { getCurrentLanguage, getLocalizedRoute } from "@/utils/i18n/routeUtils";
+import { getLocalizedRoute } from "@/utils/i18n/routeUtils";
+import { LanguageService } from "@/utils/i18n/languageService";
 
 export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
   isNavOpen,
@@ -14,8 +15,9 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
 
   // Prefetch all routes when component mounts
   useEffect(() => {
-    // Get the current language using our utility function
-    const currentLang = getCurrentLanguage(params);
+    // Get the current language using the centralized service
+    const { language: currentLang } =
+      LanguageService.getCurrentLanguage(params);
 
     // Define routes to prefetch
     const routes = [
@@ -44,7 +46,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
       <div className="z-50 flex-grow "></div>
       <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-2 ">
         <AnimatedLink
-          href="/scroll-documentary"
+          href="scroll-documentary"
           text={dict.navigation.scrollDocumentary}
           timeout={80}
           color="yellow"
@@ -52,7 +54,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/narratives"
+          href="narratives"
           text={dict.navigation.narratives}
           timeout={120}
           color="yellow"
@@ -60,7 +62,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/free-browsing"
+          href="free-browsing"
           text={dict.navigation.freeBrowsing}
           timeout={140}
           color="yellow"
@@ -69,7 +71,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
         />
 
         <AnimatedLink
-          href="/project"
+          href="project"
           text={dict.navigation.project}
           timeout={160}
           color="pink"
@@ -77,7 +79,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/team"
+          href="team"
           text={dict.navigation.team}
           timeout={160}
           color="pink"
@@ -85,7 +87,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/events"
+          href="events"
           text={dict.navigation.events}
           timeout={200}
           color="pink"
@@ -93,7 +95,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/contact"
+          href="contact"
           text={dict.navigation.contact}
           timeout={250}
           color="pink"
@@ -101,7 +103,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/educational-resources"
+          href="educational-resources"
           text={dict.navigation.educationalResources}
           timeout={300}
           color="pink"
@@ -109,7 +111,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/research-publication"
+          href="research-publication"
           text={dict.navigation.researchPublication}
           timeout={350}
           color="pink"
@@ -117,7 +119,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="/travelling-workshop"
+          href="travelling-workshop"
           text={dict.navigation.travellingWorkshop}
           timeout={400}
           color="pink"

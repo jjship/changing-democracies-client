@@ -2,11 +2,8 @@
 
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import {
-  getInitialLanguage,
-  locales,
-  CDLanguages,
-} from "@/utils/i18n/languages";
+import { locales, CDLanguages } from "@/utils/i18n/languages";
+import { LanguageService } from "@/utils/i18n/languageService";
 
 export function LanguageRedirect({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -18,7 +15,8 @@ export function LanguageRedirect({ children }: { children: React.ReactNode }) {
 
     // Root path always needs redirect
     if (pathname === "/") {
-      const preferredLanguage = getInitialLanguage();
+      const { language: preferredLanguage } =
+        LanguageService.getCurrentLanguage();
       router.replace(`/${preferredLanguage}`);
       return;
     }
@@ -39,7 +37,8 @@ export function LanguageRedirect({ children }: { children: React.ReactNode }) {
       }
 
       // Otherwise, add language prefix
-      const preferredLanguage = getInitialLanguage();
+      const { language: preferredLanguage } =
+        LanguageService.getCurrentLanguage();
       router.replace(`/${preferredLanguage}${pathname}`);
     }
   }, [pathname, router]);

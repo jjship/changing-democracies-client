@@ -8,11 +8,13 @@ import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
 import { Archivo } from "next/font/google";
 import NarrativesContext from "./NarrativesContext";
 import { Box } from "@radix-ui/themes/dist/esm/components/box.js";
-import { useLanguageSelection } from "../scrollDocumentary/useLanguageSelection";
+import { useLanguage } from "@/utils/i18n/useLanguage";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
-const archivo = Archivo({ subsets: ["latin"] });
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
+import { CDLanguages } from "@/utils/i18n/languages";
 import PageFooter from "../PageFooter";
+
+const archivo = Archivo({ subsets: ["latin"] });
+
 const NarrativesLayout: FC<{
   narrationPaths: NarrationPath[];
   availableLanguageLabels: string[];
@@ -40,24 +42,18 @@ const NarrativesLayout: FC<{
 
   const overflow = currentPath ? "overflow-visible" : "overflow-auto";
 
-  // First prioritize localStorage, then fall back to initialLanguageLabel
-  const getInitialLanguage = (): string => {
-    if (typeof window !== "undefined") {
-      const storedLanguage = localStorage
-        .getItem(LANGUAGE_PREFERENCE_KEY)
-        ?.toUpperCase();
-      if (storedLanguage && availableLanguageLabels.includes(storedLanguage)) {
-        return storedLanguage;
-      }
-    }
-    return initialLanguageLabel;
-  };
+  // Convert available language labels to CDLanguages format
+  const availableLanguages: CDLanguages[] = availableLanguageLabels
+    .map((label) => label.toLowerCase() as CDLanguages)
+    .filter((lang): lang is CDLanguages => lang !== undefined);
 
-  const { selectedLanguage, availableLanguages, setSelectedLanguage } =
-    useLanguageSelection({
-      initialLanguageLabel: getInitialLanguage(),
-      availableLanguageLabels,
-    });
+  const {
+    language,
+    availableLanguages: hookLanguages,
+    setLanguage,
+  } = useLanguage({
+    availableLanguages,
+  });
 
   // Sync with global TranslationContext language changes
   useEffect(() => {
@@ -66,23 +62,26 @@ const NarrativesLayout: FC<{
 
       // Only update if the language is different and available
       if (
-        upperLang !== selectedLanguage &&
+        upperLang !== language.toUpperCase() &&
         availableLanguageLabels.includes(upperLang)
       ) {
-        setSelectedLanguage(upperLang);
+        setLanguage(globalTranslation.language);
       }
     }
   }, [
     globalTranslation.language,
     availableLanguageLabels,
-    selectedLanguage,
-    setSelectedLanguage,
+    language,
+    setLanguage,
   ]);
 
   // Sync navigation language changes back to global context
   const handleLanguageChange = (newLang: string | undefined) => {
     // Update our local state
-    setSelectedLanguage(newLang);
+    if (newLang) {
+      const normalizedLang = newLang.toLowerCase() as CDLanguages;
+      setLanguage(normalizedLang);
+    }
 
     // Also update global translation context if the language is valid
     if (
@@ -100,13 +99,6 @@ const NarrativesLayout: FC<{
     handleLanguageChange(newLang);
   };
 
-  // Ensure language changes are saved to localStorage
-  useEffect(() => {
-    if (typeof window !== "undefined" && selectedLanguage) {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, selectedLanguage);
-    }
-  }, [selectedLanguage]);
-
   return (
     <NarrativesContext.Provider
       value={{
@@ -121,7 +113,7 @@ const NarrativesLayout: FC<{
         setCurrentIndex,
         switchPath,
         setSwitchPath,
-        selectedLanguage,
+        selectedLanguage: language.toUpperCase(),
         setSelectedLanguage: handleLanguageChange,
       }}
     >
@@ -129,8 +121,8 @@ const NarrativesLayout: FC<{
         <Navigation
           bgColor="black_bg"
           fontColor="yellow_secondary"
-          selectedLanguage={selectedLanguage}
-          availableLanguages={availableLanguages}
+          selectedLanguage={language}
+          availableLanguages={hookLanguages}
           onLanguageChange={handleNavigationLanguageChange}
         />
         <div

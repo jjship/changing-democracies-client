@@ -1,28 +1,17 @@
 import { DEFAULT_CD_LANG, type CDLanguages } from "./languages";
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
+import { LanguageService } from "./languageService";
 
 /**
  * Get the current language from various sources with priority:
  * 1. URL params
  * 2. localStorage
  * 3. default language
+ *
+ * @deprecated Use LanguageService.getCurrentLanguage() instead
  */
 export function getCurrentLanguage(params?: { lang?: string }): CDLanguages {
-  // Try to get from params first
-  if (params?.lang && typeof params.lang === "string") {
-    return params.lang as CDLanguages;
-  }
-
-  // Otherwise try localStorage (client-side only)
-  if (typeof window !== "undefined") {
-    const storedLang = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
-    if (storedLang) {
-      return storedLang as CDLanguages;
-    }
-  }
-
-  // Default fallback
-  return DEFAULT_CD_LANG;
+  const { language } = LanguageService.getCurrentLanguage(params);
+  return language;
 }
 
 /**
@@ -53,19 +42,9 @@ export function updateRouteLanguage(
 
 /**
  * Get language from browser settings (used as fallback)
+ *
+ * @deprecated Use LanguageService.getBrowserLanguage() instead
  */
 export function getBrowserLanguage(): CDLanguages | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  try {
-    const browserLang = navigator.language
-      .split("-")[0]
-      .toLowerCase() as CDLanguages;
-    return browserLang;
-  } catch (error) {
-    console.error("Error getting browser language:", error);
-    return null;
-  }
+  return LanguageService.getBrowserLanguage();
 }

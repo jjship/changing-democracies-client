@@ -1,13 +1,5 @@
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useContext,
-  useState,
-  useEffect,
-} from "react";
+import { createContext, FC, ReactNode, useContext, useState } from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
-import { LANGUAGE_PREFERENCE_KEY } from "@/components/scrollDocumentary/useLanguageSelection";
 
 const defaultContext: NarrativesContextType = {
   currentPath: null,
@@ -43,17 +35,15 @@ type NarrativesContextType = {
 
 const NarrativesContext = createContext<NarrativesContextType>(defaultContext);
 
-export function useNarrativesContext() {
+export const useNarrativesContext = () => {
   const context = useContext(NarrativesContext);
-
   if (!context) {
     throw new Error(
-      "useNarrativesContext must be used within a NarrativesContextProvider",
+      "useNarrativesContext must be used within a NarrativesProvider",
     );
   }
-
   return context;
-}
+};
 
 interface NarrativesProviderProps {
   children: ReactNode;
@@ -76,25 +66,11 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
     string | undefined
   >(undefined);
 
-  // Custom setter that also updates localStorage
+  // Simplified setter that doesn't use localStorage
   const setSelectedLanguage = (language: string | undefined) => {
     setSelectedLanguageState(language);
-
-    // Save to localStorage whenever language changes
-    if (typeof window !== "undefined" && language) {
-      localStorage.setItem(LANGUAGE_PREFERENCE_KEY, language);
-    }
+    // Note: Cookie persistence is handled by the middleware when routes change
   };
-
-  // Initialize from localStorage on component mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedLanguage = localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
-      if (storedLanguage) {
-        setSelectedLanguageState(storedLanguage);
-      }
-    }
-  }, []);
 
   const value = {
     currentPath,

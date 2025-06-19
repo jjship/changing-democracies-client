@@ -1,7 +1,8 @@
 import { useState, useEffect, FC } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { NavColor } from "./Navigation";
-import { getCurrentLanguage, getLocalizedRoute } from "@/utils/i18n/routeUtils";
+import { getLocalizedRoute } from "@/utils/i18n/routeUtils";
+import { LanguageService } from "@/utils/i18n/languageService";
 
 export { AnimatedLink };
 
@@ -47,8 +48,9 @@ const AnimatedLink: FC<{
     e.preventDefault();
     toggleNav();
 
-    // Get the current language using our utility function
-    const currentLang = getCurrentLanguage(params);
+    // Get the current language using the centralized service
+    const { language: currentLang } =
+      LanguageService.getCurrentLanguage(params);
 
     // Get the localized route
     const languagePrefixedHref = getLocalizedRoute(href, currentLang);
