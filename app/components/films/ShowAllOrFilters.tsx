@@ -18,11 +18,11 @@ const ShowAllOrFilters: FC = () => {
 
   return (
     <>
-      <div className="w-2/3">
+      <div className="md:w-2/3">
         <p className="mt-4 text-lg font-medium text-yellow_secondary">
           {dictionary.freeBrowsing.description}
         </p>
-        <p className="mt-2 pb-6 text-lg font-medium text-yellow_secondary">
+        <p className="mt-2 pb-4 text-lg font-medium text-yellow_secondary">
           {dictionary.freeBrowsing.explanation}
         </p>
       </div>

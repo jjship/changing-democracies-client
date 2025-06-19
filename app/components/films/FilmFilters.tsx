@@ -13,7 +13,7 @@ import {
 } from "@/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 import { useFilmsContext } from "./FilmsContext";
-import { ClientTag, TagCategory } from "@/utils/cdApi";
+import { TagCategory } from "@/utils/cdApi";
 import { cn } from "@/lib/utils";
 
 export const filterGrid =
@@ -72,7 +72,7 @@ function MultiSelectDropdown({
                 <Badge
                   key={label}
                   variant="secondary"
-                  className="mb-1 mr-1 cursor-pointer bg-yellow_secondary text-[0.4rem] font-semibold text-black hover:bg-darkRed md:text-[0.5rem] md:font-bold lg:text-xs"
+                  className=" mr-1 cursor-pointer bg-green_accent text-[0.5rem] text-sm font-semibold text-black hover:bg-darkRed md:font-bold"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -123,7 +123,7 @@ function MultiSelectDropdown({
                   onSelect={() => {
                     handleSelect(tag.id);
                   }}
-                  className="text-[0.4rem] font-semibold text-black md:text-[0.5rem] md:font-bold lg:text-xs [&[data-highlighted]]:!bg-yellow_secondary"
+                  className="text-sm font-semibold text-black md:font-bold [&[data-highlighted]]:!bg-yellow_secondary"
                   role="option"
                   aria-selected={selectedTags.includes(tag.id)}
                 >
@@ -206,10 +206,10 @@ export const FilmFilters: FC = () => {
   if (!fragmentsResponse || !tagCategoriesResponse) return null;
 
   return (
-    <div className="pb-8" role="region" aria-label="Story filters">
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="pb-6" role="region" aria-label="Story filters">
+      <div className="grid gap-x-6 gap-y-3 md:grid-cols-2 lg:grid-cols-3">
         {tagCategoriesResponse.tagCategories.map((category) => (
-          <div key={category.id} className="w-full space-y-2">
+          <div key={category.id} className="w-full space-y-1">
             <h3
               className="text-lg font-medium text-yellow_secondary"
               id={`${category.id}-heading`}
