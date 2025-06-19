@@ -6,9 +6,9 @@ import { getHlsPlaylistUrl, getMp4Url } from "./videoUtils";
 import Hls from "hls.js";
 import { Button } from "@/components/ui/button";
 import { Play, Pause, X } from "lucide-react";
-import useFreeBrowsingSubtitles from "./useFreeBrowsingSubtitles";
 import FilmBioSidePanel from "./FilmBioSidePanel";
 import { useParams } from "next/navigation";
+import { useSubtitles } from "@/utils/subtitles/api";
 
 export const FilmPlayer: FC = () => {
   const {
@@ -48,7 +48,10 @@ export const FilmPlayer: FC = () => {
     subtitles,
     isLoading: subtitlesLoading,
     error: subtitlesError,
-  } = useFreeBrowsingSubtitles(currentFragment, languageCode);
+  } = useSubtitles({
+    fragmentId: currentFragment ? currentFragment.id : undefined,
+    languageCode,
+  });
 
   // Effect for video initialization
   useEffect(() => {
