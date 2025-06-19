@@ -3,8 +3,9 @@ import { forwardRef, useEffect, useState, useRef } from "react";
 import useAdaptiveQuality from "./useAdaptiveQuality";
 import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
 import { getOptimalQuality } from "./videoSource";
-import useSubtitles from "./useSubtitles";
+
 import { PageTheme, Speaker, getSpeakerText } from "./slides/slides";
+import { useSubtitles } from "@/utils/subtitles/api";
 
 interface VideoPlayerProps {
   videoSource: VideoSource;
@@ -107,7 +108,10 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       subtitles,
       isLoading: subtitlesLoading,
       error: subtitlesError,
-    } = useSubtitles(videoSource, selectedLanguageCode);
+    } = useSubtitles({
+      fragmentId: videoSource.videoId,
+      languageCode: selectedLanguageCode!,
+    });
 
     useEffect(() => {
       const video = videoRef.current;

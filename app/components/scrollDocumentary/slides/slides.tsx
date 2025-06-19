@@ -1,12 +1,12 @@
 import { VideoSource } from "@/types/scrollDocumentary";
 import { ReactNode } from "react";
 import { NavColor } from "@/components/navigation/Navigation";
-import { parseTimeString } from "../subtitleParser";
 import { Slide1Content } from "./slide_1";
 import { Slide2Content } from "./slide_2";
 import { Slide3Content } from "./slide_3";
 import { Slide15Content } from "./slide_15";
 import { Slide0Content } from "./slide_0";
+import { parseTimeString } from "@/utils/subtitles/api";
 
 export type Subtitle = {
   start: number;

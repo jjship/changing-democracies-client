@@ -5,9 +5,9 @@ import { useNarrativesContext } from "@/components/narratives/NarrativesContext"
 import Hls from "hls.js";
 import { Button } from "@/components/ui/button";
 import { Play, Pause } from "lucide-react";
-import useSubtitles from "@/app/components/scrollDocumentary/useSubtitles";
 import useAdaptiveQuality from "../scrollDocumentary/useAdaptiveQuality";
 import { getOptimalQuality } from "../scrollDocumentary/videoSource";
+import { useSubtitles } from "@/utils/subtitles/api";
 
 const NarrativesFilmPlayer: FC = () => {
   const {
@@ -69,7 +69,10 @@ const NarrativesFilmPlayer: FC = () => {
     subtitles,
     isLoading: subtitlesLoading,
     error: subtitlesError,
-  } = useSubtitles(nowPlaying, langCode);
+  } = useSubtitles({
+    fragmentId: nowPlaying ? nowPlaying.videoId : undefined,
+    languageCode: langCode,
+  });
 
   // Effect to handle language changes
   useEffect(() => {
