@@ -2,7 +2,7 @@
 
 import { FC, useState, useEffect } from "react";
 import FilmList from "./films/FilmList";
-import { FilmsContext, FilmsContextProvider } from "./films/FilmsContext";
+import { FilmsContext } from "./films/FilmsContext";
 import Title from "./Title";
 import ShowAllOrFilters from "./films/ShowAllOrFilters";
 import { FilmPlayer } from "./films/FilmPlayer";
