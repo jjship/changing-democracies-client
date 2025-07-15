@@ -45,13 +45,13 @@ export default function Contact() {
       </div>
       <div className="relative z-20 mt-6 max-w-max border-solid border-white md:mx-auto md:w-full xl:mt-40">
         <span className="leading-6 text-purple_lightest_bg md:text-2xl xl:text-[2.125rem] xl:leading-10">
-          <Link
-            href="/cypp_policy.pdf"
+          <a
+            href={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/cyppp/CYPPP.pdf`}
             className="text-green_accent underline"
-            prefetch={false}
+            target="_blank"
           >
             {dict.contact.download}
-          </Link>
+          </a>
         </span>
       </div>
     </>
