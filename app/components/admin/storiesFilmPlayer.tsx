@@ -11,14 +11,16 @@ export const StoriesFilmPlayer: FC = () => {
     nowPlaying && (
       <div
         id="player-container"
-        className="absolute left-0 top-0 z-50 h-full w-full bg-black_bg"
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black"
       >
         <CloseButton />
-        <iframe
-          src={src}
-          className="absolute left-0 top-0 h-full w-full"
-          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-        ></iframe>
+        <div className="flex w-full justify-center">
+          <iframe
+            src={src}
+            className="aspect-video w-full  bg-black"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          ></iframe>
+        </div>
       </div>
     )
   );
