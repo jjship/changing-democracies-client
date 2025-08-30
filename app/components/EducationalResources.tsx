@@ -7,7 +7,7 @@ import { Archivo_Narrow } from "next/font/google";
 
 const archivo_narrow = Archivo_Narrow({ weight: "600", subsets: ["latin"] });
 const EducationalResources: FC = () => {
-  const { dictionary: dict } = useTranslation();
+  const { dictionary: dict, language } = useTranslation();
   return (
     <>
       <div className="w-4/5">
@@ -31,7 +31,7 @@ const EducationalResources: FC = () => {
         </ul>
         <p className="mb-6 hidden md:block">{dict.eduPack.p3}</p>
         <a
-          href={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/edu/Educational_Resource_Pack_Eng.pdf`}
+          href={`https://${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net/edu/Changing_Democracies_Educational_Resource_Pack.${language}.pdf`}
           className="inline-block rounded bg-darkRed px-4 py-2 text-white"
           target="_blank"
           rel="noopener noreferrer"
