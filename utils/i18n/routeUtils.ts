@@ -1,50 +1,34 @@
-import { DEFAULT_CD_LANG, type CDLanguages } from "./languages";
 import { LanguageService } from "./languageService";
 
 /**
- * Get the current language from various sources with priority:
- * 1. URL params
- * 2. localStorage
- * 3. default language
+ * Route utilities for localization
  *
- * @deprecated Use LanguageService.getCurrentLanguage() instead
+ * @deprecated This file is being phased out. Use LanguageService directly:
+ * - LanguageService.getLocalizedRoute() instead of getLocalizedRoute()
+ * - LanguageService.updateRouteLanguage() instead of updateRouteLanguage()
+ * - LanguageService.getCurrentLanguage() instead of getCurrentLanguage()
  */
-export function getCurrentLanguage(params?: { lang?: string }): CDLanguages {
-  const { language } = LanguageService.getCurrentLanguage(params);
-  return language;
-}
 
 /**
  * Creates a localized route path by adding the language prefix
+ * @deprecated Use LanguageService.getLocalizedRoute() instead
  */
-export function getLocalizedRoute(path: string, language: CDLanguages): string {
-  // Ensure path starts with a slash if not empty
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-
-  // Handle root path special case
-  if (normalizedPath === "/") {
-    return `/${language}`;
-  }
-
-  return `/${language}${normalizedPath}`;
-}
+export const getLocalizedRoute = LanguageService.getLocalizedRoute;
 
 /**
  * Update an existing route with a new language
+ * @deprecated Use LanguageService.updateRouteLanguage() instead
  */
-export function updateRouteLanguage(
-  currentPath: string,
-  currentLang: CDLanguages,
-  newLang: CDLanguages,
-): string {
-  return currentPath.replace(`/${currentLang}`, `/${newLang}`);
-}
+export const updateRouteLanguage = LanguageService.updateRouteLanguage;
 
 /**
- * Get language from browser settings (used as fallback)
- *
+ * Get the current language from various sources
+ * @deprecated Use LanguageService.getCurrentLanguage() instead
+ */
+export const getCurrentLanguage = LanguageService.getCurrentLanguage;
+
+/**
+ * Get language from browser settings
  * @deprecated Use LanguageService.getBrowserLanguage() instead
  */
-export function getBrowserLanguage(): CDLanguages | null {
-  return LanguageService.getBrowserLanguage();
-}
+export const getBrowserLanguage = LanguageService.getBrowserLanguage;

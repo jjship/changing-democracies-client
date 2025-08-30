@@ -11,7 +11,7 @@ import { Dictionary } from "../dictionaries";
 import { CDLanguages, locales } from "@/utils/i18n/languages";
 import { useRouter, useParams } from "next/navigation";
 import { LanguageService } from "@/utils/i18n/languageService";
-import { updateRouteLanguage } from "@/utils/i18n/routeUtils";
+import { updateRouteLanguage } from "@/utils/i18n/languageService";
 
 type TranslationContextType = {
   dictionary: Dictionary;
