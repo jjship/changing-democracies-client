@@ -16,8 +16,6 @@ module.exports = {
   additionalPaths: async (config) => {
     const languages = [
       "en",
-      "fr",
-      "de",
       "es",
       "ca",
       "cs",
