@@ -6,8 +6,6 @@ export type { Dictionary };
 const dictionaries: Record<CDLanguages, () => Promise<Dictionary>> = {
   en: () => import("./dictionaries/en.json").then((module) => module.default),
   es: () => import("./dictionaries/es.json").then((module) => module.default),
-  fr: () => import("./dictionaries/fr.json").then((module) => module.default),
-  de: () => import("./dictionaries/de.json").then((module) => module.default),
   ca: () => import("./dictionaries/ca.json").then((module) => module.default),
   hr: () => import("./dictionaries/hr.json").then((module) => module.default),
   cs: () => import("./dictionaries/cs.json").then((module) => module.default),

@@ -9,8 +9,6 @@ const languagesData = [
   { name: "Czech", code: "cs" },
   { name: "Dutch", code: "nl" },
   { name: "English", code: "en" },
-  { name: "French", code: "fr" },
-  { name: "German", code: "de" },
   { name: "Greek", code: "el" },
   { name: "Lithuanian", code: "lt" },
   { name: "Polish", code: "pl" },

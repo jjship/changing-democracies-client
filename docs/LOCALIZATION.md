@@ -4,19 +4,17 @@ This document explains how localization works in the Changing Democracies projec
 
 ## Overview
 
-The application supports multiple languages using Next.js's app router internationalization pattern with URL path prefixes (`/en/`, `/fr/`, etc.). The system uses a modern cookie-only approach for language persistence, eliminating localStorage complexity and ensuring consistent behavior across client and server.
+The application supports multiple languages using Next.js's app router internationalization pattern with URL path prefixes (`/en/`, `/es/`, etc.). The system uses a modern cookie-only approach for language persistence, eliminating localStorage complexity and ensuring consistent behavior across client and server.
 
 ## Supported Languages
 
-The application currently supports 13 languages:
+The application currently supports 11 languages:
 
 - Catalan (ca)
 - Croatian (hr)
 - Czech (cs)
 - Dutch (nl)
 - English (en) - Default
-- French (fr)
-- German (de)
 - Greek (el)
 - Lithuanian (lt)
 - Polish (pl)
