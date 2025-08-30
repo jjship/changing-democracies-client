@@ -2,6 +2,7 @@ import "@/app/globals.css";
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
 import { ReactNode } from "react";
+import Script from "next/script";
 import { CDLanguages, locales } from "@/utils/i18n/languages";
 import CookieConsent from "@/components/CookieConsent";
 import { StructuredData } from "../../components/StructuredData";
@@ -59,6 +60,19 @@ export default function RootLayout({
           <StructuredData type="website" lang={lang} />
         </head>
         <body className={`${archivo.className} bg-black_bg antialiased`}>
+          {/* Google Analytics */}
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-13VS8XS26Q"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-13VS8XS26Q');
+            `}
+          </Script>
           {children}
         </body>
       </html>
