@@ -1,7 +1,6 @@
 import { useState, useEffect, FC } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { NavColor } from "./Navigation";
-import { getLocalizedRoute } from "@/utils/i18n/routeUtils";
 import { LanguageService } from "@/utils/i18n/languageService";
 
 export { AnimatedLink };
@@ -53,7 +52,10 @@ const AnimatedLink: FC<{
       LanguageService.getCurrentLanguage(params);
 
     // Get the localized route
-    const languagePrefixedHref = getLocalizedRoute(href, currentLang);
+    const languagePrefixedHref = LanguageService.getLocalizedRoute(
+      href,
+      currentLang,
+    );
 
     setTimeout(() => {
       router.push(languagePrefixedHref);

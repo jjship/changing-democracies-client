@@ -24,6 +24,14 @@ The application currently supports 13 languages:
 - Romanian (ro)
 - Spanish (es)
 
+## System Architecture Status
+
+✅ **Modern Architecture**: The localization system has been fully refactored to use a centralized `LanguageService` approach.
+
+✅ **Migration Complete**: All navigation components now use `LanguageService` directly for route operations.
+
+⚠️ **Deprecated**: The `routeUtils.ts` file exists as a backward-compatibility wrapper and should not be used in new code.
+
 ## Key Components
 
 ### 1. Language Service (Centralized Management)
@@ -34,6 +42,8 @@ The application currently supports 13 languages:
   - `LanguageService.getCurrentLanguage(params)` - Detects language with priority: URL → Cookie → Browser → Default
   - `LanguageService.normalizeLanguage(lang)` - Ensures consistent lowercase format
   - `LanguageService.toDisplayFormat(lang)` - Converts to uppercase display format
+  - `LanguageService.getLocalizedRoute(path, language)` - Creates localized route paths
+  - `LanguageService.updateRouteLanguage(currentPath, currentLang, newLang)` - Updates language in existing paths
   - Cookie-only storage (no localStorage dependency)
   - Source tracking for debugging language detection
 
@@ -54,14 +64,15 @@ The application currently supports 13 languages:
   - `getServerLanguage()` - Access language in Server Components
   - `getLanguageFromHeaders(headers)` - Access language in API routes
 
-### 4. Route Utilities
+### 4. Route Utilities (Deprecated)
 
 - **Location**: `utils/i18n/routeUtils.ts`
-- **Purpose**: Utilities for working with localized routes.
-- **Key functions**:
-  - `getLocalizedRoute(path, language)` - Creates a localized route path
-  - `updateRouteLanguage(currentPath, currentLang, newLang)` - Updates language in existing path
-  - Legacy functions marked as deprecated (use LanguageService instead)
+- **Status**: **⚠️ DEPRECATED - Use LanguageService instead**
+- **Purpose**: Legacy wrapper for route utilities - now delegates to LanguageService.
+- **Migration**: All functions now available directly on LanguageService:
+  - `getLocalizedRoute()` → `LanguageService.getLocalizedRoute()`
+  - `updateRouteLanguage()` → `LanguageService.updateRouteLanguage()`
+  - `getCurrentLanguage()` → `LanguageService.getCurrentLanguage()`
 
 ### 5. Translation Context
 
@@ -99,9 +110,11 @@ import { LanguageService } from "@/utils/i18n/languageService";
 const { language, source } = LanguageService.getCurrentLanguage(params);
 const normalized = LanguageService.normalizeLanguage("EN"); // returns 'en'
 const display = LanguageService.toDisplayFormat("en"); // returns 'EN'
+const localizedRoute = LanguageService.getLocalizedRoute("/about", "en"); // returns '/en/about'
 
-// Avoid - Deprecated functions
+// Avoid - Deprecated functions from routeUtils
 const currentLang = getCurrentLanguage(params);
+const route = getLocalizedRoute("/about", "en");
 ```
 
 ### 2. Use Modern Hooks for Component State
@@ -132,15 +145,24 @@ import { getLanguageFromHeaders } from "@/utils/i18n/serverLanguageUtils";
 const apiLanguage = getLanguageFromHeaders(request.headers);
 ```
 
-### 4. Always Use Route Utilities for Navigation
+### 4. Use LanguageService for Route Operations
 
 ```typescript
-// Good
+// Good - Modern approach using LanguageService
+import { LanguageService } from "@/utils/i18n/languageService";
+const localizedPath = LanguageService.getLocalizedRoute("/about", currentLang);
+const homeRoute = LanguageService.getLocalizedRoute("/", currentLang);
+const updatedRoute = LanguageService.updateRouteLanguage(
+  currentPath,
+  "en",
+  "fr",
+);
+
+// Avoid - Deprecated routeUtils imports
 import { getLocalizedRoute } from "@/utils/i18n/routeUtils";
 const localizedPath = getLocalizedRoute("/about", currentLang);
-const homeRoute = getLocalizedRoute("/", currentLang);
 
-// Avoid manual path construction
+// Avoid - Manual path construction
 const localizedPath = `/${currentLang}/about`;
 ```
 
@@ -211,18 +233,32 @@ The system detects language in this order:
 
 ## Migration from Legacy System
 
-If you encounter deprecated functions, update them as follows:
+**Status**: ✅ **Migration Complete** - All navigation components now use LanguageService directly.
+
+The `routeUtils.ts` file now exists as a deprecated wrapper for backward compatibility. All new code should use `LanguageService` directly.
 
 ### Replace Deprecated Functions
 
 ```typescript
-// OLD - Deprecated
-import { getCurrentLanguage } from "@/utils/i18n/routeUtils";
+// OLD - Deprecated routeUtils imports
+import {
+  getCurrentLanguage,
+  getLocalizedRoute,
+  updateRouteLanguage,
+} from "@/utils/i18n/routeUtils";
 const currentLang = getCurrentLanguage(params);
+const localizedPath = getLocalizedRoute("/about", currentLang);
+const updatedPath = updateRouteLanguage(currentPath, "en", "fr");
 
-// NEW - Recommended
+// NEW - Recommended LanguageService approach
 import { LanguageService } from "@/utils/i18n/languageService";
 const { language: currentLang } = LanguageService.getCurrentLanguage(params);
+const localizedPath = LanguageService.getLocalizedRoute("/about", currentLang);
+const updatedPath = LanguageService.updateRouteLanguage(
+  currentPath,
+  "en",
+  "fr",
+);
 ```
 
 ### Remove localStorage Dependencies
@@ -238,7 +274,7 @@ localStorage.setItem("changing-democracies-language", "en");
 
 ## Google Analytics Integration
 
-For the Google Analytics snippet you mentioned, add it to the localized layout:
+For Google Analytics integration, add the tracking script to the localized layout:
 
 ```typescript
 // In app/[lang]/layout.tsx
@@ -310,3 +346,19 @@ const serverLanguage = getServerLanguage();
 - Language codes are validated against the allowed `locales` array
 - Cookie `sameSite: 'lax'` setting prevents CSRF attacks
 - No sensitive data stored in language preferences
+
+## Future Cleanup
+
+### Optional: Complete routeUtils Removal
+
+The `routeUtils.ts` file can be completely removed in the future since all functions are now available in `LanguageService`. Before removal:
+
+1. **Verify no external dependencies**: Check if any external packages or uncommitted code still imports from `routeUtils`
+2. **Update any remaining references**: Search codebase for any missed imports
+3. **Remove the file**: Delete `utils/i18n/routeUtils.ts`
+
+### Recommended: Update External Documentation
+
+Update any external documentation, README files, or developer guides that might reference the old `routeUtils` approach.
+
+Current state: ✅ All core navigation components migrated to `LanguageService`

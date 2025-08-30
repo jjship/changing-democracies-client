@@ -2,7 +2,6 @@ import { FC, useEffect } from "react";
 import { AnimatedLink } from "./AnimatedLink";
 import { useRouter, useParams } from "next/navigation";
 import { useTranslation } from "../../[lang]/context/TranslationContext";
-import { getLocalizedRoute } from "@/utils/i18n/routeUtils";
 import { LanguageService } from "@/utils/i18n/languageService";
 
 export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
@@ -31,7 +30,7 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
 
     // Prefetch each route with language prefix
     routes.forEach((route) => {
-      router.prefetch(getLocalizedRoute(route, currentLang));
+      router.prefetch(LanguageService.getLocalizedRoute(route, currentLang));
     });
   }, [router, params]);
 

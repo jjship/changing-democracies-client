@@ -14,7 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CDLanguages, locales } from "@/utils/i18n/languages";
-import { getLocalizedRoute } from "@/utils/i18n/routeUtils";
 import { LanguageService } from "@/utils/i18n/languageService";
 
 export { Navigation };
@@ -59,7 +58,7 @@ const Navigation: FC<NavigationProps> = ({
   };
 
   // Generate localized home route
-  const homeRoute = getLocalizedRoute("/", currentLang);
+  const homeRoute = LanguageService.getLocalizedRoute("/", currentLang);
 
   return (
     <div

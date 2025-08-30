@@ -117,6 +117,32 @@ export class LanguageService {
   static isValidLanguage(language: string): language is CDLanguages {
     return locales.includes(language.toLowerCase() as CDLanguages);
   }
+
+  /**
+   * Creates a localized route path by adding the language prefix
+   */
+  static getLocalizedRoute(path: string, language: CDLanguages): string {
+    // Ensure path starts with a slash if not empty
+    const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+
+    // Handle root path special case
+    if (normalizedPath === "/") {
+      return `/${language}`;
+    }
+
+    return `/${language}${normalizedPath}`;
+  }
+
+  /**
+   * Update an existing route with a new language
+   */
+  static updateRouteLanguage(
+    currentPath: string,
+    currentLang: CDLanguages,
+    newLang: CDLanguages,
+  ): string {
+    return currentPath.replace(`/${currentLang}`, `/${newLang}`);
+  }
 }
 
 // Export convenience functions for backward compatibility
@@ -127,3 +153,5 @@ export const normalizeLanguage = LanguageService.normalizeLanguage;
 export const toDisplayFormat = LanguageService.toDisplayFormat;
 export const fromDisplayFormat = LanguageService.fromDisplayFormat;
 export const isValidLanguage = LanguageService.isValidLanguage;
+export const getLocalizedRoute = LanguageService.getLocalizedRoute;
+export const updateRouteLanguage = LanguageService.updateRouteLanguage;
