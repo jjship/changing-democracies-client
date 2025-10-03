@@ -1,5 +1,3 @@
-import Image from "next/image";
-import logoDark from "@/public/EN_Co-fundedbytheEU_RGB_BLACK.svg";
 import { LangParam } from "@/types/langParam";
 import { NavigationContainer } from "@/components/navigation/NavigationContainer";
 import { Suspense } from "react";

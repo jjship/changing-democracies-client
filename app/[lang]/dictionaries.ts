@@ -44,6 +44,7 @@ type Dictionary = {
   about: {
     p1: string;
     p2: string;
+    disclaimer: string;
   };
   team: {
     description: string;

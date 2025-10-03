@@ -1,6 +1,6 @@
 {
   "navigation": {
-     "scrollDocumentary": "Dokumentarni pregled",
+    "scrollDocumentary": "Dokumentarni pregled",
     "narratives": "Narativi",
     "nonLinearNarratives": "Nelinearne priče",
     "freeBrowsing": "Slobodno pregledavanje",
@@ -20,7 +20,8 @@
   },
   "about": {
     "p1": "Kako bi izgledao život bez demokracije? Je li demokracija ispunila svoja obećanja? Što je potrebno za učinkovito funkcioniranje zdrave demokracije? Koja je uloga građana?",
-    "p2": "Changing Democracies istražuje kako neispričane priče o nedavnim prijelazima na demokraciju u Europi mogu pomoći u razumijevanju procesa potrebnih danas da demokracija ispuni svoja obećanja za sve."
+    "p2": "Changing Democracies istražuje kako neispričane priče o nedavnim prijelazima na demokraciju u Europi mogu pomoći u razumijevanju procesa potrebnih danas da demokracija ispuni svoja obećanja za sve.",
+    "disclaimer": "Sufinancirano od strane Europske unije. Izneseni stavovi i mišljenja su stavovi i mišljenja autora i ne moraju se podudarati sa stavovima i mišljenjima Europske unije ili Europske izvršne agencije za obrazovanje i kulturu (EACEA). Ni Europska unija ni EACEA ne mogu se smatrati odgovornima za njih."
   },
   "team": {
     "description": "Changing Democracies je rezultat suradnje između 12 partnera iz 10 europskih zemalja, a koordinira ga Zaklada Evens uz financiranje Europske komisije.",
@@ -51,7 +52,11 @@
       },
       {
         "organisation": "Zaklada Evens",
-        "members": ["Caroline Coosemans", "Marjolein Delvou", "Hanna Zielińska"],
+        "members": [
+          "Caroline Coosemans",
+          "Marjolein Delvou",
+          "Hanna Zielińska"
+        ],
         "country": "Belgija/Poljska",
         "link": "https://evensfoundation.be/"
       },
@@ -149,103 +154,100 @@
     "p5": "Ako ste zainteresirani za organizaciju Putujuće radionice, kontakte nas."
   },
   "scrollDocumentary": {
-  "slides": {
-    "slide_0": {
-      "additionalContent": {
-        "scroll": "Pomalu",
-        "documentary": "Dokumentar"
-      }
-    },
-    "slide_1": {
-      "additionalContent": {
-        "is_democracy": "Je demokracie",
-        "worth": "hodna",
-        "the_trouble": "truda?"
-      }
-    },
-    "slide_2": {
-      "additionalContent": {
-        "democracy": "Demokracija",
-        "equality": "Jednakost",
-        "freedom": "Sloboda",
-        "honesty": "Iskrenost",
-        "love": "Ljubav",
-        "conflict": "Sukob",
-        "safety": "Sigurnost",
-        "justice": "Pravda"
-      }
-    },
-    "slide_3": {
-      "additionalContent": {
-        "about_the_project": "O projektu",
-        "democracy_failed_us": "Demokracija nas je iznevjerila",
-        "democracy_is_in_crisis": "Demokracija je u krizi",
-        "we_need_to_defend_democracy": "Moramo braniti demokraciju",
-        "authoritarianism_is_on_the_rise": "Autoritarizam raste",
-        "democratic_institutions_are_in_decline": "Demokratske institucije slabe",
-        "you_know_these_phrases": "Znate ove fraze",
-        "you_ve_heard_them_over_and_over": "Čuli ste ih iznova i iznova",
-        "but_what_lies_beyond_this_gloomy_picture": "Ali što leži iza ove tmurne slike?",
-        "there_are_people_around_us_who_know": "Postoje ljudi oko nas koji znaju",
-        "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Iskusili su iz prve ruke kakav je život u različitim političkim sustavima",
-        "they_have_lived_through_times_of_transition": "Živjeli su u vremenima tranzicije",
-        "so_we_asked_them": "Pa smo ih pitali:",
-        "is_democracy_worth_the_trouble": "Je li demokracija vrijedna truda?",
-        "they_shared_their_fears_their_hopes_their_disillusions": "Podijelili su svoje strahove, nade i razočaranja",
-        "their_stories": "Njihove priče",
-        "changing_democracies_brings_you_their_wisdom": "Changing Democracies donosi njihovu mudrost",
-        "we_learnt": "Naučili smo:",
-        "that_it_pays_to_move_beyond_historical_facts": "Da se isplati ići dalje od povijesnih činjenica",
-        "that_democracy_is_never_finished": "Da demokracija nikada nije gotova",
-        "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Da je suočavanje s njezinim izazovima zajedno jedini put naprijed",
-        "dont_take_our_word_for_it_see_for_yourself": "Nemojte nam vjerovati na riječ – uvjerite se sami."
-      }
-    },
-    "slide_4": {
-      "title": "Pogled unatrag"
-    },
-    "slide_5": {
-      "title": "Stanje tranzicije"
-    },
-    "slide_6": {
-      "title": "Je li moja demokracija tvoja demokracija?"
-    },
-    "slide_8": {
-      "title": "Provjera stvarnosti"
-    },
-    "slide_9": {
-      "title": "Osobno je političko"
-    },
-    "slide_10": {
-      "title": "Prošlost Sadašnjost Budućnost"
-    },
-    "slide_11": {
-      "title": "Udružite se"
-    },
-    "slide_12": {
-      "title": "Oprez"
-    },
-    "slide_13": {
-      "title": "Napravite buku"
-    },
-    "slide_14": {
-      "title": "Naš red"
-    },
-    "slide_15": {
-      "additionalContent": {
-        "credits": "Zasluge",
-        "script": "Scenarij",
-        "visuals": "Vizuali",
-        "development": "Razvoj",
-        "music": "Glazba",
-        "Changing_Democracies": "Changing Democracies",
-        "p1": "istražuje kako živa povijest Europe o nedavnim tranzicijama prema demokraciji može pomoći da shvatimo koji su procesi danas potrebni da demokracija ispuni svoja obećanja za sve.",
-        "p2": "Projekt je rezultat suradnje između 12 partnera iz 10 europskih zemalja, a koordiniraju ga Evens Foundation uz financiranje Europske komisije."
+    "slides": {
+      "slide_0": {
+        "additionalContent": {
+          "scroll": "Pomalu",
+          "documentary": "Dokumentar"
+        }
+      },
+      "slide_1": {
+        "additionalContent": {
+          "is_democracy": "Je demokracie",
+          "worth": "hodna",
+          "the_trouble": "truda?"
+        }
+      },
+      "slide_2": {
+        "additionalContent": {
+          "democracy": "Demokracija",
+          "equality": "Jednakost",
+          "freedom": "Sloboda",
+          "honesty": "Iskrenost",
+          "love": "Ljubav",
+          "conflict": "Sukob",
+          "safety": "Sigurnost",
+          "justice": "Pravda"
+        }
+      },
+      "slide_3": {
+        "additionalContent": {
+          "about_the_project": "O projektu",
+          "democracy_failed_us": "Demokracija nas je iznevjerila",
+          "democracy_is_in_crisis": "Demokracija je u krizi",
+          "we_need_to_defend_democracy": "Moramo braniti demokraciju",
+          "authoritarianism_is_on_the_rise": "Autoritarizam raste",
+          "democratic_institutions_are_in_decline": "Demokratske institucije slabe",
+          "you_know_these_phrases": "Znate ove fraze",
+          "you_ve_heard_them_over_and_over": "Čuli ste ih iznova i iznova",
+          "but_what_lies_beyond_this_gloomy_picture": "Ali što leži iza ove tmurne slike?",
+          "there_are_people_around_us_who_know": "Postoje ljudi oko nas koji znaju",
+          "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Iskusili su iz prve ruke kakav je život u različitim političkim sustavima",
+          "they_have_lived_through_times_of_transition": "Živjeli su u vremenima tranzicije",
+          "so_we_asked_them": "Pa smo ih pitali:",
+          "is_democracy_worth_the_trouble": "Je li demokracija vrijedna truda?",
+          "they_shared_their_fears_their_hopes_their_disillusions": "Podijelili su svoje strahove, nade i razočaranja",
+          "their_stories": "Njihove priče",
+          "changing_democracies_brings_you_their_wisdom": "Changing Democracies donosi njihovu mudrost",
+          "we_learnt": "Naučili smo:",
+          "that_it_pays_to_move_beyond_historical_facts": "Da se isplati ići dalje od povijesnih činjenica",
+          "that_democracy_is_never_finished": "Da demokracija nikada nije gotova",
+          "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Da je suočavanje s njezinim izazovima zajedno jedini put naprijed",
+          "dont_take_our_word_for_it_see_for_yourself": "Nemojte nam vjerovati na riječ – uvjerite se sami."
+        }
+      },
+      "slide_4": {
+        "title": "Pogled unatrag"
+      },
+      "slide_5": {
+        "title": "Stanje tranzicije"
+      },
+      "slide_6": {
+        "title": "Je li moja demokracija tvoja demokracija?"
+      },
+      "slide_8": {
+        "title": "Provjera stvarnosti"
+      },
+      "slide_9": {
+        "title": "Osobno je političko"
+      },
+      "slide_10": {
+        "title": "Prošlost Sadašnjost Budućnost"
+      },
+      "slide_11": {
+        "title": "Udružite se"
+      },
+      "slide_12": {
+        "title": "Oprez"
+      },
+      "slide_13": {
+        "title": "Napravite buku"
+      },
+      "slide_14": {
+        "title": "Naš red"
+      },
+      "slide_15": {
+        "additionalContent": {
+          "credits": "Zasluge",
+          "script": "Scenarij",
+          "visuals": "Vizuali",
+          "development": "Razvoj",
+          "music": "Glazba",
+          "Changing_Democracies": "Changing Democracies",
+          "p1": "istražuje kako živa povijest Europe o nedavnim tranzicijama prema demokraciji može pomoći da shvatimo koji su procesi danas potrebni da demokracija ispuni svoja obećanja za sve.",
+          "p2": "Projekt je rezultat suradnje između 12 partnera iz 10 europskih zemalja, a koordiniraju ga Evens Foundation uz financiranje Europske komisije."
+        }
       }
     }
   }
 }
-
-}
-
-
