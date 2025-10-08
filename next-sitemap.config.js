@@ -1,7 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: process.env.SITE_URL || "https://www.changingdemocracies.eu",
-  outDir: "./public/robots",
   generateRobotsTxt: false, // We'll create our own robots.txt
   exclude: [
     "/admin/*",
