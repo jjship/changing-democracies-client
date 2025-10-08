@@ -157,27 +157,27 @@
     "slides": {
       "slide_0": {
         "additionalContent": {
-          "scroll": "Rolar",
-          "documentary": "Documentário"
+          "scroll": "Mou-te pel",
+          "documentary": "documental"
         }
       },
       "slide_1": {
         "additionalContent": {
-          "is_democracy": "A democracia",
-          "worth": "vale",
-          "the_trouble": "o esforço?"
+          "is_democracy": "Val la pena",
+          "worth": "l’esforç per",
+          "the_trouble": "la democràcia?"
         }
       },
       "slide_2": {
         "additionalContent": {
-          "democracy": "Democracia",
-          "equality": "Igualdade",
-          "freedom": "Liberdade",
-          "honesty": "Honestidade",
+          "democracy": "Democràcia",
+          "equality": "Igualtat",
+          "freedom": "Llibertat",
+          "honesty": "Honestedat",
           "love": "Amor",
-          "conflict": "Conflito",
-          "safety": "Segurança",
-          "justice": "Justiça"
+          "conflict": "Conflicte",
+          "safety": "Seguretat",
+          "justice": "Justícia"
         }
       },
       "slide_3": {
@@ -207,45 +207,45 @@
         }
       },
       "slide_4": {
-        "title": "Looking back"
+        "title": "Mirant enrere"
       },
       "slide_5": {
-        "title": "State of transition"
+        "title": "Estat de Transició"
       },
       "slide_6": {
-        "title": "Is my democracy your democracy?"
+        "title": "És la meva democràcia la teva democràcia?"
       },
       "slide_8": {
-        "title": "Reality check"
+        "title": "Verificació"
       },
       "slide_9": {
-        "title": "The personal is political"
+        "title": "Allò personal és polític"
       },
       "slide_10": {
-        "title": "Past Present Future"
+        "title": "Passat Present Futur"
       },
       "slide_11": {
-        "title": "Get together"
+        "title": "Unir-se"
       },
       "slide_12": {
-        "title": "Beware"
+        "title": "Anem amb compte"
       },
       "slide_13": {
-        "title": "Make noise"
+        "title": "Fes soroll"
       },
       "slide_14": {
-        "title": "Our turn"
+        "title": "El nostre torn"
       },
       "slide_15": {
         "additionalContent": {
-          "credits": "Créditos",
+          "credits": "Crèdits",
           "script": "Script",
           "visuals": "Visuais",
           "development": "Desenvolvimento",
           "music": "Música",
           "Changing_Democracies": "Changing Democracies",
-          "p1": "explora como a história viva da Europa sobre as recentes transições para a democracia pode ajudar-nos a entender quais os processos necessários hoje para que a democracia cumpra as suas promessas para todos.",
-          "p2": "O projeto resulta de uma colaboração entre 12 parceiros de 10 países europeus e é coordenado pela Evens Foundation com financiamento da Comissão Europeia. "
+          "p1": "explora com la història de les transicions recents cap a la democràcia a Europa ens pot ajudar a entendre quins processos són necessaris avui dia perquè la democràcia compleixi les seves promeses per a tothom.",
+          "p2": "El projecte és el resultat d'una col·laboració entre 12 socis de 10 països europeus i està coordinat per la Fundació Evens amb finançament de la Comissió Europea."
         }
       }
     }

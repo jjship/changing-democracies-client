@@ -157,15 +157,15 @@
     "slides": {
       "slide_0": {
         "additionalContent": {
-          "scroll": "Desplazar",
-          "documentary": "Documental"
+          "scroll": " Desplázate por",
+          "documentary": "el documental"
         }
       },
       "slide_1": {
         "additionalContent": {
           "is_democracy": "¿Vale la pena",
-          "worth": "la democracia",
-          "the_trouble": "el esfuerzo?"
+          "worth": "el esfuerzo por",
+          "the_trouble": "la democracia?"
         }
       },
       "slide_2": {
