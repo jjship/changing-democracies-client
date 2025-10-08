@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+
+# Block admin routes
+Disallow: /admin/
+Disallow: /login/
+Disallow: /password-reset/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /supabase/
+
+# Block photobooth routes (private functionality)
+Disallow: /photobooth/
+
+# Allow all public routes
+Allow: /en/
+Allow: /fr/
+Allow: /de/
+Allow: /es/
+Allow: /ca/
+Allow: /cs/
+Allow: /el/
+Allow: /hr/
+Allow: /lt/
+Allow: /nl/
+Allow: /pl/
+Allow: /pt/
+Allow: /ro/
+
+# Sitemap location
+Sitemap: https://www.changingdemocracies.eu/sitemap.xml 
