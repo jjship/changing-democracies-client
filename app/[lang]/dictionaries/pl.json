@@ -157,8 +157,8 @@
     "slides": {
       "slide_0": {
         "additionalContent": {
-          "scroll": "Przewiń",
-          "documentary": "Dokument"
+          "scroll": "Dokument",
+          "documentary": "wertykalny"
         }
       },
       "slide_1": {
@@ -190,20 +190,20 @@
           "democratic_institutions_are_in_decline": "Instytucje demokratyczne słabną",
           "you_know_these_phrases": "Znasz te frazy",
           "you_ve_heard_them_over_and_over": "Słyszałeś je wiele razy",
-          "but_what_lies_beyond_this_gloomy_picture": "Ale co kryje się za tym ponurym obrazem?",
+          "but_what_lies_beyond_this_gloomy_picture": "Ale co kryje się za tym ponurym obrazem",
           "there_are_people_around_us_who_know": "Są wokół nas ludzie, którzy wiedzą",
           "they_have_experienced_firsthand_what_life_is_like_under_different_political_systems": "Doświadczyli na własnej skórze życia w różnych systemach politycznych",
           "they_have_lived_through_times_of_transition": "Przeżyli czasy transformacji",
-          "so_we_asked_them": "Zapytaliśmy ich więc:",
-          "is_democracy_worth_the_trouble": "Czy demokracja jest warta zachodu?",
-          "they_shared_their_fears_their_hopes_their_disillusions": "Podzielili się swoimi obawami, nadziejami i rozczarowaniami,",
+          "so_we_asked_them": "Zapytaliśmy ich więc",
+          "is_democracy_worth_the_trouble": "Czy demokracja jest warta zachodu",
+          "they_shared_their_fears_their_hopes_their_disillusions": "Podzielili się swoimi obawami, nadziejami i rozczarowaniami",
           "their_stories": "swoimi historiami",
           "changing_democracies_brings_you_their_wisdom": "Changing Democracies przedstawia ich mądrość",
-          "we_learnt": "Dowiedzieliśmy się:",
+          "we_learnt": "Dowiedzieliśmy się",
           "that_it_pays_to_move_beyond_historical_facts": "Że warto spojrzeć poza fakty historyczne",
           "that_democracy_is_never_finished": "Że demokracja nigdy nie jest ukończona",
           "that_engaging_with_its_challenges_together_is_the_only_way_forward": "Że jedyną drogą naprzód jest wspólne mierzenie się z jej wyzwaniami",
-          "dont_take_our_word_for_it_see_for_yourself": "Nie wierz nam na słowo – przekonaj się sam."
+          "dont_take_our_word_for_it_see_for_yourself": "Nie wierz nam na słowo – przekonaj się sam"
         }
       },
       "slide_4": {
