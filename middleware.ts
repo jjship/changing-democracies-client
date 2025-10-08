@@ -16,7 +16,8 @@ function getLocale(request: NextRequest) {
 export async function middleware(request: NextRequest) {
   if (
     request.nextUrl.pathname.startsWith("/api") ||
-    request.nextUrl.pathname.startsWith("/robots")
+    request.nextUrl.pathname.endsWith("sitemap.xml") ||
+    request.nextUrl.pathname.endsWith("robots.txt")
   ) {
     return NextResponse.next();
   }
