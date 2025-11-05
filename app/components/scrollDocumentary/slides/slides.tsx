@@ -225,7 +225,7 @@ export const slides: Slide[] = [
     hasTitle: true,
     colorTheme: "black",
     additionalElements: [],
-    videoId: "d934bb17-08b9-4898-be21-94d4bde205f1",
+    videoId: "89f154e0-5908-4186-aa89-368ff22b938f",
     videSource: null,
     videoTitle: null,
     speakers: [
