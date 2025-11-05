@@ -11,6 +11,10 @@ import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "../context/TranslationContext";
 import { LangParam } from "@/types/langParam";
 
+// Enable ISR: regenerate page every hour (3600 seconds)
+// This ensures pages are statically generated at build time for fast indexing
+export const revalidate = 3600;
+
 // Optimize cache time for better performance
 const getNarrativesWithCaptions = cache(
   async ({
@@ -89,26 +93,44 @@ async function NarrativesContent({
   narrativeId?: string;
 }) {
   const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
-  const { narratives, availableLanguageLabels, initialLanguageLabel } =
-    await getNarrativesWithCaptions({ lang });
 
-  // Find the selected narrative if an ID is provided
-  const selectedNarrative = narrativeId
-    ? narratives.find((n) => n.id === narrativeId) || null
-    : null;
+  try {
+    const { narratives, availableLanguageLabels, initialLanguageLabel } =
+      await getNarrativesWithCaptions({ lang });
 
-  return (
-    <TranslationProvider dictionary={dictionary}>
-      <main>
-        <NarrativesLayout
-          narrationPaths={narratives}
-          availableLanguageLabels={availableLanguageLabels}
-          initialLanguageLabel={initialLanguageLabel}
-          initialNarrativeId={narrativeId}
-        />
-      </main>
-    </TranslationProvider>
-  );
+    // Find the selected narrative if an ID is provided
+    const selectedNarrative = narrativeId
+      ? narratives.find((n) => n.id === narrativeId) || null
+      : null;
+
+    return (
+      <TranslationProvider dictionary={dictionary}>
+        <main>
+          <NarrativesLayout
+            narrationPaths={narratives}
+            availableLanguageLabels={availableLanguageLabels}
+            initialLanguageLabel={initialLanguageLabel}
+            initialNarrativeId={narrativeId}
+          />
+        </main>
+      </TranslationProvider>
+    );
+  } catch (error) {
+    console.error("Error loading narratives:", error);
+    // Return empty state to prevent 5xx errors
+    return (
+      <TranslationProvider dictionary={dictionary}>
+        <main>
+          <NarrativesLayout
+            narrationPaths={[]}
+            availableLanguageLabels={[]}
+            initialLanguageLabel={lang}
+            initialNarrativeId={narrativeId}
+          />
+        </main>
+      </TranslationProvider>
+    );
+  }
 }
 
 export default function NarrativesPage({
