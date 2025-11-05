@@ -34,7 +34,6 @@ const NarrativesLayout: FC<{
     }
     return null;
   });
-  const [switchPath, setSwitchPath] = useState<boolean>(false);
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
 
   // Access the global TranslationContext
@@ -111,8 +110,6 @@ const NarrativesLayout: FC<{
         setIsPlaying,
         currentIndex,
         setCurrentIndex,
-        switchPath,
-        setSwitchPath,
         selectedLanguage: language.toUpperCase(),
         setSelectedLanguage: handleLanguageChange,
       }}
@@ -128,14 +125,12 @@ const NarrativesLayout: FC<{
         <div
           className={`transition-height z-20 mx-auto ${overflow} rounded-3xl bg-black_bg duration-1000 ease-linear md:w-[90vw] ${
             sectionPadding.x
-          } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-55px)]"}`}
+          } h-[calc(90vh-55px)]`}
         >
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
         <div
-          className={`-z-[5] flex items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear ${
-            switchPath ? "sticky bottom-0 h-[40vh]" : "sticky bottom-0 h-[15vh]"
-          }`}
+          className={`sticky bottom-0 -z-[5] flex h-[15vh] items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear`}
         ></div>
         {!currentPath && (
           <div className="sticky bottom-0">
@@ -144,9 +139,7 @@ const NarrativesLayout: FC<{
         )}
 
         <div
-          className={`fixed transition-all duration-1000 ease-linear  ${
-            switchPath ? "bottom-[28vh]" : "bottom-[3vh]"
-          }  z-30 h-auto w-[100%] px-[14vw]`}
+          className={`fixed bottom-[3vh] z-30 h-auto w-[100%] px-[14vw] transition-all duration-1000 ease-linear`}
         >
           {currentPath && (
             <Box className={"bg-yellow h-full"}>
