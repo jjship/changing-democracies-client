@@ -10,6 +10,11 @@ import {
   TagCategoriesResponse,
 } from "@/utils/cdApi";
 import { FreeBrowsingLayout } from "@/components/FreeBrowsingLayout";
+
+// Enable ISR: regenerate page every hour (3600 seconds)
+// This ensures pages are statically generated at build time for fast indexing
+export const revalidate = 3600;
+
 // Set this to true to disable caching for development testing
 const DISABLE_CACHE = false;
 
@@ -66,22 +71,52 @@ async function FilmsContent({
   searchParams,
 }: LangParam & { searchParams: { id?: string } }) {
   const dictionary = await getDictionary(lang);
-  const [fragmentsResponse, tagCategoriesResponse] = await Promise.all([
-    getFragments(lang),
-    getCachedTagCategories(lang),
-  ]);
-  const { id: fragmentId } = searchParams;
 
-  return (
-    <TranslationProvider dictionary={dictionary}>
-      <FreeBrowsingLayout
-        fragmentsResponse={fragmentsResponse}
-        tagCategoriesResponse={tagCategoriesResponse}
-        languageCode={lang}
-        initialFragmentId={fragmentId}
-      />
-    </TranslationProvider>
-  );
+  try {
+    const [fragmentsResponse, tagCategoriesResponse] = await Promise.all([
+      getFragments(lang),
+      getCachedTagCategories(lang),
+    ]);
+    const { id: fragmentId } = searchParams;
+
+    return (
+      <TranslationProvider dictionary={dictionary}>
+        <FreeBrowsingLayout
+          fragmentsResponse={fragmentsResponse}
+          tagCategoriesResponse={tagCategoriesResponse}
+          languageCode={lang}
+          initialFragmentId={fragmentId}
+        />
+      </TranslationProvider>
+    );
+  } catch (error) {
+    console.error("Error loading fragments:", error);
+    // Return empty state to prevent 5xx errors
+    const emptyFragmentsResponse: FragmentsResponse = {
+      data: [],
+      pagination: {
+        total: 0,
+        page: 1,
+        limit: 500,
+        pages: 0,
+      },
+    };
+    const emptyTagCategoriesResponse: TagCategoriesResponse = {
+      tagCategories: [],
+    };
+    const { id: fragmentId } = searchParams;
+
+    return (
+      <TranslationProvider dictionary={dictionary}>
+        <FreeBrowsingLayout
+          fragmentsResponse={emptyFragmentsResponse}
+          tagCategoriesResponse={emptyTagCategoriesResponse}
+          languageCode={lang}
+          initialFragmentId={fragmentId}
+        />
+      </TranslationProvider>
+    );
+  }
 }
 
 export default async function FreeBrowsingPage({

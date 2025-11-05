@@ -12,6 +12,10 @@ import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "../context/TranslationContext";
 import { CDLanguages } from "@/utils/i18n/languages";
 
+// Enable ISR: regenerate page every hour (3600 seconds)
+// This ensures pages are statically generated at build time for fast indexing
+export const revalidate = 3600;
+
 // Increase cache time and optimize data fetching
 const getSerializedAndSortedVideos = cache(
   async ({ lang }: { lang: string }) => {
