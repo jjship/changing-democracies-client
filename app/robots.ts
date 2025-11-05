@@ -16,6 +16,7 @@ export default function robots(): MetadataRoute.Robots {
           "/_next/",
           "/supabase/",
           "/photobooth/",
+          "/auth/",
         ],
       },
     ],
