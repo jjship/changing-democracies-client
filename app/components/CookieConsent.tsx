@@ -10,7 +10,7 @@ export default function CookieConsent({ lang }: { lang: CDLanguages }) {
       src="https://policy.app.cookieinformation.com/uc.js"
       data-culture={lang.toUpperCase()}
       data-gcm-version="2.0"
-      data-gcm-enabled="false"
+      data-gcm-enabled="true"
       type="text/javascript"
       strategy="afterInteractive"
     />
