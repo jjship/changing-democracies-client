@@ -24,7 +24,6 @@ const getNarrativesWithCaptions = cache(
   }): Promise<{
     narratives: NarrationPath[];
     availableLanguageLabels: string[];
-    initialLanguageLabel: string;
   }> => {
     const narratives = await narrativesApi.getNarratives();
 
@@ -65,7 +64,6 @@ const getNarrativesWithCaptions = cache(
     return {
       narratives: narrativesWithCaptions,
       availableLanguageLabels,
-      initialLanguageLabel: lang,
     };
   },
 );
@@ -95,13 +93,8 @@ async function NarrativesContent({
   const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
 
   try {
-    const { narratives, availableLanguageLabels, initialLanguageLabel } =
+    const { narratives, availableLanguageLabels } =
       await getNarrativesWithCaptions({ lang });
-
-    // Find the selected narrative if an ID is provided
-    const selectedNarrative = narrativeId
-      ? narratives.find((n) => n.id === narrativeId) || null
-      : null;
 
     return (
       <TranslationProvider dictionary={dictionary}>
@@ -109,7 +102,6 @@ async function NarrativesContent({
           <NarrativesLayout
             narrationPaths={narratives}
             availableLanguageLabels={availableLanguageLabels}
-            initialLanguageLabel={initialLanguageLabel}
             initialNarrativeId={narrativeId}
           />
         </main>
@@ -124,7 +116,6 @@ async function NarrativesContent({
           <NarrativesLayout
             narrationPaths={[]}
             availableLanguageLabels={[]}
-            initialLanguageLabel={lang}
             initialNarrativeId={narrativeId}
           />
         </main>
