@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { VideoSubtitles } from "./VideoSubtitles";
+import { VideoProgressBar } from "./VideoProgressBar";
 import type { Subtitle } from "@/utils/subtitles/types";
 
 interface VideoOverlayProps {
@@ -39,6 +40,8 @@ export const VideoOverlay: FC<VideoOverlayProps> = ({
         isLoading={subtitlesLoading}
         error={subtitlesError}
       />
+
+      <VideoProgressBar videoRef={videoRef} />
 
       {subtitlesError && (
         <div className="absolute bottom-16 left-1/2 z-20 w-full max-w-xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
