@@ -9,8 +9,6 @@ const defaultContext: NarrativesContextType = {
   setIsPlaying: () => {},
   currentIndex: 0,
   setCurrentIndex: () => {},
-  switchPath: false,
-  setSwitchPath: () => {},
   showSidePanel: false,
   setShowSidePanel: () => {},
   selectedLanguage: undefined,
@@ -25,8 +23,6 @@ type NarrativesContextType = {
   setIsPlaying: (isPlaying: boolean) => void;
   currentIndex: number;
   setCurrentIndex: (currentIndex: number) => void;
-  switchPath: boolean;
-  setSwitchPath: (switchPath: boolean) => void;
   showSidePanel: boolean;
   setShowSidePanel: (showSidePanel: boolean) => void;
   selectedLanguage: string | undefined;
@@ -60,7 +56,6 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
   );
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [switchPath, setSwitchPath] = useState(false);
   const [showSidePanel, setShowSidePanel] = useState(false);
   const [selectedLanguage, setSelectedLanguageState] = useState<
     string | undefined
@@ -80,8 +75,6 @@ export const NarrativesProvider: FC<NarrativesProviderProps> = ({
     setIsPlaying,
     currentIndex,
     setCurrentIndex,
-    switchPath,
-    setSwitchPath,
     showSidePanel,
     setShowSidePanel,
     selectedLanguage,

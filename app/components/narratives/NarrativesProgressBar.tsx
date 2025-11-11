@@ -1,8 +1,6 @@
 import { FC, useCallback, useMemo, useState } from "react";
 import { Box, Flex } from "@radix-ui/themes";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
-import SwitchPathButton from "@/components/narratives/switchPathButton";
-import SwitchPathRedirectButton from "@/components/narratives/SwitchPathRedirectButton";
 
 const NarrativesProgressBar: FC = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
@@ -11,64 +9,15 @@ const NarrativesProgressBar: FC = () => {
     setCurrentIndex,
     setIsPlaying,
     currentPath,
-    setSwitchPath,
-    switchPath,
     isPlaying,
-    setCurrentPath,
-    narrationPaths,
-    selectedLanguage,
   } = useNarrativesContext();
-
-  const [animate, setAnimate] = useState(false);
 
   const onFragmentSelect = useCallback(
     (index: number) => {
       setCurrentIndex(index);
       setIsPlaying(true);
-      setSwitchPath(false);
     },
-    [setCurrentIndex, setIsPlaying, setSwitchPath],
-  );
-
-  const getTitleInLanguage = useMemo(
-    () => (titles: { languageCode: string; title: string }[]) => {
-      return (
-        (titles.find((title) => title.languageCode === selectedLanguage)
-          ?.title ||
-          titles.find((title) => title.languageCode === "EN")?.title) ??
-        ""
-      );
-    },
-    [selectedLanguage],
-  );
-
-  const handleSwitchPathButton = useCallback(() => {
-    isPlaying && setIsPlaying(false);
-    !switchPath && setSwitchPath(true);
-    setAnimate(true);
-  }, [isPlaying, setIsPlaying, setSwitchPath, switchPath]);
-
-  const handleSwitchPathRedirectButton = useCallback(
-    (id: string) => {
-      setIsPlaying(true);
-      setSwitchPath(false);
-      if (narrationPaths) {
-        const path = narrationPaths.find((path) => path.id === id);
-        path && setCurrentPath(path);
-      }
-      if (currentPath) {
-        setCurrentIndex(currentIndex + 1);
-      }
-    },
-    [
-      currentIndex,
-      currentPath,
-      narrationPaths,
-      setCurrentIndex,
-      setCurrentPath,
-      setIsPlaying,
-      setSwitchPath,
-    ],
+    [setCurrentIndex, setIsPlaying],
   );
 
   const totalFragments = currentPath?.fragments.length ?? 0;
@@ -101,21 +50,6 @@ const NarrativesProgressBar: FC = () => {
                 zIndex: 0,
               }}
             />
-          )}
-          {index === currentIndex && (
-            <Box
-              className={`ease absolute -z-[50] transition-all delay-75 duration-500 ${
-                !isPlaying &&
-                currentPath?.fragments[currentIndex].otherPaths.length !== 0 &&
-                index === currentIndex
-                  ? "bottom-0 -translate-x-[45%] -translate-y-[100%] opacity-100"
-                  : "bottom-0 -translate-x-[45%] -translate-y-[0%] opacity-0"
-              }`}
-            >
-              {!switchPath && (
-                <SwitchPathButton onClick={handleSwitchPathButton} />
-              )}
-            </Box>
           )}
           <Box
             style={{
@@ -185,29 +119,6 @@ const NarrativesProgressBar: FC = () => {
               onMouseLeave={() => setIsHovered(null)}
             />
           </Box>
-          <Flex className={"relative"}>
-            <Box
-              className={"absolute top-12"}
-              style={{ overflowY: "auto", maxHeight: "20vh" }}
-            >
-              {switchPath &&
-                !isPlaying &&
-                index === currentIndex &&
-                currentPath?.fragments[currentIndex].otherPaths.map(
-                  (otherPath, index) => (
-                    <SwitchPathRedirectButton
-                      key={index}
-                      onClick={() =>
-                        handleSwitchPathRedirectButton(otherPath.id)
-                      }
-                      id={otherPath.id}
-                      animate={animate}
-                      title={getTitleInLanguage(otherPath.titles)}
-                    ></SwitchPathRedirectButton>
-                  ),
-                )}
-            </Box>
-          </Flex>
         </Flex>
       )),
     [
@@ -215,12 +126,8 @@ const NarrativesProgressBar: FC = () => {
       currentIndex,
       isPlaying,
       currentPath?.fragments,
-      switchPath,
-      handleSwitchPathButton,
       isHovered,
       onFragmentSelect,
-      animate,
-      handleSwitchPathRedirectButton,
     ],
   );
 

@@ -17,8 +17,6 @@ const NarrativesView: FC = ({}) => {
     currentIndex,
     setCurrentIndex,
     setCurrentPath,
-    switchPath,
-    setSwitchPath,
     showSidePanel,
     setShowSidePanel,
     selectedLanguage,
@@ -66,13 +64,11 @@ const NarrativesView: FC = ({}) => {
 
   const handleStart = () => {
     setIsPlaying(true);
-    switchPath && setSwitchPath(false);
     setShowSidePanel(false);
   };
 
   const handleContinue = useCallback(() => {
     if (currentPath && currentIndex !== currentPath.fragments.length) {
-      switchPath && setSwitchPath(false);
       setIsPlaying(true);
       setShowSidePanel(false);
     }
@@ -80,8 +76,6 @@ const NarrativesView: FC = ({}) => {
     currentIndex,
     currentPath,
     setIsPlaying,
-    setSwitchPath,
-    switchPath,
     setShowSidePanel,
   ]);
 
@@ -89,7 +83,6 @@ const NarrativesView: FC = ({}) => {
     setCurrentPath(null);
     setCurrentIndex(0);
     setIsPlaying(false);
-    switchPath && setSwitchPath(false);
 
     // Create new URLSearchParams with existing params
     const params = new URLSearchParams(searchParams.toString());
@@ -128,10 +121,10 @@ const NarrativesView: FC = ({}) => {
             <h1
               className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white"
               style={{
-                opacity: switchPath ? 0 : 1,
-                transform: switchPath ? "translateY(20px)" : "translateY(0)",
+                opacity: 1,
+                transform: "translateY(0)",
                 transition: "opacity 0.5s ease, transform 0.5s ease",
-                transitionDelay: switchPath ? "0s" : "0.5s",
+                transitionDelay: "0.5s",
               }}
             >
               {getTitleInLanguage(currentPath.titles)}
@@ -173,7 +166,7 @@ const NarrativesView: FC = ({}) => {
                     triangleColor="#8083ae"
                     trianglePlacement="left"
                   />
-                  {!switchPath && !showSidePanel && (
+                  {!showSidePanel && (
                     <NarrativesCountDown onFinish={handleContinue} />
                   )}
                 </Flex>
