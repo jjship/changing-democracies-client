@@ -43,17 +43,11 @@ export const VideoControls: FC<VideoControlsProps> = ({
   if (currentIndex > 0 && currentIndex <= totalFragments) {
     return (
       <Flex
-        direction={"row"}
+        direction={"column"}
         justify={"center"}
         align={"center"}
         className={"absolute w-full"}
       >
-        <NarrativesViewButton
-          text="Continue"
-          onClick={onContinue}
-          triangleColor="#8083ae"
-          trianglePlacement="left"
-        />
         {!showSidePanel && (
           <NarrativesCountDown onFinish={onContinue} />
         )}

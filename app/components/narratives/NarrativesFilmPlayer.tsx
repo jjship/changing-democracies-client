@@ -101,6 +101,56 @@ const NarrativesFilmPlayer: FC = () => {
     };
   }, [onEnded, videoRef]);
 
+  // Keyboard controls
+  useEffect(() => {
+    if (!currentPath) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't handle keyboard events if user is typing in an input/textarea
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable
+      ) {
+        return;
+      }
+
+      switch (e.key) {
+        case "ArrowLeft":
+          e.preventDefault();
+          if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+            setIsPlaying(true);
+          }
+          break;
+        case "ArrowRight":
+          e.preventDefault();
+          if (currentIndex < currentPath.fragments.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+            setIsPlaying(true);
+          }
+          break;
+        case " ":
+          e.preventDefault();
+          handlePlayPause();
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [
+    currentPath,
+    currentIndex,
+    setCurrentIndex,
+    setIsPlaying,
+    handlePlayPause,
+  ]);
+
   return (
     nowPlaying && (
       <div
