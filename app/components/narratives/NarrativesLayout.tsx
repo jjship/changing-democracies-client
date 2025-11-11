@@ -7,7 +7,6 @@ import NarrativesProgressBar from "./NarrativesProgressBar";
 import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
 import { Archivo } from "next/font/google";
 import NarrativesContext from "./NarrativesContext";
-import { Box } from "@radix-ui/themes/dist/esm/components/box.js";
 import { useLanguage } from "@/utils/i18n/useLanguage";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 import { CDLanguages } from "@/utils/i18n/languages";
@@ -18,12 +17,10 @@ const archivo = Archivo({ subsets: ["latin"] });
 const NarrativesLayout: FC<{
   narrationPaths: NarrationPath[];
   availableLanguageLabels: string[];
-  initialLanguageLabel: string;
   initialNarrativeId?: string;
 }> = ({
   narrationPaths,
   availableLanguageLabels,
-  initialLanguageLabel,
   initialNarrativeId,
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -34,13 +31,10 @@ const NarrativesLayout: FC<{
     }
     return null;
   });
-  const [switchPath, setSwitchPath] = useState<boolean>(false);
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
 
   // Access the global TranslationContext
   const globalTranslation = useTranslation();
-
-  const overflow = currentPath ? "overflow-visible" : "overflow-auto";
 
   // Convert available language labels to CDLanguages format
   const availableLanguages: CDLanguages[] = availableLanguageLabels
@@ -57,46 +51,28 @@ const NarrativesLayout: FC<{
 
   // Sync with global TranslationContext language changes
   useEffect(() => {
-    if (globalTranslation.language) {
-      const upperLang = globalTranslation.language.toUpperCase();
-
-      // Only update if the language is different and available
-      if (
-        upperLang !== language.toUpperCase() &&
-        availableLanguageLabels.includes(upperLang)
-      ) {
-        setLanguage(globalTranslation.language);
-      }
-    }
-  }, [
-    globalTranslation.language,
-    availableLanguageLabels,
-    language,
-    setLanguage,
-  ]);
-
-  // Sync navigation language changes back to global context
-  const handleLanguageChange = (newLang: string | undefined) => {
-    // Update our local state
-    if (newLang) {
-      const normalizedLang = newLang.toLowerCase() as CDLanguages;
-      setLanguage(normalizedLang);
-    }
-
-    // Also update global translation context if the language is valid
     if (
-      newLang &&
-      globalTranslation.availableLanguages.includes(
-        newLang.toLowerCase() as any,
+      globalTranslation.language &&
+      globalTranslation.language.toUpperCase() !== language.toUpperCase() &&
+      availableLanguageLabels.includes(
+        globalTranslation.language.toUpperCase(),
       )
     ) {
-      globalTranslation.setLanguage(newLang.toLowerCase() as any);
+      setLanguage(globalTranslation.language);
     }
-  };
+  }, [globalTranslation.language, availableLanguageLabels, language, setLanguage]);
 
-  // Create a wrapper function specifically for the Navigation component which only accepts strings
-  const handleNavigationLanguageChange = (newLang: string) => {
-    handleLanguageChange(newLang);
+  // Handle language changes from navigation
+  const handleLanguageChange = (newLang: string | undefined) => {
+    if (!newLang) return;
+    
+    const normalizedLang = newLang.toLowerCase() as CDLanguages;
+    setLanguage(normalizedLang);
+    
+    // Update global translation context if valid
+    if (globalTranslation.availableLanguages.includes(normalizedLang as any)) {
+      globalTranslation.setLanguage(normalizedLang as any);
+    }
   };
 
   return (
@@ -111,8 +87,6 @@ const NarrativesLayout: FC<{
         setIsPlaying,
         currentIndex,
         setCurrentIndex,
-        switchPath,
-        setSwitchPath,
         selectedLanguage: language.toUpperCase(),
         setSelectedLanguage: handleLanguageChange,
       }}
@@ -123,19 +97,19 @@ const NarrativesLayout: FC<{
           fontColor="yellow_secondary"
           selectedLanguage={language}
           availableLanguages={hookLanguages}
-          onLanguageChange={handleNavigationLanguageChange}
+          onLanguageChange={handleLanguageChange}
         />
         <div
-          className={`transition-height z-20 mx-auto ${overflow} rounded-3xl bg-black_bg duration-1000 ease-linear md:w-[90vw] ${
+          className={`transition-height z-20 mx-auto ${
+            currentPath ? "overflow-visible" : "overflow-auto"
+          } rounded-3xl bg-black_bg duration-1000 ease-linear md:w-[90vw] ${
             sectionPadding.x
-          } ${switchPath ? "h-[calc(65vh-40px)]" : "h-[calc(90vh-55px)]"}`}
+          } h-[calc(90vh-55px)]`}
         >
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
         <div
-          className={`-z-[5] flex items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear ${
-            switchPath ? "sticky bottom-0 h-[40vh]" : "sticky bottom-0 h-[15vh]"
-          }`}
+          className={`sticky bottom-0 -z-[5] flex h-[15vh] items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear`}
         ></div>
         {!currentPath && (
           <div className="sticky bottom-0">
@@ -143,17 +117,13 @@ const NarrativesLayout: FC<{
           </div>
         )}
 
-        <div
-          className={`fixed transition-all duration-1000 ease-linear  ${
-            switchPath ? "bottom-[28vh]" : "bottom-[3vh]"
-          }  z-30 h-auto w-[100%] px-[14vw]`}
-        >
-          {currentPath && (
-            <Box className={"bg-yellow h-full"}>
+        {currentPath && (
+          <div className="fixed bottom-[3vh] z-30 h-auto w-full px-[14vw] transition-all duration-1000 ease-linear">
+            <div className="bg-yellow h-full">
               <NarrativesProgressBar />
-            </Box>
-          )}
-        </div>
+            </div>
+          </div>
+        )}
       </div>
     </NarrativesContext.Provider>
   );

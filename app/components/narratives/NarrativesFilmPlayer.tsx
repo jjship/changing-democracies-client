@@ -1,13 +1,14 @@
 "use client";
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo } from "react";
 import { Box } from "@radix-ui/themes";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
-import Hls from "hls.js";
-import { Button } from "@/components/ui/button";
-import { Play, Pause } from "lucide-react";
 import useAdaptiveQuality from "../scrollDocumentary/useAdaptiveQuality";
 import { getOptimalQuality } from "../scrollDocumentary/videoSource";
 import { useSubtitles } from "@/utils/subtitles/api";
+import { useVideoPlayer } from "./hooks/useVideoPlayer";
+import { VideoOverlay } from "./VideoOverlay";
+import { VideoPlayPauseButton } from "./VideoPlayPauseButton";
+import { useVideoBounds } from "./hooks/useVideoBounds";
 
 const NarrativesFilmPlayer: FC = () => {
   const {
@@ -21,13 +22,6 @@ const NarrativesFilmPlayer: FC = () => {
     setShowSidePanel,
     selectedLanguage,
   } = useNarrativesContext();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [hls, setHls] = useState<Hls | null>(null);
-  const [isUsingHLS, setIsUsingHLS] = useState(false);
-  const [isPaused, setIsPaused] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
   const nowPlaying = currentPath?.fragments[currentIndex];
 
   const currentCountryName = useMemo(() => {
@@ -43,18 +37,22 @@ const NarrativesFilmPlayer: FC = () => {
     );
   }, [currentPath, currentIndex, selectedLanguage]);
 
+  // Initialize with all qualities, then filter based on HLS support
   const { currentQuality, videoRef } = useAdaptiveQuality({
     initialQuality: getOptimalQuality(nowPlaying?.availableQualities ?? []),
-    qualities: (nowPlaying?.availableQualities ?? []).filter((q) =>
-      isUsingHLS ? q.supportsHLS : !q.supportsHLS,
-    ),
+    qualities: nowPlaying?.availableQualities ?? [],
   });
 
-  useEffect(() => {
-    if (isPlaying === isPaused) {
-      setIsPaused((prev) => !prev);
-    }
-  }, [isPlaying]);
+  const { isPaused, isLoading, error, handlePlayPause, isUsingHLS } =
+    useVideoPlayer({
+      videoSource: nowPlaying,
+      videoRef,
+      currentQuality,
+      isPlaying,
+      showSidePanel,
+    });
+
+  const videoBounds = useVideoBounds(videoRef);
 
   if (!nowPlaying) throw new Error("No now playing fragment");
 
@@ -73,181 +71,6 @@ const NarrativesFilmPlayer: FC = () => {
     fragmentId: nowPlaying ? nowPlaying.videoId : undefined,
     languageCode: langCode,
   });
-
-  // Effect to handle language changes
-  useEffect(() => {
-    // If language changes and we have a video playing
-    if (videoRef.current && videoRef.current.currentTime > 0) {
-      // Store current time and playing state
-      const currentTime = videoRef.current.currentTime;
-      const wasPlaying = !videoRef.current.paused;
-
-      // Reset video to apply new subtitles
-      if (hls) {
-        hls.destroy();
-        setHls(null);
-      }
-
-      // Re-initialize after a short delay
-      setTimeout(() => {
-        if (videoRef.current) {
-          // Restore position
-          videoRef.current.currentTime = currentTime;
-
-          // Restore playing state if needed
-          if (wasPlaying) {
-            videoRef.current
-              .play()
-              .catch((err) => console.error("Error resuming playback:", err));
-          }
-        }
-      }, 100);
-    }
-  }, [selectedLanguage, langCode]);
-
-  // Effect to initialize video player and HLS if supported
-  useEffect(() => {
-    if (!nowPlaying) return;
-
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Set initial states
-    setIsLoading(true);
-    setError(null);
-
-    // Flag to track if component is still mounted
-    let isMounted = true;
-
-    // Clean up previous HLS instance if exists
-    if (hls) {
-      hls.destroy();
-      setHls(null);
-    }
-
-    const initializeVideo = async () => {
-      try {
-        if (Hls.isSupported() && nowPlaying.hlsPlaylistUrl) {
-          // HLS.js supported
-          const newHls = new Hls({
-            maxMaxBufferLength: 30,
-            maxBufferSize: 10 * 1000 * 1000,
-            debug: false,
-          });
-
-          newHls.loadSource(nowPlaying.hlsPlaylistUrl);
-          newHls.attachMedia(video);
-
-          await new Promise((resolve, reject) => {
-            newHls.once(Hls.Events.MANIFEST_PARSED, resolve);
-            newHls.once(Hls.Events.ERROR, (_, data) => {
-              if (data.fatal) reject(new Error(`HLS error: ${data.type}`));
-            });
-          });
-
-          if (!isMounted) return;
-          setHls(newHls);
-          setIsUsingHLS(true);
-        } else if (
-          video.canPlayType("application/vnd.apple.mpegurl") &&
-          nowPlaying.hlsPlaylistUrl
-        ) {
-          // Safari native HLS support
-          video.src = nowPlaying.hlsPlaylistUrl;
-          setIsUsingHLS(true);
-
-          await new Promise((resolve) => {
-            video.addEventListener("loadeddata", resolve, { once: true });
-          });
-        } else {
-          // Fallback to MP4
-          console.log("Falling back to MP4 playback");
-          const mp4Url = `https://${nowPlaying.pullZoneUrl}.b-cdn.net/${nowPlaying.videoId}/play_play_${currentQuality.height}p.mp4`;
-          video.src = mp4Url;
-          setIsUsingHLS(false);
-
-          await new Promise((resolve) => {
-            video.addEventListener("loadeddata", resolve, { once: true });
-          });
-        }
-
-        if (!isMounted) return;
-        setIsLoading(false);
-
-        // IMPORTANT: Don't automatically play the video
-        // Just update the UI state to reflect that the video is paused
-        setIsPaused(true);
-      } catch (e) {
-        console.error("Video setup error:", e);
-        if (isMounted) {
-          setError(
-            `Failed to setup video: ${
-              e instanceof Error ? e.message : "Unknown error"
-            }`,
-          );
-          setIsLoading(false);
-        }
-      }
-    };
-
-    initializeVideo();
-
-    // Set up event listeners for play/pause state
-    const handlePause = () => {
-      if (isMounted) {
-        setIsPaused(true);
-      }
-    };
-
-    const handlePlay = () => {
-      if (isMounted) {
-        setIsPaused(false);
-      }
-    };
-
-    video.addEventListener("pause", handlePause);
-    video.addEventListener("play", handlePlay);
-
-    return () => {
-      isMounted = false;
-
-      // Remove event listeners
-      video.removeEventListener("pause", handlePause);
-      video.removeEventListener("play", handlePlay);
-
-      // Clean up HLS
-      if (hls) {
-        hls.destroy();
-      }
-
-      // Safely stop video
-      try {
-        video.pause();
-        video.src = "";
-        video.load();
-      } catch (e) {
-        console.error("Error during cleanup:", e);
-      }
-    };
-  }, [nowPlaying, currentQuality]); // adding hls and videoRef to the dependency array causes an infinite loop
-
-  // Handle play/pause toggling
-  const handlePlayPause = () => {
-    setIsPaused(!isPaused);
-  };
-
-  useEffect(() => {
-    setIsPaused(showSidePanel);
-  }, [showSidePanel]);
-
-  // Effect to play/pause video based on isPlaying state
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (!isPaused && video.paused) video.play();
-    if (isPaused && !video.paused) video.pause();
-  }, [isPaused, videoRef]);
 
   // Handle video end
   const onEnded = useCallback(() => {
@@ -276,122 +99,115 @@ const NarrativesFilmPlayer: FC = () => {
     return () => {
       video.removeEventListener("ended", handleEnded);
     };
-  }, [onEnded, isPlaying, videoRef]);
-  const currentSubRef = useRef<string>("");
+  }, [onEnded, videoRef]);
 
+  // Keyboard controls
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video || subtitles.length === 0) return;
+    if (!currentPath) return;
 
-    const handleTimeUpdate = () => {
-      const currentTime = video.currentTime;
-      const currentSub = subtitles.find(
-        (sub) => currentTime >= sub.start && currentTime <= sub.end,
-      );
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't handle keyboard events if user is typing in an input/textarea
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable
+      ) {
+        return;
+      }
 
-      const newSubtitleText = currentSub?.text || "";
-
-      // Only update state if subtitle text has changed
-      if (newSubtitleText !== currentSubRef.current) {
-        currentSubRef.current = newSubtitleText;
-        setCurrentSubtitle(newSubtitleText);
+      switch (e.key) {
+        case "ArrowLeft":
+          e.preventDefault();
+          if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+            setIsPlaying(true);
+          }
+          break;
+        case "ArrowRight":
+          e.preventDefault();
+          if (currentIndex < currentPath.fragments.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+            setIsPlaying(true);
+          }
+          break;
+        case " ":
+          e.preventDefault();
+          handlePlayPause();
+          break;
       }
     };
 
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-  }, [subtitles]); // removing videoRef from the dependency array fixes the infinite loop
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [
+    currentPath,
+    currentIndex,
+    setCurrentIndex,
+    setIsPlaying,
+    handlePlayPause,
+  ]);
 
   return (
     nowPlaying && (
       <div
-        ref={containerRef}
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-        }}
+        className="group/video relative h-full w-full max-w-full"
+        style={{ aspectRatio: "16/9" }}
       >
-        <>
-          <Box
-            onClick={() => {
-              setShowSidePanel(true);
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+          <video
+            autoPlay={isPlaying}
+            ref={videoRef}
+            className="relative z-0 h-full w-full object-contain"
+            playsInline
+            crossOrigin="anonymous"
+            onError={(e) => {
+              const video = e.currentTarget;
+              console.error("Video error:", video.error);
             }}
-            className={
-              "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise hover:cursor-pointer hover:bg-[#00000080]"
-            }
-          >
-            <p>{`${nowPlaying.person},`}</p>
-            <p>{`${currentCountryName}`}</p>
-          </Box>
-          <div
-            className="group/video relative max-h-full w-full"
-            style={{ aspectRatio: "16/9" }}
-          >
-            <video
-              autoPlay={isPlaying}
-              ref={videoRef}
-              className="h-full w-full object-contain"
-              playsInline
-              crossOrigin="anonymous"
-              onError={(e) => {
-                const video = e.currentTarget;
-                console.error("Video error:", video.error);
-                setError(
-                  `Video error: ${video.error?.message || "Unknown error"}`,
-                );
-                setIsLoading(false);
+          />
+          {videoBounds && (
+            <div
+              className="pointer-events-none absolute"
+              style={{
+                width: `${videoBounds.width}px`,
+                height: `${videoBounds.height}px`,
+                left: `${videoBounds.left}px`,
+                top: `${videoBounds.top}px`,
               }}
-              onLoadedData={() => {
-                setIsLoading(false);
-              }}
-            />
-
-            {isPlaying && (
-              <Button
-                onClick={handlePlayPause}
-                size="icon"
-                variant="secondary"
-                className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200 hover:scale-110 group-hover/video:opacity-100"
+            >
+              <Box
+                onClick={() => {
+                  setShowSidePanel(true);
+                }}
+                className={
+                  "w-18 pointer-events-auto absolute left-2 top-2 z-30 border-[3px] border-turquoise p-2 text-turquoise hover:cursor-pointer hover:bg-[#00000080] sm:left-4 sm:top-4 sm:p-3 md:left-8 md:top-8 md:p-4 lg:left-12 lg:top-12"
+                }
               >
-                {isPaused ? (
-                  <Play className="h-6 w-6" />
-                ) : (
-                  <Pause className="h-6 w-6" />
-                )}
-              </Button>
-            )}
+                <p>{`${nowPlaying.person},`}</p>
+                <p>{`${currentCountryName}`}</p>
+              </Box>
 
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                <div className="text-white">Loading...</div>
-              </div>
-            )}
+              <VideoPlayPauseButton
+                isPaused={isPaused}
+                isPlaying={isPlaying}
+                onToggle={handlePlayPause}
+              />
 
-            {error && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                <div className="text-red-500">{error}</div>
-              </div>
-            )}
-
-            {!subtitlesLoading && currentSubtitle && (
-              <div className="absolute bottom-8 left-1/2 w-full max-w-4xl -translate-x-1/2 rounded-md bg-black/60 p-4 text-center font-bold text-white">
-                {currentSubtitle}
-              </div>
-            )}
-
-            {subtitlesError && (
-              <div className="absolute bottom-16 left-1/2 w-full max-w-xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
-                {subtitlesError}
-              </div>
-            )}
-          </div>
-        </>
+              <VideoOverlay
+                videoRef={videoRef}
+                isLoading={isLoading}
+                error={error}
+                subtitles={subtitles}
+                subtitlesLoading={subtitlesLoading}
+                subtitlesError={subtitlesError}
+              />
+            </div>
+          )}
+        </div>
       </div>
     )
   );

@@ -6,7 +6,6 @@ import Title from "@/components/Title";
 import NarrativesLegend from "@/components/narratives/NarrativesLegend";
 import { NarrativesList } from "@/components/narratives/NarrativesList";
 import { NarrativesView } from "./NarrativesVIew";
-import { Flex } from "@radix-ui/themes";
 import { useTranslation } from "@/translation/TranslationContext";
 
 export { NarrativesOverview };
@@ -30,12 +29,8 @@ const NarrativesOverview: FC<{
             color="yellow_secondary"
             alt={true}
           />
-          {narrativesCollection && (
-            <>
-              <NarrativesLegend />
-              <NarrativesList />
-            </>
-          )}
+          <NarrativesLegend />
+          <NarrativesList />
         </>
       )}
     </>
