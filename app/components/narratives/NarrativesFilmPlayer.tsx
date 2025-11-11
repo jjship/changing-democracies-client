@@ -154,14 +154,14 @@ const NarrativesFilmPlayer: FC = () => {
   return (
     nowPlaying && (
       <div
-        className="group/video relative h-full w-full max-w-full border-4 border-green-500"
+        className="group/video relative h-full w-full max-w-full"
         style={{ aspectRatio: "16/9" }}
       >
         <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
           <video
             autoPlay={isPlaying}
             ref={videoRef}
-            className="border-purple-500 relative z-0 h-full w-full border-4 object-contain"
+            className="relative z-0 h-full w-full object-contain"
             playsInline
             crossOrigin="anonymous"
             onError={(e) => {

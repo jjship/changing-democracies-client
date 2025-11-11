@@ -90,7 +90,7 @@ const NarrativesView: FC = ({}) => {
 
           <Flex
             ref={videoContainerRef}
-            className="relative flex w-full min-w-0 max-w-full flex-1 items-center justify-center overflow-hidden rounded-bl-2xl rounded-br-2xl border-4 border-red-500 px-2 sm:px-4 md:rounded-bl-3xl md:rounded-br-3xl"
+            className="relative flex w-full min-w-0 max-w-full flex-1 items-center justify-center overflow-hidden rounded-bl-2xl rounded-br-2xl px-2 sm:px-4 md:rounded-bl-3xl md:rounded-br-3xl"
             style={{ minHeight: 0 }}
           >
             <NarrativesFilmPlayer />
