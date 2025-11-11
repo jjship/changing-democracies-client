@@ -23,7 +23,6 @@ const routes = [
   "/free-browsing",
   "/project",
   "/team",
-  "/events",
   "/contact",
   "/educational-resources",
   "/research-publication",

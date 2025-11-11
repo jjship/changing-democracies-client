@@ -29,7 +29,6 @@ type Dictionary = {
     freeBrowsing: string;
     project: string;
     team: string;
-    events: string;
     educationalResources: string;
     researchPublication: string;
     travellingWorkshop: string;

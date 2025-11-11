@@ -24,7 +24,6 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
       "narratives",
       "free-browsing",
       "team",
-      "events",
       "contact",
     ];
 
@@ -86,17 +85,9 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
           toggleNav={toggleNav}
         />
         <AnimatedLink
-          href="events"
-          text={dict.navigation.events}
-          timeout={200}
-          color="pink"
-          isNavOpen={isNavOpen}
-          toggleNav={toggleNav}
-        />
-        <AnimatedLink
           href="contact"
           text={dict.navigation.contact}
-          timeout={250}
+          timeout={200}
           color="pink"
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}

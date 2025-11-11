@@ -34,7 +34,6 @@ module.exports = {
       "/free-browsing",
       "/project",
       "/team",
-      "/events",
       "/contact",
       "/educational-resources",
       "/research-publication",
