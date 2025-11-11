@@ -34,10 +34,10 @@ const adaptClientFragment = (fragment: ClientFragment): UnifiedVideoSource => {
     hlsPlaylistUrl: getHlsPlaylistUrl(videoId),
     pullZoneUrl: "vz-cac74041-8b3",
     availableQualities: [
-      { height: 1080, width: 1920, label: "1080p", supportsHLS: true },
-      { height: 720, width: 1280, label: "720p", supportsHLS: true },
-      { height: 480, width: 854, label: "480p", supportsHLS: true },
-      { height: 360, width: 640, label: "360p", supportsHLS: true },
+      { height: 1080, label: "1080p", supportsHLS: true },
+      { height: 720, label: "720p", supportsHLS: true },
+      { height: 480, label: "480p", supportsHLS: true },
+      { height: 360, label: "360p", supportsHLS: true },
     ],
     availableLanguageCodes: { EN: "en" }, // Default, can be enhanced
   };

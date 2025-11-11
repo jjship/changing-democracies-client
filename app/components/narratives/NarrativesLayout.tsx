@@ -63,7 +63,9 @@ const NarrativesLayout: FC<{
   }, [globalTranslation.language, availableLanguageLabels, language, setLanguage]);
 
   // Handle language changes from navigation
-  const handleLanguageChange = (newLang: string) => {
+  const handleLanguageChange = (newLang: string | undefined) => {
+    if (!newLang) return;
+    
     const normalizedLang = newLang.toLowerCase() as CDLanguages;
     setLanguage(normalizedLang);
     
