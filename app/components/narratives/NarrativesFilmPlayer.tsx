@@ -310,88 +310,95 @@ const NarrativesFilmPlayer: FC = () => {
           position: "relative",
           width: "100%",
           height: "100%",
+          maxWidth: "100%",
           boxSizing: "border-box",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           overflow: "hidden",
+          border: "4px solid blue",
         }}
+        className="h-full w-full"
       >
-        <>
+        <div
+          className="group/video relative w-full max-w-full border-4 border-green-500"
+          style={{
+            aspectRatio: "16/9",
+            maxWidth: "100%",
+            width: "100%",
+            maxHeight: "100%",
+          }}
+        >
           <Box
             onClick={() => {
               setShowSidePanel(true);
             }}
             className={
-              "w-18 absolute left-12 top-12 z-20 border-[3px] border-turquoise p-4 text-turquoise hover:cursor-pointer hover:bg-[#00000080]"
+              "w-18 absolute left-2 top-2 z-20 border-[3px] border-turquoise p-2 text-turquoise hover:cursor-pointer hover:bg-[#00000080] sm:left-4 sm:top-4 sm:p-3 md:left-8 md:top-8 md:p-4 lg:left-12 lg:top-12"
             }
           >
             <p>{`${nowPlaying.person},`}</p>
             <p>{`${currentCountryName}`}</p>
           </Box>
-          <div
-            className="group/video relative max-h-full w-full"
-            style={{ aspectRatio: "16/9" }}
-          >
-            <video
-              autoPlay={isPlaying}
-              ref={videoRef}
-              className="h-full w-full object-contain"
-              playsInline
-              crossOrigin="anonymous"
-              onError={(e) => {
-                const video = e.currentTarget;
-                console.error("Video error:", video.error);
-                setError(
-                  `Video error: ${video.error?.message || "Unknown error"}`,
-                );
-                setIsLoading(false);
-              }}
-              onLoadedData={() => {
-                setIsLoading(false);
-              }}
-            />
+          <video
+            autoPlay={isPlaying}
+            ref={videoRef}
+            className="border-purple-500 h-full w-full max-w-full border-4 object-contain"
+            style={{ maxWidth: "100%" }}
+            playsInline
+            crossOrigin="anonymous"
+            onError={(e) => {
+              const video = e.currentTarget;
+              console.error("Video error:", video.error);
+              setError(
+                `Video error: ${video.error?.message || "Unknown error"}`,
+              );
+              setIsLoading(false);
+            }}
+            onLoadedData={() => {
+              setIsLoading(false);
+            }}
+          />
 
-            {isPlaying && (
-              <Button
-                onClick={handlePlayPause}
-                size="icon"
-                variant="secondary"
-                className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200 hover:scale-110 group-hover/video:opacity-100"
-              >
-                {isPaused ? (
-                  <Play className="h-6 w-6" />
-                ) : (
-                  <Pause className="h-6 w-6" />
-                )}
-              </Button>
-            )}
+          {isPlaying && (
+            <Button
+              onClick={handlePlayPause}
+              size="icon"
+              variant="secondary"
+              className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200 hover:scale-110 group-hover/video:opacity-100"
+            >
+              {isPaused ? (
+                <Play className="h-6 w-6" />
+              ) : (
+                <Pause className="h-6 w-6" />
+              )}
+            </Button>
+          )}
 
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                <div className="text-white">Loading...</div>
-              </div>
-            )}
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+              <div className="text-white">Loading...</div>
+            </div>
+          )}
 
-            {error && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                <div className="text-red-500">{error}</div>
-              </div>
-            )}
+          {error && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+              <div className="text-red-500">{error}</div>
+            </div>
+          )}
 
-            {!subtitlesLoading && currentSubtitle && (
-              <div className="absolute bottom-8 left-1/2 w-full max-w-4xl -translate-x-1/2 rounded-md bg-black/60 p-4 text-center font-bold text-white">
-                {currentSubtitle}
-              </div>
-            )}
+          {!subtitlesLoading && currentSubtitle && (
+            <div className="absolute bottom-8 left-1/2 w-full max-w-4xl -translate-x-1/2 rounded-md bg-black/60 p-4 text-center font-bold text-white">
+              {currentSubtitle}
+            </div>
+          )}
 
-            {subtitlesError && (
-              <div className="absolute bottom-16 left-1/2 w-full max-w-xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
-                {subtitlesError}
-              </div>
-            )}
-          </div>
-        </>
+          {subtitlesError && (
+            <div className="absolute bottom-16 left-1/2 w-full max-w-xl -translate-x-1/2 rounded bg-red-500/80 p-4 text-center text-white">
+              {subtitlesError}
+            </div>
+          )}
+        </div>
       </div>
     )
   );

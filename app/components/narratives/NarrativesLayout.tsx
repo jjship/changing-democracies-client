@@ -107,7 +107,7 @@ const NarrativesLayout: FC<{
           <NarrativesOverview narrativesCollection={narrationPaths} />
         </div>
         <div
-          className={`sticky bottom-0 -z-[5] flex h-[15vh] items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear`}
+          className={`sticky bottom-0 -z-[5] flex h-[15vh] items-center justify-center bg-yellow_secondary px-[14vw] transition-all duration-1000 ease-linear border-4 border-yellow-500`}
         ></div>
         {!currentPath && (
           <div className="sticky bottom-0">

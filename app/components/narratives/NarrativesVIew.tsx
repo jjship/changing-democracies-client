@@ -133,7 +133,8 @@ const NarrativesView: FC = ({}) => {
 
           <Flex
             ref={videoContainerRef}
-            className=" relative flex aspect-video flex-1 items-center overflow-hidden "
+            className="relative flex flex-1 items-center justify-center overflow-hidden border-4 border-red-500 w-full max-w-full min-w-0 px-2 sm:px-4 rounded-bl-2xl rounded-br-2xl md:rounded-bl-3xl md:rounded-br-3xl"
+            style={{ minHeight: 0 }}
           >
             {<NarrativesFilmPlayer />}
             {!isPlaying && currentIndex === 0 && (
