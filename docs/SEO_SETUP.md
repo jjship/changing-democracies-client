@@ -50,7 +50,6 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 - Organization schema for the project
 - Website schema with search functionality
 - Article schema for content pages
-- Event schema for events
 
 ### 5. No-Index Implementation
 
@@ -86,7 +85,6 @@ The following routes are indexed for all languages:
 - `/free-browsing`
 - `/project`
 - `/team`
-- `/events`
 - `/contact`
 - `/educational-resources`
 - `/research-publication`
