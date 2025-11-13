@@ -1,27 +1,48 @@
 import { FC } from "react";
-import CloseButton from "@/components/films/CloseButton";
 import { useFilmsContext } from "@/components/films/FilmsContext";
+import { UnifiedVideoPlayer } from "@/components/shared/UnifiedVideoPlayer";
 
 export const StoriesFilmPlayer: FC = () => {
-  const { nowPlaying } = useFilmsContext();
+  const {
+    nowPlaying,
+    fragments,
+    setShowSidePanel,
+    showSidePanel,
+    setNowPlaying,
+  } = useFilmsContext();
 
-  const src = `https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_LIBRARY_ID}/${nowPlaying}?autoplay=true&captions=EN&muted=false`;
+  const currentFragment = fragments?.find(
+    (fragment) => fragment.id === nowPlaying,
+  );
+
+  if (!nowPlaying || !currentFragment) return null;
 
   return (
-    nowPlaying && (
-      <div
-        id="player-container"
-        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black"
-      >
-        <CloseButton />
-        <div className="flex w-full justify-center">
-          <iframe
-            src={src}
-            className="aspect-video w-full  bg-black"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-          ></iframe>
+    <div
+      id="player-container"
+      className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black_bg"
+    >
+      <div className="relative mx-auto flex h-full w-full max-w-screen-2xl items-center justify-center px-4">
+        <div
+          className="group/video relative w-full overflow-hidden"
+          style={{ aspectRatio: "16/9", maxHeight: "90vh" }}
+        >
+          <UnifiedVideoPlayer
+            videoSource={currentFragment}
+            personName={currentFragment.person?.name}
+            countryName={currentFragment.person?.country?.name}
+            languageCode="en"
+            isPlaying={!showSidePanel}
+            showSidePanel={showSidePanel}
+            onShowSidePanel={() => setShowSidePanel(true)}
+            onClose={() => {
+              setNowPlaying(null);
+              setShowSidePanel(false);
+            }}
+            showCloseButton={true}
+          />
         </div>
       </div>
-    )
+    </div>
   );
 };
