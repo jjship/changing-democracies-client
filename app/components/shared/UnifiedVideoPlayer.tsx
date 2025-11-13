@@ -24,10 +24,10 @@ interface UnifiedVideoSource {
 
 // Adapter to convert ClientFragment to UnifiedVideoSource
 const adaptClientFragment = (fragment: ClientFragment): UnifiedVideoSource => {
-  // Extract video ID from playerUrl
-  // playerUrl format: https://vz-cac74041-8b3.b-cdn.net/{videoId}/...
-  const videoIdMatch = fragment.playerUrl.match(/\/([^\/]+)\//);
-  const videoId = videoIdMatch ? videoIdMatch[1] : fragment.id;
+  // Use fragment.id directly as the video ID
+  // The playerUrl is an iframe embed URL, not a direct video URL
+  // The fragment.id is the actual video ID used for HLS/MP4 URLs
+  const videoId = fragment.id;
 
   return {
     videoId,
@@ -198,4 +198,3 @@ export const UnifiedVideoPlayer: FC<UnifiedVideoPlayerProps> = ({
     </div>
   );
 };
-
