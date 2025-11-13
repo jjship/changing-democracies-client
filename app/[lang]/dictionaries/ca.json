@@ -112,8 +112,7 @@
     "title": "Narratives",
     "select": "Selecciona una ruta",
     "watch": "Visualitza el vídeo",
-    "continue": "Continua el camí seleccionat",
-    "switch": "o canvia a altres camins connectats"
+    "continue": "Continua el camí seleccionat"
   },
   "freeBrowsing": {
     "title": "Navega pels testimonis",

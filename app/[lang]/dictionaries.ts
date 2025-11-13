@@ -64,7 +64,6 @@ type Dictionary = {
     select: string;
     watch: string;
     continue: string;
-    switch: string;
   };
   freeBrowsing: {
     title: string;
