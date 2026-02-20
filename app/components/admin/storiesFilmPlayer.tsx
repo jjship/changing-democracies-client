@@ -2,6 +2,10 @@ import { FC } from "react";
 import { useFilmsContext } from "@/components/films/FilmsContext";
 import { UnifiedVideoPlayer } from "@/components/shared/UnifiedVideoPlayer";
 
+export { STORIES_LANGUAGE };
+
+const STORIES_LANGUAGE = "nl";
+
 export const StoriesFilmPlayer: FC = () => {
   const {
     nowPlaying,
@@ -31,7 +35,7 @@ export const StoriesFilmPlayer: FC = () => {
             videoSource={currentFragment}
             personName={currentFragment.person?.name}
             countryName={currentFragment.person?.country?.name}
-            languageCode="en"
+            languageCode={STORIES_LANGUAGE}
             isPlaying={!showSidePanel}
             showSidePanel={showSidePanel}
             onShowSidePanel={() => setShowSidePanel(true)}
