@@ -8,6 +8,8 @@ import {
 } from "@/utils/cdApi";
 import { Stories } from "@/components/admin/stories/Stories";
 import { sectionPadding } from "@/components/Section";
+import { STORIES_LANGUAGE } from "@/components/admin/storiesFilmPlayer";
+
 // Set this to true to disable caching for development testing
 const DISABLE_CACHE = false;
 
@@ -46,8 +48,8 @@ function StoriesLoading() {
 // Films content component with language handling
 async function StoriesContent() {
   const [fragmentsResponse, tagCategoriesResponse] = await Promise.all([
-    getFragments("en"),
-    getCachedTagCategories("en"),
+    getFragments(STORIES_LANGUAGE),
+    getCachedTagCategories(STORIES_LANGUAGE),
   ]);
 
   return (
