@@ -1,6 +1,7 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import { FC, useCallback, useMemo, useRef } from "react";
+import { FC, useCallback, useRef } from "react";
+import { getLocalizedField } from "@/utils/i18n/getLocalizedField";
 import OverviewTag from "./NarrativesOverviewButton";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
@@ -9,7 +10,7 @@ import { useNarrativeNavigation } from "./utils/narrativeNavigation";
 import { VideoControls } from "./VideoControls";
 import { useSyncWidths } from "./hooks/useSyncWidths";
 
-const NarrativesView: FC = ({}) => {
+export const NarrativesView: FC = ({}) => {
   const {
     currentPath,
     isPlaying,
@@ -49,18 +50,6 @@ const NarrativesView: FC = ({}) => {
     navigateToOverview();
   };
 
-  const getTitleInLanguage = useMemo(
-    () => (titles: { languageCode: string; title: string }[]) => {
-      return (
-        (titles.find((title) => title.languageCode === selectedLanguage)
-          ?.title ||
-          titles.find((title) => title.languageCode === "EN")?.title) ??
-        "Narrative"
-      );
-    },
-    [selectedLanguage],
-  );
-
   return (
     currentPath && (
       <div className="h-full w-full ">
@@ -84,7 +73,7 @@ const NarrativesView: FC = ({}) => {
                 transitionDelay: "0.5s",
               }}
             >
-              {getTitleInLanguage(currentPath.titles)}
+              {getLocalizedField(currentPath.titles, selectedLanguage, "title") ?? "Narrative"}
             </h1>
           </div>
 
@@ -109,5 +98,3 @@ const NarrativesView: FC = ({}) => {
     )
   );
 };
-
-export { NarrativesView };

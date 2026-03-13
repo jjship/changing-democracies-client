@@ -3,8 +3,6 @@ import { useRouter, useParams } from "next/navigation";
 import { NavColor } from "./Navigation";
 import { LanguageService } from "@/utils/i18n/languageService";
 
-export { AnimatedLink };
-
 type LinkColor = "yellow" | "pink";
 
 const getFontColor = (color: LinkColor): NavColor => {
@@ -19,7 +17,7 @@ const getFontColor = (color: LinkColor): NavColor => {
   }
 };
 
-const AnimatedLink: FC<{
+export const AnimatedLink: FC<{
   href: string;
   text: string;
   timeout?: number;

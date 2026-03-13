@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { VideoDbEntry } from "@/types/videosAndFilms";
 import { useEffect, useState } from "react";
 import { getVideos } from "../actions";
-import { VideosContext } from "./VideosContext";
+import { VideosContextProvider } from "./VideosContext";
 import { VideosTable } from "./VideosTable";
 import { navButton } from "../classNames";
 
@@ -28,21 +28,17 @@ export default function VideosAdmin({ open }: { open: boolean }) {
           setVideos(data);
           setError(null);
         } else if (error) {
-          // Handle the error
           setError(error.message || "Failed to load videos");
 
-          // Check for detailed error information
           if ("cause" in error && typeof error.cause === "object") {
-            const cause = error.cause as any;
+            const cause = error.cause as Record<string, unknown>;
             if (cause.errorBody) {
               try {
-                // If errorBody is a string, parse it
                 const parsedError =
                   typeof cause.errorBody === "string"
                     ? JSON.parse(cause.errorBody)
                     : cause.errorBody;
 
-                // Extract error list if available
                 if (parsedError.data?.errorList?.length) {
                   setError(
                     `${error.message}: ${parsedError.data.errorList.join(
@@ -51,7 +47,6 @@ export default function VideosAdmin({ open }: { open: boolean }) {
                   );
                 }
               } catch (e) {
-                // If parsing fails, use the original error
                 console.error("Error parsing error body", e);
               }
             }
@@ -79,9 +74,14 @@ export default function VideosAdmin({ open }: { open: boolean }) {
         </div>
       )}
 
-      <VideosContext.Provider value={{ videos, setVideos, error, setError }}>
+      <VideosContextProvider
+        videos={videos}
+        setVideos={setVideos}
+        error={error}
+        setError={setError}
+      >
         {openVideos ? videos ? <VideosTable /> : <p>loading...</p> : null}
-      </VideosContext.Provider>
+      </VideosContextProvider>
     </>
   );
 }

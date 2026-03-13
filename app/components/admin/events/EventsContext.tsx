@@ -1,26 +1,29 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { EventDbEntry } from "@/types/database";
 
-type DeleteCallback = (eventId: number) => void;
-
 type EventsContextType = {
-  onDelete?: DeleteCallback;
+  onDelete?: (eventId: number) => void;
   events: EventDbEntry[] | null;
   setEvents: (events: EventDbEntry[] | null) => void;
 };
 
-export const EventsContext = createContext<EventsContextType | null>(null);
+const EventsContext = createContext<EventsContextType | null>(null);
 
 export function EventsContextProvider({
   children,
+  events,
+  setEvents,
+  onDelete,
 }: {
   children: React.ReactNode;
+  events: EventDbEntry[] | null;
+  setEvents: (events: EventDbEntry[] | null) => void;
+  onDelete?: (eventId: number) => void;
 }) {
-  const [events, setEvents] = useState<EventDbEntry[] | null>(null);
-
   return (
     <EventsContext.Provider
       value={{
+        onDelete,
         events,
         setEvents,
       }}

@@ -32,7 +32,7 @@ type BoothContextType = {
   setFont: Dispatch<SetStateAction<{ className: string; fontFamily: string }>>;
 };
 
-export const BoothContext = createContext<BoothContextType | null>(null);
+const BoothContext = createContext<BoothContextType | null>(null);
 
 const openSans = Open_Sans({ subsets: ["greek"], weight: "700" });
 

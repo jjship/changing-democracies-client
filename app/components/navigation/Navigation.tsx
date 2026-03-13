@@ -16,8 +16,6 @@ import {
 import { CDLanguages, locales } from "@/utils/i18n/languages";
 import { LanguageService } from "@/utils/i18n/languageService";
 
-export { Navigation };
-
 export type NavColor =
   | "purple_lightest_bg"
   | "black_bg"
@@ -35,7 +33,7 @@ export interface NavigationProps {
   selectedLanguage?: string;
 }
 
-const Navigation: FC<NavigationProps> = ({
+export const Navigation: FC<NavigationProps> = ({
   bgColor = "purple_lightest_bg",
   fontColor = "black_bg",
   onLanguageChange,

@@ -10,7 +10,7 @@ import { VideoOverlay } from "./VideoOverlay";
 import { VideoPlayPauseButton } from "./VideoPlayPauseButton";
 import { useVideoBounds } from "./hooks/useVideoBounds";
 
-const NarrativesFilmPlayer: FC = () => {
+export const NarrativesFilmPlayer: FC = () => {
   const {
     currentPath,
     currentIndex,
@@ -212,5 +212,3 @@ const NarrativesFilmPlayer: FC = () => {
     )
   );
 };
-
-export { NarrativesFilmPlayer };

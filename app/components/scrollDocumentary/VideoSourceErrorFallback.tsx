@@ -32,8 +32,8 @@ const VideoSourceErrorFallback = ({
           Video Source Error
         </h2>
         <p className="mb-4 text-gray-300">{getErrorMessage(error)}</p>
-        {error.details && (
-          <p className="mb-4 text-sm text-gray-400">{error.details}</p>
+        {error.details != null && (
+          <p className="mb-4 text-sm text-gray-400">{String(error.details)}</p>
         )}
         {onRetry && (
           <button

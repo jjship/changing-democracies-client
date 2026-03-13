@@ -13,7 +13,7 @@ import {
 } from "@/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 import { useFilmsContext } from "./FilmsContext";
-import { TagCategory } from "@/utils/cdApi";
+import { TagCategory } from "@/types/api";
 import { cn } from "@/lib/utils";
 
 export const filterGrid =

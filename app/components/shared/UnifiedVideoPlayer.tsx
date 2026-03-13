@@ -10,7 +10,7 @@ import { VideoOverlay } from "../narratives/VideoOverlay";
 import { VideoPlayPauseButton } from "../narratives/VideoPlayPauseButton";
 import { useVideoBounds } from "../narratives/hooks/useVideoBounds";
 import { VideoQuality } from "@/types/scrollDocumentary";
-import { ClientFragment } from "@/utils/cdApi";
+import { ClientFragment } from "@/types/api";
 import { getHlsPlaylistUrl, getMp4Url } from "../films/videoUtils";
 
 // Unified video source interface

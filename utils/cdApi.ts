@@ -1,43 +1,19 @@
 import "server-only";
 import { NarrationPath } from "../types/videosAndFilms";
 
-// Client Fragment interfaces based on the schema
-export interface ClientTag {
-  id: string;
-  name: string;
-}
+// Re-export types from their canonical location
+export type {
+  ClientTag,
+  ClientPerson,
+  ClientFragment,
+  FragmentsPagination,
+  FragmentsResponse,
+  ApiLanguage,
+  TagCategory,
+  TagCategoriesResponse,
+} from "../types/api";
 
-export interface ClientPerson {
-  id: string;
-  name: string;
-  bio: string;
-  country: {
-    code: string;
-    name: string;
-  };
-}
-
-export interface ClientFragment {
-  id: string;
-  title: string;
-  duration: number;
-  playerUrl: string;
-  thumbnailUrl: string;
-  person: ClientPerson | null;
-  tags: ClientTag[];
-}
-
-export interface FragmentsPagination {
-  total: number;
-  page: number;
-  limit: number;
-  pages: number;
-}
-
-export interface FragmentsResponse {
-  data: ClientFragment[];
-  pagination: FragmentsPagination;
-}
+import type { FragmentsResponse, TagCategoriesResponse } from "../types/api";
 
 export const narrativesApi = {
   async getNarratives(): Promise<NarrationPath[]> {
@@ -93,12 +69,6 @@ export const fragmentsApi = {
     }
   },
 };
-
-export interface ApiLanguage {
-  id: string;
-  name: string;
-  code: string;
-}
 
 export async function cdApiRequest<T>({
   endpoint,
@@ -156,34 +126,16 @@ export async function cdApiRequest<T>({
   return response.json();
 }
 
+import { serverEnv } from "./env";
+
 type ApiConfig = {
   baseUrl: string;
   apiKey: string;
 };
 
-// Create configurations
 const getApiConfig = (): ApiConfig => {
-  const baseUrl = process.env.BACKEND_API_URL;
-  const apiKey = process.env.BACKEND_API_KEY;
-
-  if (!baseUrl || !apiKey) {
-    throw new Error("Missing required environment variables for API client");
-  }
-
-  return { baseUrl, apiKey };
-};
-
-export type TagCategory = {
-  id: string;
-  name: string;
-  tags: {
-    id: string;
-    name: string;
-  }[];
-};
-
-export type TagCategoriesResponse = {
-  tagCategories: TagCategory[];
+  const env = serverEnv();
+  return { baseUrl: env.BACKEND_API_URL, apiKey: env.BACKEND_API_KEY };
 };
 
 export const tagCategoriesApi = {
