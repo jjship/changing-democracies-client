@@ -1,4 +1,4 @@
-import { getVideo } from "@/utils/admin/bunny-methods";
+import { getVideo } from "@/utils/bunny-stream";
 import { cache } from "react";
 import { Suspense } from "react";
 

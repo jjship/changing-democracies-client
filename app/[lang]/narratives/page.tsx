@@ -3,7 +3,7 @@ import { narrativesApi } from "@/utils/cdApi";
 import { NarrationPath, VideoDbEntry } from "@/types/videosAndFilms";
 import { cache } from "react";
 import { Suspense } from "react";
-import { getVideo } from "@/utils/admin/bunny-methods";
+import { getVideo } from "@/utils/bunny-stream";
 import { serializeVideoSource } from "@/components/scrollDocumentary/videoSource";
 import { VideoSource } from "@/types/scrollDocumentary";
 import { locales, CDLanguages } from "@/utils/i18n/languages";
