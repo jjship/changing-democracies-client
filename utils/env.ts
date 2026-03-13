@@ -84,7 +84,22 @@ export function serverEnv(): ServerEnv {
 let _clientEnv: ClientEnv | null = null;
 export function clientEnv(): ClientEnv {
   if (!_clientEnv) {
-    _clientEnv = validateEnv(clientSchema, process.env, "client");
+    // Each process.env.NEXT_PUBLIC_* must be referenced individually because
+    // Next.js statically replaces these at build time — passing process.env
+    // as a whole object does NOT get the replacements on the client side.
+    _clientEnv = validateEnv(
+      clientSchema,
+      {
+        NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+        NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE:
+          process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE,
+        NEXT_PUBLIC_STORAGE_PULL_ZONE:
+          process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE,
+        NEXT_PUBLIC_LIBRARY_ID: process.env.NEXT_PUBLIC_LIBRARY_ID,
+      },
+      "client",
+    );
   }
   return _clientEnv;
 }
