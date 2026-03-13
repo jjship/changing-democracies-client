@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import Script from "next/script";
 import { CDLanguages, locales } from "@/utils/i18n/languages";
 import CookieConsent from "@/components/CookieConsent";
-import { StructuredData } from "../../components/StructuredData";
+import { StructuredData } from "@/components/shared/StructuredData";
 const archivo = Archivo({ subsets: ["latin"] });
 
 export async function generateStaticParams() {

@@ -1,11 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   ClientFragment,
   FragmentsResponse,
   TagCategoriesResponse,
-} from "@/utils/cdApi";
+} from "@/types/api";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 type FilmsContextType = {
   fragments: ClientFragment[] | null;
@@ -18,24 +19,48 @@ type FilmsContextType = {
   tagCategoriesResponse: TagCategoriesResponse | null;
 };
 
-export const FilmsContext = createContext<FilmsContextType | null>(null);
+const FilmsContext = createContext<FilmsContextType | null>(null);
 
 export function FilmsContextProvider({
   children,
   fragmentsResponse,
   tagCategoriesResponse,
   initialFragmentId,
+  syncUrl = false,
 }: {
   children: React.ReactNode;
   fragmentsResponse: FragmentsResponse;
   tagCategoriesResponse: TagCategoriesResponse;
   initialFragmentId?: string;
+  syncUrl?: boolean;
 }) {
   const [fragments, setFragments] = useState<ClientFragment[] | null>(null);
   const [nowPlaying, setNowPlaying] = useState<string | null>(
     initialFragmentId || null,
   );
   const [showSidePanel, setShowSidePanel] = useState<boolean>(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Initialize fragments with data when component mounts
+  useEffect(() => {
+    if (fragmentsResponse?.data && !fragments) {
+      setFragments(fragmentsResponse.data);
+    }
+  }, [fragmentsResponse, fragments]);
+
+  // Update URL when nowPlaying changes (only for public-facing pages)
+  useEffect(() => {
+    if (!syncUrl) return;
+    const params = new URLSearchParams(searchParams.toString());
+    if (nowPlaying) {
+      params.set("id", nowPlaying);
+    } else {
+      params.delete("id");
+    }
+    router.push(`${pathname}?${params.toString()}`);
+  }, [nowPlaying, pathname, router, searchParams, syncUrl]);
 
   return (
     <FilmsContext.Provider

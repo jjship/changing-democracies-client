@@ -8,9 +8,7 @@ import { NarrativesList } from "@/components/narratives/NarrativesList";
 import { NarrativesView } from "./NarrativesVIew";
 import { useTranslation } from "@/translation/TranslationContext";
 
-export { NarrativesOverview };
-
-const NarrativesOverview: FC<{
+export const NarrativesOverview: FC<{
   narrativesCollection: NarrationPath[];
 }> = ({ narrativesCollection }) => {
   const { currentPath } = useNarrativesContext();

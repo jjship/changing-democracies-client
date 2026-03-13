@@ -4,8 +4,9 @@ import useSWR from "swr";
 const fetchImage = async (src: string) => {
   const res = await fetch(src);
   if (!res.ok) {
-    const error = new Error("Error loading image");
-    (error as any).status = res.status;
+    const error = Object.assign(new Error("Error loading image"), {
+      status: res.status,
+    });
     throw error;
   }
   return src;
