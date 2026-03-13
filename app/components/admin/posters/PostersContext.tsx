@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { PosterMetadata } from "@/utils/posters-methods";
+import { PosterMetadata } from "@/utils/admin/posters-methods";
 
 type PostersContextType = {
   posters: PosterMetadata[] | null;
