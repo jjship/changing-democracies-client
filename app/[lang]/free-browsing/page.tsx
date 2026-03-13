@@ -11,9 +11,9 @@ import {
 } from "@/utils/cdApi";
 import { FreeBrowsingLayout } from "@/components/FreeBrowsingLayout";
 
-// Enable ISR: regenerate page every hour (3600 seconds)
-// This ensures pages are statically generated at build time for fast indexing
-export const revalidate = 3600;
+// This page uses searchParams (fragment ID deep-linking) so it must be dynamic.
+// Data fetching still benefits from Next.js fetch cache / React cache().
+export const dynamic = "force-dynamic";
 
 // Set this to true to disable caching for development testing
 const DISABLE_CACHE = false;
