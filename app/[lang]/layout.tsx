@@ -4,7 +4,7 @@ import { Archivo } from "next/font/google";
 import { ReactNode } from "react";
 import Script from "next/script";
 import { CDLanguages, locales } from "@/utils/i18n/languages";
-import CookieConsent from "@/components/CookieConsent";
+import CookieConsent from "@/components/public/CookieConsent";
 import { StructuredData } from "@/components/shared/StructuredData";
 const archivo = Archivo({ subsets: ["latin"] });
 

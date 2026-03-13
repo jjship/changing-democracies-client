@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import Title from "./Title";
-import { useTranslation } from "../[lang]/context/TranslationContext";
+import { useTranslation } from "@/translation/TranslationContext";
 import { Archivo_Narrow } from "next/font/google";
 
 const archivo_narrow = Archivo_Narrow({ weight: "600", subsets: ["latin"] });

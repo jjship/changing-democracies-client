@@ -1,7 +1,7 @@
 "use client";
 
 import { Navigation } from "@/components/navigation/Navigation";
-import { FreeBrowsing } from "@/components/FreeBrowsing";
+import { FreeBrowsing } from "@/components/public/FreeBrowsing";
 import { sectionPadding } from "./Section";
 import { CDLanguages } from "@/utils/i18n/languages";
 import { FragmentsResponse, TagCategoriesResponse } from "@/types/api";

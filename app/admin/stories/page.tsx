@@ -7,7 +7,7 @@ import {
   TagCategoriesResponse,
 } from "@/utils/cdApi";
 import { Stories } from "@/components/admin/stories/Stories";
-import { sectionPadding } from "@/components/Section";
+import { sectionPadding } from "@/components/public/Section";
 import { STORIES_LANGUAGE } from "@/components/admin/storiesFilmPlayer";
 
 // Set this to true to disable caching for development testing

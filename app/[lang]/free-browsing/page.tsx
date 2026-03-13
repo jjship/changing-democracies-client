@@ -9,7 +9,7 @@ import {
   tagCategoriesApi,
   TagCategoriesResponse,
 } from "@/utils/cdApi";
-import { FreeBrowsingLayout } from "@/components/FreeBrowsingLayout";
+import { FreeBrowsingLayout } from "@/components/public/FreeBrowsingLayout";
 
 // This page uses searchParams (fragment ID deep-linking) so it must be dynamic.
 // Data fetching still benefits from Next.js fetch cache / React cache().

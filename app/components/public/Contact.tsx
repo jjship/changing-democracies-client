@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import roundPhoto from "@/public/photo in circle.png";
-import { useTranslation } from "../[lang]/context/TranslationContext";
+import { useTranslation } from "@/translation/TranslationContext";
 export default function Contact() {
   const { dictionary: dict } = useTranslation();
   return (
