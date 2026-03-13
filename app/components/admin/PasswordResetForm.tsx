@@ -28,8 +28,6 @@ export default function PasswordResetForm() {
   const [submited, setSubmited] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const supabase = createClient();
-
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { email },
@@ -37,6 +35,7 @@ export default function PasswordResetForm() {
   });
 
   async function onSubmit(values: FormValues) {
+    const supabase = createClient();
     const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
       redirectTo: `${baseUrl}/auth/callback?next=/password-reset`,
     });
