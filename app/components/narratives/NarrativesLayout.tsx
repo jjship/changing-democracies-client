@@ -2,12 +2,12 @@
 import { FC } from "react";
 import { Navigation } from "@/components/navigation/Navigation";
 import { NarrationPath } from "@/types/videosAndFilms";
-import { sectionPadding } from "../Section";
+import { sectionPadding } from "@/components/public/Section";
 import NarrativesProgressBar from "./NarrativesProgressBar";
 import { NarrativesOverview } from "@/components/narratives/NarrativesOverview";
 import { Archivo } from "next/font/google";
 import { NarrativesProvider, useNarrativesContext } from "./NarrativesContext";
-import PageFooter from "../PageFooter";
+import PageFooter from "@/components/public/PageFooter";
 
 const archivo = Archivo({ subsets: ["latin"] });
 

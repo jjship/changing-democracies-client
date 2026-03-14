@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Title from "./Title";
 import knotOfArrows from "@/public/arrows_knot_no_bg.svg";
-import { useTranslation } from "../[lang]/context/TranslationContext";
+import { useTranslation } from "@/translation/TranslationContext";
 
 export type TeamEntry = {
   organisation: string;

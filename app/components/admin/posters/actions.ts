@@ -9,7 +9,7 @@ import {
   PosterMetadata,
   deleteBunnyPoster,
   getPostersMetadata,
-} from "@/utils/posters-methods";
+} from "@/utils/admin/posters-methods";
 
 export { fetchPosters, updatePoster, deletePoster };
 

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
-import { PosterMetadata } from "@/utils/posters-methods";
+import { PosterMetadata } from "@/utils/admin/posters-methods";
 
 import { PostersContextProvider } from "./PostersContext";
 import PostersTable from "./PostersTable";

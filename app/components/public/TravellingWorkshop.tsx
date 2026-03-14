@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import Title from "./Title";
-import { useTranslation } from "../[lang]/context/TranslationContext";
+import { useTranslation } from "@/translation/TranslationContext";
 
 const TravellingWorkshop: FC = () => {
   const { dictionary: dict } = useTranslation();

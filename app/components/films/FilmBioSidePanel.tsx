@@ -1,6 +1,6 @@
 import { useFilmsContext } from "./FilmsContext";
 import { useMemo } from "react";
-import { BioSidePanel } from "@/components/shared/BioSidePanel";
+import { BioSidePanel } from "@/components/public/BioSidePanel";
 
 const FilmBioSidePanel = () => {
   const {

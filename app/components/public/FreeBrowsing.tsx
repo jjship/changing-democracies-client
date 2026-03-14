@@ -1,11 +1,11 @@
 "use client";
 
 import { FC } from "react";
-import FilmList from "./films/FilmList";
-import { FilmsContextProvider } from "./films/FilmsContext";
+import FilmList from "../films/FilmList";
+import { FilmsContextProvider } from "../films/FilmsContext";
 import Title from "./Title";
-import ShowAllOrFilters from "./films/ShowAllOrFilters";
-import { FilmPlayer } from "./films/FilmPlayer";
+import ShowAllOrFilters from "../films/ShowAllOrFilters";
+import { FilmPlayer } from "../films/FilmPlayer";
 import { FragmentsResponse, TagCategoriesResponse } from "@/types/api";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 

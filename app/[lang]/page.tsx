@@ -5,7 +5,7 @@ import LandingPage from "@/components/landing/LandingPage";
 import { NavigationContainer } from "@/components/navigation/NavigationContainer";
 import { Suspense } from "react";
 import { CDLanguages } from "@/utils/i18n/languages";
-import PageFooter from "../components/PageFooter";
+import PageFooter from "@/components/public/PageFooter";
 
 export default async function Home({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang as CDLanguages);

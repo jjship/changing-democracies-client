@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Title from "../Title";
+import Title from "@/components/public/Title";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

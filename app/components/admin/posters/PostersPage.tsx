@@ -3,7 +3,7 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import Image from "next/image";
 
-import { PosterMetadata } from "@/utils/posters-methods";
+import { PosterMetadata } from "@/utils/admin/posters-methods";
 import { Skeleton } from "@/ui/skeleton";
 import { useBoothContext } from "../photobooth/BoothContext";
 import { useTranslations } from "../photobooth/useTranslations";

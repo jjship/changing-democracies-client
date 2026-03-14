@@ -3,9 +3,9 @@ import { NavigationContainer } from "@/components/navigation/NavigationContainer
 import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "@/translation/TranslationContext";
-import { Section } from "@/components/Section";
-import TravellingWorkshop from "@/components/TravellingWorkshop";
-import PageFooter from "@/components/PageFooter";
+import { Section } from "@/components/public/Section";
+import TravellingWorkshop from "@/components/public/TravellingWorkshop";
+import PageFooter from "@/components/public/PageFooter";
 export default async function Travelling({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang);
 
