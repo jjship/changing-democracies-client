@@ -13,3 +13,5 @@ export { default as ResearchPublication } from "./ResearchPublication";
 export { default as Team } from "./Team";
 export { default as Title } from "./Title";
 export { default as TravellingWorkshop } from "./TravellingWorkshop";
+export { BioSidePanel } from "./BioSidePanel";
+export { StructuredData } from "./StructuredData";

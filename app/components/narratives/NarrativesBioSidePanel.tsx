@@ -1,7 +1,7 @@
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 import { useMemo } from "react";
 import { getLocalizedField } from "@/utils/i18n/getLocalizedField";
-import { BioSidePanel } from "@/components/shared/BioSidePanel";
+import { BioSidePanel } from "@/components/public/BioSidePanel";
 
 export const NarrativesBioSidePanel = () => {
   const {
