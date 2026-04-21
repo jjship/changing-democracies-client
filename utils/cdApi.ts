@@ -101,9 +101,11 @@ export async function cdApiRequest<T>({
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error";
       if (attempt <= retries) {
+        const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
         console.warn(
-          `Retrying ${options.method} ${endpoint} (${attempt}/${retries}) due to error: ${errorMessage}`,
+          `Retrying ${options.method} ${endpoint} (${attempt}/${retries}) in ${delay}ms due to error: ${errorMessage}`,
         );
+        await new Promise((resolve) => setTimeout(resolve, delay));
         return fetchWithRetry(attempt + 1);
       } else {
         throw new Error(

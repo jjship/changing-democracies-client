@@ -12,9 +12,8 @@ import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "../context/TranslationContext";
 import { CDLanguages } from "@/utils/i18n/languages";
 
-// Enable ISR: regenerate page every hour (3600 seconds)
-// This ensures pages are statically generated at build time for fast indexing
-export const revalidate = 3600;
+// Enable ISR: regenerate every 65 minutes (offset from narratives' 60min to avoid simultaneous revalidation bursts)
+export const revalidate = 3900;
 
 // Increase cache time and optimize data fetching
 const getSerializedAndSortedVideos = cache(
