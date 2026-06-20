@@ -75,11 +75,16 @@ export const NarrativesFilmPlayer: FC = () => {
   // Handle video end
   const onEnded = useCallback(() => {
     if (currentPath && currentIndex < currentPath.fragments.length - 1) {
+      // Advance to the next fragment and pause; the resume effect below plays
+      // it after a short break so fragments don't run back-to-back.
       setCurrentIndex(currentIndex + 1);
+      setIsPlaying(false);
     } else {
+      // End of the narrative — return to the overview.
       setCurrentPath(null);
+      setCurrentIndex(0);
+      setIsPlaying(false);
     }
-    setIsPlaying(false);
   }, [
     currentIndex,
     currentPath,
@@ -100,6 +105,17 @@ export const NarrativesFilmPlayer: FC = () => {
       video.removeEventListener("ended", handleEnded);
     };
   }, [onEnded, videoRef]);
+
+  // Short break between fragments: once a fragment ends we advance the index
+  // and pause (currentIndex > 0, not playing, still within a narrative).
+  // Auto-resume after ~1s. The Start gate (index 0) and the narrative end
+  // (no currentPath) are excluded, so this only bridges fragment-to-fragment.
+  useEffect(() => {
+    if (!currentPath || isPlaying || currentIndex === 0) return;
+
+    const timer = setTimeout(() => setIsPlaying(true), 1000);
+    return () => clearTimeout(timer);
+  }, [currentPath, currentIndex, isPlaying, setIsPlaying]);
 
   // Keyboard controls
   useEffect(() => {
