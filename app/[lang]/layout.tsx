@@ -4,8 +4,8 @@ import { Archivo } from "next/font/google";
 import { ReactNode } from "react";
 import Script from "next/script";
 import { CDLanguages, locales } from "@/utils/i18n/languages";
-import CookieConsent from "@/components/CookieConsent";
-import { StructuredData } from "../../components/StructuredData";
+import CookieConsent from "@/components/public/CookieConsent";
+import { StructuredData } from "@/components/public/StructuredData";
 const archivo = Archivo({ subsets: ["latin"] });
 
 export async function generateStaticParams() {
@@ -61,6 +61,28 @@ export default function RootLayout({
           <StructuredData type="website" lang={lang} />
         </head>
         <body className={`${archivo.className} bg-black_bg antialiased`}>
+          {/* Google Consent Mode v2 - Initialize BEFORE GTM loads */}
+          {/* Script with beforeInteractive strategy must be placed outside <head> in App Router */}
+          <Script
+            id="consent-mode-init"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('consent', 'default', {
+                  'ad_storage': 'denied',
+                  'ad_user_data': 'denied',
+                  'ad_personalization': 'denied',
+                  'analytics_storage': 'denied',
+                  'functionality_storage': 'denied',
+                  'personalization_storage': 'denied',
+                  'security_storage': 'granted',
+                  'wait_for_update': 500
+                });
+              `,
+            }}
+          />
           {/* Google Tag Manager (noscript) - Must be immediately after opening body tag */}
           <noscript>
             <iframe

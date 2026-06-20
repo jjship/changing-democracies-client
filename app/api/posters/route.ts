@@ -1,6 +1,6 @@
 import "server-only";
 import { NextResponse } from "next/server";
-import { getPostersMetadata } from "@/utils/posters-methods";
+import { getPostersMetadata } from "@/utils/admin/posters-methods";
 
 export async function GET() {
   const postersRes = await getPostersMetadata();

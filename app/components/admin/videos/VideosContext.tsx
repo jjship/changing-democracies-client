@@ -1,26 +1,29 @@
 import { createContext, useContext, useState } from "react";
 import { VideoDbEntry } from "@/types/videosAndFilms";
 
-type EditCallback = (videoId: number) => void;
-
 type VideosContextType = {
-  onEdit?: EditCallback;
+  onEdit?: (videoId: number) => void;
   videos: VideoDbEntry[] | null;
   setVideos: (videos: VideoDbEntry[] | null) => void;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   error: string | null;
 };
 
-export const VideosContext = createContext<VideosContextType | null>(null);
+const VideosContext = createContext<VideosContextType | null>(null);
 
 export function VideosContextProvider({
   children,
+  videos,
+  setVideos,
+  error,
+  setError,
 }: {
   children: React.ReactNode;
+  videos: VideoDbEntry[] | null;
+  setVideos: (videos: VideoDbEntry[] | null) => void;
+  error: string | null;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
-  const [videos, setVideos] = useState<VideoDbEntry[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
   return (
     <VideosContext.Provider
       value={{

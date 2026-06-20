@@ -25,7 +25,9 @@ export async function middleware(request: NextRequest) {
   // Admin routes: only handle Supabase session
   if (
     request.nextUrl.pathname.startsWith("/admin") ||
-    request.nextUrl.pathname.startsWith("/login")
+    request.nextUrl.pathname.startsWith("/login") ||
+    request.nextUrl.pathname.startsWith("/auth") ||
+    request.nextUrl.pathname.startsWith("/password-reset")
   ) {
     return await updateSession(request);
   }
@@ -42,7 +44,7 @@ export async function middleware(request: NextRequest) {
 
   if (pathnameIsMissingLocale) {
     const locale =
-      cookieLocale && locales.includes(cookieLocale as any)
+      cookieLocale && (locales as readonly string[]).includes(cookieLocale)
         ? cookieLocale
         : getLocale(request);
 
@@ -66,7 +68,7 @@ export async function middleware(request: NextRequest) {
   }
   const locale = pathname.split("/")[1];
   if (
-    locales.includes(locale as any) &&
+    (locales as readonly string[]).includes(locale) &&
     (!cookieLocale || cookieLocale !== locale)
   ) {
     const response = NextResponse.next();

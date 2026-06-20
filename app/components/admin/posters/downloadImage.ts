@@ -1,5 +1,3 @@
-import axios from "axios";
-
 interface DownloadButtonProps {
   imageUrl: string;
   fileName: string;
@@ -7,14 +5,17 @@ interface DownloadButtonProps {
 
 const downloadImage = async ({ imageUrl, fileName }: DownloadButtonProps) => {
   try {
-    const response = await axios.get(
+    const response = await fetch(
       `/api/downloadImage?url=${encodeURIComponent(imageUrl)}`,
-      {
-        responseType: "blob",
-      },
     );
+
+    if (!response.ok) {
+      throw new Error(`Download failed: ${response.statusText}`);
+    }
+
+    const blob = await response.blob();
     const urlCreator = window.URL || window.webkitURL;
-    const imageLink = urlCreator.createObjectURL(response.data);
+    const imageLink = urlCreator.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = imageLink;
     link.download = fileName;

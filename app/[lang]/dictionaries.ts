@@ -29,7 +29,6 @@ type Dictionary = {
     freeBrowsing: string;
     project: string;
     team: string;
-    events: string;
     educationalResources: string;
     researchPublication: string;
     travellingWorkshop: string;
@@ -65,7 +64,6 @@ type Dictionary = {
     select: string;
     watch: string;
     continue: string;
-    switch: string;
   };
   freeBrowsing: {
     title: string;

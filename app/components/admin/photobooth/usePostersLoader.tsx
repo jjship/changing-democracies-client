@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { PosterMetadata } from "../../../../utils/posters-methods";
+import { PosterMetadata } from "@/utils/admin/posters-methods";
 
 class FetchError extends Error {
   status: number;

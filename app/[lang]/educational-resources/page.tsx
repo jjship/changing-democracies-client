@@ -3,10 +3,10 @@ import { NavigationContainer } from "@/components/navigation/NavigationContainer
 import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "../context/TranslationContext";
-import { Section } from "@/components/Section";
-import EducationalResources from "../../components/EducationalResources";
+import { Section } from "@/components/public/Section";
+import EducationalResources from "@/components/public/EducationalResources";
 import { CDLanguages } from "@/utils/i18n/languages";
-import PageFooter from "@/components/PageFooter";
+import PageFooter from "@/components/public/PageFooter";
 
 export default async function EduResources({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang as CDLanguages);

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { BunnyPoster, PosterMetadata } from "@/utils/posters-methods";
+import { BunnyPoster, PosterMetadata } from "@/utils/admin/posters-methods";
 
 export async function GET() {
   if (

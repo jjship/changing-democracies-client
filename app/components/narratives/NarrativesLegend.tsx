@@ -19,10 +19,6 @@ const NarrativesLegend: FC = () => {
       text: `${dict.narratives.continue}`,
       image: "../continue on path - icon.svg",
     },
-    {
-      text: `${dict.narratives.switch}`,
-      image: "../or switch - icon.svg",
-    },
   ];
 
   return (

@@ -135,12 +135,6 @@ export const pageSEOConfigs = {
       "Meet the team behind Changing Democracies and learn about our researchers and contributors.",
     keywords: "team, researchers, democracy, Europe, contributors",
   },
-  events: {
-    title: "Events - Changing Democracies",
-    description:
-      "Discover upcoming and past events related to democratic transitions and the Changing Democracies project.",
-    keywords: "events, democracy, Europe, conferences, workshops",
-  },
   contact: {
     title: "Contact - Changing Democracies",
     description:

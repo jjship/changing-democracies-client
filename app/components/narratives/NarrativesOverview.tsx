@@ -2,16 +2,13 @@
 import { FC } from "react";
 import { NarrationPath } from "@/types/videosAndFilms";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
-import Title from "@/components/Title";
+import Title from "@/components/public/Title";
 import NarrativesLegend from "@/components/narratives/NarrativesLegend";
 import { NarrativesList } from "@/components/narratives/NarrativesList";
 import { NarrativesView } from "./NarrativesVIew";
-import { Flex } from "@radix-ui/themes";
 import { useTranslation } from "@/translation/TranslationContext";
 
-export { NarrativesOverview };
-
-const NarrativesOverview: FC<{
+export const NarrativesOverview: FC<{
   narrativesCollection: NarrationPath[];
 }> = ({ narrativesCollection }) => {
   const { currentPath } = useNarrativesContext();
@@ -30,12 +27,8 @@ const NarrativesOverview: FC<{
             color="yellow_secondary"
             alt={true}
           />
-          {narrativesCollection && (
-            <>
-              <NarrativesLegend />
-              <NarrativesList />
-            </>
-          )}
+          <NarrativesLegend />
+          <NarrativesList />
         </>
       )}
     </>

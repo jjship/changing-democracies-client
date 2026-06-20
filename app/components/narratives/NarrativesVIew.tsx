@@ -1,15 +1,16 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useRef } from "react";
+import { getLocalizedField } from "@/utils/i18n/getLocalizedField";
 import OverviewTag from "./NarrativesOverviewButton";
-import NarrativesCountDown from "@/components/narratives/NarrativesCountDown";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
-import NarrativesViewButton from "@/components/narratives/NarrativesViewButton";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
 import { NarrativesBioSidePanel } from "@/components/narratives/NarrativesBioSidePanel";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useNarrativeNavigation } from "./utils/narrativeNavigation";
+import { VideoControls } from "./VideoControls";
+import { useSyncWidths } from "./hooks/useSyncWidths";
 
-const NarrativesView: FC = ({}) => {
+export const NarrativesView: FC = ({}) => {
   const {
     currentPath,
     isPlaying,
@@ -22,45 +23,13 @@ const NarrativesView: FC = ({}) => {
     selectedLanguage,
   } = useNarrativesContext();
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { navigateToOverview } = useNarrativeNavigation();
 
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const titleContainerRef = useRef<HTMLDivElement>(null);
 
-  // Function to sync the widths
-  const syncContainerWidths = useCallback(() => {
-    if (videoContainerRef.current && titleContainerRef.current) {
-      const videoWidth = videoContainerRef.current.offsetWidth;
-      titleContainerRef.current.style.width = `${videoWidth}px`;
-    }
-  }, []);
-
-  // Set up the resize observer
-  useEffect(() => {
-    // Initial sync
-    syncContainerWidths();
-
-    // Create ResizeObserver
-    const resizeObserver = new ResizeObserver(() => {
-      window.requestAnimationFrame(syncContainerWidths);
-    });
-
-    // Observe the video container
-    if (videoContainerRef.current) {
-      resizeObserver.observe(videoContainerRef.current);
-    }
-
-    // Also observe window resize as a fallback
-    window.addEventListener("resize", syncContainerWidths);
-
-    // Cleanup
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", syncContainerWidths);
-    };
-  }, [syncContainerWidths]);
+  // Sync title container width with video container width
+  useSyncWidths(videoContainerRef, titleContainerRef);
 
   const handleStart = () => {
     setIsPlaying(true);
@@ -78,26 +47,8 @@ const NarrativesView: FC = ({}) => {
     setCurrentPath(null);
     setCurrentIndex(0);
     setIsPlaying(false);
-
-    // Create new URLSearchParams with existing params
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("id");
-
-    // Update URL while preserving other parameters
-    router.push(`${pathname}?${params.toString()}`);
+    navigateToOverview();
   };
-
-  const getTitleInLanguage = useMemo(
-    () => (titles: { languageCode: string; title: string }[]) => {
-      return (
-        (titles.find((title) => title.languageCode === selectedLanguage)
-          ?.title ||
-          titles.find((title) => title.languageCode === "EN")?.title) ??
-        "Narrative"
-      );
-    },
-    [selectedLanguage],
-  );
 
   return (
     currentPath && (
@@ -114,50 +65,25 @@ const NarrativesView: FC = ({}) => {
               <OverviewTag onClick={handleOverview} />
             </div>
             <h1 className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white">
-              {getTitleInLanguage(currentPath.titles)}
+              {getLocalizedField(currentPath.titles, selectedLanguage, "title") ??
+                "Narrative"}
             </h1>
           </div>
 
           <Flex
             ref={videoContainerRef}
-            className=" relative flex aspect-video flex-1 items-center overflow-hidden "
+            className="relative flex w-full min-w-0 max-w-full flex-1 items-center justify-center overflow-hidden rounded-bl-2xl rounded-br-2xl px-2 sm:px-4 md:rounded-bl-3xl md:rounded-br-3xl"
+            style={{ minHeight: 0 }}
           >
-            {<NarrativesFilmPlayer />}
-            {!isPlaying && currentIndex === 0 && (
-              <Flex
-                direction={"column"}
-                justify={"center"}
-                align={"center"}
-                className={"absolute w-full"}
-              >
-                <NarrativesViewButton
-                  text="Start"
-                  onClick={handleStart}
-                  triangleColor="#8083ae"
-                  trianglePlacement="left"
-                />
-              </Flex>
-            )}
-            {!isPlaying &&
-              currentIndex > 0 &&
-              currentIndex <= currentPath.fragments.length && (
-                <Flex
-                  direction={"row"}
-                  justify={"center"}
-                  align={"center"}
-                  className={"absolute w-full"}
-                >
-                  <NarrativesViewButton
-                    text="Continue"
-                    onClick={handleContinue}
-                    triangleColor="#8083ae"
-                    trianglePlacement="left"
-                  />
-                  {!showSidePanel && (
-                    <NarrativesCountDown onFinish={handleContinue} />
-                  )}
-                </Flex>
-              )}
+            <NarrativesFilmPlayer />
+            <VideoControls
+              isPlaying={isPlaying}
+              currentIndex={currentIndex}
+              totalFragments={currentPath.fragments.length}
+              showSidePanel={showSidePanel}
+              onStart={handleStart}
+              onContinue={handleContinue}
+            />
           </Flex>
         </Flex>
         <NarrativesBioSidePanel />
@@ -165,5 +91,3 @@ const NarrativesView: FC = ({}) => {
     )
   );
 };
-
-export { NarrativesView };

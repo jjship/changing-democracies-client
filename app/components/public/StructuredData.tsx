@@ -1,9 +1,20 @@
 import { CDLanguages } from "@/utils/i18n/languages";
 
+interface StructuredDataData {
+  title?: string;
+  description?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  path?: string;
+  startDate?: string;
+  endDate?: string;
+  location?: { name?: string };
+}
+
 interface StructuredDataProps {
   type: "organization" | "website" | "article" | "event";
   lang: CDLanguages;
-  data?: any;
+  data?: StructuredDataData;
 }
 
 export function StructuredData({ type, lang, data }: StructuredDataProps) {

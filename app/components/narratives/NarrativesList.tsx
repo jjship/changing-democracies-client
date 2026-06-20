@@ -1,11 +1,11 @@
 "use client";
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { Box } from "@radix-ui/themes";
 import Image from "next/image";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
+import { NarrationPath } from "@/types/videosAndFilms";
+import { getLocalizedField } from "@/utils/i18n/getLocalizedField";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-
-export { NarrativesList };
 
 const images = [
   "q1.png",
@@ -25,35 +25,14 @@ const images = [
   "q15.png",
 ];
 
-const NarrativesList: FC = () => {
+export const NarrativesList: FC = () => {
   const { narrationPaths, setCurrentPath, setCurrentIndex, selectedLanguage } =
     useNarrativesContext();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const getDescriptionInLanguage = useMemo(
-    () => (descriptions: { languageCode: string; description: string[] }[]) => {
-      return (
-        descriptions.find((desc) => desc.languageCode === selectedLanguage)
-          ?.description ||
-        descriptions.find((desc) => desc.languageCode === "EN")?.description
-      );
-    },
-    [selectedLanguage],
-  );
-
-  const getTitleInLanguage = useMemo(
-    () => (titles: { languageCode: string; title: string }[]) => {
-      return (
-        titles.find((title) => title.languageCode === selectedLanguage)
-          ?.title || titles.find((title) => title.languageCode === "EN")?.title
-      );
-    },
-    [selectedLanguage],
-  );
-
-  const handleNarrativeClick = (narrativePath: any, e: React.MouseEvent) => {
+  const handleNarrativeClick = (narrativePath: NarrationPath, e: React.MouseEvent) => {
     e.preventDefault();
     setCurrentPath(narrativePath);
     setCurrentIndex(0);
@@ -85,7 +64,7 @@ const NarrativesList: FC = () => {
                 <Image
                   src={`/narratives/${images[index] ?? images[0]}`}
                   alt={
-                    getTitleInLanguage(narrativePath.titles) ||
+                    getLocalizedField(narrativePath.titles, selectedLanguage, "title") ||
                     "Narrative image"
                   }
                   fill
@@ -99,7 +78,7 @@ const NarrativesList: FC = () => {
                 <div className="flex w-full items-end justify-between md:w-[16vw]">
                   <div className="relative right-6 min-w-[14vw] text-right">
                     <span className="text-xl font-bold md:text-3xl">
-                      {getTitleInLanguage(narrativePath.titles)}
+                      {getLocalizedField(narrativePath.titles, selectedLanguage, "title")}
                     </span>
                   </div>
                   <div className="self-end">
@@ -123,7 +102,7 @@ const NarrativesList: FC = () => {
             <Box className="flex h-[280px] flex-1 flex-col justify-center md:max-w-[50vw] lg:max-w-[40vw] xl:max-w-[30vw]">
               <div>
                 {narrativePath.descriptions?.length
-                  ? getDescriptionInLanguage(narrativePath.descriptions)?.map(
+                  ? getLocalizedField(narrativePath.descriptions, selectedLanguage, "description")?.map(
                       (line, i) => (
                         <p key={i.toString()} className="text-white">
                           {line}

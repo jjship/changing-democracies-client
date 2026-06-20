@@ -11,7 +11,7 @@ import { Button } from "../../ui/button";
 import { usePostersContext } from "./PostersContext";
 import DownloadButton from "./DownloadButton";
 import { destructiveButton } from "../classNames";
-import { PosterMetadata } from "@/utils/posters-methods";
+import { PosterMetadata } from "@/utils/admin/posters-methods";
 
 type PosterRowProps = {
   poster: PosterMetadata;

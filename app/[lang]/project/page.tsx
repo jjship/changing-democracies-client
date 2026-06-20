@@ -3,9 +3,9 @@ import { NavigationContainer } from "@/components/navigation/NavigationContainer
 import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "@/translation/TranslationContext";
-import { Section } from "@/components/Section";
-import PageFooter from "../../components/PageFooter";
-import Project from "../../components/Project";
+import { Section } from "@/components/public/Section";
+import PageFooter from "@/components/public/PageFooter";
+import Project from "@/components/public/Project";
 
 export default async function EduResources({ params: { lang } }: LangParam) {
   const dictionary = await getDictionary(lang);

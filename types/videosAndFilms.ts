@@ -37,13 +37,13 @@ export type VideoDbEntry = {
   averageWatchTime: number;
   totalWatchTime: number;
   category: string;
-  chapters: any[];
-  moments: any[];
+  chapters: unknown[];
+  moments: unknown[];
   metaTags: {
     property: string;
     value: string;
   }[];
-  transcodingMessages: any[];
+  transcodingMessages: unknown[];
 };
 
 export type FormVideo = Pick<VideoDbEntry, "guid" | "title" | "captions"> & {
@@ -82,5 +82,5 @@ export type NarrationPath = {
   descriptions: { languageCode: string; description: string[] }[];
   total_length: number; // total length of all fragments in the path
   fragments: NarrationFragment[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 };

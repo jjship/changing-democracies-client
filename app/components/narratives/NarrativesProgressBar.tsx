@@ -10,7 +10,6 @@ const NarrativesProgressBar: FC = () => {
     setIsPlaying,
     currentPath,
     isPlaying,
-    selectedLanguage,
   } = useNarrativesContext();
 
   const onFragmentSelect = useCallback(
@@ -19,18 +18,6 @@ const NarrativesProgressBar: FC = () => {
       setIsPlaying(true);
     },
     [setCurrentIndex, setIsPlaying],
-  );
-
-  const getTitleInLanguage = useMemo(
-    () => (titles: { languageCode: string; title: string }[]) => {
-      return (
-        (titles.find((title) => title.languageCode === selectedLanguage)
-          ?.title ||
-          titles.find((title) => title.languageCode === "EN")?.title) ??
-        ""
-      );
-    },
-    [selectedLanguage],
   );
 
   const totalFragments = currentPath?.fragments.length ?? 0;

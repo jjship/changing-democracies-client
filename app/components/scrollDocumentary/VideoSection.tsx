@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { VideoSource } from "@/types/scrollDocumentary";
 import VideoPlayer from "./VideoPlayer";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import ErrorBoundary from "@/components/public/ErrorBoundary";
 import VideoPlayerFallback from "./VideoPlayerFallback";
 import { VideoSourceError } from "./videoSource";
 import { PageTheme, Speaker } from "./slides/slides";

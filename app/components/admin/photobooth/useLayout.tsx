@@ -38,7 +38,7 @@ const getNextType = (key: LayoutKey, prevType: LayoutType): LayoutType => {
   return prevType;
 };
 
-const useLayout = (setType: Dispatch<SetStateAction<LayoutType>>) => {
+export const useLayout = (setType: Dispatch<SetStateAction<LayoutType>>) => {
   const { currentLang } = useBoothContext();
   const [layout, setLayout] = useState<KeyboardLayoutObject>(
     keyboardLayouts["EN"],
@@ -58,12 +58,9 @@ const useLayout = (setType: Dispatch<SetStateAction<LayoutType>>) => {
     [setType],
   );
 
-  const isLayoutKey = useCallback((key: any): key is LayoutKey => {
-    const layoutKeys: LayoutKey[] = ["{shift}", "{lock}", "{alt}"];
-    return layoutKeys.includes(key);
+  const isLayoutKey = useCallback((key: string): key is LayoutKey => {
+    return (["{shift}", "{lock}", "{alt}"] as string[]).includes(key);
   }, []);
 
   return { layout, handleLayoutTypeChange, isLayoutKey };
 };
-
-export { useLayout };
