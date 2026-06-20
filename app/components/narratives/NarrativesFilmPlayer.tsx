@@ -228,14 +228,18 @@ export const NarrativesFilmPlayer: FC = () => {
             </div>
           )}
 
-          {/* Fade-to-black transition. Covers the player while a fragment is
-              swapped in (between-fragment break or any source load), masking
-              the black flash, the loading card, and the static-frame→motion
-              jump so fragments blend instead of cutting hard. */}
+          {/* Between-fragment transition cover. It snaps to black instantly
+              while a fragment is swapped in (duration-0) so the source swap and
+              loading card are never visible, then fades back out over 500ms as
+              the next fragment plays. Fading the cover IN would let the swap
+              flicker through the semi-transparent overlay, so only the reveal
+              is animated. */}
           <div
             aria-hidden
-            className={`pointer-events-none absolute inset-0 z-50 bg-black transition-opacity duration-500 ease-in-out ${
-              inBreak || isLoading ? "opacity-100" : "opacity-0"
+            className={`pointer-events-none absolute inset-0 z-50 bg-black transition-opacity ease-in-out ${
+              inBreak || isLoading
+                ? "opacity-100 duration-0"
+                : "opacity-0 duration-500"
             }`}
           />
         </div>
