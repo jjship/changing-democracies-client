@@ -108,8 +108,8 @@ const NarrativesProgressBar: FC = () => {
                   index === currentIndex
                     ? "#6bdbc6ff"
                     : index < currentIndex
-                    ? "#b85252"
-                    : "#808881",
+                      ? "#b85252"
+                      : "#808881",
                 transition: "background-color 0.3s ease",
                 cursor: "pointer",
                 zIndex: 1,

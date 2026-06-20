@@ -64,16 +64,9 @@ export const NarrativesView: FC = ({}) => {
             <div className={"relative right-10 top-2 z-10"}>
               <OverviewTag onClick={handleOverview} />
             </div>
-            <h1
-              className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white"
-              style={{
-                opacity: 1,
-                transform: "translateY(0)",
-                transition: "opacity 0.5s ease, transform 0.5s ease",
-                transitionDelay: "0.5s",
-              }}
-            >
-              {getLocalizedField(currentPath.titles, selectedLanguage, "title") ?? "Narrative"}
+            <h1 className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white">
+              {getLocalizedField(currentPath.titles, selectedLanguage, "title") ??
+                "Narrative"}
             </h1>
           </div>
 
