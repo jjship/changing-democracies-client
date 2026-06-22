@@ -1,6 +1,6 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import { FC, useCallback, useRef } from "react";
+import { FC, useRef } from "react";
 import { getLocalizedField } from "@/utils/i18n/getLocalizedField";
 import OverviewTag from "./NarrativesOverviewButton";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
@@ -18,7 +18,6 @@ export const NarrativesView: FC = ({}) => {
     currentIndex,
     setCurrentIndex,
     setCurrentPath,
-    showSidePanel,
     setShowSidePanel,
     selectedLanguage,
   } = useNarrativesContext();
@@ -35,13 +34,6 @@ export const NarrativesView: FC = ({}) => {
     setIsPlaying(true);
     setShowSidePanel(false);
   };
-
-  const handleContinue = useCallback(() => {
-    if (currentPath && currentIndex !== currentPath.fragments.length) {
-      setIsPlaying(true);
-      setShowSidePanel(false);
-    }
-  }, [currentIndex, currentPath, setIsPlaying, setShowSidePanel]);
 
   const handleOverview = () => {
     setCurrentPath(null);
@@ -79,10 +71,7 @@ export const NarrativesView: FC = ({}) => {
             <VideoControls
               isPlaying={isPlaying}
               currentIndex={currentIndex}
-              totalFragments={currentPath.fragments.length}
-              showSidePanel={showSidePanel}
               onStart={handleStart}
-              onContinue={handleContinue}
             />
           </Flex>
         </Flex>

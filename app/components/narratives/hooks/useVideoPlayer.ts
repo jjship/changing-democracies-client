@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import { VideoQuality } from "@/types/scrollDocumentary";
 
@@ -42,6 +42,15 @@ export const useVideoPlayer = ({
   // Derive isPaused from isPlaying and showSidePanel
   useEffect(() => {
     setIsPaused(!isPlaying || showSidePanel);
+  }, [isPlaying, showSidePanel]);
+
+  // Mirror the latest intended play state into a ref. The init effect below
+  // must NOT depend on isPlaying/showSidePanel (that would re-initialize HLS on
+  // every play/pause), so it reads the current values from this ref when a new
+  // fragment finishes loading.
+  const playStateRef = useRef({ isPlaying, showSidePanel });
+  useEffect(() => {
+    playStateRef.current = { isPlaying, showSidePanel };
   }, [isPlaying, showSidePanel]);
 
   // Initialize video player and HLS if supported
@@ -112,7 +121,12 @@ export const useVideoPlayer = ({
 
         if (!isMounted) return;
         setIsLoading(false);
-        setIsPaused(true);
+        // Respect the intended play state so a fragment loaded mid-session
+        // (seamless auto-advance, arrow-key jump, progress-bar jump) resumes
+        // playing instead of pausing.
+        setIsPaused(
+          !playStateRef.current.isPlaying || playStateRef.current.showSidePanel,
+        );
       } catch (e) {
         console.error("Video setup error:", e);
         if (isMounted) {

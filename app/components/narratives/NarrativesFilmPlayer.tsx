@@ -75,11 +75,16 @@ export const NarrativesFilmPlayer: FC = () => {
   // Handle video end
   const onEnded = useCallback(() => {
     if (currentPath && currentIndex < currentPath.fragments.length - 1) {
+      // Advance to the next fragment and pause; the resume effect below plays
+      // it after a short break so fragments don't run back-to-back.
       setCurrentIndex(currentIndex + 1);
+      setIsPlaying(false);
     } else {
+      // End of the narrative — return to the overview.
       setCurrentPath(null);
+      setCurrentIndex(0);
+      setIsPlaying(false);
     }
-    setIsPlaying(false);
   }, [
     currentIndex,
     currentPath,
@@ -100,6 +105,17 @@ export const NarrativesFilmPlayer: FC = () => {
       video.removeEventListener("ended", handleEnded);
     };
   }, [onEnded, videoRef]);
+
+  // Short break between fragments: once a fragment ends we advance the index
+  // and pause (currentIndex > 0, not playing, still within a narrative).
+  // Auto-resume after ~1s. The Start gate (index 0) and the narrative end
+  // (no currentPath) are excluded, so this only bridges fragment-to-fragment.
+  useEffect(() => {
+    if (!currentPath || isPlaying || currentIndex === 0) return;
+
+    const timer = setTimeout(() => setIsPlaying(true), 1000);
+    return () => clearTimeout(timer);
+  }, [currentPath, currentIndex, isPlaying, setIsPlaying]);
 
   // Keyboard controls
   useEffect(() => {
@@ -150,6 +166,10 @@ export const NarrativesFilmPlayer: FC = () => {
     setIsPlaying,
     handlePlayPause,
   ]);
+
+  // True while bridging two fragments: the index has advanced, playback is
+  // paused, and we're still inside a narrative (not the index-0 Start gate).
+  const inBreak = !!currentPath && !isPlaying && currentIndex > 0;
 
   return (
     nowPlaying && (
@@ -207,6 +227,21 @@ export const NarrativesFilmPlayer: FC = () => {
               />
             </div>
           )}
+
+          {/* Between-fragment transition cover. It snaps to black instantly
+              while a fragment is swapped in (duration-0) so the source swap and
+              loading card are never visible, then fades back out over 500ms as
+              the next fragment plays. Fading the cover IN would let the swap
+              flicker through the semi-transparent overlay, so only the reveal
+              is animated. */}
+          <div
+            aria-hidden
+            className={`pointer-events-none absolute inset-0 z-50 bg-black transition-opacity ease-in-out ${
+              inBreak || isLoading
+                ? "opacity-100 duration-0"
+                : "opacity-0 duration-500"
+            }`}
+          />
         </div>
       </div>
     )
