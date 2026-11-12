@@ -93,7 +93,10 @@ export const config = {
      * - /film (film routes)
      * - /# (hash routes)
      * Feel free to modify this pattern to include more paths.
+     *
+     * No trailing slash: since Next 15 the matcher is compiled literally, and
+     * a trailing "/" would stop the middleware from matching any normal path.
      */
-    "/((?!_next/static|_next/image|favicon.ico|images|.*.(?:svg|png|jpg|jpeg|gif|webp)$|/film$|/#).*)/",
+    "/((?!_next/static|_next/image|favicon.ico|images|.*.(?:svg|png|jpg|jpeg|gif|webp)$|/film$|/#).*)",
   ],
 };

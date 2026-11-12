@@ -1,15 +1,15 @@
 "use client";
+import { use } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { navButton } from "../../components/admin/classNames";
 
 type ClickParams = { token_hash: string; type: string; next: string };
 
-export default function ClickToLogin({
-  searchParams,
-}: {
-  searchParams: ClickParams;
+export default function ClickToLogin(props: {
+  searchParams: Promise<ClickParams>;
 }) {
+  const searchParams = use(props.searchParams);
   const { token_hash, type, next } = searchParams;
 
   const router = useRouter();

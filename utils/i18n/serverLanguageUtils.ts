@@ -5,9 +5,9 @@ import { cookies } from "next/headers";
  * Server-side utility for getting language from cookies
  * Only use this in Server Components or API routes
  */
-export function getServerLanguage(): CDLanguages | null {
+export async function getServerLanguage(): Promise<CDLanguages | null> {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const cookieValue = cookieStore.get("NEXT_LOCALE")?.value;
 
     if (cookieValue) {

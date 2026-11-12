@@ -15,7 +15,7 @@ async function login(data: { email: string; password: string }, next?: string) {
   //   password: formdata.get("password"),
   // });
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.auth.signInWithPassword({
     email: data.email,
@@ -33,7 +33,7 @@ async function login(data: { email: string; password: string }, next?: string) {
 }
 
 async function logout() {
-  const supabase = createClient();
+  const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/");
 }

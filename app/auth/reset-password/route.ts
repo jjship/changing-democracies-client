@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const new_password = String(formData.get("password"));
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.auth.updateUser({ password: new_password });
 

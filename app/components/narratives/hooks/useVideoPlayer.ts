@@ -11,7 +11,7 @@ interface VideoSourceLike {
 
 interface UseVideoPlayerParams {
   videoSource: VideoSourceLike | undefined;
-  videoRef: React.RefObject<HTMLVideoElement>;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
   currentQuality: VideoQuality | null;
   isPlaying: boolean;
   showSidePanel: boolean;

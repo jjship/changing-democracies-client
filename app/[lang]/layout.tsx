@@ -45,13 +45,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-  params: { lang },
-}: {
+export default async function RootLayout(props: {
   children: ReactNode;
-  params: { lang: CDLanguages };
+  // Next 15 validates layouts against Promise<{ lang: string }>; narrow here.
+  params: Promise<{ lang: string }>;
 }) {
+  const { children } = props;
+  const lang = (await props.params).lang as CDLanguages;
+
   return (
     <>
       <html lang={lang} suppressHydrationWarning>

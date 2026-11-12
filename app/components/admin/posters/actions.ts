@@ -24,7 +24,7 @@ async function fetchPosters(): Promise<{
   data: Poster[];
   error?: string;
 }> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 
@@ -65,7 +65,7 @@ async function updatePoster(poster: Poster): Promise<{
   success: boolean;
   error?: string;
 }> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 

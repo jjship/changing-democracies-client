@@ -11,11 +11,13 @@ import { getEvent } from "@/components/admin/actions";
 import { destructiveButton } from "@/components/admin/classNames";
 
 export default async function Event({
-  params: { id },
+  params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const supabase = createClient();
+  const { id } = await params;
+
+  const supabase = await createClient();
 
   const user = await authenticate(supabase);
 

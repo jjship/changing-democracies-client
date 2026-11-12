@@ -8,7 +8,7 @@ interface VideoBounds {
 }
 
 export const useVideoBounds = (
-  videoRef: RefObject<HTMLVideoElement>,
+  videoRef: RefObject<HTMLVideoElement | null>,
 ): VideoBounds | null => {
   const [bounds, setBounds] = useState<VideoBounds | null>(null);
 
