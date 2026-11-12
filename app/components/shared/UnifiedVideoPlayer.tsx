@@ -1,8 +1,7 @@
 "use client";
-import { FC, useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo, useRef } from "react";
 import { Box } from "@radix-ui/themes";
 import { X } from "lucide-react";
-import useAdaptiveQuality from "../scrollDocumentary/useAdaptiveQuality";
 import { getOptimalQuality } from "../scrollDocumentary/videoSource";
 import { useSubtitles } from "@/utils/subtitles/api";
 import { useVideoPlayer } from "../narratives/hooks/useVideoPlayer";
@@ -83,16 +82,19 @@ export const UnifiedVideoPlayer: FC<UnifiedVideoPlayerProps> = ({
     return rawVideoSource as UnifiedVideoSource;
   }, [rawVideoSource]);
 
-  // Initialize with all qualities, then filter based on HLS support
-  const { currentQuality, videoRef } = useAdaptiveQuality({
-    initialQuality: getOptimalQuality(videoSource.availableQualities ?? []),
-    qualities: videoSource.availableQualities ?? [],
-  });
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Fixed quality for the MP4 fallback path only; HLS picks its own bitrate.
+  // See NarrativesFilmPlayer for why there is no client-side quality switching.
+  const fallbackQuality = useMemo(() => {
+    const qualities = videoSource.availableQualities ?? [];
+    return qualities.length ? getOptimalQuality(qualities) : null;
+  }, [videoSource]);
 
   const { isPaused, isLoading, error, handlePlayPause } = useVideoPlayer({
     videoSource,
     videoRef,
-    currentQuality,
+    currentQuality: fallbackQuality,
     isPlaying,
     showSidePanel,
   });

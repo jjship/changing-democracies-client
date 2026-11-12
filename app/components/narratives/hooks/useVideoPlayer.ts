@@ -53,7 +53,16 @@ export const useVideoPlayer = ({
     playStateRef.current = { isPlaying, showSidePanel };
   }, [isPlaying, showSidePanel]);
 
-  // Initialize video player and HLS if supported
+  // The quality only feeds the MP4 fallback URL. It is read through a ref so
+  // that a quality change never re-runs the init effect: re-initializing tears
+  // the player down and restarts playback from 0. On the normal HLS path the
+  // bitrate is chosen by hls.js / the browser, not by this value.
+  const qualityRef = useRef(currentQuality);
+  useEffect(() => {
+    qualityRef.current = currentQuality;
+  }, [currentQuality]);
+
+  // Initialize video player and HLS if supported. Runs once per fragment.
   useEffect(() => {
     if (!videoSource) return;
 
@@ -66,12 +75,8 @@ export const useVideoPlayer = ({
 
     // Flag to track if component is still mounted
     let isMounted = true;
-
-    // Clean up previous HLS instance if exists
-    if (hls) {
-      hls.destroy();
-      setHls(null);
-    }
+    // The HLS instance owned by this effect run; destroyed in cleanup.
+    let hlsInstance: Hls | null = null;
 
     const initializeVideo = async () => {
       try {
@@ -82,6 +87,7 @@ export const useVideoPlayer = ({
             maxBufferSize: 10 * 1000 * 1000,
             debug: false,
           });
+          hlsInstance = newHls;
 
           newHls.loadSource(videoSource.hlsPlaylistUrl);
           newHls.attachMedia(video);
@@ -110,7 +116,7 @@ export const useVideoPlayer = ({
         } else {
           // Fallback to MP4
           console.log("Falling back to MP4 playback");
-          const mp4Url = `https://${videoSource.pullZoneUrl}.b-cdn.net/${videoSource.videoId}/play_play_${currentQuality?.height}p.mp4`;
+          const mp4Url = `https://${videoSource.pullZoneUrl}.b-cdn.net/${videoSource.videoId}/play_play_${qualityRef.current?.height}p.mp4`;
           video.src = mp4Url;
           setIsUsingHLS(false);
 
@@ -165,10 +171,11 @@ export const useVideoPlayer = ({
       video.removeEventListener("pause", handlePause);
       video.removeEventListener("play", handlePlay);
 
-      // Clean up HLS
-      if (hls) {
-        hls.destroy();
+      // Clean up the HLS instance created by this run
+      if (hlsInstance) {
+        hlsInstance.destroy();
       }
+      setHls(null);
 
       // Safely stop video
       try {
@@ -179,7 +186,7 @@ export const useVideoPlayer = ({
         console.error("Error during cleanup:", e);
       }
     };
-  }, [videoSource, currentQuality, videoRef]);
+  }, [videoSource, videoRef]);
 
   // Effect to play/pause video based on isPaused state
   useEffect(() => {
@@ -203,4 +210,3 @@ export const useVideoPlayer = ({
     handlePlayPause,
   };
 };
-

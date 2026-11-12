@@ -1,8 +1,7 @@
 "use client";
-import { FC, useCallback, useEffect, useMemo } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { Box } from "@radix-ui/themes";
 import { useNarrativesContext } from "@/components/narratives/NarrativesContext";
-import useAdaptiveQuality from "../scrollDocumentary/useAdaptiveQuality";
 import { getOptimalQuality } from "../scrollDocumentary/videoSource";
 import { useSubtitles } from "@/utils/subtitles/api";
 import { useVideoPlayer } from "./hooks/useVideoPlayer";
@@ -37,17 +36,22 @@ export const NarrativesFilmPlayer: FC = () => {
     );
   }, [currentPath, currentIndex, selectedLanguage]);
 
-  // Initialize with all qualities, then filter based on HLS support
-  const { currentQuality, videoRef } = useAdaptiveQuality({
-    initialQuality: getOptimalQuality(nowPlaying?.availableQualities ?? []),
-    qualities: nowPlaying?.availableQualities ?? [],
-  });
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Fixed quality for the MP4 fallback path only. HLS (the normal path) picks
+  // its own bitrate inside hls.js / the browser, so there is no client-side
+  // quality switching here: switching re-initialized the player and restarted
+  // playback from 0 a few seconds into every narrative.
+  const fallbackQuality = useMemo(() => {
+    const qualities = nowPlaying?.availableQualities ?? [];
+    return qualities.length ? getOptimalQuality(qualities) : null;
+  }, [nowPlaying]);
 
   const { isPaused, isLoading, error, handlePlayPause, isUsingHLS } =
     useVideoPlayer({
       videoSource: nowPlaying,
       videoRef,
-      currentQuality,
+      currentQuality: fallbackQuality,
       isPlaying,
       showSidePanel,
     });
