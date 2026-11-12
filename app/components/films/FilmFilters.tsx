@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import { Button } from "@/ui/button";
 import { Badge } from "@/ui/badge";
@@ -148,62 +148,8 @@ function MultiSelectDropdown({
 }
 
 export const FilmFilters: FC = () => {
-  const { setFragments, fragmentsResponse, tagCategoriesResponse } =
+  const { tagCategoriesResponse, selectedTagsByCategory, setCategoryTags } =
     useFilmsContext();
-  const [selectedTagsByCategory, setSelectedTagsByCategory] = useState<
-    Record<string, string[]>
-  >({});
-
-  // Load selected tags from sessionStorage on mount
-  useEffect(() => {
-    const savedTags = sessionStorage.getItem("selectedTagsByCategory");
-    if (savedTags) {
-      setSelectedTagsByCategory(JSON.parse(savedTags));
-    }
-  }, []);
-
-  // Save selected tags to sessionStorage when they change
-  useEffect(() => {
-    sessionStorage.setItem(
-      "selectedTagsByCategory",
-      JSON.stringify(selectedTagsByCategory),
-    );
-  }, [selectedTagsByCategory]);
-
-  // Apply filters when selection changes
-  useEffect(() => {
-    if (fragmentsResponse?.data) {
-      const allSelectedTags = Object.values(selectedTagsByCategory).flat();
-      const hasTagFilters = allSelectedTags.length > 0;
-
-      // If no filters are active, show all fragments
-      if (!hasTagFilters) {
-        setFragments(fragmentsResponse.data);
-        return;
-      }
-
-      // Apply filters
-      const filteredFragments = fragmentsResponse.data.filter((fragment) => {
-        // Tag filter matching - require ALL selected tags to be present
-        const matchesTags = allSelectedTags.every((selectedTagId) =>
-          fragment.tags.some((tag) => tag.id === selectedTagId),
-        );
-
-        return matchesTags;
-      });
-
-      setFragments(filteredFragments);
-    }
-  }, [selectedTagsByCategory, fragmentsResponse, setFragments]);
-
-  const updateCategoryTags = (categoryId: string, tags: string[]) => {
-    setSelectedTagsByCategory((prev) => ({
-      ...prev,
-      [categoryId]: tags,
-    }));
-  };
-
-  if (!fragmentsResponse || !tagCategoriesResponse) return null;
 
   return (
     <div className="pb-6" role="region" aria-label="Story filters">
@@ -219,7 +165,7 @@ export const FilmFilters: FC = () => {
             <MultiSelectDropdown
               category={category}
               selectedTags={selectedTagsByCategory[category.id] || []}
-              setSelectedTags={(tags) => updateCategoryTags(category.id, tags)}
+              setSelectedTags={(tags) => setCategoryTags(category.id, tags)}
             />
           </div>
         ))}

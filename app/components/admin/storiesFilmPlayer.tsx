@@ -15,7 +15,7 @@ export const StoriesFilmPlayer: FC = () => {
     setNowPlaying,
   } = useFilmsContext();
 
-  const currentFragment = fragments?.find(
+  const currentFragment = fragments.find(
     (fragment) => fragment.id === nowPlaying,
   );
 

@@ -13,13 +13,7 @@ export const FreeBrowsingLayout: FC<{
   fragmentsResponse: FragmentsResponse;
   tagCategoriesResponse: TagCategoriesResponse;
   languageCode: string;
-  initialFragmentId?: string;
-}> = ({
-  fragmentsResponse,
-  tagCategoriesResponse,
-  languageCode,
-  initialFragmentId,
-}) => {
+}> = ({ fragmentsResponse, tagCategoriesResponse, languageCode }) => {
   const { setLanguage } = useTranslation();
 
   const handleLanguageChange = (newLang: string) => {
@@ -41,7 +35,6 @@ export const FreeBrowsingLayout: FC<{
           <FreeBrowsing
             fragmentsResponse={fragmentsResponse}
             tagCategoriesResponse={tagCategoriesResponse}
-            initialFragmentId={initialFragmentId}
           />
         </div>
         <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary"></div>
