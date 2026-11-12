@@ -1,7 +1,6 @@
-"use server";
-
 import "server-only";
 import { BunnyMethodReturn } from "@/types/bunny";
+import { isPosterFileName } from "./poster-file-name";
 
 export { deleteBunnyPoster, getPostersMetadata };
 
@@ -82,7 +81,15 @@ async function deleteBunnyPoster({
     throw new Error("Missing Bunny Stream environment variables");
   }
 
-  const url = `https://storage.bunnycdn.com/${process.env.BUNNY_STORAGE_NAME}/posters/${fileName}`;
+  if (!isPosterFileName(fileName)) {
+    return {
+      success: false,
+      data: [],
+      error: { message: "Invalid poster file name" },
+    };
+  }
+
+  const url = `https://storage.bunnycdn.com/${process.env.BUNNY_STORAGE_NAME}/posters/${encodeURIComponent(fileName)}`;
 
   await purgePostersCash({ fileName });
 
@@ -118,7 +125,7 @@ async function purgePostersCash({
     throw new Error("Missing Bunny Stream environment variables");
   }
 
-  const url = `https://api.bunny.net/purge?url=https%3A%2F%2F${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net%2Fposters%2F${fileName}&async=false`;
+  const url = `https://api.bunny.net/purge?url=https%3A%2F%2F${process.env.NEXT_PUBLIC_STORAGE_PULL_ZONE}.b-cdn.net%2Fposters%2F${encodeURIComponent(fileName)}&async=false`;
   const options = {
     method: "POST",
     headers: {

@@ -22,7 +22,7 @@ app/
     free-browsing/   # Film library page
     narratives/      # Narrative paths page
   admin/             # Admin pages (auth-gated via Supabase)
-  api/               # API routes: downloadImage, sendImage, posters
+  api/               # API routes: downloadImage, sendImage (kiosk/admin only), posters
   components/        # All React components
     films/           # Film list, player, filters, FilmsContext
     narratives/      # Narratives list, player, view, NarrativesContext
@@ -98,7 +98,7 @@ const MyComponent = ...;
 ### Environment Variables
 
 Validated via Zod in `utils/env.ts`:
-- `serverEnv()` — server-only vars (`BACKEND_API_URL`, `BUNNY_*`, `RESEND_API_KEY`, etc.)
+- `serverEnv()` — server-only vars (`BACKEND_API_URL`, `BUNNY_*`, `RESEND_API_KEY`, optional `PHOTOBOOTH_KEY`, etc.)
 - `clientEnv()` — `NEXT_PUBLIC_*` vars (Supabase, Bunny pull zones, library ID)
 
 Never use `process.env.X!` (non-null assertion). Use `serverEnv().X` or `clientEnv().X`.
@@ -111,7 +111,8 @@ Never use `process.env.X!` (non-null assertion). Use `serverEnv().X` or `clientE
 
 ### API Routes
 
-- `downloadImage` and `sendImage` routes validate URLs against an allowlist (`b-cdn.net`, `bunnycdn.com`, `changingdemocracies.eu`)
+- `downloadImage` and `sendImage` require a kiosk cookie or an admin session (`utils/admin/access.ts`) and only accept URLs on the project's storage pull zone under `/posters/` with a valid poster file name (`utils/admin/poster-file-name.ts`)
+- Photobooth (`/admin/photobooth`) is unlocked per device with `PHOTOBOOTH_KEY`; the unlock form sets a signed httpOnly cookie (`utils/admin/kiosk-token.ts`). `saveImage` and `deletePoster` server actions check the same gate
 - Request bodies are validated with Zod schemas
 - No axios — use native `fetch` everywhere
 

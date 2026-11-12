@@ -5,6 +5,8 @@ import "server-only";
 import { PosterDbEntry, PosterInsertModel } from "@/types/database";
 import { createClient } from "@/supabase/clients/server";
 import { authenticate } from "@/auth/actions";
+import { hasKioskOrAdminAccess } from "@/utils/admin/access";
+import { isPosterFileName } from "@/utils/admin/poster-file-name";
 import {
   PosterMetadata,
   deleteBunnyPoster,
@@ -93,9 +95,15 @@ async function deletePoster(fileName: string): Promise<{
   success: boolean;
   error?: string;
 }> {
-  const { error: bunnyError } = await deleteBunnyPoster({
-    fileName: fileName,
-  });
+  if (!(await hasKioskOrAdminAccess())) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  if (!isPosterFileName(fileName)) {
+    return { success: false, error: "Invalid poster file name" };
+  }
+
+  const { error: bunnyError } = await deleteBunnyPoster({ fileName });
 
   if (bunnyError) {
     return { success: false, error: "could not delete poster from Bunny" };

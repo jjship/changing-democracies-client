@@ -4,6 +4,7 @@ import "server-only";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/supabase/clients/server";
+import { safeNext } from "@/utils/safe-next";
 import { LoginValuesSchema } from "../components/admin/login/loginValues";
 import { SupabaseClient } from "@supabase/supabase-js";
 
@@ -29,7 +30,7 @@ async function login(data: { email: string; password: string }, next?: string) {
     throw error;
   }
 
-  redirect(next ?? "/admin");
+  redirect(safeNext(next));
 }
 
 async function logout() {
@@ -47,7 +48,8 @@ async function authenticate(client: SupabaseClient, next?: string) {
   if (error || !user) {
     console.error("Authentication error:", { error, user });
 
-    redirect(`/login${next ? `?next=${next}` : ""}`);
+    const target = safeNext(next, "");
+    redirect(target ? `/login?next=${encodeURIComponent(target)}` : "/login");
   }
 
   return user;
