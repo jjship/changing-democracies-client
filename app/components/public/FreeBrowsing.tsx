@@ -13,13 +13,7 @@ export const FreeBrowsing: FC<{
   fragmentsResponse: FragmentsResponse;
   tagCategoriesResponse: TagCategoriesResponse;
   title?: boolean;
-  initialFragmentId?: string;
-}> = ({
-  fragmentsResponse,
-  tagCategoriesResponse,
-  title = true,
-  initialFragmentId,
-}) => {
+}> = ({ fragmentsResponse, tagCategoriesResponse, title = true }) => {
   const { dictionary } = useTranslation();
 
   return (
@@ -35,18 +29,11 @@ export const FreeBrowsing: FC<{
       <FilmsContextProvider
         fragmentsResponse={fragmentsResponse}
         tagCategoriesResponse={tagCategoriesResponse}
-        initialFragmentId={initialFragmentId}
         syncUrl
       >
-        {fragmentsResponse ? (
-          <>
-            <ShowAllOrFilters />
-            <FilmList />
-            <FilmPlayer />
-          </>
-        ) : (
-          <div className="h-full, bg-black_bg"></div>
-        )}
+        <ShowAllOrFilters />
+        <FilmList />
+        <FilmPlayer />
       </FilmsContextProvider>
     </>
   );

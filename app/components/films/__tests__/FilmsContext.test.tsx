@@ -1,32 +1,26 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { ReactNode } from "react";
 
-const mockPush = vi.fn();
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: mockPush }),
-  usePathname: () => "/en/free-browsing",
-  useSearchParams: () => new URLSearchParams(),
-}));
+import { FilmsContextProvider, useFilmsContext } from "../FilmsContext";
 
-import {
-  FilmsContextProvider,
-  useFilmsContext,
-} from "../FilmsContext";
+const fragment = (id: string, tagIds: string[] = []) => ({
+  id,
+  title: `Fragment ${id}`,
+  tags: tagIds.map((tagId) => ({ id: tagId })),
+});
 
 const mockFragmentsResponse = {
   data: [
-    { id: "frag-1", title: "Fragment 1" },
-    { id: "frag-2", title: "Fragment 2" },
+    fragment("frag-1", ["tag-a"]),
+    fragment("frag-2", ["tag-a", "tag-b"]),
+    fragment("frag-3"),
   ],
-  total: 2,
 };
 
-const mockTagCategories = { data: [] };
+const mockTagCategories = { tagCategories: [] };
 
-function wrapper(
-  overrides: Record<string, unknown> = {},
-) {
+function wrapper(overrides: Record<string, unknown> = {}) {
   return function Wrapper({ children }: { children: ReactNode }) {
     return (
       <FilmsContextProvider
@@ -40,9 +34,12 @@ function wrapper(
   };
 }
 
+const ids = (fragments: { id: string }[]) => fragments.map((f) => f.id);
+
 describe("FilmsContext", () => {
   beforeEach(() => {
-    mockPush.mockClear();
+    window.history.replaceState(null, "", "/en/free-browsing");
+    sessionStorage.clear();
   });
 
   it("throws when used outside provider", () => {
@@ -57,52 +54,84 @@ describe("FilmsContext", () => {
     });
     expect(result.current.nowPlaying).toBeNull();
     expect(result.current.fragmentsResponse).toBe(mockFragmentsResponse);
+    expect(result.current.fragments).toBe(mockFragmentsResponse.data);
   });
 
-  it("sets nowPlaying from initialFragmentId", () => {
+  it("filters fragments to those carrying every selected tag", () => {
     const { result } = renderHook(() => useFilmsContext(), {
-      wrapper: wrapper({ initialFragmentId: "frag-1" }),
+      wrapper: wrapper(),
+    });
+
+    act(() => result.current.setCategoryTags("cat-1", ["tag-a"]));
+    expect(ids(result.current.fragments)).toEqual(["frag-1", "frag-2"]);
+
+    act(() => result.current.setCategoryTags("cat-2", ["tag-b"]));
+    expect(ids(result.current.fragments)).toEqual(["frag-2"]);
+
+    act(() => {
+      result.current.setCategoryTags("cat-1", []);
+      result.current.setCategoryTags("cat-2", []);
+    });
+    expect(ids(result.current.fragments)).toEqual([
+      "frag-1",
+      "frag-2",
+      "frag-3",
+    ]);
+  });
+
+  it("restores selected tags from sessionStorage", () => {
+    sessionStorage.setItem(
+      "selectedTagsByCategory",
+      JSON.stringify({ "cat-1": ["tag-b"] }),
+    );
+    const { result } = renderHook(() => useFilmsContext(), {
+      wrapper: wrapper(),
+    });
+    expect(ids(result.current.fragments)).toEqual(["frag-2"]);
+  });
+
+  it("reads the open film from the URL when syncUrl is true", () => {
+    window.history.replaceState(null, "", "/en/free-browsing?id=frag-1");
+    const { result } = renderHook(() => useFilmsContext(), {
+      wrapper: wrapper({ syncUrl: true }),
     });
     expect(result.current.nowPlaying).toBe("frag-1");
   });
 
-  it("populates fragments from fragmentsResponse after mount", async () => {
-    const { result } = renderHook(() => useFilmsContext(), {
-      wrapper: wrapper(),
-    });
-    // useEffect runs after render
-    await vi.waitFor(() => {
-      expect(result.current.fragments).toEqual(mockFragmentsResponse.data);
-    });
-  });
-
-  it("updates URL when syncUrl is true", async () => {
+  it("writes the open film to the URL when syncUrl is true", () => {
     const { result } = renderHook(() => useFilmsContext(), {
       wrapper: wrapper({ syncUrl: true }),
     });
 
-    act(() => {
-      result.current.setNowPlaying("frag-2");
-    });
+    act(() => result.current.setNowPlaying("frag-2"));
+    expect(result.current.nowPlaying).toBe("frag-2");
+    expect(window.location.search).toBe("?id=frag-2");
 
-    await vi.waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringContaining("id=frag-2"),
-      );
-    });
+    act(() => result.current.setNowPlaying(null));
+    expect(result.current.nowPlaying).toBeNull();
+    expect(window.location.search).toBe("");
   });
 
-  it("does not update URL when syncUrl is false", async () => {
+  it("follows back/forward navigation when syncUrl is true", () => {
+    const { result } = renderHook(() => useFilmsContext(), {
+      wrapper: wrapper({ syncUrl: true }),
+    });
+
+    act(() => result.current.setNowPlaying("frag-2"));
+    window.history.replaceState(null, "", "/en/free-browsing");
+    act(() => {
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+    expect(result.current.nowPlaying).toBeNull();
+  });
+
+  it("leaves the URL alone when syncUrl is false", () => {
     const { result } = renderHook(() => useFilmsContext(), {
       wrapper: wrapper({ syncUrl: false }),
     });
 
-    act(() => {
-      result.current.setNowPlaying("frag-2");
-    });
-
-    // Give effects time to run, then verify no push
-    await new Promise((r) => setTimeout(r, 50));
-    expect(mockPush).not.toHaveBeenCalled();
+    act(() => result.current.setNowPlaying("frag-2"));
+    expect(result.current.nowPlaying).toBe("frag-2");
+    expect(window.location.search).toBe("");
   });
 });

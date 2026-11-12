@@ -62,9 +62,16 @@ export const useVideoPlayer = ({
     qualityRef.current = currentQuality;
   }, [currentQuality]);
 
-  // Initialize video player and HLS if supported. Runs once per fragment.
+  // Initialize video player and HLS if supported. Keyed on the video's
+  // identity rather than the videoSource object, so a parent re-render that
+  // hands down an equivalent object does not reload the video.
+  const hasSource = videoSource !== undefined;
+  const videoId = videoSource?.videoId;
+  const hlsPlaylistUrl = videoSource?.hlsPlaylistUrl;
+  const pullZoneUrl = videoSource?.pullZoneUrl;
+
   useEffect(() => {
-    if (!videoSource) return;
+    if (!hasSource) return;
 
     const video = videoRef.current;
     if (!video) return;
@@ -80,7 +87,7 @@ export const useVideoPlayer = ({
 
     const initializeVideo = async () => {
       try {
-        if (Hls.isSupported() && videoSource.hlsPlaylistUrl) {
+        if (Hls.isSupported() && hlsPlaylistUrl) {
           // HLS.js supported
           const newHls = new Hls({
             maxMaxBufferLength: 30,
@@ -89,7 +96,7 @@ export const useVideoPlayer = ({
           });
           hlsInstance = newHls;
 
-          newHls.loadSource(videoSource.hlsPlaylistUrl);
+          newHls.loadSource(hlsPlaylistUrl);
           newHls.attachMedia(video);
 
           await new Promise((resolve, reject) => {
@@ -104,10 +111,10 @@ export const useVideoPlayer = ({
           setIsUsingHLS(true);
         } else if (
           video.canPlayType("application/vnd.apple.mpegurl") &&
-          videoSource.hlsPlaylistUrl
+          hlsPlaylistUrl
         ) {
           // Safari native HLS support
-          video.src = videoSource.hlsPlaylistUrl;
+          video.src = hlsPlaylistUrl;
           setIsUsingHLS(true);
 
           await new Promise((resolve) => {
@@ -116,7 +123,7 @@ export const useVideoPlayer = ({
         } else {
           // Fallback to MP4
           console.log("Falling back to MP4 playback");
-          const mp4Url = `https://${videoSource.pullZoneUrl}.b-cdn.net/${videoSource.videoId}/play_play_${qualityRef.current?.height}p.mp4`;
+          const mp4Url = `https://${pullZoneUrl}.b-cdn.net/${videoId}/play_play_${qualityRef.current?.height}p.mp4`;
           video.src = mp4Url;
           setIsUsingHLS(false);
 
@@ -186,7 +193,7 @@ export const useVideoPlayer = ({
         console.error("Error during cleanup:", e);
       }
     };
-  }, [videoSource, videoRef]);
+  }, [hasSource, videoId, hlsPlaylistUrl, pullZoneUrl, videoRef]);
 
   // Effect to play/pause video based on isPaused state
   useEffect(() => {

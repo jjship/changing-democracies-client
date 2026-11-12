@@ -2,10 +2,10 @@
 
 import { FC } from "react";
 import FilmList from "@/components/films/FilmList";
+import { FilmFilters } from "@/components/films/FilmFilters";
 import { FilmsContextProvider } from "@/components/films/FilmsContext";
 import { FragmentsResponse, TagCategoriesResponse } from "@/types/api";
 import { StoriesFilmPlayer } from "../storiesFilmPlayer";
-import StoriesShowAllOrFilters from "./StoriesShowAllOrFilters";
 
 export const Stories: FC<{
   fragmentsResponse: FragmentsResponse;
@@ -16,15 +16,9 @@ export const Stories: FC<{
       fragmentsResponse={fragmentsResponse}
       tagCategoriesResponse={tagCategoriesResponse}
     >
-      {fragmentsResponse ? (
-        <>
-          <StoriesShowAllOrFilters />
-          <FilmList />
-          <StoriesFilmPlayer />
-        </>
-      ) : (
-        <div className="h-full, bg-black_bg"></div>
-      )}
+      <FilmFilters />
+      <FilmList />
+      <StoriesFilmPlayer />
     </FilmsContextProvider>
   );
 };

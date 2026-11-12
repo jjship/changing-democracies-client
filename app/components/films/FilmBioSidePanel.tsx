@@ -3,15 +3,11 @@ import { useMemo } from "react";
 import { BioSidePanel } from "@/components/public/BioSidePanel";
 
 const FilmBioSidePanel = () => {
-  const {
-    nowPlaying,
-    fragments,
-    showSidePanel,
-    setShowSidePanel,
-  } = useFilmsContext();
+  const { nowPlaying, fragments, showSidePanel, setShowSidePanel } =
+    useFilmsContext();
 
   const currentFragment = useMemo(() => {
-    return fragments?.find((fragment) => fragment.id === nowPlaying);
+    return fragments.find((fragment) => fragment.id === nowPlaying);
   }, [fragments, nowPlaying]);
 
   return (

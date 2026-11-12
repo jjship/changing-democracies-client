@@ -1,20 +1,11 @@
 "use client";
 
-import { FC, useEffect } from "react";
-import { useFilmsContext } from "./FilmsContext";
+import { FC } from "react";
 import { FilmFilters } from "./FilmFilters";
 import { useTranslation } from "@/app/[lang]/context/TranslationContext";
 
 const ShowAllOrFilters: FC = () => {
-  const { setFragments, fragmentsResponse } = useFilmsContext();
   const { dictionary } = useTranslation();
-
-  // Show all fragments on mount
-  useEffect(() => {
-    if (fragmentsResponse?.data) {
-      setFragments(fragmentsResponse.data);
-    }
-  }, [fragmentsResponse, setFragments]);
 
   return (
     <>

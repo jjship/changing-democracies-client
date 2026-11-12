@@ -19,7 +19,7 @@ export const FilmPlayer: FC = () => {
       ? params.lang.toLowerCase().substring(0, 2)
       : "en";
 
-  const currentFragment = fragments?.find(
+  const currentFragment = fragments.find(
     (fragment) => fragment.id === nowPlaying,
   );
 

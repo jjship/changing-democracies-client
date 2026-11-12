@@ -1,35 +1,22 @@
 "use client";
 
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useFilmsContext } from "./FilmsContext";
-import { usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 const FilmList: FC = () => {
   const { fragments, setNowPlaying } = useFilmsContext();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const handleFragmentClick = (fragmentId: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    setNowPlaying(fragmentId);
-  };
-
-  const filteredFragments = useMemo(() => {
-    if (!fragments) return [];
-    return fragments;
-  }, [fragments]);
 
   return (
     <div className="grid grid-cols-1 gap-10 pt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {filteredFragments.map((fragment) => (
+      {fragments.map((fragment) => (
         <a
           key={fragment.id}
-          href={`${pathname}?${new URLSearchParams({
-            ...Object.fromEntries(searchParams.entries()),
-            id: fragment.id,
-          }).toString()}`}
-          onClick={(e) => handleFragmentClick(fragment.id, e)}
+          href={`?id=${fragment.id}`}
+          onClick={(e) => {
+            e.preventDefault();
+            setNowPlaying(fragment.id);
+          }}
           className="cursor-pointer text-yellow_secondary transition-colors hover:bg-yellow_secondary hover:text-black_bg"
         >
           <div>
