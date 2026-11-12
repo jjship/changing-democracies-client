@@ -1,29 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-
-const ALLOWED_HOSTS = [
-  "b-cdn.net",
-  "bunnycdn.com",
-  "changingdemocracies.eu",
-];
-
-function isAllowedUrl(url: string): boolean {
-  try {
-    const parsed = new URL(url);
-    return ALLOWED_HOSTS.some(
-      (host) =>
-        parsed.hostname === host || parsed.hostname.endsWith(`.${host}`),
-    );
-  } catch {
-    return false;
-  }
-}
+import { clientEnv } from "@/utils/env";
+import { hasKioskOrAdminAccess } from "@/utils/admin/access";
+import { parsePosterUrl } from "@/utils/admin/poster-file-name";
 
 const querySchema = z.object({
   url: z.string().url(),
 });
 
 export async function GET(request: NextRequest) {
+  if (!(await hasKioskOrAdminAccess())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const parsed = querySchema.safeParse({ url: searchParams.get("url") });
 
@@ -34,17 +23,16 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const imageUrl = parsed.data.url;
-
-  if (!isAllowedUrl(imageUrl)) {
-    return NextResponse.json(
-      { error: "URL not allowed" },
-      { status: 403 },
-    );
+  const poster = parsePosterUrl(
+    parsed.data.url,
+    clientEnv().NEXT_PUBLIC_STORAGE_PULL_ZONE,
+  );
+  if (!poster) {
+    return NextResponse.json({ error: "URL not allowed" }, { status: 403 });
   }
 
   try {
-    const response = await fetch(imageUrl);
+    const response = await fetch(poster.url);
 
     if (!response.ok) {
       return NextResponse.json(
@@ -53,13 +41,19 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const contentType = response.headers.get("content-type") || "application/octet-stream";
+    const contentType = response.headers.get("content-type") ?? "";
+    if (!contentType.startsWith("image/")) {
+      return NextResponse.json({ error: "Not an image" }, { status: 502 });
+    }
+
     const data = await response.arrayBuffer();
 
     return new NextResponse(data, {
       headers: {
         "Content-Type": contentType,
-        "Content-Disposition": 'attachment; filename="downloadedImage.jpg"',
+        "Content-Disposition": `attachment; filename="${poster.fileName}"`,
+        "X-Content-Type-Options": "nosniff",
+        "Cache-Control": "private, no-store",
       },
     });
   } catch (error) {

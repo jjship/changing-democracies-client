@@ -25,6 +25,9 @@ const serverSchema = z.object({
   // Resend
   RESEND_API_KEY: z.string().min(1),
 
+  // Photobooth kiosk unlock key (optional; kiosk is locked when unset)
+  PHOTOBOOTH_KEY: z.string().min(16).optional(),
+
   // Site
   SITE_URL: z.string().url().default("https://www.changingdemocracies.eu"),
   GOOGLE_SITE_VERIFICATION: z.string().optional(),

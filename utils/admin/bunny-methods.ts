@@ -3,6 +3,7 @@ import "server-only";
 import { VideoDbEntry } from "@/types/videosAndFilms";
 import { BunnyMethodReturn } from "@/types/bunny";
 import fetchWithRetry from "../fetch-retry";
+import { isPosterFileName } from "./poster-file-name";
 
 export {
   getCollection,
@@ -46,10 +47,17 @@ async function uploadImage({
   blob: Blob;
   fileName: string;
 }) {
+  if (!isPosterFileName(fileName)) {
+    return {
+      success: false,
+      error: { message: "Invalid poster file name" },
+    };
+  }
+
   const readStream = blob.stream();
 
   const storageName = process.env.BUNNY_STORAGE_NAME;
-  const url = `https://storage.bunnycdn.com/${storageName}/posters/${fileName}`;
+  const url = `https://storage.bunnycdn.com/${storageName}/posters/${encodeURIComponent(fileName)}`;
 
   const options = {
     method: "PUT",

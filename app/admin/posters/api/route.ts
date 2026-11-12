@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { BunnyPoster, PosterMetadata } from "@/utils/admin/posters-methods";
+import { hasKioskOrAdminAccess } from "@/utils/admin/access";
 
 export async function GET() {
+  if (!(await hasKioskOrAdminAccess())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   if (
     !process.env.BUNNY_STORAGE_API_KEY ||
     !process.env.BUNNY_STORAGE_PULL_ZONE_ID ||

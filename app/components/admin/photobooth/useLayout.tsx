@@ -21,7 +21,7 @@ const isAltType = (type: LayoutType) => type.endsWith(ALT);
 const isShiftKey = (key: LayoutKey) => key === "{lock}" || key === "{shift}";
 const isAltKey = (key: LayoutKey) => key === "{alt}";
 
-const getNextType = (key: LayoutKey, prevType: LayoutType): LayoutType => {
+export const getNextType = (key: LayoutKey, prevType: LayoutType): LayoutType => {
   const isPrevShift = isShiftType(prevType);
   const isPrevAlt = isAltType(prevType);
 

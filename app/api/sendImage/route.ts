@@ -1,35 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
-import { serverEnv } from "@/utils/env";
+import { clientEnv, serverEnv } from "@/utils/env";
+import { hasKioskOrAdminAccess } from "@/utils/admin/access";
+import { parsePosterUrl } from "@/utils/admin/poster-file-name";
 
-const ALLOWED_HOSTS = [
-  "b-cdn.net",
-  "bunnycdn.com",
-  "changingdemocracies.eu",
-];
-
-function isAllowedUrl(url: string): boolean {
-  try {
-    const parsed = new URL(url);
-    return ALLOWED_HOSTS.some(
-      (host) =>
-        parsed.hostname === host || parsed.hostname.endsWith(`.${host}`),
-    );
-  } catch {
-    return false;
-  }
-}
+const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024;
 
 const bodySchema = z.object({
   body: z.object({
     imageUrl: z.string().url(),
-    fileName: z.string().min(1),
+    // Kept for backwards compatibility with existing callers; the attachment
+    // name is always derived from the validated poster URL.
+    fileName: z.string().optional(),
     email: z.string().email(),
   }),
 });
 
 export async function POST(request: NextRequest) {
+  if (!(await hasKioskOrAdminAccess())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   let json: unknown;
   try {
     json = await request.json();
@@ -45,9 +37,13 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { imageUrl, fileName, email } = parsed.data.body;
+  const { imageUrl, email } = parsed.data.body;
 
-  if (!isAllowedUrl(imageUrl)) {
+  const poster = parsePosterUrl(
+    imageUrl,
+    clientEnv().NEXT_PUBLIC_STORAGE_PULL_ZONE,
+  );
+  if (!poster) {
     return NextResponse.json(
       { error: "Image URL not allowed" },
       { status: 403 },
@@ -55,9 +51,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const resend = new Resend(serverEnv().RESEND_API_KEY);
-
-    const imageResponse = await fetch(imageUrl);
+    const imageResponse = await fetch(poster.url);
     if (!imageResponse.ok) {
       return NextResponse.json(
         { error: "Failed to fetch image" },
@@ -65,14 +59,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const contentType = imageResponse.headers.get("content-type") ?? "";
+    if (!contentType.startsWith("image/")) {
+      return NextResponse.json({ error: "Not an image" }, { status: 502 });
+    }
+
     const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+    if (imageBuffer.byteLength > MAX_ATTACHMENT_BYTES) {
+      return NextResponse.json({ error: "Image too large" }, { status: 413 });
+    }
+
+    const resend = new Resend(serverEnv().RESEND_API_KEY);
 
     await resend.emails.send({
       from: "Changing Democracies <posters@cd-admin.ovh>",
       to: [email],
       subject: "Your Changing Democracies Poster",
       text: "Find your poster attached",
-      attachments: [{ filename: fileName, content: imageBuffer }],
+      attachments: [{ filename: poster.fileName, content: imageBuffer }],
     });
 
     return new NextResponse("ok");

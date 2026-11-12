@@ -16,9 +16,12 @@ export default function ClickToLogin(props: {
 
   const goLogin = () => {
     if (type === "invite" || type === "recovery") {
-      router.push(
-        `/auth/confirm?token_hash=${token_hash}&type=${type}&next=${next}`,
-      );
+      const params = new URLSearchParams({
+        token_hash,
+        type,
+        next: next ?? "",
+      });
+      router.push(`/auth/confirm?${params.toString()}`);
     }
   };
 

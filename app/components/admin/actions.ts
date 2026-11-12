@@ -12,6 +12,8 @@ import {
   uploadImage,
 } from "@/utils/admin/bunny-methods";
 import { authenticate } from "@/auth/actions";
+import { hasKioskOrAdminAccess } from "@/utils/admin/access";
+import { isPosterFileName } from "@/utils/admin/poster-file-name";
 import { EventDbEntry } from "@/types/database";
 import { VideoDbEntry } from "@/types/videosAndFilms";
 
@@ -44,7 +46,13 @@ export type FilmsMethodReturn<T> = {
   error?: { message: string };
 };
 
+const MAX_POSTER_BYTES = 10 * 1024 * 1024;
+
 async function getVideos(): Promise<FilmsMethodReturn<VideoDbEntry>> {
+  const supabase = await createClient();
+
+  await authenticate(supabase);
+
   const { error, ...res } = await getVideosPerCollection({
     collectionKey: undefined,
   });
@@ -198,10 +206,27 @@ async function getSubtitles({
 }
 
 async function saveImage(formData: FormData): Promise<NoDataMethodReturn> {
-  const { error } = await uploadImage({
-    blob: formData.get("blob") as Blob,
-    fileName: formData.get("fileName") as string,
-  });
+  if (!(await hasKioskOrAdminAccess())) {
+    return handleError({ message: "Unauthorized" });
+  }
+
+  const blob = formData.get("blob");
+  const fileName = formData.get("fileName");
+
+  if (
+    !(blob instanceof Blob) ||
+    blob.size === 0 ||
+    blob.size > MAX_POSTER_BYTES ||
+    blob.type !== "image/jpeg"
+  ) {
+    return handleError({ message: "Invalid poster image" });
+  }
+
+  if (!isPosterFileName(fileName)) {
+    return handleError({ message: "Invalid poster file name" });
+  }
+
+  const { error } = await uploadImage({ blob, fileName });
 
   if (error) {
     return handleError({ message: "Unable to upload image" });
