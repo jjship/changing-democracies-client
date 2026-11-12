@@ -59,7 +59,9 @@ async function FilmsContent({ lang }: { lang: CDLanguages }) {
   );
 }
 
-export default function FreeBrowsingPage({ params: { lang } }: LangParam) {
+export default async function FreeBrowsingPage(props: LangParam) {
+  const { lang } = await props.params;
+
   return (
     <Suspense fallback={<FilmsLoading />}>
       <FilmsContent lang={lang} />

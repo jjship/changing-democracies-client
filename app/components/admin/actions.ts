@@ -58,7 +58,7 @@ async function getVideos(): Promise<FilmsMethodReturn<VideoDbEntry>> {
 }
 
 async function getEvents(): Promise<FilmsMethodReturn<EventDbEntry>> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 
@@ -74,7 +74,7 @@ async function getEvents(): Promise<FilmsMethodReturn<EventDbEntry>> {
 async function getEvent(
   eventId: number,
 ): Promise<EventsMethodReturn<EventDbEntry>> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 
@@ -91,7 +91,7 @@ async function getEvent(
 }
 
 async function deleteEvent(eventId: number): Promise<NoDataMethodReturn> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 
@@ -109,7 +109,7 @@ async function saveEvent({
 }: {
   event: EventDbEntry;
 }): Promise<NoDataMethodReturn> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 
@@ -125,7 +125,7 @@ async function saveEvent({
 async function saveVideo(
   videoData: UpdateVideoModel,
 ): Promise<NoDataMethodReturn> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 
@@ -149,7 +149,7 @@ async function saveCaptions({
   label: string;
   captions: string;
 }): Promise<NoDataMethodReturn> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 
@@ -184,7 +184,7 @@ async function getSubtitles({
   videoId: string;
   srclang: string;
 }): Promise<EventsMethodReturn<string>> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await authenticate(supabase);
 

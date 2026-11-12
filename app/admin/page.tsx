@@ -10,11 +10,11 @@ type AdminParams = { events?: string; videos?: string; posters?: string };
 export default async function Admin({
   searchParams,
 }: {
-  searchParams: AdminParams;
+  searchParams: Promise<AdminParams>;
 }) {
-  const { events, videos, posters } = searchParams;
+  const { events, videos, posters } = await searchParams;
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const user = await authenticate(supabase);
 

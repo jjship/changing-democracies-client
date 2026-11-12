@@ -2,9 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
 
 vi.mock("@/supabase/middleware", () => ({
-  updateSession: vi.fn().mockResolvedValue(
-    new Response(null, { status: 200 }),
-  ),
+  updateSession: vi.fn().mockResolvedValue(new Response(null, { status: 200 })),
 }));
 
 vi.mock("@/utils/env", () => ({
@@ -17,10 +15,23 @@ vi.mock("@/utils/env", () => ({
   }),
 }));
 
-import { middleware } from "../middleware";
+import { middleware, config } from "../middleware";
+import * as pageStaticInfo from "next/dist/build/analysis/get-page-static-info";
+
+// getMiddlewareMatchers is what `next build` uses to compile config.matcher.
+// It is exported at runtime but missing from Next's type declarations.
+const { getMiddlewareMatchers } = pageStaticInfo as unknown as {
+  getMiddlewareMatchers: (
+    matchers: string[],
+    nextConfig: Record<string, never>,
+  ) => Array<{ regexp: string }>;
+};
 import { updateSession } from "@/supabase/middleware";
 
-function makeRequest(path: string, options: { cookie?: string; acceptLanguage?: string } = {}) {
+function makeRequest(
+  path: string,
+  options: { cookie?: string; acceptLanguage?: string } = {},
+) {
   const url = `http://localhost:3000${path}`;
   const headers = new Headers();
   if (options.acceptLanguage) {
@@ -65,13 +76,17 @@ describe("middleware", () => {
   });
 
   it("redirects with locale prefix when locale is missing", async () => {
-    const res = await middleware(makeRequest("/free-browsing", { acceptLanguage: "en" }));
+    const res = await middleware(
+      makeRequest("/free-browsing", { acceptLanguage: "en" }),
+    );
     expect(res.status).toBe(307);
     expect(res.headers.get("location")).toContain("/en/free-browsing");
   });
 
   it("uses cookie locale when present", async () => {
-    const res = await middleware(makeRequest("/free-browsing", { cookie: "nl" }));
+    const res = await middleware(
+      makeRequest("/free-browsing", { cookie: "nl" }),
+    );
     expect(res.status).toBe(307);
     expect(res.headers.get("location")).toContain("/nl/free-browsing");
   });
@@ -86,5 +101,29 @@ describe("middleware", () => {
     const res = await middleware(makeRequest("/nl/narratives"));
     const setCookie = res.headers.get("set-cookie");
     expect(setCookie).toContain("NEXT_LOCALE=nl");
+  });
+});
+
+describe("config.matcher", () => {
+  // Next compiles the matcher strings itself; make sure the compiled regexp
+  // still covers the paths the middleware must see (Next 15 made a trailing
+  // slash in the pattern a literal requirement).
+  const [compiled] = getMiddlewareMatchers(config.matcher, {});
+  const regexp = new RegExp(compiled.regexp);
+
+  it.each(["/", "/en", "/narratives", "/en/narratives", "/admin", "/login"])(
+    "matches %s",
+    (path) => {
+      expect(regexp.test(path)).toBe(true);
+    },
+  );
+
+  it.each([
+    "/_next/static/chunks/main.js",
+    "/favicon.ico",
+    "/images/x",
+    "/logo.png",
+  ])("skips %s", (path) => {
+    expect(regexp.test(path)).toBe(false);
   });
 });

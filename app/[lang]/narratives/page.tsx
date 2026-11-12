@@ -124,10 +124,11 @@ async function NarrativesContent({
   }
 }
 
-export default function NarrativesPage({
-  params,
-  searchParams,
-}: LangParam & { searchParams: { id?: string } }) {
+export default async function NarrativesPage(
+  props: LangParam & { searchParams: Promise<{ id?: string }> },
+) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const { lang } = params;
   const { id: narrativeId } = searchParams;
 

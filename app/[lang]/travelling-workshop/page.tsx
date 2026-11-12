@@ -6,7 +6,9 @@ import { TranslationProvider } from "@/translation/TranslationContext";
 import { Section } from "@/components/public/Section";
 import TravellingWorkshop from "@/components/public/TravellingWorkshop";
 import PageFooter from "@/components/public/PageFooter";
-export default async function Travelling({ params: { lang } }: LangParam) {
+export default async function Travelling(props: LangParam) {
+  const { lang } = await props.params;
+
   const dictionary = await getDictionary(lang);
 
   return (

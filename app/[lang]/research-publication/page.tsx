@@ -7,7 +7,9 @@ import { Section } from "@/components/public/Section";
 import ResearchPublication from "@/components/public/ResearchPublication";
 import PageFooter from "@/components/public/PageFooter";
 
-export default async function EduResources({ params: { lang } }: LangParam) {
+export default async function EduResources(props: LangParam) {
+  const { lang } = await props.params;
+
   const dictionary = await getDictionary(lang);
 
   return (

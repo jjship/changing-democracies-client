@@ -8,7 +8,9 @@ import EducationalResources from "@/components/public/EducationalResources";
 import { CDLanguages } from "@/utils/i18n/languages";
 import PageFooter from "@/components/public/PageFooter";
 
-export default async function EduResources({ params: { lang } }: LangParam) {
+export default async function EduResources(props: LangParam) {
+  const { lang } = await props.params;
+
   const dictionary = await getDictionary(lang as CDLanguages);
 
   return (

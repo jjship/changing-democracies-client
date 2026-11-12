@@ -1,8 +1,8 @@
 import { useCallback, useEffect, RefObject } from "react";
 
 export const useSyncWidths = (
-  sourceRef: RefObject<HTMLElement>,
-  targetRef: RefObject<HTMLElement>,
+  sourceRef: RefObject<HTMLElement | null>,
+  targetRef: RefObject<HTMLElement | null>,
 ) => {
   const syncWidths = useCallback(() => {
     if (sourceRef.current && targetRef.current) {

@@ -94,7 +94,9 @@ async function DocumentaryContent({ lang }: { lang: string }) {
   }
 }
 
-export default function ScrollDocumentaryPage({ params: { lang } }: LangParam) {
+export default async function ScrollDocumentaryPage(props: LangParam) {
+  const { lang } = await props.params;
+
   return (
     <Suspense fallback={<DocumentaryLoading />}>
       <DocumentaryContent lang={lang} />

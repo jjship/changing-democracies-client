@@ -9,12 +9,12 @@ import VideoForm from "@/components/admin/videos/VideoForm";
 import { Button } from "@/components/ui/button";
 import { destructiveButton } from "@/components/admin/classNames";
 
-export default async function Video({
-  params: { id },
-}: {
-  params: { id: string };
+export default async function Video(props: {
+  params: Promise<{ id: string }>;
 }) {
-  const supabase = createClient();
+  const { id } = await props.params;
+
+  const supabase = await createClient();
 
   const user = await authenticate(supabase);
 

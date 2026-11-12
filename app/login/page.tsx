@@ -3,7 +3,7 @@
 import Link from "next/link";
 import PasswordResetForm from "../components/admin/PasswordResetForm";
 import { login } from "@/auth/actions";
-import { useState } from "react";
+import { useState, use } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -24,10 +24,12 @@ import {
 import { navButton } from "../components/admin/classNames";
 
 export default function Login({
-  searchParams: { next },
+  searchParams,
 }: {
-  searchParams: { next?: string };
+  searchParams: Promise<{ next?: string }>;
 }) {
+  const { next } = use(searchParams);
+
   const { pending } = useFormStatus();
   const [email] = useState("");
   const [password] = useState("");

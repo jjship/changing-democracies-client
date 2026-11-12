@@ -4,7 +4,7 @@ import { VideoProgressBar } from "./VideoProgressBar";
 import type { Subtitle } from "@/utils/subtitles/types";
 
 interface VideoOverlayProps {
-  videoRef: React.RefObject<HTMLVideoElement>;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
   isLoading: boolean;
   error: string | null;
   subtitles: Subtitle[];

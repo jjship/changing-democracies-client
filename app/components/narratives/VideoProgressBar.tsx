@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 
 interface VideoProgressBarProps {
-  videoRef: React.RefObject<HTMLVideoElement>;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
 }
 
 export const VideoProgressBar: FC<VideoProgressBarProps> = ({ videoRef }) => {

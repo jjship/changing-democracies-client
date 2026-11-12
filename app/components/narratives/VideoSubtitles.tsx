@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import type { Subtitle } from "@/utils/subtitles/types";
 
 interface VideoSubtitlesProps {
-  videoRef: React.RefObject<HTMLVideoElement>;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
   subtitles: Subtitle[];
   isLoading: boolean;
   error: string | null;
