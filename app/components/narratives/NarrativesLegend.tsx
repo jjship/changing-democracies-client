@@ -34,19 +34,19 @@ const NarrativesLegend: FC = () => {
           </li>
         ))}
       </ul>
-      <div className="hidden w-[90%] grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:pl-12 desktop:grid">
+      <div className="hidden w-[90%] grid-cols-4 gap-4 pl-12 desktop:grid">
         {data.map((item, index) => (
           <div
             key={index}
             className="flex flex-col items-center justify-center text-center"
           >
             <div className="mb-5  xl:h-20">
-              <p className="text-base font-bold text-[#b85252] md:text-xl lg:text-2xl">
+              <p className="text-xl font-bold text-[#b85252] lg:text-2xl">
                 {item.text}
               </p>
             </div>
             <div
-              className={`h-5 md:h-10 xl:h-[100px] ${
+              className={`h-10 xl:h-[100px] ${
                 item.width ? item.width : "w-[100px]"
               } items-center`}
               style={{

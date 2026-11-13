@@ -18,7 +18,7 @@ export const Slide0Content: FC = () => {
         className={`absolute left-0 top-1/2 flex h-full w-full -translate-y-1/2 items-center`}
       >
         {/* Arrow Rectangle */}
-        <div className="h-36 w-[40rem] bg-purple_mains tall:w-[20rem] midheight:w-[30vw] mobile:h-20" />
+        <div className="h-36 w-[30vw] bg-purple_mains mobile:h-20" />
 
         {/* Arrow Triangle - Changes color on hover */}
         <div

@@ -30,7 +30,7 @@ export const FreeBrowsingLayout: FC<{
           onLanguageChange={handleLanguageChange}
         />
         <div
-          className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x} pb-5 desktop:h-[calc(90vh-55px)] desktop:overflow-auto mobile:max-w-none mobile:rounded-none`}
+          className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg xl:max-w-[90rem] ${sectionPadding.x} pb-5 desktop:h-[calc(90vh-55px)] desktop:overflow-auto mobile:max-w-none mobile:rounded-none`}
         >
           <FreeBrowsing
             fragmentsResponse={fragmentsResponse}

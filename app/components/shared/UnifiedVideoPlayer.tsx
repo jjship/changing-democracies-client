@@ -173,7 +173,7 @@ export const UnifiedVideoPlayer: FC<UnifiedVideoPlayerProps> = ({
             {personName && countryName && (
               <Box
                 onClick={onShowSidePanel}
-                className="w-18 pointer-events-auto absolute left-2 top-2 z-30 border-[3px] border-turquoise p-2 text-turquoise hover:cursor-pointer hover:bg-[#00000080] sm:left-4 sm:top-4 sm:p-3 md:left-8 md:top-8 md:p-4 lg:left-12 lg:top-12 mobile:!hidden"
+                className="w-18 pointer-events-auto absolute left-8 top-8 z-30 border-[3px] border-turquoise p-4 text-turquoise hover:cursor-pointer hover:bg-[#00000080] lg:left-12 lg:top-12 mobile:!hidden"
               >
                 <p>{personName},</p>
                 <p>{countryName}</p>

@@ -10,9 +10,7 @@ type FeatureCardProps = {
   title: string;
   description: string;
   imageUrl: string;
-  isMobile?: boolean;
   position?: "top" | "bottom";
-  desktopHeight?: string;
   navTo: string;
 };
 
@@ -20,9 +18,7 @@ export default function FeatureCard({
   title,
   description,
   imageUrl,
-  isMobile = false,
   position,
-  desktopHeight = "140px",
   navTo,
 }: FeatureCardProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -30,11 +26,11 @@ export default function FeatureCard({
   const router = useRouter();
 
   const border =
-    !isMobile && position === "top"
-      ? "rounded-t-3xl"
-      : !isMobile && position === "bottom"
-      ? "rounded-b-3xl"
-      : "";
+    position === "top"
+      ? "md:rounded-t-3xl"
+      : position === "bottom"
+        ? "md:rounded-b-3xl"
+        : "";
 
   // Preload image when component mounts
   useEffect(() => {
@@ -51,8 +47,7 @@ export default function FeatureCard({
   return (
     <Link
       href={navTo}
-      className={`relative z-10 w-full cursor-pointer overflow-hidden ${border}`}
-      style={{ height: isMobile ? "160px" : desktopHeight }}
+      className={`relative z-10 h-[160px] w-full cursor-pointer overflow-hidden md:h-[20vh] ${border}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}

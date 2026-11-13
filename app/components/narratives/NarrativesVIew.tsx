@@ -1,6 +1,6 @@
 import "@radix-ui/themes/styles.css";
 import { Flex } from "@radix-ui/themes";
-import { FC, useRef } from "react";
+import { FC } from "react";
 import { getLocalizedField } from "@/utils/i18n/getLocalizedField";
 import OverviewTag from "./NarrativesOverviewButton";
 import { NarrativesFilmPlayer } from "@/components/narratives/NarrativesFilmPlayer";
@@ -8,7 +8,6 @@ import { useNarrativesContext } from "@/components/narratives/NarrativesContext"
 import { NarrativesBioSidePanel } from "@/components/narratives/NarrativesBioSidePanel";
 import { useNarrativeNavigation } from "./utils/narrativeNavigation";
 import { VideoControls } from "./VideoControls";
-import { useSyncWidths } from "./hooks/useSyncWidths";
 
 export const NarrativesView: FC = ({}) => {
   const {
@@ -23,12 +22,6 @@ export const NarrativesView: FC = ({}) => {
   } = useNarrativesContext();
 
   const { navigateToOverview } = useNarrativeNavigation();
-
-  const videoContainerRef = useRef<HTMLDivElement>(null);
-  const titleContainerRef = useRef<HTMLDivElement>(null);
-
-  // Sync title container width with video container width
-  useSyncWidths(videoContainerRef, titleContainerRef);
 
   const handleStart = () => {
     setIsPlaying(true);
@@ -49,22 +42,21 @@ export const NarrativesView: FC = ({}) => {
           justify={"center"}
           className={`flex h-full w-full flex-col items-center   `}
         >
-          <div
-            ref={titleContainerRef}
-            className={`flex min-h-[60px] flex-shrink-0 flex-row items-start justify-between `}
-          >
+          <div className="flex min-h-[60px] w-full flex-shrink-0 flex-row items-start justify-between">
             <div className={"relative right-10 top-2 z-10"}>
               <OverviewTag onClick={handleOverview} />
             </div>
             <h1 className="mr-8 flex h-16 w-1/2 items-center justify-center rounded-t-sm bg-[#8083ae] py-6 font-bold text-white">
-              {getLocalizedField(currentPath.titles, selectedLanguage, "title") ??
-                "Narrative"}
+              {getLocalizedField(
+                currentPath.titles,
+                selectedLanguage,
+                "title",
+              ) ?? "Narrative"}
             </h1>
           </div>
 
           <Flex
-            ref={videoContainerRef}
-            className="relative flex w-full min-w-0 max-w-full flex-1 items-center justify-center overflow-hidden rounded-bl-2xl rounded-br-2xl px-2 sm:px-4 md:rounded-bl-3xl md:rounded-br-3xl"
+            className="relative flex w-full min-w-0 max-w-full flex-1 items-center justify-center overflow-hidden rounded-bl-3xl rounded-br-3xl px-4"
             style={{ minHeight: 0 }}
           >
             <NarrativesFilmPlayer />
