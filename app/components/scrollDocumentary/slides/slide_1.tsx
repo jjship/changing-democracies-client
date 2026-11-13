@@ -13,16 +13,16 @@ export const Slide1Content: FC = () => {
     .additionalContent as Slide1AdditionalContent;
 
   return (
-    <div className="absolute left-4 top-10 z-10 flex items-center justify-center bg-black/30 mix-blend-screen">
+    <div className="absolute left-4 top-10 z-10 mobile:left-3 mobile:top-2 flex items-center justify-center bg-black/30 mix-blend-screen">
       <div className="min-w-[60vw] text-left">
-        <h1 className={`${archivo.className} text-8xl  text-green_accent`}>
+        <h1 className={`${archivo.className} text-8xl text-green_accent mobile:text-[clamp(1.5rem,8vw,3rem)] mobile:leading-[1.05]`}>
           <span className={`block ${archivo.className}`}>
             {slide1AdditionalContent.is_democracy}
           </span>
-          <span className={`mt-4 block ${archivo.className}`}>
+          <span className={`mt-4 block mobile:mt-0 ${archivo.className}`}>
             {slide1AdditionalContent.worth}
           </span>
-          <span className={`mt-4 block ${archivo.className}`}>
+          <span className={`mt-4 block mobile:mt-0 ${archivo.className}`}>
             {slide1AdditionalContent.the_trouble}
           </span>
         </h1>

@@ -77,7 +77,7 @@ export default function ScrollDocumentaryClient({
   };
 
   const ScrollNavigation = (pageTheme: PageTheme) => (
-    <div className="fixed right-1 top-1/2 z-50 mr-1 flex max-h-[80vh] -translate-y-1/2 flex-col gap-6">
+    <div className="fixed right-1 top-1/2 z-50 mr-1 flex max-h-[80vh] -translate-y-1/2 flex-col gap-6 mobile:landscape:gap-2">
       {slidesWithSources.map((_, index) => (
         <button
           key={index}
@@ -160,9 +160,9 @@ export default function ScrollDocumentaryClient({
   ) => (
     <>
       {slide.hasTitle && (
-        <div className="absolute left-8 top-8 flex items-center justify-center">
+        <div className="absolute left-8 top-8 flex items-center justify-center mobile:left-2 mobile:top-2">
           <h1
-            className={`${archivoNarrow.className} bg-black_bg bg-opacity-70 px-2 py-1 text-left text-2xl font-bold text-yellow_secondary`}
+            className={`${archivoNarrow.className} bg-black_bg bg-opacity-70 px-2 py-1 text-left text-2xl font-bold text-yellow_secondary mobile:text-sm`}
           >
             {dict.scrollDocumentary.slides[slide.id].title}
           </h1>
@@ -195,18 +195,20 @@ export default function ScrollDocumentaryClient({
       <ErrorBoundary>
         <div
           ref={containerRef}
-          className="h-screen w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
+          className="h-screen w-full snap-y snap-mandatory overflow-y-auto scroll-smooth mobile:h-[100dvh]"
         >
           {slidesWithSources.map((slide, index) => (
             <div
               key={slide.videoSource?.videoId ?? index}
               id={`section-${index}`}
-              className="flex h-screen snap-center items-center justify-center px-1 pb-10 pt-16 sm:px-2"
+              className="flex h-screen snap-center items-center justify-center px-1 pb-10 pt-16 sm:px-2 mobile:h-[100dvh] mobile:px-0"
             >
               <div
-                className={`relative flex aspect-video h-[calc(100vh-120px)] w-auto max-w-[90vw] items-center justify-center tall:max-h-[1076px] ${
-                  index === 0 ? "cursor-pointer" : ""
-                }`}
+                className={`relative flex aspect-video h-[calc(100vh-120px)] w-auto max-w-[90vw] items-center justify-center tall:max-h-[1076px] mobile:max-w-none ${
+                  slide.videoSource
+                    ? "mobile:h-auto mobile:w-[min(100vw,calc((100dvh-7.5rem)*16/9))]"
+                    : "mobile:aspect-auto mobile:h-[calc(100dvh-7.5rem)] mobile:w-full mobile:landscape:w-[92vw]"
+                } ${index === 0 ? "cursor-pointer" : ""}`}
                 onClick={index === 0 ? startDocumentary : undefined}
               >
                 {loadedSections.includes(index) ? (
@@ -222,7 +224,7 @@ export default function ScrollDocumentaryClient({
                       speakers={slide.speakers}
                     />
                   ) : (
-                    <div className="relative aspect-video h-[calc(100vh-120px)] max-w-[90vw] tall:max-h-[1076px]">
+                    <div className="relative aspect-video h-[calc(100vh-120px)] max-w-[90vw] tall:max-h-[1076px] mobile:aspect-auto mobile:h-full mobile:w-full mobile:max-w-none">
                       {renderAdditionalContent(slide)}
                     </div>
                   )

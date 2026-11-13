@@ -16,13 +16,13 @@ export const Slide15Content: FC = () => {
     .additionalContent as Slide15AdditionalContent;
 
   return (
-    <div className="relative flex h-full flex-col pb-32 pl-8 pr-24 pt-16 font-bold text-purple_lightest_bg low:pb-16 low:pt-8">
+    <div className="relative flex h-full flex-col pb-32 pl-8 pr-24 pt-16 font-bold text-purple_lightest_bg low:pb-16 low:pt-8 mobile:overflow-y-auto mobile:px-5 mobile:pb-4 mobile:pr-9 mobile:pt-2">
       <h1
         className={`text-4xl font-bold ${archivoNarrow.className} mb-6 text-yellow_secondary lg:text-5xl low:mb-3 low:text-2xl`}
       >
         {slide15AdditionalContent.credits}
       </h1>
-      <div className="grid grid-cols-2 gap-10 lg:text-3xl xl:text-2xl l:text-lg low:text-xs">
+      <div className="grid grid-cols-2 gap-10 lg:text-3xl xl:text-2xl l:text-lg low:text-xs mobile:gap-5 mobile:text-sm mobile:portrait:grid-cols-1">
         <div className="flex flex-col space-y-4 overflow-y-auto lg:space-y-4 xl:space-y-5 low:space-y-3">
           <div>
             <h4

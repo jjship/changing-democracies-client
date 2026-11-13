@@ -31,9 +31,9 @@ export const FilmPlayer: FC = () => {
       className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black_bg"
     >
       <FilmBioSidePanel />
-      <div className="relative mx-auto flex h-full w-full max-w-screen-2xl items-center justify-center px-4">
+      <div className="relative mx-auto flex h-full w-full max-w-screen-2xl items-center justify-center px-4 mobile:flex-col mobile:px-0 mobile:landscape:flex-row">
         <div
-          className="group/video relative w-full overflow-hidden"
+          className="group/video relative w-full overflow-hidden mobile:landscape:w-[70%]"
           style={{ aspectRatio: "16/9", maxHeight: "90vh" }}
         >
           <UnifiedVideoPlayer
@@ -50,6 +50,17 @@ export const FilmPlayer: FC = () => {
             }}
             showCloseButton={true}
           />
+        </div>
+        <div className="hidden w-full px-9 pt-7 mobile:block mobile:landscape:w-[30%] mobile:landscape:px-5 mobile:landscape:pt-0">
+          <button
+            onClick={() => setShowSidePanel(true)}
+            className="border-[3px] border-turquoise px-4 py-3 text-left text-[0.7rem] font-bold leading-tight text-turquoise"
+          >
+            {currentFragment.person?.name}
+            {currentFragment.person?.country?.name
+              ? `, ${currentFragment.person.country.name}`
+              : ""}
+          </button>
         </div>
       </div>
     </div>

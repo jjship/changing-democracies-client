@@ -17,6 +17,7 @@ const FilmBioSidePanel = () => {
       personName={currentFragment?.person?.name}
       countryName={currentFragment?.person?.country?.name}
       bio={currentFragment?.person?.bio}
+      mobileSheet="full"
     />
   );
 };

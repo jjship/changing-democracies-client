@@ -9,8 +9,8 @@ interface BioSidePanelProps {
   personName: string | undefined;
   countryName: string | undefined;
   bio: string | undefined;
-  /** on phones, cover the page below the 4rem nav instead of a third of the width */
-  mobileSheet?: boolean;
+  /** on phones, cover the whole screen (or the page below the 4rem nav) instead of a third of the width */
+  mobileSheet?: "full" | "belowNav";
 }
 
 export const BioSidePanel: FC<BioSidePanelProps> = ({
@@ -19,7 +19,7 @@ export const BioSidePanel: FC<BioSidePanelProps> = ({
   personName,
   countryName,
   bio,
-  mobileSheet = false,
+  mobileSheet,
 }) => {
   const m = (classes: string) => (mobileSheet ? ` ${classes}` : "");
 
@@ -28,8 +28,12 @@ export const BioSidePanel: FC<BioSidePanelProps> = ({
       direction={"column"}
       className={`fixed left-0 top-0 z-[100000] h-screen w-1/3 bg-purple_mains transition-transform delay-100 duration-300 ease-in-out ${
         isOpen ? "translate-x-0" : "-translate-x-full"
+      }${
+        mobileSheet === "belowNav"
+          ? " mobile:top-16 mobile:h-[calc(100dvh-4rem)]"
+          : m("mobile:h-[100dvh]")
       }${m(
-        "mobile:top-16 mobile:h-[calc(100dvh-4rem)] mobile:w-full mobile:overflow-y-auto mobile:pb-8 mobile:landscape:!flex-row",
+        "mobile:w-full mobile:overflow-y-auto mobile:pb-8 mobile:landscape:!flex-row",
       )}`}
     >
       <div

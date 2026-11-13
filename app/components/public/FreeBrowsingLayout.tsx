@@ -22,7 +22,7 @@ export const FreeBrowsingLayout: FC<{
 
   return (
     <main>
-      <div className="relative h-[100vh] overflow-clip">
+      <div className="relative desktop:h-[100vh] desktop:overflow-clip">
         <Navigation
           bgColor="black_bg"
           fontColor="yellow_secondary"
@@ -30,15 +30,15 @@ export const FreeBrowsingLayout: FC<{
           onLanguageChange={handleLanguageChange}
         />
         <div
-          className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x} h-[calc(90vh-55px)] overflow-auto pb-5`}
+          className={`z-20 mx-auto max-w-[90vw] rounded-3xl bg-black_bg md:max-w-[90vw] xl:max-w-[90rem] ${sectionPadding.x} pb-5 desktop:h-[calc(90vh-55px)] desktop:overflow-auto mobile:max-w-none mobile:rounded-none`}
         >
           <FreeBrowsing
             fragmentsResponse={fragmentsResponse}
             tagCategoriesResponse={tagCategoriesResponse}
           />
         </div>
-        <div className="sticky bottom-0 -z-10 h-[15vh] bg-yellow_secondary"></div>
-        <div className="sticky bottom-0">
+        <div className="sticky bottom-0 -z-10 hidden h-[15vh] bg-yellow_secondary desktop:block"></div>
+        <div className="bg-yellow_secondary desktop:sticky desktop:bottom-0 desktop:bg-transparent">
           <PageFooter theme="light" />
         </div>
       </div>

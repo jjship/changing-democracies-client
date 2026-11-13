@@ -35,7 +35,7 @@ export const NarrativesBioSidePanel = () => {
       personName={currentFragment?.person}
       countryName={currentCountryName}
       bio={currentBio}
-      mobileSheet
+      mobileSheet="belowNav"
     />
   );
 };

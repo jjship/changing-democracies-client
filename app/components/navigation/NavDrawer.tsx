@@ -37,12 +37,12 @@ export const NavDrawer: FC<{ isNavOpen: boolean; toggleNav: () => void }> = ({
     <div
       className={`z-50 flex h-[110vh] transform flex-col justify-between bg-black_bg transition-all duration-1000 ease-in-out ${
         isNavOpen
-          ? "max-h-[90vh] scale-100 opacity-100"
+          ? "max-h-[90vh] scale-100 overflow-y-auto opacity-100 mobile:max-h-[calc(100dvh-4rem)]"
           : "max-h-0  overflow-hidden opacity-0"
       } `}
     >
       <div className="z-50 flex-grow "></div>
-      <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-2 ">
+      <div className="z-50 mb-5 ml-5 flex flex-col justify-center gap-2 mobile:landscape:grid mobile:landscape:grid-flow-col mobile:landscape:grid-cols-2 mobile:landscape:grid-rows-5 mobile:landscape:gap-x-8">
         <AnimatedLink
           href="scroll-documentary"
           text={dict.navigation.scrollDocumentary}
