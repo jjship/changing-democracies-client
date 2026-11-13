@@ -21,7 +21,11 @@ export const NarrativesBioSidePanel = () => {
 
   const currentCountryName = useMemo(() => {
     if (!currentFragment) return undefined;
-    return getLocalizedField(currentFragment.country.names, selectedLanguage, "name");
+    return getLocalizedField(
+      currentFragment.country.names,
+      selectedLanguage,
+      "name",
+    );
   }, [currentFragment, selectedLanguage]);
 
   return (
@@ -31,6 +35,7 @@ export const NarrativesBioSidePanel = () => {
       personName={currentFragment?.person}
       countryName={currentCountryName}
       bio={currentBio}
+      mobileSheet
     />
   );
 };

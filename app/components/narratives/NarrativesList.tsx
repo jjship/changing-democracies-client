@@ -6,24 +6,7 @@ import { useNarrativesContext } from "@/components/narratives/NarrativesContext"
 import { NarrationPath } from "@/types/videosAndFilms";
 import { getLocalizedField } from "@/utils/i18n/getLocalizedField";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-
-const images = [
-  "q1.png",
-  "q2.png",
-  "q3.png",
-  "q4.png",
-  "q5.png",
-  "q6.png",
-  "q7.png",
-  "q8.png",
-  "q9.png",
-  "q10.png",
-  "q11.png",
-  "q12.png",
-  "q13.png",
-  "q14.png",
-  "q15.png",
-];
+import { narrativeImages as images } from "./narrativeImages";
 
 export const NarrativesList: FC = () => {
   const { narrationPaths, setCurrentPath, setCurrentIndex, selectedLanguage } =
@@ -32,7 +15,10 @@ export const NarrativesList: FC = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleNarrativeClick = (narrativePath: NarrationPath, e: React.MouseEvent) => {
+  const handleNarrativeClick = (
+    narrativePath: NarrationPath,
+    e: React.MouseEvent,
+  ) => {
     e.preventDefault();
     setCurrentPath(narrativePath);
     setCurrentIndex(0);
@@ -64,8 +50,11 @@ export const NarrativesList: FC = () => {
                 <Image
                   src={`/narratives/${images[index] ?? images[0]}`}
                   alt={
-                    getLocalizedField(narrativePath.titles, selectedLanguage, "title") ||
-                    "Narrative image"
+                    getLocalizedField(
+                      narrativePath.titles,
+                      selectedLanguage,
+                      "title",
+                    ) || "Narrative image"
                   }
                   fill
                   sizes="300px"
@@ -78,7 +67,11 @@ export const NarrativesList: FC = () => {
                 <div className="flex w-full items-end justify-between md:w-[16vw]">
                   <div className="relative right-6 min-w-[14vw] text-right">
                     <span className="text-xl font-bold md:text-3xl">
-                      {getLocalizedField(narrativePath.titles, selectedLanguage, "title")}
+                      {getLocalizedField(
+                        narrativePath.titles,
+                        selectedLanguage,
+                        "title",
+                      )}
                     </span>
                   </div>
                   <div className="self-end">
@@ -102,13 +95,15 @@ export const NarrativesList: FC = () => {
             <Box className="flex h-[280px] flex-1 flex-col justify-center md:max-w-[50vw] lg:max-w-[40vw] xl:max-w-[30vw]">
               <div>
                 {narrativePath.descriptions?.length
-                  ? getLocalizedField(narrativePath.descriptions, selectedLanguage, "description")?.map(
-                      (line, i) => (
-                        <p key={i.toString()} className="text-white">
-                          {line}
-                        </p>
-                      ),
-                    )
+                  ? getLocalizedField(
+                      narrativePath.descriptions,
+                      selectedLanguage,
+                      "description",
+                    )?.map((line, i) => (
+                      <p key={i.toString()} className="text-white">
+                        {line}
+                      </p>
+                    ))
                   : null}
               </div>
 

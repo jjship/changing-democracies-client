@@ -86,6 +86,9 @@ const config: Config = {
         tall: { raw: "(min-height: 1200px)" },
         low: { raw: "(max-height: 600px)" },
         midheight: { raw: "(max-height: 1000px) or (min-height: 780px)" },
+        // phone layouts: narrow portrait or short landscape; desktop is the exact complement
+        mobile: { raw: "(max-width: 864px), (max-height: 500px)" },
+        desktop: { raw: "(min-width: 865px) and (min-height: 501px)" },
       },
       fontSize: {
         display_lg: "14.813rem",

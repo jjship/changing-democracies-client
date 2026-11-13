@@ -67,7 +67,7 @@ export const Navigation: FC<NavigationProps> = ({
       <div className="flex h-[4rem] items-center justify-between">
         <Link
           href={homeRoute}
-          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] "
+          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] mobile:max-w-[11rem]"
         >
           <Image src={logoDark} alt="changing democracies logo" />
         </Link>
