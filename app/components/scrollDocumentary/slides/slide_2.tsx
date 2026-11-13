@@ -34,15 +34,15 @@ export const Slide2Content: FC = () => {
 
   return (
     <div className="absolute z-10 flex w-full justify-center">
-      <div className="relative right-7 top-10 flex w-7/12 justify-between font-bold">
+      <div className="relative right-7 top-10 flex w-7/12 justify-between font-bold mobile:right-2 mobile:top-1">
         <div
           className={`${archivo.className} text-purple_lightest_bg`}
-          style={{ fontSize: "2vw" }}
+          style={{ fontSize: "max(2vw, 0.7rem)" }}
         >
           {slide2AdditionalContent.democracy}
         </div>
 
-        <div className="relative h-32">
+        <div className="relative h-32 mobile:h-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentWordIndex}
@@ -51,7 +51,7 @@ export const Slide2Content: FC = () => {
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.5 }}
               className={`${archivo.className} text-purple_lightest_bg`}
-              style={{ fontSize: "2vw" }}
+              style={{ fontSize: "max(2vw, 0.7rem)" }}
             >
               {changingWords[currentWordIndex]}
             </motion.div>

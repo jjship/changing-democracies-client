@@ -82,10 +82,11 @@ const config: Config = {
         l: { raw: "(min-width: 1250px) and (max-width: 1449px)" },
         xl: { raw: "(min-width: 1450px)" },
         lg: { raw: "(min-width: 1500px)" },
-        "narratives-player-width": "900px",
         tall: { raw: "(min-height: 1200px)" },
         low: { raw: "(max-height: 600px)" },
-        midheight: { raw: "(max-height: 1000px) or (min-height: 780px)" },
+        // phone layouts: narrow portrait or short landscape; desktop is the exact complement
+        mobile: { raw: "(max-width: 864px), (max-height: 500px)" },
+        desktop: { raw: "(min-width: 865px) and (min-height: 501px)" },
       },
       fontSize: {
         display_lg: "14.813rem",

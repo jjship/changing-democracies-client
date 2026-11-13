@@ -27,15 +27,15 @@ export const Slide3Content: FC = () => {
 
   return (
     <div
-      className={`relative flex h-full flex-col justify-center bg-pink_scroll/70 pb-32 pl-8 pr-24 pt-16 font-bold transition-opacity duration-1000 ${
-        isAboutVisible ? "opacity-100" : "opacity-0"
+      className={`relative flex h-full flex-col justify-center bg-pink_scroll/70 pb-32 pl-8 pr-24 pt-16 font-bold transition-opacity duration-1000 mobile:fixed mobile:inset-x-0 mobile:bottom-0 mobile:top-16 mobile:h-auto mobile:justify-start mobile:overflow-y-auto mobile:bg-pink_scroll/90 mobile:px-5 mobile:py-4 mobile:pr-9 ${
+        isAboutVisible ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
-      <h2 className="mb-8 text-2xl text-purple_mains md:text-4xl lg:text-4xl">
+      <h2 className="mb-8 text-2xl text-purple_mains md:text-4xl lg:text-4xl mobile:mb-3 mobile:!text-lg">
         {slide3AdditionalContent.about_the_project}
       </h2>
-      <div className="grid grid-cols-2 gap-8 l:gap-16">
-        <div className="flex flex-col space-y-4 text-xs xl:space-y-6 xl:text-2xl l:text-base">
+      <div className="grid grid-cols-2 gap-8 l:gap-16 mobile:gap-3 mobile:portrait:grid-cols-1">
+        <div className="flex flex-col space-y-4 text-xs xl:space-y-6 xl:text-2xl l:text-base mobile:space-y-2 mobile:leading-snug">
           <p>
             {`"${slide3AdditionalContent.democracy_failed_us}", 
             "${slide3AdditionalContent.democracy_is_in_crisis}",`}{" "}
@@ -68,7 +68,7 @@ export const Slide3Content: FC = () => {
             .
           </p>
         </div>
-        <div className="flex flex-col space-y-4 text-xs xl:space-y-6 xl:text-2xl l:text-base">
+        <div className="flex flex-col space-y-4 text-xs xl:space-y-6 xl:text-2xl l:text-base mobile:space-y-2 mobile:leading-snug">
           <p>
             {slide3AdditionalContent.so_we_asked_them}:
             <br />

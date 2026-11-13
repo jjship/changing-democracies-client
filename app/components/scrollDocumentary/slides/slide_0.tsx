@@ -18,7 +18,7 @@ export const Slide0Content: FC = () => {
         className={`absolute left-0 top-1/2 flex h-full w-full -translate-y-1/2 items-center`}
       >
         {/* Arrow Rectangle */}
-        <div className="h-36 w-[40rem] bg-purple_mains tall:w-[20rem] midheight:w-[30vw]" />
+        <div className="h-36 w-[30vw] bg-purple_mains mobile:h-20" />
 
         {/* Arrow Triangle - Changes color on hover */}
         <div
@@ -27,19 +27,19 @@ export const Slide0Content: FC = () => {
         border-t-[7rem] border-b-transparent 
         border-l-yellow_secondary border-t-transparent
         transition-colors
-        duration-200 group-hover:border-l-teal-300"
+        duration-200 group-hover:border-l-teal-300 mobile:border-b-[4rem] mobile:border-l-[6rem] mobile:border-t-[4rem]"
         />
       </div>
 
-      <div className="absolute left-40 top-2/3 z-10 flex items-center justify-center mix-blend-screen">
+      <div className="absolute left-40 top-2/3 z-10 flex items-center justify-center mix-blend-screen mobile:left-6 mobile:top-[58%] mobile:landscape:left-[35%] mobile:landscape:top-1/2">
         <div className="min-w-[60vw] text-left">
           <h1
-            className={`${archivo.className} text-8xl  text-yellow_secondary`}
+            className={`${archivo.className} text-8xl text-yellow_secondary mobile:text-5xl`}
           >
             <span className={`block ${archivo.className}`}>
               {slide0AdditionalContent.scroll}
             </span>
-            <span className={`mt-4 block ${archivo.className}`}>
+            <span className={`mt-4 block mobile:mt-1 ${archivo.className}`}>
               {slide0AdditionalContent.documentary}
             </span>
           </h1>

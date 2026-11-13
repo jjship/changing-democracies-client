@@ -84,7 +84,7 @@ export const VideoProgressBar: FC<VideoProgressBarProps> = ({ videoRef }) => {
   const currentTime = videoRef.current?.currentTime || 0;
 
   return (
-    <div className="pointer-events-auto absolute bottom-2 left-1/2 z-20 w-full max-w-4xl -translate-x-1/2 px-4">
+    <div className="pointer-events-auto absolute bottom-2 left-1/2 z-20 w-full max-w-4xl -translate-x-1/2 px-4 mobile:px-2">
       <div
         ref={progressBarRef}
         className="group relative h-2 w-full cursor-pointer rounded-full bg-white/20 transition-all hover:h-3"
@@ -103,11 +103,10 @@ export const VideoProgressBar: FC<VideoProgressBarProps> = ({ videoRef }) => {
           style={{ left: `${progress}%` }}
         />
       </div>
-      <div className="mt-1 flex justify-between text-xs text-white/80">
+      <div className="mt-1 flex justify-between text-xs text-white/80 mobile:hidden">
         <span>{formatTime(currentTime)}</span>
         <span>{formatTime(duration)}</span>
       </div>
     </div>
   );
 };
-

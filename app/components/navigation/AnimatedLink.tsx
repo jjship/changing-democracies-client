@@ -71,7 +71,7 @@ export const AnimatedLink: FC<{
         onClick={handleClick}
         className={`text-${getFontColor(
           color,
-        )} text-3xl capitalize md:text-6xl xl:text-7xl`}
+        )} text-3xl capitalize md:text-6xl xl:text-7xl mobile:landscape:text-2xl`}
       >
         {text}
       </a>

@@ -45,9 +45,8 @@ export const VideoSubtitles: FC<VideoSubtitlesProps> = ({
   if (!currentSubtitle) return null;
 
   return (
-    <div className="absolute bottom-20 left-1/2 z-20 w-full max-w-4xl -translate-x-1/2 rounded-md bg-black/60 p-4 text-center font-bold text-white">
+    <div className="absolute bottom-20 left-1/2 z-20 w-full max-w-4xl -translate-x-1/2 rounded-md bg-black/60 p-4 text-center font-bold text-white mobile:pointer-events-none mobile:bottom-6 mobile:w-[94%] mobile:rounded mobile:bg-black/70 mobile:px-2 mobile:py-1 mobile:text-[clamp(0.75rem,3.4vw,1rem)] mobile:leading-snug">
       {currentSubtitle}
     </div>
   );
 };
-

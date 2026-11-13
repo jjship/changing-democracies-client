@@ -49,7 +49,7 @@ export const Navigation: FC<NavigationProps> = ({
   const toggleNav = () => setIsNavOpen((prev) => !prev);
 
   const handleLanguageChange = (value: string) => {
-    toggleNav(); // Close nav drawer
+    if (isNavOpen) toggleNav();
     if (onLanguageChange) {
       onLanguageChange(value);
     }
@@ -67,19 +67,23 @@ export const Navigation: FC<NavigationProps> = ({
       <div className="flex h-[4rem] items-center justify-between">
         <Link
           href={homeRoute}
-          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] "
+          className="m-3 h-auto w-[30%] md:mx-10 md:w-[10%] mobile:max-w-[11rem]"
         >
           <Image src={logoDark} alt="changing democracies logo" />
         </Link>
         <div className="mr-3 flex items-center gap-2 font-bold">
-          {availableLanguages && availableLanguages.length > 0 && isNavOpen && (
+          {availableLanguages && availableLanguages.length > 0 && (
             <Select
               value={selectedLanguage}
               onValueChange={handleLanguageChange}
               aria-label="Language Selector"
             >
               <SelectTrigger
-                className={`h-10 w-10 border-none bg-transparent p-0 text-yellow_secondary`}
+                className={`h-10 w-10 border-none bg-transparent p-0 ${
+                  !isNavOpen && fontColor === "black_bg"
+                    ? "text-black_bg"
+                    : "text-yellow_secondary"
+                }`}
                 aria-label="Selected Language"
               >
                 <SelectValue placeholder={selectedLanguage?.toUpperCase()} />

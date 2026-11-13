@@ -202,7 +202,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
 
           {!subtitlesLoading && !subtitlesError && currentSubtitle && (
             <div
-              className={`absolute bottom-0 left-0 right-0 z-10 px-3 py-2 text-center font-bold xl:text-2xl ${
+              className={`absolute bottom-0 left-0 right-0 z-10 px-3 py-2 text-center font-bold xl:text-2xl mobile:px-2 mobile:py-1 mobile:text-[clamp(0.7rem,3.2vw,0.95rem)] mobile:leading-snug ${
                 pageTheme.pageBg === "bg-pink_scroll"
                   ? "bg-yellow_secondary bg-opacity-70"
                   : pageTheme.pageBg === "bg-black_bg"
@@ -218,7 +218,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           {isPlaying && currentSpeaker && (
             <div
               key={currentSpeaker}
-              className={`absolute bottom-0 left-1/2  mx-auto -translate-x-1/2 translate-y-full transform px-3 py-2 text-center font-bold ${pageTheme.speakersColor}`}
+              className={`absolute bottom-0 left-1/2  mx-auto -translate-x-1/2 translate-y-full transform px-3 py-2 text-center font-bold mobile:whitespace-nowrap mobile:py-1 mobile:text-xs ${pageTheme.speakersColor}`}
               aria-label="video speaker"
             >
               {currentSpeaker}
