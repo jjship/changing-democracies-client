@@ -1,8 +1,4 @@
-import {
-  VideoQuality,
-  VideoSource,
-  VideoSourceResponse,
-} from "@/types/scrollDocumentary";
+import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
 import { VideoDbEntry } from "../../../types/videosAndFilms";
 
 if (!process.env.NEXT_PUBLIC_BUNNY_STREAM_PULL_ZONE)

@@ -1,12 +1,12 @@
 import { getVideo } from "@/utils/bunny-stream";
-import { cache } from "react";
 import { Suspense } from "react";
 
 import { serializeVideoSource } from "@/components/scrollDocumentary/videoSource";
-import ScrollDocumentary from "@/components/scrollDocumentary/ScrollDocumentary";
-import { VideoSource } from "@/types/scrollDocumentary";
-import { VideoDbEntry } from "@/types/videosAndFilms";
-import { slides } from "@/components/scrollDocumentary/slides/slides";
+import { ScrollDocumentary } from "@/components/scrollDocumentary/ScrollDocumentary";
+import {
+  slides,
+  SlideWithSource,
+} from "@/components/scrollDocumentary/slides/slides";
 import { LangParam } from "@/types/langParam";
 import { getDictionary } from "../dictionaries";
 import { TranslationProvider } from "../context/TranslationContext";
@@ -15,46 +15,23 @@ import { CDLanguages } from "@/utils/i18n/languages";
 // Enable ISR: regenerate every 65 minutes (offset from narratives' 60min to avoid simultaneous revalidation bursts)
 export const revalidate = 3900;
 
-// Increase cache time and optimize data fetching
-const getSerializedAndSortedVideos = cache(
-  async ({ lang }: { lang: string }) => {
-    const langLabel = lang.toUpperCase();
-    const videosResult = await Promise.all(
-      slides
-        .filter(({ videoId }) => videoId !== undefined)
-        .map((slide) => getVideo(slide.videoId as string)),
-    );
+async function getSlidesWithSources(): Promise<SlideWithSource[]> {
+  const videosResult = await Promise.all(
+    slides.flatMap(({ videoId }) => (videoId ? [getVideo(videoId)] : [])),
+  );
 
-    const videos = videosResult
+  const videoSources = new Map(
+    videosResult
       .filter((res) => res.success)
-      .flatMap((res) => res.data);
+      .flatMap((res) => res.data)
+      .map((video) => [video.guid, serializeVideoSource(video)]),
+  );
 
-    const videoSources = videos.reduce(
-      (prev, video: VideoDbEntry) =>
-        prev.set(video.guid, serializeVideoSource(video)),
-      new Map<string, VideoSource>(),
-    );
-
-    const availableLanguageLabels = new Set<string>(
-      videos.flatMap((vs) => vs.captions.map((cap) => cap.label)),
-    );
-
-    const slidesWithSources = slides.map((slide) => ({
-      ...slide,
-      videoSource: slide.videoId ? videoSources.get(slide.videoId) : undefined,
-    }));
-
-    const initialLanguageLabel = availableLanguageLabels.has(langLabel)
-      ? langLabel
-      : "EN";
-
-    return {
-      slidesWithSources,
-      initialLanguageLabel,
-      availableLanguageLabels: Array.from(availableLanguageLabels),
-    };
-  },
-);
+  return slides.map((slide) => ({
+    ...slide,
+    videoSource: slide.videoId ? videoSources.get(slide.videoId) : undefined,
+  }));
+}
 
 // Loading component
 function DocumentaryLoading() {
@@ -72,9 +49,7 @@ function DocumentaryLoading() {
 async function DocumentaryContent({ lang }: { lang: string }) {
   try {
     const dictionary = await getDictionary(lang.toLowerCase() as CDLanguages);
-    const { slidesWithSources } = await getSerializedAndSortedVideos({
-      lang,
-    });
+    const slidesWithSources = await getSlidesWithSources();
 
     return (
       <TranslationProvider dictionary={dictionary}>

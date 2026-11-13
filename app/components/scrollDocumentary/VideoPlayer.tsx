@@ -1,241 +1,136 @@
 import Hls from "hls.js";
-import { forwardRef, useEffect, useState, useRef } from "react";
-import useAdaptiveQuality from "./useAdaptiveQuality";
-import { VideoQuality, VideoSource } from "@/types/scrollDocumentary";
-import { getOptimalQuality } from "./videoSource";
-
+import { RefObject, useEffect, useState } from "react";
+import { VideoSource } from "@/types/scrollDocumentary";
 import { PageTheme, Speaker, getSpeakerText } from "./slides/slides";
 import { useSubtitles } from "@/utils/subtitles/api";
 
 interface VideoPlayerProps {
+  videoRef: RefObject<HTMLVideoElement | null>;
   videoSource: VideoSource;
-  onEnded?: () => void;
-  isPlaying?: boolean;
-  className?: string;
-  selectedLanguageCode?: string;
+  onEnded: () => void;
+  isPlaying: boolean;
+  selectedLanguageCode: string;
   pageTheme: PageTheme;
   speakers: Speaker[];
 }
 
-const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
-  (
-    {
-      videoSource,
-      onEnded,
-      isPlaying,
-      className,
-      selectedLanguageCode,
-      pageTheme,
-      speakers,
-    },
-    ref,
-  ) => {
-    const [hls, setHls] = useState<Hls | null>(null);
-    const [isUsingHLS, setIsUsingHLS] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
-    const [currentSpeaker, setCurrentSpeaker] = useState<string>("");
-    const containerRef = useRef<HTMLDivElement>(null);
+export function VideoPlayer({
+  videoRef,
+  videoSource,
+  onEnded,
+  isPlaying,
+  selectedLanguageCode,
+  pageTheme,
+  speakers,
+}: VideoPlayerProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentTime, setCurrentTime] = useState(0);
 
-    const { currentQuality, videoRef } = useAdaptiveQuality({
-      initialQuality: getOptimalQuality(videoSource.availableQualities),
-      qualities: videoSource.availableQualities.filter((q) =>
-        isUsingHLS ? q.supportsHLS : !q.supportsHLS,
-      ),
+  const { hlsPlaylistUrl } = videoSource;
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !hlsPlaylistUrl) return;
+
+    if (!Hls.isSupported()) {
+      // Safari plays HLS natively
+      video.src = hlsPlaylistUrl;
+      return;
+    }
+
+    const hls = new Hls({
+      maxMaxBufferLength: 30,
+      maxBufferSize: 10 * 1000 * 1000,
+      startLevel: 3,
+      abrEwmaDefaultEstimate: 5000000,
+      abrMaxWithRealBitrate: true,
     });
 
-    useEffect(() => {
-      const video = videoRef.current;
-      if (!video) return;
-
-      const handlePause = () => setIsPaused(true);
-      const handlePlay = () => setIsPaused(false);
-
-      video.addEventListener("pause", handlePause);
-      video.addEventListener("play", handlePlay);
-
-      return () => {
-        video.removeEventListener("pause", handlePause);
-        video.removeEventListener("play", handlePlay);
-      };
-    }, [videoRef]);
-
-    useEffect(() => {
-      const video = videoRef.current;
-      if (!video) return;
-
-      if (Hls.isSupported() && videoSource.hlsPlaylistUrl) {
-        const hls = new Hls({
-          maxMaxBufferLength: 30,
-          maxBufferSize: 10 * 1000 * 1000, // 10MB
-          // Prevent automatic level switching by starting with high quality
-          startLevel: 3,
-          // Configuration for stable quality
-          autoStartLoad: true,
-          abrEwmaDefaultEstimate: 5000000,
-          abrMaxWithRealBitrate: true,
-          // Disable debug logs
-          debug: false,
-        });
-
-        hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
-          // Force highest quality level to prevent resizing
-          const maxLevel = Math.max(0, data.levels.length - 1);
-          hls.currentLevel = maxLevel;
-        });
-
-        hls.loadSource(videoSource.hlsPlaylistUrl);
-        hls.attachMedia(video);
-        setHls(hls);
-        setIsUsingHLS(true);
-
-        return () => {
-          hls.destroy();
-        };
-      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        // For Safari - native HLS support
-        video.src = videoSource.hlsPlaylistUrl!;
-        setIsUsingHLS(true);
-      } else {
-        // Fallback to MP4
-        setIsUsingHLS(false);
-      }
-    }, [videoSource.hlsPlaylistUrl, videoRef]);
-
-    const {
-      subtitles,
-      isLoading: subtitlesLoading,
-      error: subtitlesError,
-    } = useSubtitles({
-      fragmentId: videoSource.videoId,
-      languageCode: selectedLanguageCode!,
+    // Pin the highest level so the video doesn't resize mid-playback
+    hls.on(Hls.Events.MANIFEST_PARSED, (_event, data) => {
+      hls.currentLevel = Math.max(0, data.levels.length - 1);
     });
 
-    useEffect(() => {
-      const video = videoRef.current;
-      if (!video) return;
+    hls.loadSource(hlsPlaylistUrl);
+    hls.attachMedia(video);
 
-      const handleTimeUpdate = () => {
-        const currentTime = video.currentTime;
-        const currentSub = subtitles.find(
-          (sub) => currentTime >= sub.start && currentTime <= sub.end,
-        );
-        setCurrentSubtitle(currentSub?.text || "");
+    return () => hls.destroy();
+  }, [hlsPlaylistUrl, videoRef]);
 
-        const currentSpeakerSub = speakers.find(
-          (speaker) =>
-            currentTime >= speaker.start && currentTime <= speaker.end,
-        );
+  const {
+    subtitles,
+    isLoading: subtitlesLoading,
+    error: subtitlesError,
+  } = useSubtitles({
+    fragmentId: videoSource.videoId,
+    languageCode: selectedLanguageCode,
+  });
 
-        setCurrentSpeaker(getSpeakerText(currentSpeakerSub));
-      };
+  const isCurrent = ({ start, end }: { start: number; end: number }) =>
+    currentTime >= start && currentTime <= end;
+  const currentSubtitle = subtitles.find(isCurrent)?.text;
+  const currentSpeaker = getSpeakerText(speakers.find(isCurrent));
 
-      video.addEventListener("timeupdate", handleTimeUpdate);
-      handleTimeUpdate();
+  return (
+    <div className="relative mx-auto flex h-full items-center justify-center">
+      <div className="relative h-auto w-auto">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-contain"
+          playsInline
+          onEnded={onEnded}
+          onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+          onError={(e) => {
+            setError(
+              `Video error: ${
+                e.currentTarget.error?.message || "Unknown error"
+              }`,
+            );
+            setIsLoading(false);
+          }}
+          onLoadedData={() => setIsLoading(false)}
+          crossOrigin="anonymous"
+          aria-label="video player"
+        />
 
-      return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-    }, [subtitles, speakers, videoRef]);
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <div className="text-white">Loading...</div>
+          </div>
+        )}
 
-    useEffect(() => {
-      setCurrentSubtitle("");
-      setCurrentSpeaker("");
-    }, [videoSource]);
+        {error && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <div className="text-red-500">{error}</div>
+          </div>
+        )}
 
-    const getVideoUrl = (quality: VideoQuality) => {
-      if (isUsingHLS) {
-        return videoSource.hlsPlaylistUrl!;
-      }
-      return `https://${videoSource.pullZoneUrl}.b-cdn.net/${videoSource.videoId}/play_${quality.height}p.mp4`;
-    };
-
-    const handleError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-      const video = e.currentTarget;
-      setError(`Video error: ${video.error?.message || "Unknown error"}`);
-      setIsLoading(false);
-    };
-
-    const handleLoadedData = () => {
-      setIsLoading(false);
-    };
-
-    return (
-      <div
-        ref={containerRef}
-        className="relative mx-auto flex h-full items-center justify-center"
-      >
-        <div className="relative h-auto w-auto">
-          <video
-            ref={(element) => {
-              videoRef.current = element;
-              if (typeof ref === "function") {
-                ref(element);
-              } else if (ref) {
-                ref.current = element;
-              }
-            }}
-            className={className}
-            playsInline
-            onEnded={onEnded}
-            onError={handleError}
-            onLoadedData={handleLoadedData}
-            crossOrigin="anonymous"
-            aria-label="video player"
+        {!subtitlesLoading && !subtitlesError && currentSubtitle && (
+          <div
+            className={`absolute bottom-0 left-0 right-0 z-10 px-3 py-2 text-center font-bold xl:text-2xl mobile:px-2 mobile:py-1 mobile:text-[clamp(0.7rem,3.2vw,0.95rem)] mobile:leading-snug ${pageTheme.subtitleBg} ${pageTheme.subtitleColor}`}
+            aria-label="video subtitle"
           >
-            {!isUsingHLS && (
-              <source src={getVideoUrl(currentQuality)} type="video/mp4" />
-            )}
-          </video>
+            {currentSubtitle}
+          </div>
+        )}
 
-          {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-              <div className="text-white">Loading...</div>
-            </div>
-          )}
+        {isPlaying && currentSpeaker && (
+          <div
+            key={currentSpeaker}
+            className={`absolute bottom-0 left-1/2  mx-auto -translate-x-1/2 translate-y-full transform px-3 py-2 text-center font-bold mobile:whitespace-nowrap mobile:py-1 mobile:text-xs ${pageTheme.speakersColor}`}
+            aria-label="video speaker"
+          >
+            {currentSpeaker}
+          </div>
+        )}
 
-          {error && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-              <div className="text-red-500">{error}</div>
-            </div>
-          )}
-
-          {!subtitlesLoading && !subtitlesError && currentSubtitle && (
-            <div
-              className={`absolute bottom-0 left-0 right-0 z-10 px-3 py-2 text-center font-bold xl:text-2xl mobile:px-2 mobile:py-1 mobile:text-[clamp(0.7rem,3.2vw,0.95rem)] mobile:leading-snug ${
-                pageTheme.pageBg === "bg-pink_scroll"
-                  ? "bg-yellow_secondary bg-opacity-70"
-                  : pageTheme.pageBg === "bg-black_bg"
-                  ? "bg-darkRed bg-opacity-70"
-                  : "bg-yellow_secondary bg-opacity-70"
-              } ${pageTheme.subtitleColor}`}
-              aria-label="video subtitle"
-            >
-              {currentSubtitle}
-            </div>
-          )}
-
-          {isPlaying && currentSpeaker && (
-            <div
-              key={currentSpeaker}
-              className={`absolute bottom-0 left-1/2  mx-auto -translate-x-1/2 translate-y-full transform px-3 py-2 text-center font-bold mobile:whitespace-nowrap mobile:py-1 mobile:text-xs ${pageTheme.speakersColor}`}
-              aria-label="video speaker"
-            >
-              {currentSpeaker}
-            </div>
-          )}
-
-          {subtitlesError && (
-            <div className="absolute bottom-16 left-0 right-0 mx-auto w-full max-w-xl rounded bg-red-500/80 p-4 text-center text-white">
-              {subtitlesError}
-            </div>
-          )}
-        </div>
+        {subtitlesError && (
+          <div className="absolute bottom-16 left-0 right-0 mx-auto w-full max-w-xl rounded bg-red-500/80 p-4 text-center text-white">
+            {subtitlesError}
+          </div>
+        )}
       </div>
-    );
-  },
-);
-
-VideoPlayer.displayName = "VideoPlayer";
-
-export default VideoPlayer;
+    </div>
+  );
+}
