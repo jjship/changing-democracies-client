@@ -1,41 +1,37 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { VideoSource } from "@/types/scrollDocumentary";
-import VideoPlayer from "./VideoPlayer";
+import { VideoPlayer } from "./VideoPlayer";
 import ErrorBoundary from "@/components/public/ErrorBoundary";
 import VideoPlayerFallback from "./VideoPlayerFallback";
-import { VideoSourceError } from "./videoSource";
 import { PageTheme, Speaker } from "./slides/slides";
 import { Button } from "@/components/ui/button";
 import { Play, Pause } from "lucide-react";
 
 interface VideoSectionProps {
   videoSource: VideoSource;
-  onVideoEnd?: () => void;
-  additionalContent?: React.ReactNode;
+  onVideoEnd: () => void;
+  additionalContent: ReactNode;
   isActive: boolean;
   shouldPlay: boolean;
-  onReady?: () => void;
-  selectedLanguageCode?: string;
+  selectedLanguageCode: string;
   pageTheme: PageTheme;
   speakers: Speaker[];
 }
 
-export default function VideoSection({
+export function VideoSection({
   videoSource,
   onVideoEnd,
   additionalContent,
   isActive,
   shouldPlay,
-  onReady,
   selectedLanguageCode,
   pageTheme,
   speakers,
 }: VideoSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isManuallyPaused, setIsManuallyPaused] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -44,26 +40,13 @@ export default function VideoSection({
     rootMargin: "-10% 0px",
   });
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleCanPlay = () => {
-      onReady?.();
-    };
-
-    video.addEventListener("canplay", handleCanPlay);
-    return () => video.removeEventListener("canplay", handleCanPlay);
-  }, [onReady]);
+  const isPlaying = shouldPlay && isActive && inView && !isManuallyPaused;
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const shouldBePlayingNow =
-      shouldPlay && isActive && inView && !isManuallyPaused;
-
-    if (shouldBePlayingNow) {
+    if (isPlaying) {
       video.muted = false;
       video.play().catch((err) => {
         if (err.name === "NotAllowedError") {
@@ -73,51 +56,17 @@ export default function VideoSection({
           console.error("Playback error:", err);
         }
       });
-      setIsPlaying(true);
     } else {
       video.pause();
-      setIsPlaying(false);
       if (!isActive) {
         video.currentTime = 0;
       }
     }
 
-    return () => {
-      video.pause();
-      setIsPlaying(false);
-    };
-  }, [shouldPlay, isActive, inView, isManuallyPaused]);
+    return () => video.pause();
+  }, [isPlaying, isActive]);
 
-  const handleVideoEnd = () => {
-    if (isActive) {
-      // Only trigger scroll if this section is active
-      onVideoEnd?.();
-    }
-  };
-
-  const togglePlayPause = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isPlaying) {
-      video.pause();
-      setIsPlaying(false);
-      setIsManuallyPaused(true);
-    } else {
-      video.play().catch(console.error);
-      setIsPlaying(true);
-      setIsManuallyPaused(false);
-    }
-  };
-
-  if (!videoSource) {
-    throw new VideoSourceError(
-      "Video source not available",
-      500,
-      "No video source data",
-    );
-  }
+  const PlayPauseIcon = isPlaying ? Pause : Play;
 
   return (
     <div
@@ -132,38 +81,30 @@ export default function VideoSection({
         )}
       >
         <VideoPlayer
-          ref={videoRef}
+          videoRef={videoRef}
           videoSource={videoSource}
-          onEnded={handleVideoEnd}
+          onEnded={() => isActive && onVideoEnd()}
           isPlaying={isPlaying}
-          className="h-full w-full object-contain"
           selectedLanguageCode={selectedLanguageCode}
           pageTheme={pageTheme}
           speakers={speakers}
         />
 
-        {isActive && additionalContent && (
+        {isActive && (
           <div className="absolute inset-0 ">{additionalContent}</div>
         )}
 
         {isHovering && (
           <Button
-            onClick={togglePlayPause}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsManuallyPaused(isPlaying);
+            }}
             size="icon"
             variant="ghost"
-            className={`absolute right-4 top-6 z-20 rounded-none transition-opacity duration-200 hover:scale-110 ${
-              pageTheme.pageBg === "bg-pink_scroll"
-                ? "bg-yellow_secondary bg-opacity-70 hover:bg-yellow_secondary/90"
-                : pageTheme.pageBg === "bg-black_bg"
-                ? "bg-darkRed bg-opacity-70 hover:bg-darkRed/90"
-                : "bg-yellow_secondary bg-opacity-70 hover:bg-yellow_secondary/90"
-            }`}
+            className={`absolute right-4 top-6 z-20 rounded-none transition-opacity duration-200 hover:scale-110 ${pageTheme.subtitleBg} ${pageTheme.playButtonHover}`}
           >
-            {isPlaying ? (
-              <Pause className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
-            ) : (
-              <Play className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
-            )}
+            <PlayPauseIcon className={`h-6 w-6 ${pageTheme.subtitleColor}`} />
           </Button>
         )}
       </ErrorBoundary>

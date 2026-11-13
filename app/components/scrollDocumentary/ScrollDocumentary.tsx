@@ -2,162 +2,103 @@
 
 import { useInView } from "react-intersection-observer";
 import { useRef, useState, useEffect } from "react";
-import VideoSection from "./VideoSection";
-import ErrorBoundary from "./VideoErrorBoundary";
-import { themeMapping, SlideWithSource, PageTheme } from "./slides/slides";
+import { VideoSection } from "./VideoSection";
+import ErrorBoundary from "@/components/public/ErrorBoundary";
+import VideoPlayerFallback from "./VideoPlayerFallback";
+import { themeMapping, SlideWithSource } from "./slides/slides";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Archivo_Narrow } from "next/font/google";
 import { NavigationContainer } from "../navigation/NavigationContainer";
 import { useTranslation } from "../../[lang]/context/TranslationContext";
-import { CDLanguages } from "../../../utils/i18n/languages";
 
 const archivoNarrow = Archivo_Narrow({ subsets: ["latin"] });
 
-interface ScrollDocumentaryClientProps {
+interface ScrollDocumentaryProps {
   slidesWithSources: SlideWithSource[];
 }
 
-export default function ScrollDocumentaryClient({
+export function ScrollDocumentary({
   slidesWithSources,
-}: ScrollDocumentaryClientProps) {
+}: ScrollDocumentaryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isStarted, setIsStarted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [loadedSections, setLoadedSections] = useState<number[]>([0, 1]);
   const { language, dictionary: dict } = useTranslation();
-  const activeSlide = slidesWithSources[activeIndex];
-  const pageTheme = activeSlide
-    ? themeMapping[activeSlide.colorTheme]
-    : themeMapping.black;
-
-  useEffect(() => {
-    setLoadedSections([0, 1]);
-  }, []);
+  const pageTheme = themeMapping[slidesWithSources[activeIndex].colorTheme];
+  const lastIndex = slidesWithSources.length - 1;
 
   const { ref: loadMoreRef } = useInView({
     threshold: 0,
     onChange: (inView) => {
-      if (inView) {
-        setLoadedSections((prev) => {
-          const nextIndex = Math.max(...prev) + 1;
-          if (nextIndex < slidesWithSources.length) {
-            return [
-              ...prev,
-              nextIndex,
-              Math.min(nextIndex + 1, slidesWithSources.length - 1),
-            ];
-          }
-          return prev;
-        });
-      }
+      if (!inView) return;
+      setLoadedSections((prev) => {
+        const nextIndex = Math.max(...prev) + 1;
+        return nextIndex > lastIndex
+          ? prev
+          : [...prev, nextIndex, Math.min(nextIndex + 1, lastIndex)];
+      });
     },
   });
 
   const scrollToSection = (index: number) => {
-    if (containerRef.current) {
-      setLoadedSections((prev) =>
-        prev.includes(index) ? prev : [...prev, index],
-      );
-      // Delay to ensure DOM children are rendered before scrolling.
-      setTimeout(() => {
-        const section = containerRef.current?.children[index];
-        if (section) {
-          section.scrollIntoView({ behavior: "smooth" });
-          setActiveIndex(index);
-        }
-      }, 50);
-    }
+    if (index > lastIndex) return;
+    setLoadedSections((prev) =>
+      prev.includes(index) ? prev : [...prev, index],
+    );
+    containerRef.current?.children[index]?.scrollIntoView({
+      behavior: "smooth",
+    });
+    setActiveIndex(index);
+    if (index > 0) setIsStarted(true);
   };
 
-  const scrollToNextSection = (currentIndex: number) => {
-    const nextIndex = currentIndex + 1;
-    if (nextIndex < slidesWithSources.length) {
-      scrollToSection(nextIndex);
-    }
-  };
+  // Track the section closest to the viewport center
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-  const ScrollNavigation = (pageTheme: PageTheme) => (
-    <div className="fixed right-1 top-1/2 z-50 mr-1 flex max-h-[80vh] -translate-y-1/2 flex-col gap-6 mobile:landscape:gap-2">
-      {slidesWithSources.map((_, index) => (
-        <button
-          key={index}
-          onClick={() => scrollToSection(index)}
-          style={{
-            height: "1vh",
-            width: "1vh",
-          }}
-          className={`rounded-full border-4 transition-all duration-300 
-            ${
-              index === activeIndex
-                ? "border-4 border-green_accent"
-                : `${pageTheme.scrollDotsBorder} ${pageTheme.scrollDotsHover}`
-            }`}
-          aria-label={`Go to section ${index + 1}`}
-        />
-      ))}
-    </div>
-  );
+    const updateActiveIndex = () => {
+      const viewportHeight = window.innerHeight;
+      const index = Array.from(container.children).findIndex((child) => {
+        const rect = child.getBoundingClientRect();
+        const offset = rect.top + rect.height / 2 - viewportHeight / 2;
+        return Math.abs(offset) < viewportHeight * 0.3;
+      });
+      if (index === -1) return;
+      setActiveIndex(index);
+      if (index > 0) setIsStarted(true);
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        updateActiveIndex();
+        ticking = false;
+      });
+    };
+
+    container.addEventListener("scroll", onScroll);
+    return () => container.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
-      const children = Array.from(container.children);
-      const viewportHeight = window.innerHeight;
-      const viewportCenter = viewportHeight / 2;
-
-      children.forEach((child, index) => {
-        const rect = child.getBoundingClientRect();
-        const childCenter = rect.top + rect.height / 2;
-
-        // Check if this section is the most centered one
-        if (Math.abs(childCenter - viewportCenter) < viewportHeight * 0.3) {
-          if (activeIndex !== index) {
-            setActiveIndex(index);
-
-            // Start the documentary if user scrolls from first slide to another slide
-            if (activeIndex === 0 && index > 0 && !isStarted) {
-              setIsStarted(true);
-            }
-          }
-        }
+    const onScrollEnd = () =>
+      container.children[activeIndex]?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
       });
-    };
 
-    // Use requestAnimationFrame for smoother scroll handling
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    const onScrollEnd = () => {
-      const activeSlide = container.children[activeIndex];
-      if (activeSlide) {
-        activeSlide.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    };
-
-    container.addEventListener("scroll", onScroll);
     container.addEventListener("scrollend", onScrollEnd);
-    // Initial check
-    handleScroll();
+    return () => container.removeEventListener("scrollend", onScrollEnd);
+  }, [activeIndex]);
 
-    return () => {
-      container.removeEventListener("scroll", onScroll);
-      container.removeEventListener("scrollend", onScrollEnd);
-    };
-  }, [activeIndex, isStarted]);
-
-  const renderAdditionalContent = (
-    slide: (typeof slidesWithSources)[number],
-  ) => (
+  const renderAdditionalContent = (slide: SlideWithSource) => (
     <>
       {slide.hasTitle && (
         <div className="absolute left-8 top-8 flex items-center justify-center mobile:left-2 mobile:top-2">
@@ -168,21 +109,13 @@ export default function ScrollDocumentaryClient({
           </h1>
         </div>
       )}
-      {slide.additionalElements.map((elem, idx) => (
-        <div
-          key={idx}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          {elem.content}
+      {slide.overlay && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          {slide.overlay}
         </div>
-      ))}
+      )}
     </>
   );
-
-  const startDocumentary = () => {
-    setIsStarted(true);
-    scrollToNextSection(0);
-  };
 
   return (
     <div
@@ -192,15 +125,18 @@ export default function ScrollDocumentaryClient({
         bgColor={pageTheme.navBg}
         fontColor={pageTheme.navFont}
       />
-      <ErrorBoundary>
+      <ErrorBoundary
+        fallback={({ error, retry }) => (
+          <VideoPlayerFallback error={error} onRetry={retry} />
+        )}
+      >
         <div
           ref={containerRef}
           className="h-screen w-full snap-y snap-mandatory overflow-y-auto scroll-smooth mobile:h-[100dvh]"
         >
           {slidesWithSources.map((slide, index) => (
             <div
-              key={slide.videoSource?.videoId ?? index}
-              id={`section-${index}`}
+              key={slide.id}
               className="flex h-screen snap-center items-center justify-center px-1 pb-10 pt-16 sm:px-2 mobile:h-[100dvh] mobile:px-0"
             >
               <div
@@ -209,13 +145,13 @@ export default function ScrollDocumentaryClient({
                     ? "mobile:h-auto mobile:w-[min(100vw,calc((100dvh-7.5rem)*16/9))]"
                     : "mobile:aspect-auto mobile:h-[calc(100dvh-7.5rem)] mobile:w-full mobile:landscape:w-[92vw]"
                 } ${index === 0 ? "cursor-pointer" : ""}`}
-                onClick={index === 0 ? startDocumentary : undefined}
+                onClick={index === 0 ? () => scrollToSection(1) : undefined}
               >
                 {loadedSections.includes(index) ? (
                   slide.videoSource ? (
                     <VideoSection
                       videoSource={slide.videoSource}
-                      onVideoEnd={() => scrollToNextSection(index)}
+                      onVideoEnd={() => scrollToSection(index + 1)}
                       isActive={isStarted ? index === activeIndex : index === 0}
                       shouldPlay={isStarted && index === activeIndex}
                       selectedLanguageCode={language}
@@ -244,7 +180,21 @@ export default function ScrollDocumentaryClient({
             </div>
           ))}
         </div>
-        {ScrollNavigation(pageTheme)}
+        <div className="fixed right-1 top-1/2 z-50 mr-1 flex max-h-[80vh] -translate-y-1/2 flex-col gap-6 mobile:landscape:gap-2">
+          {slidesWithSources.map((slide, index) => (
+            <button
+              key={slide.id}
+              onClick={() => scrollToSection(index)}
+              style={{ height: "1vh", width: "1vh" }}
+              className={`rounded-full border-4 transition-all duration-300 ${
+                index === activeIndex
+                  ? "border-green_accent"
+                  : `${pageTheme.scrollDotsBorder} ${pageTheme.scrollDotsHover}`
+              }`}
+              aria-label={`Go to section ${index + 1}`}
+            />
+          ))}
+        </div>
       </ErrorBoundary>
     </div>
   );
